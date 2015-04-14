@@ -12,6 +12,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+/**
+ * @author Thorinair   <celestek@openmailbox.org>
+ * @version 0.1.0
+ * @since 2015-04-14
+ */
+
 public class EnergizedHexoriumBlock extends HexCraftBlock {
 
     public static String UNLOCALISEDNAME = "energizedHexoriumBlock";

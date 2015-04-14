@@ -9,6 +9,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * @author Thorinair   <celestek@openmailbox.org>
+ * @version 0.1.0
+ * @since 2015-04-14
+ */
+
 public class BlockRenderer implements ISimpleBlockRenderingHandler {
 
     private int renderType;

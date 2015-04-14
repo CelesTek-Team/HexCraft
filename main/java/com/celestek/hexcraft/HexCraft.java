@@ -19,6 +19,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+/**
+ * @author Thorinair   <celestek@openmailbox.org>
+ * @version 0.1.0
+ * @since 2015-04-14
+ */
+
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
 {

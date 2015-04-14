@@ -6,6 +6,12 @@ import com.celestek.hexcraft.blocks.EngineeringBlock;
 import com.celestek.hexcraft.client.renderer.BlockRenderer;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
+/**
+ * @author Thorinair   <celestek@openmailbox.org>
+ * @version 0.1.0
+ * @since 2015-04-14
+ */
+
 public class RenderClientProxy extends RenderCommonProxy {
     public static int hexoriumBlock;
     public static int hexoriumBlockGreen;
