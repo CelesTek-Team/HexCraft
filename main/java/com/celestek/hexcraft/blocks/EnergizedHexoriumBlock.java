@@ -12,20 +12,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class HexoriumBlock extends Block {
+public class EnergizedHexoriumBlock extends HexCraftBlock {
 
-    public static String UNLOCALISEDNAME = "hexoriumBlock";
+    public static String UNLOCALISEDNAME = "energizedHexoriumBlock";
 
     private String hexoriumColorName;
 
-    public HexoriumBlock(String hexoriumColorName) {
+    public EnergizedHexoriumBlock(String hexoriumColorName) {
         super(Material.glass);
         this.hexoriumColorName = hexoriumColorName;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        return false;
     }
 
     @Override
@@ -52,21 +47,5 @@ public class HexoriumBlock extends Block {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2) {
         return icon;
-    }
-
-    @Override
-    public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
-        return true;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return true;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
-        return true;
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class EngineeringBlock extends Block {
+public class EngineeringBlock extends HexCraftBlock {
 
     public static String UNLOCALISEDNAME = "engineeringBlock";
 
@@ -23,11 +23,6 @@ public class EngineeringBlock extends Block {
     public EngineeringBlock(String hexoriumColorName) {
         super(Material.rock);
         this.hexoriumColorName = hexoriumColorName;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
-        return false;
     }
 
     @Override
@@ -43,11 +38,6 @@ public class EngineeringBlock extends Block {
         }
     }
 
-    @Override
-    public boolean canRenderInPass(int pass) {
-        return pass == 0;
-    }
-
     @SideOnly(Side.CLIENT)
     private IIcon icon;
 
@@ -59,21 +49,5 @@ public class EngineeringBlock extends Block {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2) {
         return icon;
-    }
-
-    @Override
-    public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
-        return true;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return true;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
-        return true;
     }
 }

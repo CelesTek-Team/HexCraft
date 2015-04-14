@@ -1,2 +1,5 @@
-tile.hexoriumBlock.name=Hexorium Block
-tile.engineeringBlock.name=Engineering Block
+tile.energizedHexoriumBlock.name=White Energized Hexorium Block
+tile.energizedHexoriumBlockGreen.name=Green Energized Hexorium Block
+tile.engineeringBlock.name=White Engineering Block
+tile.engineeringBlockPurple.name=Purple Engineering Block
+itemGroup.tabHexCraft=HEXCraft
