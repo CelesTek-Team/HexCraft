@@ -1,0 +1,16 @@
+[
+{
+  "modid": "celestek_hexcraft",
+  "name": "HEXCraft",
+  "description": "Technology and decoration mod inspired by XyCraft.",
+  "version": "0.1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CelesTek"],
+  "credits": "Developed by CelesTek, inspired by Soaryn's XyCraft.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
