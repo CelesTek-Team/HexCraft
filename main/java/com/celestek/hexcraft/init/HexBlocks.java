@@ -15,10 +15,23 @@ import net.minecraft.init.Blocks;
  */
 public class HexBlocks {
 
-    public static int countBlocks = 5;
+    /**
+     * ADDING NEW BLOCKS
+     * To add a new block:
+     * 1) Increment countBlocks.
+     * 2) Add a public static Block.
+     * 3) Add the 2 required lines to initializeBlocks() (Check other blocks).
+     * 4) Add an else if statement to getBlock(String unlocalisedName) if needed.
+     * 5) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
+     */
+
+    public static int countBlocks = 8;
 
     /* Hexorium Ore */
+    public static Block blockHexoriumOreRed;
     public static Block blockHexoriumOreGreen;
+    public static Block blockHexoriumOreBlue;
+    public static Block blockHexoriumOreWhite;
 
     /* Energized Hexorium */
     public static Block blockEnergizedHexorium;
@@ -37,8 +50,14 @@ public class HexBlocks {
         HexCraft.idCounter = 0;
 
         /* Hexorium Ore */
+        blockHexoriumOreRed = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockHexoriumOreRed, BlockHexoriumOre.UNLOCALISEDNAME + "Red");
         blockHexoriumOreGreen = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "Green");
         GameRegistry.registerBlock(blockHexoriumOreGreen, BlockHexoriumOre.UNLOCALISEDNAME + "Green");
+        blockHexoriumOreBlue = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockHexoriumOreBlue, BlockHexoriumOre.UNLOCALISEDNAME + "Blue");
+        blockHexoriumOreWhite = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockHexoriumOreWhite, BlockHexoriumOre.UNLOCALISEDNAME + "White");
 
         /* Energized Hexorium */
         blockEnergizedHexorium = new BlockEnergizedHexorium(BlockEnergizedHexorium.UNLOCALISEDNAME);
@@ -60,8 +79,17 @@ public class HexBlocks {
      */
     public static Block getBlock(String unlocalisedName)
     {
-        if (unlocalisedName.equals(BlockHexoriumOre.UNLOCALISEDNAME + "Green")) {
+        if (unlocalisedName.equals(BlockHexoriumOre.UNLOCALISEDNAME + "Red")) {
+            return blockHexoriumOreRed;
+        }
+        else if (unlocalisedName.equals(BlockHexoriumOre.UNLOCALISEDNAME + "Green")) {
             return blockHexoriumOreGreen;
+        }
+        else if (unlocalisedName.equals(BlockHexoriumOre.UNLOCALISEDNAME + "Blue")) {
+            return blockHexoriumOreBlue;
+        }
+        else if (unlocalisedName.equals(BlockHexoriumOre.UNLOCALISEDNAME + "White")) {
+            return blockHexoriumOreWhite;
         }
         else if (unlocalisedName.equals(BlockEnergizedHexorium.UNLOCALISEDNAME)) {
             return blockEnergizedHexorium;

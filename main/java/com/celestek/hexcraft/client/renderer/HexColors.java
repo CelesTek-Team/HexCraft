@@ -7,28 +7,6 @@ package com.celestek.hexcraft.client.renderer;
  */
 public class HexColors {
 
-    /** Grayscale */
-
-    public static float whiteR = 1F;
-    public static float whiteG = 1F;
-    public static float whiteB = 1F;
-
-    public static float lightGrayR = 0.75F;
-    public static float lightGrayG = 0.75F;
-    public static float lightGrayB = 0.75F;
-
-    public static float grayR = 0.5F;
-    public static float grayG = 0.5F;
-    public static float grayB = 0.5F;
-
-    public static float darkGrayR = 0.25F;
-    public static float darkGrayG = 0.25F;
-    public static float darkGrayB = 0.25F;
-
-    public static float blackR = 0F;
-    public static float blackG = 0F;
-    public static float blackB = 0F;
-
     /** Colors */
 
     public static float redR = 1F;
@@ -79,6 +57,28 @@ public class HexColors {
     public static float pinkG = 0F;
     public static float pinkB = 0.5F;
 
+    /** Grayscale */
+
+    public static float whiteR = 1F;
+    public static float whiteG = 1F;
+    public static float whiteB = 1F;
+
+    public static float lightGrayR = 0.75F;
+    public static float lightGrayG = 0.75F;
+    public static float lightGrayB = 0.75F;
+
+    public static float grayR = 0.5F;
+    public static float grayG = 0.5F;
+    public static float grayB = 0.5F;
+
+    public static float darkGrayR = 0.25F;
+    public static float darkGrayG = 0.25F;
+    public static float darkGrayB = 0.25F;
+
+    public static float blackR = 0F;
+    public static float blackG = 0F;
+    public static float blackB = 0F;
+
     /** Rainbow */
 
     public static float rainbowR = 1F;
@@ -89,5 +89,5 @@ public class HexColors {
 
     public static int brightnessBright = 0xF000F0;
 
-    public static int brightnessFaint = 0x600060;
+    public static int brightnessFaint = 0x4000C0;
 }
