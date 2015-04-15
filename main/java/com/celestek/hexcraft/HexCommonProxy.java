@@ -6,5 +6,5 @@ package com.celestek.hexcraft;
  * @since 2015-04-14
  */
 
-public class RenderCommonProxy {
+public class HexCommonProxy {
 }

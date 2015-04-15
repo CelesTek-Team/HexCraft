@@ -1,17 +1,16 @@
 package com.celestek.hexcraft;
 
-import com.celestek.hexcraft.blocks.EnergizedHexoriumBlock;
-import com.celestek.hexcraft.blocks.EngineeringBlock;
-import com.celestek.hexcraft.client.RenderClientProxy;
+import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.init.HexRecipes;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -28,21 +27,22 @@ import net.minecraft.item.ItemStack;
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
 {
+    /* Set default mod info. */
     public static final String MODID = "hexcraft";
     public static final String MODNAME = "HEXCraft";
     public static final String VERSION = "0.1.0";
 
-    @Mod.Instance(value = HexCraft.MODID) //Tell Forge what instance to use.
+    /* Set up the instance. */
+    @Mod.Instance(value = HexCraft.MODID)
     public static HexCraft instance;
 
-    @SidedProxy(clientSide = "com.celestek.hexcraft.client.RenderClientProxy", serverSide = "com.celestek.hexcraft.RenderCommonProxy")
-    public static RenderCommonProxy proxy;
+    /* HexCraft's ID counter for automatic populating. */
+    public static int idCounter;
 
-    public static Block energizedHexoriumBlock;
-    public static Block energizedHexoriumBlockGreen;
-    public static Block engineeringBlock;
-    public static Block engineeringBlockPurple;
+    @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.HexCommonProxy")
+    public static HexCommonProxy proxy;
 
+    /* Set up creative tab. */
     public static CreativeTabs hexCraftTab = new CreativeTabs("tabHexCraft") {
         @Override
         @SideOnly(Side.CLIENT)
@@ -51,72 +51,36 @@ public class HexCraft
         }
     };
 
+    /**
+     * Handles preInit.
+     */
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        RenderClientProxy.setCustomRenderers();
+        /* Set up custom rendering. */
+        HexClientProxy.setCustomRenderers();
 
-        energizedHexoriumBlock = new EnergizedHexoriumBlock(EnergizedHexoriumBlock.UNLOCALISEDNAME)
-                .setHardness(0.5F)
-                .setStepSound(Block.soundTypeMetal)
-                .setBlockName(EnergizedHexoriumBlock.UNLOCALISEDNAME)
-                .setCreativeTab(CreativeTabs.tabBlock);
-
-        energizedHexoriumBlockGreen = new EnergizedHexoriumBlock(EnergizedHexoriumBlock.UNLOCALISEDNAME + "Green")
-                .setHardness(0.5F)
-                .setStepSound(Block.soundTypeMetal)
-                .setBlockName(EnergizedHexoriumBlock.UNLOCALISEDNAME + "Green")
-                .setCreativeTab(CreativeTabs.tabBlock);
-
-        engineeringBlock = new EngineeringBlock(EngineeringBlock.UNLOCALISEDNAME)
-                .setHardness(0.5F)
-                .setStepSound(Block.soundTypeMetal)
-                .setBlockName(EngineeringBlock.UNLOCALISEDNAME)
-                .setCreativeTab(CreativeTabs.tabBlock);
-
-        engineeringBlockPurple = new EngineeringBlock(EngineeringBlock.UNLOCALISEDNAME + "Purple")
-                .setHardness(0.5F)
-                .setStepSound(Block.soundTypeMetal)
-                .setBlockName(EngineeringBlock.UNLOCALISEDNAME + "Purple")
-                        .setCreativeTab(CreativeTabs.tabBlock);
-
-        GameRegistry.registerBlock(energizedHexoriumBlock, EnergizedHexoriumBlock.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(energizedHexoriumBlockGreen, EnergizedHexoriumBlock.UNLOCALISEDNAME + "Green");
-        GameRegistry.registerBlock(engineeringBlock, EngineeringBlock.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(engineeringBlockPurple, EngineeringBlock.UNLOCALISEDNAME + "Purple");
-
-
-        GameRegistry.addShapelessRecipe(new ItemStack(engineeringBlock), new ItemStack(energizedHexoriumBlock));
-
+        /* Set up all ingame blocks items and recipes. */
+        HexBlocks.initializeBlocks();
+        HexItems.initializeItems();
+        HexRecipes.initializeRecipes();
     }
 
+    /**
+     * Handles load.
+     */
     @EventHandler
     public void load(FMLInitializationEvent event)
     {
 
     }
 
+    /**
+     * Handles postInit.
+     */
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
 
-    }
-
-    /**
-     * Returns the Block object based on unLocalisedName
-     * @param unlocalisedName
-     * @return Block
-     */
-    public static Block getBlock(String unlocalisedName)
-    {
-        if (unlocalisedName.equals(EnergizedHexoriumBlock.UNLOCALISEDNAME)) {
-            return energizedHexoriumBlock;
-        }
-        else if (unlocalisedName.equals(EngineeringBlock.UNLOCALISEDNAME)) {
-            return engineeringBlock;
-        }
-        else {
-            return Blocks.stone;
-        }
     }
 }
