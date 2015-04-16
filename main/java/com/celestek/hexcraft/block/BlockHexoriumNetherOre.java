@@ -18,10 +18,10 @@ import java.util.Random;
  * @since 2015-04-14
  */
 
-public class BlockHexoriumOre extends HexBlock {
+public class BlockHexoriumNetherOre extends HexBlock {
 
     /* Set default block name. */
-    public static String UNLOCALISEDNAME = "blockHexoriumOre";
+    public static String UNLOCALISEDNAME = "blockHexoriumNetherOre";
 
     /* Used later for texture identification. */
     private String blockName;
@@ -30,7 +30,7 @@ public class BlockHexoriumOre extends HexBlock {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockHexoriumOre(String blockName) {
+    public BlockHexoriumNetherOre(String blockName) {
         super(Material.rock);
         this.blockName = blockName;
 
@@ -42,7 +42,7 @@ public class BlockHexoriumOre extends HexBlock {
     }
 
     /**
-     * Sets up Hexorium Crystal drops dropping.
+     * Sets up item dropping.
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
@@ -84,7 +84,7 @@ public class BlockHexoriumOre extends HexBlock {
     public void registerBlockIcons(IIconRegister iconRegister) {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
     }
 
     /**

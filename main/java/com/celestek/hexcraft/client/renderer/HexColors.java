@@ -9,75 +9,75 @@ public class HexColors {
 
     /** Colors */
 
-    public static float redR = 1F;
-    public static float redG = 0F;
-    public static float redB = 0F;
+    public static float colorRedR = 1F;
+    public static float colorRedG = 0F;
+    public static float colorRedB = 0F;
 
-    public static float orangeR = 1F;
-    public static float orangeG = 0.5F;
-    public static float orangeB = 0F;
+    public static float colorOrangeR = 1F;
+    public static float colorOrangeG = 0.5F;
+    public static float colorOrangeB = 0F;
 
-    public static float yellowR = 1F;
-    public static float yellowG = 1F;
-    public static float yellowB = 0F;
+    public static float colorYellowR = 1F;
+    public static float colorYellowG = 1F;
+    public static float colorYellowB = 0F;
 
-    public static float limeR = 0.5F;
-    public static float limeG = 1F;
-    public static float limeB = 0F;
+    public static float colorLimeR = 0.5F;
+    public static float colorLimeG = 1F;
+    public static float colorLimeB = 0F;
 
-    public static float greenR = 0F;
-    public static float greenG = 1F;
-    public static float greenB = 0F;
+    public static float colorGreenR = 0F;
+    public static float colorGreenG = 1F;
+    public static float colorGreenB = 0F;
 
-    public static float aquaR = 0F;
-    public static float aquaG = 1F;
-    public static float aquaB = 0.5F;
+    public static float colorTurquoiseR = 0F;
+    public static float colorTurquoiseG = 1F;
+    public static float colorTurquoiseB = 0.5F;
 
-    public static float cyanR = 0F;
-    public static float cyanG = 1F;
-    public static float cyanB = 1F;
+    public static float colorCyanR = 0F;
+    public static float colorCyanG = 1F;
+    public static float colorCyanB = 1F;
 
-    public static float lightBlueR = 0F;
-    public static float lightBlueG = 0.5F;
-    public static float lightBlueB = 1F;
+    public static float colorSkyBlueR = 0F;
+    public static float colorSkyBlueG = 0.5F;
+    public static float colorSkyBlueB = 1F;
 
-    public static float blueR = 0F;
-    public static float blueG = 0F;
-    public static float blueB = 1F;
+    public static float colorBlueR = 0F;
+    public static float colorBlueG = 0F;
+    public static float colorBlueB = 1F;
 
-    public static float purpleR = 0.5F;
-    public static float purpleG = 0F;
-    public static float purpleB = 1F;
+    public static float colorPurpleR = 0.5F;
+    public static float colorPurpleG = 0F;
+    public static float colorPurpleB = 1F;
 
-    public static float magentaR = 1F;
-    public static float magentaG = 0F;
-    public static float magentaB = 1F;
+    public static float colorMagentaR = 1F;
+    public static float colorMagentaG = 0F;
+    public static float colorMagentaB = 1F;
 
-    public static float pinkR = 1F;
-    public static float pinkG = 0F;
-    public static float pinkB = 0.5F;
+    public static float colorPinkR = 1F;
+    public static float colorPinkG = 0F;
+    public static float colorPinkB = 0.5F;
 
     /** Grayscale */
 
-    public static float whiteR = 1F;
-    public static float whiteG = 1F;
-    public static float whiteB = 1F;
+    public static float colorWhiteR = 1F;
+    public static float colorWhiteG = 1F;
+    public static float colorWhiteB = 1F;
 
-    public static float lightGrayR = 0.7875F;
-    public static float lightGrayG = 0.7875F;
-    public static float lightGrayB = 0.7875F;
+    public static float colorLightGrayR = 0.75F;
+    public static float colorLightGrayG = 0.75F;
+    public static float colorLightGrayB = 0.75F;
 
-    public static float grayR = 0.575F;
-    public static float grayG = 0.575F;
-    public static float grayB = 0.575F;
+    public static float colorGrayR = 0.5F;
+    public static float colorGrayG = 0.5F;
+    public static float colorGrayB = 0.5F;
 
-    public static float darkGrayR = 0.3635F;
-    public static float darkGrayG = 0.3635F;
-    public static float darkGrayB = 0.3635F;
+    public static float colorDarkGrayR = 0.25F;
+    public static float colorDarkGrayG = 0.25F;
+    public static float colorDarkGrayB = 0.25F;
 
-    public static float blackR = 0.15F;
-    public static float blackG = 0.15F;
-    public static float blackB = 0.15F;
+    public static float colorBlackR = 0.10F;
+    public static float colorBlackG = 0.10F;
+    public static float colorBlackB = 0.10F;
 
     /** Brightness */
 

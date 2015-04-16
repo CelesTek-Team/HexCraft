@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class HexBlock extends Block {
 
     /* HexCraft's ID for the block. */
-    private int idBlock;
+    public int idBlock;
 
     /**
      * Constructor for the block.

@@ -1,19 +1,43 @@
 itemGroup.tabHexCraft=HEXCraft
 
+
+tile.blockHexoriumNetherOreRed.name=Hexorium Nether Ore (Red)
+tile.blockHexoriumNetherOreGreen.name=Hexorium Nether Ore (Green)
+tile.blockHexoriumNetherOreBlue.name=Hexorium Nether Ore (Blue)
+tile.blockHexoriumNetherOreWhite.name=Hexorium Nether Ore (White)
+tile.blockHexoriumNetherOreBlack.name=Hexorium Nether Ore (Black)
+
+
 tile.blockHexoriumOreRed.name=Hexorium Ore (Red)
 tile.blockHexoriumOreGreen.name=Hexorium Ore (Green)
 tile.blockHexoriumOreBlue.name=Hexorium Ore (Blue)
 tile.blockHexoriumOreWhite.name=Hexorium Ore (White)
 tile.blockHexoriumOreBlack.name=Hexorium Ore (Black)
 
+
 tile.blockEnergizedHexoriumRed.name=Energized Hexorium (Red)
+tile.blockEnergizedHexoriumOrange.name=Energized Hexorium (Orange)
+tile.blockEnergizedHexoriumYellow.name=Energized Hexorium (Yellow)
+tile.blockEnergizedHexoriumLime.name=Energized Hexorium (Lime)
 tile.blockEnergizedHexoriumGreen.name=Energized Hexorium (Green)
+tile.blockEnergizedHexoriumTurquoise.name=Energized Hexorium (Turquoise)
+tile.blockEnergizedHexoriumCyan.name=Energized Hexorium (Cyan)
+tile.blockEnergizedHexoriumSkyBlue.name=Energized Hexorium (Sky Blue)
 tile.blockEnergizedHexoriumBlue.name=Energized Hexorium (Blue)
+tile.blockEnergizedHexoriumPurple.name=Energized Hexorium (Purple)
+tile.blockEnergizedHexoriumMagenta.name=Energized Hexorium (Magenta)
+tile.blockEnergizedHexoriumPink.name=Energized Hexorium (Pink)
+
 tile.blockEnergizedHexoriumWhite.name=Energized Hexorium (White)
+tile.blockEnergizedHexoriumLightGray.name=Energized Hexorium (Light Gray)
+tile.blockEnergizedHexoriumGray.name=Energized Hexorium (Gray)
+tile.blockEnergizedHexoriumDarkGray.name=Energized Hexorium (Dark Gray)
 tile.blockEnergizedHexoriumBlack.name=Energized Hexorium (Black)
+
 
 tile.blockEngineeringBlockWhite.name=Engineering Block (White)
 tile.blockEngineeringBlockPurple.name=Engineering Block (Purple)
+
 
 item.itemHexoriumCrystalRed.name=Hexorium Crystal (Red)
 item.itemHexoriumCrystalGreen.name=Hexorium Crystal (Green)
