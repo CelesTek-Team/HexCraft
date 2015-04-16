@@ -38,6 +38,7 @@ public class HexBlock extends Block {
      * Forces the usage of custom renderer.
      */
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean renderAsNormalBlock() {
         return false;
     }
@@ -46,6 +47,7 @@ public class HexBlock extends Block {
      * Retrieves Minecraft's internal ID of the block from HexClientProxy.
      */
     @Override
+    @SideOnly(Side.CLIENT)
     public int getRenderType() {
         return HexClientProxy.renderID[idBlock];
     }
@@ -58,7 +60,7 @@ public class HexBlock extends Block {
     public boolean canRenderInPass(int pass)
     {
         HexClientProxy.renderPass[idBlock] = pass;
-        System.out.println("Pass ID: " + idBlock + " Pass: " + pass);
+        // System.out.println("Pass ID: " + idBlock + " Pass: " + pass);
         return true;
     }
 
@@ -75,6 +77,7 @@ public class HexBlock extends Block {
     /**
      * Makes the block properly interract with AO.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean isBlockNormalCube()
     {

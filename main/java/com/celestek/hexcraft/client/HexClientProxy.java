@@ -9,6 +9,9 @@ import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexColors;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -23,6 +26,33 @@ public class HexClientProxy extends HexCommonProxy {
 
     /* Render pass for every block. Length controlled in HexBlocks. */
     public static int renderPass[] = new int[HexBlocks.countBlocks];
+
+    /**
+     * Handles preInit.
+     */
+    @Override
+    public void preInit(FMLPreInitializationEvent e) {
+        super.preInit(e);
+
+        /* Set up custom rendering. */
+        setCustomRenderers();
+    }
+
+    /**
+     * Handles init.
+     */
+    @Override
+    public void init(FMLInitializationEvent e) {
+        super.init(e);
+    }
+
+    /**
+     * Handles postInit.
+     */
+    @Override
+    public void postInit(FMLPostInitializationEvent e) {
+        super.postInit(e);
+    }
 
     /**
      * Registers renderers for all block.

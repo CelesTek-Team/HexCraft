@@ -4,6 +4,7 @@ import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.init.HexRecipes;
+import com.celestek.hexcraft.init.HexWorldGen;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -14,9 +15,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -39,7 +38,7 @@ public class HexCraft
     /* HexCraft's ID counter for automatic populating. */
     public static int idCounter;
 
-    @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.HexCommonProxy")
+    @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.server.HexServerProxy")
     public static HexCommonProxy proxy;
 
     /* Set up creative tab. */
@@ -55,32 +54,26 @@ public class HexCraft
      * Handles preInit.
      */
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
+    public void preInit(FMLPreInitializationEvent e)
     {
-        /* Set up custom rendering. */
-        HexClientProxy.setCustomRenderers();
-
-        /* Set up all ingame blocks items and recipes. */
-        HexBlocks.initializeBlocks();
-        HexItems.initializeItems();
-        HexRecipes.initializeRecipes();
+        proxy.preInit(e);
     }
 
     /**
      * Handles load.
      */
     @EventHandler
-    public void load(FMLInitializationEvent event)
+    public void init(FMLInitializationEvent e)
     {
-
+        proxy.init(e);
     }
 
     /**
      * Handles postInit.
      */
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent e)
     {
-
+        proxy.postInit(e);
     }
 }

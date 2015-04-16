@@ -44,6 +44,7 @@ public class BlockEnergizedHexorium extends HexBlock {
     /**
      * Registers the icons.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         for(int i = 0; i < 6; i++)
@@ -57,6 +58,7 @@ public class BlockEnergizedHexorium extends HexBlock {
     /**
      * Retrieves the icons.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2) {
         return icon[par1];
