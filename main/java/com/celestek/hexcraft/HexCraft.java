@@ -47,7 +47,7 @@ public class HexCraft
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
-            return Items.diamond; //TODO: Change this to a proper item!
+            return HexItems.itemHexoriumCrystalBlue;
         }
     };
 

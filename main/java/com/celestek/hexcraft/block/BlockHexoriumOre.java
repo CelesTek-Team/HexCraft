@@ -46,7 +46,18 @@ public class BlockHexoriumOre extends HexBlock {
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
-        return HexItems.itemHexoriumCrystalGreen;
+        if(blockName.equals(UNLOCALISEDNAME + "Red"))
+            return HexItems.itemHexoriumCrystalRed;
+        else if(blockName.equals(UNLOCALISEDNAME + "Green"))
+            return HexItems.itemHexoriumCrystalGreen;
+        else if(blockName.equals(UNLOCALISEDNAME + "Blue"))
+            return HexItems.itemHexoriumCrystalBlue;
+        else if(blockName.equals(UNLOCALISEDNAME + "White"))
+            return HexItems.itemHexoriumCrystalWhite;
+        else if(blockName.equals(UNLOCALISEDNAME + "Black"))
+            return HexItems.itemHexoriumCrystalBlack;
+        else
+            return HexItems.itemHexoriumCrystalWhite;
     }
 
     /**

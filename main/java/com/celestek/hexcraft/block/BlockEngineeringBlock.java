@@ -49,9 +49,9 @@ public class BlockEngineeringBlock extends HexBlock {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexorium.UNLOCALISEDNAME + "Rainbow");
+            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexorium.UNLOCALISEDNAME);
+            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**

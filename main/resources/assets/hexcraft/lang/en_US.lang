@@ -1,11 +1,22 @@
 itemGroup.tabHexCraft=HEXCraft
 
+tile.blockHexoriumOreRed.name=Hexorium Ore (Red)
 tile.blockHexoriumOreGreen.name=Hexorium Ore (Green)
+tile.blockHexoriumOreBlue.name=Hexorium Ore (Blue)
+tile.blockHexoriumOreWhite.name=Hexorium Ore (White)
+tile.blockHexoriumOreBlack.name=Hexorium Ore (Black)
 
-tile.blockEnergizedHexorium.name=Energized Hexorium (White)
+tile.blockEnergizedHexoriumRed.name=Energized Hexorium (Red)
 tile.blockEnergizedHexoriumGreen.name=Energized Hexorium (Green)
+tile.blockEnergizedHexoriumBlue.name=Energized Hexorium (Blue)
+tile.blockEnergizedHexoriumWhite.name=Energized Hexorium (White)
+tile.blockEnergizedHexoriumBlack.name=Energized Hexorium (Black)
 
-tile.blockEngineeringBlock.name=Engineering Block (White)
+tile.blockEngineeringBlockWhite.name=Engineering Block (White)
 tile.blockEngineeringBlockPurple.name=Engineering Block (Purple)
 
+item.itemHexoriumCrystalRed.name=Hexorium Crystal (Red)
 item.itemHexoriumCrystalGreen.name=Hexorium Crystal (Green)
+item.itemHexoriumCrystalBlue.name=Hexorium Crystal (Blue)
+item.itemHexoriumCrystalWhite.name=Hexorium Crystal (White)
+item.itemHexoriumCrystalBlack.name=Hexorium Crystal (Black)

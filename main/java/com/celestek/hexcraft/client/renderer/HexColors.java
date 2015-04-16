@@ -63,31 +63,23 @@ public class HexColors {
     public static float whiteG = 1F;
     public static float whiteB = 1F;
 
-    public static float lightGrayR = 0.75F;
-    public static float lightGrayG = 0.75F;
-    public static float lightGrayB = 0.75F;
+    public static float lightGrayR = 0.7875F;
+    public static float lightGrayG = 0.7875F;
+    public static float lightGrayB = 0.7875F;
 
-    public static float grayR = 0.5F;
-    public static float grayG = 0.5F;
-    public static float grayB = 0.5F;
+    public static float grayR = 0.575F;
+    public static float grayG = 0.575F;
+    public static float grayB = 0.575F;
 
-    public static float darkGrayR = 0.25F;
-    public static float darkGrayG = 0.25F;
-    public static float darkGrayB = 0.25F;
+    public static float darkGrayR = 0.3635F;
+    public static float darkGrayG = 0.3635F;
+    public static float darkGrayB = 0.3635F;
 
-    public static float blackR = 0F;
-    public static float blackG = 0F;
-    public static float blackB = 0F;
-
-    /** Rainbow */
-
-    public static float rainbowR = 1F;
-    public static float rainbowG = 1F;
-    public static float rainbowB = 1F;
+    public static float blackR = 0.15F;
+    public static float blackG = 0.15F;
+    public static float blackB = 0.15F;
 
     /** Brightness */
 
-    public static int brightnessBright = 0xF000F0;
-
-    public static int brightnessFaint = 0x4000C0;
+    public static int brightnessBright = 0x00F000F0;
 }
