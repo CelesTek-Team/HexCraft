@@ -47,7 +47,7 @@ public class BlockEnergizedHexorium extends HexBlock {
 
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> drops = new ArrayList<>();
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
         if(blockName.equals(UNLOCALISEDNAME + "Red")) {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
