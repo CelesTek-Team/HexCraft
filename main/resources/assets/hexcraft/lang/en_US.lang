@@ -34,6 +34,8 @@ tile.blockEnergizedHexoriumGray.name=Energized Hexorium (Gray)
 tile.blockEnergizedHexoriumDarkGray.name=Energized Hexorium (Dark Gray)
 tile.blockEnergizedHexoriumBlack.name=Energized Hexorium (Black)
 
+tile.blockEnergizedHexoriumRainbow.name=Energized Hexorium (Rainbow)
+
 
 tile.blockEngineeringBlockWhite.name=Engineering Block (White)
 tile.blockEngineeringBlockPurple.name=Engineering Block (Purple)

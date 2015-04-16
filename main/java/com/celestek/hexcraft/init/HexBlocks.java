@@ -26,7 +26,7 @@ public class HexBlocks {
      * 5) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
      */
 
-    public static int countBlocks = 29;
+    public static int countBlocks = 30;
 
     /* Hexorium Nether Ore */
     public static Block blockHexoriumNetherOreRed;
@@ -63,6 +63,8 @@ public class HexBlocks {
     public static Block blockEnergizedHexoriumGray;
     public static Block blockEnergizedHexoriumDarkGray;
     public static Block blockEnergizedHexoriumBlack;
+
+    public static Block blockEnergizedHexoriumRainbow;
 
     /* Engineering Block */
     public static Block blockEngineeringBlockWhite;
@@ -136,6 +138,9 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockEnergizedHexoriumDarkGray, BlockEnergizedHexorium.UNLOCALISEDNAME + "DarkGray");
         blockEnergizedHexoriumBlack = new BlockEnergizedHexorium(BlockEnergizedHexorium.UNLOCALISEDNAME + "Black");
         GameRegistry.registerBlock(blockEnergizedHexoriumBlack, BlockEnergizedHexorium.UNLOCALISEDNAME + "Black");
+        
+        blockEnergizedHexoriumRainbow = new BlockEnergizedHexorium(BlockEnergizedHexorium.UNLOCALISEDNAME + "Rainbow");
+        GameRegistry.registerBlock(blockEnergizedHexoriumRainbow, BlockEnergizedHexorium.UNLOCALISEDNAME + "Rainbow");
 
         /* Engineering Block */
         blockEngineeringBlockWhite = new BlockEngineeringBlock(BlockEngineeringBlock.UNLOCALISEDNAME + "White");
@@ -211,6 +216,9 @@ public class HexBlocks {
             return blockEnergizedHexoriumDarkGray;
         else if (unlocalisedName.equals(BlockEnergizedHexorium.UNLOCALISEDNAME + "Black"))
             return blockEnergizedHexoriumBlack;
+        
+        else if (unlocalisedName.equals(BlockEnergizedHexorium.UNLOCALISEDNAME + "Rainbow"))
+            return blockEnergizedHexoriumRainbow;
                 
         /* Engineering Block */
         else if (unlocalisedName.equals(BlockEngineeringBlock.UNLOCALISEDNAME + "White"))

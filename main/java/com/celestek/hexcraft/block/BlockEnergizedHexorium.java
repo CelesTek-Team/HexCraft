@@ -40,9 +40,9 @@ public class BlockEnergizedHexorium extends HexBlock {
         this.blockName = blockName;
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
-        this.setHardness(1.5F);
-        this.setHarvestLevel("pickaxe", 0);
-        this.setStepSound(Block.soundTypeStone);
+        this.setHardness(0.3F);
+        //this.setHarvestLevel("pickaxe", 0);
+        this.setStepSound(Block.soundTypeGlass);
     }
 
     @Override
@@ -112,6 +112,13 @@ public class BlockEnergizedHexorium extends HexBlock {
         }
         else if(blockName.equals(UNLOCALISEDNAME + "Black")) {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
+        }
+
+        else if(blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
+            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
         }
 
         return drops;
