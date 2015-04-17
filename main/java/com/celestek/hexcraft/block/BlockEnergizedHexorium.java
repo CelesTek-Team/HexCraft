@@ -126,7 +126,7 @@ public class BlockEnergizedHexorium extends HexBlock {
 
     /* Prepare the icons. */
     @SideOnly(Side.CLIENT)
-    private IIcon icon[] = new IIcon[7];
+    private IIcon icon[];
 
     /**
      * Registers the icons.
@@ -134,6 +134,7 @@ public class BlockEnergizedHexorium extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        icon = new IIcon[7];
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
