@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import javafx.geometry.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
