@@ -14,10 +14,10 @@ import net.minecraft.util.IIcon;
  * @since 2015-04-14
  */
 
-public class BlockEngineeringBlock extends HexBlock {
+public class BlockFramedHexoriumBlock extends HexBlock {
 
     /* Set default block name. */
-    public static String UNLOCALISEDNAME = "blockEngineeringBlock";
+    public static String UNLOCALISEDNAME = "blockFramedHexoriumBlock";
 
     /* Used later for texture identification. */
     private String blockName;
@@ -26,7 +26,7 @@ public class BlockEngineeringBlock extends HexBlock {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockEngineeringBlock(String blockName) {
+    public BlockFramedHexoriumBlock(String blockName) {
         super(Material.rock);
 
         this.blockName = blockName;
