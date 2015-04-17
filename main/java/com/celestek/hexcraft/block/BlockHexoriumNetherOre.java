@@ -20,17 +20,23 @@ import java.util.Random;
 
 public class BlockHexoriumNetherOre extends HexBlock {
 
-    /* Set default block name. */
+    /** Set default block name. */
     public static String UNLOCALISEDNAME = "blockHexoriumNetherOre";
 
-    /* Used later for texture identification. */
+    /** Used later for texture identification. */
     private String blockName;
+
+    /** Used for drop rates. */
+    private int hexoriumDropMin;
+    private int hexoriumDropMax;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param hexoriumDropMin Minimum amount of Hexorium Crystals dropped.
+     * @param hexoriumDropMax Maximum amount of Hexorium Crystals dropped.
      */
-    public BlockHexoriumNetherOre(String blockName) {
+    public BlockHexoriumNetherOre(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
         super(Material.rock);
         this.blockName = blockName;
 
@@ -39,6 +45,9 @@ public class BlockHexoriumNetherOre extends HexBlock {
         this.setHardness(3F);
         this.setHarvestLevel("pickaxe", 2);
         this.setStepSound(Block.soundTypeStone);
+
+        this.hexoriumDropMin = hexoriumDropMin;
+        this.hexoriumDropMax = hexoriumDropMax;
     }
 
     /**
@@ -66,13 +75,14 @@ public class BlockHexoriumNetherOre extends HexBlock {
     @Override
     public int quantityDropped(Random random)
     {
-        int hexoriumDropMin = 4;
-        int hexoriumDropMax = 8;
-
-        return hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin);
+        /** If max and min drop rates are identical, drop only one value, otherwise, do a random calculation. */
+        if(hexoriumDropMin == hexoriumDropMax)
+            return hexoriumDropMin;
+        else
+            return hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
     }
 
-    /* Prepare the icons. */
+    /** Prepare the icons. */
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 

@@ -26,22 +26,22 @@ import net.minecraft.item.Item;
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
 {
-    /* Set default mod info. */
+    /** Set default mod info. */
     public static final String MODID = "hexcraft";
     public static final String MODNAME = "HEXCraft";
     public static final String VERSION = "0.1.0";
 
-    /* Set up the instance. */
+    /** Set up the instance. */
     @Mod.Instance(value = HexCraft.MODID)
     public static HexCraft instance;
 
-    /* HexCraft's ID counter for automatic populating. */
+    /** HexCraft's ID counter for automatic populating. */
     public static int idCounter;
 
     @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.server.HexServerProxy")
     public static HexCommonProxy proxy;
 
-    /* Set up creative tab. */
+    /** Set up creative tab. */
     public static CreativeTabs hexCraftTab = new CreativeTabs("tabHexCraft") {
         @Override
         @SideOnly(Side.CLIENT)

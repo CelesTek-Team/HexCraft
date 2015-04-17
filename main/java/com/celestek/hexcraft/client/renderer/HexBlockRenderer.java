@@ -4,9 +4,11 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import javafx.geometry.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
@@ -69,63 +71,63 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, HexBlocks.getBlock(renderBlockName).getIcon(6, 0));
+        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
 
         /* Draw the outer layer of the block. */
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 0, metadata));
+        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 1, metadata));
+        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, metadata));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 2, metadata));
+        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 3, metadata));
+        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 4, metadata));
+        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(HexBlocks.getBlock(renderBlockName), 5, metadata));
+        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
         tessellator.draw();
 
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
@@ -161,47 +163,61 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         /* Check if this is the first (opaque) render pass, if it is... */
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
             /* Prepare the inner block texture. */
-            IIcon c = HexBlocks.getBlock(renderBlockName).getIcon(6, 0);
+            IIcon c = block.getIcon(6, 0);
             float u = c.getMinU();
             float v = c.getMinV();
             float U = c.getMaxU();
             float V = c.getMaxV();
 
-            /* Draw the inner layer of the block. */
+            /* More tessellator preparation. */
             tessellator.addTranslation(x, y, z);
 
+            /* Set up brightness and color. */
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(r, g, b);
 
-            tessellator.addVertexWithUV(0, 1, 0, u, v);
-            tessellator.addVertexWithUV(0, 1, 1, u, V);
-            tessellator.addVertexWithUV(1, 1, 1, U, V);
-            tessellator.addVertexWithUV(1, 1, 0, U, v);
+            /* Check if sides should be drawn. If yes, draw them. */
+            if(!world.getBlock(x, y+1, z).isOpaqueCube()) {
+                tessellator.addVertexWithUV(0, 1, 0, u, v);
+                tessellator.addVertexWithUV(0, 1, 1, u, V);
+                tessellator.addVertexWithUV(1, 1, 1, U, V);
+                tessellator.addVertexWithUV(1, 1, 0, U, v);
+            }
 
-            tessellator.addVertexWithUV(0, 1, 1, u, v);
-            tessellator.addVertexWithUV(0, 0, 1, u, V);
-            tessellator.addVertexWithUV(1, 0, 1, U, V);
-            tessellator.addVertexWithUV(1, 1, 1, U, v);
+            if(!world.getBlock(x, y, z+1).isOpaqueCube()) {
+                tessellator.addVertexWithUV(0, 1, 1, u, v);
+                tessellator.addVertexWithUV(0, 0, 1, u, V);
+                tessellator.addVertexWithUV(1, 0, 1, U, V);
+                tessellator.addVertexWithUV(1, 1, 1, U, v);
+            }
 
-            tessellator.addVertexWithUV(0, 0, 0, u, V);
-            tessellator.addVertexWithUV(0, 0, 1, U, V);
-            tessellator.addVertexWithUV(0, 1, 1, U, v);
-            tessellator.addVertexWithUV(0, 1, 0, u, v);
+            if(!world.getBlock(x-1, y, z).isOpaqueCube()) {
+                tessellator.addVertexWithUV(0, 0, 0, u, V);
+                tessellator.addVertexWithUV(0, 0, 1, U, V);
+                tessellator.addVertexWithUV(0, 1, 1, U, v);
+                tessellator.addVertexWithUV(0, 1, 0, u, v);
+            }
 
-            tessellator.addVertexWithUV(1, 0, 0, u, V);
-            tessellator.addVertexWithUV(0, 0, 0, U, V);
-            tessellator.addVertexWithUV(0, 1, 0, U, v);
-            tessellator.addVertexWithUV(1, 1, 0, u, v);
+            if(!world.getBlock(x, y, z-1).isOpaqueCube()) {
+                tessellator.addVertexWithUV(1, 0, 0, u, V);
+                tessellator.addVertexWithUV(0, 0, 0, U, V);
+                tessellator.addVertexWithUV(0, 1, 0, U, v);
+                tessellator.addVertexWithUV(1, 1, 0, u, v);
+            }
 
-            tessellator.addVertexWithUV(1, 0, 1, u, V);
-            tessellator.addVertexWithUV(1, 0, 0, U, V);
-            tessellator.addVertexWithUV(1, 1, 0, U, v);
-            tessellator.addVertexWithUV(1, 1, 1, u, v);
+            if(!world.getBlock(x+1, y, z).isOpaqueCube()) {
+                tessellator.addVertexWithUV(1, 0, 1, u, V);
+                tessellator.addVertexWithUV(1, 0, 0, U, V);
+                tessellator.addVertexWithUV(1, 1, 0, U, v);
+                tessellator.addVertexWithUV(1, 1, 1, u, v);
+            }
 
-            tessellator.addVertexWithUV(0, 0, 1, u, V);
-            tessellator.addVertexWithUV(0, 0, 0, u, v);
-            tessellator.addVertexWithUV(1, 0, 0, U, v);
-            tessellator.addVertexWithUV(1, 0, 1, U, V);
+            if(!world.getBlock(x, y-1, z).isOpaqueCube()) {
+                tessellator.addVertexWithUV(0, 0, 1, u, V);
+                tessellator.addVertexWithUV(0, 0, 0, u, v);
+                tessellator.addVertexWithUV(1, 0, 0, U, v);
+                tessellator.addVertexWithUV(1, 0, 1, U, V);
+            }
 
             tessellator.addTranslation(-x, -y, -z);
         }
@@ -214,7 +230,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
 
             /* Draw the outer layer of the block. */
-            renderer.renderStandardBlock(HexBlocks.getBlock(renderBlockName), x, y, z);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
         return true;

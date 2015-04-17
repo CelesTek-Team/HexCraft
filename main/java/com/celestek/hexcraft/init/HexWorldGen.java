@@ -4,7 +4,6 @@ import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
@@ -33,23 +32,26 @@ public class HexWorldGen implements IWorldGenerator {
     /**
      * Constructor for the class.
      */
-    public HexWorldGen()
-    {
-        /** The number controls the number of ores per vein. */
+    public HexWorldGen() {
+        /**
+         * Numbers control the number of ores per vein.
+         * First number: Minimum ore blocks.
+         * Second number: Maximum ore blocks.
+         */
 
         /** Nether */
-        oreHexoriumNetherOreRedOverworld = new WorldGenMinable(HexBlocks.blockHexoriumNetherOreRed, 8, Blocks.netherrack);
-        oreHexoriumNetherOreGreenOverworld = new WorldGenMinable(HexBlocks.blockHexoriumNetherOreGreen, 8, Blocks.netherrack);
-        oreHexoriumNetherOreBlueOverworld = new WorldGenMinable(HexBlocks.blockHexoriumNetherOreBlue, 8, Blocks.netherrack);
-        oreHexoriumNetherOreWhiteOverworld = new WorldGenMinable(HexBlocks.blockHexoriumNetherOreWhite, 8, Blocks.netherrack);
-        oreHexoriumNetherOreBlackOverworld = new WorldGenMinable(HexBlocks.blockHexoriumNetherOreBlack, 8, Blocks.netherrack);
+        oreHexoriumNetherOreRedOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 1, 3);
+        oreHexoriumNetherOreGreenOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 1, 3);
+        oreHexoriumNetherOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 2);
+        oreHexoriumNetherOreWhiteOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 2, 6);
+        oreHexoriumNetherOreBlackOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 2, 6);
 
         /** Overworld */
-        oreHexoriumOreRedOverworld = new WorldGenMinable(HexBlocks.blockHexoriumOreRed, 8);
-        oreHexoriumOreGreenOverworld = new WorldGenMinable(HexBlocks.blockHexoriumOreGreen, 8);
-        oreHexoriumOreBlueOverworld = new WorldGenMinable(HexBlocks.blockHexoriumOreBlue, 8);
-        oreHexoriumOreWhiteOverworld = new WorldGenMinable(HexBlocks.blockHexoriumOreWhite, 8);
-        oreHexoriumOreBlackOverworld = new WorldGenMinable(HexBlocks.blockHexoriumOreBlack, 8);
+        oreHexoriumOreRedOverworld = new HexOreGen(HexBlocks.blockHexoriumOreRed, Blocks.stone, 2, 6);
+        oreHexoriumOreGreenOverworld = new HexOreGen(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 2, 6);
+        oreHexoriumOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 2, 6);
+        oreHexoriumOreWhiteOverworld = new HexOreGen(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 1, 3);
+        oreHexoriumOreBlackOverworld = new HexOreGen(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 1);
     }
 
     /**
@@ -57,44 +59,54 @@ public class HexWorldGen implements IWorldGenerator {
      */
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        /** Check the runGenerator method for parameter explanation! */
+        /**
+         * Numbers control the spawning heights and vein counts.
+         * First number: Number of veins to spawn per chunk.
+         * Second number: Minimum height to spawn a vein in.
+         * Third number: Maximum height to spawn a vein in.
+         */
         switch(world.provider.dimensionId){
+
+            /** Nether */
             case -1:
-                runGenerator(oreHexoriumNetherOreRedOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumNetherOreGreenOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumNetherOreBlueOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumNetherOreWhiteOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumNetherOreBlackOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
+                runGenerator(oreHexoriumNetherOreRedOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreGreenOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreBlueOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreWhiteOverworld, world, random, chunkX, chunkZ, 10, 0, 128);
+                runGenerator(oreHexoriumNetherOreBlackOverworld, world, random, chunkX, chunkZ, 10, 0, 128);
                 break;
+
+            /** Overworld */
             case 0:
-                runGenerator(oreHexoriumOreRedOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumOreGreenOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumOreBlueOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumOreWhiteOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
-                runGenerator(oreHexoriumOreBlackOverworld, world, random, chunkX, chunkZ, 20, 0, 64);
+                runGenerator(oreHexoriumOreRedOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreGreenOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreBlueOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreWhiteOverworld, world, random, chunkX, chunkZ, 5, 0, 20);
+                runGenerator(oreHexoriumOreBlackOverworld, world, random, chunkX, chunkZ, 5, 0, 20);
                 break;
+
+            /** End */
             case 1:
                 break;
         }
     }
 
     /**
-     * Generates ores based on input parameters.
+     * Generates veins based on input parameters.
      * @param generator Ore to spawn.
-     * @param chanceToSpawn Maximum number of ore veins to spawn.
-     * @param minHeight Minimal height for the ore to spawn.
-     * @param maxHeight Maximum height for the ore to spawn.
+     * @param veinCount Maximum number of ore veins to spawn.
+     * @param heightMin Minimal height for the ore to spawn.
+     * @param heightMax Maximum height for the ore to spawn.
      */
-    private void runGenerator(WorldGenerator generator, World world, Random rand, int chunkX, int chunkZ, int chanceToSpawn, int minHeight, int maxHeight) {
-        if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
-            throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
-
-        int heightDiff = maxHeight - minHeight + 1;
-        for (int i = 0; i < chanceToSpawn; i ++) {
-            int x = chunkX * 16 + rand.nextInt(16);
-            int y = minHeight + rand.nextInt(heightDiff);
-            int z = chunkZ * 16 + rand.nextInt(16);
-            generator.generate(world, rand, x, y, z);
+    private void runGenerator(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int veinCount, int heightMin, int heightMax) {
+        /** Loop the spawning script veinCount times. */
+        for (int i = 0; i < veinCount; i ++) {
+            /** Prepare the randomly generated coordinates for the first vein block. */
+            int x = chunkX * 16 + random.nextInt(16);
+            int y = heightMin + random.nextInt(heightMax - heightMin + 1);
+            int z = chunkZ * 16 + random.nextInt(16);
+            /** Start spawning vein. */
+            generator.generate(world, random, x, y, z);
         }
     }
 }
