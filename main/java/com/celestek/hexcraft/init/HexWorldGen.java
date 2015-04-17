@@ -42,7 +42,7 @@ public class HexWorldGen implements IWorldGenerator {
         /** Nether */
         oreHexoriumNetherOreRedOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 1, 3);
         oreHexoriumNetherOreGreenOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 2);
+        oreHexoriumNetherOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 3);
         oreHexoriumNetherOreWhiteOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 2, 6);
         oreHexoriumNetherOreBlackOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 2, 6);
 
