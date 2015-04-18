@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -19,11 +18,10 @@ public class HexBlocks {
      * 1) Increment countBlocks.
      * 2) Add a public static Block.
      * 3) Add the 2 required lines to initializeBlocks() (Check other blocks).
-     * 4) Add an else if statement to getBlock(String unlocalisedName).
-     * 5) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
+     * 4) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
      */
 
-    public static int countBlocks = 64;
+    public static int countBlocks = 82;
 
     /* Hexorium Nether Ore */
     public static Block blockHexoriumNetherOreRed;
@@ -106,6 +104,28 @@ public class HexBlocks {
     public static Block blockFramedHexoriumBlockBlack;
 
     public static Block blockFramedHexoriumBlockRainbow;
+
+    /* Recombined Hexorium Monolith */
+    public static Block blockRecombinedHexoriumMonolithRed;
+    public static Block blockRecombinedHexoriumMonolithOrange;
+    public static Block blockRecombinedHexoriumMonolithYellow;
+    public static Block blockRecombinedHexoriumMonolithLime;
+    public static Block blockRecombinedHexoriumMonolithGreen;
+    public static Block blockRecombinedHexoriumMonolithTurquoise;
+    public static Block blockRecombinedHexoriumMonolithCyan;
+    public static Block blockRecombinedHexoriumMonolithSkyBlue;
+    public static Block blockRecombinedHexoriumMonolithBlue;
+    public static Block blockRecombinedHexoriumMonolithPurple;
+    public static Block blockRecombinedHexoriumMonolithMagenta;
+    public static Block blockRecombinedHexoriumMonolithPink;
+
+    public static Block blockRecombinedHexoriumMonolithWhite;
+    public static Block blockRecombinedHexoriumMonolithLightGray;
+    public static Block blockRecombinedHexoriumMonolithGray;
+    public static Block blockRecombinedHexoriumMonolithDarkGray;
+    public static Block blockRecombinedHexoriumMonolithBlack;
+
+    public static Block blockRecombinedHexoriumMonolithRainbow;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -258,5 +278,45 @@ public class HexBlocks {
 
         blockFramedHexoriumBlockRainbow = new BlockFramedHexoriumBlock(BlockFramedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
         GameRegistry.registerBlock(blockFramedHexoriumBlockRainbow, BlockFramedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
+        
+        /* Recombined Hexorium Monolith */
+        blockRecombinedHexoriumMonolithRed = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithRed, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Red");
+        blockRecombinedHexoriumMonolithOrange = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Orange");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithOrange, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Orange");
+        blockRecombinedHexoriumMonolithYellow = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Yellow");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithYellow, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Yellow");
+        blockRecombinedHexoriumMonolithLime = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Lime");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithLime, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Lime");
+        blockRecombinedHexoriumMonolithGreen = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithGreen, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Green");
+        blockRecombinedHexoriumMonolithTurquoise = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Turquoise");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithTurquoise, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Turquoise");
+        blockRecombinedHexoriumMonolithCyan = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Cyan");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithCyan, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Cyan");
+        blockRecombinedHexoriumMonolithSkyBlue = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "SkyBlue");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithSkyBlue, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "SkyBlue");
+        blockRecombinedHexoriumMonolithBlue = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithBlue, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Blue");
+        blockRecombinedHexoriumMonolithPurple = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Purple");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithPurple, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Purple");
+        blockRecombinedHexoriumMonolithMagenta = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Magenta");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithMagenta, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Magenta");
+        blockRecombinedHexoriumMonolithPink = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Pink");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithPink, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Pink");
+
+        blockRecombinedHexoriumMonolithWhite = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithWhite, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "White");
+        blockRecombinedHexoriumMonolithLightGray = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "LightGray");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithLightGray, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "LightGray");
+        blockRecombinedHexoriumMonolithGray = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Gray");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithGray, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Gray");
+        blockRecombinedHexoriumMonolithDarkGray = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "DarkGray");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithDarkGray, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "DarkGray");
+        blockRecombinedHexoriumMonolithBlack = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Black");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithBlack, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Black");
+
+        blockRecombinedHexoriumMonolithRainbow = new BlockRecombinedHexoriumMonolith(BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
+        GameRegistry.registerBlock(blockRecombinedHexoriumMonolithRainbow, BlockRecombinedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
     }
 }
