@@ -23,7 +23,6 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     /* Variables */
     private int renderID;
     private int renderBlockID;
-    private String renderBlockName;
     private int brightness;
     private float r = 1F;
     private float g = 1F;
@@ -32,19 +31,17 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     /**
      * Constructor for custom rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param renderBlockName Unlocalized name of the block to render. Used for retrieval of icons.
      * @param brightness Intensity of the inner block layer glow.
      * @param r Red component of the inner block layer color.
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
      */
-    public HexBlockRenderer(int renderID, String renderBlockName, int brightness, float r, float g, float b)
+    public HexBlockRenderer(int renderID, int brightness, float r, float g, float b)
     {
         /* Save the current HexCraft block ID. */
         this.renderBlockID = HexCraft.idCounter;
 
         this.renderID = renderID;
-        this.renderBlockName = renderBlockName;
         this.brightness = brightness;
         this.r = r;
         this.g = g;
