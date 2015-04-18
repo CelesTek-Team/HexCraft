@@ -29,7 +29,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     private float b = 1F;
 
     /**
-     * Constructor for custom rendering.
+     * Constructor for custom block rendering.
      * @param renderID Minecraft's internal ID of a certain block.
      * @param brightness Intensity of the inner block layer glow.
      * @param r Red component of the inner block layer color.
@@ -38,7 +38,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      */
     public HexBlockRenderer(int renderID, int brightness, float r, float g, float b)
     {
-        /* Save the current HexCraft block ID. */
+        /** Save the current HexCraft block ID. */
         this.renderBlockID = HexCraft.idCounter;
 
         this.renderID = renderID;
@@ -47,7 +47,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         this.g = g;
         this.b = b;
 
-        /* Increment block counter in HexCraft class. */
+        /** Increment block counter in HexCraft class. */
         HexCraft.idCounter++;
     }
 
@@ -57,12 +57,12 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        /* Create the Tessellator and prepare OpenGL. */
+        /** Create the Tessellator and prepare OpenGL. */
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         GL11.glEnable(GL11.GL_BLEND);
 
-        /* Draw the inner layer of the block. */
+        /** Draw the inner layer of the block. */
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
@@ -100,7 +100,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
         tessellator.draw();
 
-        /* Draw the outer layer of the block. */
+        /** Draw the outer layer of the block. */
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
@@ -153,26 +153,26 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        /* Prepare the Tessellator */
+        /** Prepare the Tessellator */
         Tessellator tessellator = Tessellator.instance;
 
-        /* Check if this is the first (opaque) render pass, if it is... */
+        /** Check if this is the first (opaque) render pass, if it is... */
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            /* Prepare the inner block texture. */
+            /** Prepare the inner block texture. */
             IIcon c = block.getIcon(6, 0);
             float u = c.getMinU();
             float v = c.getMinV();
             float U = c.getMaxU();
             float V = c.getMaxV();
 
-            /* More tessellator preparation. */
+            /** More tessellator preparation. */
             tessellator.addTranslation(x, y, z);
 
-            /* Set up brightness and color. */
+            /** Set up brightness and color. */
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(r, g, b);
 
-            /* Check if sides should be drawn. If yes, draw them. */
+            /** Check if sides should be drawn. If yes, draw them. */
             if(!world.getBlock(x, y+1, z).isOpaqueCube()) {
                 tessellator.addVertexWithUV(0, 1, 0, u, v);
                 tessellator.addVertexWithUV(0, 1, 1, u, V);
@@ -217,15 +217,15 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
             tessellator.addTranslation(-x, -y, -z);
         }
-        /* If this is the second (transparent) render pass... */
+        /** If this is the second (transparent) render pass... */
         else {
-            /* If Tessellator doesn't do anything, it will crash, so let's make a dummy quad. */
+            /** If Tessellator doesn't do anything, it will crash, so let's make a dummy quad. */
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
 
-            /* Draw the outer layer of the block. */
+            /** Draw the outer layer of the block. */
             renderer.renderStandardBlock(block, x, y, z);
         }
 

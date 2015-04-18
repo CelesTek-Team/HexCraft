@@ -82,4 +82,9 @@ public class HexColors {
     /** Brightness */
 
     public static int brightnessBright = 0x00F000F0;
+
+    /** Opacity */
+
+    public static float opacitySlight = 0.75F;
+    public static float opacityOpaque = 1F;
 }

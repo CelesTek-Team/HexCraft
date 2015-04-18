@@ -1,18 +1,18 @@
 itemGroup.tabHexCraft=HEXCraft
 
 
-tile.blockHexoriumNetherOreRed.name=Hexorium Nether Ore (Red)
-tile.blockHexoriumNetherOreGreen.name=Hexorium Nether Ore (Green)
-tile.blockHexoriumNetherOreBlue.name=Hexorium Nether Ore (Blue)
-tile.blockHexoriumNetherOreWhite.name=Hexorium Nether Ore (White)
-tile.blockHexoriumNetherOreBlack.name=Hexorium Nether Ore (Black)
+tile.blockHexoriumNetherOreRed.name=Red Hexorium Nether Ore
+tile.blockHexoriumNetherOreGreen.name=Green Hexorium Nether Ore
+tile.blockHexoriumNetherOreBlue.name=Blue Hexorium Nether Ore
+tile.blockHexoriumNetherOreWhite.name=White Hexorium Nether Ore
+tile.blockHexoriumNetherOreBlack.name=Black Hexorium Nether Ore
 
 
-tile.blockHexoriumOreRed.name=Hexorium Ore (Red)
-tile.blockHexoriumOreGreen.name=Hexorium Ore (Green)
-tile.blockHexoriumOreBlue.name=Hexorium Ore (Blue)
-tile.blockHexoriumOreWhite.name=Hexorium Ore (White)
-tile.blockHexoriumOreBlack.name=Hexorium Ore (Black)
+tile.blockHexoriumOreRed.name=Red Hexorium Ore
+tile.blockHexoriumOreGreen.name=Green Hexorium Ore
+tile.blockHexoriumOreBlue.name=Blue Hexorium Ore
+tile.blockHexoriumOreWhite.name=White Hexorium Ore
+tile.blockHexoriumOreBlack.name=Black Hexorium Ore
 
 
 tile.blockEnergizedHexoriumRed.name=Energized Hexorium (Red)
@@ -81,30 +81,30 @@ tile.blockFramedHexoriumBlockBlack.name=Framed Hexorium Block (Black)
 tile.blockFramedHexoriumBlockRainbow.name=Framed Hexorium Block (Rainbow)
 
 
-tile.blockRecombinedHexoriumMonolithRed.name=Recombined Hexorium Monolith (Red)
-tile.blockRecombinedHexoriumMonolithOrange.name=Recombined Hexorium Monolith (Orange)
-tile.blockRecombinedHexoriumMonolithYellow.name=Recombined Hexorium Monolith (Yellow)
-tile.blockRecombinedHexoriumMonolithLime.name=Recombined Hexorium Monolith (Lime)
-tile.blockRecombinedHexoriumMonolithGreen.name=Recombined Hexorium Monolith (Green)
-tile.blockRecombinedHexoriumMonolithTurquoise.name=Recombined Hexorium Monolith (Turquoise)
-tile.blockRecombinedHexoriumMonolithCyan.name=Recombined Hexorium Monolith (Cyan)
-tile.blockRecombinedHexoriumMonolithSkyBlue.name=Recombined Hexorium Monolith (Sky Blue)
-tile.blockRecombinedHexoriumMonolithBlue.name=Recombined Hexorium Monolith (Blue)
-tile.blockRecombinedHexoriumMonolithPurple.name=Recombined Hexorium Monolith (Purple)
-tile.blockRecombinedHexoriumMonolithMagenta.name=Recombined Hexorium Monolith (Magenta)
-tile.blockRecombinedHexoriumMonolithPink.name=Recombined Hexorium Monolith (Pink)
+tile.blockEnergizedHexoriumMonolithRed.name=Energized Hexorium Monolith (Red)
+tile.blockEnergizedHexoriumMonolithOrange.name=Energized Hexorium Monolith (Orange)
+tile.blockEnergizedHexoriumMonolithYellow.name=Energized Hexorium Monolith (Yellow)
+tile.blockEnergizedHexoriumMonolithLime.name=Energized Hexorium Monolith (Lime)
+tile.blockEnergizedHexoriumMonolithGreen.name=Energized Hexorium Monolith (Green)
+tile.blockEnergizedHexoriumMonolithTurquoise.name=Energized Hexorium Monolith (Turquoise)
+tile.blockEnergizedHexoriumMonolithCyan.name=Energized Hexorium Monolith (Cyan)
+tile.blockEnergizedHexoriumMonolithSkyBlue.name=Energized Hexorium Monolith (Sky Blue)
+tile.blockEnergizedHexoriumMonolithBlue.name=Energized Hexorium Monolith (Blue)
+tile.blockEnergizedHexoriumMonolithPurple.name=Energized Hexorium Monolith (Purple)
+tile.blockEnergizedHexoriumMonolithMagenta.name=Energized Hexorium Monolith (Magenta)
+tile.blockEnergizedHexoriumMonolithPink.name=Energized Hexorium Monolith (Pink)
 
-tile.blockRecombinedHexoriumMonolithWhite.name=Recombined Hexorium Monolith (White)
-tile.blockRecombinedHexoriumMonolithLightGray.name=Recombined Hexorium Monolith (Light Gray)
-tile.blockRecombinedHexoriumMonolithGray.name=Recombined Hexorium Monolith (Gray)
-tile.blockRecombinedHexoriumMonolithDarkGray.name=Recombined Hexorium Monolith (Dark Gray)
-tile.blockRecombinedHexoriumMonolithBlack.name=Recombined Hexorium Monolith (Black)
+tile.blockEnergizedHexoriumMonolithWhite.name=Energized Hexorium Monolith (White)
+tile.blockEnergizedHexoriumMonolithLightGray.name=Energized Hexorium Monolith (Light Gray)
+tile.blockEnergizedHexoriumMonolithGray.name=Energized Hexorium Monolith (Gray)
+tile.blockEnergizedHexoriumMonolithDarkGray.name=Energized Hexorium Monolith (Dark Gray)
+tile.blockEnergizedHexoriumMonolithBlack.name=Energized Hexorium Monolith (Black)
 
-tile.blockRecombinedHexoriumMonolithRainbow.name=Recombined Hexorium Monolith (Rainbow)
+tile.blockEnergizedHexoriumMonolithRainbow.name=Energized Hexorium Monolith (Rainbow)
 
 
-item.itemHexoriumCrystalRed.name=Hexorium Crystal (Red)
-item.itemHexoriumCrystalGreen.name=Hexorium Crystal (Green)
-item.itemHexoriumCrystalBlue.name=Hexorium Crystal (Blue)
-item.itemHexoriumCrystalWhite.name=Hexorium Crystal (White)
-item.itemHexoriumCrystalBlack.name=Hexorium Crystal (Black)
+item.itemHexoriumCrystalRed.name=Red Hexorium Crystal
+item.itemHexoriumCrystalGreen.name=Green Hexorium Crystal
+item.itemHexoriumCrystalBlue.name=Blue Hexorium Crystal
+item.itemHexoriumCrystalWhite.name=White Hexorium Crystal
+item.itemHexoriumCrystalBlack.name=Black Hexorium Crystal

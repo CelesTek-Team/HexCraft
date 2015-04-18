@@ -24,6 +24,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private int renderID;
     private int renderBlockID;
     private int brightness;
+    private float opacity;
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
@@ -64,20 +65,22 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private float sideV = 11.75F;
 
     /**
-     * Constructor for custom rendering.
+     * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param brightness Intensity of the inner block layer glow.
-     * @param r Red component of the inner block layer color.
-     * @param g Green component of the inner block layer color.
-     * @param b Blue component of the inner block layer color.
+     * @param brightness Intensity of the monolith glow.
+     * @param opacity Opacity of the monolith.
+     * @param r Red component of the monolith color.
+     * @param g Green component of the monolith color
+     * @param b Blue component of the monolith color.
      */
-    public HexModelRendererMonolith(int renderID, int brightness, float r, float g, float b)
+    public HexModelRendererMonolith(int renderID, int brightness, float opacity, float r, float g, float b)
     {
         /** Save the current HexCraft block ID. */
         this.renderBlockID = HexCraft.idCounter;
 
         this.renderID = renderID;
         this.brightness = brightness;
+        this.opacity = opacity;
         this.r = r;
         this.g = g;
         this.b = b;
@@ -99,7 +102,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
 
         /** Set up brightness and color. */
         tessellator.setBrightness(brightness);
-        tessellator.setColorRGBA_F(r, g, b, 0.75F);
+        tessellator.setColorRGBA_F(r, g, b, opacity);
 
         /** Top Face */
         IIcon c = block.getIcon(6, 0);
@@ -193,7 +196,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
 
             /** Set up brightness and color. */
             tessellator.setBrightness(brightness);
-            tessellator.setColorRGBA_F(r, g, b, 0.75F);
+            tessellator.setColorRGBA_F(r, g, b, opacity);
 
             /** Prepare the icon */
             IIcon c = block.getIcon(6, 0);
@@ -475,12 +478,12 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
 
             tessellator.addTranslation(-x, -y, -z);
 
-            /* Draw the outer layer of the block. */
+            /** Draw the outer layer of the block. */
             //renderer.renderStandardBlock(block, x, y, z);
         }
-        /* If this is the second (transparent) render pass... */
+        /** If this is the second (transparent) render pass... */
         else {
-            /* If Tessellator doesn't do anything, it will crash, so let's make a dummy quad. */
+            /** If Tessellator doesn't do anything, it will crash, so let's make a dummy quad. */
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);

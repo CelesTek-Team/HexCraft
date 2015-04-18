@@ -23,10 +23,10 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @since 2015-04-14
  */
 
-public class BlockRecombinedHexoriumMonolith extends HexBlockModel {
+public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
 
     /* Set default block name. */
-    public static String UNLOCALISEDNAME = "blockRecombinedHexoriumMonolith";
+    public static String UNLOCALISEDNAME = "blockEnergizedHexoriumMonolith";
 
     /* Used later for texture identification. */
     private String blockName;
@@ -35,7 +35,7 @@ public class BlockRecombinedHexoriumMonolith extends HexBlockModel {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockRecombinedHexoriumMonolith(String blockName) {
+    public BlockEnergizedHexoriumMonolith(String blockName) {
         super(Material.glass);
 
         this.blockName = blockName;
