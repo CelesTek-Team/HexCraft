@@ -14,6 +14,12 @@ tile.blockHexoriumOreBlue.name=Blue Hexorium Ore
 tile.blockHexoriumOreWhite.name=White Hexorium Ore
 tile.blockHexoriumOreBlack.name=Black Hexorium Ore
 
+tile.blockOfHexoriumCrystalRed.name=Block of Red Hexorium Crystal
+tile.blockOfHexoriumCrystalGreen.name=Block of Green Hexorium Crystal
+tile.blockOfHexoriumCrystalBlue.name=Block of Blue Hexorium Crystal
+tile.blockOfHexoriumCrystalWhite.name=Block of White Hexorium Crystal
+tile.blockOfHexoriumCrystalBlack.name=Block of Black Hexorium Crystal
+
 
 tile.blockEnergizedHexoriumRed.name=Energized Hexorium (Red)
 tile.blockEnergizedHexoriumOrange.name=Energized Hexorium (Orange)

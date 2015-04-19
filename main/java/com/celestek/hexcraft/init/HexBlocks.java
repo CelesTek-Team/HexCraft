@@ -21,7 +21,7 @@ public class HexBlocks {
      * 4) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
      */
 
-    public static int countBlocks = 92;
+    public static int countBlocks = 97;
 
     /* Hexorium Nether Ore */
     public static Block blockHexoriumNetherOreRed;
@@ -54,6 +54,14 @@ public class HexBlocks {
 
     public static Block blockHexoriumNetherMonolithWhite;
     public static Block blockHexoriumNetherMonolithBlack;
+
+    /* Hexorium Crystal Block */
+    public static Block blockOfHexoriumCrystalRed;
+    public static Block blockOfHexoriumCrystalGreen;
+    public static Block blockOfHexoriumCrystalBlue;
+    
+    public static Block blockOfHexoriumCrystalWhite;
+    public static Block blockOfHexoriumCrystalBlack;
 
     /* Energized Hexorium */
     public static Block blockEnergizedHexoriumRed;
@@ -202,6 +210,19 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumNetherMonolithWhite, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "White");
         blockHexoriumNetherMonolithBlack = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Black", 8, 8);
         GameRegistry.registerBlock(blockHexoriumNetherMonolithBlack, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Black");
+
+        /* Block of Hexorium Crystal */
+        blockOfHexoriumCrystalRed = new BlockOfHexoriumCrystal(BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockOfHexoriumCrystalRed, BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Red");
+        blockOfHexoriumCrystalGreen = new BlockOfHexoriumCrystal(BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockOfHexoriumCrystalGreen, BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Green");
+        blockOfHexoriumCrystalBlue = new BlockOfHexoriumCrystal(BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockOfHexoriumCrystalBlue, BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Blue");
+        
+        blockOfHexoriumCrystalWhite = new BlockOfHexoriumCrystal(BlockOfHexoriumCrystal.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockOfHexoriumCrystalWhite, BlockOfHexoriumCrystal.UNLOCALISEDNAME + "White");
+        blockOfHexoriumCrystalBlack = new BlockOfHexoriumCrystal(BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Black");
+        GameRegistry.registerBlock(blockOfHexoriumCrystalBlack, BlockOfHexoriumCrystal.UNLOCALISEDNAME + "Black");
         
         /* Energized Hexorium */
         blockEnergizedHexoriumRed = new BlockEnergizedHexorium(BlockEnergizedHexorium.UNLOCALISEDNAME + "Red");

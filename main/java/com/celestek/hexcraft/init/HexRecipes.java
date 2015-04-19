@@ -28,13 +28,19 @@ public class HexRecipes {
         ItemStack stackIronIngot_1 = new ItemStack(Items.iron_ingot, 1);
 
 
-        /* Hexorium Crystals */
+        /* Hexorium Crystal */
         ItemStack stackHexoriumCrystalRed_1 = new ItemStack(HexItems.itemHexoriumCrystalRed, 1);
         ItemStack stackHexoriumCrystalGreen_1 = new ItemStack(HexItems.itemHexoriumCrystalGreen, 1);
         ItemStack stackHexoriumCrystalBlue_1 = new ItemStack(HexItems.itemHexoriumCrystalBlue, 1);
         ItemStack stackHexoriumCrystalWhite_1 = new ItemStack(HexItems.itemHexoriumCrystalWhite, 1);
         ItemStack stackHexoriumCrystalBlack_1 = new ItemStack(HexItems.itemHexoriumCrystalBlack, 1);
 
+        /* Block of Hexorium Crystal */
+        ItemStack stackBlockOfHexoriumCrystalRed_1 = new ItemStack(HexBlocks.blockOfHexoriumCrystalRed);
+        ItemStack stackBlockOfHexoriumCrystalGreen_1 = new ItemStack(HexBlocks.blockOfHexoriumCrystalGreen);
+        ItemStack stackBlockOfHexoriumCrystalBlue_1 = new ItemStack(HexBlocks.blockOfHexoriumCrystalBlue);
+        ItemStack stackBlockOfHexoriumCrystalWhite_1 = new ItemStack(HexBlocks.blockOfHexoriumCrystalWhite);
+        ItemStack stackBlockOfHexoriumCrystalBlack_1 = new ItemStack(HexBlocks.blockOfHexoriumCrystalBlack);
         
         /* Energized Hexorium */
         ItemStack stackEnergizedHexoriumRed_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumRed);
@@ -104,6 +110,33 @@ public class HexRecipes {
 
         ItemStack stackFramedHexoriumBlockRainbow_1 = new ItemStack(HexBlocks.blockFramedHexoriumBlockRainbow);
 
+        /* Block of Hexorium Crystal */
+        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalRed_1,
+                "AAA",
+                "AAA",
+                "AAA",
+                'A', stackHexoriumCrystalRed_1);
+        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalGreen_1,
+                "AAA",
+                "AAA",
+                "AAA",
+                'A', stackHexoriumCrystalGreen_1);
+        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlue_1,
+                "AAA",
+                "AAA",
+                "AAA",
+                'A', stackHexoriumCrystalBlue_1);
+        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalWhite_1,
+                "AAA",
+                "AAA",
+                "AAA",
+                'A', stackHexoriumCrystalWhite_1);
+        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlack_1,
+                "AAA",
+                "AAA",
+                "AAA",
+                'A', stackHexoriumCrystalBlack_1);
+        
         /* Energized Hexorium */
         /* Red */
         GameRegistry.addRecipe(stackEnergizedHexoriumRed_1,
