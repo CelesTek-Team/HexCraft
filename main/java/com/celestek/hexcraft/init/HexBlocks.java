@@ -21,7 +21,7 @@ public class HexBlocks {
      * 4) Add the 2 required lines to HexClientProxy.setCustomRenderers() (Check other blocks).
      */
 
-    public static int countBlocks = 82;
+    public static int countBlocks = 92;
 
     /* Hexorium Nether Ore */
     public static Block blockHexoriumNetherOreRed;
@@ -38,6 +38,22 @@ public class HexBlocks {
     
     public static Block blockHexoriumOreWhite;
     public static Block blockHexoriumOreBlack;
+
+    /* Hexorium Monolith */
+    public static Block blockHexoriumMonolithRed;
+    public static Block blockHexoriumMonolithGreen;
+    public static Block blockHexoriumMonolithBlue;
+
+    public static Block blockHexoriumMonolithWhite;
+    public static Block blockHexoriumMonolithBlack;
+
+    /* Hexorium Nether Monolith */
+    public static Block blockHexoriumNetherMonolithRed;
+    public static Block blockHexoriumNetherMonolithGreen;
+    public static Block blockHexoriumNetherMonolithBlue;
+
+    public static Block blockHexoriumNetherMonolithWhite;
+    public static Block blockHexoriumNetherMonolithBlack;
 
     /* Energized Hexorium */
     public static Block blockEnergizedHexoriumRed;
@@ -142,6 +158,7 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumNetherOreGreen, BlockHexoriumNetherOre.UNLOCALISEDNAME + "Green");
         blockHexoriumNetherOreBlue = new BlockHexoriumNetherOre(BlockHexoriumNetherOre.UNLOCALISEDNAME + "Blue", 1, 2);
         GameRegistry.registerBlock(blockHexoriumNetherOreBlue, BlockHexoriumNetherOre.UNLOCALISEDNAME + "Blue");
+        
         blockHexoriumNetherOreWhite = new BlockHexoriumNetherOre(BlockHexoriumNetherOre.UNLOCALISEDNAME + "White", 2, 4);
         GameRegistry.registerBlock(blockHexoriumNetherOreWhite, BlockHexoriumNetherOre.UNLOCALISEDNAME + "White");
         blockHexoriumNetherOreBlack = new BlockHexoriumNetherOre(BlockHexoriumNetherOre.UNLOCALISEDNAME + "Black", 2, 4);
@@ -154,11 +171,38 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumOreGreen, BlockHexoriumOre.UNLOCALISEDNAME + "Green");
         blockHexoriumOreBlue = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "Blue", 2, 4);
         GameRegistry.registerBlock(blockHexoriumOreBlue, BlockHexoriumOre.UNLOCALISEDNAME + "Blue");
+        
         blockHexoriumOreWhite = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "White", 1, 2);
         GameRegistry.registerBlock(blockHexoriumOreWhite, BlockHexoriumOre.UNLOCALISEDNAME + "White");
         blockHexoriumOreBlack = new BlockHexoriumOre(BlockHexoriumOre.UNLOCALISEDNAME + "Black", 1, 1);
         GameRegistry.registerBlock(blockHexoriumOreBlack, BlockHexoriumOre.UNLOCALISEDNAME + "Black");
 
+        /* Hexorium Monolith */
+        blockHexoriumMonolithRed = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Red", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumMonolithRed, BlockHexoriumMonolith.UNLOCALISEDNAME + "Red");
+        blockHexoriumMonolithGreen = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Green", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumMonolithGreen, BlockHexoriumMonolith.UNLOCALISEDNAME + "Green");
+        blockHexoriumMonolithBlue = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Blue", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumMonolithBlue, BlockHexoriumMonolith.UNLOCALISEDNAME + "Blue");
+
+        blockHexoriumMonolithWhite = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "White", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumMonolithWhite, BlockHexoriumMonolith.UNLOCALISEDNAME + "White");
+        blockHexoriumMonolithBlack = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Black", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumMonolithBlack, BlockHexoriumMonolith.UNLOCALISEDNAME + "Black");
+        
+        /* Hexorium Nether Monolith */
+        blockHexoriumNetherMonolithRed = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Red", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumNetherMonolithRed, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Red");
+        blockHexoriumNetherMonolithGreen = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Green", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumNetherMonolithGreen, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Green");
+        blockHexoriumNetherMonolithBlue = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Blue", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumNetherMonolithBlue, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Blue");
+
+        blockHexoriumNetherMonolithWhite = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "White", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumNetherMonolithWhite, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "White");
+        blockHexoriumNetherMonolithBlack = new BlockHexoriumNetherMonolith(BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Black", 8, 8);
+        GameRegistry.registerBlock(blockHexoriumNetherMonolithBlack, BlockHexoriumNetherMonolith.UNLOCALISEDNAME + "Black");
+        
         /* Energized Hexorium */
         blockEnergizedHexoriumRed = new BlockEnergizedHexorium(BlockEnergizedHexorium.UNLOCALISEDNAME + "Red");
         GameRegistry.registerBlock(blockEnergizedHexoriumRed, BlockEnergizedHexorium.UNLOCALISEDNAME + "Red");

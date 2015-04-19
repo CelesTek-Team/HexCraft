@@ -12,7 +12,7 @@ import java.util.Random;
  * @version 0.1.0
  * @since 2015-04-17
  */
-public class HexOreGen extends WorldGenerator {
+public class HexGenOre extends WorldGenerator {
 
     private Block block;
     private int blockmeta;
@@ -25,18 +25,18 @@ public class HexOreGen extends WorldGenerator {
      * @param sizeMin Minimum ore blocks.
      * @param sizeMax Maximum ore blocks.
      */
-    public HexOreGen(Block block, Block replace, int sizeMin, int sizeMax) {
+    public HexGenOre(Block block, Block replace, int sizeMin, int sizeMax) {
         this(block, replace);
 
         this.sizeMin = sizeMin;
         this.sizeMax = sizeMax;
     }
 
-    public HexOreGen(Block block, Block target) {
+    public HexGenOre(Block block, Block target) {
         this(block, 0, target);
     }
 
-    public HexOreGen(Block block, int meta, Block target) {
+    public HexGenOre(Block block, int meta, Block target) {
         this.block = block;
         this.blockmeta = meta;
         this.target = target;

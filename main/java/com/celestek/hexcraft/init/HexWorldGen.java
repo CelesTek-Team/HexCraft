@@ -16,42 +16,70 @@ import java.util.Random;
 public class HexWorldGen implements IWorldGenerator {
 
     /** Nether */
-    private WorldGenerator oreHexoriumNetherOreRedOverworld;
-    private WorldGenerator oreHexoriumNetherOreGreenOverworld;
-    private WorldGenerator oreHexoriumNetherOreBlueOverworld;
-    private WorldGenerator oreHexoriumNetherOreWhiteOverworld;
-    private WorldGenerator oreHexoriumNetherOreBlackOverworld;
+    private WorldGenerator oreHexoriumNetherOreRed;
+    private WorldGenerator oreHexoriumNetherOreGreen;
+    private WorldGenerator oreHexoriumNetherOreBlue;
+    private WorldGenerator oreHexoriumNetherOreWhite;
+    private WorldGenerator oreHexoriumNetherOreBlack;
+
+    private WorldGenerator oreHexoriumNetherMonolithRed;
+    private WorldGenerator oreHexoriumNetherMonolithGreen;
+    private WorldGenerator oreHexoriumNetherMonolithBlue;
+    private WorldGenerator oreHexoriumNetherMonolithWhite;
+    private WorldGenerator oreHexoriumNetherMonolithBlack;
 
     /** Overworld */
-    private WorldGenerator oreHexoriumOreRedOverworld;
-    private WorldGenerator oreHexoriumOreGreenOverworld;
-    private WorldGenerator oreHexoriumOreBlueOverworld;
-    private WorldGenerator oreHexoriumOreWhiteOverworld;
-    private WorldGenerator oreHexoriumOreBlackOverworld;
+    private WorldGenerator oreHexoriumOreRed;
+    private WorldGenerator oreHexoriumOreGreen;
+    private WorldGenerator oreHexoriumOreBlue;
+    private WorldGenerator oreHexoriumOreWhite;
+    private WorldGenerator oreHexoriumOreBlack;
+    
+    private WorldGenerator oreHexoriumMonolithRed;
+    private WorldGenerator oreHexoriumMonolithGreen;
+    private WorldGenerator oreHexoriumMonolithBlue;
+    private WorldGenerator oreHexoriumMonolithWhite;
+    private WorldGenerator oreHexoriumMonolithBlack;
 
     /**
      * Constructor for the class.
      */
     public HexWorldGen() {
         /**
-         * Numbers control the number of ores per vein.
+         * Numbers in vein spawning control the number of ores per vein.
          * First number: Minimum ore blocks.
          * Second number: Maximum ore blocks.
+         * Numbers in monolith spawning control the number of ores per vein.
+         * First number: Minimum height.
+         * Second number: Maximum height.
+         * Third number: Chance to spawn a monolith, 0-100.
          */
 
         /** Nether */
-        oreHexoriumNetherOreRedOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreGreenOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreWhiteOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 2, 6);
-        oreHexoriumNetherOreBlackOverworld = new HexOreGen(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 2, 6);
+        oreHexoriumNetherOreRed = new HexGenOre(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 1, 3);
+        oreHexoriumNetherOreGreen = new HexGenOre(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 1, 3);
+        oreHexoriumNetherOreBlue = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 3);
+        oreHexoriumNetherOreWhite = new HexGenOre(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 2, 6);
+        oreHexoriumNetherOreBlack = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 2, 6);
+
+        oreHexoriumNetherMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithRed, Blocks.netherrack, 0, 128, 10);
+        oreHexoriumNetherMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithGreen, Blocks.netherrack, 0, 128, 10);
+        oreHexoriumNetherMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlue, Blocks.netherrack, 0, 128, 10);
+        oreHexoriumNetherMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithWhite, Blocks.netherrack, 0, 128, 50);
+        oreHexoriumNetherMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlack, Blocks.netherrack, 0, 128, 50);
 
         /** Overworld */
-        oreHexoriumOreRedOverworld = new HexOreGen(HexBlocks.blockHexoriumOreRed, Blocks.stone, 2, 6);
-        oreHexoriumOreGreenOverworld = new HexOreGen(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 2, 6);
-        oreHexoriumOreBlueOverworld = new HexOreGen(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 2, 6);
-        oreHexoriumOreWhiteOverworld = new HexOreGen(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 1, 3);
-        oreHexoriumOreBlackOverworld = new HexOreGen(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 1);
+        oreHexoriumOreRed = new HexGenOre(HexBlocks.blockHexoriumOreRed, Blocks.stone, 2, 6);
+        oreHexoriumOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 2, 6);
+        oreHexoriumOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 2, 6);
+        oreHexoriumOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 1, 3);
+        oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 1);
+        
+        oreHexoriumMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone, 0, 60, 100);
+        oreHexoriumMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone, 0, 60, 100);
+        oreHexoriumMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlue, Blocks.stone, 0, 60, 100);
+        oreHexoriumMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumMonolithWhite, Blocks.stone, 0, 20, 10);
+        oreHexoriumMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlack, Blocks.stone, 0, 20, 10);
     }
 
     /**
@@ -69,20 +97,32 @@ public class HexWorldGen implements IWorldGenerator {
 
             /** Nether */
             case -1:
-                runGenerator(oreHexoriumNetherOreRedOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreGreenOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreBlueOverworld, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreWhiteOverworld, world, random, chunkX, chunkZ, 10, 0, 128);
-                runGenerator(oreHexoriumNetherOreBlackOverworld, world, random, chunkX, chunkZ, 10, 0, 128);
+                runGenerator(oreHexoriumNetherOreRed, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreGreen, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreBlue, world, random, chunkX, chunkZ, 5, 0, 128);
+                runGenerator(oreHexoriumNetherOreWhite, world, random, chunkX, chunkZ, 10, 0, 128);
+                runGenerator(oreHexoriumNetherOreBlack, world, random, chunkX, chunkZ, 10, 0, 128);
+
+                runGenerator(oreHexoriumNetherMonolithRed, world, random, chunkX, chunkZ, 1, 0, 128);
+                runGenerator(oreHexoriumNetherMonolithGreen, world, random, chunkX, chunkZ, 1, 0, 128);
+                runGenerator(oreHexoriumNetherMonolithBlue, world, random, chunkX, chunkZ, 1, 0, 128);
+                runGenerator(oreHexoriumNetherMonolithWhite, world, random, chunkX, chunkZ, 1, 0, 128);
+                runGenerator(oreHexoriumNetherMonolithBlack, world, random, chunkX, chunkZ, 1, 0, 128);
                 break;
 
             /** Overworld */
             case 0:
-                runGenerator(oreHexoriumOreRedOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreGreenOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreBlueOverworld, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreWhiteOverworld, world, random, chunkX, chunkZ, 5, 0, 20);
-                runGenerator(oreHexoriumOreBlackOverworld, world, random, chunkX, chunkZ, 5, 0, 20);
+                runGenerator(oreHexoriumOreRed, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreGreen, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreBlue, world, random, chunkX, chunkZ, 10, 0, 64);
+                runGenerator(oreHexoriumOreWhite, world, random, chunkX, chunkZ, 5, 0, 20);
+                runGenerator(oreHexoriumOreBlack, world, random, chunkX, chunkZ, 5, 0, 20);
+
+                runGenerator(oreHexoriumMonolithRed, world, random, chunkX, chunkZ, 1, 0, 60);
+                runGenerator(oreHexoriumMonolithGreen, world, random, chunkX, chunkZ, 1, 0, 60);
+                runGenerator(oreHexoriumMonolithBlue, world, random, chunkX, chunkZ, 1, 0, 60);
+                runGenerator(oreHexoriumMonolithWhite, world, random, chunkX, chunkZ, 1, 0, 20);
+                runGenerator(oreHexoriumMonolithBlack, world, random, chunkX, chunkZ, 1, 0, 20);
                 break;
 
             /** End */

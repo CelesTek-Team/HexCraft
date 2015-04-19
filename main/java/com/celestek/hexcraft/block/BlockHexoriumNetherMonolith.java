@@ -7,13 +7,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
@@ -23,108 +23,68 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @since 2015-04-14
  */
 
-public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
+public class BlockHexoriumNetherMonolith extends HexBlockModel {
 
     /* Set default block name. */
-    public static String UNLOCALISEDNAME = "blockEnergizedHexoriumMonolith";
+    public static String UNLOCALISEDNAME = "blockHexoriumNetherMonolith";
 
     /* Used later for texture identification. */
     private String blockName;
+
+    /** Used for drop rates. */
+    private int hexoriumDropMin;
+    private int hexoriumDropMax;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockEnergizedHexoriumMonolith(String blockName) {
+    public BlockHexoriumNetherMonolith(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
         super(Material.glass);
 
         this.blockName = blockName;
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
-        this.setHardness(0.3F);
-        //this.setHarvestLevel("pickaxe", 0);
+        this.setHardness(3F);
+        this.setHarvestLevel("pickaxe", 2);
         this.setStepSound(Block.soundTypeGlass);
+
+        this.hexoriumDropMin = hexoriumDropMin;
+        this.hexoriumDropMax = hexoriumDropMax;
     }
 
+    /**
+     * Sets up Hexorium Crystal drops dropping.
+     */
     @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-
-        if(blockName.equals(UNLOCALISEDNAME + "Red")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Orange")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Yellow")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Lime")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Green")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Turquoise")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Cyan")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "SkyBlue")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Blue")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Purple")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Magenta")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Pink")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-        }
-
-        else if(blockName.equals(UNLOCALISEDNAME + "White")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "LightGray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Gray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "DarkGray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Black")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-        }
-
-        else if(blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
-        }
-
-        return drops;
+    public Item getItemDropped(int metadata, Random random, int fortune) {
+        if(blockName.equals(UNLOCALISEDNAME + "Red"))
+            return HexItems.itemHexoriumCrystalRed;
+        else if(blockName.equals(UNLOCALISEDNAME + "Green"))
+            return HexItems.itemHexoriumCrystalGreen;
+        else if(blockName.equals(UNLOCALISEDNAME + "Blue"))
+            return HexItems.itemHexoriumCrystalBlue;
+        else if(blockName.equals(UNLOCALISEDNAME + "White"))
+            return HexItems.itemHexoriumCrystalWhite;
+        else if(blockName.equals(UNLOCALISEDNAME + "Black"))
+            return HexItems.itemHexoriumCrystalBlack;
+        else
+            return HexItems.itemHexoriumCrystalWhite;
     }
-    
+
+    /**
+     * Sets quantity of items to drop.
+     */
+    @Override
+    public int quantityDropped(Random random)
+    {
+        /** If max and min drop rates are identical, drop only one value, otherwise, do a random calculation. */
+        if(hexoriumDropMin == hexoriumDropMax)
+            return hexoriumDropMin;
+        else
+            return hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
+    }
+
     /**
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
      */
@@ -230,13 +190,11 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        icon = new IIcon[7];
+        icon = new IIcon[8];
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
-        else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
+        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
     }
 
     /**

@@ -71,6 +71,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
@@ -88,11 +89,48 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
+
+        /* Hexorium Monolith */
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+
+        /* Hexorium Nether Monolith */
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
 
         /* Energized Hexorium */
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
@@ -268,62 +306,62 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB));
 
-        /* Recombined Hexorium Block */
+        /* Energized Hexorium Monolith */
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorOrangeR, HexColors.colorOrangeG, HexColors.colorOrangeB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorOrangeR, HexColors.colorOrangeG, HexColors.colorOrangeB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorYellowR, HexColors.colorYellowG, HexColors.colorYellowB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorYellowR, HexColors.colorYellowG, HexColors.colorYellowB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorLimeR, HexColors.colorLimeG, HexColors.colorLimeB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorLimeR, HexColors.colorLimeG, HexColors.colorLimeB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorTurquoiseR, HexColors.colorTurquoiseG, HexColors.colorTurquoiseB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorTurquoiseR, HexColors.colorTurquoiseG, HexColors.colorTurquoiseB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorCyanR, HexColors.colorCyanG, HexColors.colorCyanB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorCyanR, HexColors.colorCyanG, HexColors.colorCyanB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorSkyBlueR, HexColors.colorSkyBlueG, HexColors.colorSkyBlueB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorSkyBlueR, HexColors.colorSkyBlueG, HexColors.colorSkyBlueB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorBlueR, HexColors.colorBlueG, HexColors.colorBlueB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorBlueR, HexColors.colorBlueG, HexColors.colorBlueB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorPurpleR, HexColors.colorPurpleG, HexColors.colorPurpleB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorPurpleR, HexColors.colorPurpleG, HexColors.colorPurpleB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorMagentaR, HexColors.colorMagentaG, HexColors.colorMagentaB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorMagentaR, HexColors.colorMagentaG, HexColors.colorMagentaB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorPinkR, HexColors.colorPinkG, HexColors.colorPinkB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorPinkR, HexColors.colorPinkG, HexColors.colorPinkB, false));
 
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorLightGrayR, HexColors.colorLightGrayG, HexColors.colorLightGrayB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorLightGrayR, HexColors.colorLightGrayG, HexColors.colorLightGrayB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorDarkGrayR, HexColors.colorDarkGrayG, HexColors.colorDarkGrayB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorDarkGrayR, HexColors.colorDarkGrayG, HexColors.colorDarkGrayB, false));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorBlackR, HexColors.colorBlackG, HexColors.colorBlackB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorBlackR, HexColors.colorBlackG, HexColors.colorBlackB, false));
 
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB));
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
     }
 }
