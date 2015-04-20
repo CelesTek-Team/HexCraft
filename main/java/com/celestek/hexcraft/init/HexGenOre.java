@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class HexGenOre extends WorldGenerator {
 
+    // Used later for generation.
     private Block block;
     private int blockmeta;
     private Block target;
@@ -28,6 +29,7 @@ public class HexGenOre extends WorldGenerator {
     public HexGenOre(Block block, Block replace, int sizeMin, int sizeMax) {
         this(block, replace);
 
+        // Load the constructor parameters.
         this.sizeMin = sizeMin;
         this.sizeMax = sizeMax;
     }
@@ -47,7 +49,7 @@ public class HexGenOre extends WorldGenerator {
      */
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-        /** Prepare the random vein size variable. If min and max values are same, use only one value, otherwise use random. */
+        // Prepare the random vein size variable. If min and max values are same, use only one value, otherwise use random.
         int genSize;
         if(sizeMin == sizeMax)
             genSize = sizeMax;
@@ -56,14 +58,14 @@ public class HexGenOre extends WorldGenerator {
 
         // System.out.println("sizeMin: " + sizeMin + "sizeMax: " + sizeMax + " Generating size: " + genSize);
 
-        /** Generate the first vein block. */
+        // Generate the first vein block.
         if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
             world.setBlock(x, y, z, block, blockmeta, 2);
 
-        /** Loop the count of additional blocks. */
+        // Loop the count of additional blocks.
         for(int i = 0; i < genSize - 1; i++)
         {
-            /** Create a random direction, then perform a move. If the new block is air, move 2 blocks backwards. */
+            // Create a random direction, then perform a move. If the new block is air, move 2 blocks backwards.
             int genDirection = random.nextInt(6);
             switch (genDirection) {
                 case 0:
@@ -97,7 +99,7 @@ public class HexGenOre extends WorldGenerator {
                         z = z - 2;
                     break;
             }
-            /** Generate a vein block. */
+            // Generate a vein block.
             if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
                 world.setBlock(x, y, z, block, blockmeta, 2);
         }

@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
  */
 public class HexItems {
 
-    /* Hexorium Crystal */
+    // Hexorium Crystal
     public static Item itemHexoriumCrystalRed;
     public static Item itemHexoriumCrystalGreen;
     public static Item itemHexoriumCrystalBlue;
@@ -23,7 +23,7 @@ public class HexItems {
      */
     public static void initializeItems()
     {
-        /* Hexorium Crystal */
+        // Hexorium Crystal
         itemHexoriumCrystalRed = new HexItem("itemHexoriumCrystalRed");
         GameRegistry.registerItem(itemHexoriumCrystalRed, "itemHexoriumCrystalRed");
         itemHexoriumCrystalGreen = new HexItem("itemHexoriumCrystalGreen");

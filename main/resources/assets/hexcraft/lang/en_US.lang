@@ -7,12 +7,25 @@ tile.blockHexoriumNetherOreBlue.name=Blue Hexorium Nether Ore
 tile.blockHexoriumNetherOreWhite.name=White Hexorium Nether Ore
 tile.blockHexoriumNetherOreBlack.name=Black Hexorium Nether Ore
 
-
 tile.blockHexoriumOreRed.name=Red Hexorium Ore
 tile.blockHexoriumOreGreen.name=Green Hexorium Ore
 tile.blockHexoriumOreBlue.name=Blue Hexorium Ore
 tile.blockHexoriumOreWhite.name=White Hexorium Ore
 tile.blockHexoriumOreBlack.name=Black Hexorium Ore
+
+
+tile.blockHexoriumNetherMonolithRed.name=Red Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithGreen.name=Green Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithBlue.name=Blue Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithWhite.name=White Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithBlack.name=Black Hexorium Nether Monolith
+
+tile.blockHexoriumMonolithRed.name=Red Hexorium Monolith
+tile.blockHexoriumMonolithGreen.name=Green Hexorium Monolith
+tile.blockHexoriumMonolithBlue.name=Blue Hexorium Monolith
+tile.blockHexoriumMonolithWhite.name=White Hexorium Monolith
+tile.blockHexoriumMonolithBlack.name=Black Hexorium Monolith
+
 
 tile.blockOfHexoriumCrystalRed.name=Block of Red Hexorium Crystal
 tile.blockOfHexoriumCrystalGreen.name=Block of Green Hexorium Crystal

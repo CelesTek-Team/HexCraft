@@ -19,10 +19,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class HexClientProxy extends HexCommonProxy {
 
-    /* Minecraft's internal ID of a certain block. Length controlled in HexBlocks. */
+    // Minecraft's internal ID of a certain block. Length controlled in HexBlocks.
     public static int renderID[] = new int[HexBlocks.countBlocks];
 
-    /* Render pass for every block. Length controlled in HexBlocks. */
+    // Render pass for every block. Length controlled in HexBlocks.
     public static int renderPass[] = new int[HexBlocks.countBlocks];
 
     /**
@@ -32,7 +32,7 @@ public class HexClientProxy extends HexCommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
 
-        /* Set up custom rendering. */
+        // Set up custom rendering.
         setCustomRenderers();
     }
 
@@ -57,10 +57,10 @@ public class HexClientProxy extends HexCommonProxy {
      */
     public static void setCustomRenderers()
     {
-        /* Prepare HexCraft's block ID counter. */
+        // Prepare HexCraft's block ID counter.
         HexCraft.idCounter = 0;
 
-        /* Hexorium Nether Ore */
+        // Hexorium Nether Ore
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, false));
@@ -78,7 +78,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, false));
 
-        /* Hexorium Ore */
+        // Hexorium Ore
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, false));
@@ -96,7 +96,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, false));
 
-        /* Hexorium Monolith */
+        // Hexorium Monolith
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
@@ -114,7 +114,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
 
-        /* Hexorium Nether Monolith */
+        // Hexorium Nether Monolith
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
@@ -132,7 +132,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorGrayR, HexColors.colorGrayR, HexColors.colorGrayR, true));
 
-        /* Energized Hexorium */
+        // Energized Hexorium
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, true));
@@ -150,7 +150,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, true));
 
-        /* Energized Hexorium */
+        // Energized Hexorium
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, false));
@@ -208,7 +208,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
 
-        /* Engineered Hexorium Block */
+        // Engineered Hexorium Block
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, false));
@@ -266,7 +266,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
 
-        /* Framed Hexorium Block */
+        // Framed Hexorium Block
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, false));
@@ -324,7 +324,7 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
 
-        /* Energized Hexorium Monolith */
+        // Energized Hexorium Monolith
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, false));

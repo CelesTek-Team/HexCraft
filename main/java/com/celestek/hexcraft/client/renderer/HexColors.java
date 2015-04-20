@@ -7,7 +7,7 @@ package com.celestek.hexcraft.client.renderer;
  */
 public class HexColors {
 
-    /** Colors */
+    // Colors
 
     public static float colorRedR = 1F;
     public static float colorRedG = 0F;
@@ -57,7 +57,7 @@ public class HexColors {
     public static float colorPinkG = 0F;
     public static float colorPinkB = 0.5F;
 
-    /** Grayscale */
+    // Grayscale
 
     public static float colorWhiteR = 1F;
     public static float colorWhiteG = 1F;
@@ -79,11 +79,11 @@ public class HexColors {
     public static float colorBlackG = 0.10F;
     public static float colorBlackB = 0.10F;
 
-    /** Brightness */
+    // Brightness
 
     public static int brightnessBright = 0x00F000F0;
 
-    /** Opacity */
+    // Opacity
 
     public static float opacitySlight = 0.75F;
     public static float opacityOpaque = 1F;

@@ -7,8 +7,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -27,51 +29,63 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockHexoriumMonolith extends HexBlockModel {
 
-    /* Set default block name. */
+    // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumMonolith";
 
-    /* Used later for texture identification. */
+    // Used later for texture identification.
     private String blockName;
 
-    /** Used for drop rates. */
+    // Used for drop rates.
     private int hexoriumDropMin;
     private int hexoriumDropMax;
+
+    // Used for tool enchants.
+    private int fortune = 0;
+    private boolean silk = false;
+    private Item dropItem;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param hexoriumDropMin Minimum amount of Hexorium Crystals dropped.
+     * @param hexoriumDropMax Maximum amount of Hexorium Crystals dropped.
      */
     public BlockHexoriumMonolith(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
         super(Material.glass);
 
+        // Load the constructor parameters.
         this.blockName = blockName;
+        this.hexoriumDropMin = hexoriumDropMin;
+        this.hexoriumDropMax = hexoriumDropMax;
+
+        // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(3F);
-        this.setHarvestLevel("pickaxe", 2);
         this.setStepSound(Block.soundTypeGlass);
-
-        this.hexoriumDropMin = hexoriumDropMin;
-        this.hexoriumDropMax = hexoriumDropMax;
+        this.setHarvestLevel("pickaxe", 2);
     }
 
     /**
-     * Sets up Hexorium Crystal drops dropping.
+     * Checks if the player harvesting the monolith has Silk Touch enchant and/or Fortune enchant.
      */
     @Override
-    public Item getItemDropped(int metadata, Random random, int fortune) {
-        if(blockName.equals(UNLOCALISEDNAME + "Red"))
-            return HexItems.itemHexoriumCrystalRed;
-        else if(blockName.equals(UNLOCALISEDNAME + "Green"))
-            return HexItems.itemHexoriumCrystalGreen;
-        else if(blockName.equals(UNLOCALISEDNAME + "Blue"))
-            return HexItems.itemHexoriumCrystalBlue;
-        else if(blockName.equals(UNLOCALISEDNAME + "White"))
-            return HexItems.itemHexoriumCrystalWhite;
-        else if(blockName.equals(UNLOCALISEDNAME + "Black"))
-            return HexItems.itemHexoriumCrystalBlack;
-        else
-            return HexItems.itemHexoriumCrystalWhite;
+    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
+        // Prepare a list of all enchants.
+        NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
+        // If the list is not empty...
+        if(list != null)
+            // Go through all entries.
+            for(int i = 0; i < list.tagCount(); i++) {
+                // If Silk Touch (id 33) is found, set it to true.
+                if (list.getCompoundTagAt(i).getByte("id") == 33) {
+                    silk = true;
+                    dropItem = this.getItem(world, x, y, z);
+                }
+                // If Fortune (id 35) is found, set the level value.
+                if (list.getCompoundTagAt(i).getByte("id") == 35)
+                    fortune = list.getCompoundTagAt(i).getByte("lvl");
+            }
     }
 
     /**
@@ -80,59 +94,109 @@ public class BlockHexoriumMonolith extends HexBlockModel {
     @Override
     public int quantityDropped(Random random)
     {
-        /** If max and min drop rates are identical, drop only one value, otherwise, do a random calculation. */
-        if(hexoriumDropMin == hexoriumDropMax)
-            return hexoriumDropMin;
+        // Check if Silk Touch should be used. If not...
+        if(!silk) {
+            // Prepare the fortune extra drop count.
+            int fortuneDrop = 0;
+
+            // Set the according fortune extra drop count.
+            if (fortune == 1)
+                fortuneDrop = 2;
+            else if (fortune == 2)
+                fortuneDrop = 4;
+            else if (fortune == 3)
+                fortuneDrop = 8;
+
+            // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
+            if (hexoriumDropMin == hexoriumDropMax)
+                return hexoriumDropMin;
+            else
+                return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
+        }
         else
-            return hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
+            // Return only 1 block (because of Silk Touch).
+            return 1;
     }
 
     /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     * Sets up items to drop. Fired the number of times dictated by quantityDropped.
+     */
+    @Override
+    public Item getItemDropped(int metadata, Random random, int fortune) {
+        // Check if Silk Touch should be used. If not...
+        if(!silk) {
+            // Return the according crystal color.
+            if (blockName.equals(UNLOCALISEDNAME + "Red"))
+                return HexItems.itemHexoriumCrystalRed;
+            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+                return HexItems.itemHexoriumCrystalGreen;
+            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+                return HexItems.itemHexoriumCrystalBlue;
+            else if (blockName.equals(UNLOCALISEDNAME + "White"))
+                return HexItems.itemHexoriumCrystalWhite;
+            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+                return HexItems.itemHexoriumCrystalBlack;
+            else
+                return HexItems.itemHexoriumCrystalWhite;
+        }
+        else
+            // Return the block (because of Silk Touch).
+            return dropItem;
+    }
+
+    /**
+     * Called when a block is placed using its ItemBlock.
      */
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
-        int available = -1;
+        // Reset the fortune and silk touch parameters.
+        fortune = 0;
+        silk = false;
 
+        // Prepare the orientation.
+        int orientation = -1;
+
+        // First check if the side it was placed on can accept it. If it can, place it there.
         if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN)) 
-            available = side;
+            orientation = side;
         else if (side == 1 && world.isSideSolid(x, y - 1, z, UP)) 
-            available = side;
+            orientation = side;
         else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH)) 
-            available = side;
+            orientation = side;
         else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH)) 
-            available = side;
+            orientation = side;
         else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST)) 
-            available = side;
+            orientation = side;
         else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST)) 
-            available = side;
+            orientation = side;
+        // If the side it was placed on cannot accept it, place it on closest possible other side.
         else {
             if (world.isSideSolid(x, y - 1, z, UP)) 
-                available = 1;
+                orientation = 1;
             else if (world.isSideSolid(x, y, z + 1, NORTH)) 
-                available = 2;
+                orientation = 2;
             else if (world.isSideSolid(x - 1, y, z, EAST)) 
-                available = 5;
+                orientation = 5;
             else if (world.isSideSolid(x, y, z - 1, SOUTH)) 
-                available = 3;
+                orientation = 3;
             else if (world.isSideSolid(x + 1, y, z, WEST)) 
-                available = 4;
+                orientation = 4;
             else if (world.isSideSolid(x, y + 1, z, DOWN)) 
-                available = 0;
+                orientation = 0;
         }
 
-        return available;
+        // Return the new orientation as meta.
+        return orientation;
     }
 
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return false;
-    }
-
+    /**
+     * Called when a player tries to place the monolith.
+     */
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z)
     {
+        // Check if any of the sides around the block are solid, if yes, it means it can be placed.
         return (world.isSideSolid(x, y - 1, z, UP)) ||
                 (world.isSideSolid(x, y + 1, z, DOWN)) ||
                 (world.isSideSolid(x, y, z + 1, NORTH)) ||
@@ -141,9 +205,13 @@ public class BlockHexoriumMonolith extends HexBlockModel {
                 (world.isSideSolid(x - 1, y, z, EAST));
     }
 
+    /**
+     * Called when a block near is changed.
+     */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
     {
+        // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
         if(world.getBlockMetadata(x, y, z) == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
@@ -182,7 +250,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         }
     }
 
-    /* Prepare the icons. */
+    // Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 
@@ -192,10 +260,14 @@ public class BlockHexoriumMonolith extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
         icon = new IIcon[8];
+        // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        // Load the monolith texture.
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
+        // Load the stone texture.
         icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
     }
 
@@ -204,7 +276,8 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int par1, int par2) {
-        return icon[par1];
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
     }
 }

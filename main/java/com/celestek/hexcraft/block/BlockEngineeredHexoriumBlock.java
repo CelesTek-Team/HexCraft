@@ -16,10 +16,10 @@ import net.minecraft.util.IIcon;
 
 public class BlockEngineeredHexoriumBlock extends HexBlock {
 
-    /* Set default block name. */
+    // Set default block name.
     public static String UNLOCALISEDNAME = "blockEngineeredHexoriumBlock";
 
-    /* Used later for texture identification. */
+    // Used later for texture identification.
     private String blockName;
 
     /**
@@ -29,15 +29,18 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
     public BlockEngineeredHexoriumBlock(String blockName) {
         super(Material.rock);
 
+        // Load the constructor parameters.
         this.blockName = blockName;
+
+        // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(1.5F);
-        this.setHarvestLevel("pickaxe", 0);
         this.setStepSound(Block.soundTypeStone);
+        this.setHarvestLevel("pickaxe", 0);
     }
 
-    /* Prepare the icons. */
+    // Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 
@@ -47,9 +50,12 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
         icon = new IIcon[7];
+        // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        // Load the inner texture. Use special texture if it is a rainbow.
         if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
@@ -61,7 +67,8 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int par1, int par2) {
-        return icon[par1];
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
     }
 }

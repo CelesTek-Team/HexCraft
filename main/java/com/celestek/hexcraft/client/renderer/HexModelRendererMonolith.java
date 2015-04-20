@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL12;
 
 public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
 
-    /** Variables */
+    // Variables
     private int renderID;
     private int renderBlockID;
     private int brightness;
@@ -30,6 +30,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private float b = 1F;
     private boolean renderStone;
 
+    // Model constants.    
     private float yMin = 0F;
     private float yMax = 0.75F;
 
@@ -78,9 +79,10 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
      */
     public HexModelRendererMonolith(int renderID, int brightness, float opacity, float r, float g, float b, boolean renderStone)
     {
-        /** Save the current HexCraft block ID. */
+        // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
+        // Load the constructor parameters.
         this.renderID = renderID;
         this.brightness = brightness;
         this.opacity = opacity;
@@ -89,7 +91,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         this.b = b;
         this.renderStone = renderStone;
 
-        /* Increment block counter in HexCraft class. */
+        // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
     }
 
@@ -99,23 +101,23 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        /** Prepare the Tessellator */
+        // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
 
-        /** Set up brightness and color. */
+        // Set up brightness and color.
         tessellator.setBrightness(brightness);
         tessellator.setColorRGBA_F(r, g, b, opacity);
 
-        /** Prepare the icon */
+        // Prepare the icon.
         IIcon c = block.getIcon(6, 0);
         double u = c.getInterpolatedU(sideu);
         double U = c.getInterpolatedU(sideU);
         double v = c.getInterpolatedV(sidev);
         double V = c.getInterpolatedV(sideV);
 
-        /** Top Face */
+        // Top Face
         tessellator.setNormal(xB, yMax, zB);
         tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
         tessellator.addVertexWithUV(xC, yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -127,7 +129,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(xE, yMax, zE, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
         tessellator.addVertexWithUV(xF, yMax, zF, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
 
-        /** Side Faces */
+        // Side Faces
         tessellator.addVertexWithUV(xF, yMax, zF, u, v); // F
         tessellator.addVertexWithUV(xE, yMax, zE, U, v); // E
         tessellator.addVertexWithUV(xE, yMin, zE, U, V); // E'
@@ -158,20 +160,21 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(xF, yMin, zF, U, V); // F'
         tessellator.addVertexWithUV(xA, yMin, zA, u, V); // A'
 
+        // If the stone texture should be rendered...
         if(renderStone)
         {
-            /** Set up brightness and color. */
+            // Set up brightness and color.
             tessellator.setBrightness(HexColors.brightnessBright);
             tessellator.setColorOpaque_F(1, 1, 1);
 
-            /** Prepare the icon */
+            // Prepare the icon.
             c = block.getIcon(7, 0);
             u = c.getInterpolatedU(sideu);
             U = c.getInterpolatedU(sideU);
             v = c.getInterpolatedV(sidev);
             V = c.getInterpolatedV(sideV);
 
-            /** Side Faces */
+            // Side Faces
             tessellator.addVertexWithUV(xF - off, yMax, zF - off, u, v); // F
             tessellator.addVertexWithUV(xE + off, yMax, zE - off, U, v); // E
             tessellator.addVertexWithUV(xE + off, yMin, zE - off, U, V); // E'
@@ -203,26 +206,9 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
             tessellator.addVertexWithUV(xA - off, yMin, zA      , u, V); // A'
         }
 
+        // Finish drawing.
         tessellator.draw();
         tessellator.addTranslation(0.5F, 0.5F, 0.5F);
-    }
-
-    /**
-     * Retrieves Minecraft's internal ID of a certain block.
-     */
-    @Override
-    public int getRenderId()
-    {
-        return renderID;
-    }
-
-    /**
-     * Makes the block render 3D in invenotry.
-     */
-    @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
-        return true;
     }
 
     /**
@@ -231,31 +217,32 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        /** Fetch block data. */
+        // Fetch block data.
         int meta = world.getBlockMetadata(x, y, z);
 
-        /** Prepare the Tessellator */
+        // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
 
-        /** Check if this is the first (opaque) render pass, if it is... */
+        // Check if this is the second (transparent) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 1) {
 
-            /** More tessellator preparation. */
+            // More tessellator preparation.
             tessellator.addTranslation(x, y, z);
 
-            /** Set up brightness and color. */
+            // Set up brightness and color.
             tessellator.setBrightness(brightness);
             tessellator.setColorRGBA_F(r, g, b, opacity);
 
-            /** Prepare the icon */
+            // Prepare the icon.
             IIcon c = block.getIcon(6, 0);
             double u = c.getInterpolatedU(sideu);
             double U = c.getInterpolatedU(sideU);
             double v = c.getInterpolatedV(sidev);
             double V = c.getInterpolatedV(sideV);
 
+            // Use the block meta to rotate the model.
             if(meta == 0) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(xA, 1-yMax, zA, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
                 tessellator.addVertexWithUV(xD, 1-yMax, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(xC, 1-yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -266,7 +253,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xD, 1-yMax, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(xA, 1-yMax, zA, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(xF, 1-yMin, zF, u, V); // F'
                 tessellator.addVertexWithUV(xE, 1-yMin, zE, U, V); // E'
                 tessellator.addVertexWithUV(xE, 1-yMax, zE, U, v); // E
@@ -298,7 +285,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xA, 1-yMax, zA, u, v); // A
             }
             else if(meta == 1) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
                 tessellator.addVertexWithUV(xC, yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
                 tessellator.addVertexWithUV(xD, yMax, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
@@ -309,7 +296,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xE, yMax, zE, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
                 tessellator.addVertexWithUV(xF, yMax, zF, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(xF, yMax, zF, u, v); // F
                 tessellator.addVertexWithUV(xE, yMax, zE, U, v); // E
                 tessellator.addVertexWithUV(xE, yMin, zE, U, V); // E'
@@ -341,7 +328,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xA, yMin, zA, u, V); // A'
             }
             else if(meta == 2) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(xB, zB, 1-yMax, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
                 tessellator.addVertexWithUV(xC, zC, 1-yMax, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
                 tessellator.addVertexWithUV(xD, zD, 1-yMax, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
@@ -352,7 +339,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xE, zE, 1-yMax, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
                 tessellator.addVertexWithUV(xF, zF, 1-yMax, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(xF, zF, 1-yMax, u, v); // F
                 tessellator.addVertexWithUV(xE, zE, 1-yMax, U, v); // E
                 tessellator.addVertexWithUV(xE, zE, 1-yMin, U, V); // E'
@@ -384,7 +371,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xA, zA, 1-yMin, u, V); // A'
             }
             else if(meta == 3) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(xA, zA, yMax, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
                 tessellator.addVertexWithUV(xD, zD, yMax, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(xC, zC, yMax, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -395,7 +382,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xD, zD, yMax, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(xA, zA, yMax, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(xF, zF, yMin, u, V); // F'
                 tessellator.addVertexWithUV(xE, zE, yMin, U, V); // E'
                 tessellator.addVertexWithUV(xE, zE, yMax, U, v); // E
@@ -427,7 +414,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xA, zA, yMax, u, v); // A
             }
             else if(meta == 4) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(1-yMax, xB, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
                 tessellator.addVertexWithUV(1-yMax, xC, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
                 tessellator.addVertexWithUV(1-yMax, xD, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
@@ -438,7 +425,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1-yMax, xE, zE, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
                 tessellator.addVertexWithUV(1-yMax, xF, zF, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(1-yMax, xF, zF, u, v); // F
                 tessellator.addVertexWithUV(1-yMax, xE, zE, U, v); // E
                 tessellator.addVertexWithUV(1-yMin, xE, zE, U, V); // E'
@@ -470,7 +457,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1-yMin, xA, zA, u, V); // A'
             }
             else if(meta == 5) {
-                /** Top Face */
+                // Top Face
                 tessellator.addVertexWithUV(yMax, xA, zA, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
                 tessellator.addVertexWithUV(yMax, xD, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(yMax, xC, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -481,7 +468,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(yMax, xD, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
                 tessellator.addVertexWithUV(yMax, xA, zA, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
 
-                /** Side Faces */
+                // Side Faces
                 tessellator.addVertexWithUV(yMin, xF, zF, u, V); // F'
                 tessellator.addVertexWithUV(yMin, xE, zE, U, V); // E'
                 tessellator.addVertexWithUV(yMax, xE, zE, U, v); // E
@@ -513,21 +500,23 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(yMax, xA, zA, u, v); // A
             }
 
+            // If the stone texture should be rendered...
             if(renderStone)
             {
-                /** Set up brightness and color. */
+                // Set up brightness and color.
                 tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
                 tessellator.setColorOpaque_F(1, 1, 1);
 
-                /** Prepare the icon */
+                // Prepare the icon.
                 c = block.getIcon(7, 0);
                 u = c.getInterpolatedU(sideu);
                 U = c.getInterpolatedU(sideU);
                 v = c.getInterpolatedV(sidev);
                 V = c.getInterpolatedV(sideV);
 
+                // Use the block meta to rotate the model.
                 if(meta == 0) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(xF - off, 1-yMin, zF - off, u, V); // F'
                     tessellator.addVertexWithUV(xE + off, 1-yMin, zE - off, U, V); // E'
                     tessellator.addVertexWithUV(xE + off, 1-yMax, zE - off, U, v); // E
@@ -559,7 +548,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xA - off, 1-yMax, zA      , u, v); // A
                 }
                 else if(meta == 1) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(xF - off, yMax, zF - off, u, v); // F
                     tessellator.addVertexWithUV(xE + off, yMax, zE - off, U, v); // E
                     tessellator.addVertexWithUV(xE + off, yMin, zE - off, U, V); // E'
@@ -591,7 +580,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xA - off, yMin, zA      , u, V); // A'
                 }
                 else if(meta == 2) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(xF - off, zF - off, 1-yMax, u, v); // F
                     tessellator.addVertexWithUV(xE + off, zE - off, 1-yMax, U, v); // E
                     tessellator.addVertexWithUV(xE + off, zE - off, 1-yMin, U, V); // E'
@@ -623,7 +612,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xA - off, zA      , 1-yMin, u, V); // A'
                 }
                 else if(meta == 3) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(xF - off, zF - off, yMin, u, V); // F'
                     tessellator.addVertexWithUV(xE + off, zE - off, yMin, U, V); // E'
                     tessellator.addVertexWithUV(xE + off, zE - off, yMax, U, v); // E
@@ -655,7 +644,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xA - off, zA      , yMax, u, v); // A
                 }
                 else if(meta == 4) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(1-yMax, xF - off, zF - off, u, v); // F
                     tessellator.addVertexWithUV(1-yMax, xE + off, zE - off, U, v); // E
                     tessellator.addVertexWithUV(1-yMin, xE + off, zE - off, U, V); // E'
@@ -687,7 +676,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1-yMin, xA - off, zA      , u, V); // A'
                 }
                 else if(meta == 5) {
-                    /** Side Faces */
+                    // Side Faces
                     tessellator.addVertexWithUV(yMin, xF - off, zF - off, u, V); // F'
                     tessellator.addVertexWithUV(yMin, xE + off, zE - off, U, V); // E'
                     tessellator.addVertexWithUV(yMax, xE + off, zE - off, U, v); // E
@@ -721,19 +710,34 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
             }
 
             tessellator.addTranslation(-x, -y, -z);
-
-            /** Draw the outer layer of the block. */
-            //renderer.renderStandardBlock(block, x, y, z);
         }
-        /** If this is the second (transparent) render pass... */
+        // If this is the first (opaque) render pass...
         else {
-            /** If Tessellator doesn't do anything, it will crash, so let's make a dummy quad. */
+            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
         }
 
+        return true;
+    }
+
+    /**
+     * Retrieves Minecraft's internal ID of a certain block.
+     */
+    @Override
+    public int getRenderId()
+    {
+        return renderID;
+    }
+
+    /**
+     * Makes the block render 3D in invenotry.
+     */
+    @Override
+    public boolean shouldRender3DInInventory(int i)
+    {
         return true;
     }
 }

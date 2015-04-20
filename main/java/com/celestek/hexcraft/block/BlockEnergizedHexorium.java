@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 public class BlockEnergizedHexorium extends HexBlock {
 
-    /* Set default block name. */
+    // Set default block name.
     public static String UNLOCALISEDNAME = "blockEnergizedHexorium";
 
-    /* Used later for texture identification. */
+    // Used later for texture identification.
     private String blockName;
 
     /**
@@ -37,18 +37,25 @@ public class BlockEnergizedHexorium extends HexBlock {
     public BlockEnergizedHexorium(String blockName) {
         super(Material.glass);
 
+        // Load the constructor parameters.
         this.blockName = blockName;
+
+        // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(0.3F);
-        //this.setHarvestLevel("pickaxe", 0);
         this.setStepSound(Block.soundTypeGlass);
     }
 
+    /**
+     * Sets up items to drop.
+     */
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        // Prepare a drop list.
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
+        // Set the according crystal color combinations.
         if(blockName.equals(UNLOCALISEDNAME + "Red")) {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
         }
@@ -121,10 +128,11 @@ public class BlockEnergizedHexorium extends HexBlock {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
         }
 
+        // Return the created drop array.
         return drops;
     }
 
-    /* Prepare the icons. */
+    // Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 
@@ -134,9 +142,12 @@ public class BlockEnergizedHexorium extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
         icon = new IIcon[7];
+        // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        // Load the inner texture. Use special texture if it is a rainbow.
         if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
@@ -148,8 +159,9 @@ public class BlockEnergizedHexorium extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int par1, int par2) {
-        return icon[par1];
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
     }
 
     /**

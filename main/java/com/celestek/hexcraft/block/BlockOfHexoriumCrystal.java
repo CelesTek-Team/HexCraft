@@ -27,10 +27,10 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 public class BlockOfHexoriumCrystal extends HexBlock {
 
-    /* Set default block name. */
+    // Set default block name.
     public static String UNLOCALISEDNAME = "blockOfHexoriumCrystal";
 
-    /* Used later for texture identification. */
+    // Used later for texture identification.
     private String blockName;
 
     /**
@@ -40,24 +40,18 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     public BlockOfHexoriumCrystal(String blockName) {
         super(Material.glass);
 
+        // Load the constructor parameters.
         this.blockName = blockName;
+
+        // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(5.0F);
-        this.setHarvestLevel("pickaxe", 2);
         this.setStepSound(Block.soundTypeGlass);
+        this.setHarvestLevel("pickaxe", 2);
     }
 
-    /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-     */
-    @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
-        return side;
-    }
-
-    /* Prepare the icons. */
+    /// Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 
@@ -67,9 +61,12 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
         icon = new IIcon[12];
+        // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        // Load the inner textures.
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "D");
         icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
         icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
@@ -83,7 +80,8 @@ public class BlockOfHexoriumCrystal extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int par1, int par2) {
-        return icon[par1];
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
     }
 }

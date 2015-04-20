@@ -18,7 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class HexBlockModel extends Block {
 
-    /* HexCraft's ID for the block. */
+    // HexCraft's ID for the block.
     public int idBlock;
 
     /**
@@ -27,10 +27,10 @@ public class HexBlockModel extends Block {
      */
     public HexBlockModel(Material material) {
         super(material);
-        /* Save the current HexCraft block ID. */
+        // Save the current HexCraft block ID.
         idBlock = HexCraft.idCounter;
 
-        /* Increment block counter in HexCraft class. */
+        // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
     }
 
@@ -53,14 +53,14 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Makes the block render on both passes and saves the current pass to the according ID in HexClientProxy.
+     * Makes the block render on both passes.
      */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean canRenderInPass(int pass)
     {
+        // Save the current rendering pass of the block to HexClientProxy.
         HexClientProxy.renderPass[idBlock] = pass;
-        // System.out.println("Pass ID: " + idBlock + " Pass: " + pass);
         return true;
     }
 
@@ -75,7 +75,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Makes the block properly interract with AO.
+     * Makes the block noz interract with AO.
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -84,6 +84,9 @@ public class HexBlockModel extends Block {
         return false;
     }
 
+    /**
+     * Forces the block not to hide faces of other blocks.
+     */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean isOpaqueCube()
@@ -92,7 +95,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Forces torch placement on top.
+     * Forces the block not to accept torch placement on top.
      */
     @Override
     public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
@@ -100,7 +103,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Forces torch placement on sides.
+     * Forces the block not to accept torch placement on sides.
      */
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
@@ -108,7 +111,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Forces Redstone conduction.
+     * Forces the block not to conduct Redstone current.
      */
     @Override
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side)

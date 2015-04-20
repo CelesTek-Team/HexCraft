@@ -25,10 +25,10 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
 
-    /* Set default block name. */
+    // Set default block name.
     public static String UNLOCALISEDNAME = "blockEnergizedHexoriumMonolith";
 
-    /* Used later for texture identification. */
+    // Used later for texture identification.
     private String blockName;
 
     /**
@@ -38,18 +38,25 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     public BlockEnergizedHexoriumMonolith(String blockName) {
         super(Material.glass);
 
+        // Load the constructor parameters.
         this.blockName = blockName;
+
+        // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(0.3F);
-        //this.setHarvestLevel("pickaxe", 0);
         this.setStepSound(Block.soundTypeGlass);
     }
 
+    /**
+     * Sets up items to drop.
+     */
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        // Prepare a drop list.
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
+        // Set the according crystal color combinations.
         if(blockName.equals(UNLOCALISEDNAME + "Red")) {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
         }
@@ -122,55 +129,59 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
             drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
         }
 
+        // Return the created drop array.
         return drops;
     }
-    
+
     /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     * Called when a block is placed using its ItemBlock.
      */
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
-        int available = -1;
+        // Prepare the orientation.
+        int orientation = -1;
 
-        if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN)) 
-            available = side;
-        else if (side == 1 && world.isSideSolid(x, y - 1, z, UP)) 
-            available = side;
-        else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH)) 
-            available = side;
-        else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH)) 
-            available = side;
-        else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST)) 
-            available = side;
-        else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST)) 
-            available = side;
+        // First check if the side it was placed on can accept it. If it can, place it there.
+        if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN))
+            orientation = side;
+        else if (side == 1 && world.isSideSolid(x, y - 1, z, UP))
+            orientation = side;
+        else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH))
+            orientation = side;
+        else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH))
+            orientation = side;
+        else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST))
+            orientation = side;
+        else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST))
+            orientation = side;
+            // If the side it was placed on cannot accept it, place it on closest possible other side.
         else {
-            if (world.isSideSolid(x, y - 1, z, UP)) 
-                available = 1;
-            else if (world.isSideSolid(x, y, z + 1, NORTH)) 
-                available = 2;
-            else if (world.isSideSolid(x - 1, y, z, EAST)) 
-                available = 5;
-            else if (world.isSideSolid(x, y, z - 1, SOUTH)) 
-                available = 3;
-            else if (world.isSideSolid(x + 1, y, z, WEST)) 
-                available = 4;
-            else if (world.isSideSolid(x, y + 1, z, DOWN)) 
-                available = 0;
+            if (world.isSideSolid(x, y - 1, z, UP))
+                orientation = 1;
+            else if (world.isSideSolid(x, y, z + 1, NORTH))
+                orientation = 2;
+            else if (world.isSideSolid(x - 1, y, z, EAST))
+                orientation = 5;
+            else if (world.isSideSolid(x, y, z - 1, SOUTH))
+                orientation = 3;
+            else if (world.isSideSolid(x + 1, y, z, WEST))
+                orientation = 4;
+            else if (world.isSideSolid(x, y + 1, z, DOWN))
+                orientation = 0;
         }
 
-        return available;
+        // Return the new orientation as meta.
+        return orientation;
     }
 
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return false;
-    }
-
+    /**
+     * Called when a player tries to place the monolith.
+     */
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z)
     {
+        // Check if any of the sides around the block are solid, if yes, it means it can be placed.
         return (world.isSideSolid(x, y - 1, z, UP)) ||
                 (world.isSideSolid(x, y + 1, z, DOWN)) ||
                 (world.isSideSolid(x, y, z + 1, NORTH)) ||
@@ -179,9 +190,13 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
                 (world.isSideSolid(x - 1, y, z, EAST));
     }
 
+    /**
+     * Called when a block near is changed.
+     */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
     {
+        // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
         if(world.getBlockMetadata(x, y, z) == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
@@ -220,7 +235,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         }
     }
 
-    /* Prepare the icons. */
+    // Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
 
@@ -230,9 +245,12 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
         icon = new IIcon[7];
+        // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        // Load the monolith texture. Use special texture if it is a rainbow.
         if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
         else
@@ -244,7 +262,8 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int par1, int par2) {
-        return icon[par1];
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
     }
 }

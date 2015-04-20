@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class HexBlock extends Block {
 
-    /* HexCraft's ID for the block. */
+    // HexCraft's ID for the block.
     public int idBlock;
 
     /**
@@ -29,10 +29,10 @@ public class HexBlock extends Block {
      */
     public HexBlock(Material material) {
         super(material);
-        /* Save the current HexCraft block ID. */
+        // Save the current HexCraft block ID.
         idBlock = HexCraft.idCounter;
 
-        /* Increment block counter in HexCraft class. */
+        // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
     }
 
@@ -55,14 +55,14 @@ public class HexBlock extends Block {
     }
 
     /**
-     * Makes the block render on both passes and saves the current pass to the according ID in HexClientProxy.
+     * Makes the block render on both passes.
      */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean canRenderInPass(int pass)
     {
+        // Save the current rendering pass of the block to HexClientProxy.
         HexClientProxy.renderPass[idBlock] = pass;
-        // System.out.println("Pass ID: " + idBlock + " Pass: " + pass);
         return true;
     }
 
