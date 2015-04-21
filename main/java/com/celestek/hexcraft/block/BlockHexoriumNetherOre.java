@@ -65,21 +65,24 @@ public class BlockHexoriumNetherOre extends HexBlock {
      */
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
-        // Prepare a list of all enchants.
-        NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
-        // If the list is not empty...
-        if(list != null)
-            // Go through all entries.
-            for(int i = 0; i < list.tagCount(); i++) {
-                // If Silk Touch (id 33) is found, set it to true.
-                if (list.getCompoundTagAt(i).getByte("id") == 33) {
-                    silk = true;
-                    dropItem = this.getItem(world, x, y, z);
+        // Check if the player has something in their hand.
+        if(player.getCurrentEquippedItem() != null) {
+            // Prepare a list of all enchants.
+            NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
+            // If the list is not empty...
+            if (list != null)
+                // Go through all entries.
+                for (int i = 0; i < list.tagCount(); i++) {
+                    // If Silk Touch (id 33) is found, set it to true.
+                    if (list.getCompoundTagAt(i).getByte("id") == 33) {
+                        silk = true;
+                        dropItem = this.getItem(world, x, y, z);
+                    }
+                    // If Fortune (id 35) is found, set the level value.
+                    if (list.getCompoundTagAt(i).getByte("id") == 35)
+                        fortune = list.getCompoundTagAt(i).getByte("lvl");
                 }
-                // If Fortune (id 35) is found, set the level value.
-                if (list.getCompoundTagAt(i).getByte("id") == 35)
-                    fortune = list.getCompoundTagAt(i).getByte("lvl");
-            }
+        }
     }
 
     /**

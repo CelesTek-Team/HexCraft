@@ -9,13 +9,13 @@ import net.minecraft.item.Item;
  * @since 2015-04-15
  */
 
-public class HexItem extends Item {
+public class HexItemComponent extends Item {
 
     /**
      * Constructor for the item.
      * @param itemName Unlocalized name for the item.
      */
-    public HexItem(String itemName) {
+    public HexItemComponent(String itemName) {
         setUnlocalizedName(itemName);
         setCreativeTab(HexCraft.hexCraftTab);
         setMaxStackSize(64);

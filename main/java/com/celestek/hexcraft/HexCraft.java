@@ -23,6 +23,14 @@ import net.minecraft.item.Item;
  * @since 2015-04-14
  */
 
+// TODO: Power system
+// TODO: Energy Pylons
+// TODO: Cables
+// TODO: Basic machines, including the Matix Recombiner and a generator
+// TODO: Multiblock tank
+// TODO: More decoration blocks
+// TODO: Glass
+
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
 {
@@ -35,8 +43,11 @@ public class HexCraft
     @Mod.Instance(value = HexCraft.MODID)
     public static HexCraft instance;
 
-    // HexCraft's ID counter for automatic populating.
+    // HEXCraft's ID counter for automatic populating.
     public static int idCounter;
+
+    // A fortune number unique for HEXCraft.
+    public static int hexFortune = 64758;
 
     @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.server.HexServerProxy")
     public static HexCommonProxy proxy;

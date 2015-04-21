@@ -2,13 +2,16 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumManipulator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -55,78 +58,65 @@ public class BlockEnergizedHexorium extends HexBlock {
         // Prepare a drop list.
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
-        // Set the according crystal color combinations.
-        if(blockName.equals(UNLOCALISEDNAME + "Red")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
+        // If the block wasn't destroyed using the Manipulator...
+        if(fortune != HexCraft.hexFortune) {
+            // Set the according crystal color combinations.
+            if (blockName.equals(UNLOCALISEDNAME + "Red")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Orange")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Yellow")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Lime")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Green")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Turquoise")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Cyan")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+            } else if (blockName.equals(UNLOCALISEDNAME + "SkyBlue")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Blue")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Purple")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Magenta")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Pink")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+            } else if (blockName.equals(UNLOCALISEDNAME + "White")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
+            } else if (blockName.equals(UNLOCALISEDNAME + "LightGray")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Gray")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
+            } else if (blockName.equals(UNLOCALISEDNAME + "DarkGray")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Black")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
+            } else if (blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+            }
         }
-        else if(blockName.equals(UNLOCALISEDNAME + "Orange")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Yellow")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Lime")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Green")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Turquoise")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Cyan")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "SkyBlue")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Blue")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Purple")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Magenta")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Pink")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-        }
-
-        else if(blockName.equals(UNLOCALISEDNAME + "White")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "LightGray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Gray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "DarkGray")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-        }
-        else if(blockName.equals(UNLOCALISEDNAME + "Black")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-        }
-
-        else if(blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
-        }
+        else
+            // Return the block (because of Manipulator).
+            drops.add(new ItemStack(this, 1));
 
         // Return the created drop array.
         return drops;
