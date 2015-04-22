@@ -152,6 +152,9 @@ public class HexBlocks {
 
     public static Block blockEnergizedHexoriumMonolithRainbow;
 
+    // Regular Blocks
+    public static Block blockHexoriumGlass;
+
     /**
      * Initializes all block and adds them to GameRegistry.
      */
@@ -384,5 +387,9 @@ public class HexBlocks {
 
         blockEnergizedHexoriumMonolithRainbow = new BlockEnergizedHexoriumMonolith(BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
         GameRegistry.registerBlock(blockEnergizedHexoriumMonolithRainbow, BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
+
+        // Regular Blocks
+        blockHexoriumGlass = new BlockHexoriumGlass(BlockHexoriumGlass.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockHexoriumGlass, BlockHexoriumGlass.UNLOCALISEDNAME);
     }
 }

@@ -26,7 +26,7 @@ import net.minecraft.item.Item;
 // TODO: Power system
 // TODO: Energy Pylons
 // TODO: Cables
-// TODO: Basic machines, including the Matix Recombiner and a generator
+// TODO: Basic machines, including the Matrix Recombiner and a generator
 // TODO: Multiblock tank
 // TODO: More decoration blocks
 // TODO: Glass
