@@ -34,6 +34,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * @param r Red component of the inner block layer color.
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
+     * @param renderExtra If the renderer should render 6 different outer sides.
      */
     public HexBlockRenderer(int renderID, int brightness, float r, float g, float b, boolean renderExtra)
     {
@@ -68,7 +69,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-            renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -77,9 +78,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         // If special faces should be drawn, use those textures instead.
         if(!renderExtra)
-            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
-            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 0));
+            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -87,9 +88,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
         if(!renderExtra)
-            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
-            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 0));
+            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -97,9 +98,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
         if(!renderExtra)
-            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
-            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 0));
+            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -107,9 +108,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
         if(!renderExtra)
-            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
-            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 0));
+            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -117,9 +118,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         if (!renderExtra)
-            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 0));
+            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
-            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 0));
+            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 1));
         tessellator.draw();
 
         // Start drawing outer layer of the block.
@@ -163,6 +164,8 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
+        int meta = world.getBlockMetadata(x, y, z);
+
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
 
@@ -187,7 +190,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             if(!world.getBlock(x, y-1, z).isOpaqueCube()) {
                 if(renderExtra) {
                     // If special faces should be drawn, use those textures instead.
-                    c = block.getIcon(6, 0);
+                    c = block.getIcon(6, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -202,7 +205,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // UP
             if(!world.getBlock(x, y+1, z).isOpaqueCube()) {
                 if(renderExtra) {
-                    c = block.getIcon(7, 0);
+                    c = block.getIcon(7, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -217,7 +220,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // NORTH
             if(!world.getBlock(x, y, z-1).isOpaqueCube()) {
                 if(renderExtra) {
-                    c = block.getIcon(8, 0);
+                    c = block.getIcon(8, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -232,7 +235,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // SOUTH
             if(!world.getBlock(x, y, z+1).isOpaqueCube()) {
                 if(renderExtra) {
-                    c = block.getIcon(9, 0);
+                    c = block.getIcon(9, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -247,7 +250,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // WEST
             if(!world.getBlock(x-1, y, z).isOpaqueCube()) {
                 if(renderExtra) {
-                    c = block.getIcon(10, 0);
+                    c = block.getIcon(10, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -262,7 +265,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // EAST
             if(!world.getBlock(x + 1, y, z).isOpaqueCube()) {
                 if (renderExtra) {
-                    c = block.getIcon(11, 0);
+                    c = block.getIcon(11, meta);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();

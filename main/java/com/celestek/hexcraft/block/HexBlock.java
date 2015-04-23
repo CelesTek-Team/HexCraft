@@ -77,7 +77,7 @@ public class HexBlock extends Block {
     }
 
     /**
-     * Makes the block properly interract with AO.
+     * Makes the block properly interact with AO.
      */
     @Override
     @SideOnly(Side.CLIENT)

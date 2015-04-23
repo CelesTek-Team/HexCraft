@@ -121,6 +121,8 @@ tile.blockEnergizedHexoriumMonolithBlack.name=Energized Hexorium Monolith (Black
 
 tile.blockEnergizedHexoriumMonolithRainbow.name=Energized Hexorium Monolith (Rainbow)
 
+tile.blockHexoriumGlass.name=Hexorium Glass
+
 
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal
 item.itemHexoriumCrystalGreen.name=Green Hexorium Crystal

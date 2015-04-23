@@ -111,6 +111,11 @@ public class HexRecipes {
         ItemStack stackHexoriumCrystalBlue_1 = new ItemStack(HexItems.itemHexoriumCrystalBlue, 1);
         ItemStack stackHexoriumCrystalWhite_1 = new ItemStack(HexItems.itemHexoriumCrystalWhite, 1);
         ItemStack stackHexoriumCrystalBlack_1 = new ItemStack(HexItems.itemHexoriumCrystalBlack, 1);
+        ItemStack stackHexoriumCrystalRed_9 = new ItemStack(HexItems.itemHexoriumCrystalRed, 9);
+        ItemStack stackHexoriumCrystalGreen_9 = new ItemStack(HexItems.itemHexoriumCrystalGreen, 9);
+        ItemStack stackHexoriumCrystalBlue_9 = new ItemStack(HexItems.itemHexoriumCrystalBlue, 9);
+        ItemStack stackHexoriumCrystalWhite_9 = new ItemStack(HexItems.itemHexoriumCrystalWhite, 9);
+        ItemStack stackHexoriumCrystalBlack_9 = new ItemStack(HexItems.itemHexoriumCrystalBlack, 9);
 
         // Components T1
         ItemStack stackRainbowEnergizedGlobule_1 = new ItemStack(HexItems.itemRainbowEnergizedGlobule, 1);
@@ -135,26 +140,31 @@ public class HexRecipes {
                 "AAA",
                 "AAA",
                 'A', stackHexoriumCrystalRed_1);
+        GameRegistry.addShapelessRecipe(stackHexoriumCrystalRed_9, stackBlockOfHexoriumCrystalRed_1);
         GameRegistry.addRecipe(stackBlockOfHexoriumCrystalGreen_1,
                 "AAA",
                 "AAA",
                 "AAA",
                 'A', stackHexoriumCrystalGreen_1);
+        GameRegistry.addShapelessRecipe(stackHexoriumCrystalGreen_9, stackBlockOfHexoriumCrystalGreen_1);
         GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlue_1,
                 "AAA",
                 "AAA",
                 "AAA",
                 'A', stackHexoriumCrystalBlue_1);
+        GameRegistry.addShapelessRecipe(stackHexoriumCrystalBlue_9, stackBlockOfHexoriumCrystalBlue_1);
         GameRegistry.addRecipe(stackBlockOfHexoriumCrystalWhite_1,
                 "AAA",
                 "AAA",
                 "AAA",
                 'A', stackHexoriumCrystalWhite_1);
+        GameRegistry.addShapelessRecipe(stackHexoriumCrystalWhite_9, stackBlockOfHexoriumCrystalWhite_1);
         GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlack_1,
                 "AAA",
                 "AAA",
                 "AAA",
                 'A', stackHexoriumCrystalBlack_1);
+        GameRegistry.addShapelessRecipe(stackHexoriumCrystalBlack_9, stackBlockOfHexoriumCrystalBlack_1);
         
         // Energized Hexorium
         // Red

@@ -51,6 +51,15 @@ public class BlockOfHexoriumCrystal extends HexBlock {
         this.setHarvestLevel("pickaxe", 2);
     }
 
+    /**
+     * Called when a block is placed using its ItemBlock.
+     */
+    @Override
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
+    {
+        return side;
+    }
+
     /// Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
@@ -62,17 +71,16 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[12];
+        icon = new IIcon[18];
         // Load the outer textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the inner textures.
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "D");
-        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
-        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
-        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "C");
-        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "C");
+        for(int i = 0; i < 12; i++)
+            if(i < 9)
+                icon[i + 6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + "0" + (i + 1));
+            else
+                icon[i + 6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + (i + 1));
     }
 
     /**
@@ -81,7 +89,69 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int i, int meta) {
-        // Retrieve icon based on side.
-        return icon[i];
+
+        // If the requested icons are for the extra sides...
+        if (i > 5) {
+            // Return the icons based on meta (rotation) and side.
+            if (meta == 0) {
+                switch (i) {
+                    case 6: return icon[6];
+                    case 7: return icon[16];
+                    case 8: return icon[10];
+                    case 9: return icon[10];
+                    case 10: return icon[14];
+                    case 11: return icon[14];
+                }
+            } else if (meta == 1) {
+                switch (i) {
+                    case 6: return icon[16];
+                    case 7: return icon[6];
+                    case 8: return icon[8];
+                    case 9: return icon[8];
+                    case 10: return icon[12];
+                    case 11: return icon[12];
+                }
+            } else if (meta == 2) {
+                switch (i) {
+                    case 6: return icon[12];
+                    case 7: return icon[12];
+                    case 8: return icon[7];
+                    case 9: return icon[17];
+                    case 10: return icon[11];
+                    case 11: return icon[9];
+                }
+            } else if (meta == 3) {
+                switch (i) {
+                    case 6: return icon[14];
+                    case 7: return icon[14];
+                    case 8: return icon[17];
+                    case 9: return icon[7];
+                    case 10: return icon[9];
+                    case 11: return icon[11];
+                }
+            } else if (meta == 4) {
+                switch (i) {
+                    case 6: return icon[15];
+                    case 7: return icon[15];
+                    case 8: return icon[9];
+                    case 9: return icon[11];
+                    case 10: return icon[7];
+                    case 11: return icon[17];
+                }
+            } else if (meta == 5) {
+                switch (i) {
+                    case 6: return icon[13];
+                    case 7: return icon[13];
+                    case 8: return icon[11];
+                    case 9: return icon[9];
+                    case 10: return icon[17];
+                    case 11: return icon[7];
+                }
+            }
+            return icon[i];
+        }
+        else
+            // Otherwise, just return first icons.
+            return icon[i];
     }
 }

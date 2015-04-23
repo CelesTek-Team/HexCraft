@@ -75,7 +75,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Makes the block noz interract with AO.
+     * Makes the block noz interact with AO.
      */
     @Override
     @SideOnly(Side.CLIENT)
