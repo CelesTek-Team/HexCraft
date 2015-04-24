@@ -26,10 +26,9 @@ import net.minecraft.item.Item;
 // TODO: Power system
 // TODO: Energy Pylons
 // TODO: Cables
-// TODO: Basic machines, including the Matrix Recombiner and a generator
+// TODO: Basic machines, including the Matrix Reconstructor and a generator
 // TODO: Multiblock tank
 // TODO: More decoration blocks
-// TODO: Glass
 
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
