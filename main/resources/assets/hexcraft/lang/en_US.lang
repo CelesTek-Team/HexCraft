@@ -123,6 +123,9 @@ tile.blockEnergizedHexoriumMonolithRainbow.name=Energized Hexorium Monolith (Rai
 
 tile.blockHexoriumGlass.name=Hexorium Glass
 
+tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
+tile.blockMatrixReconstructor.name=Matrix Reconstructor
+
 
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal
 item.itemHexoriumCrystalGreen.name=Green Hexorium Crystal
@@ -135,7 +138,7 @@ item.itemWhiteHexoriumWafer.name=White Hexorium Wafer
 item.itemBlackHexoriumWafer.name=Black Hexorium Wafer
 
 item.itemRainbowCore.name=Rainbow Core
-item.itemHexoriumProcessor.name=Hexorium Processor
 item.itemHexoriumCoprocessor.name=Hexorium Coprocessor
+item.itemHexoriumProcessor.name=Hexorium Processor
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator

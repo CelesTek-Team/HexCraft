@@ -124,8 +124,8 @@ public class HexRecipes {
 
         // Components T2
         ItemStack stackRainbowCore_1 = new ItemStack(HexItems.itemRainbowCore, 1);
-        ItemStack stackHexoriumProcessor_1 = new ItemStack(HexItems.itemHexoriumProcessor, 1);
         ItemStack stackHexoriumCoprocessor_1 = new ItemStack(HexItems.itemHexoriumCoprocessor, 1);
+        ItemStack stackHexoriumProcessor_1 = new ItemStack(HexItems.itemHexoriumProcessor, 1);
 
         // Tools
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
@@ -864,8 +864,8 @@ public class HexRecipes {
                 " A ",
                 'R', stackRedstoneDust_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1);
 
-        GameRegistry.addSmelting(stackHexoriumCrystalWhite_1, stackWhiteHexoriumWafer_1, 0.1f);
-        GameRegistry.addSmelting(stackHexoriumCrystalBlack_1, stackBlackHexoriumWafer_1, 0.1f);
+        GameRegistry.addSmelting(stackHexoriumCrystalWhite_1, stackWhiteHexoriumWafer_1, 0F);
+        GameRegistry.addSmelting(stackHexoriumCrystalBlack_1, stackBlackHexoriumWafer_1, 0F);
 
         // Components T2
         GameRegistry.addRecipe(stackRainbowCore_1,
@@ -873,12 +873,12 @@ public class HexRecipes {
                 "CAC",
                 "BRB",
                 'R', stackRedstoneDust_1, 'A', stackRainbowEnergizedGlobule_1, 'B', stackIronIngot_1, 'C', stackGoldIngot_1);
-        GameRegistry.addRecipe(stackHexoriumProcessor_1,
+        GameRegistry.addRecipe(stackHexoriumCoprocessor_1,
                 " R ",
                 "RAR",
                 " B ",
                 'R', stackRedstoneDust_1, 'A', stackWhiteHexoriumWafer_1, 'B', stackIronIngot_1);
-        GameRegistry.addRecipe(stackHexoriumCoprocessor_1,
+        GameRegistry.addRecipe(stackHexoriumProcessor_1,
                 " R ",
                 "RAR",
                 " B ",
