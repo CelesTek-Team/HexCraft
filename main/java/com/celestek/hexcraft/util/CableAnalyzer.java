@@ -49,22 +49,23 @@ public class CableAnalyzer {
         // Start
         String blockName = world.getBlock(x, y, z).getUnlocalizedName();
 
-        System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockName);
+        //System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockName);
 
-        if (blockName.contains("cable")) {
+        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
             if (!cables.contains(new HexCable(x, y, z, blockName))) {
-                System.out.println("Adding Cable.");
+                //System.out.println("Adding Cable.");
                 if (name.contains("Rainbow") || blockName.contains("Rainbow") || name.equals(blockName))
                     cables.add(new HexCable(x, y, z, name));
                 else
-                    System.out.println("Skipping. Cable incompatible.");
+                    //System.out.println("Skipping. Cable incompatible.");
+                    return;
             }
             else {
-                System.out.println("Skipping. Cable already in list.");
+                //System.out.println("Skipping. Cable already in list.");
                 return;
             }
         }
-        else if(blockName.contains("machine")) {
+        else if(blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
             if (!machines.contains(new HexMachine(x, y, z, blockName))) {
                 int meta = world.getBlockMetadata(x, y, z);
 
@@ -75,16 +76,16 @@ public class CableAnalyzer {
 
                 if ((meta == 0 && direction == 3) || (meta == 1 && direction == 2) || (meta == 2 && direction == 4) || (meta == 3 && direction == 1)) {
                     machines.add(new HexMachine(x, y, z, blockName));
-                    System.out.println("Adding Machine.");
+                    //System.out.println("Adding Machine.");
                 }
                 else {
-                    System.out.println("Skipping. Machine on wrong side.");
+                    //System.out.println("Skipping. Machine on wrong side.");
                     return;
                 }
 
                 return;
             } else {
-                System.out.println("Skipping. Machine already in list.");
+                //System.out.println("Skipping. Machine already in list.");
                 return;
             }
         }
