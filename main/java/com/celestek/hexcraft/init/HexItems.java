@@ -60,10 +60,10 @@ public class HexItems {
         // Components T2
         itemRainbowCore = new HexItemComponent("itemRainbowCore");
         GameRegistry.registerItem(itemRainbowCore, "itemRainbowCore");
-        itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
-        GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
         itemHexoriumCoprocessor = new HexItemComponent("itemHexoriumCoprocessor");
         GameRegistry.registerItem(itemHexoriumCoprocessor, "itemHexoriumCoprocessor");
+        itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
+        GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");

@@ -4,6 +4,7 @@ import com.celestek.hexcraft.HexCommonProxy;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexColors;
+import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -390,5 +391,9 @@ public class HexClientProxy extends HexCommonProxy {
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB));
     }
 }

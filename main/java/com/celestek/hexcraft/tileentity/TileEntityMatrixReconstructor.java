@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockMatrixReconstructor;
+import com.celestek.hexcraft.block.MachineMatrixReconstructor;
 import com.celestek.hexcraft.init.RecipesMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -196,14 +196,14 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
                 if (!hasEnergy) {
                     if (worldObj.getBlock(x, yCoord, z).getUnlocalizedName().equals("tile.blockEnergizedHexoriumRainbow")) {
                         hasEnergy = true;
-                        BlockMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                        MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
                     }
                 } else {
                     if (!worldObj.getBlock(x, yCoord, z).getUnlocalizedName().equals("tile.blockEnergizedHexoriumRainbow")) {
                         hasEnergy = false;
                         isActive = false;
                         progressTime = 0;
-                        BlockMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+                        MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
                     }
                 }
             }
@@ -211,7 +211,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
                 if (canSmelt()) {
                     if (!isActive) {
                         isActive = true;
-                        BlockMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                        MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
                     }
                     ++progressTime;
                     if (progressTime == progressDuration) {
@@ -223,7 +223,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
                     progressTime = 0;
                     if (isActive) {
                         isActive = false;
-                        BlockMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                        MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
                     }
                 }
             }

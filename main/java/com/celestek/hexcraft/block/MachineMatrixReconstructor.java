@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -27,10 +28,10 @@ import java.util.Random;
  * @since 2015-04-14
  */
 
-public class BlockMatrixReconstructor extends HexBlockContainer {
+public class MachineMatrixReconstructor extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockMatrixReconstructor";
+    public static String UNLOCALISEDNAME = "machineMatrixReconstructor";
 
     private final Random random = new Random();
 
@@ -38,7 +39,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public BlockMatrixReconstructor(String blockName) {
+    public MachineMatrixReconstructor(String blockName) {
         super(Material.rock);
 
         // Set all block parameters.
@@ -59,12 +60,12 @@ public class BlockMatrixReconstructor extends HexBlockContainer {
 
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.blockMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
     }
 
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.blockMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
     }
 
     /**
@@ -80,6 +81,36 @@ public class BlockMatrixReconstructor extends HexBlockContainer {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, direction + 8, 2);
+        if(!world.isRemote) {
+            System.out.println("Machine placed, analyzing!");
+        /* DO ANALYSIS, BASED ON ORIENTATION */
+            CableAnalyzer analyzer = new CableAnalyzer();
+            if (direction == 0)
+                analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
+            else if (direction == 1)
+                analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
+            else if (direction == 2)
+                analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
+            else if (direction == 3)
+                analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
+            analyzer.push();
+        }
+    }
+
+    /**
+     * Called when a block near is changed.
+     */
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        String blockName = block.getUnlocalizedName();
+        if (blockName.contains(UNLOCALISEDNAME) ||
+            blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+            System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            /* DO ANALYSIS */
+            CableAnalyzer analyzer = new CableAnalyzer();
+            analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            analyzer.push();
+        }
     }
 
     public static void updateBlockState(int status, World world, int x, int y, int z) {
