@@ -63,6 +63,7 @@ public class BlockHexoriumGlass extends Block {
         this.setHardness(5.0F);
         this.setStepSound(Block.soundTypeGlass);
         this.setHarvestLevel("pickaxe", 2);
+        this.setLightOpacity(0);
     }
 
     // Prepare the icons.
