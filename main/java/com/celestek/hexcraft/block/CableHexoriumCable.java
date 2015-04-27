@@ -34,7 +34,7 @@ public class CableHexoriumCable extends HexBlockModel {
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public CableHexoriumCable(String blockName) {
-        super(Material.glass);
+        super(Material.rock);
 
         // Load the constructor parameters.
         this.blockName = blockName;
@@ -44,6 +44,8 @@ public class CableHexoriumCable extends HexBlockModel {
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(3F);
         this.setStepSound(Block.soundTypeGlass);
+        this.setHarvestLevel("pickaxe", 2);
+        this.setLightOpacity(0);
     }
 
     /**

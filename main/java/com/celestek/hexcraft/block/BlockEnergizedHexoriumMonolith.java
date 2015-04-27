@@ -46,6 +46,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         this.setCreativeTab(HexCraft.hexCraftTab);
         this.setHardness(0.3F);
         this.setStepSound(Block.soundTypeGlass);
+        this.setLightOpacity(0);
     }
 
     /**

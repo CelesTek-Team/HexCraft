@@ -64,6 +64,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         this.setHardness(3F);
         this.setStepSound(Block.soundTypeGlass);
         this.setHarvestLevel("pickaxe", 2);
+        this.setLightOpacity(0);
     }
 
     /**
