@@ -22,7 +22,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 100;
+    public static int countBlocks = 117;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -157,7 +157,27 @@ public class HexBlocks {
     
     public static Block machineMatrixReconstructor;
 
+    // Cables
     public static Block cableHexoriumCableRed;
+    public static Block cableHexoriumCableOrange;
+    public static Block cableHexoriumCableYellow;
+    public static Block cableHexoriumCableLime;
+    public static Block cableHexoriumCableGreen;
+    public static Block cableHexoriumCableTurquoise;
+    public static Block cableHexoriumCableCyan;
+    public static Block cableHexoriumCableSkyBlue;
+    public static Block cableHexoriumCableBlue;
+    public static Block cableHexoriumCablePurple;
+    public static Block cableHexoriumCableMagenta;
+    public static Block cableHexoriumCablePink;
+
+    public static Block cableHexoriumCableWhite;
+    public static Block cableHexoriumCableLightGray;
+    public static Block cableHexoriumCableGray;
+    public static Block cableHexoriumCableDarkGray;
+    public static Block cableHexoriumCableBlack;
+    
+    public static Block cableHexoriumCableRainbow;
 
     // Regular Blocks
     public static Block blockHexoriumGlass;
@@ -402,8 +422,45 @@ public class HexBlocks {
         machineMatrixReconstructor = new MachineMatrixReconstructor(MachineMatrixReconstructor.UNLOCALISEDNAME);
         GameRegistry.registerBlock(machineMatrixReconstructor, MachineMatrixReconstructor.UNLOCALISEDNAME);
 
+        // Cables
         cableHexoriumCableRed = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Red");
-        GameRegistry.registerBlock(cableHexoriumCableRed, CableHexoriumCable.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(cableHexoriumCableRed, CableHexoriumCable.UNLOCALISEDNAME + "Red");
+        cableHexoriumCableOrange = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Orange");
+        GameRegistry.registerBlock(cableHexoriumCableOrange, CableHexoriumCable.UNLOCALISEDNAME + "Orange");
+        cableHexoriumCableYellow = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Yellow");
+        GameRegistry.registerBlock(cableHexoriumCableYellow, CableHexoriumCable.UNLOCALISEDNAME + "Yellow");
+        cableHexoriumCableLime = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Lime");
+        GameRegistry.registerBlock(cableHexoriumCableLime, CableHexoriumCable.UNLOCALISEDNAME + "Lime");
+        cableHexoriumCableGreen = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(cableHexoriumCableGreen, CableHexoriumCable.UNLOCALISEDNAME + "Green");
+        cableHexoriumCableTurquoise = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Turquoise");
+        GameRegistry.registerBlock(cableHexoriumCableTurquoise, CableHexoriumCable.UNLOCALISEDNAME + "Turquoise");
+        cableHexoriumCableCyan = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Cyan");
+        GameRegistry.registerBlock(cableHexoriumCableCyan, CableHexoriumCable.UNLOCALISEDNAME + "Cyan");
+        cableHexoriumCableSkyBlue = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "SkyBlue");
+        GameRegistry.registerBlock(cableHexoriumCableSkyBlue, CableHexoriumCable.UNLOCALISEDNAME + "SkyBlue");
+        cableHexoriumCableBlue = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(cableHexoriumCableBlue, CableHexoriumCable.UNLOCALISEDNAME + "Blue");
+        cableHexoriumCablePurple = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Purple");
+        GameRegistry.registerBlock(cableHexoriumCablePurple, CableHexoriumCable.UNLOCALISEDNAME + "Purple");
+        cableHexoriumCableMagenta = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Magenta");
+        GameRegistry.registerBlock(cableHexoriumCableMagenta, CableHexoriumCable.UNLOCALISEDNAME + "Magenta");
+        cableHexoriumCablePink = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Pink");
+        GameRegistry.registerBlock(cableHexoriumCablePink, CableHexoriumCable.UNLOCALISEDNAME + "Pink");
+        
+        cableHexoriumCableWhite = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(cableHexoriumCableWhite, CableHexoriumCable.UNLOCALISEDNAME + "White");
+        cableHexoriumCableLightGray = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "LightGray");
+        GameRegistry.registerBlock(cableHexoriumCableLightGray, CableHexoriumCable.UNLOCALISEDNAME + "LightGray");
+        cableHexoriumCableGray = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Gray");
+        GameRegistry.registerBlock(cableHexoriumCableGray, CableHexoriumCable.UNLOCALISEDNAME + "Gray");
+        cableHexoriumCableDarkGray = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "DarkGray");
+        GameRegistry.registerBlock(cableHexoriumCableDarkGray, CableHexoriumCable.UNLOCALISEDNAME + "DarkGray");
+        cableHexoriumCableBlack = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Black");
+        GameRegistry.registerBlock(cableHexoriumCableBlack, CableHexoriumCable.UNLOCALISEDNAME + "Black");
+
+        cableHexoriumCableRainbow = new CableHexoriumCable(CableHexoriumCable.UNLOCALISEDNAME + "Rainbow");
+        GameRegistry.registerBlock(cableHexoriumCableRainbow, CableHexoriumCable.UNLOCALISEDNAME + "Rainbow");
 
         // Regular Blocks
         blockHexoriumGlass = new BlockHexoriumGlass(BlockHexoriumGlass.UNLOCALISEDNAME);

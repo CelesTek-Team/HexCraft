@@ -127,6 +127,25 @@ tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 tile.machineMatrixReconstructor.name=Matrix Reconstructor
 
 tile.cableHexoriumCableRed.name=Hexorium Cable (Red)
+tile.cableHexoriumCableOrange.name=Hexorium Cable (Orange)
+tile.cableHexoriumCableYellow.name=Hexorium Cable (Yellow)
+tile.cableHexoriumCableLime.name=Hexorium Cable (Lime)
+tile.cableHexoriumCableGreen.name=Hexorium Cable (Green)
+tile.cableHexoriumCableTurquoise.name=Hexorium Cable (Turquoise)
+tile.cableHexoriumCableCyan.name=Hexorium Cable (Cyan)
+tile.cableHexoriumCableSkyBlue.name=Hexorium Cable (Sky Blue)
+tile.cableHexoriumCableBlue.name=Hexorium Cable (Blue)
+tile.cableHexoriumCablePurple.name=Hexorium Cable (Purple)
+tile.cableHexoriumCableMagenta.name=Hexorium Cable (Magenta)
+tile.cableHexoriumCablePink.name=Hexorium Cable (Pink)
+
+tile.cableHexoriumCableWhite.name=Hexorium Cable (White)
+tile.cableHexoriumCableLightGray.name=Hexorium Cable (Light Gray)
+tile.cableHexoriumCableGray.name=Hexorium Cable (Gray)
+tile.cableHexoriumCableDarkGray.name=Hexorium Cable (Dark Gray)
+tile.cableHexoriumCableBlack.name=Hexorium Cable (Black)
+
+tile.cableHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
 
 
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal

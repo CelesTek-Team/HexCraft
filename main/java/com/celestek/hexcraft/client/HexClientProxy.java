@@ -392,8 +392,62 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false));
 
+        // Cables
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.opacitySlight, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB));
+                HexColors.brightnessBright, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB, HexBlocks.cableHexoriumCableRed.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorOrangeR, HexColors.colorOrangeG, HexColors.colorOrangeB, HexBlocks.cableHexoriumCableOrange.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorYellowR, HexColors.colorYellowG, HexColors.colorYellowB, HexBlocks.cableHexoriumCableYellow.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorLimeR, HexColors.colorLimeG, HexColors.colorLimeB, HexBlocks.cableHexoriumCableLime.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB, HexBlocks.cableHexoriumCableGreen.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorTurquoiseR, HexColors.colorTurquoiseG, HexColors.colorTurquoiseB, HexBlocks.cableHexoriumCableTurquoise.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorCyanR, HexColors.colorCyanG, HexColors.colorCyanB, HexBlocks.cableHexoriumCableCyan.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorSkyBlueR, HexColors.colorSkyBlueG, HexColors.colorSkyBlueB, HexBlocks.cableHexoriumCableSkyBlue.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorBlueR, HexColors.colorBlueG, HexColors.colorBlueB, HexBlocks.cableHexoriumCableBlue.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorPurpleR, HexColors.colorPurpleG, HexColors.colorPurpleB, HexBlocks.cableHexoriumCablePurple.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorMagentaR, HexColors.colorMagentaG, HexColors.colorMagentaB, HexBlocks.cableHexoriumCableMagenta.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorPinkR, HexColors.colorPinkG, HexColors.colorPinkB, HexBlocks.cableHexoriumCablePink.getUnlocalizedName()));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, HexBlocks.cableHexoriumCableWhite.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorLightGrayR, HexColors.colorLightGrayG, HexColors.colorLightGrayB, HexBlocks.cableHexoriumCableLightGray.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB, HexBlocks.cableHexoriumCableGray.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorDarkGrayR, HexColors.colorDarkGrayG, HexColors.colorDarkGrayB, HexBlocks.cableHexoriumCableDarkGray.getUnlocalizedName()));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorBlackR, HexColors.colorBlackG, HexColors.colorBlackB, HexBlocks.cableHexoriumCableBlack.getUnlocalizedName()));
+        
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()));
     }
 }
