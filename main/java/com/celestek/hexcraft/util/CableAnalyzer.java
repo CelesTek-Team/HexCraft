@@ -1,7 +1,9 @@
 package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.CableHexoriumCable;
+import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import net.minecraft.world.World;
 import org.lwjgl.Sys;
 
@@ -65,7 +67,8 @@ public class CableAnalyzer {
                 return;
             }
         }
-        else if(blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+        else if(blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
+                blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
             if (!machines.contains(new HexMachine(x, y, z, blockName))) {
                 int meta = world.getBlockMetadata(x, y, z);
 
@@ -106,10 +109,14 @@ public class CableAnalyzer {
             analyze(world, x, y + 1, z, blockName, 6);
     }
 
-    public void push() {
+    public void push(World world) {
         System.out.println("Done! Pushing data to machines:");
         for (HexMachine entry : machines) {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
+            if(entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                TileEntityMatrixReconstructor machine = (TileEntityMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z);
+                machine.injectMachines(machines);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.init.RecipesMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,15 +18,15 @@ import net.minecraft.item.ItemStack;
  * @version 0.1.0
  * @since 2015-04-25
  */
-public class ContainerMatrixReconstructor extends Container {
+public class ContainerHexoriumGenerator extends Container {
 
-    private TileEntityMatrixReconstructor tileEntity;
-    private int lastProgressTime;
+    private TileEntityHexoriumGenerator tileEntity;
+    private int lastBurnEnergy;
+    private int lastTotalBurnEnergy;
 
-    public ContainerMatrixReconstructor(InventoryPlayer player, TileEntityMatrixReconstructor tileEntity){
+    public ContainerHexoriumGenerator(InventoryPlayer player, TileEntityHexoriumGenerator tileEntity){
         this.tileEntity = tileEntity;
         this.addSlotToContainer(new Slot(tileEntity, 0, 48, 35));
-        this.addSlotToContainer(new SlotFurnace(player.player, tileEntity, 1, 116, 35));
         int i;
 
         for(i = 0; i < 3; ++i){
@@ -41,7 +42,8 @@ public class ContainerMatrixReconstructor extends Container {
 
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
-        craft.sendProgressBarUpdate(this, 0, tileEntity.progressTime);
+        craft.sendProgressBarUpdate(this, 0, tileEntity.burnEnergy);
+        craft.sendProgressBarUpdate(this, 1, tileEntity.totalBurnEnergy);
     }
 
     public void detectAndSendChanges(){
@@ -49,18 +51,25 @@ public class ContainerMatrixReconstructor extends Container {
         for(int i = 0; i < crafters.size(); ++i){
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            if(lastProgressTime != tileEntity.progressTime){
-                craft.sendProgressBarUpdate(this, 0, tileEntity.progressTime);
+            if(lastBurnEnergy != tileEntity.burnEnergy){
+                craft.sendProgressBarUpdate(this, 0, tileEntity.burnEnergy);
+            }
+            if(lastTotalBurnEnergy != tileEntity.totalBurnEnergy){
+                craft.sendProgressBarUpdate(this, 1, tileEntity.totalBurnEnergy);
             }
         }
 
-        lastProgressTime = tileEntity.progressTime;
+        lastBurnEnergy = tileEntity.burnEnergy;
+        lastTotalBurnEnergy = tileEntity.totalBurnEnergy;
     }
 
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int par1, int par2){
         if(par1 == 0){
-            tileEntity.progressTime = par2;
+            tileEntity.burnEnergy = par2;
+        }
+        if(par1 == 1){
+            tileEntity.totalBurnEnergy = par2;
         }
     }
 
@@ -77,24 +86,19 @@ public class ContainerMatrixReconstructor extends Container {
             ItemStack itemStack1 = slot.getStack();
             itemStack = itemStack1.copy();
 
-            if (par2 == 1) {
-                if (!mergeItemStack(itemStack1, 2, 38, true)) {
-                    return null;
-                }
-                slot.onSlotChange(itemStack1, itemStack);
-            } else if (par2 != 0) {
-                if (RecipesMatrixReconstructor.smelting().getSmeltingResult(itemStack1) != null) {
+            if (par2 != 0) {
+                if (TileEntityHexoriumGenerator.isItemFuel(itemStack1)) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
                         return null;
                     }
-                } else if(par2 >= 2 && par2 < 29) {
-                    if (!mergeItemStack(itemStack1, 29, 38, false)) {
+                } else if(par2 >= 1 && par2 < 28) {
+                    if (!mergeItemStack(itemStack1, 28, 37, false)) {
                         return null;
                     }
-                } else if( par2 >= 29 && par2 < 39 && !mergeItemStack(itemStack1, 2, 29, false)) {
+                } else if( par2 >= 28 && par2 < 38 && !mergeItemStack(itemStack1, 1, 28, false)) {
                     return null;
                 }
-            } else if(!mergeItemStack(itemStack1, 2, 38, false)) {
+            } else if(!mergeItemStack(itemStack1, 1, 37, false)) {
                 return null;
             }
 

@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,16 +17,16 @@ import net.minecraft.util.ResourceLocation;
  */
 
 @SideOnly(Side.CLIENT)
-public class GuiMatrixReconstructor extends GuiContainer {
+public class GuiHexoriumGenerator extends GuiContainer {
 
-    // Prepare a TileEntityMatrixReconstructor object.
-    private TileEntityMatrixReconstructor tileEntity;
+    // Prepare a TileEntityHexoriumGenerator object.
+    private TileEntityHexoriumGenerator tileEntity;
 
     /**
      * Constructor for GuiMatrixReconstructor.
      */
-    public GuiMatrixReconstructor(InventoryPlayer invPlayer, TileEntityMatrixReconstructor tileEntity) {
-        super(new ContainerMatrixReconstructor(invPlayer, tileEntity));
+    public GuiHexoriumGenerator(InventoryPlayer invPlayer, TileEntityHexoriumGenerator tileEntity) {
+        super(new ContainerHexoriumGenerator(invPlayer, tileEntity));
 
         // Save the Tile Entity.
         this.tileEntity = tileEntity;
@@ -58,7 +59,7 @@ public class GuiMatrixReconstructor extends GuiContainer {
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
         // Draw the progress bar.
-        int i = tileEntity.getProgressScaled(35);
+        int i = tileEntity.getBurnScaled(35);
         drawTexturedModalRect(x + 70, y + 30, 176, 0, i + 1, 26);
     }
 }

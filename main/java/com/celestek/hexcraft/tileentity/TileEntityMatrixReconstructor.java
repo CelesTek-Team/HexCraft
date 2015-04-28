@@ -1,7 +1,9 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
 import com.celestek.hexcraft.init.RecipesMatrixReconstructor;
+import com.celestek.hexcraft.util.HexMachine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -20,6 +24,11 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     private static String machineName = "Matrix Reconstructor";
 
+    private static int energyInputPerTick = 32;
+
+    private ArrayList<TileEntityHexoriumGenerator> generatorList;
+    private int[][] generators;
+
     private static final int[] slotsTop = new int[] { 0 };
     private static final int[] slotsSides = new int[] { 1 };
 
@@ -29,8 +38,9 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     public boolean isActive = false;
     public boolean hasEnergy = false;
+    public int usableGenerators = 0;
 
-    private static int progressDuration = 200;
+    private static int progressDuration = 2560;
 
     private int tickCount = 0;
 
@@ -122,6 +132,8 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
                 machineItemStacks[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
             }
         }
+
+        generatorList = new ArrayList<TileEntityHexoriumGenerator>();
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
@@ -149,8 +161,8 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
      * @param div Division which corresponds to the length of the progress bar.
      */
     @SideOnly(Side.CLIENT)
-    public int getReconstructionProgressScaled(int div) {
-        return progressTime * div / 200;
+    public int getProgressScaled(int div) {
+        return progressTime * div / progressDuration;
     }
 
     /**
@@ -175,57 +187,92 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
             {
                 tickCount = 0;
 
-                int x = xCoord;
-                int z = zCoord;
+                boolean checkEnergy = false;
 
-                int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-                if (meta >= 4 && meta < 8)
-                    meta = meta - 4;
-                else if (meta >= 8)
-                    meta = meta - 8;
-
-                if (meta == 0)
-                    z++;
-                else if (meta == 1)
-                    x--;
-                else if (meta == 2)
-                    z--;
-                else if (meta == 3)
-                    x++;
-
-                if (!hasEnergy) {
-                    if (worldObj.getBlock(x, yCoord, z).getUnlocalizedName().equals("tile.blockEnergizedHexoriumRainbow")) {
-                        hasEnergy = true;
-                        MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
-                    }
-                } else {
-                    if (!worldObj.getBlock(x, yCoord, z).getUnlocalizedName().equals("tile.blockEnergizedHexoriumRainbow")) {
-                        hasEnergy = false;
-                        isActive = false;
-                        progressTime = 0;
-                        MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+                if(generatorList.size() != 0) {
+                    for (TileEntityHexoriumGenerator entry : generatorList) {
+                        if (entry != null)
+                            if (entry.totalBurnEnergy > 0)
+                                checkEnergy = true;
                     }
                 }
+
+                if (checkEnergy && !hasEnergy)
+                    MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                else if (!checkEnergy && hasEnergy)
+                    MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+
+                hasEnergy = checkEnergy;
             }
             if (hasEnergy) {
                 if (canSmelt()) {
                     if (!isActive) {
-                        isActive = true;
-                        MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                        isActive = startGenerators();
+                        if (isActive)
+                            MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
                     }
-                    ++progressTime;
-                    if (progressTime == progressDuration) {
-                        progressTime = 0;
-                        smeltItem();
-                        // flag = true;
+
+                    if(isActive) {
+
+                        if (generatorList.size() != 0) {
+                            for (TileEntityHexoriumGenerator entry : generatorList) {
+                                if (entry != null)
+                                    progressTime = progressTime - entry.pullEnergy(energyInputPerTick / generatorList.size());
+                            }
+                        }
+
+                        if (progressTime == progressDuration) {
+                            progressTime = 0;
+                            smeltItem();
+                        }
                     }
                 } else {
                     progressTime = 0;
                     if (isActive) {
                         isActive = false;
                         MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                        stopGenerators();
                     }
                 }
+            }
+            else {
+                progressTime = 0;
+                if (isActive) {
+                    isActive = false;
+                    MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                    stopGenerators();
+                }
+            }
+        }
+    }
+
+    private boolean startGenerators() {
+        int usableGenerators1 = 0;
+        if(generatorList.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : generatorList) {
+                if (entry != null && entry.totalBurnEnergy > 0) {
+                    usableGenerators1++;
+                }
+            }
+        }
+        usableGenerators = usableGenerators1;
+
+        boolean checkEnergy = false;
+        if(generatorList.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : generatorList) {
+                if (entry != null && entry.totalBurnEnergy > 0) {
+                    checkEnergy = entry.startPulling(energyInputPerTick / usableGenerators);
+                }
+            }
+        }
+        return checkEnergy;
+    }
+
+    private void stopGenerators() {
+        if (generatorList.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : generatorList) {
+                if (entry != null)
+                    entry.stopPulling(energyInputPerTick / usableGenerators);
             }
         }
     }
@@ -296,7 +343,47 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     @Override
     public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
-        return false;
-        // return par3 != 0 || par1 != 1 || itemstack.getItem() == Items.bucket;
+        return par3 != 0 || par1 != 1;
+    }
+
+    public void injectMachines(ArrayList<HexMachine> incomingMachines) {
+        if (incomingMachines != null) {
+            int size = 0;
+            for (HexMachine entry : incomingMachines) {
+                if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
+                    size++;
+                }
+            }
+
+            if (isActive) {
+                if (generatorList.size() != 0) {
+                    for (TileEntityHexoriumGenerator entry : generatorList) {
+                        if (entry != null)
+                            entry.stopPulling(energyInputPerTick / generatorList.size());
+                    }
+                }
+            }
+
+            generators = new int[size][3];
+            generatorList = new ArrayList<TileEntityHexoriumGenerator>();
+            int i = 0;
+            for (HexMachine entry : incomingMachines) {
+                if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
+                    generatorList.add((TileEntityHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z));
+                    generators[i][0] = entry.x;
+                    generators[i][1] = entry.y;
+                    generators[i][2] = entry.z;
+                    i++;
+                }
+            }
+
+            if (isActive) {
+                isActive = startGenerators();
+            }
+        }
+        else {
+            generators = null;
+            generatorList = null;
+        }
     }
 }

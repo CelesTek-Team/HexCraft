@@ -124,6 +124,8 @@ tile.blockEnergizedHexoriumMonolithRainbow.name=Energized Hexorium Monolith (Rai
 tile.blockHexoriumGlass.name=Hexorium Glass
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
+
+tile.machineHexoriumGenerator.name=Hexorium Generator
 tile.machineMatrixReconstructor.name=Matrix Reconstructor
 
 tile.cableHexoriumCableRed.name=Hexorium Cable (Red)

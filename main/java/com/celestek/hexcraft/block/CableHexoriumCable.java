@@ -58,7 +58,7 @@ public class CableHexoriumCable extends HexBlockModel {
             /* DO ANALYSIS */
             CableAnalyzer analyzer = new CableAnalyzer();
             analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
-            analyzer.push();
+            analyzer.push(world);
         }
     }
 
@@ -69,12 +69,13 @@ public class CableHexoriumCable extends HexBlockModel {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         String blockName = block.getUnlocalizedName();
         if (blockName.contains(UNLOCALISEDNAME) ||
-            blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
+                blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
             /* DO ANALYSIS */
             CableAnalyzer analyzer = new CableAnalyzer();
             analyzer.analyze(world, x, y, z, this.getUnlocalizedName(), 0);
-            analyzer.push();
+            analyzer.push(world);
         }
     }
 

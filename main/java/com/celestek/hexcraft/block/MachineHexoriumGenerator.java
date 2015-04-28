@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -28,10 +29,10 @@ import java.util.Random;
  * @since 2015-04-14
  */
 
-public class MachineMatrixReconstructor extends HexBlockContainer {
+public class MachineHexoriumGenerator extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "machineMatrixReconstructor";
+    public static String UNLOCALISEDNAME = "machineHexoriumGenerator";
 
     private final Random random = new Random();
 
@@ -39,7 +40,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public MachineMatrixReconstructor(String blockName) {
+    public MachineHexoriumGenerator(String blockName) {
         super(Material.rock);
 
         // Set all block parameters.
@@ -54,18 +55,18 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      * Fired when a player right clicks on the machine.
      */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        player.openGui(HexCraft.instance, 0, world, x, y, z);
+        player.openGui(HexCraft.instance, 1, world, x, y, z);
         return true;
     }
 
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
     }
 
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
     }
 
     /**
@@ -74,7 +75,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     @Override
     public TileEntity createNewTileEntity(World world, int par2)
     {
-        return new TileEntityMatrixReconstructor();
+        return new TileEntityHexoriumGenerator();
     }
 
     @Override
@@ -105,7 +106,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
         String blockName = block.getUnlocalizedName();
         if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME) ||
                 blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                blockName.contains(UNLOCALISEDNAME)) {
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
             /* DO ANALYSIS */
             CableAnalyzer analyzer = new CableAnalyzer();
@@ -135,7 +136,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
 
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-            TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
+            TileEntityHexoriumGenerator tileEntity = (TileEntityHexoriumGenerator) world.getTileEntity(x, y, z);
 
             if (tileEntity != null) {
                 for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {

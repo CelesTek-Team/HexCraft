@@ -22,7 +22,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 117;
+    public static int countBlocks = 118;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -154,7 +154,8 @@ public class HexBlocks {
 
     // Machines
     public static Block blockHexoriumMachineBlock;
-    
+
+    public static Block machineHexoriumGenerator;
     public static Block machineMatrixReconstructor;
 
     // Cables
@@ -418,7 +419,9 @@ public class HexBlocks {
         // Machines
         blockHexoriumMachineBlock = new BlockHexoriumMachineBlock(BlockHexoriumMachineBlock.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockHexoriumMachineBlock, BlockHexoriumMachineBlock.UNLOCALISEDNAME);
-        
+
+        machineHexoriumGenerator = new MachineHexoriumGenerator(MachineHexoriumGenerator.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(machineHexoriumGenerator, MachineHexoriumGenerator.UNLOCALISEDNAME);
         machineMatrixReconstructor = new MachineMatrixReconstructor(MachineMatrixReconstructor.UNLOCALISEDNAME);
         GameRegistry.registerBlock(machineMatrixReconstructor, MachineMatrixReconstructor.UNLOCALISEDNAME);
 

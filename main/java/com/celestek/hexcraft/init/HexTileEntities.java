@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -12,5 +13,6 @@ public class HexTileEntities {
     public static void initializeTileEntities()
     {
         GameRegistry.registerTileEntity(TileEntityMatrixReconstructor.class, "tileEntityMatrixReconstructor");
+        GameRegistry.registerTileEntity(TileEntityHexoriumGenerator.class, "tileEntityHexoriumGenerator");
     }
 }
