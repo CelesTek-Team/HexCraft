@@ -3,6 +3,7 @@ package com.celestek.hexcraft.util;
 import com.celestek.hexcraft.block.CableHexoriumCable;
 import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import net.minecraft.world.World;
 import org.lwjgl.Sys;
@@ -115,6 +116,9 @@ public class CableAnalyzer {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
             if(entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
                 TileEntityMatrixReconstructor machine = (TileEntityMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z);
+                machine.injectMachines(machines);
+            } else if(entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
+                TileEntityHexoriumGenerator machine = (TileEntityHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z);
                 machine.injectMachines(machines);
             }
         }

@@ -26,8 +26,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     private static int energyInputPerTick = 32;
 
-    private ArrayList<TileEntityHexoriumGenerator> generatorList;
-    private int[][] generators;
+    private ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator;
 
     private static final int[] slotsTop = new int[] { 0 };
     private static final int[] slotsSides = new int[] { 1 };
@@ -133,7 +132,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
             }
         }
 
-        generatorList = new ArrayList<TileEntityHexoriumGenerator>();
+        machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
@@ -189,10 +188,10 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
                 boolean checkEnergy = false;
 
-                if(generatorList.size() != 0) {
-                    for (TileEntityHexoriumGenerator entry : generatorList) {
+                if(machinesHexoriumGenerator.size() != 0) {
+                    for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
                         if (entry != null)
-                            if (entry.totalBurnEnergy > 0)
+                            if (entry.canProvideEnergy)
                                 checkEnergy = true;
                     }
                 }
@@ -214,14 +213,15 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
                     if(isActive) {
 
-                        if (generatorList.size() != 0) {
-                            for (TileEntityHexoriumGenerator entry : generatorList) {
-                                if (entry != null)
-                                    progressTime = progressTime - entry.pullEnergy(energyInputPerTick / generatorList.size());
+                        if (machinesHexoriumGenerator.size() != 0) {
+                            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                                if (entry != null) {
+                                    progressTime = progressTime + entry.pullEnergy(energyInputPerTick / usableGenerators);
+                                }
                             }
                         }
 
-                        if (progressTime == progressDuration) {
+                        if (progressTime >= progressDuration) {
                             progressTime = 0;
                             smeltItem();
                         }
@@ -246,11 +246,11 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         }
     }
 
-    private boolean startGenerators() {
+    public boolean startGenerators() {
         int usableGenerators1 = 0;
-        if(generatorList.size() != 0) {
-            for (TileEntityHexoriumGenerator entry : generatorList) {
-                if (entry != null && entry.totalBurnEnergy > 0) {
+        if(machinesHexoriumGenerator.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                if (entry != null && entry.canProvideEnergy) {
                     usableGenerators1++;
                 }
             }
@@ -258,9 +258,9 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         usableGenerators = usableGenerators1;
 
         boolean checkEnergy = false;
-        if(generatorList.size() != 0) {
-            for (TileEntityHexoriumGenerator entry : generatorList) {
-                if (entry != null && entry.totalBurnEnergy > 0) {
+        if(machinesHexoriumGenerator.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                if (entry != null && entry.canProvideEnergy) {
                     checkEnergy = entry.startPulling(energyInputPerTick / usableGenerators);
                 }
             }
@@ -268,12 +268,20 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         return checkEnergy;
     }
 
-    private void stopGenerators() {
-        if (generatorList.size() != 0) {
-            for (TileEntityHexoriumGenerator entry : generatorList) {
-                if (entry != null)
+    public void stopGenerators() {
+        if (machinesHexoriumGenerator.size() != 0) {
+            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                if (entry != null && entry.canProvideEnergy) {
                     entry.stopPulling(energyInputPerTick / usableGenerators);
+                }
             }
+        }
+    }
+
+    public void restartMachine() {
+        if (isActive) {
+            stopGenerators();
+            isActive = startGenerators();
         }
     }
 
@@ -348,32 +356,17 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     public void injectMachines(ArrayList<HexMachine> incomingMachines) {
         if (incomingMachines != null) {
-            int size = 0;
-            for (HexMachine entry : incomingMachines) {
-                if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
-                    size++;
-                }
-            }
+            if(machinesHexoriumGenerator == null)
+                machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
 
             if (isActive) {
-                if (generatorList.size() != 0) {
-                    for (TileEntityHexoriumGenerator entry : generatorList) {
-                        if (entry != null)
-                            entry.stopPulling(energyInputPerTick / generatorList.size());
-                    }
-                }
+                stopGenerators();
             }
 
-            generators = new int[size][3];
-            generatorList = new ArrayList<TileEntityHexoriumGenerator>();
-            int i = 0;
+            machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
             for (HexMachine entry : incomingMachines) {
                 if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
-                    generatorList.add((TileEntityHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z));
-                    generators[i][0] = entry.x;
-                    generators[i][1] = entry.y;
-                    generators[i][2] = entry.z;
-                    i++;
+                    machinesHexoriumGenerator.add((TileEntityHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z));
                 }
             }
 
@@ -382,8 +375,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
             }
         }
         else {
-            generators = null;
-            generatorList = null;
+            machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
         }
     }
 }

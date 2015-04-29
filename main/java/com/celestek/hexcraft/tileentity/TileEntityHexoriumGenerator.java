@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.MachineHexoriumGenerator;
+import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.util.HexMachine;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,6 +17,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
+import java.util.ArrayList;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.1.0
@@ -26,6 +30,8 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
 
     private static int energyOutputPerTick = 32;
 
+    private ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor;
+
     private static final int[] slotsSide = new int[] { 0 };
 
     private ItemStack[] machineItemStacks = new ItemStack[1];
@@ -33,6 +39,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     public int burnEnergy;
     public int totalBurnEnergy;
     private int machinesPulling = 0;
+    public boolean canProvideEnergy = true;
 
     private int tickCount = 0;
 
@@ -122,6 +129,8 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
                 machineItemStacks[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
             }
         }
+
+        machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
@@ -171,7 +180,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     }
 
     public boolean startPulling(int requestedEnergy) {
-        if(totalBurnEnergy > 0) {
+        if(canProvideEnergy) {
             System.out.println("Start pulling: " + requestedEnergy);
             if (machinesPulling <= 0)
                 MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
@@ -199,7 +208,6 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
 
     public void updateEntity() {
         if (!worldObj.isRemote) {
-
             if (burnEnergy <= 0 && canBurn()) {
                 totalBurnEnergy = burnEnergy = getItemBurnTime(machineItemStacks[0]) * energyOutputPerTick;
 
@@ -212,10 +220,30 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
                             machineItemStacks[0] = machineItemStacks[0].getItem().getContainerItem(machineItemStacks[0]);
                     }
                 }
-            } else if (burnEnergy <= 0 && !canBurn()) {
+
+                if (!canProvideEnergy) {
+                    canProvideEnergy = true;
+                    restartMachines();
+                }
+            } else if (burnEnergy <= 0 && canProvideEnergy && !canBurn()) {
                 totalBurnEnergy = 0;
                 machinesPulling = 0;
                 MachineHexoriumGenerator.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+                canProvideEnergy = false;
+                restartMachines();
+                if(canProvideEnergy) {
+                }
+            }
+        }
+    }
+
+    private void restartMachines() {
+        if (machinesMatrixReconstructor == null)
+            machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+        if (machinesMatrixReconstructor.size() != 0) {
+            for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor) {
+                if (entry != null)
+                    entry.restartMachine();
             }
         }
     }
@@ -297,5 +325,19 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     @Override
     public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
         return par3 != 0 || par1 != 1 || itemstack.getItem() == Items.bucket;
+    }
+
+    public void injectMachines(ArrayList<HexMachine> incomingMachines) {
+        if (incomingMachines != null) {
+            machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+            for (HexMachine entry : incomingMachines) {
+                if (entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                    machinesMatrixReconstructor.add((TileEntityMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z));
+                }
+            }
+        }
+        else {
+            machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+        }
     }
 }

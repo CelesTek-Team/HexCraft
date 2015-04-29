@@ -135,40 +135,46 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
 
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-            TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
+        TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
 
-            if (tileEntity != null) {
-                for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                    ItemStack itemstack = tileEntity.getStackInSlot(i);
+        if (tileEntity != null) {
 
-                    if (itemstack != null) {
-                        float f = random.nextFloat() * 0.6F + 0.1F;
-                        float f1 = random.nextFloat() * 0.6F + 0.1F;
-                        float f2 = random.nextFloat() * 0.6F + 0.1F;
+            if(tileEntity.isActive) {
+                tileEntity.stopGenerators();
+                tileEntity.isActive = false;
+            }
 
-                        while (itemstack.stackSize > 0) {
-                            int j = random.nextInt(21) + 10;
+            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
+                ItemStack itemstack = tileEntity.getStackInSlot(i);
 
-                            if (j > itemstack.stackSize) {
-                                j = itemstack.stackSize;
-                            }
+                if (itemstack != null) {
+                    float f = random.nextFloat() * 0.6F + 0.1F;
+                    float f1 = random.nextFloat() * 0.6F + 0.1F;
+                    float f2 = random.nextFloat() * 0.6F + 0.1F;
 
-                            itemstack.stackSize -= j;
-                            EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+                    while (itemstack.stackSize > 0) {
+                        int j = random.nextInt(21) + 10;
 
-                            if (itemstack.hasTagCompound()) {
-                                entityitem.getEntityItem().setTagCompound(((NBTTagCompound) itemstack.getTagCompound().copy()));
-                            }
-
-                            float f3 = 0.025F;
-                            entityitem.motionX = (double) ((float) this.random.nextGaussian() * f3);
-                            entityitem.motionY = (double) ((float) this.random.nextGaussian() * f3 + 0.1F);
-                            entityitem.motionZ = (double) ((float) this.random.nextGaussian() * f3);
-                            world.spawnEntityInWorld(entityitem);
+                        if (j > itemstack.stackSize) {
+                            j = itemstack.stackSize;
                         }
+
+                        itemstack.stackSize -= j;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+
+                        if (itemstack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound(((NBTTagCompound) itemstack.getTagCompound().copy()));
+                        }
+
+                        float f3 = 0.025F;
+                        entityitem.motionX = (double) ((float) this.random.nextGaussian() * f3);
+                        entityitem.motionY = (double) ((float) this.random.nextGaussian() * f3 + 0.1F);
+                        entityitem.motionZ = (double) ((float) this.random.nextGaussian() * f3);
+                        world.spawnEntityInWorld(entityitem);
                     }
                 }
-                world.func_147453_f(x, y, z, block);
+            }
+            world.func_147453_f(x, y, z, block);
         }
         super.breakBlock(world, x, y, z, block, meta);
     }
