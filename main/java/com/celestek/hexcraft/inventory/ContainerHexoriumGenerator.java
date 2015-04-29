@@ -40,7 +40,7 @@ public class ContainerHexoriumGenerator extends Container {
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
         craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
-        craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotal);
+        craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
     }
 
     public void detectAndSendChanges(){
@@ -51,13 +51,13 @@ public class ContainerHexoriumGenerator extends Container {
             if(lastEnergy != tileEntity.energyGui){
                 craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
             }
-            if(lastEnergyTotal != tileEntity.energyTotal){
-                craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotal);
+            if(lastEnergyTotal != tileEntity.energyTotalGui){
+                craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
             }
         }
 
         lastEnergy = tileEntity.energyGui;
-        lastEnergyTotal = tileEntity.energyTotal;
+        lastEnergyTotal = tileEntity.energyTotalGui;
     }
 
     @SideOnly(Side.CLIENT)
@@ -66,7 +66,7 @@ public class ContainerHexoriumGenerator extends Container {
             tileEntity.energyGui = par2;
         }
         if(par1 == 1){
-            tileEntity.energyTotal = par2;
+            tileEntity.energyTotalGui = par2;
         }
     }
 

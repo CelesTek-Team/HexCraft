@@ -39,8 +39,9 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     private ItemStack[] machineItemStacks = new ItemStack[2];
 
     private static int energyPerTick = 32;
-    public int energyTotal;
+    private float energyTotal;
     private float energy;
+    public int energyTotalGui;
     public int energyGui;
 
     private float machinesPulling = 0;
@@ -119,8 +120,9 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
 
         machineItemStacks = new ItemStack[getSizeInventory()];
 
-        energyTotal = tagCompound.getInteger("EnergyTotal");
+        energyTotal = tagCompound.getFloat("EnergyTotal");
         energy = tagCompound.getFloat("Energy");
+        energyTotalGui = tagCompound.getInteger("EnergyTotalGui");
         energyGui = tagCompound.getInteger("EnergyGui");
 
         machinesPulling = tagCompound.getFloat("MachinesPulling");
@@ -146,8 +148,9 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
 
-        tagCompound.setInteger("EnergyTotal", energyTotal);
+        tagCompound.setFloat("EnergyTotal", energyTotal);
         tagCompound.setFloat("Energy", energy);
+        tagCompound.setInteger("EnergyTotalGui", energyTotalGui);
         tagCompound.setInteger("EnergyGui", energyGui);
 
         tagCompound.setFloat("MachinesPulling", machinesPulling);
@@ -195,16 +198,16 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
      */
     @SideOnly(Side.CLIENT)
     public int getEnergyScaled(int div) {
-        if (energyTotal == 0)
-            return 0;
+        // System.out.println("energy: " + energy + " energyGui: " + energyGui + " energyTotal: " + energyTotal);
+        if (energyTotalGui <= 0)
+            return -1;
         else
-            return (energyGui * div / energyTotal);
+            return energyGui * div / energyTotalGui;
     }
 
     public float pullEnergy(float requestedEnergy) {
         if(energyTotal > 0) {
             if (machinesPulling > 0) {
-                // System.out.println("PULLED: " + requestedEnergy);
                 energy = energy - requestedEnergy;
                 return requestedEnergy;
             }
@@ -235,7 +238,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     }
 
     public void stopPulling(float requestedEnergy) {
-         System.out.println("Stop pulling: " + requestedEnergy + " z: " + zCoord);
+        // System.out.println("Stop pulling: " + requestedEnergy + " z: " + zCoord);
         if (machinesPulling > 0)
             machinesPulling = machinesPulling - requestedEnergy;
 
@@ -243,7 +246,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             machinesPulling = 0;
             MachineHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
         }
-         System.out.println("Now pulling: " + machinesPulling + " z: " + zCoord);
+        // System.out.println("Now pulling: " + machinesPulling + " z: " + zCoord);
     }
 
     public void updateEntity() {
@@ -288,7 +291,8 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
                     }
                 }
             }
-            energyGui = (int) energy;
+            energyGui = (int) energy / energyPerTick;
+            energyTotalGui = (int) energyTotal / energyPerTick;
         }
     }
 

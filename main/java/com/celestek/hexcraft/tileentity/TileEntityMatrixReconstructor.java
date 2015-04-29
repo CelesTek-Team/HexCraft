@@ -39,8 +39,9 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
     // Prepare energy variables.
     private static int energyPerTick = 32;
-    private static int energyTotal = 2560;
+    private static float energyTotal = 2560;
     private float energy;
+    private static int energyTotalGui = (int) energyTotal / energyPerTick;
     public int energyGui;
 
     // Prepare state variables.
@@ -199,7 +200,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
      */
     @SideOnly(Side.CLIENT)
     public int getEnergyScaled(int div) {
-        return energyGui * div / energyTotal;
+        return energyGui * div / energyTotalGui;
     }
 
     /**
@@ -259,7 +260,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
                     stopProcessing();
                 }
             }
-            energyGui = (int) energy;
+            energyGui = (int) energy / energyPerTick;
         }
     }
 

@@ -58,8 +58,8 @@ public class GuiHexoriumGenerator extends GuiContainer {
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
         // Draw the progress bar.
-        int i = tileEntity.getEnergyScaled(14);
-        if (i > 0)
-            drawTexturedModalRect(x + 80, y + 25 + 14 - i, 176, 14 - i, 14, i);
+        int i = tileEntity.getEnergyScaled(13);
+        if (i > -1)
+            drawTexturedModalRect(x + 80, y + 25 + 12 - i, 176, 12 - i, 14, i + 2);
     }
 }
