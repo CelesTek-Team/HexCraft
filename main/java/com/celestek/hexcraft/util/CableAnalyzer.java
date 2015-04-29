@@ -121,8 +121,8 @@ public class CableAnalyzer {
     public void push(World world) {
         System.out.println("Done! Pushing data to machines:");
 
-        ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<>();
-        ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<>();
+        ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
+        ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
 
         for (HexMachine entry : machines) {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
