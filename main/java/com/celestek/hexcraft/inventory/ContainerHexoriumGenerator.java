@@ -1,8 +1,6 @@
 package com.celestek.hexcraft.inventory;
 
-import com.celestek.hexcraft.init.RecipesMatrixReconstructor;
 import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +8,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -21,12 +18,12 @@ import net.minecraft.item.ItemStack;
 public class ContainerHexoriumGenerator extends Container {
 
     private TileEntityHexoriumGenerator tileEntity;
-    private int lastBurnEnergy;
-    private int lastTotalBurnEnergy;
+    private int lastEnergy;
+    private int lastEnergyTotal;
 
     public ContainerHexoriumGenerator(InventoryPlayer player, TileEntityHexoriumGenerator tileEntity){
         this.tileEntity = tileEntity;
-        this.addSlotToContainer(new Slot(tileEntity, 0, 48, 35));
+        this.addSlotToContainer(new Slot(tileEntity, 0, 80, 42));
         int i;
 
         for(i = 0; i < 3; ++i){
@@ -42,8 +39,8 @@ public class ContainerHexoriumGenerator extends Container {
 
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
-        craft.sendProgressBarUpdate(this, 0, tileEntity.burnEnergy);
-        craft.sendProgressBarUpdate(this, 1, tileEntity.totalBurnEnergy);
+        craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
+        craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotal);
     }
 
     public void detectAndSendChanges(){
@@ -51,25 +48,25 @@ public class ContainerHexoriumGenerator extends Container {
         for(int i = 0; i < crafters.size(); ++i){
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            if(lastBurnEnergy != tileEntity.burnEnergy){
-                craft.sendProgressBarUpdate(this, 0, tileEntity.burnEnergy);
+            if(lastEnergy != tileEntity.energyGui){
+                craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
             }
-            if(lastTotalBurnEnergy != tileEntity.totalBurnEnergy){
-                craft.sendProgressBarUpdate(this, 1, tileEntity.totalBurnEnergy);
+            if(lastEnergyTotal != tileEntity.energyTotal){
+                craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotal);
             }
         }
 
-        lastBurnEnergy = tileEntity.burnEnergy;
-        lastTotalBurnEnergy = tileEntity.totalBurnEnergy;
+        lastEnergy = tileEntity.energyGui;
+        lastEnergyTotal = tileEntity.energyTotal;
     }
 
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int par1, int par2){
         if(par1 == 0){
-            tileEntity.burnEnergy = par2;
+            tileEntity.energyGui = par2;
         }
         if(par1 == 1){
-            tileEntity.totalBurnEnergy = par2;
+            tileEntity.energyTotal = par2;
         }
     }
 

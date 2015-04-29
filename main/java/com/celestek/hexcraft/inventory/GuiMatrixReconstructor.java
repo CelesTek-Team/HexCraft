@@ -58,7 +58,7 @@ public class GuiMatrixReconstructor extends GuiContainer {
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
         // Draw the progress bar.
-        int i = tileEntity.getProgressScaled(35);
+        int i = tileEntity.getEnergyScaled(35);
         drawTexturedModalRect(x + 70, y + 30, 176, 0, i + 1, 26);
     }
 }

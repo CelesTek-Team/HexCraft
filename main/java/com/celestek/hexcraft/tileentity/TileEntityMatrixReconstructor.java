@@ -1,9 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
 import com.celestek.hexcraft.init.RecipesMatrixReconstructor;
-import com.celestek.hexcraft.util.HexMachine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,28 +20,35 @@ import java.util.ArrayList;
  */
 public class TileEntityMatrixReconstructor extends TileEntity implements ISidedInventory {
 
+    // Set machine name.
     private static String machineName = "Matrix Reconstructor";
 
-    private static int energyInputPerTick = 32;
-
+    // Prepare machine lists.
     private ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator;
+    int[] machinesHexoriumGeneratorX;
+    int[] machinesHexoriumGeneratorY;
+    int[] machinesHexoriumGeneratorZ;
+    private boolean firstTick = false;
+    private int usableGenerators = 0;
 
+    // Define sides and slots.
     private static final int[] slotsTop = new int[] { 0 };
-    private static final int[] slotsSides = new int[] { 1 };
+    private static final int[] slotsSide = new int[] { 1 };
+    private static final int[] slotsBlank = new int[] { 2 };
+    private ItemStack[] machineItemStacks = new ItemStack[3];
 
-    private ItemStack[] machineItemStacks = new ItemStack[2];
+    // Prepare energy variables.
+    private static int energyPerTick = 32;
+    private static int energyTotal = 2560;
+    private float energy;
+    public int energyGui;
 
-    public int progressTime;
-
+    // Prepare state variables.
     public boolean isActive = false;
-    public boolean hasEnergy = false;
-    public int usableGenerators = 0;
+    private boolean hasEnergy = false;
 
-    private static int progressDuration = 2560;
-
+    // Used for 1 second timer.
     private int tickCount = 0;
-
-    // private String furnaceName;
 
     @Override
     public int getSizeInventory() {
@@ -116,43 +121,76 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
 
-        machineItemStacks = new ItemStack[getSizeInventory()];
+        energy = tagCompound.getFloat("Energy");
+        energyGui = tagCompound.getInteger("EnergyGui");
 
-        progressTime = tagCompound.getShort("ProgressTime");
         isActive = tagCompound.getBoolean("IsActive");
         hasEnergy = tagCompound.getBoolean("HasEnergy");
 
-        NBTTagList tagList = tagCompound.getTagList("Items", 10);
-        for (int i = 0; i < tagList.tagCount(); ++i) {
-            NBTTagCompound tagCompound1 = tagList.getCompoundTagAt(i);
+        machinesHexoriumGeneratorX = tagCompound.getIntArray("MachinesHexoriumGeneratorX");
+        machinesHexoriumGeneratorY = tagCompound.getIntArray("MachinesHexoriumGeneratorY");
+        machinesHexoriumGeneratorZ = tagCompound.getIntArray("MachinesHexoriumGeneratorZ");
+        machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
+        firstTick = true;
+
+        usableGenerators = tagCompound.getInteger("UsableGenerators");
+
+        machineItemStacks = new ItemStack[getSizeInventory()];
+        NBTTagList tagsItems = tagCompound.getTagList("Items", 10);
+        for (int i = 0; i < tagsItems.tagCount(); ++i) {
+            NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(i);
             byte byte0 = tagCompound1.getByte("Slot");
 
             if (byte0 >= 0 && byte0 < machineItemStacks.length) {
                 machineItemStacks[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
             }
         }
-
-        machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
 
-        tagCompound.setShort("ProgressTime", (short) progressTime);
+        tagCompound.setFloat("Energy", energy);
+        tagCompound.setInteger("EnergyGui", energyGui);
+
         tagCompound.setBoolean("IsActive", isActive);
         tagCompound.setBoolean("HasEnergy", hasEnergy);
 
-        NBTTagList tagList = new NBTTagList();
-        for (int i = 0; i < machineItemStacks.length; ++i) {
-            if (machineItemStacks[i] != null) {
-                NBTTagCompound tagCompound1 = new NBTTagCompound();
-                tagCompound1.setByte("Slot", (byte) i);
-                machineItemStacks[i].writeToNBT(tagCompound1);
-                tagList.appendTag(tagCompound1);
+        if (machinesHexoriumGenerator != null) {
+            machinesHexoriumGeneratorX = new int[machinesHexoriumGenerator.size()];
+            machinesHexoriumGeneratorY = new int[machinesHexoriumGenerator.size()];
+            machinesHexoriumGeneratorZ = new int[machinesHexoriumGenerator.size()];
+            int i = 0;
+            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                machinesHexoriumGeneratorX[i] = entry.xCoord;
+                machinesHexoriumGeneratorY[i] = entry.yCoord;
+                machinesHexoriumGeneratorZ[i] = entry.zCoord;
+                i++;
             }
+            tagCompound.setIntArray("MachinesHexoriumGeneratorX", machinesHexoriumGeneratorX);
+            tagCompound.setIntArray("MachinesHexoriumGeneratorY", machinesHexoriumGeneratorY);
+            tagCompound.setIntArray("MachinesHexoriumGeneratorZ", machinesHexoriumGeneratorZ);
+        }
+        else  {
+            machinesHexoriumGeneratorX = new int[0];
+            machinesHexoriumGeneratorY = new int[0];
+            machinesHexoriumGeneratorZ = new int[0];
+            tagCompound.setIntArray("MachinesHexoriumGeneratorX", machinesHexoriumGeneratorX);
+            tagCompound.setIntArray("MachinesHexoriumGeneratorY", machinesHexoriumGeneratorY);
+            tagCompound.setIntArray("MachinesHexoriumGeneratorZ", machinesHexoriumGeneratorZ);
         }
 
-        tagCompound.setTag("Items", tagList);
+        tagCompound.setInteger("UsableGenerators", usableGenerators);
+
+        NBTTagList tagsItems = new NBTTagList();
+        for (int i = 0; i < machineItemStacks.length; i++)
+            if (machineItemStacks[i] != null) {
+                NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+                tagCompoundLoop.setByte("Slot", (byte) i);
+                machineItemStacks[i].writeToNBT(tagCompoundLoop);
+                tagsItems.appendTag(tagCompoundLoop);
+            }
+        tagCompound.setTag("Items", tagsItems);
     }
 
     /**
@@ -160,8 +198,8 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
      * @param div Division which corresponds to the length of the progress bar.
      */
     @SideOnly(Side.CLIENT)
-    public int getProgressScaled(int div) {
-        return progressTime * div / progressDuration;
+    public int getEnergyScaled(int div) {
+        return energyGui * div / energyTotal;
     }
 
     /**
@@ -182,73 +220,70 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
 
         if (!worldObj.isRemote) {
             tickCount++;
-            if (tickCount % 20 == 0)
-            {
-                tickCount = 0;
-
-                boolean checkEnergy = false;
-
-                if(machinesHexoriumGenerator.size() != 0) {
-                    for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
-                        if (entry != null)
-                            if (entry.canProvideEnergy)
-                                checkEnergy = true;
-                    }
+            if (firstTick) {
+                for (int i = 0; i < machinesHexoriumGeneratorX.length; i++) {
+                    machinesHexoriumGenerator.add((TileEntityHexoriumGenerator)
+                            worldObj.getTileEntity(machinesHexoriumGeneratorX[i], machinesHexoriumGeneratorY[i], machinesHexoriumGeneratorZ[i]));
                 }
-
-                if (checkEnergy && !hasEnergy)
-                    MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
-                else if (!checkEnergy && hasEnergy)
-                    MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
-
-                hasEnergy = checkEnergy;
-            }
-            if (hasEnergy) {
-                if (canSmelt()) {
-                    if (!isActive) {
-                        isActive = startGenerators();
-                        if (isActive)
-                            MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
-                    }
-
-                    if(isActive) {
-
-                        if (machinesHexoriumGenerator.size() != 0) {
-                            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
-                                if (entry != null) {
-                                    progressTime = progressTime + entry.pullEnergy(energyInputPerTick / usableGenerators);
-                                }
-                            }
-                        }
-
-                        if (progressTime >= progressDuration) {
-                            progressTime = 0;
-                            smeltItem();
-                        }
-                    }
-                } else {
-                    progressTime = 0;
-                    if (isActive) {
-                        isActive = false;
-                        MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
-                        stopGenerators();
-                    }
-                }
+                firstTick = false;
             }
             else {
-                progressTime = 0;
-                if (isActive) {
-                    isActive = false;
-                    MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
-                    stopGenerators();
+                checkEnergy();
+                if (hasEnergy) {
+                    if (canProcess()) {
+                        if (!isActive) {
+                            isActive = startMachine();
+                            if (isActive)
+                                MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                        }
+
+                        if (isActive) {
+
+                            if (machinesHexoriumGenerator != null) {
+                                for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                                    if (entry != null) {
+                                        energy = energy + entry.pullEnergy((float) energyPerTick / usableGenerators);
+                                    }
+                                }
+                            }
+
+                            if (energy >= energyTotal) {
+                                energy = 0;
+                                processItem();
+                            }
+                        }
+                    } else {
+                        stopProcessing();
+                    }
+                } else {
+                    stopProcessing();
                 }
             }
+            energyGui = (int) energy;
         }
     }
 
-    public boolean startGenerators() {
+    private void checkEnergy() {
+        boolean checkEnergy = false;
+
+        if (machinesHexoriumGenerator != null) {
+            for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+                if (entry != null && entry.canProvideEnergy)
+                    checkEnergy = true;
+            }
+        }
+
+        if (checkEnergy && !hasEnergy)
+            MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+        else if (!checkEnergy && hasEnergy)
+            MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+
+        hasEnergy = checkEnergy;
+    }
+
+    public boolean startMachine() {
         int usableGenerators1 = 0;
-        if(machinesHexoriumGenerator.size() != 0) {
+        if(machinesHexoriumGenerator != null) {
             for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
                 if (entry != null && entry.canProvideEnergy) {
                     usableGenerators1++;
@@ -258,34 +293,52 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         usableGenerators = usableGenerators1;
 
         boolean checkEnergy = false;
-        if(machinesHexoriumGenerator.size() != 0) {
+        if(machinesHexoriumGenerator != null) {
             for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
                 if (entry != null && entry.canProvideEnergy) {
-                    checkEnergy = entry.startPulling(energyInputPerTick / usableGenerators);
+                    checkEnergy = entry.startPulling((float) energyPerTick / usableGenerators);
                 }
             }
         }
         return checkEnergy;
     }
 
-    public void stopGenerators() {
-        if (machinesHexoriumGenerator.size() != 0) {
+    public void stopMachine() {
+        if (machinesHexoriumGenerator != null) {
             for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
                 if (entry != null && entry.canProvideEnergy) {
-                    entry.stopPulling(energyInputPerTick / usableGenerators);
+                    entry.stopPulling((float) energyPerTick / usableGenerators);
                 }
             }
         }
     }
 
-    public void restartMachine() {
+    public void restartMachineStart() {
         if (isActive) {
-            stopGenerators();
-            isActive = startGenerators();
+            isActive = startMachine();
+            if (!isActive) {
+                energy = 0;
+                MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+            }
         }
     }
 
-    private boolean canSmelt() {
+    public void restartMachineStop() {
+        if (isActive) {
+            stopMachine();
+        }
+    }
+
+    private void stopProcessing() {
+        energy = 0;
+        if (isActive) {
+            isActive = false;
+            MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+            stopMachine();
+        }
+    }
+
+    private boolean canProcess() {
         if (this.machineItemStacks[0] == null) {
             return false;
         } else {
@@ -301,8 +354,8 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         }
     }
 
-    public void smeltItem() {
-        if (canSmelt()) {
+    public void processItem() {
+        if (canProcess()) {
             ItemStack itemStack = RecipesMatrixReconstructor.smelting().getSmeltingResult(machineItemStacks[0]);
 
             if (machineItemStacks[1] == null) {
@@ -335,13 +388,26 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-        return slot != 1;
-    }
+    public int[] getAccessibleSlotsFromSide(int side) {
+        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 
-    @Override
-    public int[] getAccessibleSlotsFromSide(int slot) {
-        return slot == 0 ? slotsTop : slotsSides;
+        if (meta >= 4 && meta < 8)
+            meta -= 4;
+        else if (meta >= 8)
+            meta -= 8;
+
+        if (side == 1)
+            return slotsTop;
+        else if (side == 2 && meta == 0)
+            return slotsSide;
+        else if (side == 3 && meta == 2)
+            return slotsSide;
+        else if (side == 4 && meta == 3)
+            return slotsSide;
+        else if (side == 5 && meta == 1)
+            return slotsSide;
+        else
+            return slotsBlank;
     }
 
     @Override
@@ -350,32 +416,33 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
     }
 
     @Override
-    public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
-        return par3 != 0 || par1 != 1;
+    public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+        return slot == 0;
     }
 
-    public void injectMachines(ArrayList<HexMachine> incomingMachines) {
-        if (incomingMachines != null) {
+    @Override
+    public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
+        return par3 != 0;
+    }
+
+    public void injectMachines(ArrayList<TileEntityHexoriumGenerator> incomingMachines) {
+        if (incomingMachines.size() != 0) {
+
             if(machinesHexoriumGenerator == null)
                 machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
 
-            if (isActive) {
-                stopGenerators();
-            }
+            restartMachineStop();
 
-            machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
-            for (HexMachine entry : incomingMachines) {
-                if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
-                    machinesHexoriumGenerator.add((TileEntityHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z));
-                }
-            }
+            machinesHexoriumGenerator = incomingMachines;
 
-            if (isActive) {
-                isActive = startGenerators();
-            }
+            restartMachineStart();
         }
         else {
-            machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
+            restartMachineStop();
+
+            machinesHexoriumGenerator = null;
+
+            restartMachineStart();
         }
     }
 }

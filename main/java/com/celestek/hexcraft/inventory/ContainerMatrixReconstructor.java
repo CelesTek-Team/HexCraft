@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 public class ContainerMatrixReconstructor extends Container {
 
     private TileEntityMatrixReconstructor tileEntity;
-    private int lastProgressTime;
+    private int lastEnergy;
 
     public ContainerMatrixReconstructor(InventoryPlayer player, TileEntityMatrixReconstructor tileEntity){
         this.tileEntity = tileEntity;
@@ -41,7 +41,7 @@ public class ContainerMatrixReconstructor extends Container {
 
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
-        craft.sendProgressBarUpdate(this, 0, tileEntity.progressTime);
+        craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
     }
 
     public void detectAndSendChanges(){
@@ -49,18 +49,18 @@ public class ContainerMatrixReconstructor extends Container {
         for(int i = 0; i < crafters.size(); ++i){
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            if(lastProgressTime != tileEntity.progressTime){
-                craft.sendProgressBarUpdate(this, 0, tileEntity.progressTime);
+            if(lastEnergy != tileEntity.energyGui){
+                craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
             }
         }
 
-        lastProgressTime = tileEntity.progressTime;
+        lastEnergy = tileEntity.energyGui;
     }
 
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int par1, int par2){
         if(par1 == 0){
-            tileEntity.progressTime = par2;
+            tileEntity.energyGui = par2;
         }
     }
 

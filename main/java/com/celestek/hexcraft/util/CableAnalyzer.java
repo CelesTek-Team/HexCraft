@@ -110,17 +110,38 @@ public class CableAnalyzer {
             analyze(world, x, y + 1, z, blockName, 6);
     }
 
+    public boolean size() {
+        return machines.size() > 0;
+    }
+
+    public void add(World world, int x, int y, int z) {
+        machines.add(new HexMachine(x, y, z, world.getBlock(x, y, z).getUnlocalizedName()));
+    }
+
     public void push(World world) {
         System.out.println("Done! Pushing data to machines:");
+
+        ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<>();
+        ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<>();
+
         for (HexMachine entry : machines) {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
-            if(entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
-                TileEntityMatrixReconstructor machine = (TileEntityMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z);
-                machine.injectMachines(machines);
-            } else if(entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
-                TileEntityHexoriumGenerator machine = (TileEntityHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z);
-                machine.injectMachines(machines);
+
+            if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
+                machinesHexoriumGenerator.add((TileEntityHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
+            if (entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                machinesMatrixReconstructor.add((TileEntityMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
+            }
+        }
+
+        for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
+            TileEntityHexoriumGenerator machine = (TileEntityHexoriumGenerator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+            machine.injectMachines(machinesMatrixReconstructor);
+        }
+        for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor) {
+            TileEntityMatrixReconstructor machine = (TileEntityMatrixReconstructor) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+            machine.injectMachines(machinesHexoriumGenerator);
         }
     }
 }

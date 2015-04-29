@@ -2,7 +2,6 @@ package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -50,7 +49,7 @@ public class GuiHexoriumGenerator extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         // Bind the texture of the GUI.
-        mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiMatrixReconstructor.png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiHexoriumGenerator.png"));
         // Prepare x and y values (top left corner).
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
@@ -59,7 +58,8 @@ public class GuiHexoriumGenerator extends GuiContainer {
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
         // Draw the progress bar.
-        int i = tileEntity.getBurnScaled(35);
-        drawTexturedModalRect(x + 70, y + 30, 176, 0, i + 1, 26);
+        int i = tileEntity.getEnergyScaled(14);
+        if (i > 0)
+            drawTexturedModalRect(x + 80, y + 25 + 14 - i, 176, 14 - i, 14, i);
     }
 }

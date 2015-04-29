@@ -63,8 +63,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private float topFu = 0.8F;
     private float topFv = 2.7712F;
 
-    private float cMin = 0.35F;
-    private float cMax = 0.65F;
+    public static float cMin = 0.35F;
+    public static float cMax = 0.65F;
 
     private float sideu = 0F;
     private float sideU = 2F;

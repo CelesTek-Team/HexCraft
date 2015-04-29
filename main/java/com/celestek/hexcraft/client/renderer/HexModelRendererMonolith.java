@@ -31,22 +31,22 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private boolean renderStone;
 
     // Model constants.    
-    private float yMin = 0F;
-    private float yMax = 0.75F;
+    public static float yMin = 0F;
+    public static float yMax = 0.75F;
 
-    private float xA = 0.1874F;
-    private float xB = 0.3437F;
-    private float xC = 0.6563F;
-    private float xD = 0.8126F;
-    private float xE = 0.6563F;
-    private float xF = 0.3437F;
+    public static float xA = 0.1874F;
+    public static float xB = 0.3437F;
+    public static float xC = 0.6563F;
+    public static float xD = 0.8126F;
+    public static float xE = 0.6563F;
+    public static float xF = 0.3437F;
 
-    private float zA = 0.5F;
-    private float zB = 0.7707F;
-    private float zC = 0.7707F;
-    private float zD = 0.5F;
-    private float zE = 0.2292F;
-    private float zF = 0.2292F;
+    public static float zA = 0.5F;
+    public static float zB = 0.7707F;
+    public static float zC = 0.7707F;
+    public static float zD = 0.5F;
+    public static float zE = 0.2292F;
+    public static float zF = 0.2292F;
 
     private float topAu = 0.3F;
     private float topAv = 4.5F;

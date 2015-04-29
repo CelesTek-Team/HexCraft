@@ -18,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -110,8 +111,20 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
             /* DO ANALYSIS */
             CableAnalyzer analyzer = new CableAnalyzer();
             analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            if(!analyzer.size())
+                analyzer.add(world, x, y, z);
             analyzer.push(world);
         }
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        if (block == this && meta >= 4 && meta < 8)
+            return 8;
+        else
+            return 0;
     }
 
     public static void updateBlockState(int status, World world, int x, int y, int z) {
@@ -140,7 +153,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
         if (tileEntity != null) {
 
             if(tileEntity.isActive) {
-                tileEntity.stopGenerators();
+                tileEntity.stopMachine();
                 tileEntity.isActive = false;
             }
 

@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -8,12 +9,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -79,98 +83,92 @@ public class CableHexoriumCable extends HexBlockModel {
         }
     }
 
-    /*
-    @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        
-        float xMin = 0;
-        float xMax = 1;
-        float yMin = 0;
-        float yMax = 1;
-        float zMin = 0;
-        float zMax = 1;
-
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    {
         boolean sides[] = processCableSides(world, x, y, z, this.getUnlocalizedName());
-        boolean straight = false;
 
-        if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5])
-            straight = true;
-        else if (!sides[0] && !sides[1] && sides[2] && sides[3] && !sides[4] && !sides[5])
-            straight = true;
-        else if (!sides[0] && !sides[1] && !sides[2] && !sides[3] && sides[4] && sides[5])
-            straight = true;
+        float xMin = HexModelRendererCable.cMin;
+        float xMax = HexModelRendererCable.cMax;
+        float yMin = HexModelRendererCable.cMin;
+        float yMax = HexModelRendererCable.cMax;
+        float zMin = HexModelRendererCable.cMin;
+        float zMax = HexModelRendererCable.cMax;
 
-        System.out.println("States: " + sides[0] + sides[1] + sides[2] + sides[3] + sides[4] + sides[5]);
+        if(sides[0])
+            yMin = 0;
+        if(sides[1])
+            yMax = 1;
+        if(sides[2])
+            xMin = 0;
+        if(sides[3])
+            xMax = 1;
+        if(sides[4])
+            zMin = 0;
+        if(sides[5])
+            zMax = 1;
 
-        if (straight) {
+        setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+        return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
+    }
 
-            if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5]) {
-                xMin = 0.4F;
-                xMax = 0.6F;
-                zMin = 0.4134F;
-                zMax = 0.5866F;
-            } else if (!sides[0] && !sides[1] && sides[2] && sides[3] && !sides[4] && !sides[5]) {
-                yMin = 0.4F;
-                yMax = 0.6F;
-                zMin = 0.4134F;
-                zMax = 0.5866F;
-            } else if (!sides[0] && !sides[1] && !sides[2] && !sides[3] && sides[4] && sides[5]) {
-                yMin = 0.4F;
-                yMax = 0.6F;
-                xMin = 0.4134F;
-                xMax = 0.5866F;
-            }
-        } else {
-            xMin = 0.35F;
-            xMax = 0.65F;
-            yMin = 0.35F;
-            yMax = 0.65F;
-            zMin = 0.35F;
-            zMax = 0.65F;
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        boolean sides[] = processCableSides(world, x, y, z, this.getUnlocalizedName());
 
-            if(sides[0]) {
-                yMin = 0;
-            }
-            if(sides[1]) {
-                yMax = 1;
-            }
-            if(sides[2]) {
-                xMin = 0;
-            }
-            if(sides[3]) {
-                xMax = 1;
-            }
-            if(sides[4]) {
-                zMin = 0;
-            }
-            if(sides[5]) {
-                zMax = 1;
-            }
+        float xMin = HexModelRendererCable.cMin;
+        float xMax = HexModelRendererCable.cMax;
+        float yMin = HexModelRendererCable.cMin;
+        float yMax = HexModelRendererCable.cMax;
+        float zMin = HexModelRendererCable.cMin;
+        float zMax = HexModelRendererCable.cMax;
 
-        }
-        this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+        if(sides[0])
+            yMin = 0;
+        if(sides[1])
+            yMax = 1;
+        if(sides[2])
+            xMin = 0;
+        if(sides[3])
+            xMax = 1;
+        if(sides[4])
+            zMin = 0;
+        if(sides[5])
+            zMax = 1;
+
+        return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
     }
 
     public static boolean[] processCableSides(IBlockAccess world, int x, int y, int z, String name)
     {
         boolean sides[] = new boolean[6];
         int metas[] = new int[4];
-        boolean straight = false;
 
         // Look for machines.
-        if (world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+        if (world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
+                world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
             metas[0] = world.getBlockMetadata(x - 1, y, z);
         else
             metas[0] = -1;
-        if (world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+        if (world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
+                world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
             metas[1] = world.getBlockMetadata(x + 1, y, z);
         else
             metas[1] = -1;
-        if (world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+        if (world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
             metas[2] = world.getBlockMetadata(x, y, z - 1);
         else
             metas[2] = -1;
-        if (world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+        if (world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
             metas[3] = world.getBlockMetadata(x, y, z + 1);
         else
             metas[3] = -1;
@@ -214,7 +212,6 @@ public class CableHexoriumCable extends HexBlockModel {
 
         return sides;
     }
-    */
 
     // Prepare the icons.
     @SideOnly(Side.CLIENT)

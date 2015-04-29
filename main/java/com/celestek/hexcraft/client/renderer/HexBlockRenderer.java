@@ -69,7 +69,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-            renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -78,9 +78,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         // If special faces should be drawn, use those textures instead.
         if(!renderExtra)
-            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         else
-            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 1));
+            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -88,9 +88,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
         if(!renderExtra)
-            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         else
-            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 1));
+            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -98,9 +98,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
         if(!renderExtra)
-            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         else
-            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 1));
+            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -108,9 +108,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
         if(!renderExtra)
-            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         else
-            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 1));
+            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
@@ -118,40 +118,40 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         if (!renderExtra)
-            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 2));
         else
-            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 1));
+            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 2));
         tessellator.draw();
 
         // Start drawing outer layer of the block.
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 1));
+        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, 1));
+        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, 1));
+        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, 1));
+        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 1));
+        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, 1));
+        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, 2));
         tessellator.draw();
 
         // Finish drawing.

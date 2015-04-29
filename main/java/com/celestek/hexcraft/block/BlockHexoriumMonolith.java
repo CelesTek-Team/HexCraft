@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -65,6 +67,80 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         this.setStepSound(Block.soundTypeGlass);
         this.setHarvestLevel("pickaxe", 2);
         this.setLightOpacity(0);
+    }
+
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        // Get block meta data.
+        int meta = world.getBlockMetadata(x, y, z);
+
+        // Return bounding box depending on meta.
+        switch (meta) {
+            case 0: setBlockBounds(HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
+            case 1: setBlockBounds(HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
+            case 2: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax,
+                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
+            case 3: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin,
+                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
+            case 4: setBlockBounds(1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
+                    1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            case 5: setBlockBounds(HexModelRendererMonolith.yMin, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.yMax, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            default:
+                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
+        }
+    }
+
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        // Get block meta data.
+        int meta = world.getBlockMetadata(x, y, z);
+
+        // Return bounding box depending on meta.
+        switch (meta) {
+            case 0:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
+            case 1:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
+            case 2:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
+            case 3:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
+            case 4:
+                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            case 5:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            default:
+                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
+        }
     }
 
     /**
