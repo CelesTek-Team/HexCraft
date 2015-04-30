@@ -18,12 +18,14 @@ import net.minecraft.world.World;
 public class HexGui implements IGuiHandler {
 
 
-    public HexGui (){
+    public HexGui () {}
 
-    }
-
+    /**
+     * Retrieves the server side of the GUI.
+     */
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        // Get different GUI depending on ID.
         if(ID == 0){
             TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
             return new ContainerMatrixReconstructor(player.inventory, tileEntity);
@@ -35,8 +37,12 @@ public class HexGui implements IGuiHandler {
         return null;
     }
 
+    /**
+     * Retrieves the client side of the GUI.
+     */
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        // Get different GUI depending on ID.
         if(ID == 0){
             TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
             return new GuiMatrixReconstructor(player.inventory, tileEntity);

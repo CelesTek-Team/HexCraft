@@ -62,6 +62,18 @@ public class BlockHexoriumOre extends HexBlock {
     }
 
     /**
+     * Called when a block is placed using its ItemBlock.
+     */
+    @Override
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
+        // Reset the fortune and silk touch parameters.
+        fortune = 0;
+        silk = false;
+
+        return meta;
+    }
+
+    /**
      * Checks if the player harvesting the block has Silk Touch enchant and/or Fortune enchant.
      */
     @Override
@@ -140,18 +152,6 @@ public class BlockHexoriumOre extends HexBlock {
         else
             // Return the block (because of Silk Touch).
             return dropItem;
-    }
-
-    /**
-     * Called when a block is placed using its ItemBlock.
-     */
-    @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-        // Reset the fortune and silk touch parameters.
-        fortune = 0;
-        silk = false;
-
-        return meta;
     }
 
     // Prepare the icons.

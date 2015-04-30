@@ -53,15 +53,21 @@ public class CableHexoriumCable extends HexBlockModel {
     }
 
     /**
-     * Called when a block is placed using its ItemBlock.
+     * Called when a block is placed by a player.
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
+        // Check if the code is executed on the server.
         if(!world.isRemote) {
+
             System.out.println("Cable placed, analyzing!");
+
             /* DO ANALYSIS */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
+            // Call the analysis and wait for results.
             analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
     }
@@ -71,14 +77,22 @@ public class CableHexoriumCable extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare the name string of the broken block.
         String blockName = block.getUnlocalizedName();
+
+        // Check if the changed block belongs to the energy system.
         if (blockName.contains(UNLOCALISEDNAME) ||
                 blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
+
             /* DO ANALYSIS */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
+            // Call the analysis and wait for results.
             analyzer.analyze(world, x, y, z, this.getUnlocalizedName(), 0);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
     }
@@ -86,11 +100,14 @@ public class CableHexoriumCable extends HexBlockModel {
     /**
      * Returns the bounding box of the wired rectangular prism to render.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
+        // Process the sides.
         boolean sides[] = processCableSides(world, x, y, z, this.getUnlocalizedName());
 
+        // Prepare the default values of the bounding box.
         float xMin = HexModelRendererCable.cMin;
         float xMax = HexModelRendererCable.cMax;
         float yMin = HexModelRendererCable.cMin;
@@ -98,6 +115,7 @@ public class CableHexoriumCable extends HexBlockModel {
         float zMin = HexModelRendererCable.cMin;
         float zMax = HexModelRendererCable.cMax;
 
+        // Depending on sides, increase the box size.
         if(sides[0])
             yMin = 0;
         if(sides[1])
@@ -111,7 +129,10 @@ public class CableHexoriumCable extends HexBlockModel {
         if(sides[5])
             zMax = 1;
 
+        // Set the block bounds, used for client-side rendering.
         setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+
+        // Return the bounding box.
         return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
     }
 
@@ -119,10 +140,13 @@ public class CableHexoriumCable extends HexBlockModel {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
+        // Process the sides.
         boolean sides[] = processCableSides(world, x, y, z, this.getUnlocalizedName());
 
+        // Prepare the default values of the bounding box.
         float xMin = HexModelRendererCable.cMin;
         float xMax = HexModelRendererCable.cMax;
         float yMin = HexModelRendererCable.cMin;
@@ -130,6 +154,7 @@ public class CableHexoriumCable extends HexBlockModel {
         float zMin = HexModelRendererCable.cMin;
         float zMax = HexModelRendererCable.cMax;
 
+        // Depending on sides, increase the box size.
         if(sides[0])
             yMin = 0;
         if(sides[1])
@@ -143,11 +168,49 @@ public class CableHexoriumCable extends HexBlockModel {
         if(sides[5])
             zMax = 1;
 
+        // Return the bounding box.
         return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
     }
 
+    // Prepare the icons.
+    @SideOnly(Side.CLIENT)
+    private IIcon icon[];
+
+    /**
+     * Registers the icons.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
+        icon = new IIcon[7];
+        // Load the outer textures.
+        for(int i = 0; i < 6; i++)
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        // Load the monolith texture. Use special texture if it is a rainbow.
+        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+        else
+            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+    }
+
+    /**
+     * Retrieves the icons.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int i, int meta) {
+        // Retrieve icon based on side.
+        return icon[i];
+    }
+
+    /**
+     * Processes the block sides and returns them as an array.
+     * @param name Unlocalized name of the block to process.
+     */
     public static boolean[] processCableSides(IBlockAccess world, int x, int y, int z, String name)
     {
+        // Prepare side and meta int arrays.
         boolean sides[] = new boolean[6];
         int metas[] = new int[4];
 
@@ -211,37 +274,5 @@ public class CableHexoriumCable extends HexBlockModel {
             sides[5] = true;
 
         return sides;
-    }
-
-    // Prepare the icons.
-    @SideOnly(Side.CLIENT)
-    private IIcon icon[];
-
-    /**
-     * Registers the icons.
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        // Initialize the icons.
-        icon = new IIcon[7];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
-        // Load the monolith texture. Use special texture if it is a rainbow.
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
-        else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
-    }
-
-    /**
-     * Retrieves the icons.
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
-        // Retrieve icon based on side.
-        return icon[i];
     }
 }

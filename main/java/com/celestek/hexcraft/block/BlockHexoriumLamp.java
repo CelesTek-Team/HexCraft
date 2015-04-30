@@ -67,25 +67,7 @@ public class BlockHexoriumLamp extends HexBlock {
     }
 
     /**
-     * Processes the block meta to adjust light of the lamp.
-     */
-    private void processMeta(World world, int x, int y, int z) {
-        // If this is the server thread.
-        if (!world.isRemote) {
-            // Compare if the block is inverted and if it is getting power.
-            if (!isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-            else if (!isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-            else if (isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-            else if (isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-        }
-    }
-
-    /**
-     * Get the light value according to meta.
+     * Gets the light value according to meta.
      */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
@@ -127,5 +109,23 @@ public class BlockHexoriumLamp extends HexBlock {
     public IIcon getIcon(int i, int meta) {
         // Retrieve icon based on side.
         return icon[i];
+    }
+
+    /**
+     * Processes the block meta to adjust light of the lamp.
+     */
+    private void processMeta(World world, int x, int y, int z) {
+        // If this is the server thread.
+        if (!world.isRemote) {
+            // Compare if the block is inverted and if it is getting power.
+            if (!isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
+                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+            else if (!isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
+                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+            else if (isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
+                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+            else if (isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
+                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+        }
     }
 }

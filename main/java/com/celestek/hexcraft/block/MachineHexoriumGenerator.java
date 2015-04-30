@@ -53,50 +53,55 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     }
 
     /**
-     * Fired when a player right clicks on the machine.
-     */
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        player.openGui(HexCraft.instance, 1, world, x, y, z);
-        return true;
-    }
-
-    @Override
-    public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
-    }
-
-    @Override
-    public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
-    }
-
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
+     * Returns a new instance of a block's TIle Entity class. Called on placing the block.
      */
     @Override
     public TileEntity createNewTileEntity(World world, int par2)
     {
+        // Create the new TIle Entity.
         return new TileEntityHexoriumGenerator();
     }
 
+    /**
+     * Called when a block is placed by a player.
+     */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
+        // Get the direction of the block.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        // Set the block's meta data according to direction.
         world.setBlockMetadataWithNotify(x, y, z, direction + 8, 2);
+
+        // Check if the code is executed on the server.
         if(!world.isRemote) {
+
             System.out.println("Machine placed, analyzing!");
-        /* DO ANALYSIS, BASED ON ORIENTATION */
+
+            /* DO ANALYSIS, BASED ON ORIENTATION */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            if (direction == 0)
+            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
+            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
-            else if (direction == 1)
+            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
-            else if (direction == 2)
+            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
-            else if (direction == 3)
+            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
+    }
+
+    /**
+     * Fired when a player right clicks on the machine.
+     */
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+        // Open the GUI.
+        player.openGui(HexCraft.instance, 1, world, x, y, z);
+        return true;
     }
 
     /**
@@ -104,87 +109,119 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare the name string of the broken block.
         String blockName = block.getUnlocalizedName();
-        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(UNLOCALISEDNAME)) {
+
+        // Prepare the block meta.
+        int meta = world.getBlockMetadata(x, y, z);
+
+        // Strip away the texture states from meta.
+        if (meta >= 4 && meta < 8)
+            meta -= 4;
+        else if (meta >= 8)
+            meta -= 8;
+
+        // Check if the changed block belongs to the energy system.
+        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
+
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
-            /* DO ANALYSIS */
+
+            /* DO ANALYSIS, BASED ON ORIENTATION */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
+            if (meta == 0 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x, y, z + 1, blockName, 0);
+            else if (meta == 1 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x - 1, y, z, blockName, 0);
+            else if (meta == 2 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x, y, z - 1, blockName, 0);
+            else if (meta == 3 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x + 1, y, z, blockName, 0);
+            // If the created list has no entries, add self in.
             if(!analyzer.size())
                 analyzer.add(world, x, y, z);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
     }
 
+    /**
+     * Called when the block is broken.
+     */
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        // Get the Tile Entity.
+        TileEntityHexoriumGenerator tileEntity = (TileEntityHexoriumGenerator) world.getTileEntity(x, y, z);
+
+        // Check if it is not null.
+        if (tileEntity != null) {
+
+            // Drop items.
+            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
+                ItemStack itemstack = tileEntity.getStackInSlot(i);
+
+                if (itemstack != null) {
+                    float f = random.nextFloat() * 0.6F + 0.1F;
+                    float f1 = random.nextFloat() * 0.6F + 0.1F;
+                    float f2 = random.nextFloat() * 0.6F + 0.1F;
+
+                    while (itemstack.stackSize > 0) {
+                        int j = random.nextInt(21) + 10;
+
+                        if (j > itemstack.stackSize) {
+                            j = itemstack.stackSize;
+                        }
+
+                        itemstack.stackSize -= j;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+
+                        if (itemstack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound(((NBTTagCompound) itemstack.getTagCompound().copy()));
+                        }
+
+                        float f3 = 0.025F;
+                        entityitem.motionX = (double) ((float) this.random.nextGaussian() * f3);
+                        entityitem.motionY = (double) ((float) this.random.nextGaussian() * f3 + 0.1F);
+                        entityitem.motionZ = (double) ((float) this.random.nextGaussian() * f3);
+                        world.spawnEntityInWorld(entityitem);
+                    }
+                }
+            }
+            world.func_147453_f(x, y, z, block);
+        }
+        super.breakBlock(world, x, y, z, block, meta);
+    }
+
+    /**
+     * Returns the item drop of the block.
+     */
+    @Override
+    public Item getItemDropped(int par1, Random random, int par3) {
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+    }
+
+    /**
+     * Returns the item of the block.
+     */
+    @Override
+    public Item getItem(World world, int par2, int par3, int par4) {
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+    }
+
+    /**
+     * Gets the light value according to meta.
+     */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        // Get the block meta.
         Block block = world.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
+        // If the machine is active, make it emit light.
         if (block == this && meta >= 4 && meta < 8)
             return 12;
         else
             return 0;
-    }
-
-    public static void updateBlockState(int status, World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-
-        if (status == 1 && meta < 4)
-            meta = meta + 4;
-        else if (status == 1 && meta >= 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 4 && meta < 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 8)
-            meta = meta - 8;
-        else if (status == 2 && meta < 4)
-            meta = meta + 8;
-        else if (status == 2 && meta >= 4 && meta < 8)
-            meta = meta + 4;
-
-        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
-    }
-
-    @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-            TileEntityHexoriumGenerator tileEntity = (TileEntityHexoriumGenerator) world.getTileEntity(x, y, z);
-
-            if (tileEntity != null) {
-                for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                    ItemStack itemstack = tileEntity.getStackInSlot(i);
-
-                    if (itemstack != null) {
-                        float f = random.nextFloat() * 0.6F + 0.1F;
-                        float f1 = random.nextFloat() * 0.6F + 0.1F;
-                        float f2 = random.nextFloat() * 0.6F + 0.1F;
-
-                        while (itemstack.stackSize > 0) {
-                            int j = random.nextInt(21) + 10;
-
-                            if (j > itemstack.stackSize) {
-                                j = itemstack.stackSize;
-                            }
-
-                            itemstack.stackSize -= j;
-                            EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-
-                            if (itemstack.hasTagCompound()) {
-                                entityitem.getEntityItem().setTagCompound(((NBTTagCompound) itemstack.getTagCompound().copy()));
-                            }
-
-                            float f3 = 0.025F;
-                            entityitem.motionX = (double) ((float) this.random.nextGaussian() * f3);
-                            entityitem.motionY = (double) ((float) this.random.nextGaussian() * f3 + 0.1F);
-                            entityitem.motionZ = (double) ((float) this.random.nextGaussian() * f3);
-                            world.spawnEntityInWorld(entityitem);
-                        }
-                    }
-                }
-                world.func_147453_f(x, y, z, block);
-        }
-        super.breakBlock(world, x, y, z, block, meta);
     }
 
     // Prepare the icons.
@@ -340,5 +377,24 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
             }
         }
         return icon[i];
+    }
+
+    public static void updateBlockState(int status, World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+
+        if (status == 1 && meta < 4)
+            meta = meta + 4;
+        else if (status == 1 && meta >= 8)
+            meta = meta - 4;
+        else if (status == 0 && meta >= 4 && meta < 8)
+            meta = meta - 4;
+        else if (status == 0 && meta >= 8)
+            meta = meta - 8;
+        else if (status == 2 && meta < 4)
+            meta = meta + 8;
+        else if (status == 2 && meta >= 4 && meta < 8)
+            meta = meta + 4;
+
+        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
     }
 }

@@ -119,6 +119,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
 
+        /* Inner part */
         // Set up brightness and color.
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
@@ -130,6 +131,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         double v = c.getInterpolatedV(sidev);
         double V = c.getInterpolatedV(sideV);
 
+        // Top Face
         tessellator.setNormal(xB, yMax, zB);
         tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
         tessellator.addVertexWithUV(xC, yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -141,6 +143,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(xE, yMax, zE, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
         tessellator.addVertexWithUV(xF, yMax, zF, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
 
+        // Bottom Face
         tessellator.addVertexWithUV(xA, yMin, zA, c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
         tessellator.addVertexWithUV(xD, yMin, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
         tessellator.addVertexWithUV(xC, yMin, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
@@ -192,7 +195,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(xF, yMin, zF, U, V); // F'
         tessellator.addVertexWithUV(xA, yMin, zA, u, V); // A'
 
-
+        /* Outer part */
         // Set up brightness and color.
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(1, 1, 1);
@@ -319,6 +322,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 metas[3] == 2)
             sides[5] = true;
 
+        // Determine if the cable is straight.
         if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5])
             straight = true;
         else if (!sides[0] && !sides[1] && sides[2] && sides[3] && !sides[4] && !sides[5])
@@ -340,12 +344,14 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             // Prepare the icon.
             IIcon c = block.getIcon(6, 0);
 
+            // Check if the cable is straight.
             if (straight) {
                 double u = c.getInterpolatedU(sideu);
                 double U = c.getInterpolatedU(sideU);
                 double v = c.getInterpolatedV(sidev);
                 double V = c.getInterpolatedV(sideV);
 
+                // Use different drawing depending on orientation.
                 if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5]) {
                     // Side Faces
                     tessellator.addVertexWithUV(xF, yMax, zF, u, v); // F
@@ -470,7 +476,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zF, xF, yMin, U, V); // F'
                     tessellator.addVertexWithUV(zA, xA, yMin, u, V); // A'
                 }
+            // If the cable is not straight...
             } else {
+                // Draw central cube.
                 double u = c.getInterpolatedU(cubeu);
                 double U = c.getInterpolatedU(cubeU);
                 double v = c.getInterpolatedV(cubev);
@@ -509,6 +517,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 v = c.getInterpolatedV(miniv);
                 V = c.getInterpolatedV(miniV);
 
+                // Draw a short cable for every side found.
                 if(sides[0]) {
                     // Side Faces
                     u = c.getInterpolatedU(sideu);
@@ -785,12 +794,14 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             // Prepare the icon.
             IIcon c = block.getIcon(0, 0);
 
+            // Check if the cable is straight.
             if (straight) {
                 double u = c.getInterpolatedU(sideu);
                 double U = c.getInterpolatedU(sideU);
                 double v = c.getInterpolatedV(sidev);
                 double V = c.getInterpolatedV(sideV);
 
+                // Use different drawing depending on orientation.
                 if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5]) {
                     // Side Faces
                     tessellator.addVertexWithUV(xF, yMax, zF, u, v); // F
@@ -917,7 +928,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zF, xF, yMin, U, V); // F'
                     tessellator.addVertexWithUV(zA, xA, yMin, u, V); // A'
                 }
+            // If the cable is not straight...
             } else {
+                // Draw central cube.
                 double u = c.getInterpolatedU(cubeu);
                 double U = c.getInterpolatedU(cubeU);
                 double v = c.getInterpolatedV(cubev);
@@ -956,6 +969,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 v = c.getInterpolatedV(miniv);
                 V = c.getInterpolatedV(miniV);
 
+                // Draw a short cable for every side found.
                 if(sides[0]) {
                     // Side Faces
                     u = c.getInterpolatedU(miniu);

@@ -70,76 +70,108 @@ public class BlockHexoriumMonolith extends HexBlockModel {
     }
 
     /**
-     * Returns the bounding box of the wired rectangular prism to render.
+     * Called when a player tries to place the monolith.
      */
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    @Override
+    public boolean canPlaceBlockAt(World world, int x, int y, int z)
     {
-        // Get block meta data.
-        int meta = world.getBlockMetadata(x, y, z);
-
-        // Return bounding box depending on meta.
-        switch (meta) {
-            case 0: setBlockBounds(HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.zF,
-                    HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.zB);
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
-            case 1: setBlockBounds(HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin, HexModelRendererMonolith.zF,
-                    HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax, HexModelRendererMonolith.zB);
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
-            case 2: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax,
-                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin);
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
-                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
-            case 3: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin,
-                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax);
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
-                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
-            case 4: setBlockBounds(1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
-                    1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
-                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
-            case 5: setBlockBounds(HexModelRendererMonolith.yMin, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
-                    HexModelRendererMonolith.yMax, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
-            default:
-                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
-        }
+        // Check if any of the sides around the block are solid, if yes, it means it can be placed.
+        return (world.isSideSolid(x, y - 1, z, UP)) ||
+                (world.isSideSolid(x, y + 1, z, DOWN)) ||
+                (world.isSideSolid(x, y, z + 1, NORTH)) ||
+                (world.isSideSolid(x, y, z - 1, SOUTH)) ||
+                (world.isSideSolid(x + 1, y, z, WEST)) ||
+                (world.isSideSolid(x - 1, y, z, EAST));
     }
 
     /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
+     * Called when a block is placed using its ItemBlock.
      */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    @Override
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
-        // Get block meta data.
-        int meta = world.getBlockMetadata(x, y, z);
+        // Reset the fortune and silk touch parameters.
+        fortune = 0;
+        silk = false;
 
-        // Return bounding box depending on meta.
-        switch (meta) {
-            case 0:
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
-            case 1:
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
-            case 2:
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
-                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
-            case 3:
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
-                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
-            case 4:
-                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
-            case 5:
-                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
-                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
-            default:
-                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
+        // Prepare the orientation.
+        int orientation = -1;
+
+        // First check if the side it was placed on can accept it. If it can, place it there.
+        if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN)) 
+            orientation = side;
+        else if (side == 1 && world.isSideSolid(x, y - 1, z, UP)) 
+            orientation = side;
+        else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH)) 
+            orientation = side;
+        else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH)) 
+            orientation = side;
+        else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST)) 
+            orientation = side;
+        else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST)) 
+            orientation = side;
+        // If the side it was placed on cannot accept it, place it on closest possible other side.
+        else {
+            if (world.isSideSolid(x, y - 1, z, UP)) 
+                orientation = 1;
+            else if (world.isSideSolid(x, y, z + 1, NORTH)) 
+                orientation = 2;
+            else if (world.isSideSolid(x - 1, y, z, EAST)) 
+                orientation = 5;
+            else if (world.isSideSolid(x, y, z - 1, SOUTH)) 
+                orientation = 3;
+            else if (world.isSideSolid(x + 1, y, z, WEST)) 
+                orientation = 4;
+            else if (world.isSideSolid(x, y + 1, z, DOWN)) 
+                orientation = 0;
+        }
+
+        // Return the new orientation as meta.
+        return orientation;
+    }
+
+    /**
+     * Called when a block near is changed.
+     */
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+    {
+        // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
+        if(world.getBlockMetadata(x, y, z) == 0) {
+            if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
+        }
+        else if(world.getBlockMetadata(x, y, z) == 1) {
+            if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
+        }
+        else if(world.getBlockMetadata(x, y, z) == 2) {
+            if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
+        }
+        else if(world.getBlockMetadata(x, y, z) == 3) {
+            if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
+        }
+        else if(world.getBlockMetadata(x, y, z) == 4) {
+            if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
+        }
+        else if(world.getBlockMetadata(x, y, z) == 5) {
+            if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
+                this.dropBlockAsItem(world, x, y, z, 0, 0);
+                world.setBlockToAir(x, y, z);
+            }
         }
     }
 
@@ -225,108 +257,78 @@ public class BlockHexoriumMonolith extends HexBlockModel {
     }
 
     /**
-     * Called when a block is placed using its ItemBlock.
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
-        // Reset the fortune and silk touch parameters.
-        fortune = 0;
-        silk = false;
+        // Get block meta data.
+        int meta = world.getBlockMetadata(x, y, z);
 
-        // Prepare the orientation.
-        int orientation = -1;
-
-        // First check if the side it was placed on can accept it. If it can, place it there.
-        if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN)) 
-            orientation = side;
-        else if (side == 1 && world.isSideSolid(x, y - 1, z, UP)) 
-            orientation = side;
-        else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH)) 
-            orientation = side;
-        else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH)) 
-            orientation = side;
-        else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST)) 
-            orientation = side;
-        else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST)) 
-            orientation = side;
-        // If the side it was placed on cannot accept it, place it on closest possible other side.
-        else {
-            if (world.isSideSolid(x, y - 1, z, UP)) 
-                orientation = 1;
-            else if (world.isSideSolid(x, y, z + 1, NORTH)) 
-                orientation = 2;
-            else if (world.isSideSolid(x - 1, y, z, EAST)) 
-                orientation = 5;
-            else if (world.isSideSolid(x, y, z - 1, SOUTH)) 
-                orientation = 3;
-            else if (world.isSideSolid(x + 1, y, z, WEST)) 
-                orientation = 4;
-            else if (world.isSideSolid(x, y + 1, z, DOWN)) 
-                orientation = 0;
+        // Return bounding box depending on meta.
+        switch (meta) {
+            case 0:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
+            case 1:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
+            case 2:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
+            case 3:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
+            case 4:
+                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            case 5:
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            default:
+                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
         }
-
-        // Return the new orientation as meta.
-        return orientation;
     }
 
     /**
-     * Called when a player tries to place the monolith.
+     * Returns the bounding box of the wired rectangular prism to render.
      */
     @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
-        // Check if any of the sides around the block are solid, if yes, it means it can be placed.
-        return (world.isSideSolid(x, y - 1, z, UP)) ||
-                (world.isSideSolid(x, y + 1, z, DOWN)) ||
-                (world.isSideSolid(x, y, z + 1, NORTH)) ||
-                (world.isSideSolid(x, y, z - 1, SOUTH)) ||
-                (world.isSideSolid(x + 1, y, z, WEST)) ||
-                (world.isSideSolid(x - 1, y, z, EAST));
-    }
+        // Get block meta data.
+        int meta = world.getBlockMetadata(x, y, z);
 
-    /**
-     * Called when a block near is changed.
-     */
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
-        // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(world.getBlockMetadata(x, y, z) == 0) {
-            if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
-        else if(world.getBlockMetadata(x, y, z) == 1) {
-            if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
-        else if(world.getBlockMetadata(x, y, z) == 2) {
-            if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
-        else if(world.getBlockMetadata(x, y, z) == 3) {
-            if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
-        else if(world.getBlockMetadata(x, y, z) == 4) {
-            if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
-        }
-        else if(world.getBlockMetadata(x, y, z) == 5) {
-            if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
-                this.dropBlockAsItem(world, x, y, z, 0, 0);
-                world.setBlockToAir(x, y, z);
-            }
+        // Return bounding box depending on meta.
+        switch (meta) {
+            case 0: setBlockBounds(HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
+            case 1: setBlockBounds(HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.xD, (double)y + HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zB);
+            case 2: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax,
+                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + 1 - HexModelRendererMonolith.yMax,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + 1 - HexModelRendererMonolith.yMin);
+            case 3: setBlockBounds(HexModelRendererMonolith.zF, HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin,
+                    HexModelRendererMonolith.zB, HexModelRendererMonolith.xD, HexModelRendererMonolith.yMax);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.zF, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.yMin,
+                        (double)x + HexModelRendererMonolith.zB, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.yMax);
+            case 4: setBlockBounds(1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
+                    1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + 1 - HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + 1 - HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            case 5: setBlockBounds(HexModelRendererMonolith.yMin, HexModelRendererMonolith.xA, HexModelRendererMonolith.zF,
+                    HexModelRendererMonolith.yMax, HexModelRendererMonolith.xD, HexModelRendererMonolith.zB);
+                return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.yMin, (double)y + HexModelRendererMonolith.xA, (double)z + HexModelRendererMonolith.zF,
+                        (double)x + HexModelRendererMonolith.yMax, (double)y + HexModelRendererMonolith.xD, (double)z + HexModelRendererMonolith.zB);
+            default:
+                return AxisAlignedBB.getBoundingBox((double)x + 0, (double)y + 0, (double)z + 0, (double)x + 1, (double)y + 1, (double)z + 1);
         }
     }
 

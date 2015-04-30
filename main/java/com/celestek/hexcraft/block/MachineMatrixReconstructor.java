@@ -52,50 +52,55 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     }
 
     /**
-     * Fired when a player right clicks on the machine.
-     */
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        player.openGui(HexCraft.instance, 0, world, x, y, z);
-        return true;
-    }
-
-    @Override
-    public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
-    }
-
-    @Override
-    public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
-    }
-
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
+     * Returns a new instance of a block's TIle Entity class. Called on placing the block.
      */
     @Override
     public TileEntity createNewTileEntity(World world, int par2)
     {
+        // Create the new TIle Entity.
         return new TileEntityMatrixReconstructor();
     }
 
+    /**
+     * Called when a block is placed by a player.
+     */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
+        // Get the direction of the block.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        // Set the block's meta data according to direction.
         world.setBlockMetadataWithNotify(x, y, z, direction + 8, 2);
+
+        // Check if the code is executed on the server.
         if(!world.isRemote) {
+
             System.out.println("Machine placed, analyzing!");
-        /* DO ANALYSIS, BASED ON ORIENTATION */
+
+            /* DO ANALYSIS, BASED ON ORIENTATION */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            if (direction == 0)
+            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
+            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
-            else if (direction == 1)
+            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
-            else if (direction == 2)
+            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
-            else if (direction == 3)
+            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
+    }
+
+    /**
+     * Fired when a player right clicks on the machine.
+     */
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+        // Open the GUI.
+        player.openGui(HexCraft.instance, 0, world, x, y, z);
+        return true;
     }
 
     /**
@@ -103,60 +108,59 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare the name string of the broken block.
         String blockName = block.getUnlocalizedName();
-        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+
+        // Prepare the block meta.
+        int meta = world.getBlockMetadata(x, y, z);
+
+        // Strip away the texture states from meta.
+        if (meta >= 4 && meta < 8)
+            meta -= 4;
+        else if (meta >= 8)
+            meta -= 8;
+
+        // Check if the changed block belongs to the energy system.
+        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
+
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
-            /* DO ANALYSIS */
+
+            /* DO ANALYSIS, BASED ON ORIENTATION */
+            // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
+            if (meta == 0 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x, y, z + 1, blockName, 0);
+            else if (meta == 1 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x - 1, y, z, blockName, 0);
+            else if (meta == 2 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x, y, z - 1, blockName, 0);
+            else if (meta == 3 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+                analyzer.analyze(world, x + 1, y, z, blockName, 0);
+            // If the created list has no entries, add self in.
             if(!analyzer.size())
                 analyzer.add(world, x, y, z);
+            // Push the results to all found machines.
             analyzer.push(world);
         }
     }
 
-    @Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
-        if (block == this && meta >= 4 && meta < 8)
-            return 8;
-        else
-            return 0;
-    }
-
-    public static void updateBlockState(int status, World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-
-        if (status == 1 && meta < 4)
-            meta = meta + 4;
-        else if (status == 1 && meta >= 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 4 && meta < 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 8)
-            meta = meta - 8;
-        else if (status == 2 && meta < 4)
-            meta = meta + 8;
-        else if (status == 2 && meta >= 4 && meta < 8)
-            meta = meta + 4;
-
-        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
-    }
-
+    /**
+     * Called when the block is broken.
+     */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        // Get the Tile Entity.
         TileEntityMatrixReconstructor tileEntity = (TileEntityMatrixReconstructor) world.getTileEntity(x, y, z);
 
+        // Check if it is not null.
         if (tileEntity != null) {
 
-            if(tileEntity.isActive) {
-                tileEntity.stopMachine();
-                tileEntity.isActive = false;
-            }
+            // Stop the machine if it is running.
+            tileEntity.restartMachineStop();
+            tileEntity.isActive = false;
 
+            // Drop items.
             for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
                 ItemStack itemstack = tileEntity.getStackInSlot(i);
 
@@ -190,6 +194,37 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
             world.func_147453_f(x, y, z, block);
         }
         super.breakBlock(world, x, y, z, block, meta);
+    }
+
+    /**
+     * Returns the item drop of the block.
+     */
+    @Override
+    public Item getItemDropped(int par1, Random random, int par3) {
+        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+    }
+
+    /**
+     * Returns the item of the block.
+     */
+    @Override
+    public Item getItem(World world, int par2, int par3, int par4) {
+        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+    }
+
+    /**
+     * Gets the light value according to meta.
+     */
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        // Get the block meta.
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        // If the machine is active, make it emit light.
+        if (block == this && meta >= 4 && meta < 8)
+            return 8;
+        else
+            return 0;
     }
 
     // Prepare the icons.
@@ -345,5 +380,24 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
             }
         }
         return icon[i];
+    }
+
+    public static void updateBlockState(int status, World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+
+        if (status == 1 && meta < 4)
+            meta = meta + 4;
+        else if (status == 1 && meta >= 8)
+            meta = meta - 4;
+        else if (status == 0 && meta >= 4 && meta < 8)
+            meta = meta - 4;
+        else if (status == 0 && meta >= 8)
+            meta = meta - 8;
+        else if (status == 2 && meta < 4)
+            meta = meta + 8;
+        else if (status == 2 && meta >= 4 && meta < 8)
+            meta = meta + 4;
+
+        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
     }
 }
