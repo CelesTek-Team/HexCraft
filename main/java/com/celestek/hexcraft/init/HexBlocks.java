@@ -22,7 +22,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 118;
+    public static int countBlocks = 154;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -151,6 +151,50 @@ public class HexBlocks {
     public static Block blockEnergizedHexoriumMonolithBlack;
 
     public static Block blockEnergizedHexoriumMonolithRainbow;
+
+    // Hexorium Lamp
+    public static Block blockHexoriumLampRed;
+    public static Block blockHexoriumLampOrange;
+    public static Block blockHexoriumLampYellow;
+    public static Block blockHexoriumLampLime;
+    public static Block blockHexoriumLampGreen;
+    public static Block blockHexoriumLampTurquoise;
+    public static Block blockHexoriumLampCyan;
+    public static Block blockHexoriumLampSkyBlue;
+    public static Block blockHexoriumLampBlue;
+    public static Block blockHexoriumLampPurple;
+    public static Block blockHexoriumLampMagenta;
+    public static Block blockHexoriumLampPink;
+
+    public static Block blockHexoriumLampWhite;
+    public static Block blockHexoriumLampLightGray;
+    public static Block blockHexoriumLampGray;
+    public static Block blockHexoriumLampDarkGray;
+    public static Block blockHexoriumLampBlack;
+
+    public static Block blockHexoriumLampRainbow;
+
+    // Inverted Hexorium Lamp
+    public static Block blockInvHexoriumLampRed;
+    public static Block blockInvHexoriumLampOrange;
+    public static Block blockInvHexoriumLampYellow;
+    public static Block blockInvHexoriumLampLime;
+    public static Block blockInvHexoriumLampGreen;
+    public static Block blockInvHexoriumLampTurquoise;
+    public static Block blockInvHexoriumLampCyan;
+    public static Block blockInvHexoriumLampSkyBlue;
+    public static Block blockInvHexoriumLampBlue;
+    public static Block blockInvHexoriumLampPurple;
+    public static Block blockInvHexoriumLampMagenta;
+    public static Block blockInvHexoriumLampPink;
+
+    public static Block blockInvHexoriumLampWhite;
+    public static Block blockInvHexoriumLampLightGray;
+    public static Block blockInvHexoriumLampGray;
+    public static Block blockInvHexoriumLampDarkGray;
+    public static Block blockInvHexoriumLampBlack;
+
+    public static Block blockInvHexoriumLampRainbow;
 
     // Machines
     public static Block blockHexoriumMachineBlock;
@@ -415,6 +459,87 @@ public class HexBlocks {
 
         blockEnergizedHexoriumMonolithRainbow = new BlockEnergizedHexoriumMonolith(BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
         GameRegistry.registerBlock(blockEnergizedHexoriumMonolithRainbow, BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
+
+        // Hexorium Lamp
+        blockHexoriumLampRed = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Red", false);
+        GameRegistry.registerBlock(blockHexoriumLampRed, BlockHexoriumLamp.UNLOCALISEDNAME + "Red");
+        blockHexoriumLampOrange = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Orange", false);
+        GameRegistry.registerBlock(blockHexoriumLampOrange, BlockHexoriumLamp.UNLOCALISEDNAME + "Orange");
+        blockHexoriumLampYellow = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Yellow", false);
+        GameRegistry.registerBlock(blockHexoriumLampYellow, BlockHexoriumLamp.UNLOCALISEDNAME + "Yellow");
+        blockHexoriumLampLime = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Lime", false);
+        GameRegistry.registerBlock(blockHexoriumLampLime, BlockHexoriumLamp.UNLOCALISEDNAME + "Lime");
+        blockHexoriumLampGreen = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Green", false);
+        GameRegistry.registerBlock(blockHexoriumLampGreen, BlockHexoriumLamp.UNLOCALISEDNAME + "Green");
+        blockHexoriumLampTurquoise = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Turquoise", false);
+        GameRegistry.registerBlock(blockHexoriumLampTurquoise, BlockHexoriumLamp.UNLOCALISEDNAME + "Turquoise");
+        blockHexoriumLampCyan = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Cyan", false);
+        GameRegistry.registerBlock(blockHexoriumLampCyan, BlockHexoriumLamp.UNLOCALISEDNAME + "Cyan");
+        blockHexoriumLampSkyBlue = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "SkyBlue", false);
+        GameRegistry.registerBlock(blockHexoriumLampSkyBlue, BlockHexoriumLamp.UNLOCALISEDNAME + "SkyBlue");
+        blockHexoriumLampBlue = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Blue", false);
+        GameRegistry.registerBlock(blockHexoriumLampBlue, BlockHexoriumLamp.UNLOCALISEDNAME + "Blue");
+        blockHexoriumLampPurple = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Purple", false);
+        GameRegistry.registerBlock(blockHexoriumLampPurple, BlockHexoriumLamp.UNLOCALISEDNAME + "Purple");
+        blockHexoriumLampMagenta = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Magenta", false);
+        GameRegistry.registerBlock(blockHexoriumLampMagenta, BlockHexoriumLamp.UNLOCALISEDNAME + "Magenta");
+        blockHexoriumLampPink = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Pink", false);
+        GameRegistry.registerBlock(blockHexoriumLampPink, BlockHexoriumLamp.UNLOCALISEDNAME + "Pink");
+
+        blockHexoriumLampWhite = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "White", false);
+        GameRegistry.registerBlock(blockHexoriumLampWhite, BlockHexoriumLamp.UNLOCALISEDNAME + "White");
+        blockHexoriumLampLightGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "LightGray", false);
+        GameRegistry.registerBlock(blockHexoriumLampLightGray, BlockHexoriumLamp.UNLOCALISEDNAME + "LightGray");
+        blockHexoriumLampGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Gray", false);
+        GameRegistry.registerBlock(blockHexoriumLampGray, BlockHexoriumLamp.UNLOCALISEDNAME + "Gray");
+        blockHexoriumLampDarkGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "DarkGray", false);
+        GameRegistry.registerBlock(blockHexoriumLampDarkGray, BlockHexoriumLamp.UNLOCALISEDNAME + "DarkGray");
+        blockHexoriumLampBlack = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Black", false);
+        GameRegistry.registerBlock(blockHexoriumLampBlack, BlockHexoriumLamp.UNLOCALISEDNAME + "Black");
+
+        blockHexoriumLampRainbow = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAME + "Rainbow", false);
+        GameRegistry.registerBlock(blockHexoriumLampRainbow, BlockHexoriumLamp.UNLOCALISEDNAME + "Rainbow");
+
+        // Inverted Hexorium Lamp
+        blockInvHexoriumLampRed = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Red", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampRed, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Red");
+        blockInvHexoriumLampOrange = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Orange", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampOrange, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Orange");
+        blockInvHexoriumLampYellow = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Yellow", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampYellow, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Yellow");
+        blockInvHexoriumLampLime = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Lime", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampLime, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Lime");
+        blockInvHexoriumLampGreen = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Green", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampGreen, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Green");
+        blockInvHexoriumLampTurquoise = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Turquoise", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampTurquoise, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Turquoise");
+        blockInvHexoriumLampCyan = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Cyan", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampCyan, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Cyan");
+        blockInvHexoriumLampSkyBlue = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "SkyBlue", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampSkyBlue, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "SkyBlue");
+        blockInvHexoriumLampBlue = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Blue", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampBlue, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Blue");
+        blockInvHexoriumLampPurple = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Purple", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampPurple, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Purple");
+        blockInvHexoriumLampMagenta = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Magenta", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampMagenta, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Magenta");
+        blockInvHexoriumLampPink = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Pink", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampPink, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Pink");
+
+        blockInvHexoriumLampWhite = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "White", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampWhite, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "White");
+        blockInvHexoriumLampLightGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "LightGray", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampLightGray, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "LightGray");
+        blockInvHexoriumLampGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Gray", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampGray, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Gray");
+        blockInvHexoriumLampDarkGray = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "DarkGray", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampDarkGray, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "DarkGray");
+        blockInvHexoriumLampBlack = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Black", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampBlack, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Black");
+
+        blockInvHexoriumLampRainbow = new BlockHexoriumLamp(BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Rainbow", true);
+        GameRegistry.registerBlock(blockInvHexoriumLampRainbow, BlockHexoriumLamp.UNLOCALISEDNAMEINV + "Rainbow");
+
 
         // Machines
         blockHexoriumMachineBlock = new BlockHexoriumMachineBlock(BlockHexoriumMachineBlock.UNLOCALISEDNAME);

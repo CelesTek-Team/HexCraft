@@ -23,10 +23,7 @@ import net.minecraft.item.Item;
  * @since 2015-04-14
  */
 
-// TODO: Power system
 // TODO: Energy Pylons
-// TODO: Cables
-// TODO: Basic machines, including the Matrix Reconstructor and a generator
 // TODO: Multiblock tank
 // TODO: More decoration blocks
 

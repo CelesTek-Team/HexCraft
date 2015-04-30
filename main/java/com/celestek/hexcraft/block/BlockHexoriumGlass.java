@@ -60,7 +60,7 @@ public class BlockHexoriumGlass extends Block {
         // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
-        this.setHardness(5.0F);
+        this.setHardness(1.5F);
         this.setStepSound(Block.soundTypeGlass);
         this.setHarvestLevel("pickaxe", 2);
         this.setLightOpacity(0);
