@@ -23,11 +23,19 @@ public class HexItems {
     public static Item itemRainbowEnergizedGlobule;
     public static Item itemWhiteHexoriumWafer;
     public static Item itemBlackHexoriumWafer;
+    public static Item itemSpatialProjector;
+    public static Item itemHexoriumGlassPackage;
 
     // Components T2
     public static Item itemRainbowCore;
     public static Item itemHexoriumProcessor;
     public static Item itemHexoriumCoprocessor;
+
+    // Components MP
+    public static Item itemMachineControlPanel;
+    public static Item itemMachinePowerRouter;
+    public static Item itemHeatDissipator;
+    public static Item itemMatrixAdjuster;
     
     // Tools
     public static Item itemHexoriumManipulator;
@@ -56,6 +64,8 @@ public class HexItems {
         GameRegistry.registerItem(itemWhiteHexoriumWafer, "itemWhiteHexoriumWafer");
         itemBlackHexoriumWafer = new HexItemComponent("itemBlackHexoriumWafer");
         GameRegistry.registerItem(itemBlackHexoriumWafer, "itemBlackHexoriumWafer");
+        itemSpatialProjector = new HexItemComponent("itemSpatialProjector");
+        GameRegistry.registerItem(itemSpatialProjector, "itemSpatialProjector");
 
         // Components T2
         itemRainbowCore = new HexItemComponent("itemRainbowCore");
@@ -64,6 +74,18 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumCoprocessor, "itemHexoriumCoprocessor");
         itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
         GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
+        itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
+        GameRegistry.registerItem(itemHexoriumGlassPackage, "itemHexoriumGlassPackage");
+
+        // Components MP
+        itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
+        GameRegistry.registerItem(itemMachineControlPanel, "itemMachineControlPanel");
+        itemMachinePowerRouter = new HexItemComponent("itemMachinePowerRouter");
+        GameRegistry.registerItem(itemMachinePowerRouter, "itemMachinePowerRouter");
+        itemHeatDissipator = new HexItemComponent("itemHeatDissipator");
+        GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
+        itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
+        GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");

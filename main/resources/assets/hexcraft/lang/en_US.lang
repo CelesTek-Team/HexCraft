@@ -166,8 +166,6 @@ tile.blockInvHexoriumLampBlack.name=Inverted Hexorium Lamp (Black)
 tile.blockInvHexoriumLampRainbow.name=Inverted Hexorium Lamp (Rainbow)
 
 
-tile.blockHexoriumGlass.name=Hexorium Glass
-
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
 tile.machineHexoriumGenerator.name=Hexorium Generator
@@ -195,6 +193,9 @@ tile.cableHexoriumCableBlack.name=Hexorium Cable (Black)
 tile.cableHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
 
 
+tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass
+
+
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal
 item.itemHexoriumCrystalGreen.name=Green Hexorium Crystal
 item.itemHexoriumCrystalBlue.name=Blue Hexorium Crystal
@@ -204,9 +205,16 @@ item.itemHexoriumCrystalBlack.name=Black Hexorium Crystal
 item.itemRainbowEnergizedGlobule.name=Rainbow Energized Globule
 item.itemWhiteHexoriumWafer.name=White Hexorium Wafer
 item.itemBlackHexoriumWafer.name=Black Hexorium Wafer
+item.itemSpatialProjector.name=Spatial Projector
+item.itemHexoriumGlassPackage.name=Hexorium-Glass Package
 
 item.itemRainbowCore.name=Rainbow Core
 item.itemHexoriumCoprocessor.name=Hexorium Coprocessor
 item.itemHexoriumProcessor.name=Hexorium Processor
+
+item.itemMachineControlPanel.name=Machine Control Panel
+item.itemMachinePowerRouter.name=Machine Power Router
+item.itemHeatDissipator.name=Heat Dissipator
+item.itemMatrixAdjuster.name=Matrix Adjuster
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator

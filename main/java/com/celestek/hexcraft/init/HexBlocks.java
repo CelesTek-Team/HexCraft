@@ -225,7 +225,7 @@ public class HexBlocks {
     public static Block cableHexoriumCableRainbow;
 
     // Regular Blocks
-    public static Block blockHexoriumGlass;
+    public static Block blockTemperedHexoriumGlass;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -591,7 +591,7 @@ public class HexBlocks {
         GameRegistry.registerBlock(cableHexoriumCableRainbow, CableHexoriumCable.UNLOCALISEDNAME + "Rainbow");
 
         // Regular Blocks
-        blockHexoriumGlass = new BlockHexoriumGlass(BlockHexoriumGlass.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockHexoriumGlass, BlockHexoriumGlass.UNLOCALISEDNAME);
+        blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
     }
 }

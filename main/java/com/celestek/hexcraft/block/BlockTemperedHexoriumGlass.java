@@ -25,10 +25,10 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @since 2015-04-14
  */
 
-public class BlockHexoriumGlass extends Block {
+public class BlockTemperedHexoriumGlass extends Block {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumGlass";
+    public static String UNLOCALISEDNAME = "blockTemperedHexoriumGlass";
 
     // Prepare an array of all possible situations.
     public static int[] textureRefByID = {
@@ -54,7 +54,7 @@ public class BlockHexoriumGlass extends Block {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public BlockHexoriumGlass(String blockName) {
+    public BlockTemperedHexoriumGlass(String blockName) {
         super(Material.glass);
 
         // Set all block parameters.
