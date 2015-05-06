@@ -35,6 +35,7 @@ public class HexItems {
     public static Item itemMachineControlPanel;
     public static Item itemMachinePowerRouter;
     public static Item itemHeatDissipator;
+    public static Item itemHeatingArray;
     public static Item itemMatrixAdjuster;
     
     // Tools
@@ -84,6 +85,8 @@ public class HexItems {
         GameRegistry.registerItem(itemMachinePowerRouter, "itemMachinePowerRouter");
         itemHeatDissipator = new HexItemComponent("itemHeatDissipator");
         GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
+        itemHeatingArray = new HexItemComponent("itemHeatingArray");
+        GameRegistry.registerItem(itemHeatingArray, "itemHeatingArray");
         itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
         GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
         

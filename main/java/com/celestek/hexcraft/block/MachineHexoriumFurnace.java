@@ -2,7 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileEntityHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -27,13 +27,13 @@ import java.util.Random;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.1.0
- * @since 2015-04-14
+ * @since 2015-05-06
  */
 
-public class MachineHexoriumGenerator extends HexBlockContainer {
+public class MachineHexoriumFurnace extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "machineHexoriumGenerator";
+    public static String UNLOCALISEDNAME = "machineHexoriumFurnace";
 
     private final Random random = new Random();
 
@@ -41,7 +41,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public MachineHexoriumGenerator(String blockName) {
+    public MachineHexoriumFurnace(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -59,7 +59,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
-        return new TileEntityHexoriumGenerator();
+        return new TileEntityHexoriumFurnace();
     }
 
     /**
@@ -100,7 +100,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         // Open the GUI.
-        player.openGui(HexCraft.instance, 0, world, x, y, z);
+        player.openGui(HexCraft.instance, 1, world, x, y, z);
         return true;
     }
 
@@ -152,10 +152,14 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
-        TileEntityHexoriumGenerator tileEntity = (TileEntityHexoriumGenerator) world.getTileEntity(x, y, z);
+        TileEntityHexoriumFurnace tileEntity = (TileEntityHexoriumFurnace) world.getTileEntity(x, y, z);
 
         // Check if it is not null.
         if (tileEntity != null) {
+
+            // Stop the machine if it is running.
+            tileEntity.restartMachineStop();
+            tileEntity.isActive = false;
 
             // Drop items.
             for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
@@ -198,7 +202,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumFurnace);
     }
 
     /**
@@ -206,7 +210,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      */
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+        return Item.getItemFromBlock(HexBlocks.machineHexoriumFurnace);
     }
 
     /**
@@ -219,7 +223,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
         int meta = world.getBlockMetadata(x, y, z);
         // If the machine is active, make it emit light.
         if (block == this && meta >= 4 && meta < 8)
-            return 12;
+            return 8;
         else
             return 0;
     }

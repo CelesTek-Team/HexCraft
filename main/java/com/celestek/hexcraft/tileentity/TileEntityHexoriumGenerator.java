@@ -32,6 +32,10 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     private int[] machinesMatrixReconstructorX;
     private int[] machinesMatrixReconstructorY;
     private int[] machinesMatrixReconstructorZ;
+    private ArrayList<TileEntityHexoriumFurnace> machinesHexoriumFurnace;
+    private int[] machinesHexoriumFurnaceX;
+    private int[] machinesHexoriumFurnaceY;
+    private int[] machinesHexoriumFurnaceZ;
 
     // Define sides and slots.
     private static final int[] slotsSide = new int[] { 0 };
@@ -228,6 +232,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         machinesMatrixReconstructorZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
         // Prepare the ArrayList for machines.
         machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+
+        // Read the coordinate arrays.
+        machinesHexoriumFurnaceX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
+        machinesHexoriumFurnaceY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
+        machinesHexoriumFurnaceZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
+        // Prepare the ArrayList for machines.
+        machinesHexoriumFurnace = new ArrayList<TileEntityHexoriumFurnace>();
+
         // Prime the updateEntity() for first-tick startup.
         firstTick = true;
 
@@ -292,6 +304,35 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
         }
 
+        // Check if machine list is not null.
+        if (machinesHexoriumFurnace != null) {
+            // Initialize the coordinate arrays.
+            machinesHexoriumFurnaceX = new int[machinesHexoriumFurnace.size()];
+            machinesHexoriumFurnaceY = new int[machinesHexoriumFurnace.size()];
+            machinesHexoriumFurnaceZ = new int[machinesHexoriumFurnace.size()];
+            // Save the coordinates of machines to arrays.
+            int i = 0;
+            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace) {
+                machinesHexoriumFurnaceX[i] = entry.xCoord;
+                machinesHexoriumFurnaceY[i] = entry.yCoord;
+                machinesHexoriumFurnaceZ[i] = entry.zCoord;
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesHexoriumFurnaceX);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesHexoriumFurnaceY);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesHexoriumFurnaceZ);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else {
+            machinesHexoriumFurnaceX = new int[0];
+            machinesHexoriumFurnaceY = new int[0];
+            machinesHexoriumFurnaceZ = new int[0];
+            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesHexoriumFurnaceX);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesHexoriumFurnaceY);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesHexoriumFurnaceZ);
+        }
+
         // Write the items.
         NBTTagList tagsItems = new NBTTagList();
         for (int i = 0; i < machineItemStacks.length; ++i) {
@@ -318,6 +359,11 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
                 for (int i = 0; i < machinesMatrixReconstructorX.length; i++) {
                     machinesMatrixReconstructor.add((TileEntityMatrixReconstructor)
                             worldObj.getTileEntity(machinesMatrixReconstructorX[i], machinesMatrixReconstructorY[i], machinesMatrixReconstructorZ[i]));
+                }
+                // Build the machine list using the coordinate arrays.
+                for (int i = 0; i < machinesHexoriumFurnaceX.length; i++) {
+                    machinesHexoriumFurnace.add((TileEntityHexoriumFurnace)
+                            worldObj.getTileEntity(machinesHexoriumFurnaceX[i], machinesHexoriumFurnaceY[i], machinesHexoriumFurnaceZ[i]));
                 }
                 // Finalize first tick.
                 firstTick = false;
@@ -455,6 +501,13 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStop();
+
+        // Make sure that the machine list is not null.
+        if (machinesHexoriumFurnace != null)
+            // Send a restart-stop signal to all machines in the list.
+            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace)
+                if (entry != null)
+                    entry.restartMachineStop();
     }
 
     /**
@@ -467,20 +520,36 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStart();
+
+        // Make sure that the machine list is not null.
+        if (machinesHexoriumFurnace != null)
+            // Send a restart-start signal to all machines in the list.
+            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace)
+                if (entry != null)
+                    entry.restartMachineStart();
     }
 
     /**
      * Called by the CableAnalyzer class when exchanging data between machines.
-     * @param incomingMachines The ArrayList of machines recieved.
+     * @param incomingMatrixReconstructor The ArrayList of machines recieved.
+     * @param incomingHexoriumFurnace The ArrayList of machines recieved.
      */
-    public void injectMachines(ArrayList<TileEntityMatrixReconstructor> incomingMachines) {
+    public void injectMachines(ArrayList<TileEntityMatrixReconstructor> incomingMatrixReconstructor, ArrayList<TileEntityHexoriumFurnace> incomingHexoriumFurnace) {
         // Check if the size of the incoming list is larger then 0.
-        if (incomingMachines.size() != 0)
+        if (incomingMatrixReconstructor.size() != 0)
             // If it is, save it to local list.
-            machinesMatrixReconstructor = incomingMachines;
+            machinesMatrixReconstructor = incomingMatrixReconstructor;
         else
             // Otherwise, set the local list to null.
             machinesMatrixReconstructor = null;
+
+        // Check if the size of the incoming list is larger then 0.
+        if (incomingHexoriumFurnace.size() != 0)
+            // If it is, save it to local list.
+            machinesHexoriumFurnace = incomingHexoriumFurnace;
+        else
+            // Otherwise, set the local list to null.
+            machinesHexoriumFurnace = null;
     }
 
     /**

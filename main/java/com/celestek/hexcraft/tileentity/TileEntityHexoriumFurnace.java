@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.1.0
- * @since 2015-04-25
+ * @since 2015-05-06
  */
-public class TileEntityMatrixReconstructor extends TileEntity implements ISidedInventory {
+public class TileEntityHexoriumFurnace extends TileEntity implements ISidedInventory {
 
     // Set machine name.
-    private static String machineName = "Matrix Reconstructor";
+    private static String machineName = "Hexorium Furnace";
 
     // Prepare machine list and arrays for coordinates.
     private ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator;
@@ -36,8 +37,8 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
     private ItemStack[] machineItemStacks = new ItemStack[3];
 
     // Prepare energy variables.
-    private static int energyPerTick = 64;
-    private static float energyTotal = 25600;
+    private static int energyPerTick = 32;
+    private static float energyTotal = 6400;
     private float energy;
 
     // Prepare GUI variables.
@@ -506,7 +507,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         // Otherwise...
         else {
             // Save the result of processing to ItemStack.
-            ItemStack itemStack = HexProcessingMatrixReconstructor.processing().getProcessingResult(machineItemStacks[0]);
+            ItemStack itemStack = FurnaceRecipes.smelting().getSmeltingResult(this.machineItemStacks[0]);
             // If the result is null, it cannot be processed.
             if (itemStack == null)
                 return false;
@@ -529,7 +530,7 @@ public class TileEntityMatrixReconstructor extends TileEntity implements ISidedI
         // If the item can be processed...
         if (canProcess()) {
             // Prepare a new ItemStack that is the result of processing.
-            ItemStack itemStack = HexProcessingMatrixReconstructor.processing().getProcessingResult(machineItemStacks[0]);
+            ItemStack itemStack = FurnaceRecipes.smelting().getSmeltingResult(this.machineItemStacks[0]);
 
             // If there are no items in the output, put the result in.
             if (machineItemStacks[1] == null)

@@ -41,7 +41,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      * @param blockName Unlocalized name for the block.
      */
     public MachineMatrixReconstructor(String blockName) {
-        super(Material.rock);
+        super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -99,7 +99,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         // Open the GUI.
-        player.openGui(HexCraft.instance, 0, world, x, y, z);
+        player.openGui(HexCraft.instance, 2, world, x, y, z);
         return true;
     }
 

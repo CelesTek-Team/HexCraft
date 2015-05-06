@@ -73,7 +73,7 @@ public class HexWorldGen implements IWorldGenerator {
         oreHexoriumOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 2, 6);
         oreHexoriumOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 2, 6);
         oreHexoriumOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 1, 3);
-        oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 1);
+        oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 3);
         
         oreHexoriumMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone, 0, 60, 100);
         oreHexoriumMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone, 0, 60, 100);

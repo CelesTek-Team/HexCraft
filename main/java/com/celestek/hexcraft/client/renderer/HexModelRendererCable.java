@@ -2,6 +2,7 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.CableHexoriumCable;
+import com.celestek.hexcraft.block.MachineHexoriumFurnace;
 import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
 import com.celestek.hexcraft.client.HexClientProxy;
@@ -259,68 +260,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        boolean sides[] = new boolean[6];
-        int metas[] = new int[4];
+        boolean sides[] = processCableSides(world, x, y, z, name);
         boolean straight = false;
-
-        // Look for machines.
-        if (world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
-                world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
-            metas[0] = world.getBlockMetadata(x - 1, y, z);
-        else
-            metas[0] = -1;
-        if (world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
-                world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
-            metas[1] = world.getBlockMetadata(x + 1, y, z);
-        else
-            metas[1] = -1;
-        if (world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
-                world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
-            metas[2] = world.getBlockMetadata(x, y, z - 1);
-        else
-            metas[2] = -1;
-        if (world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME) ||
-                world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME))
-            metas[3] = world.getBlockMetadata(x, y, z + 1);
-        else
-            metas[3] = -1;
-
-        for(int i = 0; i < 4; i++) {
-            if (metas[i] >= 4 && metas[i] < 8)
-                metas[i] = metas[i] - 4;
-            else if (metas[i] >= 8)
-                metas[i] = metas[i] - 8;
-        }
-
-        // Count Sides
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y - 1, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x, y - 1, z).getUnlocalizedName()) ||
-                world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()))
-            sides[0] = true;
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y + 1, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x, y + 1, z).getUnlocalizedName()) ||
-                world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()))
-            sides[1] = true;
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x - 1, y, z).getUnlocalizedName()) ||
-                world.getBlock(x - 1, y, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
-                metas[0] == 3)
-            sides[2] = true;
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x + 1, y, z).getUnlocalizedName()) ||
-                world.getBlock(x + 1, y, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
-                metas[1] == 1)
-            sides[3] = true;
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x, y, z - 1).getUnlocalizedName()) ||
-                world.getBlock(x, y, z - 1).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
-                metas[2] == 0)
-            sides[4] = true;
-        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
-                name.equals(world.getBlock(x, y, z + 1).getUnlocalizedName()) ||
-                world.getBlock(x, y, z + 1).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
-                metas[3] == 2)
-            sides[5] = true;
 
         // Determine if the cable is straight.
         if (sides[0] && sides[1] && !sides[2] && !sides[3] && !sides[4] && !sides[5])
@@ -1258,5 +1199,81 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     public boolean shouldRender3DInInventory(int i)
     {
         return true;
+    }
+
+    /**
+     * Processes the block sides and returns them as an array.
+     * @param name Unlocalized name of the block to process.
+     */
+    public static boolean[] processCableSides(IBlockAccess world, int x, int y, int z, String name)
+    {
+        // Prepare side and meta int arrays.
+        boolean sides[] = new boolean[6];
+        int metas[] = new int[4];
+
+        // Look for machines.
+        if (world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
+                world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+            metas[0] = world.getBlockMetadata(x - 1, y, z);
+        else
+            metas[0] = -1;
+        if (world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
+                world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+            metas[1] = world.getBlockMetadata(x + 1, y, z);
+        else
+            metas[1] = -1;
+        if (world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+            metas[2] = world.getBlockMetadata(x, y, z - 1);
+        else
+            metas[2] = -1;
+        if (world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
+            metas[3] = world.getBlockMetadata(x, y, z + 1);
+        else
+            metas[3] = -1;
+
+        for(int i = 0; i < 4; i++) {
+            if (metas[i] >= 4 && metas[i] < 8)
+                metas[i] = metas[i] - 4;
+            else if (metas[i] >= 8)
+                metas[i] = metas[i] - 8;
+        }
+
+        // Count Sides
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y - 1, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x, y - 1, z).getUnlocalizedName()) ||
+                world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()))
+            sides[0] = true;
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y + 1, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x, y + 1, z).getUnlocalizedName()) ||
+                world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()))
+            sides[1] = true;
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x - 1, y, z).getUnlocalizedName()) ||
+                world.getBlock(x - 1, y, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
+                metas[0] == 3)
+            sides[2] = true;
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x + 1, y, z).getUnlocalizedName()) ||
+                world.getBlock(x + 1, y, z).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
+                metas[1] == 1)
+            sides[3] = true;
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x, y, z - 1).getUnlocalizedName()) ||
+                world.getBlock(x, y, z - 1).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
+                metas[2] == 0)
+            sides[4] = true;
+        if (name.equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME) ||
+                name.equals(world.getBlock(x, y, z + 1).getUnlocalizedName()) ||
+                world.getBlock(x, y, z + 1).getUnlocalizedName().equals(HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()) ||
+                metas[3] == 2)
+            sides[5] = true;
+
+        return sides;
     }
 }

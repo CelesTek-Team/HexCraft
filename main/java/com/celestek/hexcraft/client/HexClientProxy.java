@@ -510,6 +510,9 @@ public class HexClientProxy extends HexCommonProxy {
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false, false));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, false, false));
 
         // Cables
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();

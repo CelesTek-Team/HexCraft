@@ -115,7 +115,7 @@ public class BlockHexoriumOre extends HexBlock {
             else if (fortune == 2)
                 fortuneDrop = 2;
             else if (fortune == 3)
-                fortuneDrop = 4;
+                fortuneDrop = 3;
 
             // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
             if (hexoriumDropMin == hexoriumDropMax)

@@ -169,6 +169,7 @@ tile.blockInvHexoriumLampRainbow.name=Inverted Hexorium Lamp (Rainbow)
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
 tile.machineHexoriumGenerator.name=Hexorium Generator
+tile.machineHexoriumFurnace.name=Hexorium Furnace
 tile.machineMatrixReconstructor.name=Matrix Reconstructor
 
 tile.cableHexoriumCableRed.name=Hexorium Cable (Red)
@@ -215,6 +216,7 @@ item.itemHexoriumProcessor.name=Hexorium Processor
 item.itemMachineControlPanel.name=Machine Control Panel
 item.itemMachinePowerRouter.name=Machine Power Router
 item.itemHeatDissipator.name=Heat Dissipator
+item.itemHeatingArray.name=Heating Array
 item.itemMatrixAdjuster.name=Matrix Adjuster
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator

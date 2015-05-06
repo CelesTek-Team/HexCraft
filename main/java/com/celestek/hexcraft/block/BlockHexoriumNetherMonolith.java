@@ -215,7 +215,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
             else if (fortune == 2)
                 fortuneDrop = 4;
             else if (fortune == 3)
-                fortuneDrop = 8;
+                fortuneDrop = 6;
 
             // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
             if (hexoriumDropMin == hexoriumDropMax)

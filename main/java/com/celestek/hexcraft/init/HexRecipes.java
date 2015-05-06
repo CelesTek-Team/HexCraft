@@ -155,6 +155,7 @@ public class HexRecipes {
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
 
         ItemStack stackHexoriumGenerator_1 = new ItemStack(HexBlocks.machineHexoriumGenerator, 1);
+        ItemStack stackHexoriumFurnace_1 = new ItemStack(HexBlocks.machineHexoriumFurnace, 1);
         ItemStack stackMatrixReconstructor_1 = new ItemStack(HexBlocks.machineMatrixReconstructor, 1);
 
         // Cables
@@ -213,6 +214,7 @@ public class HexRecipes {
         ItemStack stackMachineControlPanel_1 = new ItemStack(HexItems.itemMachineControlPanel, 1);
         ItemStack stackMachinePowerRouter_1 = new ItemStack(HexItems.itemMachinePowerRouter, 1);
         ItemStack stackHeatDissipator_1 = new ItemStack(HexItems.itemHeatDissipator, 1);
+        ItemStack stackHeatingArray_1 = new ItemStack(HexItems.itemHeatingArray, 1);
         ItemStack stackMatrixAdjuster_1 = new ItemStack(HexItems.itemMatrixAdjuster, 1);
 
         // Tools
@@ -1028,6 +1030,11 @@ public class HexRecipes {
                 "DAD",
                 "ECE",
                 'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackHeatDissipator_1, 'E', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumFurnace_1,
+                "EBE",
+                "DAD",
+                "ECE",
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackHeatingArray_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackMatrixReconstructor_1,
                 "EBE",
                 "DAD",
@@ -1619,10 +1626,15 @@ public class HexRecipes {
                 "DAD",
                 'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumCoprocessor_1, 'C', stackGoldIngot_1, 'D', stackIronIngot_1);
         GameRegistry.addRecipe(stackHeatDissipator_1,
-                "AAR",
-                "AAR",
-                "AAR",
-                'R', stackRedstone_1, 'A', stackIronIngot_1);
+                "BBR",
+                "BBA",
+                "BBR",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHeatingArray_1,
+                "RRB",
+                "RAB",
+                "RRB",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1);
         GameRegistry.addRecipe(stackMatrixAdjuster_1,
                 " ED",
                 "CBA",
