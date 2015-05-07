@@ -36,7 +36,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     private ItemStack[] machineItemStacks = new ItemStack[3];
 
     // Prepare energy variables.
-    private static int energyPerTick = 64;
+    public static int energyPerTick = 64;
     private static float energyTotal = 25600;
     private float energy;
     private float energyIn;

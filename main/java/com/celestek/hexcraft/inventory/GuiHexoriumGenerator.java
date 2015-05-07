@@ -38,15 +38,15 @@ public class GuiHexoriumGenerator extends GuiContainer {
         // Get the name string.
         String name = tileEntity.hasCustomInventoryName() ? tileEntity.getInventoryName() : I18n.format(tileEntity.getInventoryName());
 
-        // Check if the output energy of generator is smaller or equal to 32.
-        if (tileEntity.energyOutGui <= 32) {
+        // Check if the output energy of generator is smaller or equal to energyPerTick.
+        if (tileEntity.energyOutGui <= TileHexoriumGenerator.energyPerTick) {
             // If yes, draw the output string normally.
             String out = tileEntity.energyOutGui + " HEX/t";
             fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0x404040);
         }
         else {
-            // If it is higher, draw the output string in red and capped to 32.
-            String out = "32 HEX/t";
+            // If it is higher, draw the output string in red and capped to energyPerTick.
+            String out = TileHexoriumGenerator.energyPerTick + " HEX/t";
             fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0xFF0000);
         }
 

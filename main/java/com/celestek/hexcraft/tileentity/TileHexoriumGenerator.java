@@ -43,7 +43,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     private ItemStack[] machineItemStacks = new ItemStack[2];
 
     // Prepare energy variables.
-    private static int energyPerTick = 32;
+    public static int energyPerTick = 32;
     private float energyTotal;
     private float energy;
     private float energyOut = 0;

@@ -38,8 +38,8 @@ public class GuiMatrixReconstructor extends GuiContainer {
         // Get the name string.
         String name = tileEntity.hasCustomInventoryName() ? tileEntity.getInventoryName() : I18n.format(tileEntity.getInventoryName());
 
-        // Check if the input energy of machine is between 0 and 64 (non-inclusive). If yes, draw the input string in red.
-        if (tileEntity.energyInGui > 0 && tileEntity.energyInGui < 64) {
+        // Check if the input energy of machine is between 0 and energyPerTick (non-inclusive). If yes, draw the input string in red.
+        if (tileEntity.energyInGui > 0 && tileEntity.energyInGui < TileMatrixReconstructor.energyPerTick) {
             String out = tileEntity.energyInGui + " HEX/t";
             fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0xFF0000);
         }
@@ -48,8 +48,8 @@ public class GuiMatrixReconstructor extends GuiContainer {
             String out = "0 HEX/t";
             fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0xFF0000);
         }
-        // Otherwise, check if the input energy of machine is equal to 64. If yes, draw the input string in green.
-        else if (tileEntity.energyInGui == 64) {
+        // Otherwise, check if the input energy of machine is equal to energyPerTick. If yes, draw the input string in green.
+        else if (tileEntity.energyInGui == TileMatrixReconstructor.energyPerTick) {
             String out = tileEntity.energyInGui + " HEX/t";
             fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0x00FF00);
         }
