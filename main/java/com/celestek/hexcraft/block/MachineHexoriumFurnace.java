@@ -2,8 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -59,7 +58,7 @@ public class MachineHexoriumFurnace extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
-        return new TileEntityHexoriumFurnace();
+        return new TileHexoriumFurnace();
     }
 
     /**
@@ -152,7 +151,7 @@ public class MachineHexoriumFurnace extends HexBlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
-        TileEntityHexoriumFurnace tileEntity = (TileEntityHexoriumFurnace) world.getTileEntity(x, y, z);
+        TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
 
         // Check if it is not null.
         if (tileEntity != null) {

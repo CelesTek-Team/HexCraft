@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.inventory;
 
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,16 +18,17 @@ import net.minecraft.item.ItemStack;
 public class ContainerHexoriumGenerator extends Container {
 
     // Prepare the Tile Entity.
-    private TileEntityHexoriumGenerator tileEntity;
+    private TileHexoriumGenerator tileEntity;
 
     // Prepare the variables to store GUI data.
     private int lastEnergy;
     private int lastEnergyTotal;
+    private int lastEnergyOut;
 
     /**
      * Constructor
      */
-    public ContainerHexoriumGenerator(InventoryPlayer player, TileEntityHexoriumGenerator tileEntity){
+    public ContainerHexoriumGenerator(InventoryPlayer player, TileHexoriumGenerator tileEntity){
         // Save the Tile Entity.
         this.tileEntity = tileEntity;
 
@@ -56,6 +57,7 @@ public class ContainerHexoriumGenerator extends Container {
         super.addCraftingToCrafters(craft);
         craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
         craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
+        craft.sendProgressBarUpdate(this, 2, tileEntity.energyOutGui);
     }
 
     /**
@@ -74,11 +76,14 @@ public class ContainerHexoriumGenerator extends Container {
                 craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
             if (lastEnergyTotal != tileEntity.energyTotalGui)
                 craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
+            if (lastEnergyOut != tileEntity.energyOutGui)
+                craft.sendProgressBarUpdate(this, 2, tileEntity.energyOutGui);
         }
 
         // Save the new values as last value.
         lastEnergy = tileEntity.energyGui;
         lastEnergyTotal = tileEntity.energyTotalGui;
+        lastEnergyOut = tileEntity.energyOutGui;
     }
 
     /**
@@ -92,6 +97,8 @@ public class ContainerHexoriumGenerator extends Container {
             tileEntity.energyGui = value;
         if (id == 1)
             tileEntity.energyTotalGui = value;
+        if (id == 2)
+            tileEntity.energyOutGui = value;
     }
 
     /**
@@ -115,7 +122,7 @@ public class ContainerHexoriumGenerator extends Container {
             itemStack = itemStack1.copy();
 
             if (par2 != 0) {
-                if (TileEntityHexoriumGenerator.canBurn(itemStack1)) {
+                if (TileHexoriumGenerator.canBurn(itemStack1)) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
                         return null;
                     }

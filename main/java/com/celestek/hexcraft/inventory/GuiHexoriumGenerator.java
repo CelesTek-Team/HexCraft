@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -18,13 +18,13 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GuiHexoriumGenerator extends GuiContainer {
 
-    // Prepare a TileEntityHexoriumGenerator object.
-    private TileEntityHexoriumGenerator tileEntity;
+    // Prepare a TileHexoriumGenerator object.
+    private TileHexoriumGenerator tileEntity;
 
     /**
      * Constructor for GuiMatrixReconstructor.
      */
-    public GuiHexoriumGenerator(InventoryPlayer invPlayer, TileEntityHexoriumGenerator tileEntity) {
+    public GuiHexoriumGenerator(InventoryPlayer invPlayer, TileHexoriumGenerator tileEntity) {
         super(new ContainerHexoriumGenerator(invPlayer, tileEntity));
 
         // Save the Tile Entity.
@@ -37,10 +37,25 @@ public class GuiHexoriumGenerator extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int par1, int par2){
         // Get the name string.
         String name = tileEntity.hasCustomInventoryName() ? tileEntity.getInventoryName() : I18n.format(tileEntity.getInventoryName());
+
+        // Check if the output energy of generator is smaller or equal to 32.
+        if (tileEntity.energyOutGui <= 32) {
+            // If yes, draw the output string normally.
+            String out = tileEntity.energyOutGui + " HEX/t";
+            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0x404040);
+        }
+        else {
+            // If it is higher, draw the output string in red and capped to 32.
+            String out = "32 HEX/t";
+            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0xFF0000);
+        }
+
         // Draw the name string.
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
         // Draw the player inventory string.
         fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 4210752);
+        // Draw the info box string.
+        fontRendererObj.drawString("Out:", 111 - fontRendererObj.getStringWidth("Out:"), ySize - 94, 0x404040);
     }
 
     /**

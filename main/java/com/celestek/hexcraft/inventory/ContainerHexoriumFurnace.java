@@ -1,8 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +11,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -21,15 +21,16 @@ import net.minecraft.item.ItemStack;
 public class ContainerHexoriumFurnace extends Container {
 
     // Prepare the Tile Entity.
-    private TileEntityHexoriumFurnace tileEntity;
+    private TileHexoriumFurnace tileEntity;
 
     // Prepare the variables to store GUI data.
     private int lastEnergy;
+    private int lastEnergyIn;
 
     /**
      * Constructor
      */
-    public ContainerHexoriumFurnace(InventoryPlayer player, TileEntityHexoriumFurnace tileEntity){
+    public ContainerHexoriumFurnace(InventoryPlayer player, TileHexoriumFurnace tileEntity){
         // Save the Tile Entity.
         this.tileEntity = tileEntity;
 
@@ -58,6 +59,7 @@ public class ContainerHexoriumFurnace extends Container {
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
         craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
+        craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
     }
 
     /**
@@ -74,10 +76,13 @@ public class ContainerHexoriumFurnace extends Container {
             // Compare if the value has changed, if it has, send the change.
             if (lastEnergy != tileEntity.energyGui)
                 craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
+            if (lastEnergyIn != tileEntity.energyInGui)
+                craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
         }
 
         // Save the new values as last value.
         lastEnergy = tileEntity.energyGui;
+        lastEnergyIn = tileEntity.energyInGui;
     }
 
     /**
@@ -89,6 +94,8 @@ public class ContainerHexoriumFurnace extends Container {
         // Save the client-side value depending on ID.
         if(par1 == 0)
             tileEntity.energyGui = par2;
+        if(par1 == 1)
+            tileEntity.energyInGui = par2;
     }
 
     /**
@@ -117,7 +124,7 @@ public class ContainerHexoriumFurnace extends Container {
                 }
                 slot.onSlotChange(itemStack1, itemStack);
             } else if (par2 != 0) {
-                if (HexProcessingMatrixReconstructor.processing().getProcessingResult(itemStack1) != null) {
+                if (FurnaceRecipes.smelting().getSmeltingResult(itemStack1) != null) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
                         return null;
                     }

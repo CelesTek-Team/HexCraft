@@ -22,17 +22,17 @@ import java.util.ArrayList;
  * @version 0.1.0
  * @since 2015-04-25
  */
-public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInventory {
+public class TileHexoriumGenerator extends TileEntity implements ISidedInventory {
 
     // Set machine name.
     private static String machineName = "Hexorium Generator";
 
     // Prepare machine list and arrays for coordinates.
-    private ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor;
+    private ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor;
     private int[] machinesMatrixReconstructorX;
     private int[] machinesMatrixReconstructorY;
     private int[] machinesMatrixReconstructorZ;
-    private ArrayList<TileEntityHexoriumFurnace> machinesHexoriumFurnace;
+    private ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace;
     private int[] machinesHexoriumFurnaceX;
     private int[] machinesHexoriumFurnaceY;
     private int[] machinesHexoriumFurnaceZ;
@@ -46,15 +46,17 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     private static int energyPerTick = 32;
     private float energyTotal;
     private float energy;
+    private float energyOut = 0;
 
     // Prepare GUI variables.
     public int energyTotalGui;
     public int energyGui;
+    public int energyOutGui;
 
     // Prepare state variables.
     private boolean firstTick = false;
     public boolean canProvideEnergy = false;
-    private float machinesPulling = 0;
+    private float pulledThisTick = 0;
 
     /**
      * Fired when opening the inventory.
@@ -217,13 +219,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         // Read the energy variables.
         energyTotal = tagCompound.getFloat("EnergyTotal");
         energy = tagCompound.getFloat("Energy");
+        energyOut = tagCompound.getFloat("EnergyOut");
 
         // Read the GUI variables.
         energyTotalGui = tagCompound.getInteger("EnergyTotalGui");
         energyGui = tagCompound.getInteger("EnergyGui");
+        energyOutGui = tagCompound.getInteger("EnergyOutGui");
 
         // Read the state variables.
-        machinesPulling = tagCompound.getFloat("MachinesPulling");
         canProvideEnergy = tagCompound.getBoolean("CanProvideEnergy");
 
         // Read the coordinate arrays.
@@ -231,14 +234,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         machinesMatrixReconstructorY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
         machinesMatrixReconstructorZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
         // Prepare the ArrayList for machines.
-        machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+        machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
         // Read the coordinate arrays.
         machinesHexoriumFurnaceX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
         machinesHexoriumFurnaceY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
         machinesHexoriumFurnaceZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
         // Prepare the ArrayList for machines.
-        machinesHexoriumFurnace = new ArrayList<TileEntityHexoriumFurnace>();
+        machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
 
         // Prime the updateEntity() for first-tick startup.
         firstTick = true;
@@ -266,13 +269,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         // Read the energy variables.
         tagCompound.setFloat("EnergyTotal", energyTotal);
         tagCompound.setFloat("Energy", energy);
+        tagCompound.setFloat("EnergyOut", energyOut);
 
         // Write the GUI variables.
         tagCompound.setInteger("EnergyTotalGui", energyTotalGui);
         tagCompound.setInteger("EnergyGui", energyGui);
+        tagCompound.setInteger("EnergyOutGui", energyOutGui);
 
         // Write the state variables.
-        tagCompound.setFloat("MachinesPulling", machinesPulling);
         tagCompound.setBoolean("CanProvideEnergy", canProvideEnergy);
 
         // Check if machine list is not null.
@@ -283,7 +287,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             machinesMatrixReconstructorZ = new int[machinesMatrixReconstructor.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor) {
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
                 machinesMatrixReconstructorX[i] = entry.xCoord;
                 machinesMatrixReconstructorY[i] = entry.yCoord;
                 machinesMatrixReconstructorZ[i] = entry.zCoord;
@@ -312,7 +316,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             machinesHexoriumFurnaceZ = new int[machinesHexoriumFurnace.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace) {
+            for (TileHexoriumFurnace entry : machinesHexoriumFurnace) {
                 machinesHexoriumFurnaceX[i] = entry.xCoord;
                 machinesHexoriumFurnaceY[i] = entry.yCoord;
                 machinesHexoriumFurnaceZ[i] = entry.zCoord;
@@ -353,16 +357,18 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
     public void updateEntity() {
         // Confirm that this is server side.
         if (!worldObj.isRemote) {
+            // Reset the pulling per tick variable.
+            pulledThisTick = 0;
             // If this is the first tick...
             if (firstTick) {
                 // Build the machine list using the coordinate arrays.
                 for (int i = 0; i < machinesMatrixReconstructorX.length; i++) {
-                    machinesMatrixReconstructor.add((TileEntityMatrixReconstructor)
+                    machinesMatrixReconstructor.add((TileMatrixReconstructor)
                             worldObj.getTileEntity(machinesMatrixReconstructorX[i], machinesMatrixReconstructorY[i], machinesMatrixReconstructorZ[i]));
                 }
                 // Build the machine list using the coordinate arrays.
                 for (int i = 0; i < machinesHexoriumFurnaceX.length; i++) {
-                    machinesHexoriumFurnace.add((TileEntityHexoriumFurnace)
+                    machinesHexoriumFurnace.add((TileHexoriumFurnace)
                             worldObj.getTileEntity(machinesHexoriumFurnaceX[i], machinesHexoriumFurnaceY[i], machinesHexoriumFurnaceZ[i]));
                 }
                 // Finalize first tick.
@@ -385,7 +391,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
                     }
 
                     // Check if there is any energy being pulled by machines.
-                    if (machinesPulling > 0)
+                    if (energyOut > 0)
                         // If there is, set the ACTIVE texture.
                         MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
                     else
@@ -424,6 +430,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
             energyGui = (int) energy / energyPerTick;
             energyTotalGui = (int) energyTotal / energyPerTick;
+            energyOutGui = Math.round(energyOut);
         }
     }
 
@@ -436,14 +443,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         // Check if the generator is able to provide energy.
         if(canProvideEnergy) {
             // During the first machine's registration, change the texture.
-            if (machinesPulling <= 0)
+            if (energyOut <= 0)
                 // Set the ACTIVE texture.
                 MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
 
-            // Check if the generator has enough energy left to provide requested energy. The 0.01 are added to mitigate possible float rounding errors.
-            if (machinesPulling + requestedEnergy <= energyPerTick + 0.01) {
-                // If there is enough energy left, add the energy to the machine pulling variable.
-                machinesPulling = machinesPulling + requestedEnergy;
+            // Check if the generator still has some energy available. The 0.01 are deducted to mitigate possible float rounding errors.
+            if (energyOut < energyPerTick - 0.01) {
+                // If there is some energy left, add the requested energy to the energy output variable. The total energy might exceed maximum.
+                energyOut = energyOut + requestedEnergy;
                 // Tell the machine that the registration was successful.
                 return true;
             }
@@ -462,11 +469,26 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
      */
     public float pullEnergy(float requestedEnergy) {
         // Check if the generator is able to provide energy.
-        if(canProvideEnergy) {
-            // Decrease the amount of energy left in the generator by the amount of requested energy.
-            energy = energy - requestedEnergy;
-            // Return the energy to the machine.
-            return requestedEnergy;
+        if (canProvideEnergy) {
+            // Check if there is still full requested energy available this tick.
+            if (pulledThisTick + requestedEnergy < energyPerTick) {
+                // Decrease the amount of energy left in the generator by the amount of requested energy.
+                energy = energy - requestedEnergy;
+                // Increase the amount of energy pulled this tick.
+                pulledThisTick = pulledThisTick + requestedEnergy;
+                // Return the energy to the machine.
+                return requestedEnergy;
+            }
+            else {
+                // Otherwise, save the energy pulled to a variable as remaining energy.
+                float pull = energyPerTick - pulledThisTick;
+                // Decrease the amount of energy left in the generator.
+                energy = energy - pull;
+                // Increase the amount of energy pulled this tick.
+                pulledThisTick = energyPerTick;
+                // Return the energy to the machine.
+                return pull;
+            }
         } else
             // If the generator cannot provide energy, return ' energy to the machine.
             return  0;
@@ -478,14 +500,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
      */
     public void stopPulling(float requestedEnergy) {
         // If there is energy being pulled by machines...
-        if (machinesPulling > 0)
+        if (energyOut > 0)
             // Decrease the energy being pulled by the requested energy.
-            machinesPulling = machinesPulling - requestedEnergy;
+            energyOut = energyOut - requestedEnergy;
 
         // If no energy is being pulled any more...
-        if (machinesPulling <= 0) {
+        if (energyOut <= 0) {
             // Correct possible negative value.
-            machinesPulling = 0;
+            energyOut = 0;
             // Set the READY texture.
             MachineHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
         }
@@ -498,14 +520,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor)
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStop();
 
         // Make sure that the machine list is not null.
         if (machinesHexoriumFurnace != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace)
+            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
                 if (entry != null)
                     entry.restartMachineStop();
     }
@@ -517,14 +539,14 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor)
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStart();
 
         // Make sure that the machine list is not null.
         if (machinesHexoriumFurnace != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace)
+            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
                 if (entry != null)
                     entry.restartMachineStart();
     }
@@ -534,7 +556,7 @@ public class TileEntityHexoriumGenerator extends TileEntity implements ISidedInv
      * @param incomingMatrixReconstructor The ArrayList of machines recieved.
      * @param incomingHexoriumFurnace The ArrayList of machines recieved.
      */
-    public void injectMachines(ArrayList<TileEntityMatrixReconstructor> incomingMatrixReconstructor, ArrayList<TileEntityHexoriumFurnace> incomingHexoriumFurnace) {
+    public void injectMachines(ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor, ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace) {
         // Check if the size of the incoming list is larger then 0.
         if (incomingMatrixReconstructor.size() != 0)
             // If it is, save it to local list.

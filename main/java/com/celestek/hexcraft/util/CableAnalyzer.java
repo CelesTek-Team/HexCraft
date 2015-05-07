@@ -4,11 +4,10 @@ import com.celestek.hexcraft.block.CableHexoriumCable;
 import com.celestek.hexcraft.block.MachineHexoriumFurnace;
 import com.celestek.hexcraft.block.MachineHexoriumGenerator;
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
+import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import net.minecraft.world.World;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -164,9 +163,9 @@ public class CableAnalyzer {
         System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
-        ArrayList<TileEntityHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileEntityHexoriumGenerator>();
-        ArrayList<TileEntityHexoriumFurnace> machinesHexoriumFurnace = new ArrayList<TileEntityHexoriumFurnace>();
-        ArrayList<TileEntityMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileEntityMatrixReconstructor>();
+        ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
+        ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
+        ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
         // Go through all machines ArrayList entries.
         for (HexMachine entry : machines) {
@@ -175,27 +174,27 @@ public class CableAnalyzer {
 
             // Add machines to their respective ArrayLists.
             if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
-                machinesHexoriumGenerator.add((TileEntityHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesHexoriumGenerator.add((TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
             if (entry.name.contains(MachineHexoriumFurnace.UNLOCALISEDNAME)) {
-                machinesHexoriumFurnace.add((TileEntityHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesHexoriumFurnace.add((TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
             }
             if (entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
-                machinesMatrixReconstructor.add((TileEntityMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesMatrixReconstructor.add((TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
             }
         }
 
         // Push data to all machines. Consumers to generators, generators to consumers.
-        for (TileEntityHexoriumGenerator entry : machinesHexoriumGenerator) {
-            TileEntityHexoriumGenerator machine = (TileEntityHexoriumGenerator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (TileHexoriumGenerator entry : machinesHexoriumGenerator) {
+            TileHexoriumGenerator machine = (TileHexoriumGenerator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
             machine.injectMachines(machinesMatrixReconstructor, machinesHexoriumFurnace);
         }
-        for (TileEntityHexoriumFurnace entry : machinesHexoriumFurnace) {
-            TileEntityHexoriumFurnace machine = (TileEntityHexoriumFurnace) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (TileHexoriumFurnace entry : machinesHexoriumFurnace) {
+            TileHexoriumFurnace machine = (TileHexoriumFurnace) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
             machine.injectMachines(machinesHexoriumGenerator);
         }
-        for (TileEntityMatrixReconstructor entry : machinesMatrixReconstructor) {
-            TileEntityMatrixReconstructor machine = (TileEntityMatrixReconstructor) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
+            TileMatrixReconstructor machine = (TileMatrixReconstructor) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
             machine.injectMachines(machinesHexoriumGenerator);
         }
     }

@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,15 +20,16 @@ import net.minecraft.item.ItemStack;
 public class ContainerMatrixReconstructor extends Container {
 
     // Prepare the Tile Entity.
-    private TileEntityMatrixReconstructor tileEntity;
+    private TileMatrixReconstructor tileEntity;
 
     // Prepare the variables to store GUI data.
     private int lastEnergy;
+    private int lastEnergyIn;
 
     /**
      * Constructor
      */
-    public ContainerMatrixReconstructor(InventoryPlayer player, TileEntityMatrixReconstructor tileEntity){
+    public ContainerMatrixReconstructor(InventoryPlayer player, TileMatrixReconstructor tileEntity){
         // Save the Tile Entity.
         this.tileEntity = tileEntity;
 
@@ -57,6 +58,7 @@ public class ContainerMatrixReconstructor extends Container {
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
         craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
+        craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
     }
 
     /**
@@ -73,10 +75,13 @@ public class ContainerMatrixReconstructor extends Container {
             // Compare if the value has changed, if it has, send the change.
             if (lastEnergy != tileEntity.energyGui)
                 craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
+            if (lastEnergyIn != tileEntity.energyInGui)
+                craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
         }
 
         // Save the new values as last value.
         lastEnergy = tileEntity.energyGui;
+        lastEnergyIn = tileEntity.energyInGui;
     }
 
     /**
@@ -88,6 +93,8 @@ public class ContainerMatrixReconstructor extends Container {
         // Save the client-side value depending on ID.
         if(par1 == 0)
             tileEntity.energyGui = par2;
+        if(par1 == 1)
+            tileEntity.energyInGui = par2;
     }
 
     /**

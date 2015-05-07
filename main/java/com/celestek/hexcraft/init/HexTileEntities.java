@@ -1,8 +1,8 @@
 package com.celestek.hexcraft.init;
 
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileEntityHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileEntityMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
+import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -16,8 +16,8 @@ public class HexTileEntities {
      */
     public static void initializeTileEntities()
     {
-        GameRegistry.registerTileEntity(TileEntityHexoriumGenerator.class, "tileEntityHexoriumGenerator");
-        GameRegistry.registerTileEntity(TileEntityHexoriumFurnace.class, "tileEntityHexoriumFurnace");
-        GameRegistry.registerTileEntity(TileEntityMatrixReconstructor.class, "tileEntityMatrixReconstructor");
+        GameRegistry.registerTileEntity(TileHexoriumGenerator.class, "tileEntityHexoriumGenerator");
+        GameRegistry.registerTileEntity(TileHexoriumFurnace.class, "tileEntityHexoriumFurnace");
+        GameRegistry.registerTileEntity(TileMatrixReconstructor.class, "tileEntityMatrixReconstructor");
     }
 }
