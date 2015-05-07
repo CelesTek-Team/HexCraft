@@ -19,18 +19,18 @@ import java.util.ArrayList;
 public class CableAnalyzer {
 
     // Prepare ArrayLists for machines and cables.
-    private ArrayList<HexCable> cables;
-    private ArrayList<HexMachine> machines;
+    private ArrayList<HexDevice> cables;
+    private ArrayList<HexDevice> machines;
 
     /**
      * Constructor.
      */
     public CableAnalyzer() {
-        cables = new ArrayList<HexCable>() {
+        cables = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
-                HexCable cable = (HexCable) o;
-                for (HexCable entry : this) {
+                HexDevice cable = (HexDevice) o;
+                for (HexDevice entry : this) {
                     if ((entry.x == cable.x) && (entry.y == cable.y) && (entry.z == cable.z) && (entry.name.equals(cable.name))) {
                         return true;
                     }
@@ -39,11 +39,11 @@ public class CableAnalyzer {
             }
         };
 
-        machines = new ArrayList<HexMachine>() {
+        machines = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
-                HexMachine machine = (HexMachine) o;
-                for (HexMachine entry : this) {
+                HexDevice machine = (HexDevice) o;
+                for (HexDevice entry : this) {
                     if ((entry.x == machine.x) && (entry.y == machine.y) && (entry.z == machine.z) && (entry.name.equals(machine.name))) {
                         return true;
                     }
@@ -73,14 +73,14 @@ public class CableAnalyzer {
         // Check if the current block is a cable.
         if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
             // Check if this cable has already been added to the cables ArrayList.
-            if (!cables.contains(new HexCable(x, y, z, blockName))) {
+            if (!cables.contains(new HexDevice(x, y, z, blockName))) {
                 // Check if one of the conditions are met:
                 // 1) The previous cable's color was Rainbow.
                 // 2) The current block's color is Rainbow.
                 // 3) The current block's color is same as previous.
                 if (name.contains("Rainbow") || blockName.contains("Rainbow") || name.equals(blockName))
                     // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
-                    cables.add(new HexCable(x, y, z, name));
+                    cables.add(new HexDevice(x, y, z, name));
                 else
                     // Otherwise, exit recursion.
                     return;
@@ -94,7 +94,7 @@ public class CableAnalyzer {
                 blockName.contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
                 blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
             // Check if this machine has already been added to the machines ArrayList.
-            if (!machines.contains(new HexMachine(x, y, z, blockName))) {
+            if (!machines.contains(new HexDevice(x, y, z, blockName))) {
                 // If it hasn't, prepare the block's meta.
                 int meta = world.getBlockMetadata(x, y, z);
 
@@ -106,7 +106,7 @@ public class CableAnalyzer {
 
                 // Add the machine to the ArrayList if the previous direction responds with the orientation of the machine.
                 if ((meta == 0 && direction == 3) || (meta == 1 && direction == 2) || (meta == 2 && direction == 4) || (meta == 3 && direction == 1))
-                    machines.add(new HexMachine(x, y, z, blockName));
+                    machines.add(new HexDevice(x, y, z, blockName));
 
                 // Exit recursion.
                 return;
@@ -150,7 +150,7 @@ public class CableAnalyzer {
      */
     public void add(World world, int x, int y, int z) {
         // Add the machine to machines ArrayList.
-        machines.add(new HexMachine(x, y, z, world.getBlock(x, y, z).getUnlocalizedName()));
+        machines.add(new HexDevice(x, y, z, world.getBlock(x, y, z).getUnlocalizedName()));
     }
 
     /**
@@ -168,7 +168,7 @@ public class CableAnalyzer {
         ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
         // Go through all machines ArrayList entries.
-        for (HexMachine entry : machines) {
+        for (HexDevice entry : machines) {
             // Notify about every machine.
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
 

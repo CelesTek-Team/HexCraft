@@ -3,7 +3,7 @@ package com.celestek.hexcraft.client;
 import com.celestek.hexcraft.HexCommonProxy;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
-import com.celestek.hexcraft.client.renderer.HexColors;
+import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;

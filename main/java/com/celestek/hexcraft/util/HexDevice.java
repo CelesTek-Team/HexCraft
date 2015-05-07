@@ -5,13 +5,13 @@ package com.celestek.hexcraft.util;
  * @version 0.1.0
  * @since 2015-04-26
  */
-public class HexMachine {
+public class HexDevice {
     public int x;
     public int y;
     public int z;
     public String name;
 
-    public HexMachine(int x, int y, int z, String name)
+    public HexDevice(int x, int y, int z, String name)
     {
         this.x = x;
         this.y = y;

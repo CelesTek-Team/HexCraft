@@ -58,6 +58,9 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     public boolean canProvideEnergy = false;
     private float pulledThisTick = 0;
 
+    // Float rounding epsilon.
+    private float epsilon = 0.0001F;
+
     /**
      * Fired when opening the inventory.
      */
@@ -447,8 +450,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 // Set the ACTIVE texture.
                 MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
 
-            // Check if the generator still has some energy available. The 0.01 are deducted to mitigate possible float rounding errors.
-            if (energyOut < energyPerTick - 0.01) {
+            // Check if the generator still has some energy available. The epsilon is deducted to mitigate possible float rounding errors.
+            if (energyOut < energyPerTick - epsilon) {
                 // If there is some energy left, add the requested energy to the energy output variable. The total energy might exceed maximum.
                 energyOut = energyOut + requestedEnergy;
                 // Tell the machine that the registration was successful.
@@ -470,8 +473,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     public float pullEnergy(float requestedEnergy) {
         // Check if the generator is able to provide energy.
         if (canProvideEnergy) {
-            // Check if there is still full requested energy available this tick.
-            if (pulledThisTick + requestedEnergy < energyPerTick) {
+            // Check if there is still full requested energy available this tick. The epsilon is deducted to mitigate possible float rounding errors.
+            if (pulledThisTick + requestedEnergy < energyPerTick - epsilon) {
                 // Decrease the amount of energy left in the generator by the amount of requested energy.
                 energy = energy - requestedEnergy;
                 // Increase the amount of energy pulled this tick.
@@ -504,8 +507,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             // Decrease the energy being pulled by the requested energy.
             energyOut = energyOut - requestedEnergy;
 
-        // If no energy is being pulled any more...
-        if (energyOut <= 0) {
+        // If no energy is being pulled any more, use an epsilon to mitigate possible float rounding errors...
+        if (energyOut <= epsilon) {
             // Correct possible negative value.
             energyOut = 0;
             // Set the READY texture.

@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.client.renderer;
+package com.celestek.hexcraft.util;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
