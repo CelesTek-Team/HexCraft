@@ -1,9 +1,7 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.block.CableHexoriumCable;
-import com.celestek.hexcraft.block.MachineHexoriumFurnace;
-import com.celestek.hexcraft.block.MachineHexoriumGenerator;
-import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
@@ -92,6 +90,7 @@ public class CableAnalyzer {
         // Check if the current block is a machine.
         else if(blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 blockName.contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                blockName.contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
                 blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
             // Check if this machine has already been added to the machines ArrayList.
             if (!machines.contains(new HexDevice(x, y, z, blockName))) {
@@ -165,6 +164,7 @@ public class CableAnalyzer {
         // Prepare ArrayLists for different machine types.
         ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
         ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
+        ArrayList<TileCrystalSeparator> machinesCrystalSeparator = new ArrayList<TileCrystalSeparator>();
         ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
         // Go through all machines ArrayList entries.
@@ -179,6 +179,9 @@ public class CableAnalyzer {
             if (entry.name.contains(MachineHexoriumFurnace.UNLOCALISEDNAME)) {
                 machinesHexoriumFurnace.add((TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
             }
+            if (entry.name.contains(MachineCrystalSeparator.UNLOCALISEDNAME)) {
+                machinesCrystalSeparator.add((TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z));
+            }
             if (entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
                 machinesMatrixReconstructor.add((TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
             }
@@ -187,10 +190,14 @@ public class CableAnalyzer {
         // Push data to all machines. Consumers to generators, generators to consumers.
         for (TileHexoriumGenerator entry : machinesHexoriumGenerator) {
             TileHexoriumGenerator machine = (TileHexoriumGenerator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
-            machine.injectMachines(machinesMatrixReconstructor, machinesHexoriumFurnace);
+            machine.injectMachines(machinesHexoriumFurnace, machinesCrystalSeparator, machinesMatrixReconstructor);
         }
         for (TileHexoriumFurnace entry : machinesHexoriumFurnace) {
             TileHexoriumFurnace machine = (TileHexoriumFurnace) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+            machine.injectMachines(machinesHexoriumGenerator);
+        }
+        for (TileCrystalSeparator entry : machinesCrystalSeparator) {
+            TileCrystalSeparator machine = (TileCrystalSeparator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
             machine.injectMachines(machinesHexoriumGenerator);
         }
         for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {

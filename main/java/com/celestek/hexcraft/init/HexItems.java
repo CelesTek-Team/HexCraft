@@ -24,18 +24,21 @@ public class HexItems {
     public static Item itemWhiteHexoriumWafer;
     public static Item itemBlackHexoriumWafer;
     public static Item itemSpatialProjector;
+    public static Item itemOreActuator;
     public static Item itemHexoriumGlassPackage;
 
     // Components T2
     public static Item itemRainbowCore;
     public static Item itemHexoriumProcessor;
     public static Item itemHexoriumCoprocessor;
+    public static Item itemMineralAnalyzer;
 
     // Components MP
     public static Item itemMachineControlPanel;
     public static Item itemMachinePowerRouter;
     public static Item itemHeatDissipator;
     public static Item itemHeatingArray;
+    public static Item itemCrystalExtractionUnit;
     public static Item itemMatrixAdjuster;
     
     // Tools
@@ -67,6 +70,10 @@ public class HexItems {
         GameRegistry.registerItem(itemBlackHexoriumWafer, "itemBlackHexoriumWafer");
         itemSpatialProjector = new HexItemComponent("itemSpatialProjector");
         GameRegistry.registerItem(itemSpatialProjector, "itemSpatialProjector");
+        itemOreActuator = new HexItemComponent("itemOreActuator");
+        GameRegistry.registerItem(itemOreActuator, "itemOreActuator");
+        itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
+        GameRegistry.registerItem(itemHexoriumGlassPackage, "itemHexoriumGlassPackage");
 
         // Components T2
         itemRainbowCore = new HexItemComponent("itemRainbowCore");
@@ -75,8 +82,8 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumCoprocessor, "itemHexoriumCoprocessor");
         itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
         GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
-        itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
-        GameRegistry.registerItem(itemHexoriumGlassPackage, "itemHexoriumGlassPackage");
+        itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
+        GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
@@ -87,6 +94,8 @@ public class HexItems {
         GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
         itemHeatingArray = new HexItemComponent("itemHeatingArray");
         GameRegistry.registerItem(itemHeatingArray, "itemHeatingArray");
+        itemCrystalExtractionUnit = new HexItemComponent("itemCrystalExtractionUnit");
+        GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
         itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
         GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
         

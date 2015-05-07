@@ -22,7 +22,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 155;
+    public static int countBlocks = 156;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -201,6 +201,7 @@ public class HexBlocks {
 
     public static Block machineHexoriumGenerator;
     public static Block machineHexoriumFurnace;
+    public static Block machineCrystalSeparator;
     public static Block machineMatrixReconstructor;
 
     // Cables
@@ -272,7 +273,7 @@ public class HexBlocks {
 
         blockHexoriumMonolithWhite = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "White", 2, 4);
         GameRegistry.registerBlock(blockHexoriumMonolithWhite, BlockHexoriumMonolith.UNLOCALISEDNAME + "White");
-        blockHexoriumMonolithBlack = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Black", 2, 2);
+        blockHexoriumMonolithBlack = new BlockHexoriumMonolith(BlockHexoriumMonolith.UNLOCALISEDNAME + "Black", 2, 4);
         GameRegistry.registerBlock(blockHexoriumMonolithBlack, BlockHexoriumMonolith.UNLOCALISEDNAME + "Black");
         
         // Hexorium Nether Monolith
@@ -550,6 +551,8 @@ public class HexBlocks {
         GameRegistry.registerBlock(machineHexoriumGenerator, MachineHexoriumGenerator.UNLOCALISEDNAME);
         machineHexoriumFurnace = new MachineHexoriumFurnace(MachineHexoriumFurnace.UNLOCALISEDNAME);
         GameRegistry.registerBlock(machineHexoriumFurnace, MachineHexoriumFurnace.UNLOCALISEDNAME);
+        machineCrystalSeparator = new MachineCrystalSeparator(MachineCrystalSeparator.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(machineCrystalSeparator, MachineCrystalSeparator.UNLOCALISEDNAME);
         machineMatrixReconstructor = new MachineMatrixReconstructor(MachineMatrixReconstructor.UNLOCALISEDNAME);
         GameRegistry.registerBlock(machineMatrixReconstructor, MachineMatrixReconstructor.UNLOCALISEDNAME);
 

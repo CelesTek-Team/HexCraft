@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.CableHexoriumCable;
-import com.celestek.hexcraft.block.MachineHexoriumFurnace;
-import com.celestek.hexcraft.block.MachineHexoriumGenerator;
-import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -1214,24 +1211,28 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         // Look for machines.
         if (world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
                 world.getBlock(x - 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
             metas[0] = world.getBlockMetadata(x - 1, y, z);
         else
             metas[0] = -1;
         if (world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
                 world.getBlock(x + 1, y, z).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
             metas[1] = world.getBlockMetadata(x + 1, y, z);
         else
             metas[1] = -1;
         if (world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
                 world.getBlock(x, y, z - 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
             metas[2] = world.getBlockMetadata(x, y, z - 1);
         else
             metas[2] = -1;
         if (world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
                 world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
+                world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
                 world.getBlock(x, y, z + 1).getUnlocalizedName().contains(MachineMatrixReconstructor.UNLOCALISEDNAME))
             metas[3] = world.getBlockMetadata(x, y, z + 1);
         else

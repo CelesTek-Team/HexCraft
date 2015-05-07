@@ -2,7 +2,8 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
+import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,13 +27,13 @@ import java.util.Random;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.1.0
- * @since 2015-04-14
+ * @since 2015-05-06
  */
 
-public class MachineMatrixReconstructor extends HexBlockContainer {
+public class MachineCrystalSeparator extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "machineMatrixReconstructor";
+    public static String UNLOCALISEDNAME = "machineCrystalSeparator";
 
     private final Random random = new Random();
 
@@ -40,7 +41,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public MachineMatrixReconstructor(String blockName) {
+    public MachineCrystalSeparator(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -58,7 +59,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
-        return new TileMatrixReconstructor();
+        return new TileCrystalSeparator();
     }
 
     /**
@@ -99,7 +100,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         // Open the GUI.
-        player.openGui(HexCraft.instance, 3, world, x, y, z);
+        player.openGui(HexCraft.instance, 2, world, x, y, z);
         return true;
     }
 
@@ -151,7 +152,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
-        TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
+        TileCrystalSeparator tileEntity = (TileCrystalSeparator) world.getTileEntity(x, y, z);
 
         // Check if it is not null.
         if (tileEntity != null) {
@@ -201,7 +202,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineCrystalSeparator);
     }
 
     /**
@@ -209,7 +210,7 @@ public class MachineMatrixReconstructor extends HexBlockContainer {
      */
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineMatrixReconstructor);
+        return Item.getItemFromBlock(HexBlocks.machineCrystalSeparator);
     }
 
     /**

@@ -31,6 +31,7 @@ public class HexRecipes {
         ItemStack stackIronIngot_1 = new ItemStack(Items.iron_ingot, 1);
         ItemStack stackGoldIngot_1 = new ItemStack(Items.gold_ingot, 1);
         ItemStack stackDiamond_1 = new ItemStack(Items.diamond, 1);
+        ItemStack stackIronPickaxe_1 = new ItemStack(Items.iron_pickaxe, 1);
 
 
         // Hex Blocks
@@ -156,6 +157,7 @@ public class HexRecipes {
 
         ItemStack stackHexoriumGenerator_1 = new ItemStack(HexBlocks.machineHexoriumGenerator, 1);
         ItemStack stackHexoriumFurnace_1 = new ItemStack(HexBlocks.machineHexoriumFurnace, 1);
+        ItemStack stackCrystalSeparator_1 = new ItemStack(HexBlocks.machineCrystalSeparator, 1);
         ItemStack stackMatrixReconstructor_1 = new ItemStack(HexBlocks.machineMatrixReconstructor, 1);
 
         // Cables
@@ -203,18 +205,21 @@ public class HexRecipes {
         ItemStack stackWhiteHexoriumWafer_1 = new ItemStack(HexItems.itemWhiteHexoriumWafer, 1);
         ItemStack stackBlackHexoriumWafer_1 = new ItemStack(HexItems.itemBlackHexoriumWafer, 1);
         ItemStack stackSpatialProjector_1 = new ItemStack(HexItems.itemSpatialProjector, 1);
+        ItemStack stackOreActuator_1 = new ItemStack(HexItems.itemOreActuator, 1);
         ItemStack stackHexoriumGlassPackage_1 = new ItemStack(HexItems.itemHexoriumGlassPackage, 1);
 
         // Components T2
         ItemStack stackRainbowCore_1 = new ItemStack(HexItems.itemRainbowCore, 1);
         ItemStack stackHexoriumCoprocessor_1 = new ItemStack(HexItems.itemHexoriumCoprocessor, 1);
         ItemStack stackHexoriumProcessor_1 = new ItemStack(HexItems.itemHexoriumProcessor, 1);
+        ItemStack stackMineralAnalyzer_1 = new ItemStack(HexItems.itemMineralAnalyzer, 1);
 
         // Components MP
         ItemStack stackMachineControlPanel_1 = new ItemStack(HexItems.itemMachineControlPanel, 1);
         ItemStack stackMachinePowerRouter_1 = new ItemStack(HexItems.itemMachinePowerRouter, 1);
         ItemStack stackHeatDissipator_1 = new ItemStack(HexItems.itemHeatDissipator, 1);
         ItemStack stackHeatingArray_1 = new ItemStack(HexItems.itemHeatingArray, 1);
+        ItemStack stackCrystalExtractionUnit_1 = new ItemStack(HexItems.itemCrystalExtractionUnit, 1);
         ItemStack stackMatrixAdjuster_1 = new ItemStack(HexItems.itemMatrixAdjuster, 1);
 
         // Tools
@@ -1035,6 +1040,11 @@ public class HexRecipes {
                 "DAD",
                 "ECE",
                 'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackHeatingArray_1, 'E', stackIronIngot_1);
+        GameRegistry.addRecipe(stackCrystalSeparator_1,
+                "EBE",
+                "DAD",
+                "ECE",
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackCrystalExtractionUnit_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackMatrixReconstructor_1,
                 "EBE",
                 "DAD",
@@ -1580,6 +1590,11 @@ public class HexRecipes {
                 "BBB",
                 " R ",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackOreActuator_1,
+                "BB ",
+                "ARR",
+                "BB ",
+                'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', stackIronIngot_1);
 
         GameRegistry.addRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
@@ -1613,6 +1628,12 @@ public class HexRecipes {
                 "RAR",
                 " B ",
                 'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackMineralAnalyzer_1,
+                "BCD",
+                "FEA",
+                "GRG",
+                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackHexoriumCrystalRed_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalBlue_1,
+                'E', stackDiamond_1, 'F', stackGoldIngot_1, 'G', stackIronIngot_1);
 
         // Components MP
         GameRegistry.addRecipe(stackMachineControlPanel_1,
@@ -1635,6 +1656,11 @@ public class HexRecipes {
                 "RAB",
                 "RRB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackCrystalExtractionUnit_1,
+                "BRD",
+                "CAD",
+                " RD",
+                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackMineralAnalyzer_1, 'C', stackOreActuator_1, 'D', stackIronIngot_1);
         GameRegistry.addRecipe(stackMatrixAdjuster_1,
                 " ED",
                 "CBA",

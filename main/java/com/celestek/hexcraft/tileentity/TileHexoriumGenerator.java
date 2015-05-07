@@ -28,14 +28,18 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     private static String machineName = "Hexorium Generator";
 
     // Prepare machine list and arrays for coordinates.
-    private ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor;
-    private int[] machinesMatrixReconstructorX;
-    private int[] machinesMatrixReconstructorY;
-    private int[] machinesMatrixReconstructorZ;
     private ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace;
     private int[] machinesHexoriumFurnaceX;
     private int[] machinesHexoriumFurnaceY;
     private int[] machinesHexoriumFurnaceZ;
+    private ArrayList<TileCrystalSeparator> machinesCrystalSeparator;
+    private int[] machinesCrystalSeparatorX;
+    private int[] machinesCrystalSeparatorY;
+    private int[] machinesCrystalSeparatorZ;
+    private ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor;
+    private int[] machinesMatrixReconstructorX;
+    private int[] machinesMatrixReconstructorY;
+    private int[] machinesMatrixReconstructorZ;
 
     // Define sides and slots.
     private static final int[] slotsSide = new int[] { 0 };
@@ -233,18 +237,25 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         canProvideEnergy = tagCompound.getBoolean("CanProvideEnergy");
 
         // Read the coordinate arrays.
-        machinesMatrixReconstructorX = tagCompound.getIntArray("MachinesMatrixReconstructorX");
-        machinesMatrixReconstructorY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
-        machinesMatrixReconstructorZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
-        // Prepare the ArrayList for machines.
-        machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
-
-        // Read the coordinate arrays.
         machinesHexoriumFurnaceX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
         machinesHexoriumFurnaceY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
         machinesHexoriumFurnaceZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
         // Prepare the ArrayList for machines.
         machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
+
+        // Read the coordinate arrays.
+        machinesCrystalSeparatorX = tagCompound.getIntArray("MachinesCrystalSeparatorX");
+        machinesCrystalSeparatorY = tagCompound.getIntArray("MachinesCrystalSeparatorY");
+        machinesCrystalSeparatorZ = tagCompound.getIntArray("MachinesCrystalSeparatorZ");
+        // Prepare the ArrayList for machines.
+        machinesCrystalSeparator = new ArrayList<TileCrystalSeparator>();
+
+        // Read the coordinate arrays.
+        machinesMatrixReconstructorX = tagCompound.getIntArray("MachinesMatrixReconstructorX");
+        machinesMatrixReconstructorY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
+        machinesMatrixReconstructorZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
+        // Prepare the ArrayList for machines.
+        machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
         // Prime the updateEntity() for first-tick startup.
         firstTick = true;
@@ -283,35 +294,6 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         tagCompound.setBoolean("CanProvideEnergy", canProvideEnergy);
 
         // Check if machine list is not null.
-        if (machinesMatrixReconstructor != null) {
-            // Initialize the coordinate arrays.
-            machinesMatrixReconstructorX = new int[machinesMatrixReconstructor.size()];
-            machinesMatrixReconstructorY = new int[machinesMatrixReconstructor.size()];
-            machinesMatrixReconstructorZ = new int[machinesMatrixReconstructor.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
-                machinesMatrixReconstructorX[i] = entry.xCoord;
-                machinesMatrixReconstructorY[i] = entry.yCoord;
-                machinesMatrixReconstructorZ[i] = entry.zCoord;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else {
-            machinesMatrixReconstructorX = new int[0];
-            machinesMatrixReconstructorY = new int[0];
-            machinesMatrixReconstructorZ = new int[0];
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
-        }
-
-        // Check if machine list is not null.
         if (machinesHexoriumFurnace != null) {
             // Initialize the coordinate arrays.
             machinesHexoriumFurnaceX = new int[machinesHexoriumFurnace.size()];
@@ -338,6 +320,64 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesHexoriumFurnaceX);
             tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesHexoriumFurnaceY);
             tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesHexoriumFurnaceZ);
+        }
+
+        // Check if machine list is not null.
+        if (machinesCrystalSeparator != null) {
+            // Initialize the coordinate arrays.
+            machinesCrystalSeparatorX = new int[machinesCrystalSeparator.size()];
+            machinesCrystalSeparatorY = new int[machinesCrystalSeparator.size()];
+            machinesCrystalSeparatorZ = new int[machinesCrystalSeparator.size()];
+            // Save the coordinates of machines to arrays.
+            int i = 0;
+            for (TileCrystalSeparator entry : machinesCrystalSeparator) {
+                machinesCrystalSeparatorX[i] = entry.xCoord;
+                machinesCrystalSeparatorY[i] = entry.yCoord;
+                machinesCrystalSeparatorZ[i] = entry.zCoord;
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesCrystalSeparatorX);
+            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesCrystalSeparatorY);
+            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesCrystalSeparatorZ);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else {
+            machinesCrystalSeparatorX = new int[0];
+            machinesCrystalSeparatorY = new int[0];
+            machinesCrystalSeparatorZ = new int[0];
+            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesCrystalSeparatorX);
+            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesCrystalSeparatorY);
+            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesCrystalSeparatorZ);
+        }
+
+        // Check if machine list is not null.
+        if (machinesMatrixReconstructor != null) {
+            // Initialize the coordinate arrays.
+            machinesMatrixReconstructorX = new int[machinesMatrixReconstructor.size()];
+            machinesMatrixReconstructorY = new int[machinesMatrixReconstructor.size()];
+            machinesMatrixReconstructorZ = new int[machinesMatrixReconstructor.size()];
+            // Save the coordinates of machines to arrays.
+            int i = 0;
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
+                machinesMatrixReconstructorX[i] = entry.xCoord;
+                machinesMatrixReconstructorY[i] = entry.yCoord;
+                machinesMatrixReconstructorZ[i] = entry.zCoord;
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
+            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
+            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else {
+            machinesMatrixReconstructorX = new int[0];
+            machinesMatrixReconstructorY = new int[0];
+            machinesMatrixReconstructorZ = new int[0];
+            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
+            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
+            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
         }
 
         // Write the items.
@@ -521,16 +561,23 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      */
     private void restartMachinesStop() {
         // Make sure that the machine list is not null.
-        if (machinesMatrixReconstructor != null)
+        if (machinesHexoriumFurnace != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
+            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
                 if (entry != null)
                     entry.restartMachineStop();
 
         // Make sure that the machine list is not null.
-        if (machinesHexoriumFurnace != null)
+        if (machinesCrystalSeparator != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
+            for (TileCrystalSeparator entry : machinesCrystalSeparator)
+                if (entry != null)
+                    entry.restartMachineStop();
+        
+        // Make sure that the machine list is not null.
+        if (machinesMatrixReconstructor != null)
+            // Send a restart-stop signal to all machines in the list.
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStop();
     }
@@ -540,16 +587,23 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      */
     private void restartMachinesStart() {
         // Make sure that the machine list is not null.
-        if (machinesMatrixReconstructor != null)
+        if (machinesHexoriumFurnace != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
+            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
                 if (entry != null)
                     entry.restartMachineStart();
 
         // Make sure that the machine list is not null.
-        if (machinesHexoriumFurnace != null)
+        if (machinesCrystalSeparator != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
+            for (TileCrystalSeparator entry : machinesCrystalSeparator)
+                if (entry != null)
+                    entry.restartMachineStart();
+        
+        // Make sure that the machine list is not null.
+        if (machinesMatrixReconstructor != null)
+            // Send a restart-start signal to all machines in the list.
+            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStart();
     }
@@ -559,14 +613,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      * @param incomingMatrixReconstructor The ArrayList of machines recieved.
      * @param incomingHexoriumFurnace The ArrayList of machines recieved.
      */
-    public void injectMachines(ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor, ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace) {
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingMatrixReconstructor.size() != 0)
-            // If it is, save it to local list.
-            machinesMatrixReconstructor = incomingMatrixReconstructor;
-        else
-            // Otherwise, set the local list to null.
-            machinesMatrixReconstructor = null;
+    public void injectMachines(ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace, ArrayList<TileCrystalSeparator> incomingCrystalSeparator, ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor) {
 
         // Check if the size of the incoming list is larger then 0.
         if (incomingHexoriumFurnace.size() != 0)
@@ -575,6 +622,22 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         else
             // Otherwise, set the local list to null.
             machinesHexoriumFurnace = null;
+        
+        // Check if the size of the incoming list is larger then 0.
+        if (incomingCrystalSeparator.size() != 0)
+            // If it is, save it to local list.
+            machinesCrystalSeparator = incomingCrystalSeparator;
+        else
+            // Otherwise, set the local list to null.
+            machinesCrystalSeparator = null;
+        
+        // Check if the size of the incoming list is larger then 0.
+        if (incomingMatrixReconstructor.size() != 0)
+            // If it is, save it to local list.
+            machinesMatrixReconstructor = incomingMatrixReconstructor;
+        else
+            // Otherwise, set the local list to null.
+            machinesMatrixReconstructor = null;
     }
 
     /**

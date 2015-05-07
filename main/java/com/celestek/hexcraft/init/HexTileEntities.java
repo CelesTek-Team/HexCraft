@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
@@ -18,6 +19,7 @@ public class HexTileEntities {
     {
         GameRegistry.registerTileEntity(TileHexoriumGenerator.class, "tileEntityHexoriumGenerator");
         GameRegistry.registerTileEntity(TileHexoriumFurnace.class, "tileEntityHexoriumFurnace");
+        GameRegistry.registerTileEntity(TileCrystalSeparator.class, "tileEntityCrystalSeparator");
         GameRegistry.registerTileEntity(TileMatrixReconstructor.class, "tileEntityMatrixReconstructor");
     }
 }

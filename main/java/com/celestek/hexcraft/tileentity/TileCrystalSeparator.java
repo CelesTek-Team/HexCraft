@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.init.HexProcessingCrystalSeparator;
+import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,10 +20,10 @@ import java.util.ArrayList;
  * @version 0.1.0
  * @since 2015-05-06
  */
-public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
+public class TileCrystalSeparator extends TileEntity implements ISidedInventory {
 
     // Set machine name.
-    private static String machineName = "Hexorium Furnace";
+    private static String machineName = "Crystal Separator";
 
     // Prepare machine list and arrays for coordinates.
     private ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator;
@@ -526,7 +528,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
         // Otherwise...
         else {
             // Save the result of processing to ItemStack.
-            ItemStack itemStack = FurnaceRecipes.smelting().getSmeltingResult(machineItemStacks[0]);
+            ItemStack itemStack = HexProcessingCrystalSeparator.processing().getProcessingResult(machineItemStacks[0]);
             // If the result is null, it cannot be processed.
             if (itemStack == null)
                 return false;
@@ -549,7 +551,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
         // If the item can be processed...
         if (canProcess()) {
             // Prepare a new ItemStack that is the result of processing.
-            ItemStack itemStack = FurnaceRecipes.smelting().getSmeltingResult(machineItemStacks[0]);
+            ItemStack itemStack = HexProcessingCrystalSeparator.processing().getProcessingResult(machineItemStacks[0]);
 
             // If there are no items in the output, put the result in.
             if (machineItemStacks[1] == null)

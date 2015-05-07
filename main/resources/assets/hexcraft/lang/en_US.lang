@@ -170,6 +170,7 @@ tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
 tile.machineHexoriumGenerator.name=Hexorium Generator
 tile.machineHexoriumFurnace.name=Hexorium Furnace
+tile.machineCrystalSeparator.name=Crystal Separator
 tile.machineMatrixReconstructor.name=Matrix Reconstructor
 
 tile.cableHexoriumCableRed.name=Hexorium Cable (Red)
@@ -207,16 +208,19 @@ item.itemRainbowEnergizedGlobule.name=Rainbow Energized Globule
 item.itemWhiteHexoriumWafer.name=White Hexorium Wafer
 item.itemBlackHexoriumWafer.name=Black Hexorium Wafer
 item.itemSpatialProjector.name=Spatial Projector
+item.itemOreActuator.name=Ore Actuator
 item.itemHexoriumGlassPackage.name=Hexorium-Glass Package
 
 item.itemRainbowCore.name=Rainbow Core
 item.itemHexoriumCoprocessor.name=Hexorium Coprocessor
 item.itemHexoriumProcessor.name=Hexorium Processor
+item.itemMineralAnalyzer.name=Mineral Analyzer
 
 item.itemMachineControlPanel.name=Machine Control Panel
 item.itemMachinePowerRouter.name=Machine Power Router
 item.itemHeatDissipator.name=Heat Dissipator
 item.itemHeatingArray.name=Heating Array
+item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
