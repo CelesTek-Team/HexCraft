@@ -232,6 +232,9 @@ public class HexBlocks {
     // Regular Blocks
     public static Block blockTemperedHexoriumGlass;
 
+    public static Block blockPylonBase51;
+    public static Block blockPylonBase15;
+
     /**
      * Initializes all block and adds them to GameRegistry.
      */
@@ -606,5 +609,10 @@ public class HexBlocks {
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
+
+        blockPylonBase51 = new BlockPylonBase(BlockPylonBase.UNLOCALISEDNAME + "51", false);
+        GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.UNLOCALISEDNAME + "51");
+        blockPylonBase15 = new BlockPylonBase(BlockPylonBase.UNLOCALISEDNAME + "15", true);
+        GameRegistry.registerBlock(blockPylonBase15, BlockPylonBase.UNLOCALISEDNAME + "15");
     }
 }

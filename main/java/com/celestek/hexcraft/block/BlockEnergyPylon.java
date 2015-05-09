@@ -2,12 +2,16 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -49,23 +53,22 @@ public class BlockEnergyPylon extends HexBlockContainer {
 
     /**
      * Returns a new instance of a block's TIle Entity class. Called on placing the block.
+     */
     @Override
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
         return new TileEnergyPylon();
     }
-     */
 
     /**
-     * Fired when a player right clicks on the machine.
+     * Fired when a player right clicks on the pylon.
+     */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        // Open the GUI.
-        player.openGui(HexCraft.instance, 1, world, x, y, z);
-        return true;
+        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        return tileEntity.insertMonolith(player);
     }
-     */
 
     /**
      * Called when a player tries to place the monolith.

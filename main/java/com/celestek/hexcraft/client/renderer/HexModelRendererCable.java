@@ -1250,33 +1250,45 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 metas[i] = metas[i] - 8;
         }
 
-        // Count Sides
+        // Count sides.
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y - 1, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x, y - 1, z).getUnlocalizedName()) ||
-                world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()))
+                world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x, y - 1, z) != 1) ||
+                (world.getBlock(x, y - 1, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x, y - 1, z) == 1))
             sides[0] = true;
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y + 1, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x, y + 1, z).getUnlocalizedName()) ||
-                world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()))
+                world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x, y + 1, z) != 0) ||
+                (world.getBlock(x, y + 1, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x, y + 1, z) == 0))
             sides[1] = true;
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x - 1, y, z).getUnlocalizedName()) ||
                 world.getBlock(x - 1, y, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x - 1, y, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x - 1, y, z) != 5) ||
+                (world.getBlock(x - 1, y, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x - 1, y, z) == 5) ||
                 metas[0] == 3)
             sides[2] = true;
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x + 1, y, z).getUnlocalizedName()) ||
                 world.getBlock(x + 1, y, z).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x + 1, y, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x + 1, y, z) != 4) ||
+                (world.getBlock(x + 1, y, z).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x + 1, y, z) == 4) ||
                 metas[1] == 1)
             sides[3] = true;
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x, y, z - 1).getUnlocalizedName()) ||
                 world.getBlock(x, y, z - 1).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x, y, z - 1).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x, y, z - 1) != 3) ||
+                (world.getBlock(x, y, z - 1).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x, y, z - 1) == 3) ||
                 metas[2] == 0)
             sides[4] = true;
         if (name.equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME) ||
                 name.equals(world.getBlock(x, y, z + 1).getUnlocalizedName()) ||
                 world.getBlock(x, y, z + 1).getUnlocalizedName().equals(HexBlocks.blockHexoriumCableRainbow.getUnlocalizedName()) ||
+                (world.getBlock(x, y, z + 1).getUnlocalizedName().equals(HexBlocks.blockPylonBase51.getUnlocalizedName()) && world.getBlockMetadata(x, y, z + 1) != 2) ||
+                (world.getBlock(x, y, z + 1).getUnlocalizedName().equals(HexBlocks.blockPylonBase15.getUnlocalizedName()) && world.getBlockMetadata(x, y, z + 1) == 2) ||
                 metas[3] == 2)
             sides[5] = true;
 
