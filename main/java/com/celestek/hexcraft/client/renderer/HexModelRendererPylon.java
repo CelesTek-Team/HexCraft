@@ -2,6 +2,7 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -27,6 +28,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private float b = 1F;
 
     // Model constants.
+    public static float invOffset = 0.4F;
+
     public static float yMonoBot = 0.125F;
     public static float yMonoTop = 0.875F;
 
@@ -208,59 +211,118 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
 
-        // Set up brightness and color.
-        tessellator.setBrightness(brightness);
-        tessellator.setColorRGBA_F(r, g, b, opacity);
+        // Set up brightness.
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Prepare the icon.
-        IIcon c = block.getIcon(6, 0);
-        double u = c.getInterpolatedU(uMonoSide);
-        double U = c.getInterpolatedU(UMonoSide);
-        double v = c.getInterpolatedV(vMonoSide);
-        double V = c.getInterpolatedV(VMonoSide);
+        IIcon c = block.getIcon(0, 0);
 
-        // Top Face
-        tessellator.setNormal(xMonoB, yMonoTop, zMonoB);
-        tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-        tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-        tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-        tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+        // Base Faces
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMax, c.getInterpolatedU(uBaseA1), c.getInterpolatedV(vBaseA1)); // A
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMax, c.getInterpolatedU(uBaseA2), c.getInterpolatedV(vBaseA2)); // B
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMax, c.getInterpolatedU(uBaseA3), c.getInterpolatedV(vBaseA3)); // B'
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMax, c.getInterpolatedU(uBaseA4), c.getInterpolatedV(vBaseA4)); // A'
 
-        tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-        tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-        tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-        tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMax, c.getInterpolatedU(uBaseB1), c.getInterpolatedV(vBaseB1)); // B
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMin, c.getInterpolatedU(uBaseB2), c.getInterpolatedV(vBaseB2)); // C
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMin, c.getInterpolatedU(uBaseB3), c.getInterpolatedV(vBaseB3)); // C'
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMax, c.getInterpolatedU(uBaseB4), c.getInterpolatedV(vBaseB4)); // B'
 
-        // Side Faces
-        tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, u, v); // F
-        tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, U, v); // E
-        tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, U, V); // E'
-        tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, u, V); // F'
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMin, c.getInterpolatedU(uBaseA1), c.getInterpolatedV(vBaseA1)); // C
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMin, c.getInterpolatedU(uBaseA2), c.getInterpolatedV(vBaseA2)); // D
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMin, c.getInterpolatedU(uBaseA3), c.getInterpolatedV(vBaseA3)); // D'
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMin, c.getInterpolatedU(uBaseA4), c.getInterpolatedV(vBaseA4)); // C'
 
-        tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, u, v); // E
-        tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, U, v); // D
-        tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, U, V); // D'
-        tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, u, V); // E'
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMin, c.getInterpolatedU(uBaseB1), c.getInterpolatedV(vBaseB1)); // D
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMax, c.getInterpolatedU(uBaseB2), c.getInterpolatedV(vBaseB2)); // A
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMax, c.getInterpolatedU(uBaseB3), c.getInterpolatedV(vBaseB3)); // A'
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMin, c.getInterpolatedU(uBaseB4), c.getInterpolatedV(vBaseB4)); // D'
 
-        tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, u, v); // D
-        tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, U, v); // C
-        tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, U, V); // C'
-        tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, u, V); // D'
+        c = block.getIcon(8, 0);
+        double u = c.getInterpolatedU(uBaseTop);
+        double U = c.getInterpolatedU(UBaseTop);
+        double v = c.getInterpolatedV(vBaseTop);
+        double V = c.getInterpolatedV(VBaseTop);
 
-        tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, u, v); // C
-        tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, U, v); // B
-        tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, U, V); // B'
-        tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, u, V); // C'
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMax, u, v); // A'
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMax, U, v); // B'
+        tessellator.addVertexWithUV(xPlatMax, invOffset+yMonoBot, zPlatMin, U, V); // C'
+        tessellator.addVertexWithUV(xPlatMin, invOffset+yMonoBot, zPlatMin, u, V); // D'
 
-        tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, u, v); // B
-        tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, U, v); // A
-        tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, U, V); // A'
-        tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, u, V); // B'
+        c = block.getIcon(9, 0);
+        u = c.getMinU();
+        U = c.getMaxU();
+        v = c.getMinV();
+        V = c.getMaxV();
 
-        tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, u, v); // A
-        tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, U, v); // F
-        tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, U, V); // F'
-        tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, u, V); // A'
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMin, u, V); // D'
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMin, U, V); // C'
+        tessellator.addVertexWithUV(xBaseMax, invOffset+yBaseBot, zBaseMax, U, v); // B'
+        tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMax, u, v); // A'
+
+        c = block.getIcon(0, 0);
+
+        // Ring Inner Faces
+        tessellator.addVertexWithUV(xMonoA, invOffset+yRingTop, zMonoA, c.getInterpolatedU(uRingD1), c.getInterpolatedV(vRingD1)); // A'
+        tessellator.addVertexWithUV(xMonoB, invOffset+yRingTop, zMonoB, c.getInterpolatedU(uRingD2), c.getInterpolatedV(vRingD2)); // B'
+        tessellator.addVertexWithUV(xMonoB, invOffset+yMonoBot, zMonoB, c.getInterpolatedU(uRingD3), c.getInterpolatedV(vRingD3)); // B''
+        tessellator.addVertexWithUV(xMonoA, invOffset+yMonoBot, zMonoA, c.getInterpolatedU(uRingD4), c.getInterpolatedV(vRingD4)); // A''
+
+        tessellator.addVertexWithUV(xMonoB, invOffset+yRingTop, zMonoB, c.getInterpolatedU(uRingE1), c.getInterpolatedV(vRingE1)); // B'
+        tessellator.addVertexWithUV(xMonoC, invOffset+yRingTop, zMonoC, c.getInterpolatedU(uRingE2), c.getInterpolatedV(vRingE2)); // C'
+        tessellator.addVertexWithUV(xMonoC, invOffset+yMonoBot, zMonoC, c.getInterpolatedU(uRingE3), c.getInterpolatedV(vRingE3)); // C''
+        tessellator.addVertexWithUV(xMonoB, invOffset+yMonoBot, zMonoB, c.getInterpolatedU(uRingE4), c.getInterpolatedV(vRingE4)); // B''
+
+        tessellator.addVertexWithUV(xMonoC, invOffset+yRingTop, zMonoC, c.getInterpolatedU(uRingF1), c.getInterpolatedV(vRingF1)); // C'
+        tessellator.addVertexWithUV(xMonoD, invOffset+yRingTop, zMonoD, c.getInterpolatedU(uRingF2), c.getInterpolatedV(vRingF2)); // D'
+        tessellator.addVertexWithUV(xMonoD, invOffset+yMonoBot, zMonoD, c.getInterpolatedU(uRingF3), c.getInterpolatedV(vRingF3)); // D''
+        tessellator.addVertexWithUV(xMonoC, invOffset+yMonoBot, zMonoC, c.getInterpolatedU(uRingF4), c.getInterpolatedV(vRingF4)); // C''
+
+        tessellator.addVertexWithUV(xMonoD, invOffset+yRingTop, zMonoD, c.getInterpolatedU(uRingD1), c.getInterpolatedV(vRingD1)); // D'
+        tessellator.addVertexWithUV(xMonoE, invOffset+yRingTop, zMonoE, c.getInterpolatedU(uRingD2), c.getInterpolatedV(vRingD2)); // E'
+        tessellator.addVertexWithUV(xMonoE, invOffset+yMonoBot, zMonoE, c.getInterpolatedU(uRingD3), c.getInterpolatedV(vRingD3)); // E''
+        tessellator.addVertexWithUV(xMonoD, invOffset+yMonoBot, zMonoD, c.getInterpolatedU(uRingD4), c.getInterpolatedV(vRingD4)); // D''
+
+        tessellator.addVertexWithUV(xMonoE, invOffset+yRingTop, zMonoE, c.getInterpolatedU(uRingE1), c.getInterpolatedV(vRingE1)); // E'
+        tessellator.addVertexWithUV(xMonoF, invOffset+yRingTop, zMonoF, c.getInterpolatedU(uRingE2), c.getInterpolatedV(vRingE2)); // F'
+        tessellator.addVertexWithUV(xMonoF, invOffset+yMonoBot, zMonoF, c.getInterpolatedU(uRingE3), c.getInterpolatedV(vRingE3)); // F''
+        tessellator.addVertexWithUV(xMonoE, invOffset+yMonoBot, zMonoE, c.getInterpolatedU(uRingE4), c.getInterpolatedV(vRingE4)); // E''
+
+        tessellator.addVertexWithUV(xMonoF, invOffset+yRingTop, zMonoF, c.getInterpolatedU(uRingF1), c.getInterpolatedV(vRingF1)); // F'
+        tessellator.addVertexWithUV(xMonoA, invOffset+yRingTop, zMonoA, c.getInterpolatedU(uRingF2), c.getInterpolatedV(vRingF2)); // A'
+        tessellator.addVertexWithUV(xMonoA, invOffset+yMonoBot, zMonoA, c.getInterpolatedU(uRingF3), c.getInterpolatedV(vRingF3)); // A''
+        tessellator.addVertexWithUV(xMonoF, invOffset+yMonoBot, zMonoF, c.getInterpolatedU(uRingF4), c.getInterpolatedV(vRingF4)); // F''
+
+        // Ring Outer Faces
+        tessellator.addVertexWithUV(xRingA, invOffset+yMonoBot, zRingA, c.getInterpolatedU(uRingA1), c.getInterpolatedV(vRingA1)); // A
+        tessellator.addVertexWithUV(xRingB, invOffset+yMonoBot, zRingB, c.getInterpolatedU(uRingA2), c.getInterpolatedV(vRingA2)); // B
+        tessellator.addVertexWithUV(xMonoB, invOffset+yRingTop, zMonoB, c.getInterpolatedU(uRingA3), c.getInterpolatedV(vRingA3)); // B'
+        tessellator.addVertexWithUV(xMonoA, invOffset+yRingTop, zMonoA, c.getInterpolatedU(uRingA4), c.getInterpolatedV(vRingA4)); // A'
+
+        tessellator.addVertexWithUV(xRingB, invOffset+yMonoBot, zRingB, c.getInterpolatedU(uRingB1), c.getInterpolatedV(vRingB1)); // B
+        tessellator.addVertexWithUV(xRingC, invOffset+yMonoBot, zRingC, c.getInterpolatedU(uRingB2), c.getInterpolatedV(vRingB2)); // C
+        tessellator.addVertexWithUV(xMonoC, invOffset+yRingTop, zMonoC, c.getInterpolatedU(uRingB3), c.getInterpolatedV(vRingB3)); // C'
+        tessellator.addVertexWithUV(xMonoB, invOffset+yRingTop, zMonoB, c.getInterpolatedU(uRingB4), c.getInterpolatedV(vRingB4)); // B'
+
+        tessellator.addVertexWithUV(xRingC, invOffset+yMonoBot, zRingC, c.getInterpolatedU(uRingC1), c.getInterpolatedV(vRingC1)); // C
+        tessellator.addVertexWithUV(xRingD, invOffset+yMonoBot, zRingD, c.getInterpolatedU(uRingC2), c.getInterpolatedV(vRingC2)); // D
+        tessellator.addVertexWithUV(xMonoD, invOffset+yRingTop, zMonoD, c.getInterpolatedU(uRingC3), c.getInterpolatedV(vRingC3)); // D'
+        tessellator.addVertexWithUV(xMonoC, invOffset+yRingTop, zMonoC, c.getInterpolatedU(uRingC4), c.getInterpolatedV(vRingC4)); // C'
+
+        tessellator.addVertexWithUV(xRingD, invOffset+yMonoBot, zRingD, c.getInterpolatedU(uRingA1), c.getInterpolatedV(vRingA1)); // D
+        tessellator.addVertexWithUV(xRingE, invOffset+yMonoBot, zRingE, c.getInterpolatedU(uRingA2), c.getInterpolatedV(vRingA2)); // E
+        tessellator.addVertexWithUV(xMonoE, invOffset+yRingTop, zMonoE, c.getInterpolatedU(uRingA3), c.getInterpolatedV(vRingA3)); // E'
+        tessellator.addVertexWithUV(xMonoD, invOffset+yRingTop, zMonoD, c.getInterpolatedU(uRingA4), c.getInterpolatedV(vRingA4)); // D'
+
+        tessellator.addVertexWithUV(xRingE, invOffset+yMonoBot, zRingE, c.getInterpolatedU(uRingB1), c.getInterpolatedV(vRingB1)); // E
+        tessellator.addVertexWithUV(xRingF, invOffset+yMonoBot, zRingF, c.getInterpolatedU(uRingB2), c.getInterpolatedV(vRingB2)); // F
+        tessellator.addVertexWithUV(xMonoF, invOffset+yRingTop, zMonoF, c.getInterpolatedU(uRingB3), c.getInterpolatedV(vRingB3)); // F'
+        tessellator.addVertexWithUV(xMonoE, invOffset+yRingTop, zMonoE, c.getInterpolatedU(uRingB4), c.getInterpolatedV(vRingB4)); // E'
+
+        tessellator.addVertexWithUV(xRingF, invOffset+yMonoBot, zRingF, c.getInterpolatedU(uRingC1), c.getInterpolatedV(vRingC1)); // F
+        tessellator.addVertexWithUV(xRingA, invOffset+yMonoBot, zRingA, c.getInterpolatedU(uRingC2), c.getInterpolatedV(vRingC2)); // A
+        tessellator.addVertexWithUV(xMonoA, invOffset+yRingTop, zMonoA, c.getInterpolatedU(uRingC3), c.getInterpolatedV(vRingC3)); // A'
+        tessellator.addVertexWithUV(xMonoF, invOffset+yRingTop, zMonoF, c.getInterpolatedU(uRingC4), c.getInterpolatedV(vRingC4)); // F'
 
         // Finish drawing.
         tessellator.draw();

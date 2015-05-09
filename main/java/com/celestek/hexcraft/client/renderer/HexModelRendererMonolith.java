@@ -107,6 +107,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         // Set up brightness and color.
         tessellator.setBrightness(brightness);
         tessellator.setColorRGBA_F(r, g, b, opacity);
+        tessellator.setNormal(0.5F, 0.5F, 0.5F);
 
         // Prepare the icon.
         IIcon c = block.getIcon(6, 0);
@@ -116,7 +117,6 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         double V = c.getInterpolatedV(sideV);
 
         // Top Face
-        tessellator.setNormal(xB, yMax, zB);
         tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
         tessellator.addVertexWithUV(xC, yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
         tessellator.addVertexWithUV(xD, yMax, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
@@ -161,9 +161,14 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         // If the stone texture should be rendered...
         if(renderStone)
         {
-            // Set up brightness and color.
-            tessellator.setBrightness(HexColors.brightnessBright);
-            tessellator.setColorOpaque_F(1, 1, 1);
+            // Finish drawing.
+            tessellator.draw();
+
+            // Prepare the Tessellator.
+            tessellator.startDrawingQuads();
+
+            // Set up brightness.
+            tessellator.setNormal(0.5F, 0.5F, 0.5F);
 
             // Prepare the icon.
             c = block.getIcon(7, 0);
@@ -203,13 +208,13 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
             tessellator.addVertexWithUV(xF - off, yMin, zF - off, U, V); // F'
             tessellator.addVertexWithUV(xA - off, yMin, zA, u, V); // A'
 
-            tessellator.addVertexWithUV(xA - off, yMin, zA      , c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A'
-            tessellator.addVertexWithUV(xD + off, yMin, zD      , c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D'
-            tessellator.addVertexWithUV(xC + off, yMin, zC + off, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C'
-            tessellator.addVertexWithUV(xB - off, yMin, zB + off, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B'
+            tessellator.addVertexWithUV(xA - off, yMin, zA      , c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A
+            tessellator.addVertexWithUV(xD + off, yMin, zD      , c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
+            tessellator.addVertexWithUV(xC + off, yMin, zC + off, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
+            tessellator.addVertexWithUV(xB - off, yMin, zB + off, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
 
-            tessellator.addVertexWithUV(xF - off, yMin, zF - off, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F'
-            tessellator.addVertexWithUV(xE + off, yMin, zE - off, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E'
+            tessellator.addVertexWithUV(xF - off, yMin, zF - off, c.getInterpolatedU(topFu), c.getInterpolatedV(topFv)); // F
+            tessellator.addVertexWithUV(xE + off, yMin, zE - off, c.getInterpolatedU(topEu), c.getInterpolatedV(topEv)); // E
             tessellator.addVertexWithUV(xD + off, yMin, zD      , c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D'
             tessellator.addVertexWithUV(xA - off, yMin, zA      , c.getInterpolatedU(topAu), c.getInterpolatedV(topAv)); // A'
         }
@@ -579,7 +584,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xD + off, yMin, zD      , U, V); // D'
                     tessellator.addVertexWithUV(xE + off, yMin, zE - off, u, V); // E'
 
-                    tessellator.addVertexWithUV(xD + off, yMax, zD      , u, v); // D
+                    tessellator.addVertexWithUV(xD + off, yMax, zD, u, v); // D
                     tessellator.addVertexWithUV(xC + off, yMax, zC + off, U, v); // C
                     tessellator.addVertexWithUV(xC + off, yMin, zC + off, U, V); // C'
                     tessellator.addVertexWithUV(xD + off, yMin, zD      , u, V); // D'

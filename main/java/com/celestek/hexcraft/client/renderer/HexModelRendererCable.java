@@ -121,6 +121,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         // Set up brightness and color.
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Prepare the icon.
         IIcon c = block.getIcon(6, 0);
@@ -130,7 +131,6 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         double V = c.getInterpolatedV(sideV);
 
         // Top Face
-        tessellator.setNormal(xB, yMax, zB);
         tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
         tessellator.addVertexWithUV(xC, yMax, zC, c.getInterpolatedU(topCu), c.getInterpolatedV(topCv)); // C
         tessellator.addVertexWithUV(xD, yMax, zD, c.getInterpolatedU(topDu), c.getInterpolatedV(topDv)); // D
@@ -193,10 +193,15 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(xF, yMin, zF, U, V); // F'
         tessellator.addVertexWithUV(xA, yMin, zA, u, V); // A'
 
+        // Finish drawing.
+        tessellator.draw();
+
         /* Outer part */
-        // Set up brightness and color.
-        tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(1, 1, 1);
+        // Prepare the Tessellator.
+        tessellator.startDrawingQuads();
+
+        // Set up brightness.
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Prepare the icon.
         c = block.getIcon(0, 0);
@@ -725,7 +730,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         }
         // If this is the second (transparent) render pass...
         else {
-            // Set up brightness and color.
+            // Set up brightness.
             tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorOpaque_F(1, 1, 1);
 
