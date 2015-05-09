@@ -3,6 +3,7 @@ package com.celestek.hexcraft.client;
 import com.celestek.hexcraft.HexCommonProxy;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.client.renderer.HexModelRendererPylon;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
@@ -574,5 +575,10 @@ public class HexClientProxy extends HexCommonProxy {
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB, HexBlocks.cableHexoriumCableRainbow.getUnlocalizedName()));
+
+        // Energy Pylon
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererPylon(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.opacitySlight));
     }
 }
