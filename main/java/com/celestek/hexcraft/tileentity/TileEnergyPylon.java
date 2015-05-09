@@ -116,6 +116,7 @@ public class TileEnergyPylon extends TileEntity {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                markDirty();
 
                 return true;
             }
