@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,7 +43,6 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
     // Used for tool enchants.
     private int fortune = 0;
     private boolean silk = false;
-    private Item dropItem;
 
     /**
      * Constructor for the block.
@@ -187,10 +187,8 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
                 // Go through all entries.
                 for (int i = 0; i < list.tagCount(); i++) {
                     // If Silk Touch (id 33) is found, set it to true.
-                    if (list.getCompoundTagAt(i).getByte("id") == 33) {
+                    if (list.getCompoundTagAt(i).getByte("id") == 33)
                         silk = true;
-                        dropItem = this.getItem(world, x, y, z);
-                    }
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
@@ -247,11 +245,23 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
             else if (blockName.equals(UNLOCALISEDNAME + "Black"))
                 return HexItems.itemHexoriumCrystalBlack;
             else
-                return HexItems.itemHexoriumCrystalWhite;
+                return null;
         }
-        else
+        else {
             // Return the block (because of Silk Touch).
-            return dropItem;
+            if (blockName.equals(UNLOCALISEDNAME + "Red"))
+                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithRed);
+            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithGreen);
+            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlue);
+            else if (blockName.equals(UNLOCALISEDNAME + "White"))
+                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithWhite);
+            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlack);
+            else
+                return null;
+        }
     }
 
     /**

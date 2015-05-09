@@ -146,7 +146,7 @@ public class BlockHexoriumNetherOre extends HexBlock {
             else if (blockName.equals(UNLOCALISEDNAME + "Black"))
                 return HexItems.itemHexoriumCrystalBlack;
             else
-                return HexItems.itemHexoriumCrystalWhite;
+                return null;
         }
         else
             // Return the block (because of Silk Touch).

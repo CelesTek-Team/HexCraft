@@ -1,12 +1,14 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -14,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
@@ -58,6 +61,26 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
         return side;
+    }
+
+    /**
+     * Sets up items to drop. Fired the number of times dictated by quantityDropped.
+     */
+    @Override
+    public Item getItemDropped(int metadata, Random random, int fortune) {
+        // Return the block (because of Silk Touch).
+        if (blockName.equals(UNLOCALISEDNAME + "Red"))
+            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalRed);
+        else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalGreen);
+        else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalBlue);
+        else if (blockName.equals(UNLOCALISEDNAME + "White"))
+            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalWhite);
+        else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalBlack);
+        else
+            return null;
     }
 
     /// Prepare the icons.

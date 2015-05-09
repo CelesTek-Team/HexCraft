@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -236,9 +237,47 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
             }
         }
-        else
+        else {
             // Return the block (because of Manipulator).
-            drops.add(new ItemStack(this, 1));
+            if(blockName.equals(UNLOCALISEDNAME + "Red"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Orange"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Yellow"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Lime"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Green"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Turquoise"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Cyan"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "SkyBlue"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Blue"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Purple"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Magenta"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Pink"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink, 1));
+
+            else if(blockName.equals(UNLOCALISEDNAME + "White"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "LightGray"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Gray"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "DarkGray"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray, 1));
+            else if(blockName.equals(UNLOCALISEDNAME + "Black"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1));
+
+            else if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow, 1));
+    }
 
         // Return the created drop array.
         return drops;
