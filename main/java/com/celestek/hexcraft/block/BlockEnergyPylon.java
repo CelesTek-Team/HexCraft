@@ -2,22 +2,13 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
-import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -34,10 +25,10 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @since 2015-05-06
  */
 
-public class PylonEnergyPylon extends HexBlockContainer {
+public class BlockEnergyPylon extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "pylonEnergyPylon";
+    public static String UNLOCALISEDNAME = "blockEnergyPylon";
 
     private final Random random = new Random();
 
@@ -45,7 +36,7 @@ public class PylonEnergyPylon extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public PylonEnergyPylon(String blockName) {
+    public BlockEnergyPylon(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -234,7 +225,7 @@ public class PylonEnergyPylon extends HexBlockContainer {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.pylonEnergyPylon);
+        return Item.getItemFromBlock(HexBlocks.blockEnergyPylon);
     }
 
     /**
@@ -242,7 +233,7 @@ public class PylonEnergyPylon extends HexBlockContainer {
      */
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.pylonEnergyPylon);
+        return Item.getItemFromBlock(HexBlocks.blockEnergyPylon);
     }
 
     // Prepare the icons.
@@ -259,11 +250,11 @@ public class PylonEnergyPylon extends HexBlockContainer {
         icon = new IIcon[9];
         // Load the pylon base textures.
         for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "1");
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
         // Load the monolith textures.
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME);
         icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
-        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "2");
+        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
     }
 
     /**

@@ -69,7 +69,7 @@ public class CableAnalyzer {
         // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockName);
 
         // Check if the current block is a cable.
-        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
+        if (blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME)) {
             // Check if this cable has already been added to the cables ArrayList.
             if (!cables.contains(new HexDevice(x, y, z, blockName))) {
                 // Check if one of the conditions are met:
@@ -88,10 +88,10 @@ public class CableAnalyzer {
                 return;
         }
         // Check if the current block is a machine.
-        else if(blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(MachineHexoriumFurnace.UNLOCALISEDNAME) ||
-                blockName.contains(MachineCrystalSeparator.UNLOCALISEDNAME) ||
-                blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+        else if(blockName.contains(BlockHexoriumGenerator.UNLOCALISEDNAME) ||
+                blockName.contains(BlockHexoriumFurnace.UNLOCALISEDNAME) ||
+                blockName.contains(BlockCrystalSeparator.UNLOCALISEDNAME) ||
+                blockName.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
             // Check if this machine has already been added to the machines ArrayList.
             if (!machines.contains(new HexDevice(x, y, z, blockName))) {
                 // If it hasn't, prepare the block's meta.
@@ -173,16 +173,16 @@ public class CableAnalyzer {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
 
             // Add machines to their respective ArrayLists.
-            if (entry.name.contains(MachineHexoriumGenerator.UNLOCALISEDNAME)) {
+            if (entry.name.contains(BlockHexoriumGenerator.UNLOCALISEDNAME)) {
                 machinesHexoriumGenerator.add((TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(MachineHexoriumFurnace.UNLOCALISEDNAME)) {
+            if (entry.name.contains(BlockHexoriumFurnace.UNLOCALISEDNAME)) {
                 machinesHexoriumFurnace.add((TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(MachineCrystalSeparator.UNLOCALISEDNAME)) {
+            if (entry.name.contains(BlockCrystalSeparator.UNLOCALISEDNAME)) {
                 machinesCrystalSeparator.add((TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+            if (entry.name.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
                 machinesMatrixReconstructor.add((TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
             }
         }

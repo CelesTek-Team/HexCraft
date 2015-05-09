@@ -2,7 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -29,10 +29,10 @@ import java.util.Random;
  * @since 2015-04-14
  */
 
-public class MachineHexoriumGenerator extends HexBlockContainer {
+public class BlockMatrixReconstructor extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "machineHexoriumGenerator";
+    public static String UNLOCALISEDNAME = "blockMatrixReconstructor";
 
     private final Random random = new Random();
 
@@ -40,7 +40,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public MachineHexoriumGenerator(String blockName) {
+    public BlockMatrixReconstructor(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -58,7 +58,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
-        return new TileHexoriumGenerator();
+        return new TileMatrixReconstructor();
     }
 
     /**
@@ -80,13 +80,13 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
-            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
-            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
-            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
             // Push the results to all found machines.
             analyzer.push(world);
@@ -99,7 +99,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         // Open the GUI.
-        player.openGui(HexCraft.instance, 0, world, x, y, z);
+        player.openGui(HexCraft.instance, 3, world, x, y, z);
         return true;
     }
 
@@ -121,7 +121,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
             meta -= 8;
 
         // Check if the changed block belongs to the energy system.
-        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
+        if (blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME)) {
 
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
@@ -129,13 +129,13 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (meta == 0 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            if (meta == 0 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, blockName, 0);
-            else if (meta == 1 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 1 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, blockName, 0);
-            else if (meta == 2 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 2 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, blockName, 0);
-            else if (meta == 3 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 3 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, blockName, 0);
             // If the created list has no entries, add self in.
             if(!analyzer.size())
@@ -151,10 +151,14 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
-        TileHexoriumGenerator tileEntity = (TileHexoriumGenerator) world.getTileEntity(x, y, z);
+        TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
 
         // Check if it is not null.
         if (tileEntity != null) {
+
+            // Stop the machine if it is running.
+            tileEntity.restartMachineStop();
+            tileEntity.isActive = false;
 
             // Drop items.
             for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
@@ -197,7 +201,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+        return Item.getItemFromBlock(HexBlocks.blockMatrixReconstructor);
     }
 
     /**
@@ -205,7 +209,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
      */
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineHexoriumGenerator);
+        return Item.getItemFromBlock(HexBlocks.blockMatrixReconstructor);
     }
 
     /**
@@ -218,7 +222,7 @@ public class MachineHexoriumGenerator extends HexBlockContainer {
         int meta = world.getBlockMetadata(x, y, z);
         // If the machine is active, make it emit light.
         if (block == this && meta >= 4 && meta < 8)
-            return 12;
+            return 8;
         else
             return 0;
     }

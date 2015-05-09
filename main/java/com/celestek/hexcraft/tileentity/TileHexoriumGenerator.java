@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.MachineHexoriumGenerator;
+import com.celestek.hexcraft.block.BlockHexoriumGenerator;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -436,10 +436,10 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                     // Check if there is any energy being pulled by machines.
                     if (energyOut > 0)
                         // If there is, set the ACTIVE texture.
-                        MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                        BlockHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
                     else
                         // Otherwise, set the READY texture.
-                        MachineHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                        BlockHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
 
                     // Check if the generator can provide energy. If not, set it to true.
                     if (!canProvideEnergy) {
@@ -467,7 +467,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                     }
 
                     // Set the DEAD texture.
-                    MachineHexoriumGenerator.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+                    BlockHexoriumGenerator.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
                 }
             }
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
@@ -488,7 +488,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             // During the first machine's registration, change the texture.
             if (energyOut <= 0)
                 // Set the ACTIVE texture.
-                MachineHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                BlockHexoriumGenerator.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
 
             // Check if the generator still has some energy available. The epsilon is deducted to mitigate possible float rounding errors.
             if (energyOut < energyPerTick - epsilon) {
@@ -552,7 +552,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             // Correct possible negative value.
             energyOut = 0;
             // Set the READY texture.
-            MachineHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+            BlockHexoriumGenerator.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
         }
     }
 

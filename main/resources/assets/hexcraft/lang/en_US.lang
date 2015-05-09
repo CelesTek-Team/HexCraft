@@ -168,31 +168,35 @@ tile.blockInvHexoriumLampRainbow.name=Inverted Hexorium Lamp (Rainbow)
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
-tile.machineHexoriumGenerator.name=Hexorium Generator
-tile.machineHexoriumFurnace.name=Hexorium Furnace
-tile.machineCrystalSeparator.name=Crystal Separator
-tile.machineMatrixReconstructor.name=Matrix Reconstructor
+tile.blockHexoriumGenerator.name=Hexorium Generator
+tile.blockHexoriumFurnace.name=Hexorium Furnace
+tile.blockCrystalSeparator.name=Crystal Separator
+tile.blockMatrixReconstructor.name=Matrix Reconstructor
 
-tile.cableHexoriumCableRed.name=Hexorium Cable (Red)
-tile.cableHexoriumCableOrange.name=Hexorium Cable (Orange)
-tile.cableHexoriumCableYellow.name=Hexorium Cable (Yellow)
-tile.cableHexoriumCableLime.name=Hexorium Cable (Lime)
-tile.cableHexoriumCableGreen.name=Hexorium Cable (Green)
-tile.cableHexoriumCableTurquoise.name=Hexorium Cable (Turquoise)
-tile.cableHexoriumCableCyan.name=Hexorium Cable (Cyan)
-tile.cableHexoriumCableSkyBlue.name=Hexorium Cable (Sky Blue)
-tile.cableHexoriumCableBlue.name=Hexorium Cable (Blue)
-tile.cableHexoriumCablePurple.name=Hexorium Cable (Purple)
-tile.cableHexoriumCableMagenta.name=Hexorium Cable (Magenta)
-tile.cableHexoriumCablePink.name=Hexorium Cable (Pink)
+tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
+tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)
+tile.blockHexoriumCableYellow.name=Hexorium Cable (Yellow)
+tile.blockHexoriumCableLime.name=Hexorium Cable (Lime)
+tile.blockHexoriumCableGreen.name=Hexorium Cable (Green)
+tile.blockHexoriumCableTurquoise.name=Hexorium Cable (Turquoise)
+tile.blockHexoriumCableCyan.name=Hexorium Cable (Cyan)
+tile.blockHexoriumCableSkyBlue.name=Hexorium Cable (Sky Blue)
+tile.blockHexoriumCableBlue.name=Hexorium Cable (Blue)
+tile.blockHexoriumCablePurple.name=Hexorium Cable (Purple)
+tile.blockHexoriumCableMagenta.name=Hexorium Cable (Magenta)
+tile.blockHexoriumCablePink.name=Hexorium Cable (Pink)
 
-tile.cableHexoriumCableWhite.name=Hexorium Cable (White)
-tile.cableHexoriumCableLightGray.name=Hexorium Cable (Light Gray)
-tile.cableHexoriumCableGray.name=Hexorium Cable (Gray)
-tile.cableHexoriumCableDarkGray.name=Hexorium Cable (Dark Gray)
-tile.cableHexoriumCableBlack.name=Hexorium Cable (Black)
+tile.blockHexoriumCableWhite.name=Hexorium Cable (White)
+tile.blockHexoriumCableLightGray.name=Hexorium Cable (Light Gray)
+tile.blockHexoriumCableGray.name=Hexorium Cable (Gray)
+tile.blockHexoriumCableDarkGray.name=Hexorium Cable (Dark Gray)
+tile.blockHexoriumCableBlack.name=Hexorium Cable (Black)
 
-tile.cableHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
+tile.blockHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
+
+tile.blockEnergyPylon.name=Energy Pylon
+tile.blockPylonBaseA.name=5-to-1 Pylon Base
+tile.blockPylonBaseB.name=1-to-5 Pylon Base
 
 
 tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass

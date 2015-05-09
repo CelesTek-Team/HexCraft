@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.MachineMatrixReconstructor;
+import com.celestek.hexcraft.block.BlockMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -336,7 +336,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
                         isActive = startMachine();
                         // If the machine was successfully started, set the texture to ACTIVE.
                         if (isActive)
-                            MachineMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
+                            BlockMatrixReconstructor.updateBlockState(1, worldObj, xCoord, yCoord, zCoord);
                         else
                             // Set the pulled energy to -1. This is used for GUI rendering.
                             energyIn = -1;
@@ -445,7 +445,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
                 // Set the energy back to 0.
                 energy = 0;
                 // Set the texture to READY.
-                MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+                BlockMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
             }
         }
     }
@@ -467,11 +467,11 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
         // Check if the energy is now available, but wasn't previously.
         if (checkEnergy && !hasEnergy)
             // If yes, set the texture to READY.
-            MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+            BlockMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
         // Otherwise, check if the energy is now unavailable, but was previously.
         else if (!checkEnergy && hasEnergy)
             // If yes, set the texture to DEAD.
-            MachineMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
+            BlockMatrixReconstructor.updateBlockState(2, worldObj, xCoord, yCoord, zCoord);
 
         // Save the result.
         hasEnergy = checkEnergy;
@@ -488,7 +488,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
             // Make it inactive.
             isActive = false;
             // Set the texture to READY.
-            MachineMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
+            BlockMatrixReconstructor.updateBlockState(0, worldObj, xCoord, yCoord, zCoord);
             // Stop the machine.
             stopMachine();
         }

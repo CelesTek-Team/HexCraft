@@ -155,33 +155,33 @@ public class HexRecipes {
         // Machines
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
 
-        ItemStack stackHexoriumGenerator_1 = new ItemStack(HexBlocks.machineHexoriumGenerator, 1);
-        ItemStack stackHexoriumFurnace_1 = new ItemStack(HexBlocks.machineHexoriumFurnace, 1);
-        ItemStack stackCrystalSeparator_1 = new ItemStack(HexBlocks.machineCrystalSeparator, 1);
-        ItemStack stackMatrixReconstructor_1 = new ItemStack(HexBlocks.machineMatrixReconstructor, 1);
+        ItemStack stackHexoriumGenerator_1 = new ItemStack(HexBlocks.blockHexoriumGenerator, 1);
+        ItemStack stackHexoriumFurnace_1 = new ItemStack(HexBlocks.blockHexoriumFurnace, 1);
+        ItemStack stackCrystalSeparator_1 = new ItemStack(HexBlocks.blockCrystalSeparator, 1);
+        ItemStack stackMatrixReconstructor_1 = new ItemStack(HexBlocks.blockMatrixReconstructor, 1);
 
         // Cables
-        ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.cableHexoriumCableRed, 2);
-        ItemStack stackHexoriumCableOrange_2 = new ItemStack(HexBlocks.cableHexoriumCableOrange, 2);
-        ItemStack stackHexoriumCableYellow_2 = new ItemStack(HexBlocks.cableHexoriumCableYellow, 2);
-        ItemStack stackHexoriumCableLime_2 = new ItemStack(HexBlocks.cableHexoriumCableLime, 2);
-        ItemStack stackHexoriumCableGreen_2 = new ItemStack(HexBlocks.cableHexoriumCableGreen, 2);
-        ItemStack stackHexoriumCableTurquoise_2 = new ItemStack(HexBlocks.cableHexoriumCableTurquoise, 2);
-        ItemStack stackHexoriumCableCyan_2 = new ItemStack(HexBlocks.cableHexoriumCableCyan, 2);
-        ItemStack stackHexoriumCableSkyBlue_2 = new ItemStack(HexBlocks.cableHexoriumCableSkyBlue, 2);
-        ItemStack stackHexoriumCableBlue_2 = new ItemStack(HexBlocks.cableHexoriumCableBlue, 2);
-        ItemStack stackHexoriumCablePurple_2 = new ItemStack(HexBlocks.cableHexoriumCablePurple, 2);
-        ItemStack stackHexoriumCableMagenta_2 = new ItemStack(HexBlocks.cableHexoriumCableMagenta, 2);
-        ItemStack stackHexoriumCablePink_2 = new ItemStack(HexBlocks.cableHexoriumCablePink, 2);
+        ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.blockHexoriumCableRed, 2);
+        ItemStack stackHexoriumCableOrange_2 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 2);
+        ItemStack stackHexoriumCableYellow_2 = new ItemStack(HexBlocks.blockHexoriumCableYellow, 2);
+        ItemStack stackHexoriumCableLime_2 = new ItemStack(HexBlocks.blockHexoriumCableLime, 2);
+        ItemStack stackHexoriumCableGreen_2 = new ItemStack(HexBlocks.blockHexoriumCableGreen, 2);
+        ItemStack stackHexoriumCableTurquoise_2 = new ItemStack(HexBlocks.blockHexoriumCableTurquoise, 2);
+        ItemStack stackHexoriumCableCyan_2 = new ItemStack(HexBlocks.blockHexoriumCableCyan, 2);
+        ItemStack stackHexoriumCableSkyBlue_2 = new ItemStack(HexBlocks.blockHexoriumCableSkyBlue, 2);
+        ItemStack stackHexoriumCableBlue_2 = new ItemStack(HexBlocks.blockHexoriumCableBlue, 2);
+        ItemStack stackHexoriumCablePurple_2 = new ItemStack(HexBlocks.blockHexoriumCablePurple, 2);
+        ItemStack stackHexoriumCableMagenta_2 = new ItemStack(HexBlocks.blockHexoriumCableMagenta, 2);
+        ItemStack stackHexoriumCablePink_2 = new ItemStack(HexBlocks.blockHexoriumCablePink, 2);
 
-        ItemStack stackHexoriumCableWhite_2 = new ItemStack(HexBlocks.cableHexoriumCableWhite, 2);
-        ItemStack stackHexoriumCableLightGray_2 = new ItemStack(HexBlocks.cableHexoriumCableLightGray, 2);
-        ItemStack stackHexoriumCableGray_2 = new ItemStack(HexBlocks.cableHexoriumCableGray, 2);
-        ItemStack stackHexoriumCableDarkGray_2 = new ItemStack(HexBlocks.cableHexoriumCableDarkGray, 2);
-        ItemStack stackHexoriumCableBlack_2 = new ItemStack(HexBlocks.cableHexoriumCableBlack, 2);
+        ItemStack stackHexoriumCableWhite_2 = new ItemStack(HexBlocks.blockHexoriumCableWhite, 2);
+        ItemStack stackHexoriumCableLightGray_2 = new ItemStack(HexBlocks.blockHexoriumCableLightGray, 2);
+        ItemStack stackHexoriumCableGray_2 = new ItemStack(HexBlocks.blockHexoriumCableGray, 2);
+        ItemStack stackHexoriumCableDarkGray_2 = new ItemStack(HexBlocks.blockHexoriumCableDarkGray, 2);
+        ItemStack stackHexoriumCableBlack_2 = new ItemStack(HexBlocks.blockHexoriumCableBlack, 2);
 
-        ItemStack stackHexoriumCableRainbow_1 = new ItemStack(HexBlocks.cableHexoriumCableRainbow, 1);
-        ItemStack stackHexoriumCableRainbow_2 = new ItemStack(HexBlocks.cableHexoriumCableRainbow, 2);
+        ItemStack stackHexoriumCableRainbow_1 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 1);
+        ItemStack stackHexoriumCableRainbow_2 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 2);
 
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);

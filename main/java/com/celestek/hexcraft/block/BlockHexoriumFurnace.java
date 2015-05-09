@@ -2,7 +2,6 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -30,10 +29,10 @@ import java.util.Random;
  * @since 2015-05-06
  */
 
-public class MachineCrystalSeparator extends HexBlockContainer {
+public class BlockHexoriumFurnace extends HexBlockContainer {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "machineCrystalSeparator";
+    public static String UNLOCALISEDNAME = "blockHexoriumFurnace";
 
     private final Random random = new Random();
 
@@ -41,7 +40,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public MachineCrystalSeparator(String blockName) {
+    public BlockHexoriumFurnace(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -59,7 +58,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2)
     {
         // Create the new TIle Entity.
-        return new TileCrystalSeparator();
+        return new TileHexoriumFurnace();
     }
 
     /**
@@ -81,13 +80,13 @@ public class MachineCrystalSeparator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
-            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
-            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
-            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
             // Push the results to all found machines.
             analyzer.push(world);
@@ -100,7 +99,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
         // Open the GUI.
-        player.openGui(HexCraft.instance, 2, world, x, y, z);
+        player.openGui(HexCraft.instance, 1, world, x, y, z);
         return true;
     }
 
@@ -122,7 +121,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
             meta -= 8;
 
         // Check if the changed block belongs to the energy system.
-        if (blockName.contains(CableHexoriumCable.UNLOCALISEDNAME)) {
+        if (blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME)) {
 
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
@@ -130,13 +129,13 @@ public class MachineCrystalSeparator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (meta == 0 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            if (meta == 0 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z + 1, blockName, 0);
-            else if (meta == 1 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 1 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x - 1, y, z, blockName, 0);
-            else if (meta == 2 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 2 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x, y, z - 1, blockName, 0);
-            else if (meta == 3 && blockName.contains(CableHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 3 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
                 analyzer.analyze(world, x + 1, y, z, blockName, 0);
             // If the created list has no entries, add self in.
             if(!analyzer.size())
@@ -152,7 +151,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
-        TileCrystalSeparator tileEntity = (TileCrystalSeparator) world.getTileEntity(x, y, z);
+        TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
 
         // Check if it is not null.
         if (tileEntity != null) {
@@ -202,7 +201,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.machineCrystalSeparator);
+        return Item.getItemFromBlock(HexBlocks.blockHexoriumFurnace);
     }
 
     /**
@@ -210,7 +209,7 @@ public class MachineCrystalSeparator extends HexBlockContainer {
      */
     @Override
     public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.machineCrystalSeparator);
+        return Item.getItemFromBlock(HexBlocks.blockHexoriumFurnace);
     }
 
     /**

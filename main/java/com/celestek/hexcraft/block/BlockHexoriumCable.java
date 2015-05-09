@@ -2,22 +2,17 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -25,10 +20,10 @@ import java.util.List;
  * @since 2015-04-14
  */
 
-public class CableHexoriumCable extends HexBlockModel {
+public class BlockHexoriumCable extends HexBlockModel {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "cableHexoriumCable";
+    public static String UNLOCALISEDNAME = "blockHexoriumCable";
 
     // Used later for texture identification.
     private String blockName;
@@ -37,7 +32,7 @@ public class CableHexoriumCable extends HexBlockModel {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public CableHexoriumCable(String blockName) {
+    public BlockHexoriumCable(String blockName) {
         super(Material.rock);
 
         // Load the constructor parameters.
@@ -82,8 +77,8 @@ public class CableHexoriumCable extends HexBlockModel {
 
         // Check if the changed block belongs to the energy system.
         if (blockName.contains(UNLOCALISEDNAME) ||
-                blockName.contains(MachineHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(MachineMatrixReconstructor.UNLOCALISEDNAME)) {
+                blockName.contains(BlockHexoriumGenerator.UNLOCALISEDNAME) ||
+                blockName.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
 
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
