@@ -50,6 +50,8 @@ public class TileEnergyPylon extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.func_148857_g());
+
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     /**

@@ -66,8 +66,12 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
-        return tileEntity.insertMonolith(player);
+        if (!world.isRemote) {
+            TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+            return tileEntity.insertMonolith(player);
+        }
+        else
+            return true;
     }
 
     /**
