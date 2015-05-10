@@ -126,4 +126,13 @@ public class TileEnergyPylon extends TileEntity {
 
         return false;
     }
+
+    public void ejectMonolith() {
+        if (!worldObj.isRemote && monolith != 0) {
+            monolith = 0;
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
+        }
+    }
 }

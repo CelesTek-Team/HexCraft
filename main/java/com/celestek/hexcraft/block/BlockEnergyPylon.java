@@ -2,14 +2,18 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -17,6 +21,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -177,7 +182,76 @@ public class BlockEnergyPylon extends HexBlockContainer {
     }
 
     /**
+     * Sets up items to drop.
+     */
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        // Prepare a drop list.
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+
+        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+
+        // If the block wasn't destroyed using the Manipulator...
+        if(fortune != HexCraft.hexFortune) {
+            // Set the according crystal color combinations.
+            if (tileEntity != null) {
+            }
+            drops.add(new ItemStack(HexBlocks.blockEnergyPylon, 1));
+        }
+        else {
+            // Return the monolith (because of Manipulator).
+            if (tileEntity != null)
+            {
+                if(tileEntity.monolith == 1)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed, 1));
+                else if(tileEntity.monolith == 2)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange, 1));
+                else if(tileEntity.monolith == 3)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow, 1));
+                else if(tileEntity.monolith == 4)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime, 1));
+                else if(tileEntity.monolith == 5)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen, 1));
+                else if(tileEntity.monolith == 6)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise, 1));
+                else if(tileEntity.monolith == 7)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan, 1));
+                else if(tileEntity.monolith == 8)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue, 1));
+                else if(tileEntity.monolith == 9)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue, 1));
+                else if(tileEntity.monolith == 10)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple, 1));
+                else if(tileEntity.monolith == 11)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta, 1));
+                else if(tileEntity.monolith == 12)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink, 1));
+
+                else if(tileEntity.monolith == 13)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite, 1));
+                else if(tileEntity.monolith == 14)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray, 1));
+                else if(tileEntity.monolith == 15)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray, 1));
+                else if(tileEntity.monolith == 16)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray, 1));
+                else if(tileEntity.monolith == 17)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1));
+
+                else if(tileEntity.monolith == 18)
+                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow, 1));
+
+                tileEntity.ejectMonolith();
+            }
+        }
+
+        // Return the created drop array.
+        return drops;
+    }
+
+    /**
      * Called when the block is broken.
+     */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // Get the Tile Entity.
@@ -186,32 +260,78 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Check if it is not null.
         if (tileEntity != null) {
 
-            // Stop the machine if it is running.
-            tileEntity.restartMachineStop();
-            tileEntity.isActive = false;
+            ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+
+            if (tileEntity.monolith == 1) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
+            } else if (tileEntity.monolith == 2) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+            } else if (tileEntity.monolith == 3) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+            } else if (tileEntity.monolith == 4) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+            } else if (tileEntity.monolith == 5) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
+            } else if (tileEntity.monolith == 6) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+            } else if (tileEntity.monolith == 7) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+            } else if (tileEntity.monolith == 8) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+            } else if (tileEntity.monolith == 9) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
+            } else if (tileEntity.monolith == 10) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+            } else if (tileEntity.monolith == 11) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+            } else if (tileEntity.monolith == 12) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+            } else if (tileEntity.monolith == 13) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
+            } else if (tileEntity.monolith == 14) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
+            } else if (tileEntity.monolith == 15) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
+            } else if (tileEntity.monolith == 16) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
+            } else if (tileEntity.monolith == 17) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
+            } else if (tileEntity.monolith == 18) {
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+            }
 
             // Drop items.
-            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                ItemStack itemstack = tileEntity.getStackInSlot(i);
+            for (ItemStack entry : drops) {
 
-                if (itemstack != null) {
+                if (entry != null) {
                     float f = random.nextFloat() * 0.6F + 0.1F;
                     float f1 = random.nextFloat() * 0.6F + 0.1F;
                     float f2 = random.nextFloat() * 0.6F + 0.1F;
 
-                    while (itemstack.stackSize > 0) {
+                    while (entry.stackSize > 0) {
                         int j = random.nextInt(21) + 10;
 
-                        if (j > itemstack.stackSize) {
-                            j = itemstack.stackSize;
+                        if (j > entry.stackSize) {
+                            j = entry.stackSize;
                         }
 
-                        itemstack.stackSize -= j;
-                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-
-                        if (itemstack.hasTagCompound()) {
-                            entityitem.getEntityItem().setTagCompound(((NBTTagCompound) itemstack.getTagCompound().copy()));
-                        }
+                        entry.stackSize -= j;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(entry.getItem(), j, entry.getItemDamage()));
 
                         float f3 = 0.025F;
                         entityitem.motionX = (double) ((float) this.random.nextGaussian() * f3);
@@ -225,7 +345,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
         }
         super.breakBlock(world, x, y, z, block, meta);
     }
-     */
 
     /**
      * Returns the item drop of the block.
