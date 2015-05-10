@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -72,13 +73,13 @@ public class BlockHexoriumCable extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare the name string of the broken block.
-        String blockName = block.getUnlocalizedName();
 
         // Check if the changed block belongs to the energy system.
-        if (blockName.contains(UNLOCALISEDNAME) ||
-                blockName.contains(BlockHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
+        if (block instanceof BlockHexoriumCable ||
+                block == HexBlocks.blockHexoriumGenerator ||
+                block == HexBlocks.blockHexoriumFurnace ||
+                block == HexBlocks.blockCrystalSeparator ||
+                block == HexBlocks.blockMatrixReconstructor) {
 
             System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
@@ -100,7 +101,7 @@ public class BlockHexoriumCable extends HexBlockModel {
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
         // Process the sides.
-        boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this.getUnlocalizedName());
+        boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this);
 
         // Prepare the default values of the bounding box.
         float xMin = HexModelRendererCable.cMin;
@@ -139,7 +140,7 @@ public class BlockHexoriumCable extends HexBlockModel {
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
         // Process the sides.
-        boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this.getUnlocalizedName());
+        boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this);
 
         // Prepare the default values of the bounding box.
         float xMin = HexModelRendererCable.cMin;
@@ -183,7 +184,7 @@ public class BlockHexoriumCable extends HexBlockModel {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         // Load the monolith texture. Use special texture if it is a rainbow.
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+        if(this == HexBlocks.blockHexoriumCableRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
