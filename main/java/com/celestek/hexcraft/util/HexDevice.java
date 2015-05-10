@@ -1,5 +1,7 @@
 package com.celestek.hexcraft.util;
 
+import net.minecraft.block.Block;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.1.0
@@ -9,13 +11,13 @@ public class HexDevice {
     public int x;
     public int y;
     public int z;
-    public String name;
+    public Block block;
 
-    public HexDevice(int x, int y, int z, String name)
+    public HexDevice(int x, int y, int z, Block block)
     {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.name = name;
+        this.block = block;
     }
 }

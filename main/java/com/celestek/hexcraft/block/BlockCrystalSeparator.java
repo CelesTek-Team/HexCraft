@@ -81,13 +81,13 @@ public class BlockCrystalSeparator extends HexBlockContainer {
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
             if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1).getUnlocalizedName(), 0);
+                analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), 0);
             else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z).getUnlocalizedName(), 0);
+                analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), 0);
             else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1).getUnlocalizedName(), 0);
+                analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), 0);
             else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z).getUnlocalizedName(), 0);
+                analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), 0);
             // Push the results to all found machines.
             analyzer.push(world);
         }
@@ -130,13 +130,13 @@ public class BlockCrystalSeparator extends HexBlockContainer {
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
             if (meta == 0 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x, y, z + 1, blockName, 0);
+                analyzer.analyze(world, x, y, z + 1, this, 0);
             else if (meta == 1 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x - 1, y, z, blockName, 0);
+                analyzer.analyze(world, x - 1, y, z, this, 0);
             else if (meta == 2 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x, y, z - 1, blockName, 0);
+                analyzer.analyze(world, x, y, z - 1, this, 0);
             else if (meta == 3 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
-                analyzer.analyze(world, x + 1, y, z, blockName, 0);
+                analyzer.analyze(world, x + 1, y, z, this, 0);
             // If the created list has no entries, add self in.
             if(!analyzer.size())
                 analyzer.add(world, x, y, z);

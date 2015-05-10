@@ -1,10 +1,12 @@
 package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class CableAnalyzer {
             public boolean contains(Object o) {
                 HexDevice cable = (HexDevice) o;
                 for (HexDevice entry : this) {
-                    if ((entry.x == cable.x) && (entry.y == cable.y) && (entry.z == cable.z) && (entry.name.equals(cable.name))) {
+                    if ((entry.x == cable.x) && (entry.y == cable.y) && (entry.z == cable.z) && (entry.block == cable.block)) {
                         return true;
                     }
                 }
@@ -42,7 +44,7 @@ public class CableAnalyzer {
             public boolean contains(Object o) {
                 HexDevice machine = (HexDevice) o;
                 for (HexDevice entry : this) {
-                    if ((entry.x == machine.x) && (entry.y == machine.y) && (entry.z == machine.z) && (entry.name.equals(machine.name))) {
+                    if ((entry.x == machine.x) && (entry.y == machine.y) && (entry.z == machine.z) && (entry.block == machine.block)) {
                         return true;
                     }
                 }
@@ -57,28 +59,28 @@ public class CableAnalyzer {
      * @param x X coordinate of the block to analyze.
      * @param y Y coordinate of the block to analyze.
      * @param z Z coordinate of the block to analyze.
-     * @param name Unlocalized name of the previous block.
+     * @param blockPrev The previous block.
      * @param direction The direction of the previous move.
      */
-    public void analyze(World world, int x, int y, int z, String name, int direction)
+    public void analyze(World world, int x, int y, int z, Block blockPrev, int direction)
     {
-        // Save the temporary name of the current block.
-        String blockName = world.getBlock(x, y, z).getUnlocalizedName();
+        // Save the current block.
+        Block block = world.getBlock(x, y, z);
 
         // Console spam for debugging analysis. Uncomment to enable.
-        // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockName);
+        // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockCurr.getUnlocalizedName());
 
         // Check if the current block is a cable.
-        if (blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME)) {
+        if (block instanceof BlockHexoriumCable) {
             // Check if this cable has already been added to the cables ArrayList.
-            if (!cables.contains(new HexDevice(x, y, z, blockName))) {
+            if (!cables.contains(new HexDevice(x, y, z, block))) {
                 // Check if one of the conditions are met:
                 // 1) The previous cable's color was Rainbow.
                 // 2) The current block's color is Rainbow.
                 // 3) The current block's color is same as previous.
-                if (name.contains("Rainbow") || blockName.contains("Rainbow") || name.equals(blockName))
+                if (blockPrev == HexBlocks.blockHexoriumCableRainbow || block == HexBlocks.blockHexoriumCableRainbow || blockPrev == block)
                     // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
-                    cables.add(new HexDevice(x, y, z, name));
+                    cables.add(new HexDevice(x, y, z, block));
                 else
                     // Otherwise, exit recursion.
                     return;
@@ -88,12 +90,12 @@ public class CableAnalyzer {
                 return;
         }
         // Check if the current block is a machine.
-        else if(blockName.contains(BlockHexoriumGenerator.UNLOCALISEDNAME) ||
-                blockName.contains(BlockHexoriumFurnace.UNLOCALISEDNAME) ||
-                blockName.contains(BlockCrystalSeparator.UNLOCALISEDNAME) ||
-                blockName.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
+        else if(block == HexBlocks.blockHexoriumGenerator ||
+                block == HexBlocks.blockHexoriumFurnace ||
+                block == HexBlocks.blockCrystalSeparator ||
+                block == HexBlocks.blockMatrixReconstructor) {
             // Check if this machine has already been added to the machines ArrayList.
-            if (!machines.contains(new HexDevice(x, y, z, blockName))) {
+            if (!machines.contains(new HexDevice(x, y, z, block))) {
                 // If it hasn't, prepare the block's meta.
                 int meta = world.getBlockMetadata(x, y, z);
 
@@ -105,7 +107,7 @@ public class CableAnalyzer {
 
                 // Add the machine to the ArrayList if the previous direction responds with the orientation of the machine.
                 if ((meta == 0 && direction == 3) || (meta == 1 && direction == 2) || (meta == 2 && direction == 4) || (meta == 3 && direction == 1))
-                    machines.add(new HexDevice(x, y, z, blockName));
+                    machines.add(new HexDevice(x, y, z, block));
 
                 // Exit recursion.
                 return;
@@ -119,17 +121,17 @@ public class CableAnalyzer {
 
         // Move in all 6 different directions, but avoid going backwards. Call this same function recursively for every direction.
         if(direction != 2)
-            analyze(world, x - 1, y, z, blockName, 1);
+            analyze(world, x - 1, y, z, block, 1);
         if(direction != 1)
-            analyze(world, x + 1, y, z, blockName, 2);
+            analyze(world, x + 1, y, z, block, 2);
         if(direction != 4)
-            analyze(world, x, y, z - 1, blockName, 3);
+            analyze(world, x, y, z - 1, block, 3);
         if(direction != 3)
-            analyze(world, x, y, z + 1, blockName, 4);
+            analyze(world, x, y, z + 1, block, 4);
         if(direction != 6)
-            analyze(world, x, y - 1, z, blockName, 5);
+            analyze(world, x, y - 1, z, block, 5);
         if(direction != 5)
-            analyze(world, x, y + 1, z, blockName, 6);
+            analyze(world, x, y + 1, z, block, 6);
     }
 
     /**
@@ -149,7 +151,7 @@ public class CableAnalyzer {
      */
     public void add(World world, int x, int y, int z) {
         // Add the machine to machines ArrayList.
-        machines.add(new HexDevice(x, y, z, world.getBlock(x, y, z).getUnlocalizedName()));
+        machines.add(new HexDevice(x, y, z, world.getBlock(x, y, z)));
     }
 
     /**
@@ -170,19 +172,19 @@ public class CableAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.name);
+            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
-            if (entry.name.contains(BlockHexoriumGenerator.UNLOCALISEDNAME)) {
+            if (entry.block == HexBlocks.blockHexoriumGenerator) {
                 machinesHexoriumGenerator.add((TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(BlockHexoriumFurnace.UNLOCALISEDNAME)) {
+            if (entry.block == HexBlocks.blockHexoriumFurnace) {
                 machinesHexoriumFurnace.add((TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(BlockCrystalSeparator.UNLOCALISEDNAME)) {
+            if (entry.block == HexBlocks.blockCrystalSeparator) {
                 machinesCrystalSeparator.add((TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z));
             }
-            if (entry.name.contains(BlockMatrixReconstructor.UNLOCALISEDNAME)) {
+            if (entry.block == HexBlocks.blockMatrixReconstructor) {
                 machinesMatrixReconstructor.add((TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
             }
         }

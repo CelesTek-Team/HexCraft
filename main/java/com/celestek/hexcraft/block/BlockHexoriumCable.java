@@ -61,7 +61,7 @@ public class BlockHexoriumCable extends HexBlockModel {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis and wait for results.
-            analyzer.analyze(world, x, y, z, "tile." + blockName, 0);
+            analyzer.analyze(world, x, y, z, this, 0);
             // Push the results to all found machines.
             analyzer.push(world);
         }
@@ -86,7 +86,7 @@ public class BlockHexoriumCable extends HexBlockModel {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis and wait for results.
-            analyzer.analyze(world, x, y, z, this.getUnlocalizedName(), 0);
+            analyzer.analyze(world, x, y, z, this, 0);
             // Push the results to all found machines.
             analyzer.push(world);
         }
