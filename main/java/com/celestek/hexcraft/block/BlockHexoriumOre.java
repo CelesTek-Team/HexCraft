@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -37,7 +38,6 @@ public class BlockHexoriumOre extends HexBlock {
     // Used for tool enchants.
     private int fortune = 0;
     private boolean silk = false;
-    private Item dropItem;
 
     /**
      * Constructor for the block.
@@ -87,13 +87,12 @@ public class BlockHexoriumOre extends HexBlock {
                 // Go through all entries.
                 for (int i = 0; i < list.tagCount(); i++) {
                     // If Silk Touch (id 33) is found, set it to true.
-                    if (list.getCompoundTagAt(i).getByte("id") == 33) {
-                        silk = true;
-                        dropItem = this.getItem(world, x, y, z);
-                    }
+                    silk = list.getCompoundTagAt(i).getByte("id") == 33;
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
+                    else
+                        fortune = 0;
                 }
         }
     }
@@ -102,8 +101,7 @@ public class BlockHexoriumOre extends HexBlock {
      * Sets quantity of items to drop.
      */
     @Override
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Prepare the fortune extra drop count.
@@ -136,22 +134,22 @@ public class BlockHexoriumOre extends HexBlock {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Return the according crystal color.
-            if (blockName.equals(UNLOCALISEDNAME + "Red"))
+            if (this == HexBlocks.blockHexoriumOreRed)
                 return HexItems.itemHexoriumCrystalRed;
-            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+            else if (this == HexBlocks.blockHexoriumOreGreen)
                 return HexItems.itemHexoriumCrystalGreen;
-            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+            else if (this == HexBlocks.blockHexoriumOreBlue)
                 return HexItems.itemHexoriumCrystalBlue;
-            else if (blockName.equals(UNLOCALISEDNAME + "White"))
+            else if (this == HexBlocks.blockHexoriumOreWhite)
                 return HexItems.itemHexoriumCrystalWhite;
-            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+            else if (this == HexBlocks.blockHexoriumOreBlack)
                 return HexItems.itemHexoriumCrystalBlack;
             else
                 return null;
         }
         else
             // Return the block (because of Silk Touch).
-            return dropItem;
+            return Item.getItemFromBlock(this);
     }
 
     // Prepare the icons.

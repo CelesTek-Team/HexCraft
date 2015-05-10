@@ -68,7 +68,7 @@ public class CableAnalyzer {
         Block block = world.getBlock(x, y, z);
 
         // Console spam for debugging analysis. Uncomment to enable.
-        // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + blockCurr.getUnlocalizedName());
+        // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is a cable.
         if (block instanceof BlockHexoriumCable) {

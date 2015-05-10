@@ -86,12 +86,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      * Called when a block is placed using its ItemBlock.
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
-        // Reset the fortune and silk touch parameters.
-        fortune = 0;
-        silk = false;
-
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         // Prepare the orientation.
         int orientation = -1;
 
@@ -132,40 +127,41 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare block meta.
+        int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(world.getBlockMetadata(x, y, z) == 0) {
+        if(meta == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 1) {
+        else if(meta == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 2) {
+        else if(meta == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 3) {
+        else if(meta == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 4) {
+        else if(meta == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 5) {
+        else if(meta == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -187,11 +183,12 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
                 // Go through all entries.
                 for (int i = 0; i < list.tagCount(); i++) {
                     // If Silk Touch (id 33) is found, set it to true.
-                    if (list.getCompoundTagAt(i).getByte("id") == 33)
-                        silk = true;
+                    silk = list.getCompoundTagAt(i).getByte("id") == 33;
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
+                    else
+                        fortune = 0;
                 }
         }
     }
@@ -200,8 +197,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      * Sets quantity of items to drop.
      */
     @Override
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Prepare the fortune extra drop count.
@@ -234,34 +230,22 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Return the according crystal color.
-            if (blockName.equals(UNLOCALISEDNAME + "Red"))
+            if (this == HexBlocks.blockHexoriumNetherMonolithRed)
                 return HexItems.itemHexoriumCrystalRed;
-            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+            else if (this == HexBlocks.blockHexoriumNetherMonolithGreen)
                 return HexItems.itemHexoriumCrystalGreen;
-            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+            else if (this == HexBlocks.blockHexoriumNetherMonolithBlue)
                 return HexItems.itemHexoriumCrystalBlue;
-            else if (blockName.equals(UNLOCALISEDNAME + "White"))
+            else if (this == HexBlocks.blockHexoriumNetherMonolithWhite)
                 return HexItems.itemHexoriumCrystalWhite;
-            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+            else if (this == HexBlocks.blockHexoriumNetherMonolithBlack)
                 return HexItems.itemHexoriumCrystalBlack;
             else
                 return null;
         }
-        else {
+        else
             // Return the block (because of Silk Touch).
-            if (blockName.equals(UNLOCALISEDNAME + "Red"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithRed);
-            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithGreen);
-            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlue);
-            else if (blockName.equals(UNLOCALISEDNAME + "White"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithWhite);
-            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlack);
-            else
-                return null;
-        }
+            return Item.getItemFromBlock(this);
     }
 
     /**
@@ -269,8 +253,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 
@@ -304,8 +287,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 

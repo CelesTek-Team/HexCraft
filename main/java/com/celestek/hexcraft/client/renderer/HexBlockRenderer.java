@@ -2,6 +2,7 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumLamp;
+import com.celestek.hexcraft.block.BlockHexoriumLampInv;
 import com.celestek.hexcraft.client.HexClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
@@ -76,9 +77,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
@@ -90,9 +91,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -108,9 +109,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
@@ -125,9 +126,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
@@ -142,9 +143,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
@@ -159,9 +160,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         if (!isLamp)
             tessellator.setColorOpaque_F(r, g, b);
         else {
-            if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAME))
+            if (block instanceof BlockHexoriumLamp)
                 tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block.getUnlocalizedName().contains(BlockHexoriumLamp.UNLOCALISEDNAMEINV))
+            else if (block instanceof BlockHexoriumLampInv)
                 tessellator.setColorOpaque_F(r, g, b);
         }
         tessellator.setNormal(1.0F, 0.0F, 0.0F);

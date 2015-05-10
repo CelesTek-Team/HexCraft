@@ -58,29 +58,8 @@ public class BlockOfHexoriumCrystal extends HexBlock {
      * Called when a block is placed using its ItemBlock.
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         return side;
-    }
-
-    /**
-     * Sets up items to drop. Fired the number of times dictated by quantityDropped.
-     */
-    @Override
-    public Item getItemDropped(int metadata, Random random, int fortune) {
-        // Return the block (because of Silk Touch).
-        if (blockName.equals(UNLOCALISEDNAME + "Red"))
-            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalRed);
-        else if (blockName.equals(UNLOCALISEDNAME + "Green"))
-            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalGreen);
-        else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
-            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalBlue);
-        else if (blockName.equals(UNLOCALISEDNAME + "White"))
-            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalWhite);
-        else if (blockName.equals(UNLOCALISEDNAME + "Black"))
-            return Item.getItemFromBlock(HexBlocks.blockOfHexoriumCrystalBlack);
-        else
-            return null;
     }
 
     /// Prepare the icons.
@@ -112,7 +91,6 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int i, int meta) {
-
         // If the requested icons are for the extra sides...
         if (i > 5) {
             // Return the icons based on meta (rotation) and side.

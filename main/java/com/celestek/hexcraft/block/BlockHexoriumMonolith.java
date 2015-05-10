@@ -73,8 +73,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * Called when a player tries to place the monolith.
      */
     @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         // Check if any of the sides around the block are solid, if yes, it means it can be placed.
         return (world.isSideSolid(x, y - 1, z, UP)) ||
                 (world.isSideSolid(x, y + 1, z, DOWN)) ||
@@ -88,12 +87,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * Called when a block is placed using its ItemBlock.
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
-        // Reset the fortune and silk touch parameters.
-        fortune = 0;
-        silk = false;
-
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         // Prepare the orientation.
         int orientation = -1;
 
@@ -134,40 +128,41 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare block meta.
+        int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(world.getBlockMetadata(x, y, z) == 0) {
+        if(meta == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 1) {
+        else if(meta == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 2) {
+        else if(meta == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 3) {
+        else if(meta == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 4) {
+        else if(meta == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 5) {
+        else if(meta == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -189,11 +184,12 @@ public class BlockHexoriumMonolith extends HexBlockModel {
                 // Go through all entries.
                 for (int i = 0; i < list.tagCount(); i++) {
                     // If Silk Touch (id 33) is found, set it to true.
-                    if (list.getCompoundTagAt(i).getByte("id") == 33)
-                        silk = true;
+                    silk = list.getCompoundTagAt(i).getByte("id") == 33;
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
+                    else
+                        fortune = 0;
                 }
         }
     }
@@ -202,8 +198,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * Sets quantity of items to drop.
      */
     @Override
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Prepare the fortune extra drop count.
@@ -236,34 +231,22 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         // Check if Silk Touch should be used. If not...
         if(!silk) {
             // Return the according crystal color.
-            if (blockName.equals(UNLOCALISEDNAME + "Red"))
+            if (this == HexBlocks.blockHexoriumMonolithRed)
                 return HexItems.itemHexoriumCrystalRed;
-            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
+            else if (this == HexBlocks.blockHexoriumMonolithGreen)
                 return HexItems.itemHexoriumCrystalGreen;
-            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
+            else if (this == HexBlocks.blockHexoriumMonolithBlue)
                 return HexItems.itemHexoriumCrystalBlue;
-            else if (blockName.equals(UNLOCALISEDNAME + "White"))
+            else if (this == HexBlocks.blockHexoriumMonolithWhite)
                 return HexItems.itemHexoriumCrystalWhite;
-            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
+            else if (this == HexBlocks.blockHexoriumMonolithBlack)
                 return HexItems.itemHexoriumCrystalBlack;
             else
                 return null;
         }
-        else {
+        else
             // Return the block (because of Silk Touch).
-            if (blockName.equals(UNLOCALISEDNAME + "Red"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithRed);
-            else if (blockName.equals(UNLOCALISEDNAME + "Green"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithGreen);
-            else if (blockName.equals(UNLOCALISEDNAME + "Blue"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlue);
-            else if (blockName.equals(UNLOCALISEDNAME + "White"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithWhite);
-            else if (blockName.equals(UNLOCALISEDNAME + "Black"))
-                return Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlack);
-            else
-                return null;
-        }
+            return Item.getItemFromBlock(this);
     }
 
     /**
@@ -271,8 +254,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 
@@ -306,8 +288,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 

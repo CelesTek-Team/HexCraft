@@ -35,8 +35,7 @@ public class HexBlockContainer extends BlockContainer {
         HexCraft.idCounter++;
     }
 
-    public TileEntity createNewTileEntity(World world, int par2)
-    {
+    public TileEntity createNewTileEntity(World world, int par2) {
         return new TileEntity();
     }
 
@@ -63,8 +62,7 @@ public class HexBlockContainer extends BlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean canRenderInPass(int pass)
-    {
+    public boolean canRenderInPass(int pass) {
         // Save the current rendering pass of the block to HexClientProxy.
         HexClientProxy.renderPass[idBlock] = pass;
         return true;
@@ -75,8 +73,7 @@ public class HexBlockContainer extends BlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public int getRenderBlockPass()
-    {
+    public int getRenderBlockPass() {
         return 1;
     }
 
@@ -85,8 +82,7 @@ public class HexBlockContainer extends BlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
+    public boolean isBlockNormalCube() {
         return true;
     }
 
@@ -110,8 +106,7 @@ public class HexBlockContainer extends BlockContainer {
      * Forces Redstone conduction.
      */
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side)
-    {
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return true;
     }
 }

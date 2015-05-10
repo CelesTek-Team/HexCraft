@@ -80,14 +80,17 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (direction == 0 && world.getBlock(x, y, z + 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            if (direction == 0 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable)
                 analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), 0);
-            else if (direction == 1 && world.getBlock(x - 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 1 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable)
                 analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), 0);
-            else if (direction == 2 && world.getBlock(x, y, z - 1).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 2 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable)
                 analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), 0);
-            else if (direction == 3 && world.getBlock(x + 1, y, z).getUnlocalizedName().contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (direction == 3 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable)
                 analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), 0);
+            // If the created list has no entries, add self in.
+            if(!analyzer.size())
+                analyzer.add(world, x, y, z);
             // Push the results to all found machines.
             analyzer.push(world);
         }
@@ -120,22 +123,22 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
         else if (meta >= 8)
             meta -= 8;
 
-        // Check if the changed block belongs to the energy system.
-        if (blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME)) {
+        // Check if the changed block is a cable.
+        if (block instanceof BlockHexoriumCable) {
 
-            System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            System.out.println("Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (meta == 0 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            // Call the analysis in the direction the machine is rotated.
+            if (meta == 0)
                 analyzer.analyze(world, x, y, z + 1, block, 0);
-            else if (meta == 1 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 1)
                 analyzer.analyze(world, x - 1, y, z, block, 0);
-            else if (meta == 2 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 2)
                 analyzer.analyze(world, x, y, z - 1, block, 0);
-            else if (meta == 3 && blockName.contains(BlockHexoriumCable.UNLOCALISEDNAME))
+            else if (meta == 3)
                 analyzer.analyze(world, x + 1, y, z, block, 0);
             // If the created list has no entries, add self in.
             if(!analyzer.size())
@@ -190,22 +193,6 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             world.func_147453_f(x, y, z, block);
         }
         super.breakBlock(world, x, y, z, block, meta);
-    }
-
-    /**
-     * Returns the item drop of the block.
-     */
-    @Override
-    public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.blockHexoriumGenerator);
-    }
-
-    /**
-     * Returns the item of the block.
-     */
-    @Override
-    public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.blockHexoriumGenerator);
     }
 
     /**
@@ -376,24 +363,5 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             }
         }
         return icon[i];
-    }
-
-    public static void updateBlockState(int status, World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-
-        if (status == 1 && meta < 4)
-            meta = meta + 4;
-        else if (status == 1 && meta >= 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 4 && meta < 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 8)
-            meta = meta - 8;
-        else if (status == 2 && meta < 4)
-            meta = meta + 8;
-        else if (status == 2 && meta >= 4 && meta < 8)
-            meta = meta + 4;
-
-        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
     }
 }

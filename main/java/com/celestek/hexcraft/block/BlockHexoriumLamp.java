@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -23,24 +24,13 @@ public class BlockHexoriumLamp extends HexBlock {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumLamp";
-    public static String UNLOCALISEDNAMEINV = "blockInvHexoriumLamp";
-
-    // Used later for texture identification.
-    private String blockName;
-
-    // Used for checking if the lamp should be inverted.
-    private boolean isInverted;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockHexoriumLamp(String blockName, boolean isInverted) {
+    public BlockHexoriumLamp(String blockName) {
         super(Material.glass);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
-        this.isInverted = isInverted;
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -71,9 +61,7 @@ public class BlockHexoriumLamp extends HexBlock {
      */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
-        if (block == this && meta == 1)
+        if (world.getBlockMetadata(x, y, z) == 1)
             return 15;
         else
             return 0;
@@ -95,7 +83,7 @@ public class BlockHexoriumLamp extends HexBlock {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(blockName.contains("Rainbow"))
+        if(this == HexBlocks.blockHexoriumLampRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
@@ -117,14 +105,10 @@ public class BlockHexoriumLamp extends HexBlock {
     private void processMeta(World world, int x, int y, int z) {
         // If this is the server thread.
         if (!world.isRemote) {
-            // Compare if the block is inverted and if it is getting power.
-            if (!isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
+            // Set meta according to power.
+            if (world.isBlockIndirectlyGettingPowered(x, y, z))
                 world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-            else if (!isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
-            else if (isInverted && !world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-            else if (isInverted && world.isBlockIndirectlyGettingPowered(x, y, z))
+            else
                 world.setBlockMetadataWithNotify(x, y, z, 0, 2);
         }
     }

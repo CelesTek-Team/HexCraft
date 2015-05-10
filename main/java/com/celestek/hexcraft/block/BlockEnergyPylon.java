@@ -54,14 +54,14 @@ public class BlockEnergyPylon extends HexBlockContainer {
         this.setHardness(1.5F);
         this.setStepSound(Block.soundTypeMetal);
         this.setHarvestLevel("pickaxe", 0);
+        this.setLightOpacity(0);
     }
 
     /**
      * Returns a new instance of a block's TIle Entity class. Called on placing the block.
      */
     @Override
-    public TileEntity createNewTileEntity(World world, int par2)
-    {
+    public TileEntity createNewTileEntity(World world, int par2) {
         // Create the new TIle Entity.
         return new TileEnergyPylon();
     }
@@ -98,8 +98,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
      * Called when a block is placed using its ItemBlock.
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         // Prepare the orientation.
         int orientation = -1;
 
@@ -140,40 +139,41 @@ public class BlockEnergyPylon extends HexBlockContainer {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare block meta.
+        int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(world.getBlockMetadata(x, y, z) == 0) {
+        if(meta == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 1) {
+        else if(meta == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 2) {
+        else if(meta == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 3) {
+        else if(meta == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 4) {
+        else if(meta == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 5) {
+        else if(meta == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -193,10 +193,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
 
         // If the block wasn't destroyed using the Manipulator...
         if(fortune != HexCraft.hexFortune) {
-            // Set the according crystal color combinations.
-            if (tileEntity != null) {
-            }
-            drops.add(new ItemStack(HexBlocks.blockEnergyPylon, 1));
+            // Drop just the pylon.
+            drops.add(new ItemStack(this, 1));
         }
         else {
             // Return the monolith (because of Manipulator).
@@ -346,22 +344,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
         super.breakBlock(world, x, y, z, block, meta);
     }
 
-    /**
-     * Returns the item drop of the block.
-     */
-    @Override
-    public Item getItemDropped(int par1, Random random, int par3) {
-        return Item.getItemFromBlock(HexBlocks.blockEnergyPylon);
-    }
-
-    /**
-     * Returns the item of the block.
-     */
-    @Override
-    public Item getItem(World world, int par2, int par3, int par4) {
-        return Item.getItemFromBlock(HexBlocks.blockEnergyPylon);
-    }
-
     // Prepare the icons.
     @SideOnly(Side.CLIENT)
     private IIcon icon[];
@@ -398,8 +380,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
+    public boolean isBlockNormalCube() {
         return false;
     }
 
@@ -408,8 +389,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
@@ -433,8 +413,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
      * Forces the block not to conduct Redstone current.
      */
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side)
-    {
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
     }
 }

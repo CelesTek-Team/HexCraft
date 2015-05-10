@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -19,18 +20,12 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockEngineeredHexoriumBlock";
 
-    // Used later for texture identification.
-    private String blockName;
-
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockEngineeredHexoriumBlock(String blockName) {
         super(Material.rock);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -56,7 +51,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+        if(this == HexBlocks.blockEngineeredHexoriumBlockRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

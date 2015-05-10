@@ -26,18 +26,12 @@ public class BlockHexoriumCable extends HexBlockModel {
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumCable";
 
-    // Used later for texture identification.
-    private String blockName;
-
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockHexoriumCable(String blockName) {
         super(Material.rock);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);

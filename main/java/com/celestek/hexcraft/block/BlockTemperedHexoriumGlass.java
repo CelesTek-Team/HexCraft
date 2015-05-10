@@ -152,8 +152,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
-    {
+     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
         return world.getBlock(x, y, z) != this;
     }
 
@@ -161,8 +160,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      * Force rendering on second pass.
      */
     @SideOnly(Side.CLIENT)
-    public int getRenderBlockPass()
-    {
+    public int getRenderBlockPass() {
         return 1;
     }
 
@@ -171,8 +169,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
@@ -181,8 +178,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
+    public boolean isBlockNormalCube() {
         return false;
     }
 
@@ -206,8 +202,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      * Forces the block not to conduct Redstone.
      */
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side)
-    {
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
     }
 }

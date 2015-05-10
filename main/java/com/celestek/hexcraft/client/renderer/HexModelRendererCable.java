@@ -26,8 +26,6 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-    private boolean renderStone;
-    private String name;
 
     // Model constants.
     private float yMin = 0F;
@@ -89,7 +87,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * @param g Green component of the monolith color
      * @param b Blue component of the monolith color.
      */
-    public HexModelRendererCable(int renderID, int brightness, float r, float g, float b, String name)
+    public HexModelRendererCable(int renderID, int brightness, float r, float g, float b)
     {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
@@ -100,7 +98,6 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         this.r = r;
         this.g = g;
         this.b = b;
-        this.name = name;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;

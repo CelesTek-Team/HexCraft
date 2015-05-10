@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumManipulator;
 import cpw.mods.fml.relauncher.Side;
@@ -30,18 +31,12 @@ public class BlockEnergizedHexorium extends HexBlock {
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockEnergizedHexorium";
 
-    // Used later for texture identification.
-    private String blockName;
-
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockEnergizedHexorium(String blockName) {
         super(Material.glass);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -61,53 +56,55 @@ public class BlockEnergizedHexorium extends HexBlock {
         // If the block wasn't destroyed using the Manipulator...
         if(fortune != HexCraft.hexFortune) {
             // Set the according crystal color combinations.
-            if (blockName.equals(UNLOCALISEDNAME + "Red")) {
+            if (this == HexBlocks.blockEnergizedHexoriumRed) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Orange")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Yellow")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Lime")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumLime) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Green")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Turquoise")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Cyan")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            } else if (blockName.equals(UNLOCALISEDNAME + "SkyBlue")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Blue")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Purple")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Magenta")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Pink")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumPink) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-            } else if (blockName.equals(UNLOCALISEDNAME + "White")) {
+
+            } else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            } else if (blockName.equals(UNLOCALISEDNAME + "LightGray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Gray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            } else if (blockName.equals(UNLOCALISEDNAME + "DarkGray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Black")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-            } else if (blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
+
+            } else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
@@ -138,7 +135,7 @@ public class BlockEnergizedHexorium extends HexBlock {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+        if(this == HexBlocks.blockEnergizedHexoriumRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

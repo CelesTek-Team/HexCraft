@@ -2,6 +2,7 @@ package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
+import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,9 +44,9 @@ public class ItemHexoriumManipulator extends Item {
      * @return Return true to prevent any further processing.
      */
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        Block block = world.getBlock(x, y, z);
         if (player.isSneaking()) {
-            if (block.getUnlocalizedName().contains(BlockEnergizedHexorium.UNLOCALISEDNAME)) {
+            Block block = world.getBlock(x, y, z);
+            if (block instanceof BlockEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
                 block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                 world.setBlockToAir(x, y, z);
             } else if (block == HexBlocks.blockEnergyPylon)

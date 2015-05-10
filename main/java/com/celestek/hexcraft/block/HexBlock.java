@@ -59,8 +59,7 @@ public class HexBlock extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean canRenderInPass(int pass)
-    {
+    public boolean canRenderInPass(int pass) {
         // Save the current rendering pass of the block to HexClientProxy.
         HexClientProxy.renderPass[idBlock] = pass;
         return true;
@@ -71,8 +70,7 @@ public class HexBlock extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public int getRenderBlockPass()
-    {
+    public int getRenderBlockPass() {
         return 1;
     }
 
@@ -81,8 +79,7 @@ public class HexBlock extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isBlockNormalCube()
-    {
+    public boolean isBlockNormalCube() {
         return true;
     }
 
@@ -106,8 +103,7 @@ public class HexBlock extends Block {
      * Forces Redstone conduction.
      */
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side)
-    {
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return true;
     }
 }

@@ -144,26 +144,26 @@ tile.blockHexoriumLampBlack.name=Hexorium Lamp (Black)
 tile.blockHexoriumLampRainbow.name=Hexorium Lamp (Rainbow)
 
 
-tile.blockInvHexoriumLampRed.name=Inverted Hexorium Lamp (Red)
-tile.blockInvHexoriumLampOrange.name=Inverted Hexorium Lamp (Orange)
-tile.blockInvHexoriumLampYellow.name=Inverted Hexorium Lamp (Yellow)
-tile.blockInvHexoriumLampLime.name=Inverted Hexorium Lamp (Lime)
-tile.blockInvHexoriumLampGreen.name=Inverted Hexorium Lamp (Green)
-tile.blockInvHexoriumLampTurquoise.name=Inverted Hexorium Lamp (Turquoise)
-tile.blockInvHexoriumLampCyan.name=Inverted Hexorium Lamp (Cyan)
-tile.blockInvHexoriumLampSkyBlue.name=Inverted Hexorium Lamp (Sky Blue)
-tile.blockInvHexoriumLampBlue.name=Inverted Hexorium Lamp (Blue)
-tile.blockInvHexoriumLampPurple.name=Inverted Hexorium Lamp (Purple)
-tile.blockInvHexoriumLampMagenta.name=Inverted Hexorium Lamp (Magenta)
-tile.blockInvHexoriumLampPink.name=Inverted Hexorium Lamp (Pink)
+tile.blockHexoriumLampInvRed.name=Inverted Hexorium Lamp (Red)
+tile.blockHexoriumLampInvOrange.name=Inverted Hexorium Lamp (Orange)
+tile.blockHexoriumLampInvYellow.name=Inverted Hexorium Lamp (Yellow)
+tile.blockHexoriumLampInvLime.name=Inverted Hexorium Lamp (Lime)
+tile.blockHexoriumLampInvGreen.name=Inverted Hexorium Lamp (Green)
+tile.blockHexoriumLampInvTurquoise.name=Inverted Hexorium Lamp (Turquoise)
+tile.blockHexoriumLampInvCyan.name=Inverted Hexorium Lamp (Cyan)
+tile.blockHexoriumLampInvSkyBlue.name=Inverted Hexorium Lamp (Sky Blue)
+tile.blockHexoriumLampInvBlue.name=Inverted Hexorium Lamp (Blue)
+tile.blockHexoriumLampInvPurple.name=Inverted Hexorium Lamp (Purple)
+tile.blockHexoriumLampInvMagenta.name=Inverted Hexorium Lamp (Magenta)
+tile.blockHexoriumLampInvPink.name=Inverted Hexorium Lamp (Pink)
 
-tile.blockInvHexoriumLampWhite.name=Inverted Hexorium Lamp (White)
-tile.blockInvHexoriumLampLightGray.name=Inverted Hexorium Lamp (Light Gray)
-tile.blockInvHexoriumLampGray.name=Inverted Hexorium Lamp (Gray)
-tile.blockInvHexoriumLampDarkGray.name=Inverted Hexorium Lamp (Dark Gray)
-tile.blockInvHexoriumLampBlack.name=Inverted Hexorium Lamp (Black)
+tile.blockHexoriumLampInvWhite.name=Inverted Hexorium Lamp (White)
+tile.blockHexoriumLampInvLightGray.name=Inverted Hexorium Lamp (Light Gray)
+tile.blockHexoriumLampInvGray.name=Inverted Hexorium Lamp (Gray)
+tile.blockHexoriumLampInvDarkGray.name=Inverted Hexorium Lamp (Dark Gray)
+tile.blockHexoriumLampInvBlack.name=Inverted Hexorium Lamp (Black)
 
-tile.blockInvHexoriumLampRainbow.name=Inverted Hexorium Lamp (Rainbow)
+tile.blockHexoriumLampInvRainbow.name=Inverted Hexorium Lamp (Rainbow)
 
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
@@ -195,8 +195,8 @@ tile.blockHexoriumCableBlack.name=Hexorium Cable (Black)
 tile.blockHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
 
 tile.blockEnergyPylon.name=Energy Pylon
-tile.blockPylonBaseA.name=5-to-1 Pylon Base
-tile.blockPylonBaseB.name=1-to-5 Pylon Base
+tile.blockPylonBase51.name=5-to-1 Pylon Base
+tile.blockPylonBase15.name=1-to-5 Pylon Base
 
 
 tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass

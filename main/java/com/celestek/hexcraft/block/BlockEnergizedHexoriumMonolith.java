@@ -32,18 +32,12 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockEnergizedHexoriumMonolith";
 
-    // Used later for texture identification.
-    private String blockName;
-
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockEnergizedHexoriumMonolith(String blockName) {
         super(Material.glass);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -57,8 +51,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Called when a player tries to place the monolith.
      */
     @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         // Check if any of the sides around the block are solid, if yes, it means it can be placed.
         return (world.isSideSolid(x, y - 1, z, UP)) ||
                 (world.isSideSolid(x, y + 1, z, DOWN)) ||
@@ -72,8 +65,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Called when a block is placed using its ItemBlock.
      */
     @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-    {
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         // Prepare the orientation.
         int orientation = -1;
 
@@ -114,40 +106,41 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        // Prepare block meta.
+        int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(world.getBlockMetadata(x, y, z) == 0) {
+        if(meta == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 1) {
+        else if(meta == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 2) {
+        else if(meta == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 3) {
+        else if(meta == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 4) {
+        else if(meta == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(world.getBlockMetadata(x, y, z) == 5) {
+        else if(meta == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -166,119 +159,64 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         // If the block wasn't destroyed using the Manipulator...
         if(fortune != HexCraft.hexFortune) {
             // Set the according crystal color combinations.
-            if(blockName.equals(UNLOCALISEDNAME + "Red")) {
+            if (this == HexBlocks.blockEnergizedHexoriumRed) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Orange")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Yellow")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Lime")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumLime) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Green")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Turquoise")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Cyan")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "SkyBlue")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Blue")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Purple")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Magenta")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Pink")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumPink) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-            }
 
-            else if(blockName.equals(UNLOCALISEDNAME + "White")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "LightGray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Gray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "DarkGray")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            }
-            else if(blockName.equals(UNLOCALISEDNAME + "Black")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-            }
 
-            else if(blockName.equals(UNLOCALISEDNAME + "Rainbow")) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
             }
         }
-        else {
+        else
             // Return the block (because of Manipulator).
-            if(blockName.equals(UNLOCALISEDNAME + "Red"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Orange"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Yellow"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Lime"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Green"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Turquoise"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Cyan"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "SkyBlue"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Blue"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Purple"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Magenta"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Pink"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink, 1));
-
-            else if(blockName.equals(UNLOCALISEDNAME + "White"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "LightGray"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Gray"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "DarkGray"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray, 1));
-            else if(blockName.equals(UNLOCALISEDNAME + "Black"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1));
-
-            else if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
-                drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow, 1));
-    }
+            drops.add(new ItemStack(this, 1));
 
         // Return the created drop array.
         return drops;
@@ -289,8 +227,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 
@@ -324,8 +261,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         // Get block meta data.
         int meta = world.getBlockMetadata(x, y, z);
 
@@ -376,7 +312,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture. Use special texture if it is a rainbow.
-        if(blockName.equals(UNLOCALISEDNAME + "Rainbow"))
+        if(this == HexBlocks.blockEnergizedHexoriumMonolithRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
