@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockEnergyPylon;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexPylon;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -10,6 +10,12 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -18,7 +24,20 @@ import net.minecraft.tileentity.TileEntity;
  */
 public class TileEnergyPylon extends TileEntity {
 
+    // Prepare pylon list and arrays for coordinates.
+    public ArrayList<HexPylon> pylons;
+    private int[] pylonsX;
+    private int[] pylonsY;
+    private int[] pylonsZ;
+    private int[] pylonsBeam;
+
+    // ID of the monolith inserted.
     public int monolith = 0;
+
+    boolean firstTickServer = false;
+    boolean firstTickClient = false;
+
+    int tickCount = 0;
 
     /**
      * Reads the tags from NBT.
@@ -28,6 +47,16 @@ public class TileEnergyPylon extends TileEntity {
         super.readFromNBT(tagCompound);
 
         monolith = tagCompound.getInteger("Monolith");
+
+        // Read the coordinate arrays.
+        pylonsX = tagCompound.getIntArray("PylonsX");
+        pylonsY = tagCompound.getIntArray("PylonsY");
+        pylonsZ = tagCompound.getIntArray("PylonsZ");
+        pylonsBeam = tagCompound.getIntArray("PylonsBeam");
+        // Prepare the ArrayList for machines.
+        pylons = new ArrayList<HexPylon>();
+        // Prime the updateEntity() for first-tick startup.
+        firstTickServer = true;
     }
 
     /**
@@ -38,20 +67,54 @@ public class TileEnergyPylon extends TileEntity {
         super.writeToNBT(tagCompound);
 
         tagCompound.setInteger("Monolith", monolith);
+
+        // Check if machine list is not null.
+        if (pylons != null) {
+            // Initialize the coordinate arrays.
+            pylonsX = new int[pylons.size()];
+            pylonsY = new int[pylons.size()];
+            pylonsZ = new int[pylons.size()];
+            pylonsBeam = new int[pylons.size()];
+            // Save the coordinates of machines to arrays.
+            int i = 0;
+            for (HexPylon entry : pylons) {
+                pylonsX[i] = entry.pylon.xCoord;
+                pylonsY[i] = entry.pylon.yCoord;
+                pylonsZ[i] = entry.pylon.zCoord;
+                pylonsBeam[i] = entry.getBeamAsInt();
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("PylonsX", pylonsX);
+            tagCompound.setIntArray("PylonsY", pylonsY);
+            tagCompound.setIntArray("PylonsZ", pylonsZ);
+            tagCompound.setIntArray("PylonsBeam", pylonsBeam);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else  {
+            pylonsX = new int[0];
+            pylonsY = new int[0];
+            pylonsZ = new int[0];
+            pylonsBeam = new int[0];
+            tagCompound.setIntArray("PylonsX", pylonsX);
+            tagCompound.setIntArray("PylonsY", pylonsY);
+            tagCompound.setIntArray("PylonsZ", pylonsZ);
+            tagCompound.setIntArray("PylonsBeam", pylonsBeam);
+        }
     }
 
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
-        this.writeToNBT(tag);
+        writeToNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.func_148857_g());
-
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        // Prime the updateEntity() for first-tick startup.
+        firstTickClient = true;
     }
 
     /**
@@ -61,6 +124,31 @@ public class TileEnergyPylon extends TileEntity {
     public void updateEntity() {
         // Confirm that this is server side.
         if (!worldObj.isRemote) {
+            if (firstTickServer) {
+                for (int i = 0; i < pylonsX.length; i++) {
+                    pylons = new ArrayList<HexPylon>();
+                    pylons.add(new HexPylon((TileEnergyPylon) worldObj.getTileEntity(pylonsX[i], pylonsY[i], pylonsZ[i]), pylonsBeam[i]));
+                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ") beam: " + pylonsBeam[i]);
+                }
+                firstTickServer = false;
+            }
+            tickCount++;
+            if (tickCount >= 20) {
+                tickCount = 0;
+                retracePylons();
+            }
+        }
+        else {
+            if (firstTickClient) {
+                for (int i = 0; i < pylonsX.length; i++) {
+                    pylons = new ArrayList<HexPylon>();
+                    pylons.add(new HexPylon((TileEnergyPylon) worldObj.getTileEntity(pylonsX[i], pylonsY[i], pylonsZ[i]), pylonsBeam[i]));
+                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reloaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ") beam: " + pylonsBeam[i]);
+                }
+
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                firstTickClient = false;
+            }
         }
     }
 
@@ -117,6 +205,7 @@ public class TileEnergyPylon extends TileEntity {
 
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
+                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) + 6, 2);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 markDirty();
 
@@ -130,9 +219,106 @@ public class TileEnergyPylon extends TileEntity {
     public void ejectMonolith() {
         if (!worldObj.isRemote && monolith != 0) {
             monolith = 0;
+            clearPylons();
 
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) - 6, 2);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             markDirty();
         }
     }
+
+    public boolean addPylon(int x, int y, int z, boolean beam) {
+        TileEnergyPylon pylon = (TileEnergyPylon) worldObj.getTileEntity(x, y, z);
+        if (pylon != null) {
+            if (pylons == null)
+                pylons = new ArrayList<HexPylon>();
+
+            for (HexPylon entry : pylons) {
+                if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
+                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that pylon at (" + x + ", " + y + ", " + z + ") already exists");
+                    return false;
+                }
+            }
+
+            pylons.add(new HexPylon(pylon, beam));
+            System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") added pylon at (" + x + ", " + y + ", " + z + ") beam: " + beam);
+
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
+
+            return true;
+        }
+        return false;
+    }
+
+    public void removePylon(int x, int y, int z) {
+        if (pylons != null) {
+
+            Iterator<HexPylon> iterator = pylons.iterator();
+
+            while (iterator.hasNext()) {
+                HexPylon entry = iterator.next();
+
+                if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
+                    iterator.remove();
+                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") removing pylon at (" + x + ", " + y + ", " + z + ")");
+                }
+            }
+
+            if (pylons.size() == 0)
+                pylons = null;
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
+        }
+    }
+
+    public void clearPylons() {
+        if (pylons != null) {
+            for (HexPylon pylon : pylons) {
+                pylon.pylon.removePylon(xCoord, yCoord, zCoord);
+            }
+            pylons = null;
+        }
+    }
+
+    private void retracePylons() {
+        if (pylons != null) {
+            ArrayList<HexPylon> remove = new ArrayList<HexPylon>();
+            for (HexPylon pylon : pylons) {
+                if(!TileEnergyPylon.tracePylons(worldObj, xCoord, yCoord, zCoord, pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord)) {
+                    remove.add(pylon);
+                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that it can no longer see pylon at (" + pylon.pylon.xCoord + ", " + pylon.pylon.yCoord + ", " + pylon.pylon.zCoord + ")");
+                }
+            }
+            for (HexPylon pylon : remove) {
+                removePylon(pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord);
+                pylon.pylon.removePylon(xCoord, yCoord, zCoord);
+            }
+        }
+    }
+
+    public static boolean tracePylons(World world, int x, int y, int z, int tx, int ty, int tz) {
+        if (!(tx == x && ty == y && tz == z)) {
+            Vec3 vec1 = Vec3.createVectorHelper(x + 0.5, y + 0.5, z + 0.5);
+            Vec3 vec2 = Vec3.createVectorHelper(tx + 0.5, ty + 0.5, tz + 0.5);
+
+            // System.out.println("vec1: (" + vec1.xCoord + ", " + vec1.yCoord + ", " + vec1.zCoord + ")");
+
+            MovingObjectPosition hit1 = world.rayTraceBlocks(vec1.addVector(-0.01, 0, -0.01), vec2.addVector(-0.01, 0, -0.01), true);
+            MovingObjectPosition hit2 = world.rayTraceBlocks(vec1.addVector(0.01, 0, -0.01), vec2.addVector(0.01, 0, -0.01), true);
+            MovingObjectPosition hit3 = world.rayTraceBlocks(vec1.addVector(0.01, 0, 0.01), vec2.addVector(0.01, 0, 0.01), true);
+            MovingObjectPosition hit4 = world.rayTraceBlocks(vec1.addVector(-0.01, 0, 0.01), vec2.addVector(-0.01, 0, 0.01), true);
+
+            // System.out.println(hit1);
+            // System.out.println(hit2);
+            // System.out.println(hit3);
+            // System.out.println(hit4);
+
+            return hit1 == null && hit2 == null && hit3 == null && hit4 == null;
+        }
+        return false;
+    }
+
+
+
 }

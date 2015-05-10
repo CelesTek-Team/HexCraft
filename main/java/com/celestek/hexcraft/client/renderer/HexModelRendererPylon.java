@@ -334,7 +334,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
         // Fetch block data.
-        int meta = world.getBlockMetadata(x, y, z);            
+        int meta = world.getBlockMetadata(x, y, z);
+
+        if (meta >= 6)
+            meta = meta - 6;
 
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
@@ -693,6 +696,13 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, u, v); // A
                 }
+            }
+            else {
+                // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
             }
         }
         // If this is the first (opaque) render pass...

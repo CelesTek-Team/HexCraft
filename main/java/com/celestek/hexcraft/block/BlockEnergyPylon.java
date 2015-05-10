@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
+import com.celestek.hexcraft.client.renderer.HexModelRendererPylon;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
@@ -16,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -64,6 +67,173 @@ public class BlockEnergyPylon extends HexBlockContainer {
     public TileEntity createNewTileEntity(World world, int par2) {
         // Create the new TIle Entity.
         return new TileEnergyPylon();
+    }
+
+    /**
+     * Updates the blocks bounds based on its current state. Args: world, x, y, z
+     */
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+
+        if (meta >= 6)
+            meta = meta - 6;
+
+        if (meta == 0)
+            setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
+        else if (meta == 1)
+            setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMax);
+        else if (meta == 2)
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
+        else if (meta == 3)
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot);
+        else if (meta == 4)
+            setBlockBounds(1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+        else if (meta == 5)
+            setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+    }
+
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 0)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 1)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 2)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
+        else if (meta == 3)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoBot);
+        else if (meta == 4)
+            return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 5)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        
+        else if (meta == 6)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 7)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 8)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoTop,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
+        else if (meta == 9)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoTop);
+        else if (meta == 10)
+            return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        else if (meta == 11)
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        
+        else
+            return AxisAlignedBB.getBoundingBox(x, y, z, z + 1, y + 1, z + 1);
+    }
+
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 0) {
+            setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 1) {
+            setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 2) {
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
+        }
+        else if (meta == 3) {
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoBot);
+        }
+        else if (meta == 4) {
+            setBlockBounds(1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 5) {
+            setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        }
+        
+        else if (meta == 6) {
+            setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoTop, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 7) {
+            setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoTop, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 8) {
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoTop,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoTop,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
+        }
+        else if (meta == 9) {
+            setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
+                    HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoTop);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
+                    x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoTop);
+        }
+        else if (meta == 10) {
+            setBlockBounds(1 - HexModelRendererPylon.yMonoTop, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        }
+        else if (meta == 11) {
+            setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
+                    HexModelRendererPylon.yMonoTop, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
+            return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
+                    x + HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
+        }
+        
+        else {
+            return AxisAlignedBB.getBoundingBox(x, y, z, z + 1, y + 1, z + 1);
+        }
     }
 
     /**
