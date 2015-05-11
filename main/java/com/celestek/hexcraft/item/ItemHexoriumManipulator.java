@@ -88,7 +88,7 @@ public class ItemHexoriumManipulator extends Item {
                             TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
                             if (pylonA != null && pylonB != null) {
                                 if (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith) {
-                                    if (pylonA.addPylon(tx, ty, tz, true) && pylonB.addPylon(x, y, z, false))
+                                    if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true))
                                         System.out.println("Linked!");
                                     else {
                                         pylonA.removePylon(tx, ty, tz);

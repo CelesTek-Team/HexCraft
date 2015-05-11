@@ -312,6 +312,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
+
+        if (meta >= 6)
+            meta = meta - 6;
+
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
         if(meta == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
@@ -525,7 +529,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[10];
+        icon = new IIcon[11];
         // Load the pylon base textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
@@ -534,6 +538,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
         icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
         icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
         icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
+        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
     }
 
     /**

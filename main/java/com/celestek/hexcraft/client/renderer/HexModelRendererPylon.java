@@ -4,12 +4,16 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexPylon;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
+
+import java.math.MathContext;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -26,24 +30,24 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private float opacity;
 
     // Model constants.
-    public static float invOffset = 0.4F;
+    private static float invOffset = 0.4F;
 
     public static float yMonoBot = 0.125F;
     public static float yMonoTop = 0.875F;
 
-    public static float xMonoA = 0.1874F;
-    public static float xMonoB = 0.3437F;
-    public static float xMonoC = 0.6563F;
-    public static float xMonoD = 0.8126F;
-    public static float xMonoE = 0.6563F;
-    public static float xMonoF = 0.3437F;
+    private static float xMonoA = 0.1874F;
+    private static float xMonoB = 0.3437F;
+    private static float xMonoC = 0.6563F;
+    private static float xMonoD = 0.8126F;
+    private static float xMonoE = 0.6563F;
+    private static float xMonoF = 0.3437F;
 
-    public static float zMonoA = 0.5F;
-    public static float zMonoB = 0.7707F;
-    public static float zMonoC = 0.7707F;
-    public static float zMonoD = 0.5F;
-    public static float zMonoE = 0.2292F;
-    public static float zMonoF = 0.2292F;
+    private static float zMonoA = 0.5F;
+    private static float zMonoB = 0.7707F;
+    private static float zMonoC = 0.7707F;
+    private static float zMonoD = 0.5F;
+    private static float zMonoE = 0.2292F;
+    private static float zMonoF = 0.2292F;
 
 
     public static float yBaseBot = 0F;
@@ -54,129 +58,129 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     public static float zBaseMin = 0F;
     public static float zBaseMax = 1F;
 
-    public static float xPlatMin = 0.125F;
-    public static float xPlatMax = 0.875F;
+    private static float xPlatMin = 0.125F;
+    private static float xPlatMax = 0.875F;
     
-    public static float zPlatMin = 0.125F;
-    public static float zPlatMax = 0.875F;
+    private static float zPlatMin = 0.125F;
+    private static float zPlatMax = 0.875F;
 
 
-    public static float yRingTop = 0.25F;
+    private static float yRingTop = 0.25F;
 
-    public static float xRingA = 0.125F;
-    public static float xRingB = 0.3125F;
-    public static float xRingC = 0.6875F;
-    public static float xRingD = 0.875F;
-    public static float xRingE = 0.6875F;
-    public static float xRingF = 0.3125F;
+    private static float xRingA = 0.125F;
+    private static float xRingB = 0.3125F;
+    private static float xRingC = 0.6875F;
+    private static float xRingD = 0.875F;
+    private static float xRingE = 0.6875F;
+    private static float xRingF = 0.3125F;
 
-    public static float zRingA = 0.5F;
-    public static float zRingB = 0.8248F;
-    public static float zRingC = 0.8248F;
-    public static float zRingD = 0.5F;
-    public static float zRingE = 0.1752F;
-    public static float zRingF = 0.1752F;
+    private static float zRingA = 0.5F;
+    private static float zRingB = 0.8248F;
+    private static float zRingC = 0.8248F;
+    private static float zRingD = 0.5F;
+    private static float zRingE = 0.1752F;
+    private static float zRingF = 0.1752F;
     
 
-    private float uMonoTopA = 0.3F;
-    private float vMonoTopA = 4.5F;
-    private float uMonoTopB = 2.6F;
-    private float vMonoTopB = 0.25F;
-    private float uMonoTopC = 7.4F;
-    private float vMonoTopC = 0.25F;
-    private float uMonoTopD = 9.7F;
-    private float vMonoTopD = 4.5F;
-    private float uMonoTopE = 7.4F;
-    private float vMonoTopE = 8.75F;
-    private float uMonoTopF = 2.6F;
-    private float vMonoTopF = 8.75F;
+    private static float uMonoTopA = 0.3F;
+    private static float vMonoTopA = 4.5F;
+    private static float uMonoTopB = 2.6F;
+    private static float vMonoTopB = 0.25F;
+    private static float uMonoTopC = 7.4F;
+    private static float vMonoTopC = 0.25F;
+    private static float uMonoTopD = 9.7F;
+    private static float vMonoTopD = 4.5F;
+    private static float uMonoTopE = 7.4F;
+    private static float vMonoTopE = 8.75F;
+    private static float uMonoTopF = 2.6F;
+    private static float vMonoTopF = 8.75F;
 
-    private float uMonoSide = 11.25F;
-    private float UMonoSide = 15.75F;
-    private float vMonoSide = 0.25F;
-    private float VMonoSide = 11.75F;
-
-
-
-    private float uBaseTop = 2F;
-    private float vBaseTop = 2F;
-    private float UBaseTop = 14F;
-    private float VBaseTop = 14F;
-
-    private float uBaseA1 = 0F;
-    private float vBaseA1 = 0F;
-    private float uBaseA2 = 16F;
-    private float vBaseA2 = 0F;
-    private float uBaseA3 = 14F;
-    private float vBaseA3 = 3F;
-    private float uBaseA4 = 2F;
-    private float vBaseA4 = 3F;
-
-    private float uBaseB1 = 0F;
-    private float vBaseB1 = 3F;
-    private float uBaseB2 = 16F;
-    private float vBaseB2 = 3F;
-    private float uBaseB3 = 14F;
-    private float vBaseB3 = 6F;
-    private float uBaseB4 = 2F;
-    private float vBaseB4 = 6F;
+    private static float uMonoSide = 11.25F;
+    private static float UMonoSide = 15.75F;
+    private static float vMonoSide = 0.25F;
+    private static float VMonoSide = 11.75F;
 
 
-    private float uRingA1 = 0F;
-    private float vRingA1 = 6.5F;
-    private float uRingA2 = 6F;
-    private float vRingA2 = 6.5F;
-    private float uRingA3 = 5.5F;
-    private float vRingA3 = 9F;
-    private float uRingA4 = 0.5F;
-    private float vRingA4 = 9F;
 
-    private float uRingB1 = 8F;
-    private float vRingB1 = 6.5F;
-    private float uRingB2 = 14F;
-    private float vRingB2 = 6.5F;
-    private float uRingB3 = 13.5F;
-    private float vRingB3 = 9F;
-    private float uRingB4 = 8.5F;
-    private float vRingB4 = 9F;
+    private static float uBaseTop = 2F;
+    private static float vBaseTop = 2F;
+    private static float UBaseTop = 14F;
+    private static float VBaseTop = 14F;
 
-    private float uRingC1 = 0F;
-    private float vRingC1 = 11F;
-    private float uRingC2 = 6F;
-    private float vRingC2 = 11F;
-    private float uRingC3 = 5.5F;
-    private float vRingC3 = 13.5F;
-    private float uRingC4 = 0.5F;
-    private float vRingC4 = 13.5F;
+    private static float uBaseA1 = 0F;
+    private static float vBaseA1 = 0F;
+    private static float uBaseA2 = 16F;
+    private static float vBaseA2 = 0F;
+    private static float uBaseA3 = 14F;
+    private static float vBaseA3 = 3F;
+    private static float uBaseA4 = 2F;
+    private static float vBaseA4 = 3F;
 
-    private float uRingD1 = 0.5F;
-    private float vRingD1 = 9F;
-    private float uRingD2 = 5.5F;
-    private float vRingD2 = 9F;
-    private float uRingD3 = 5.5F;
-    private float vRingD3 = 11F;
-    private float uRingD4 = 0.5F;
-    private float vRingD4 = 11F;
+    private static float uBaseB1 = 0F;
+    private static float vBaseB1 = 3F;
+    private static float uBaseB2 = 16F;
+    private static float vBaseB2 = 3F;
+    private static float uBaseB3 = 14F;
+    private static float vBaseB3 = 6F;
+    private static float uBaseB4 = 2F;
+    private static float vBaseB4 = 6F;
 
-    private float uRingE1 = 8.5F;
-    private float vRingE1 = 9F;
-    private float uRingE2 = 13.5F;
-    private float vRingE2 = 9F;
-    private float uRingE3 = 13.5F;
-    private float vRingE3 = 11F;
-    private float uRingE4 = 8.5F;
-    private float vRingE4 = 11F;
 
-    private float uRingF1 = 0.5F;
-    private float vRingF1 = 13.5F;
-    private float uRingF2 = 5.5F;
-    private float vRingF2 = 13.5F;
-    private float uRingF3 = 5.5F;
-    private float vRingF3 = 15.5F;
-    private float uRingF4 = 0.5F;
-    private float vRingF4 = 15.5F;
+    private static float uRingA1 = 0F;
+    private static float vRingA1 = 6.5F;
+    private static float uRingA2 = 6F;
+    private static float vRingA2 = 6.5F;
+    private static float uRingA3 = 5.5F;
+    private static float vRingA3 = 9F;
+    private static float uRingA4 = 0.5F;
+    private static float vRingA4 = 9F;
 
-    private float off = 0.01F;
+    private static float uRingB1 = 8F;
+    private static float vRingB1 = 6.5F;
+    private static float uRingB2 = 14F;
+    private static float vRingB2 = 6.5F;
+    private static float uRingB3 = 13.5F;
+    private static float vRingB3 = 9F;
+    private static float uRingB4 = 8.5F;
+    private static float vRingB4 = 9F;
+
+    private static float uRingC1 = 0F;
+    private static float vRingC1 = 11F;
+    private static float uRingC2 = 6F;
+    private static float vRingC2 = 11F;
+    private static float uRingC3 = 5.5F;
+    private static float vRingC3 = 13.5F;
+    private static float uRingC4 = 0.5F;
+    private static float vRingC4 = 13.5F;
+
+    private static float uRingD1 = 0.5F;
+    private static float vRingD1 = 9F;
+    private static float uRingD2 = 5.5F;
+    private static float vRingD2 = 9F;
+    private static float uRingD3 = 5.5F;
+    private static float vRingD3 = 11F;
+    private static float uRingD4 = 0.5F;
+    private static float vRingD4 = 11F;
+
+    private static float uRingE1 = 8.5F;
+    private static float vRingE1 = 9F;
+    private static float uRingE2 = 13.5F;
+    private static float vRingE2 = 9F;
+    private static float uRingE3 = 13.5F;
+    private static float vRingE3 = 11F;
+    private static float uRingE4 = 8.5F;
+    private static float vRingE4 = 11F;
+
+    private static float uRingF1 = 0.5F;
+    private static float vRingF1 = 13.5F;
+    private static float uRingF2 = 5.5F;
+    private static float vRingF2 = 13.5F;
+    private static float uRingF3 = 5.5F;
+    private static float vRingF3 = 15.5F;
+    private static float uRingF4 = 0.5F;
+    private static float vRingF4 = 15.5F;
+
+    private static float off = 0.01F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -695,6 +699,85 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(yMonoBot, xMonoF, zMonoF, U, V); // F'
                     tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, u, v); // A
+                }
+
+                if (tileEntity.pylons != null) {
+                    tessellator.setColorRGBA_F(r, g, b, HexColors.opacityOpaque);
+                    c = block.getIcon(10, 0);
+                    u = c.getMinU();
+                    U = c.getMaxU();
+                    v = c.getMinV();
+                    V = c.getMaxV();
+                    for (HexPylon pylon : tileEntity.pylons) {
+                        if (pylon.pylon != null)
+                            if (pylon.beam) {
+                                if (tileEntity.monolith == 18 || pylon.pylon.monolith == 18) {
+                                    r = HexColors.colorWhiteR;
+                                    g = HexColors.colorWhiteG;
+                                    b = HexColors.colorWhiteB;
+                                    c = block.getIcon(10, 0);
+                                    u = c.getMinU();
+                                    U = c.getMaxU();
+                                    v = c.getMinV();
+                                    V = c.getMaxV();
+                                }
+                                Vec3 vec1 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord));
+
+                                Vec3 vec10 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+                                vec10.rotateAroundY((float) -Math.PI / 2);
+                                vec10.yCoord = 0;
+
+                                Vec3 vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+                                vec2.rotateAroundY((float) -Math.PI / 2);
+                                vec2.yCoord = 0;
+                                vec2 = scaleAndCenterVector(vec2, 0.1);
+                                Vec3 vec3 = vec2.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+
+                                Vec3 vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+                                vec4.rotateAroundY((float) -Math.PI / 2);
+                                vec4.yCoord = 0;
+                                vec4 = scaleAndCenterVector(vec4, -0.1);
+                                Vec3 vec5 = vec4.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+
+                                Vec3 vec6 = vec10.crossProduct(vec1);
+                                vec6 = scaleAndCenterVector(vec6, 0.1);
+                                Vec3 vec7 = vec6.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+
+                                Vec3 vec8 = vec10.crossProduct(vec1);
+                                vec8 = scaleAndCenterVector(vec8, -0.1);
+                                Vec3 vec9 = vec8.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
+
+                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, U, v); // B
+                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, U, V); // C
+                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, V); // D
+
+                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, V); // D
+                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, U, V); // C
+                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, U, v); // B
+                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+
+                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, u, v); // E
+                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, v); // F
+                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // G
+                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, u, V); // H
+
+                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, u, V); // H
+                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // G
+                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, v); // F
+                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, u, v); // E
+
+                                System.out.println(vec1);
+                                System.out.println(vec2);
+                                System.out.println(vec3);
+                                System.out.println(vec4);
+                                System.out.println(vec5);
+                                System.out.println(vec6);
+                                System.out.println(vec7);
+                                System.out.println(vec8);
+                                System.out.println(vec9);
+                            }
+                    }
                 }
             }
             else {
@@ -1308,5 +1391,12 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     public boolean shouldRender3DInInventory(int i)
     {
         return true;
+    }
+
+    private Vec3 scaleAndCenterVector(Vec3 vec, double l) {
+        vec.xCoord = vec.xCoord / vec.lengthVector() * l;
+        vec.yCoord = vec.yCoord / vec.lengthVector() * l;
+        vec.zCoord = vec.zCoord / vec.lengthVector() * l;
+        return vec.addVector(0.5, 0.5, 0.5);
     }
 }

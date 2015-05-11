@@ -78,11 +78,13 @@ public class TileEnergyPylon extends TileEntity {
             // Save the coordinates of machines to arrays.
             int i = 0;
             for (HexPylon entry : pylons) {
-                pylonsX[i] = entry.pylon.xCoord;
-                pylonsY[i] = entry.pylon.yCoord;
-                pylonsZ[i] = entry.pylon.zCoord;
-                pylonsBeam[i] = entry.getBeamAsInt();
-                i++;
+                if (entry.pylon != null) {
+                    pylonsX[i] = entry.pylon.xCoord;
+                    pylonsY[i] = entry.pylon.yCoord;
+                    pylonsZ[i] = entry.pylon.zCoord;
+                    pylonsBeam[i] = entry.getBeamAsInt();
+                    i++;
+                }
             }
             // Write the coordinate arrays.
             tagCompound.setIntArray("PylonsX", pylonsX);
@@ -234,10 +236,11 @@ public class TileEnergyPylon extends TileEntity {
                 pylons = new ArrayList<HexPylon>();
 
             for (HexPylon entry : pylons) {
-                if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
-                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that pylon at (" + x + ", " + y + ", " + z + ") already exists");
-                    return false;
-                }
+                if (entry.pylon != null)
+                    if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
+                        System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that pylon at (" + x + ", " + y + ", " + z + ") already exists");
+                        return false;
+                    }
             }
 
             pylons.add(new HexPylon(pylon, beam));
@@ -258,11 +261,11 @@ public class TileEnergyPylon extends TileEntity {
 
             while (iterator.hasNext()) {
                 HexPylon entry = iterator.next();
-
-                if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
-                    iterator.remove();
-                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") removing pylon at (" + x + ", " + y + ", " + z + ")");
-                }
+                    if (entry.pylon != null)
+                        if (entry.pylon.xCoord == x && entry.pylon.yCoord == y && entry.pylon.zCoord == z) {
+                            iterator.remove();
+                            System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") removing pylon at (" + x + ", " + y + ", " + z + ")");
+                        }
             }
 
             if (pylons.size() == 0)
@@ -275,7 +278,8 @@ public class TileEnergyPylon extends TileEntity {
     public void clearPylons() {
         if (pylons != null) {
             for (HexPylon pylon : pylons) {
-                pylon.pylon.removePylon(xCoord, yCoord, zCoord);
+                if (pylon.pylon != null)
+                    pylon.pylon.removePylon(xCoord, yCoord, zCoord);
             }
             pylons = null;
         }
@@ -285,14 +289,17 @@ public class TileEnergyPylon extends TileEntity {
         if (pylons != null) {
             ArrayList<HexPylon> remove = new ArrayList<HexPylon>();
             for (HexPylon pylon : pylons) {
-                if(!TileEnergyPylon.tracePylons(worldObj, xCoord, yCoord, zCoord, pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord)) {
-                    remove.add(pylon);
-                    System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that it can no longer see pylon at (" + pylon.pylon.xCoord + ", " + pylon.pylon.yCoord + ", " + pylon.pylon.zCoord + ")");
-                }
+                if (pylon.pylon != null)
+                    if(!TileEnergyPylon.tracePylons(worldObj, xCoord, yCoord, zCoord, pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord)) {
+                        remove.add(pylon);
+                        System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") reported that it can no longer see pylon at (" + pylon.pylon.xCoord + ", " + pylon.pylon.yCoord + ", " + pylon.pylon.zCoord + ")");
+                    }
             }
             for (HexPylon pylon : remove) {
-                removePylon(pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord);
-                pylon.pylon.removePylon(xCoord, yCoord, zCoord);
+                if (pylon.pylon != null) {
+                    removePylon(pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord);
+                    pylon.pylon.removePylon(xCoord, yCoord, zCoord);
+                }
             }
         }
     }
