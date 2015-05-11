@@ -228,3 +228,12 @@ item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
+
+
+msg.linkStart.txt=[Hexorium Manipulator] Linking...
+msg.linkSuccess.txt=[Hexorium Manipulator] Pylons successfully linked.
+msg.linkBreak.txt=[Hexorium Manipulator] Pylons already linked. Breaking link.
+msg.linkFail1.txt=[Hexorium Manipulator] Linking failed. Incompatible color.
+msg.linkFail2.txt=[Hexorium Manipulator] Linking failed. Pylon no longer exists.
+msg.linkFail3.txt=[Hexorium Manipulator] Linking failed. Pylons too far.
+msg.linkFail4.txt=[Hexorium Manipulator] Linking failed. Beam path obstructed.

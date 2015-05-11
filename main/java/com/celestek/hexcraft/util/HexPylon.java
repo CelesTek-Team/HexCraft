@@ -10,20 +10,20 @@ import net.minecraft.block.Block;
  */
 public class HexPylon {
     public TileEnergyPylon pylon;
-    public boolean beam;
+    public boolean master;
 
-    public HexPylon(TileEnergyPylon pylon, boolean beam) {
+    public HexPylon(TileEnergyPylon pylon, boolean master) {
         this.pylon = pylon;
-        this.beam = beam;
+        this.master = master;
     }
 
-    public HexPylon(TileEnergyPylon pylon, int beam) {
+    public HexPylon(TileEnergyPylon pylon, int master) {
         this.pylon = pylon;
-        this.beam = beam == 1;
+        this.master = master == 1;
     }
 
-    public int getBeamAsInt() {
-        if (beam)
+    public int getMasterAsInt() {
+        if (master)
             return 1;
         else
             return 0;

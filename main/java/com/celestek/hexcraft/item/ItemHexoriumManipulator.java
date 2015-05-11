@@ -13,7 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 /**
@@ -75,30 +78,36 @@ public class ItemHexoriumManipulator extends Item {
                         stack.stackTagCompound.setInteger("Z", z);
                         stack.stackTagCompound.setBoolean("Linking", true);
                         stack.setItemDamage(1);
+                        player.addChatMessage(new ChatComponentTranslation("msg.linkStart.txt"));
                     }
                     else {
                         int tx = stack.stackTagCompound.getInteger("X");
                         int ty = stack.stackTagCompound.getInteger("Y");
                         int tz = stack.stackTagCompound.getInteger("Z");
 
+                        double len = Vec3.createVectorHelper(tx, ty, tz).subtract(Vec3.createVectorHelper(x, y, z)).lengthVector();
+
                         if (TileEnergyPylon.tracePylons(world, x, y, z, tx, ty, tz)) {
-                            System.out.println("Beam can be formed!");
-
-                            TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
-                            TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
-                            if (pylonA != null && pylonB != null) {
-                                if (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith) {
-                                    if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true))
-                                        System.out.println("Linked!");
-                                    else {
-                                        pylonA.removePylon(tx, ty, tz);
-                                        pylonB.removePylon(x, y, z);
-                                        System.out.println("Linking failed.");
-                                    }
-
-                                }
-                            }
-                        }
+                            if (len <= 32) {
+                                TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
+                                TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
+                                if (pylonA != null && pylonB != null) {
+                                    if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
+                                        if (pylonA.addPylon(tx, ty, tz, true) && pylonB.addPylon(x, y, z, false))
+                                            player.addChatMessage(new ChatComponentTranslation("msg.linkSuccess.txt"));
+                                        else {
+                                            pylonA.removePylon(tx, ty, tz);
+                                            pylonB.removePylon(x, y, z);
+                                            player.addChatMessage(new ChatComponentTranslation("msg.linkBreak.txt"));
+                                        }
+                                    } else
+                                        player.addChatMessage(new ChatComponentTranslation("msg.linkFail1.txt"));
+                                } else
+                                    player.addChatMessage(new ChatComponentTranslation("msg.linkFail2.txt"));
+                            } else
+                                player.addChatMessage(new ChatComponentTranslation("msg.linkFail3.txt"));
+                        } else
+                            player.addChatMessage(new ChatComponentTranslation("msg.linkFail4.txt"));
 
                         stack.stackTagCompound.setBoolean("Linking", false);
                         stack.setItemDamage(0);

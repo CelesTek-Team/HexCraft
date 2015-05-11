@@ -12,8 +12,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
-import java.math.MathContext;
+import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -29,7 +30,11 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private int brightness;
     private float opacity;
 
+    private final Random random = new Random();
+
     // Model constants.
+    private static float beamRadius = 0.05F;
+
     private static float invOffset = 0.4F;
 
     public static float yMonoBot = 0.125F;
@@ -180,7 +185,61 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private static float uRingF4 = 0.5F;
     private static float vRingF4 = 15.5F;
 
-    private static float off = 0.01F;
+    private static float yBallTop = 0.5975F;
+    private static float yBallMid = 0.5F;
+    private static float yBallBot = 0.4025F;
+
+    private static float xBallA1 = 0.37F;
+    private static float xBallB1 = 0.435F;
+    private static float xBallC1 = 0.565F;
+    private static float xBallD1 = 0.63F;
+    private static float xBallE1 = 0.565F;
+    private static float xBallF1 = 0.435F;
+
+    private static float xBallA2 = 0.435F;
+    private static float xBallB2 = 0.4675F;
+    private static float xBallC2 = 0.5325F;
+    private static float xBallD2 = 0.565F;
+    private static float xBallE2 = 0.5325F;
+    private static float xBallF2 = 0.4675F;
+
+    private static float zBallA1 = 0.5F;
+    private static float zBallB1 = 0.6126F;
+    private static float zBallC1 = 0.6126F;
+    private static float zBallD1 = 0.5F;
+    private static float zBallE1 = 0.3874F;
+    private static float zBallF1 = 0.3874F;
+
+    private static float zBallA2 = 0.5F;
+    private static float zBallB2 = 0.5563F;
+    private static float zBallC2 = 0.5563F;
+    private static float zBallD2 = 0.5F;
+    private static float zBallE2 = 0.4437F;
+    private static float zBallF2 = 0.4437F;
+
+    private static float uBallA = 0F;
+    private static float uBallB = 0.75F;
+    private static float uBallC = 2.25F;
+    private static float uBallD = 4F;
+    private static float uBallE = 2.25F;
+    private static float uBallF = 0.75F;
+
+    private static float vBallA = 14F;
+    private static float vBallB = 12.25F;
+    private static float vBallC = 12.25F;
+    private static float vBallD = 14F;
+    private static float vBallE = 15.75F;
+    private static float vBallF = 15.75F;
+
+    private static float uBallG = 4F;
+    private static float uBallH = 8F;
+    private static float uBallI = 7F;
+    private static float uBallJ = 5F;
+
+    private static float vBallG = 12.25F;
+    private static float vBallH = 12.25F;
+    private static float vBallI = 15.75F;
+    private static float vBallJ = 15.75F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -335,10 +394,13 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         // Fetch block data.
         int meta = world.getBlockMetadata(x, y, z);
+        float r = HexColors.colorWhiteR;
+        float g = HexColors.colorWhiteG;
+        float b = HexColors.colorWhiteB;
+        IIcon c = block.getIcon(6, 0);
 
         if (meta >= 6)
             meta = meta - 6;
@@ -347,93 +409,90 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(x, y, z);
 
+        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        boolean renderMonolith = false;
+        if (tileEntity != null)
+            if (tileEntity.monolith > 0)
+                renderMonolith = true;
+
+        if (renderMonolith) {
+            if (tileEntity.monolith == 1) {
+                r = HexColors.colorRedR;
+                g = HexColors.colorRedG;
+                b = HexColors.colorRedB;
+            } else if (tileEntity.monolith == 2) {
+                r = HexColors.colorOrangeR;
+                g = HexColors.colorOrangeG;
+                b = HexColors.colorOrangeB;
+            } else if (tileEntity.monolith == 3) {
+                r = HexColors.colorYellowR;
+                g = HexColors.colorYellowG;
+                b = HexColors.colorYellowB;
+            } else if (tileEntity.monolith == 4) {
+                r = HexColors.colorLimeR;
+                g = HexColors.colorLimeG;
+                b = HexColors.colorLimeB;
+            } else if (tileEntity.monolith == 5) {
+                r = HexColors.colorGreenR;
+                g = HexColors.colorGreenG;
+                b = HexColors.colorGreenB;
+            } else if (tileEntity.monolith == 6) {
+                r = HexColors.colorTurquoiseR;
+                g = HexColors.colorTurquoiseG;
+                b = HexColors.colorTurquoiseB;
+            } else if (tileEntity.monolith == 7) {
+                r = HexColors.colorCyanR;
+                g = HexColors.colorCyanG;
+                b = HexColors.colorCyanB;
+            } else if (tileEntity.monolith == 8) {
+                r = HexColors.colorSkyBlueR;
+                g = HexColors.colorSkyBlueG;
+                b = HexColors.colorSkyBlueB;
+            } else if (tileEntity.monolith == 9) {
+                r = HexColors.colorBlueR;
+                g = HexColors.colorBlueG;
+                b = HexColors.colorBlueB;
+            } else if (tileEntity.monolith == 10) {
+                r = HexColors.colorPurpleR;
+                g = HexColors.colorPurpleG;
+                b = HexColors.colorPurpleB;
+            } else if (tileEntity.monolith == 11) {
+                r = HexColors.colorMagentaR;
+                g = HexColors.colorMagentaG;
+                b = HexColors.colorMagentaB;
+            } else if (tileEntity.monolith == 12) {
+                r = HexColors.colorPinkR;
+                g = HexColors.colorPinkG;
+                b = HexColors.colorPinkB;
+            } else if (tileEntity.monolith == 13) {
+                r = HexColors.colorWhiteR;
+                g = HexColors.colorWhiteG;
+                b = HexColors.colorWhiteB;
+            } else if (tileEntity.monolith == 14) {
+                r = HexColors.colorLightGrayR;
+                g = HexColors.colorLightGrayG;
+                b = HexColors.colorLightGrayB;
+            } else if (tileEntity.monolith == 15) {
+                r = HexColors.colorGrayR;
+                g = HexColors.colorGrayG;
+                b = HexColors.colorGrayB;
+            } else if (tileEntity.monolith == 16) {
+                r = HexColors.colorDarkGrayR;
+                g = HexColors.colorDarkGrayG;
+                b = HexColors.colorDarkGrayB;
+            } else if (tileEntity.monolith == 17) {
+                r = HexColors.colorBlackR;
+                g = HexColors.colorBlackG;
+                b = HexColors.colorBlackB;
+            } else if (tileEntity.monolith == 18) {
+                c = block.getIcon(7, 0);
+            }
+        }
+
         // Check if this is the second (transparent) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 1) {
 
-            TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
-
-            boolean renderMonolith = false;
-            if (tileEntity != null)
-                if (tileEntity.monolith > 0)
-                    renderMonolith = true;
-
             if (renderMonolith) {
-                float r = HexColors.colorWhiteR;
-                float g = HexColors.colorWhiteG;
-                float b = HexColors.colorWhiteB;
-                IIcon c = block.getIcon(6, 0);
-
-                if (tileEntity.monolith == 1) {
-                    r = HexColors.colorRedR;
-                    g = HexColors.colorRedG;
-                    b = HexColors.colorRedB;
-                } else if (tileEntity.monolith == 2) {
-                    r = HexColors.colorOrangeR;
-                    g = HexColors.colorOrangeG;
-                    b = HexColors.colorOrangeB;
-                } else if (tileEntity.monolith == 3) {
-                    r = HexColors.colorYellowR;
-                    g = HexColors.colorYellowG;
-                    b = HexColors.colorYellowB;
-                } else if (tileEntity.monolith == 4) {
-                    r = HexColors.colorLimeR;
-                    g = HexColors.colorLimeG;
-                    b = HexColors.colorLimeB;
-                } else if (tileEntity.monolith == 5) {
-                    r = HexColors.colorGreenR;
-                    g = HexColors.colorGreenG;
-                    b = HexColors.colorGreenB;
-                } else if (tileEntity.monolith == 6) {
-                    r = HexColors.colorTurquoiseR;
-                    g = HexColors.colorTurquoiseG;
-                    b = HexColors.colorTurquoiseB;
-                } else if (tileEntity.monolith == 7) {
-                    r = HexColors.colorCyanR;
-                    g = HexColors.colorCyanG;
-                    b = HexColors.colorCyanB;
-                } else if (tileEntity.monolith == 8) {
-                    r = HexColors.colorSkyBlueR;
-                    g = HexColors.colorSkyBlueG;
-                    b = HexColors.colorSkyBlueB;
-                } else if (tileEntity.monolith == 9) {
-                    r = HexColors.colorBlueR;
-                    g = HexColors.colorBlueG;
-                    b = HexColors.colorBlueB;
-                } else if (tileEntity.monolith == 10) {
-                    r = HexColors.colorPurpleR;
-                    g = HexColors.colorPurpleG;
-                    b = HexColors.colorPurpleB;
-                } else if (tileEntity.monolith == 11) {
-                    r = HexColors.colorMagentaR;
-                    g = HexColors.colorMagentaG;
-                    b = HexColors.colorMagentaB;
-                } else if (tileEntity.monolith == 12) {
-                    r = HexColors.colorPinkR;
-                    g = HexColors.colorPinkG;
-                    b = HexColors.colorPinkB;
-                } else if (tileEntity.monolith == 13) {
-                    r = HexColors.colorWhiteR;
-                    g = HexColors.colorWhiteG;
-                    b = HexColors.colorWhiteB;
-                } else if (tileEntity.monolith == 14) {
-                    r = HexColors.colorLightGrayR;
-                    g = HexColors.colorLightGrayG;
-                    b = HexColors.colorLightGrayB;
-                } else if (tileEntity.monolith == 15) {
-                    r = HexColors.colorGrayR;
-                    g = HexColors.colorGrayG;
-                    b = HexColors.colorGrayB;
-                } else if (tileEntity.monolith == 16) {
-                    r = HexColors.colorDarkGrayR;
-                    g = HexColors.colorDarkGrayG;
-                    b = HexColors.colorDarkGrayB;
-                } else if (tileEntity.monolith == 17) {
-                    r = HexColors.colorBlackR;
-                    g = HexColors.colorBlackG;
-                    b = HexColors.colorBlackB;
-                } else if (tileEntity.monolith == 18) {
-                    c = block.getIcon(7, 0);
-                }
 
                 /* Monolith */
                 // Set up brightness and color.
@@ -700,85 +759,6 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, u, v); // A
                 }
-
-                if (tileEntity.pylons != null) {
-                    tessellator.setColorRGBA_F(r, g, b, HexColors.opacityOpaque);
-                    c = block.getIcon(10, 0);
-                    u = c.getMinU();
-                    U = c.getMaxU();
-                    v = c.getMinV();
-                    V = c.getMaxV();
-                    for (HexPylon pylon : tileEntity.pylons) {
-                        if (pylon.pylon != null)
-                            if (pylon.beam) {
-                                if (tileEntity.monolith == 18 || pylon.pylon.monolith == 18) {
-                                    r = HexColors.colorWhiteR;
-                                    g = HexColors.colorWhiteG;
-                                    b = HexColors.colorWhiteB;
-                                    c = block.getIcon(10, 0);
-                                    u = c.getMinU();
-                                    U = c.getMaxU();
-                                    v = c.getMinV();
-                                    V = c.getMaxV();
-                                }
-                                Vec3 vec1 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(pylon.pylon.xCoord, pylon.pylon.yCoord, pylon.pylon.zCoord));
-
-                                Vec3 vec10 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-                                vec10.rotateAroundY((float) -Math.PI / 2);
-                                vec10.yCoord = 0;
-
-                                Vec3 vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-                                vec2.rotateAroundY((float) -Math.PI / 2);
-                                vec2.yCoord = 0;
-                                vec2 = scaleAndCenterVector(vec2, 0.1);
-                                Vec3 vec3 = vec2.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-
-                                Vec3 vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-                                vec4.rotateAroundY((float) -Math.PI / 2);
-                                vec4.yCoord = 0;
-                                vec4 = scaleAndCenterVector(vec4, -0.1);
-                                Vec3 vec5 = vec4.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-
-                                Vec3 vec6 = vec10.crossProduct(vec1);
-                                vec6 = scaleAndCenterVector(vec6, 0.1);
-                                Vec3 vec7 = vec6.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-
-                                Vec3 vec8 = vec10.crossProduct(vec1);
-                                vec8 = scaleAndCenterVector(vec8, -0.1);
-                                Vec3 vec9 = vec8.addVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-
-                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, U, v); // B
-                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, U, V); // C
-                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, V); // D
-
-                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, V); // D
-                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, U, V); // C
-                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, U, v); // B
-                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-
-                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, u, v); // E
-                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, v); // F
-                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // G
-                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, u, V); // H
-
-                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, u, V); // H
-                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // G
-                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, v); // F
-                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, u, v); // E
-
-                                System.out.println(vec1);
-                                System.out.println(vec2);
-                                System.out.println(vec3);
-                                System.out.println(vec4);
-                                System.out.println(vec5);
-                                System.out.println(vec6);
-                                System.out.println(vec7);
-                                System.out.println(vec8);
-                                System.out.println(vec9);
-                            }
-                    }
-                }
             }
             else {
                 // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
@@ -790,13 +770,528 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         }
         // If this is the first (opaque) render pass...
         else {
+            if (renderMonolith) {
+
+                /* Monolith */
+                // Set up brightness and color.
+                tessellator.setBrightness(brightness);
+                tessellator.setColorOpaque_F(r, g, b);
+
+                // Render the monolith. Use the block meta to rotate the model.
+                if (meta == 0) {
+                    // Top Face
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallTop, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallTop, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallTop, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallTop, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallTop, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallTop, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xBallF1, 1 - yBallMid, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+                    tessellator.addVertexWithUV(xBallE1, 1 - yBallMid, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallTop, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallTop, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+
+                    tessellator.addVertexWithUV(xBallE1, 1 - yBallMid, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+                    tessellator.addVertexWithUV(xBallD1, 1 - yBallMid, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallTop, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallTop, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+
+                    tessellator.addVertexWithUV(xBallD1, 1 - yBallMid, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+                    tessellator.addVertexWithUV(xBallC1, 1 - yBallMid, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallTop, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallTop, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+
+                    tessellator.addVertexWithUV(xBallC1, 1 - yBallMid, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+                    tessellator.addVertexWithUV(xBallB1, 1 - yBallMid, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallTop, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallTop, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+
+                    tessellator.addVertexWithUV(xBallB1, 1 - yBallMid, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+                    tessellator.addVertexWithUV(xBallA1, 1 - yBallMid, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallTop, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+
+                    tessellator.addVertexWithUV(xBallA1, 1 - yBallMid, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+                    tessellator.addVertexWithUV(xBallF1, 1 - yBallMid, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallTop, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallBot, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallBot, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(xBallE1, 1 - yBallMid, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(xBallF1, 1 - yBallMid, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallBot, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(xBallD1, 1 - yBallMid, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(xBallE1, 1 - yBallMid, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallBot, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(xBallC1, 1 - yBallMid, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(xBallD1, 1 - yBallMid, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallBot, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallBot, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(xBallB1, 1 - yBallMid, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(xBallC1, 1 - yBallMid, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallBot, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallBot, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(xBallA1, 1 - yBallMid, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(xBallB1, 1 - yBallMid, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallBot, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallBot, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(xBallF1, 1 - yBallMid, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(xBallA1, 1 - yBallMid, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+
+                    // Bottom Face
+                    tessellator.addVertexWithUV(xBallB2, 1 - yBallBot, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(xBallC2, 1 - yBallBot, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(xBallA2, 1 - yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallE2, 1 - yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(xBallF2, 1 - yBallBot, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                } else if (meta == 1) {
+                    // Top Face
+                    tessellator.addVertexWithUV(xBallB2, yBallTop, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(xBallC2, yBallTop, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(xBallD2, yBallTop, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallA2, yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(xBallA2, yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(xBallD2, yBallTop, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallE2, yBallTop, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(xBallF2, yBallTop, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xBallF2, yBallTop, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+                    tessellator.addVertexWithUV(xBallE2, yBallTop, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(xBallE1, yBallMid, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(xBallF1, yBallMid, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+
+                    tessellator.addVertexWithUV(xBallE2, yBallTop, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+                    tessellator.addVertexWithUV(xBallD2, yBallTop, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(xBallD1, yBallMid, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(xBallE1, yBallMid, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+
+                    tessellator.addVertexWithUV(xBallD2, yBallTop, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+                    tessellator.addVertexWithUV(xBallC2, yBallTop, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(xBallC1, yBallMid, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(xBallD1, yBallMid, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+
+                    tessellator.addVertexWithUV(xBallC2, yBallTop, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+                    tessellator.addVertexWithUV(xBallB2, yBallTop, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(xBallB1, yBallMid, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(xBallC1, yBallMid, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+
+                    tessellator.addVertexWithUV(xBallB2, yBallTop, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+                    tessellator.addVertexWithUV(xBallA2, yBallTop, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(xBallA1, yBallMid, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(xBallB1, yBallMid, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+
+                    tessellator.addVertexWithUV(xBallA2, yBallTop, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+                    tessellator.addVertexWithUV(xBallF2, yBallTop, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(xBallF1, yBallMid, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(xBallA1, yBallMid, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xBallF1, yBallMid, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+                    tessellator.addVertexWithUV(xBallE1, yBallMid, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(xBallE2, yBallBot, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(xBallF2, yBallBot, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+
+                    tessellator.addVertexWithUV(xBallE1, yBallMid, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+                    tessellator.addVertexWithUV(xBallD1, yBallMid, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(xBallE2, yBallBot, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+
+                    tessellator.addVertexWithUV(xBallD1, yBallMid, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+                    tessellator.addVertexWithUV(xBallC1, yBallMid, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(xBallC2, yBallBot, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+
+                    tessellator.addVertexWithUV(xBallC1, yBallMid, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+                    tessellator.addVertexWithUV(xBallB1, yBallMid, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(xBallB2, yBallBot, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(xBallC2, yBallBot, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+
+                    tessellator.addVertexWithUV(xBallB1, yBallMid, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+                    tessellator.addVertexWithUV(xBallA1, yBallMid, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(xBallB2, yBallBot, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+
+                    tessellator.addVertexWithUV(xBallA1, yBallMid, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+                    tessellator.addVertexWithUV(xBallF1, yBallMid, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(xBallF2, yBallBot, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+                    
+                    // Bottom Face
+                    tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallC2, yBallBot, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(xBallB2, yBallBot, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(xBallF2, yBallBot, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(xBallE2, yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                } else if (meta == 2) {
+                    // Top Face
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallTop, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallTop, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallTop, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallTop, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, 1 - yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, 1 - yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+
+                    // Bottom Face
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, 1 - yBallBot, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, 1 - yBallBot, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallBot, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                } else if (meta == 3) {
+                    // Top Face
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallTop, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallTop, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallTop, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallTop, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallTop, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallTop, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+
+                    tessellator.addVertexWithUV(zBallE1, xBallE1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+
+                    tessellator.addVertexWithUV(zBallD1, xBallD1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+
+                    tessellator.addVertexWithUV(zBallC1, xBallC1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+
+                    tessellator.addVertexWithUV(zBallB1, xBallB1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+
+                    tessellator.addVertexWithUV(zBallA1, xBallA1, yBallMid, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+                    tessellator.addVertexWithUV(zBallF1, xBallF1, yBallMid, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallBot, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+
+                    // Bottom Face
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallC2, xBallC2, yBallBot, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(zBallB2, xBallB2, yBallBot, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(zBallF2, xBallF2, yBallBot, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(zBallE2, xBallE2, yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                } else if (meta == 4) {
+                    // Top Face
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+                    tessellator.addVertexWithUV(1 - yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+                    tessellator.addVertexWithUV(1 - yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+
+                    // Bottom Face
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                } else if (meta == 5) {
+                    // Top Face
+                    tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+
+                    tessellator.addVertexWithUV(yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                    tessellator.addVertexWithUV(yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F'
+                    tessellator.addVertexWithUV(yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E'
+                    tessellator.addVertexWithUV(yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E
+                    tessellator.addVertexWithUV(yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F
+
+                    tessellator.addVertexWithUV(yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E'
+                    tessellator.addVertexWithUV(yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D'
+                    tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D
+                    tessellator.addVertexWithUV(yBallTop, xBallE2, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E
+
+                    tessellator.addVertexWithUV(yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D'
+                    tessellator.addVertexWithUV(yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C'
+                    tessellator.addVertexWithUV(yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C
+                    tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D
+
+                    tessellator.addVertexWithUV(yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C'
+                    tessellator.addVertexWithUV(yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B'
+                    tessellator.addVertexWithUV(yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B
+                    tessellator.addVertexWithUV(yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C
+
+                    tessellator.addVertexWithUV(yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B'
+                    tessellator.addVertexWithUV(yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A'
+                    tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A
+                    tessellator.addVertexWithUV(yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B
+
+                    tessellator.addVertexWithUV(yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A'
+                    tessellator.addVertexWithUV(yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F'
+                    tessellator.addVertexWithUV(yBallTop, xBallF2, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F
+                    tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // F'
+                    tessellator.addVertexWithUV(yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // E'
+                    tessellator.addVertexWithUV(yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // E
+                    tessellator.addVertexWithUV(yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // F
+
+                    tessellator.addVertexWithUV(yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // E'
+                    tessellator.addVertexWithUV(yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // D'
+                    tessellator.addVertexWithUV(yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // D
+                    tessellator.addVertexWithUV(yBallMid, xBallE1, zBallE1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // E
+
+                    tessellator.addVertexWithUV(yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // D'
+                    tessellator.addVertexWithUV(yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // C'
+                    tessellator.addVertexWithUV(yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // C
+                    tessellator.addVertexWithUV(yBallMid, xBallD1, zBallD1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // D
+
+                    tessellator.addVertexWithUV(yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // C'
+                    tessellator.addVertexWithUV(yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // B'
+                    tessellator.addVertexWithUV(yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // B
+                    tessellator.addVertexWithUV(yBallMid, xBallC1, zBallC1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // C
+
+                    tessellator.addVertexWithUV(yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // B'
+                    tessellator.addVertexWithUV(yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // A'
+                    tessellator.addVertexWithUV(yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // A
+                    tessellator.addVertexWithUV(yBallMid, xBallB1, zBallB1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // B
+
+                    tessellator.addVertexWithUV(yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
+                    tessellator.addVertexWithUV(yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
+                    tessellator.addVertexWithUV(yBallMid, xBallF1, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
+                    tessellator.addVertexWithUV(yBallMid, xBallA1, zBallA1, c.getInterpolatedU(uBallG), c.getInterpolatedV(vBallG)); // A
+
+                    // Bottom Face
+                    tessellator.addVertexWithUV(yBallBot, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
+                    tessellator.addVertexWithUV(yBallBot, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
+                    tessellator.addVertexWithUV(yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+
+                    tessellator.addVertexWithUV(yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
+                    tessellator.addVertexWithUV(yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
+                    tessellator.addVertexWithUV(yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
+                    tessellator.addVertexWithUV(yBallBot, xBallF2, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
+                }
+            }
+
             /* Base */
             // Set up brightness and color.
             tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorOpaque_F(1, 1, 1);
 
             // Prepare the icon.
-            IIcon c = block.getIcon(0, 0);
+            c = block.getIcon(0, 0);
 
             // Render the base. Use the block meta to rotate the model.
             if (meta == 0) {
@@ -1369,6 +1864,98 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(yMonoBot, xPlatMax, zPlatMax, U, v); // B'
                 tessellator.addVertexWithUV(yMonoBot, xPlatMin, zPlatMax, u, v); // A'
             }
+
+            if (renderMonolith) {
+                // Prepare the icon.
+                double u;
+                double U;
+                double v;
+                double V;
+
+                if (tileEntity.pylons != null) {
+
+                    tessellator.setBrightness(brightness);
+                    for (HexPylon entry : tileEntity.pylons) {
+                        if (entry.pylon != null) {
+                            if (tileEntity.monolith == 18 || entry.pylon.monolith == 18) {
+                                tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                                c = block.getIcon(11, 0);
+                                u = c.getMinU();
+                                U = c.getMaxU();
+                                v = c.getMinV();
+                                V = c.getMaxV();
+                            } else {
+                                tessellator.setColorOpaque_F(r, g, b);
+                                c = block.getIcon(10, 0);
+                                u = c.getMinU();
+                                U = c.getMaxU();
+                                v = c.getMinV();
+                                V = c.getMaxV();
+                            }
+                            Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
+
+                            Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
+                            vec1.rotateAroundY((float) -Math.PI / 2);
+                            vec1.yCoord = 0;
+
+                            Vec3 vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
+                            vec2 = vec2.normalize();
+                            vec2 = scaleVector(vec2, beamRadius / 2);
+                            vec2 = centerVector(vec2);
+
+                            Vec3 vec3 = vec1.crossProduct(vec0); // B
+                            vec3 = vec3.normalize();
+                            vec3 = scaleVector(vec3, beamRadius / 2);
+                            vec3 = centerVector(vec3);
+
+                            Vec3 vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
+                            vec4 = vec4.normalize();
+                            vec4 = scaleVector(vec4, -beamRadius / 2);
+                            vec4 = centerVector(vec4);
+
+                            Vec3 vec5 = vec1.crossProduct(vec0); // D
+                            vec5 = vec5.normalize();
+                            vec5 = scaleVector(vec5, -beamRadius / 2);
+                            vec5 = centerVector(vec5);
+
+                            Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
+                            Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
+                            Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
+                            Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
+
+                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+
+                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+
+                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+
+                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+
+                            // System.out.println(vec1);
+                            // System.out.println(vec2);
+                            // System.out.println(vec3);
+                            // System.out.println(vec4);
+                            // System.out.println(vec5);
+                            // System.out.println(vec6);
+                            // System.out.println(vec7);
+                            // System.out.println(vec8);
+                            // System.out.println(vec9);
+                        }
+                    }
+                }
+            }
         }
 
         tessellator.addTranslation(-x, -y, -z);
@@ -1393,10 +1980,14 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         return true;
     }
 
-    private Vec3 scaleAndCenterVector(Vec3 vec, double l) {
-        vec.xCoord = vec.xCoord / vec.lengthVector() * l;
-        vec.yCoord = vec.yCoord / vec.lengthVector() * l;
-        vec.zCoord = vec.zCoord / vec.lengthVector() * l;
+    private Vec3 scaleVector(Vec3 vec, double l) {
+        double x = vec.xCoord * l;
+        double y = vec.yCoord * l;
+        double z = vec.zCoord * l;
+        return Vec3.createVectorHelper(x, y, z);
+    }
+
+    private Vec3 centerVector(Vec3 vec) {
         return vec.addVector(0.5, 0.5, 0.5);
     }
 }

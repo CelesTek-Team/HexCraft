@@ -432,6 +432,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Check if it is not null.
         if (tileEntity != null) {
 
+            tileEntity.clearPylons();
+
             ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
             if (tileEntity.monolith == 1) {
@@ -529,7 +531,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[11];
+        icon = new IIcon[12];
         // Load the pylon base textures.
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
@@ -539,6 +541,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
         icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
         icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
         icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
+        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beamRainbow");
     }
 
     /**
