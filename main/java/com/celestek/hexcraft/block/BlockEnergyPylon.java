@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -98,6 +100,17 @@ public class BlockEnergyPylon extends HexBlockContainer {
             setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
     }
+
+    /**
+     * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
+     * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
+    @Override
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
+    {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
+    }
+     */
 
     /**
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
@@ -592,6 +605,29 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+        return false;
+    }
+
+    /**
+     * Return true if the block is a normal, solid cube.  This
+     * determines indirect power state, entity ejection from blocks, and a few
+     * others.
+     *
+     * @param world The current world
+     * @param x X Position
+     * @param y Y position
+     * @param z Z position
+     * @return True if the block is a full cube
+     */
+    @Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean isNormalCube()
+    {
         return false;
     }
 }

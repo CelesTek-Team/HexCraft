@@ -38,7 +38,6 @@ public class HexBlockModel extends Block {
      * Forces the usage of custom renderer.
      */
     @Override
-    @SideOnly(Side.CLIENT)
     public boolean renderAsNormalBlock() {
         return false;
     }
@@ -73,7 +72,7 @@ public class HexBlockModel extends Block {
     }
 
     /**
-     * Makes the block noz interact with AO.
+     * Makes the block not interact with AO.
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -111,6 +110,29 @@ public class HexBlockModel extends Block {
      */
     @Override
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+        return false;
+    }
+
+    /**
+     * Return true if the block is a normal, solid cube.  This
+     * determines indirect power state, entity ejection from blocks, and a few
+     * others.
+     *
+     * @param world The current world
+     * @param x X Position
+     * @param y Y position
+     * @param z Z position
+     * @return True if the block is a full cube
+     */
+    @Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean isNormalCube()
+    {
         return false;
     }
 }

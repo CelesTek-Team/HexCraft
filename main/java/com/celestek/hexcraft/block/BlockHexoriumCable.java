@@ -9,11 +9,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -31,7 +35,7 @@ public class BlockHexoriumCable extends HexBlockModel {
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockHexoriumCable(String blockName) {
-        super(Material.rock);
+        super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -88,11 +92,10 @@ public class BlockHexoriumCable extends HexBlockModel {
     }
 
     /**
-     * Returns the bounding box of the wired rectangular prism to render.
+     * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
     @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         // Process the sides.
         boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this);
@@ -121,45 +124,17 @@ public class BlockHexoriumCable extends HexBlockModel {
 
         // Set the block bounds, used for client-side rendering.
         setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
-
-        // Return the bounding box.
-        return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
     }
 
     /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
+     * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
+     * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
     {
-        // Process the sides.
-        boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this);
-
-        // Prepare the default values of the bounding box.
-        float xMin = HexModelRendererCable.cMin;
-        float xMax = HexModelRendererCable.cMax;
-        float yMin = HexModelRendererCable.cMin;
-        float yMax = HexModelRendererCable.cMax;
-        float zMin = HexModelRendererCable.cMin;
-        float zMax = HexModelRendererCable.cMax;
-
-        // Depending on sides, increase the box size.
-        if(sides[0])
-            yMin = 0;
-        if(sides[1])
-            yMax = 1;
-        if(sides[2])
-            xMin = 0;
-        if(sides[3])
-            xMax = 1;
-        if(sides[4])
-            zMin = 0;
-        if(sides[5])
-            zMax = 1;
-
-        // Return the bounding box.
-        return AxisAlignedBB.getBoundingBox((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
     }
 
     // Prepare the icons.
