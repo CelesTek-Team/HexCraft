@@ -1894,29 +1894,49 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                             }
                             Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
 
-                            Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
-                            vec1.rotateAroundY((float) -Math.PI / 2);
-                            vec1.yCoord = 0;
+                            Vec3 vec2;
+                            Vec3 vec3;
+                            Vec3 vec4;
+                            Vec3 vec5;
 
-                            Vec3 vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
-                            vec2 = vec2.normalize();
-                            vec2 = scaleVector(vec2, beamRadius / 2);
-                            vec2 = centerVector(vec2);
+                            if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
+                                vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
+                                vec2 = centerVector(vec2);
 
-                            Vec3 vec3 = vec1.crossProduct(vec0); // B
-                            vec3 = vec3.normalize();
-                            vec3 = scaleVector(vec3, beamRadius / 2);
-                            vec3 = centerVector(vec3);
+                                vec3 = Vec3.createVectorHelper(0, 0, beamRadius); // B
+                                vec3 = centerVector(vec3);
 
-                            Vec3 vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
-                            vec4 = vec4.normalize();
-                            vec4 = scaleVector(vec4, -beamRadius / 2);
-                            vec4 = centerVector(vec4);
+                                vec4 = Vec3.createVectorHelper(-beamRadius, 0, 0); // C
+                                vec4 = centerVector(vec4);
 
-                            Vec3 vec5 = vec1.crossProduct(vec0); // D
-                            vec5 = vec5.normalize();
-                            vec5 = scaleVector(vec5, -beamRadius / 2);
-                            vec5 = centerVector(vec5);
+                                vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
+                                vec5 = centerVector(vec5);
+                            }
+                            else {
+                                Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
+                                vec1.rotateAroundY((float) -Math.PI / 2);
+                                vec1.yCoord = 0;
+
+                                vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
+                                vec2 = vec2.normalize();
+                                vec2 = scaleVector(vec2, beamRadius / 2);
+                                vec2 = centerVector(vec2);
+
+                                vec3 = vec1.crossProduct(vec0); // B
+                                vec3 = vec3.normalize();
+                                vec3 = scaleVector(vec3, beamRadius / 2);
+                                vec3 = centerVector(vec3);
+
+                                vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
+                                vec4 = vec4.normalize();
+                                vec4 = scaleVector(vec4, -beamRadius / 2);
+                                vec4 = centerVector(vec4);
+
+                                vec5 = vec1.crossProduct(vec0); // D
+                                vec5 = vec5.normalize();
+                                vec5 = scaleVector(vec5, -beamRadius / 2);
+                                vec5 = centerVector(vec5);
+                            }
 
                             Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
                             Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'

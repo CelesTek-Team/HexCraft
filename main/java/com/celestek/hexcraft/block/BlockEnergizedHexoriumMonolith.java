@@ -106,7 +106,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) { // TODO: Fix dropping!
         // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
@@ -159,55 +159,55 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         // If the block wasn't destroyed using the Manipulator...
         if(fortune != HexCraft.hexFortune) {
             // Set the according crystal color combinations.
-            if (this == HexBlocks.blockEnergizedHexoriumRed) {
+            if (this == HexBlocks.blockEnergizedHexoriumMonolithRed) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithOrange) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithYellow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumLime) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithLime) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithGreen) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithTurquoise) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithCyan) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithSkyBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithPurple) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithMagenta) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumPink) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithPink) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithWhite) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithLightGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumGray) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithDarkGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlack) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
+            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithRainbow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
