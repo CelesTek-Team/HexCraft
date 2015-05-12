@@ -6,12 +6,14 @@ import com.celestek.hexcraft.client.renderer.HexModelRendererPylon;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
+import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -100,17 +102,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
             setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
     }
-
-    /**
-     * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
-     * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
-    @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
-    {
-        this.setBlockBoundsBasedOnState(world, x, y, z);
-        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
-    }
-     */
 
     /**
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
@@ -275,6 +266,24 @@ public class BlockEnergyPylon extends HexBlockContainer {
                 (world.isSideSolid(x, y, z - 1, SOUTH)) ||
                 (world.isSideSolid(x + 1, y, z, WEST)) ||
                 (world.isSideSolid(x - 1, y, z, EAST));
+    }
+
+    /**
+     * Called when a block is placed by a player.
+     */
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
+        // Check if the code is executed on the server.
+        if(!world.isRemote) {
+
+            System.out.println("Pylon placed, analyzing!");
+
+            /* DO ANALYSIS */
+            // Prepare the network analyzer.
+            CableAnalyzer analyzer = new CableAnalyzer();
+            // Call the analysis.
+            analyzer.analyzePylon(world, x, y, z, this);
+        }
     }
 
     /**

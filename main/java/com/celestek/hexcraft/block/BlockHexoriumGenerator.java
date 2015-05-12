@@ -79,20 +79,8 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            if (direction == 0 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable)
-                analyzer.analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), 0);
-            else if (direction == 1 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable)
-                analyzer.analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), 0);
-            else if (direction == 2 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable)
-                analyzer.analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), 0);
-            else if (direction == 3 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable)
-                analyzer.analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), 0);
-            // If the created list has no entries, add self in.
-            if(!analyzer.size())
-                analyzer.add(world, x, y, z);
-            // Push the results to all found machines.
-            analyzer.push(world);
+            // Call the analysis in the direction the machine is rotated.
+            analyzer.analyzeMachine(world, x, y, z, direction);
         }
     }
 
@@ -124,7 +112,8 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             meta -= 8;
 
         // Check if the changed block is a cable.
-        if (block instanceof BlockHexoriumCable) {
+        if (block instanceof BlockHexoriumCable ||
+                block instanceof BlockPylonBase) {
 
             System.out.println("Neighbour cable destroyed, analyzing!");
 
@@ -132,19 +121,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            if (meta == 0)
-                analyzer.analyze(world, x, y, z + 1, block, 0);
-            else if (meta == 1)
-                analyzer.analyze(world, x - 1, y, z, block, 0);
-            else if (meta == 2)
-                analyzer.analyze(world, x, y, z - 1, block, 0);
-            else if (meta == 3)
-                analyzer.analyze(world, x + 1, y, z, block, 0);
-            // If the created list has no entries, add self in.
-            if(!analyzer.size())
-                analyzer.add(world, x, y, z);
-            // Push the results to all found machines.
-            analyzer.push(world);
+            analyzer.analyzeMachine(world, x, y, z, meta);
         }
     }
 

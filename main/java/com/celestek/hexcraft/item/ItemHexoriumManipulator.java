@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
+import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -93,8 +94,17 @@ public class ItemHexoriumManipulator extends Item {
                                 TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
                                 if (pylonA != null && pylonB != null) {
                                     if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
-                                        if (pylonA.addPylon(tx, ty, tz, true) && pylonB.addPylon(x, y, z, false))
+                                        if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true)) {
                                             player.addChatMessage(new ChatComponentTranslation("msg.linkSuccess.txt"));
+
+                                            System.out.println("Pylons linked, analyzing!");
+
+                                             /* DO ANALYSIS */
+                                            // Prepare the network analyzer.
+                                            CableAnalyzer analyzer = new CableAnalyzer();
+                                            // Call the analysis.
+                                            analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
+                                        }
                                         else {
                                             pylonA.removePylon(tx, ty, tz);
                                             pylonB.removePylon(x, y, z);

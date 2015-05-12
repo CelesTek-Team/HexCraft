@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.CableAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -70,6 +71,44 @@ public class BlockPylonBase extends Block {
 
         // Set the block's meta data according to direction.
         world.setBlockMetadataWithNotify(x, y, z, direction, 2);
+
+
+        // Check if the code is executed on the server.
+        if(!world.isRemote) {
+
+            System.out.println("Base placed, analyzing!");
+
+            /* DO ANALYSIS */
+            // Prepare the network analyzer.
+            CableAnalyzer analyzer = new CableAnalyzer();
+            // Call the analysis.
+            analyzer.analyzeCable(world, x, y, z, this);
+        }
+    }
+
+    /**
+     * Called when a block near is changed.
+     */
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+
+        // Check if the changed block belongs to the energy system.
+        if (block instanceof BlockHexoriumCable ||
+                block instanceof BlockPylonBase ||
+                block == HexBlocks.blockEnergyPylon ||
+                block == HexBlocks.blockHexoriumGenerator ||
+                block == HexBlocks.blockHexoriumFurnace ||
+                block == HexBlocks.blockCrystalSeparator ||
+                block == HexBlocks.blockMatrixReconstructor) {
+
+            System.out.println("Neighbour cable or machine destroyed, analyzing!");
+
+            /* DO ANALYSIS */
+            // Prepare the network analyzer.
+            CableAnalyzer analyzer = new CableAnalyzer();
+            // Call the analysis.
+            analyzer.analyzeCable(world, x, y, z, this);
+        }
     }
 
     // Prepare the icons.

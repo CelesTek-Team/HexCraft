@@ -2,10 +2,7 @@ package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
-import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
@@ -21,6 +18,7 @@ public class CableAnalyzer {
     // Prepare ArrayLists for machines and cables.
     private ArrayList<HexDevice> cables;
     private ArrayList<HexDevice> machines;
+    private ArrayList<HexDevice> pylons;
 
     /**
      * Constructor.
@@ -51,6 +49,19 @@ public class CableAnalyzer {
                 return false;
             }
         };
+
+        pylons = new ArrayList<HexDevice>() {
+            @Override
+            public boolean contains(Object o) {
+                HexDevice pylon = (HexDevice) o;
+                for (HexDevice entry : this) {
+                    if ((entry.x == pylon.x) && (entry.y == pylon.y) && (entry.z == pylon.z) && (entry.block == pylon.block)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
     }
 
     /**
@@ -62,7 +73,7 @@ public class CableAnalyzer {
      * @param blockPrev The previous block.
      * @param direction The direction of the previous move.
      */
-    public void analyze(World world, int x, int y, int z, Block blockPrev, int direction)
+    private void analyze(World world, int x, int y, int z, Block blockPrev, int direction)
     {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
@@ -70,75 +81,347 @@ public class CableAnalyzer {
         // Console spam for debugging analysis. Uncomment to enable.
         // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
-        // Check if the current block is a cable.
-        if (block instanceof BlockHexoriumCable) {
-            // Check if this cable has already been added to the cables ArrayList.
-            if (!cables.contains(new HexDevice(x, y, z, block))) {
-                // Check if one of the conditions are met:
-                // 1) The previous cable's color was Rainbow.
-                // 2) The current block's color is Rainbow.
-                // 3) The current block's color is same as previous.
-                if (blockPrev == HexBlocks.blockHexoriumCableRainbow || block == HexBlocks.blockHexoriumCableRainbow || blockPrev == block)
-                    // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
-                    cables.add(new HexDevice(x, y, z, block));
+        if (!(block instanceof BlockPylonBase)) {
+            // Check if the current block is a cable.
+            if (block instanceof BlockHexoriumCable) {
+                // Check if this cable has already been added to the cables ArrayList.
+                if (!cables.contains(new HexDevice(x, y, z, block))) {
+                    // Check if one of the conditions are met:
+                    // 1) The previous cable's color was Rainbow.
+                    // 2) The current block's color is Rainbow.
+                    // 3) The current block's color is same as previous.
+                    if (blockPrev == HexBlocks.blockHexoriumCableRainbow || block == HexBlocks.blockHexoriumCableRainbow || blockPrev == block || blockPrev instanceof BlockPylonBase)
+                        // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
+                        cables.add(new HexDevice(x, y, z, block));
+                    else
+                        // Otherwise, exit recursion.
+                        return;
+                } else
+                    // If the cable is already in the cables ArrayList, exit recursion.
+                    return;
+            }
+            // Check if the current block is a machine.
+            else if (block == HexBlocks.blockHexoriumGenerator ||
+                    block == HexBlocks.blockHexoriumFurnace ||
+                    block == HexBlocks.blockCrystalSeparator ||
+                    block == HexBlocks.blockMatrixReconstructor) {
+                // Check if this machine has already been added to the machines ArrayList.
+                if (!machines.contains(new HexDevice(x, y, z, block))) {
+                    // If it hasn't, prepare the block's meta.
+                    int meta = world.getBlockMetadata(x, y, z);
+
+                    // Strip away the texture states from meta.
+                    if (meta >= 4 && meta < 8)
+                        meta = meta - 4;
+                    else if (meta >= 8)
+                        meta = meta - 8;
+
+                    // Add the machine to the ArrayList if the previous direction responds with the orientation of the machine.
+                    if ((meta == 0 && direction == 2) || (meta == 1 && direction == 5) || (meta == 2 && direction == 3) || (meta == 3 && direction == 4))
+                        machines.add(new HexDevice(x, y, z, block));
+
+                    // Exit recursion.
+                    return;
+                } else
+                    // If the machine is already in the machines ArrayList, exit recursion.
+                    return;
+            } else
+                // Exit recursion if the block is not a cable or a machine.
+                return;
+
+            // Move in all 6 different directions, but avoid going backwards. Call this same function recursively for every direction.
+            if (direction != 1)
+                analyze(world, x, y - 1, z, block, 0);
+            if (direction != 0)
+                analyze(world, x, y + 1, z, block, 1);
+            if (direction != 3)
+                analyze(world, x, y, z - 1, block, 2);
+            if (direction != 2)
+                analyze(world, x, y, z + 1, block, 3);
+            if (direction != 5)
+                analyze(world, x - 1, y, z, block, 4);
+            if (direction != 4)
+                analyze(world, x + 1, y, z, block, 5);
+        }
+        else {
+            determineBase(world, x, y, z, block, direction);
+        }
+    }
+
+    private void pylonize(World world, int x, int y, int z, Block blockPrev, int direction) {
+        // Save the current block.
+        Block block = world.getBlock(x, y, z);
+
+        // Console spam for debugging analysis. Uncomment to enable.
+        // System.out.println("Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+
+        if (block == HexBlocks.blockEnergyPylon) {
+            int meta = world.getBlockMetadata(x, y, z);
+
+            if (meta >= 6)
+                meta = meta - 6;
+
+            if ((meta == direction) || direction == -1) {
+                if (!pylons.contains(new HexDevice(x, y, z, block))) {
+
+                    pylons.add(new HexDevice(x, y, z, block));
+                    TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+
+                    if (pylon != null) {
+                        if (pylon.pylons != null)
+                            for (HexPylon entry : pylon.pylons) {
+                                if (entry.pylon != null)
+                                    if (!pylons.contains(new HexDevice(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord,
+                                            world.getBlock(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord))))
+                                        pylonize(world, entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord, block, -1);
+                            }
+                    }
+                    else
+                        return;
+                }
                 else
-                    // Otherwise, exit recursion.
                     return;
             }
             else
-                // If the cable is already in the cables ArrayList, exit recursion.
                 return;
+
+            if (!(blockPrev instanceof BlockPylonBase)) {
+                if (meta == 1 &&
+                        ((world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y - 1, z) == 1) ||
+                        (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y - 1, z) != 1)))
+                    analyze(world, x, y - 1, z, block, -1);
+                else if (meta == 0 &&
+                        ((world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y + 1, z) == 0) ||
+                        (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y + 1, z) != 0)))
+                    analyze(world, x, y + 1, z, block, -1);
+                else if (meta == 3 &&
+                        ((world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z - 1) == 3) ||
+                        (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z - 1) != 3)))
+                    analyze(world, x, y, z - 1, block, -1);
+                else if (meta == 2 &&
+                        ((world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z + 1) == 2) ||
+                        (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z + 1) != 2)))
+                    analyze(world, x, y, z + 1, block, -1);
+                else if (meta == 5 &&
+                        ((world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x - 1, y, z) == 5) ||
+                        (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x - 1, y, z) != 5)))
+                    analyze(world, x - 1, y, z, block, -1);
+                else if (meta == 4 &&
+                        ((world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x + 1, y, z) == 4) ||
+                        (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x + 1, y, z) != 4)))
+                    analyze(world, x + 1, y, z, block, -1);
+            }
         }
-        // Check if the current block is a machine.
-        else if(block == HexBlocks.blockHexoriumGenerator ||
-                block == HexBlocks.blockHexoriumFurnace ||
-                block == HexBlocks.blockCrystalSeparator ||
-                block == HexBlocks.blockMatrixReconstructor) {
-            // Check if this machine has already been added to the machines ArrayList.
-            if (!machines.contains(new HexDevice(x, y, z, block))) {
-                // If it hasn't, prepare the block's meta.
-                int meta = world.getBlockMetadata(x, y, z);
+    }
 
-                // Strip away the texture states from meta.
-                if (meta >= 4 && meta < 8)
-                    meta = meta - 4;
-                else if (meta >= 8)
-                    meta = meta - 8;
+    private void determineBase(World world, int x, int y, int z, Block block, int direction) {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (block == HexBlocks.blockPylonBase51) {
+            if ((meta == 0 && direction != 1) ||
+                    (meta == 1 && direction != 0) ||
+                    (meta == 2 && direction != 3) ||
+                    (meta == 3 && direction != 2) ||
+                    (meta == 4 && direction != 5) ||
+                    (meta == 5 && direction != 4) ||
+                    direction == -1) {
+                if (!cables.contains(new HexDevice(x, y, z, block))) {
 
-                // Add the machine to the ArrayList if the previous direction responds with the orientation of the machine.
-                if ((meta == 0 && direction == 3) || (meta == 1 && direction == 2) || (meta == 2 && direction == 4) || (meta == 3 && direction == 1))
-                    machines.add(new HexDevice(x, y, z, block));
+                    cables.add(new HexDevice(x, y, z, block));
 
-                // Exit recursion.
-                return;
-            } else
-                // If the machine is already in the machines ArrayList, exit recursion.
-                return;
+                    if (meta == 0) {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        if (direction != 0)
+                            analyze(world, x, y + 1, z, block, 1);
+                        if (direction != 3)
+                            analyze(world, x, y, z - 1, block, 2);
+                        if (direction != 2)
+                            analyze(world, x, y, z + 1, block, 3);
+                        if (direction != 5)
+                            analyze(world, x - 1, y, z, block, 4);
+                        if (direction != 4)
+                            analyze(world, x + 1, y, z, block, 5);
+                    } else if (meta == 1) {
+                        if (direction != 1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        if (direction != 3)
+                            analyze(world, x, y, z - 1, block, 2);
+                        if (direction != 2)
+                            analyze(world, x, y, z + 1, block, 3);
+                        if (direction != 5)
+                            analyze(world, x - 1, y, z, block, 4);
+                        if (direction != 4)
+                            analyze(world, x + 1, y, z, block, 5);
+                    } else if (meta == 2) {
+                        if (direction != 1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        if (direction != 0)
+                            analyze(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        if (direction != 2)
+                            analyze(world, x, y, z + 1, block, 3);
+                        if (direction != 5)
+                            analyze(world, x - 1, y, z, block, 4);
+                        if (direction != 4)
+                            analyze(world, x + 1, y, z, block, 5);
+                    } else if (meta == 3) {
+                        if (direction != 1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        if (direction != 0)
+                            analyze(world, x, y + 1, z, block, 1);
+                        if (direction != 3)
+                            analyze(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        if (direction != 5)
+                            analyze(world, x - 1, y, z, block, 4);
+                        if (direction != 4)
+                            analyze(world, x + 1, y, z, block, 5);
+                    } else if (meta == 4) {
+                        if (direction != 1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        if (direction != 0)
+                            analyze(world, x, y + 1, z, block, 1);
+                        if (direction != 3)
+                            analyze(world, x, y, z - 1, block, 2);
+                        if (direction != 2)
+                            analyze(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        if (direction != 4)
+                            analyze(world, x + 1, y, z, block, 5);
+                    } else {
+                        if (direction != 1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        if (direction != 0)
+                            analyze(world, x, y + 1, z, block, 1);
+                        if (direction != 3)
+                            analyze(world, x, y, z - 1, block, 2);
+                        if (direction != 2)
+                            analyze(world, x, y, z + 1, block, 3);
+                        if (direction != 5)
+                            analyze(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    }
+                }
+            }
         }
-        else
-            // Exit recursion if the block is not a cable or a machine.
-            return;
+        else if (block == HexBlocks.blockPylonBase15) {
+            if ((meta == 0 && direction == 1) ||
+                    (meta == 1 && direction == 0) ||
+                    (meta == 2 && direction == 3) ||
+                    (meta == 3 && direction == 2) ||
+                    (meta == 4 && direction == 5) ||
+                    (meta == 5 && direction == 4) ||
+                    direction == -1) {
+                if (!cables.contains(new HexDevice(x, y, z, block))) {
 
-        // Move in all 6 different directions, but avoid going backwards. Call this same function recursively for every direction.
-        if(direction != 2)
-            analyze(world, x - 1, y, z, block, 1);
-        if(direction != 1)
-            analyze(world, x + 1, y, z, block, 2);
-        if(direction != 4)
-            analyze(world, x, y, z - 1, block, 3);
-        if(direction != 3)
-            analyze(world, x, y, z + 1, block, 4);
-        if(direction != 6)
-            analyze(world, x, y - 1, z, block, 5);
-        if(direction != 5)
-            analyze(world, x, y + 1, z, block, 6);
+                    cables.add(new HexDevice(x, y, z, block));
+
+                    if (meta == 0) {
+                        if (direction == -1)
+                            analyze(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    } else if (meta == 1) {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        if (direction == -1)
+                            analyze(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    } else if (meta == 2) {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        if (direction == -1)
+                            analyze(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    } else if (meta == 3) {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        if (direction == -1)
+                            analyze(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    } else if (meta == 4) {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        if (direction == -1)
+                            analyze(world, x - 1, y, z, block, 4);
+                        pylonize(world, x + 1, y, z, block, 5);
+                    } else {
+                        pylonize(world, x, y - 1, z, block, 0);
+                        pylonize(world, x, y + 1, z, block, 1);
+                        pylonize(world, x, y, z - 1, block, 2);
+                        pylonize(world, x, y, z + 1, block, 3);
+                        pylonize(world, x - 1, y, z, block, 4);
+                        if (direction == -1)
+                            analyze(world, x + 1, y, z, block, 5);
+                    }
+                }
+            }
+        }
+    }
+
+    public void analyzeMachine(World world, int x, int y, int z, int orientation)
+    {
+        if (orientation == 0 &&
+                (world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable ||
+                        (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z + 1) != 2) ||
+                        (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z + 1) == 2)))
+            analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), -1);
+        else if (orientation == 1 &&
+                (world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable ||
+                        (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x - 1, y, z) != 5) ||
+                        (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x - 1, y, z) == 5)))
+            analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), -1);
+        else if (orientation == 2 &&
+                (world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable ||
+                        (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z - 1) != 3) ||
+                        (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z - 1) == 3)))
+            analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), -1);
+        else if (orientation == 3 &&
+                (world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable ||
+                        (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x + 1, y, z) != 4) ||
+                        (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x + 1, y, z) == 4)))
+            analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
+
+        // If the created list has no entries, add self in.
+        if(!size())
+            add(world, x, y, z);
+
+        // Push the results to all found machines.
+        push(world);
+    }
+
+    public void analyzeCable(World world, int x, int y, int z, Block block)
+    {
+        // Call the analysis and wait for results.
+        analyze(world, x, y, z, block, -1);
+        // Push the results to all found machines.
+        push(world);
+    }
+
+    public void analyzePylon(World world, int x, int y, int z, Block block)
+    {
+        // Call the analysis and wait for results.
+        pylonize(world, x, y, z, block, -1);
+        // Push the results to all found machines.
+        push(world);
     }
 
     /**
      * Called by machine blocks to check if the scan resulted in any machines.
      * @return  If the machines list contains machines.
      */
-    public boolean size() {
+    private boolean size() {
         return machines.size() > 0;
     }
 
@@ -149,7 +432,7 @@ public class CableAnalyzer {
      * @param y Y coordinate of the machine.
      * @param z Z coordinate of the machine.
      */
-    public void add(World world, int x, int y, int z) {
+    private void add(World world, int x, int y, int z) {
         // Add the machine to machines ArrayList.
         machines.add(new HexDevice(x, y, z, world.getBlock(x, y, z)));
     }
@@ -158,7 +441,7 @@ public class CableAnalyzer {
      * Called by different blocks to push the results of scanning to machines.
      * @param world The world that the network is in.
      */
-    public void push(World world) {
+    private void push(World world) {
 
         // Notify about pushing machines.
         System.out.println("Done! Pushing data to machines:");

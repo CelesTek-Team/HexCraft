@@ -59,10 +59,8 @@ public class BlockHexoriumCable extends HexBlockModel {
             /* DO ANALYSIS */
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            // Call the analysis and wait for results.
-            analyzer.analyze(world, x, y, z, this, 0);
-            // Push the results to all found machines.
-            analyzer.push(world);
+            // Call the analysis.
+            analyzer.analyzeCable(world, x, y, z, this);
         }
     }
 
@@ -74,6 +72,7 @@ public class BlockHexoriumCable extends HexBlockModel {
 
         // Check if the changed block belongs to the energy system.
         if (block instanceof BlockHexoriumCable ||
+                block instanceof BlockPylonBase ||
                 block == HexBlocks.blockHexoriumGenerator ||
                 block == HexBlocks.blockHexoriumFurnace ||
                 block == HexBlocks.blockCrystalSeparator ||
@@ -84,10 +83,8 @@ public class BlockHexoriumCable extends HexBlockModel {
             /* DO ANALYSIS */
             // Prepare the network analyzer.
             CableAnalyzer analyzer = new CableAnalyzer();
-            // Call the analysis and wait for results.
-            analyzer.analyze(world, x, y, z, this, 0);
-            // Push the results to all found machines.
-            analyzer.push(world);
+            // Call the analysis.
+            analyzer.analyzeCable(world, x, y, z, this);
         }
     }
 
