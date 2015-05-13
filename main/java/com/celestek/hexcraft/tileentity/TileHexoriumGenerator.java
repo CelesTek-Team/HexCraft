@@ -471,9 +471,9 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 }
             }
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) energy / energyPerTick;
-            energyTotalGui = (int) energyTotal / energyPerTick;
-            energyOutGui = Math.round(energyOut);
+            energyGui = (int) (energy / energyPerTick) & 32767;
+            energyTotalGui = (int) (energyTotal / energyPerTick) & 32767;
+            energyOutGui = (Math.round(energyOut)) & 32767;
         }
     }
 
