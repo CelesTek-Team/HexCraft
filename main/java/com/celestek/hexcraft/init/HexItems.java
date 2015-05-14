@@ -25,6 +25,7 @@ public class HexItems {
     public static Item itemBlackHexoriumWafer;
     public static Item itemSpatialProjector;
     public static Item itemOreActuator;
+    public static Item itemPylonSocket;
     public static Item itemHexoriumGlassPackage;
 
     // Components T2
@@ -32,10 +33,12 @@ public class HexItems {
     public static Item itemHexoriumProcessor;
     public static Item itemHexoriumCoprocessor;
     public static Item itemMineralAnalyzer;
+    public static Item itemPylonEnergyConverter;
+    public static Item itemEnergyInjector;
 
     // Components MP
     public static Item itemMachineControlPanel;
-    public static Item itemMachinePowerRouter;
+    public static Item itemMachineEnergyRouter;
     public static Item itemHeatDissipator;
     public static Item itemHeatingArray;
     public static Item itemCrystalExtractionUnit;
@@ -72,6 +75,8 @@ public class HexItems {
         GameRegistry.registerItem(itemSpatialProjector, "itemSpatialProjector");
         itemOreActuator = new HexItemComponent("itemOreActuator");
         GameRegistry.registerItem(itemOreActuator, "itemOreActuator");
+        itemPylonSocket = new HexItemComponent("itemPylonSocket");
+        GameRegistry.registerItem(itemPylonSocket, "itemPylonSocket");
         itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
         GameRegistry.registerItem(itemHexoriumGlassPackage, "itemHexoriumGlassPackage");
 
@@ -84,12 +89,16 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
         itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
         GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
+        itemPylonEnergyConverter = new HexItemComponent("itemPylonEnergyConverter");
+        GameRegistry.registerItem(itemPylonEnergyConverter, "itemPylonEnergyConverter");
+        itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
+        GameRegistry.registerItem(itemEnergyInjector, "itemEnergyInjector");
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
         GameRegistry.registerItem(itemMachineControlPanel, "itemMachineControlPanel");
-        itemMachinePowerRouter = new HexItemComponent("itemMachinePowerRouter");
-        GameRegistry.registerItem(itemMachinePowerRouter, "itemMachinePowerRouter");
+        itemMachineEnergyRouter = new HexItemComponent("itemMachineEnergyRouter");
+        GameRegistry.registerItem(itemMachineEnergyRouter, "itemMachineEnergyRouter");
         itemHeatDissipator = new HexItemComponent("itemHeatDissipator");
         GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
         itemHeatingArray = new HexItemComponent("itemHeatingArray");

@@ -183,9 +183,15 @@ public class HexRecipes {
         ItemStack stackHexoriumCableRainbow_1 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 1);
         ItemStack stackHexoriumCableRainbow_2 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 2);
 
+        // Energy Pylon
+        ItemStack stackEnergyPylon_1 = new ItemStack(HexBlocks.blockEnergyPylon, 1);
+
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
         ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
+
+        ItemStack stackPylonBase51_1 = new ItemStack(HexBlocks.blockPylonBase51, 1);
+        ItemStack stackPylonBase15_1 = new ItemStack(HexBlocks.blockPylonBase15, 1);
 
         // Hex Items
         // Raw Materials
@@ -206,6 +212,7 @@ public class HexRecipes {
         ItemStack stackBlackHexoriumWafer_1 = new ItemStack(HexItems.itemBlackHexoriumWafer, 1);
         ItemStack stackSpatialProjector_1 = new ItemStack(HexItems.itemSpatialProjector, 1);
         ItemStack stackOreActuator_1 = new ItemStack(HexItems.itemOreActuator, 1);
+        ItemStack stackPylonSocket_1 = new ItemStack(HexItems.itemPylonSocket, 1);
         ItemStack stackHexoriumGlassPackage_1 = new ItemStack(HexItems.itemHexoriumGlassPackage, 1);
 
         // Components T2
@@ -213,10 +220,12 @@ public class HexRecipes {
         ItemStack stackHexoriumCoprocessor_1 = new ItemStack(HexItems.itemHexoriumCoprocessor, 1);
         ItemStack stackHexoriumProcessor_1 = new ItemStack(HexItems.itemHexoriumProcessor, 1);
         ItemStack stackMineralAnalyzer_1 = new ItemStack(HexItems.itemMineralAnalyzer, 1);
+        ItemStack stackPylonEnergyConverter_1 = new ItemStack(HexItems.itemPylonEnergyConverter, 1);
+        ItemStack stackEnergyInjector_1 = new ItemStack(HexItems.itemEnergyInjector, 1);
 
         // Components MP
         ItemStack stackMachineControlPanel_1 = new ItemStack(HexItems.itemMachineControlPanel, 1);
-        ItemStack stackMachinePowerRouter_1 = new ItemStack(HexItems.itemMachinePowerRouter, 1);
+        ItemStack stackMachineEnergyRouter_1 = new ItemStack(HexItems.itemMachineEnergyRouter, 1);
         ItemStack stackHeatDissipator_1 = new ItemStack(HexItems.itemHeatDissipator, 1);
         ItemStack stackHeatingArray_1 = new ItemStack(HexItems.itemHeatingArray, 1);
         ItemStack stackCrystalExtractionUnit_1 = new ItemStack(HexItems.itemCrystalExtractionUnit, 1);
@@ -1034,22 +1043,22 @@ public class HexRecipes {
                 "EBE",
                 "DAD",
                 "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackHeatDissipator_1, 'E', stackIronIngot_1);
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackHeatDissipator_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackHexoriumFurnace_1,
                 "EBE",
                 "DAD",
                 "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackHeatingArray_1, 'E', stackIronIngot_1);
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackHeatingArray_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackCrystalSeparator_1,
                 "EBE",
                 "DAD",
                 "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackCrystalExtractionUnit_1, 'E', stackIronIngot_1);
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackCrystalExtractionUnit_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackMatrixReconstructor_1,
                 "EBE",
                 "DAD",
                 "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachinePowerRouter_1, 'D', stackMatrixAdjuster_1, 'E', stackIronIngot_1);
+                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackMatrixAdjuster_1, 'E', stackIronIngot_1);
 
         // Cables
         // Red
@@ -1457,8 +1466,27 @@ public class HexRecipes {
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
 
+
+        GameRegistry.addRecipe(stackEnergyPylon_1,
+                "C C",
+                "RBR",
+                "CAC",
+                'R', stackRedstone_1, 'A', stackPylonSocket_1, 'B', stackEnergyInjector_1, 'C', stackIronIngot_1);
+
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);
+
+        GameRegistry.addRecipe(stackPylonBase51_1,
+                "DAD",
+                "ABA",
+                "DCD",
+                'A', stackHexoriumCableRainbow_1, 'B', stackPylonEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
+
+        GameRegistry.addRecipe(stackPylonBase15_1,
+                "DCD",
+                "CBC",
+                "DAD",
+                'A', stackHexoriumCableRainbow_1, 'B', stackPylonEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
 
         // Hex Items
         // Components T1
@@ -1595,6 +1623,11 @@ public class HexRecipes {
                 "ARR",
                 "BB ",
                 'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackPylonSocket_1,
+                " A ",
+                "BAB",
+                "RRR",
+                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackIronIngot_1);
 
         GameRegistry.addRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
@@ -1634,6 +1667,17 @@ public class HexRecipes {
                 "GRG",
                 'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackHexoriumCrystalRed_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalBlue_1,
                 'E', stackDiamond_1, 'F', stackGoldIngot_1, 'G', stackIronIngot_1);
+        GameRegistry.addRecipe(stackPylonEnergyConverter_1,
+                "EAE",
+                "CBD",
+                "AEA",
+                'A', stackHexoriumCableRainbow_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', stackIronIngot_1);
+        GameRegistry.addRecipe(stackEnergyInjector_1,
+                "CDE",
+                "FBF",
+                " A ",
+                'A', stackHexoriumCableRainbow_1, 'B', stackSpatialProjector_1, 'C', stackHexoriumCrystalRed_1, 'D', stackHexoriumCrystalGreen_1, 'E', stackHexoriumCrystalBlue_1,
+                'F', stackGoldIngot_1);
 
         // Components MP
         GameRegistry.addRecipe(stackMachineControlPanel_1,
@@ -1641,7 +1685,7 @@ public class HexRecipes {
                 "CAC",
                 "RBR",
                 'R', stackRedstone_1, 'A', stackHexoriumProcessor_1, 'B', stackHexoriumCoprocessor_1, 'C', stackGoldIngot_1, 'D', stackStoneButton_1);
-        GameRegistry.addRecipe(stackMachinePowerRouter_1,
+        GameRegistry.addRecipe(stackMachineEnergyRouter_1,
                 "CRC",
                 "BAB",
                 "DAD",

@@ -213,15 +213,18 @@ item.itemWhiteHexoriumWafer.name=White Hexorium Wafer
 item.itemBlackHexoriumWafer.name=Black Hexorium Wafer
 item.itemSpatialProjector.name=Spatial Projector
 item.itemOreActuator.name=Ore Actuator
+item.itemPylonSocket.name=Pylon Socket
 item.itemHexoriumGlassPackage.name=Hexorium-Glass Package
 
 item.itemRainbowCore.name=Rainbow Core
 item.itemHexoriumCoprocessor.name=Hexorium Coprocessor
 item.itemHexoriumProcessor.name=Hexorium Processor
 item.itemMineralAnalyzer.name=Mineral Analyzer
+item.itemPylonEnergyConverter.name=Pylon Energy Converter
+item.itemEnergyInjector.name=Energy Injector
 
 item.itemMachineControlPanel.name=Machine Control Panel
-item.itemMachinePowerRouter.name=Machine Power Router
+item.itemMachineEnergyRouter.name=Machine Energy Router
 item.itemHeatDissipator.name=Heat Dissipator
 item.itemHeatingArray.name=Heating Array
 item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
