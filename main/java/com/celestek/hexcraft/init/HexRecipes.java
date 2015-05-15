@@ -1660,7 +1660,7 @@ public class HexRecipes {
                 " R ",
                 "RAR",
                 " B ",
-                'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', stackIronIngot_1);
+                'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', stackGoldIngot_1);
         GameRegistry.addRecipe(stackMineralAnalyzer_1,
                 "BCD",
                 "FEA",
