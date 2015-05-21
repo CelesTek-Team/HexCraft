@@ -65,7 +65,7 @@ public class CableAnalyzer {
     }
 
     /**
-     * Called from different blocks and recursively to analyze the energy network.
+     * Called recursively to analyze the energy network.
      * @param world The world that the block to analyze is in.
      * @param x X coordinate of the block to analyze.
      * @param y Y coordinate of the block to analyze.
@@ -81,6 +81,7 @@ public class CableAnalyzer {
         // Console spam for debugging analysis. Uncomment to enable.
         // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
+        // Check if the current block is not a pylon base.
         if (!(block instanceof BlockPylonBase)) {
             // Check if the current block is a cable.
             if (block instanceof BlockHexoriumCable) {
@@ -143,11 +144,22 @@ public class CableAnalyzer {
             if (direction != 4)
                 analyze(world, x + 1, y, z, block, 5);
         }
+        // If this is a pylon base...
         else {
+            // Determine it.
             determineBase(world, x, y, z, block, direction);
         }
     }
 
+    /**
+     * Called recursively to analyze the Energy Pylon network.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the block to analyze.
+     * @param y Y coordinate of the block to analyze.
+     * @param z Z coordinate of the block to analyze.
+     * @param blockPrev The previous block.
+     * @param direction The direction of the previous move.
+     */
     private void pylonize(World world, int x, int y, int z, Block blockPrev, int direction) {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
@@ -155,18 +167,24 @@ public class CableAnalyzer {
         // Console spam for debugging analysis. Uncomment to enable.
         // System.out.println("Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
+        // Check if the current block is an Energy Pylon.
         if (block == HexBlocks.blockEnergyPylon) {
+            // Get the block meta.
             int meta = world.getBlockMetadata(x, y, z);
 
+            // Strip away the meta.
             if (meta >= 6)
                 meta = meta - 6;
 
+            // Check if the direction is correct or if this is the entry point.
             if ((meta == direction) || direction == -1) {
+                // Check if the pylon is not already added.
                 if (!pylons.contains(new HexDevice(x, y, z, block))) {
-
+                    // Add the pylon.
                     pylons.add(new HexDevice(x, y, z, block));
                     TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
 
+                    // Perform the analysis on all other pylons linked to this one.
                     if (pylon != null) {
                         if (pylon.pylons != null)
                             for (HexPylon entry : pylon.pylons) {
@@ -185,7 +203,9 @@ public class CableAnalyzer {
             else
                 return;
 
+            // Check if the previous block was not a Pylon Base.
             if (!(blockPrev instanceof BlockPylonBase)) {
+                // Continue outwards depending on orientation.
                 if (meta == 1 &&
                         ((world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y - 1, z) == 1) ||
                         (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y - 1, z) != 1)))
@@ -214,9 +234,20 @@ public class CableAnalyzer {
         }
     }
 
+    /**
+     * Determines the base orientation and type.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the block to analyze.
+     * @param y Y coordinate of the block to analyze.
+     * @param z Z coordinate of the block to analyze.
+     * @param direction The direction of the previous move.
+     */
     private void determineBase(World world, int x, int y, int z, Block block, int direction) {
+        // Get the block meta.
         int meta = world.getBlockMetadata(x, y, z);
+        // If this is a 5-to-1 base...
         if (block == HexBlocks.blockPylonBase51) {
+            // Check if orientation is correct.
             if ((meta == 0 && direction != 1) ||
                     (meta == 1 && direction != 0) ||
                     (meta == 2 && direction != 3) ||
@@ -224,10 +255,12 @@ public class CableAnalyzer {
                     (meta == 4 && direction != 5) ||
                     (meta == 5 && direction != 4) ||
                     direction == -1) {
+                // Check if the base is not already added (use cable list).
                 if (!cables.contains(new HexDevice(x, y, z, block))) {
-
+                    // Add the base.
                     cables.add(new HexDevice(x, y, z, block));
 
+                    // Continue analysis.
                     if (meta == 0) {
                         pylonize(world, x, y - 1, z, block, 0);
                         if (direction != 0)
@@ -304,7 +337,9 @@ public class CableAnalyzer {
                 }
             }
         }
+        // If this is a 1-to-5 base...
         else if (block == HexBlocks.blockPylonBase15) {
+            // Check if orientation is correct.
             if ((meta == 0 && direction == 1) ||
                     (meta == 1 && direction == 0) ||
                     (meta == 2 && direction == 3) ||
@@ -312,10 +347,12 @@ public class CableAnalyzer {
                     (meta == 4 && direction == 5) ||
                     (meta == 5 && direction == 4) ||
                     direction == -1) {
+                // Check if the base is not already added (use cable list).
                 if (!cables.contains(new HexDevice(x, y, z, block))) {
-
+                    // Add the base.
                     cables.add(new HexDevice(x, y, z, block));
 
+                    // Continue analysis.
                     if (meta == 0) {
                         if (direction == -1)
                             analyze(world, x, y - 1, z, block, 0);
@@ -370,8 +407,17 @@ public class CableAnalyzer {
         }
     }
 
+    /**
+     * Begins the analysis from a machine.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the machine.
+     * @param y Y coordinate of the machine.
+     * @param z Z coordinate of the machine.
+     * @param orientation The orientation of the machine.
+     */
     public void analyzeMachine(World world, int x, int y, int z, int orientation)
     {
+        // Proceed to side depending on orientation.
         if (orientation == 0 &&
                 (world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable ||
                         (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z + 1) != 2) ||
@@ -401,6 +447,13 @@ public class CableAnalyzer {
         push(world);
     }
 
+    /**
+     * Begins the analysis from a cable.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the cable.
+     * @param y Y coordinate of the cable.
+     * @param z Z coordinate of the cable.
+     */
     public void analyzeCable(World world, int x, int y, int z, Block block)
     {
         // Call the analysis and wait for results.
@@ -409,6 +462,13 @@ public class CableAnalyzer {
         push(world);
     }
 
+    /**
+     * Begins the analysis from a pylon.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the pylon.
+     * @param y Y coordinate of the pylon.
+     * @param z Z coordinate of the pylon
+     */
     public void analyzePylon(World world, int x, int y, int z, Block block)
     {
         // Call the analysis and wait for results.
@@ -444,7 +504,7 @@ public class CableAnalyzer {
     private void push(World world) {
 
         // Notify about pushing machines.
-        System.out.println("Done! Pushing data to machines:");
+        // System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
@@ -455,7 +515,7 @@ public class CableAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
             if (entry.block == HexBlocks.blockHexoriumGenerator) {

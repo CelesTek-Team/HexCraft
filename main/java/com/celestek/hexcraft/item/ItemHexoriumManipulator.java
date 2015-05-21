@@ -58,21 +58,30 @@ public class ItemHexoriumManipulator extends Item {
      */
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        // Check if this is the server thread.
         if (!world.isRemote) {
+            // Get the block.
             Block block = world.getBlock(x, y, z);
 
+            // Fired if the player is sneaking.
             if (player.isSneaking()) {
+                // Dismantle Energized Hexorium and Energized Hexorium Monoliths.
                 if (block instanceof BlockEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                     world.setBlockToAir(x, y, z);
+                // Eject monolith from Energy Pylon.
                 } else if (block == HexBlocks.blockEnergyPylon)
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
             }
+            // Fired on normal use.
             else {
+                // Link Energy Pylons.
                 if (block == HexBlocks.blockEnergyPylon) {
+                    // Create a new tag compound for the manipulator if it doesn't exist.
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
 
+                    // If this is the first use, just save the pylon location.
                     if (!stack.stackTagCompound.getBoolean("Linking")) {
                         stack.stackTagCompound.setInteger("X", x);
                         stack.stackTagCompound.setInteger("Y", y);
@@ -81,23 +90,38 @@ public class ItemHexoriumManipulator extends Item {
                         stack.setItemDamage(1);
                         player.addChatMessage(new ChatComponentTranslation("msg.linkStart.txt"));
                     }
+                    // If this is the second use, perform linking.
                     else {
+                        // Retrieve previous pylon.
                         int tx = stack.stackTagCompound.getInteger("X");
                         int ty = stack.stackTagCompound.getInteger("Y");
                         int tz = stack.stackTagCompound.getInteger("Z");
 
+                        // Determine length of the link.
                         double len = Vec3.createVectorHelper(tx, ty, tz).subtract(Vec3.createVectorHelper(x, y, z)).lengthVector();
 
+                        // Perform ray tracing, if success, proceed.
                         if (TileEnergyPylon.tracePylons(world, x, y, z, tx, ty, tz)) {
+
+                            // Check if pylons are within reach.
                             if (len <= 32) {
+
+                                // Fetch tile entities of pylons.
                                 TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
                                 TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
+
+                                // Make sure they are not null.
                                 if (pylonA != null && pylonB != null) {
+
+                                    // Check if the color combinations are okay.
                                     if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
+
+                                        // Try to add pylons.
                                         if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true)) {
+                                            // If the pylons are not added yet, link them.
                                             player.addChatMessage(new ChatComponentTranslation("msg.linkSuccess.txt"));
 
-                                            System.out.println("Pylons linked, analyzing!");
+                                            // System.out.println("Pylons linked, analyzing!");
 
                                              /* DO ANALYSIS */
                                             // Prepare the network analyzer.
@@ -106,10 +130,12 @@ public class ItemHexoriumManipulator extends Item {
                                             analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
                                         }
                                         else {
+                                            // If the pylons were already added, unlink them.
                                             pylonA.removePylon(tx, ty, tz);
                                             pylonB.removePylon(x, y, z);
                                             player.addChatMessage(new ChatComponentTranslation("msg.linkBreak.txt"));
                                         }
+                                    // Error messages for all situations.
                                     } else
                                         player.addChatMessage(new ChatComponentTranslation("msg.linkFail1.txt"));
                                 } else

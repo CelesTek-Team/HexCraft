@@ -74,7 +74,7 @@ public class BlockCrystalSeparator extends HexBlockContainer {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            System.out.println("Machine placed, analyzing!");
+            // System.out.println("Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -115,7 +115,7 @@ public class BlockCrystalSeparator extends HexBlockContainer {
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
 
-            System.out.println("Neighbour cable destroyed, analyzing!");
+            // System.out.println("Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.

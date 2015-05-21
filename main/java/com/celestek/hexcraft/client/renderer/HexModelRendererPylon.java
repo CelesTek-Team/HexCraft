@@ -402,6 +402,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         float b = HexColors.colorWhiteB;
         IIcon c = block.getIcon(6, 0);
 
+        // Strip away the meta.
         if (meta >= 6)
             meta = meta - 6;
 
@@ -409,12 +410,15 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(x, y, z);
 
+        // Get the pylon Tile Entity.
         TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        // Check if there is a monolith inserted.
         boolean renderMonolith = false;
         if (tileEntity != null)
             if (tileEntity.monolith > 0)
                 renderMonolith = true;
 
+        // If there is a monolith, set the according color.
         if (renderMonolith) {
             if (tileEntity.monolith == 1) {
                 r = HexColors.colorRedR;
@@ -485,6 +489,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 g = HexColors.colorBlackG;
                 b = HexColors.colorBlackB;
             } else if (tileEntity.monolith == 18) {
+                // If it's rainbow, set a different texture.
                 c = block.getIcon(7, 0);
             }
         }
@@ -492,8 +497,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         // Check if this is the second (transparent) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 1) {
 
+            // If there is a monolith...
             if (renderMonolith) {
-
                 /* Monolith */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
@@ -770,14 +775,14 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         }
         // If this is the first (opaque) render pass...
         else {
+            // If there is a monolith...
             if (renderMonolith) {
-
-                /* Monolith */
+                /* Ball */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
                 tessellator.setColorOpaque_F(r, g, b);
 
-                // Render the monolith. Use the block meta to rotate the model.
+                // Render the ball. Use the block meta to rotate the model.
                 if (meta == 0) {
                     // Top Face
                     tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
@@ -1384,6 +1389,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(xPlatMin, 1-yMonoBot, zPlatMin, u, V); // D'
                 tessellator.addVertexWithUV(xPlatMax, 1-yMonoBot, zPlatMin, U, V); // C'
                 tessellator.addVertexWithUV(xPlatMax, 1-yMonoBot, zPlatMax, U, v); // B'
@@ -1479,6 +1485,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(xPlatMin, yMonoBot, zPlatMax, u, v); // A'
                 tessellator.addVertexWithUV(xPlatMax, yMonoBot, zPlatMax, U, v); // B'
                 tessellator.addVertexWithUV(xPlatMax, yMonoBot, zPlatMin, U, V); // C'
@@ -1574,6 +1581,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(zPlatMin, xPlatMin, 1-yMonoBot, u, V); // D'
                 tessellator.addVertexWithUV(zPlatMin, xPlatMax, 1-yMonoBot, U, V); // C'
                 tessellator.addVertexWithUV(zPlatMax, xPlatMax, 1-yMonoBot, U, v); // B'
@@ -1669,6 +1677,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(zPlatMax, xPlatMin, yMonoBot, u, v); // A'
                 tessellator.addVertexWithUV(zPlatMax, xPlatMax, yMonoBot, U, v); // B'
                 tessellator.addVertexWithUV(zPlatMin, xPlatMax, yMonoBot, U, V); // C'
@@ -1764,6 +1773,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(1-yMonoBot, xPlatMin, zPlatMax, u, v); // A'
                 tessellator.addVertexWithUV(1-yMonoBot, xPlatMax, zPlatMax, U, v); // B'
                 tessellator.addVertexWithUV(1-yMonoBot, xPlatMax, zPlatMin, U, V); // C'
@@ -1859,25 +1869,34 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double v = c.getInterpolatedV(vBaseTop);
                 double V = c.getInterpolatedV(VBaseTop);
 
+                // Base Plate
                 tessellator.addVertexWithUV(yMonoBot, xPlatMin, zPlatMin, u, V); // D'
                 tessellator.addVertexWithUV(yMonoBot, xPlatMax, zPlatMin, U, V); // C'
                 tessellator.addVertexWithUV(yMonoBot, xPlatMax, zPlatMax, U, v); // B'
                 tessellator.addVertexWithUV(yMonoBot, xPlatMin, zPlatMax, u, v); // A'
             }
 
+            // If there is a monolith...
             if (renderMonolith) {
-                // Prepare the icon.
-                double u;
-                double U;
-                double v;
-                double V;
+                /* Beams */
 
+                // Check if the pylon list is not null.
                 if (tileEntity.pylons != null) {
+                    // Prepare the icon variables.
+                    double u;
+                    double U;
+                    double v;
+                    double V;
 
+                    // Prepare the brightness.
                     tessellator.setBrightness(brightness);
+
+                    // Go through each pylon entry.
                     for (HexPylon entry : tileEntity.pylons) {
                         if (entry.pylon != null) {
+                            // Check if any of the pylons are rainbow.
                             if (tileEntity.monolith == 18 || entry.pylon.monolith == 18) {
+                                // If they are, set the rainbow texture.
                                 tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
                                 c = block.getIcon(11, 0);
                                 u = c.getMinU();
@@ -1885,6 +1904,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                 v = c.getMinV();
                                 V = c.getMaxV();
                             } else {
+                                // Otherwise, set the color normally.
                                 tessellator.setColorOpaque_F(r, g, b);
                                 c = block.getIcon(10, 0);
                                 u = c.getMinU();
@@ -1892,14 +1912,19 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                 v = c.getMinV();
                                 V = c.getMaxV();
                             }
+
+                            // Create the vector from pylon A to pylon B.
                             Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
 
+                            // Prepare additional vectors.
                             Vec3 vec2;
                             Vec3 vec3;
                             Vec3 vec4;
                             Vec3 vec5;
 
+                            // If the pylons are exactly above each other...
                             if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
+                                // Create start vectors.
                                 vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
                                 vec2 = centerVector(vec2);
 
@@ -1913,10 +1938,12 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                 vec5 = centerVector(vec5);
                             }
                             else {
+                                // Create helper vector.
                                 Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
                                 vec1.rotateAroundY((float) -Math.PI / 2);
                                 vec1.yCoord = 0;
 
+                                // Create start vectors.
                                 vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
                                 vec2 = vec2.normalize();
                                 vec2 = scaleVector(vec2, beamRadius / 2);
@@ -1938,11 +1965,13 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                 vec5 = centerVector(vec5);
                             }
 
+                            // Create destination vectors.
                             Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
                             Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
                             Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
                             Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
 
+                            // Draw the beam.
                             tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
                             tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
                             tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
@@ -1962,22 +1991,13 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                             tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
                             tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
                             tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-
-                            // System.out.println(vec1);
-                            // System.out.println(vec2);
-                            // System.out.println(vec3);
-                            // System.out.println(vec4);
-                            // System.out.println(vec5);
-                            // System.out.println(vec6);
-                            // System.out.println(vec7);
-                            // System.out.println(vec8);
-                            // System.out.println(vec9);
                         }
                     }
                 }
             }
         }
 
+        // Finalize tessellator.
         tessellator.addTranslation(-x, -y, -z);
         return true;
     }
@@ -2000,6 +2020,11 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         return true;
     }
 
+    /**
+     * Scales a normalized vector to a desired distance.
+     * @param vec Vector to scale.
+     * @param l Desired length.
+     */
     private Vec3 scaleVector(Vec3 vec, double l) {
         double x = vec.xCoord * l;
         double y = vec.yCoord * l;
@@ -2007,6 +2032,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         return Vec3.createVectorHelper(x, y, z);
     }
 
+    /**
+     * Positions a vector at the center of a block.
+     * @param vec Vector to reposition.
+     */
     private Vec3 centerVector(Vec3 vec) {
         return vec.addVector(0.5, 0.5, 0.5);
     }

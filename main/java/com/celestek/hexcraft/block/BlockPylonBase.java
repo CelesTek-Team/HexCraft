@@ -54,11 +54,14 @@ public class BlockPylonBase extends Block {
         // Get the direction of the block.
         int direction;
         if (entity.rotationPitch > 60.0F)
+            // If player is looking up.
             direction = 1;
         else if (entity.rotationPitch < -60.0F)
+            // If player is looking down.
             direction = 0;
         else {
             direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+            // If player is looking towards NSWE.
             if (direction == 0)
                 direction = 2;
             else if (direction == 1)

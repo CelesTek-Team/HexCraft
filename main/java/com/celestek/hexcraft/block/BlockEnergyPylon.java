@@ -78,11 +78,14 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
 
+        // Strip away extra meta.
         if (meta >= 6)
             meta = meta - 6;
 
+        // Return bounding box depending on meta.
         if (meta == 0)
             setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
@@ -109,8 +112,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        
+        // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
+
+        // Return bounding box depending on meta.
         if (meta == 0)
             return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMin,
                     x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
@@ -159,8 +164,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        
+        // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
+
+        // Return bounding box depending on meta.
         if (meta == 0) {
             setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
@@ -245,7 +252,9 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+        // Check if this is the server thread.
         if (!world.isRemote) {
+            // If it is, pass the player object to the Tile Entity to insert the monolith.
             TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
             return tileEntity.insertMonolith(player);
         }
@@ -335,6 +344,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
 
+        // Strip away extra meta.
         if (meta >= 6)
             meta = meta - 6;
 
@@ -454,8 +464,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Check if it is not null.
         if (tileEntity != null) {
 
+            // Remove all pylons from the list.
             tileEntity.clearPylons();
 
+            // Set up drops.
             ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
             if (tileEntity.monolith == 1) {

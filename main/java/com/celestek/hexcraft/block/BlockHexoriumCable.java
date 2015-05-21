@@ -54,7 +54,7 @@ public class BlockHexoriumCable extends HexBlockModel {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            System.out.println("Cable placed, analyzing!");
+            // System.out.println("Cable placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
@@ -78,7 +78,7 @@ public class BlockHexoriumCable extends HexBlockModel {
                 block == HexBlocks.blockCrystalSeparator ||
                 block == HexBlocks.blockMatrixReconstructor) {
 
-            System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            // System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
