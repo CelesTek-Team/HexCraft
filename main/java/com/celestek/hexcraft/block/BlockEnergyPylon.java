@@ -1,25 +1,20 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPylon;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
-import com.celestek.hexcraft.util.CableAnalyzer;
+import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -28,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -289,7 +283,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis.
             analyzer.analyzePylon(world, x, y, z, this);
         }

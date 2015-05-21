@@ -609,7 +609,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     }
 
     /**
-     * Called by the CableAnalyzer class when exchanging data between machines.
+     * Called by the NetworkAnalyzer class when exchanging data between machines.
      * @param incomingMatrixReconstructor The ArrayList of machines recieved.
      * @param incomingHexoriumFurnace The ArrayList of machines recieved.
      */

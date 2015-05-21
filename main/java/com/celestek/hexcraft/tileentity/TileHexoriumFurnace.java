@@ -495,7 +495,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
     }
 
     /**
-     * Called by the CableAnalyzer class when exchanging data between machines.
+     * Called by the NetworkAnalyzer class when exchanging data between machines.
      * @param incomingMachines The ArrayList of machines recieved.
      */
     public void injectMachines(ArrayList<TileHexoriumGenerator> incomingMachines) {

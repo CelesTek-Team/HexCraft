@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @version 0.1.0
  * @since 2015-04-26
  */
-public class CableAnalyzer {
+public class NetworkAnalyzer {
 
     // Prepare ArrayLists for machines and cables.
     private ArrayList<HexDevice> cables;
@@ -23,7 +23,7 @@ public class CableAnalyzer {
     /**
      * Constructor.
      */
-    public CableAnalyzer() {
+    public NetworkAnalyzer() {
         cables = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
@@ -417,6 +417,12 @@ public class CableAnalyzer {
      */
     public void analyzeMachine(World world, int x, int y, int z, int orientation)
     {
+        // Strip away the texture states from meta.
+        if (orientation >= 4 && orientation < 8)
+            orientation -= 4;
+        else if (orientation >= 8)
+            orientation -= 8;
+
         // Proceed to side depending on orientation.
         if (orientation == 0 &&
                 (world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable ||

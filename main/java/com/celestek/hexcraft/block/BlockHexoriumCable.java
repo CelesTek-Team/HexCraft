@@ -3,7 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.util.CableAnalyzer;
+import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -58,7 +58,7 @@ public class BlockHexoriumCable extends HexBlockModel {
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
@@ -82,7 +82,7 @@ public class BlockHexoriumCable extends HexBlockModel {
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }

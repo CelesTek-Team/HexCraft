@@ -2,7 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.util.CableAnalyzer;
+import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,9 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -83,7 +81,7 @@ public class BlockPylonBase extends Block {
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
@@ -108,7 +106,7 @@ public class BlockPylonBase extends Block {
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }

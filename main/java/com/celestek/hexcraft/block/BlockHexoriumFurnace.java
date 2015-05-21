@@ -1,9 +1,9 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
-import com.celestek.hexcraft.util.CableAnalyzer;
+import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -78,7 +77,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
             analyzer.analyzeMachine(world, x, y, z, direction);
         }
@@ -89,8 +88,16 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        // Open the GUI.
-        player.openGui(HexCraft.instance, 1, world, x, y, z);
+        // Check if the equipped item is not a Hexorium Manipulator.
+        ItemStack itemStack = player.getCurrentEquippedItem();
+        if (itemStack != null) {
+            if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
+                // Open the GUI.
+                player.openGui(HexCraft.instance, 1, world, x, y, z);
+        }
+        else
+            // Open the GUI.
+            player.openGui(HexCraft.instance, 1, world, x, y, z);
         return true;
     }
 
@@ -105,12 +112,6 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
         // Prepare the block meta.
         int meta = world.getBlockMetadata(x, y, z);
 
-        // Strip away the texture states from meta.
-        if (meta >= 4 && meta < 8)
-            meta -= 4;
-        else if (meta >= 8)
-            meta -= 8;
-
         // Check if the changed block is a cable.
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
@@ -119,7 +120,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
-            CableAnalyzer analyzer = new CableAnalyzer();
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
             analyzer.analyzeMachine(world, x, y, z, meta);
         }
