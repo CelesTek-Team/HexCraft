@@ -23,10 +23,6 @@ import net.minecraft.item.Item;
  * @since 2015-04-14
  */
 
-// TODO: Energy Pylons
-// TODO: Multiblock tank
-// TODO: More decoration blocks
-
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
 public class HexCraft
 {
