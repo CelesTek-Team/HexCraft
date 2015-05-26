@@ -1,7 +1,10 @@
 package com.celestek.hexcraft.block;
 
+import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexColors;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -62,7 +65,35 @@ public class BlockHexoriumLamp extends HexBlock {
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         if (world.getBlockMetadata(x, y, z) == 1)
-            return 15;
+            if (Loader.isModLoaded("coloredlightscore"))
+                if (this == HexBlocks.blockHexoriumLampRed)
+                    return CLApi.makeRGBLightValue(HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB);
+                else if (this == HexBlocks.blockHexoriumLampOrange)
+                    return CLApi.makeRGBLightValue(HexColors.colorOrangeR, HexColors.colorOrangeG, HexColors.colorOrangeB);
+                else if (this == HexBlocks.blockHexoriumLampYellow)
+                    return CLApi.makeRGBLightValue(HexColors.colorYellowR, HexColors.colorYellowG, HexColors.colorYellowB);
+                else if (this == HexBlocks.blockHexoriumLampLime)
+                    return CLApi.makeRGBLightValue(HexColors.colorLimeR, HexColors.colorLimeG, HexColors.colorLimeB);
+                else if (this == HexBlocks.blockHexoriumLampGreen)
+                    return CLApi.makeRGBLightValue(HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB);
+                else if (this == HexBlocks.blockHexoriumLampTurquoise)
+                    return CLApi.makeRGBLightValue(HexColors.colorTurquoiseR, HexColors.colorTurquoiseG, HexColors.colorTurquoiseB);
+                else if (this == HexBlocks.blockHexoriumLampCyan)
+                    return CLApi.makeRGBLightValue(HexColors.colorCyanR, HexColors.colorCyanG, HexColors.colorCyanB);
+                else if (this == HexBlocks.blockHexoriumLampSkyBlue)
+                    return CLApi.makeRGBLightValue(HexColors.colorSkyBlueR, HexColors.colorSkyBlueG, HexColors.colorSkyBlueB);
+                else if (this == HexBlocks.blockHexoriumLampBlue)
+                    return CLApi.makeRGBLightValue(HexColors.colorBlueR, HexColors.colorBlueG, HexColors.colorBlueB);
+                else if (this == HexBlocks.blockHexoriumLampPurple)
+                    return CLApi.makeRGBLightValue(HexColors.colorPurpleR, HexColors.colorPurpleG, HexColors.colorPurpleB);
+                else if (this == HexBlocks.blockHexoriumLampMagenta)
+                    return CLApi.makeRGBLightValue(HexColors.colorMagentaR, HexColors.colorMagentaG, HexColors.colorMagentaB);
+                else if (this == HexBlocks.blockHexoriumLampPink)
+                    return CLApi.makeRGBLightValue(HexColors.colorPinkR, HexColors.colorPinkG, HexColors.colorPinkB);
+                else
+                    return CLApi.makeRGBLightValue(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+            else
+                return 15;
         else
             return 0;
     }

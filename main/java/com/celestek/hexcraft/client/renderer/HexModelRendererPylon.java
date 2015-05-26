@@ -6,6 +6,7 @@ import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.util.HexPylon;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -254,7 +255,12 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
         // Load the constructor parameters.
         this.renderID = renderID;
-        this.brightness = brightness;
+
+        if (Loader.isModLoaded("coloredlightscore"))
+            this.brightness = HexColors.brightnessCL;
+        else
+            this.brightness = brightness;
+
         this.opacity = opacity;
 
         // Increment block counter in HexCraft class.

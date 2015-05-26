@@ -82,6 +82,7 @@ public class HexColors {
     // Brightness
 
     public static int brightnessBright = 0x00F000F0;
+    public static int brightnessCL = 0xFFFFF;
 
     // Opacity
 

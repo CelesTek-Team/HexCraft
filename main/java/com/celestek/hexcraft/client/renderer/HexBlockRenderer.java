@@ -1,10 +1,13 @@
 package com.celestek.hexcraft.client.renderer;
 
+import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumLamp;
 import com.celestek.hexcraft.block.BlockHexoriumLampInv;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -49,7 +52,12 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         // Load the constructor parameters.
         this.renderID = renderID;
-        this.brightness = brightness;
+
+        if (Loader.isModLoaded("coloredlightscore"))
+            this.brightness = HexColors.brightnessCL;
+        else
+            this.brightness = brightness;
+
         this.r = r;
         this.g = g;
         this.b = b;
@@ -232,6 +240,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
+
             if (!isLamp)
                 tessellator.setColorOpaque_F(r, g, b);
             else {
