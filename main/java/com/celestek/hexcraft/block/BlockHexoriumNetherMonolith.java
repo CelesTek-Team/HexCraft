@@ -176,6 +176,9 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      */
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
+        // Reset the fortune and silk touch parameters.
+        fortune = 0;
+        silk = false;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             // Prepare a list of all enchants.
@@ -189,8 +192,6 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
-                    else
-                        fortune = 0;
                 }
         }
     }

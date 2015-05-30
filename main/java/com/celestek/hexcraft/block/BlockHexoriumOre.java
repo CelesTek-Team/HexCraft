@@ -62,22 +62,13 @@ public class BlockHexoriumOre extends HexBlock {
     }
 
     /**
-     * Called when a block is placed using its ItemBlock.
-     */
-    @Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-        // Reset the fortune and silk touch parameters.
-        fortune = 0;
-        silk = false;
-
-        return meta;
-    }
-
-    /**
      * Checks if the player harvesting the block has Silk Touch enchant and/or Fortune enchant.
      */
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
+        // Reset the fortune and silk touch parameters.
+        fortune = 0;
+        silk = false;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             // Prepare a list of all enchants.
@@ -91,8 +82,6 @@ public class BlockHexoriumOre extends HexBlock {
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
-                    else
-                        fortune = 0;
                 }
         }
     }
