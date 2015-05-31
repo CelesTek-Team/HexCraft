@@ -74,6 +74,44 @@ public class ItemHexoriumManipulator extends Item {
                 // Eject monolith from Energy Pylon.
                 } else if (block == HexBlocks.blockEnergyPylon)
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
+                // Rotate teleport.
+                else if (block == HexBlocks.blockPersonalTeleportationPad) {
+                    // Get meta.
+                    int meta = world.getBlockMetadata(x, y, z);
+                    int metaOld = world.getBlockMetadata(x, y, z);
+
+                    // Rotate meta
+                    if (meta < 4) {
+                        meta++;
+                        if (meta == 4)
+                            meta = 0;
+                    }
+                    else if (meta >= 4 && meta < 8) {
+                        meta++;
+                        if (meta == 8)
+                            meta = 4;
+                    }
+                    else if (meta >= 8) {
+                        meta++;
+                        if (meta == 12)
+                            meta = 8;
+                    }
+
+                    // Push meta to block.
+                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+
+                    System.out.println("Teleport rotated, analyzing!");
+
+                    /* DO ANALYSIS */
+                    // Prepare the network analyzers.
+                    NetworkAnalyzer analyzerOld = new NetworkAnalyzer();
+                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                    NetworkAnalyzer analyzerDown = new NetworkAnalyzer();
+                    // Call the analysis in original and new direction.
+                    analyzerOld.analyzeMachine(world, x, y, z, metaOld);
+                    analyzer.analyzeMachine(world, x, y, z, meta);
+                    analyzerDown.analyzeTeleport(world, x, y, z);
+                }
             }
             // Fired on normal use.
             else {
@@ -222,44 +260,6 @@ public class ItemHexoriumManipulator extends Item {
                             stack.setItemDamage(0);
                         }
                     }
-                }
-                // Rotate teleport.
-                else if (block == HexBlocks.blockPersonalTeleportationPad) {
-                    // Get meta.
-                    int meta = world.getBlockMetadata(x, y, z);
-                    int metaOld = world.getBlockMetadata(x, y, z);
-
-                    // Rotate meta
-                    if (meta < 4) {
-                        meta++;
-                        if (meta == 4)
-                            meta = 0;
-                    }
-                    else if (meta >= 4 && meta < 8) {
-                        meta++;
-                        if (meta == 8)
-                            meta = 4;
-                    }
-                    else if (meta >= 8) {
-                        meta++;
-                        if (meta == 12)
-                            meta = 8;
-                    }
-
-                    // Push meta to block.
-                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
-
-                    System.out.println("Teleport rotated, analyzing!");
-
-                    /* DO ANALYSIS */
-                    // Prepare the network analyzers.
-                    NetworkAnalyzer analyzerOld = new NetworkAnalyzer();
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    NetworkAnalyzer analyzerDown = new NetworkAnalyzer();
-                    // Call the analysis in original and new direction.
-                    analyzerOld.analyzeMachine(world, x, y, z, metaOld);
-                    analyzer.analyzeMachine(world, x, y, z, meta);
-                    analyzerDown.analyzeTeleport(world, x, y, z);
                 }
                 // Rotate machines.
                 else if (block == HexBlocks.blockHexoriumGenerator ||

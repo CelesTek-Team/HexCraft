@@ -567,7 +567,7 @@ public class NetworkAnalyzer {
     private void pushMachines(World world) {
 
         // Notify about pushing machines.
-         System.out.println("Done! Pushing data to machines:");
+        // System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
@@ -579,7 +579,7 @@ public class NetworkAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
             if (entry.block == HexBlocks.blockHexoriumGenerator) {
@@ -629,7 +629,7 @@ public class NetworkAnalyzer {
     private void pushTeleports(World world) {
 
         // Notify about pushing machines.
-        System.out.println("Done! Pushing data to teleports:");
+        // System.out.println("Done! Pushing data to teleports:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<TilePersonalTeleportationPad> teleportsPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
@@ -637,7 +637,7 @@ public class NetworkAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : teleports) {
             // Notify about every machine.
-            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add teleports to their ArrayList.
             if (entry.block == HexBlocks.blockPersonalTeleportationPad) {

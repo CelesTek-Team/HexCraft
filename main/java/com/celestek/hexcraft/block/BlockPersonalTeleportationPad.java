@@ -119,7 +119,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
             // Prepare the block meta.
             int meta = world.getBlockMetadata(x, y, z);
 
-            System.out.println("Neighbour cable destroyed, analyzing!");
+            // System.out.println("Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.

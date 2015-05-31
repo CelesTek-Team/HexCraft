@@ -591,7 +591,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                     if (entry.xCoord == linkedTeleportX && entry.yCoord == linkedTeleportY && entry.zCoord == linkedTeleportZ)
                         checkLink = true;
                 if (!checkLink) {
-                    System.out.println("Teleports unlinked!");
+                    // System.out.println("Teleports unlinked!");
                     linkedTeleportExists = false;
                 }
             }
