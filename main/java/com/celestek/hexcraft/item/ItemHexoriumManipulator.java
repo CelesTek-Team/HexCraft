@@ -100,7 +100,7 @@ public class ItemHexoriumManipulator extends Item {
                     // Push meta to block.
                     world.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
-                    System.out.println("Teleport rotated, analyzing!");
+                    // System.out.println("Teleport rotated, analyzing!");
 
                     /* DO ANALYSIS */
                     // Prepare the network analyzers.
