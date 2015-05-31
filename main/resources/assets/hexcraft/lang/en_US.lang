@@ -232,7 +232,7 @@ item.itemHeatDissipator.name=Heat Dissipator
 item.itemHeatingArray.name=Heating Array
 item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
-item.itemMaterialInteractionPlane.name=Interaction Plane
+item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
