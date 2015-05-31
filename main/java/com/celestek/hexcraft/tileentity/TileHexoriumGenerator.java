@@ -40,6 +40,10 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     private int[] machinesMatrixReconstructorX;
     private int[] machinesMatrixReconstructorY;
     private int[] machinesMatrixReconstructorZ;
+    private ArrayList<TilePersonalTeleportationPad> machinesPersonalTeleportationPad;
+    private int[] machinesPersonalTeleportationPadX;
+    private int[] machinesPersonalTeleportationPadY;
+    private int[] machinesPersonalTeleportationPadZ;
 
     // Define sides and slots.
     private static final int[] slotsSide = new int[] { 0 };
@@ -257,6 +261,13 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         // Prepare the ArrayList for machines.
         machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
 
+        // Read the coordinate arrays.
+        machinesPersonalTeleportationPadX = tagCompound.getIntArray("MachinesPersonalTeleportationPadX");
+        machinesPersonalTeleportationPadY = tagCompound.getIntArray("MachinesPersonalTeleportationPadY");
+        machinesPersonalTeleportationPadZ = tagCompound.getIntArray("MachinesPersonalTeleportationPadZ");
+        // Prepare the ArrayList for machines.
+        machinesPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
+
         // Prime the updateEntity() for first-tick startup.
         firstTick = true;
 
@@ -380,6 +391,35 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
         }
 
+        // Check if machine list is not null.
+        if (machinesPersonalTeleportationPad != null) {
+            // Initialize the coordinate arrays.
+            machinesPersonalTeleportationPadX = new int[machinesPersonalTeleportationPad.size()];
+            machinesPersonalTeleportationPadY = new int[machinesPersonalTeleportationPad.size()];
+            machinesPersonalTeleportationPadZ = new int[machinesPersonalTeleportationPad.size()];
+            // Save the coordinates of machines to arrays.
+            int i = 0;
+            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad) {
+                machinesPersonalTeleportationPadX[i] = entry.xCoord;
+                machinesPersonalTeleportationPadY[i] = entry.yCoord;
+                machinesPersonalTeleportationPadZ[i] = entry.zCoord;
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesPersonalTeleportationPadX);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesPersonalTeleportationPadY);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesPersonalTeleportationPadZ);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else {
+            machinesPersonalTeleportationPadX = new int[0];
+            machinesPersonalTeleportationPadY = new int[0];
+            machinesPersonalTeleportationPadZ = new int[0];
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesPersonalTeleportationPadX);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesPersonalTeleportationPadY);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesPersonalTeleportationPadZ);
+        }
+
         // Write the items.
         NBTTagList tagsItems = new NBTTagList();
         for (int i = 0; i < machineItemStacks.length; ++i) {
@@ -405,15 +445,26 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             // If this is the first tick...
             if (firstTick) {
                 // Build the machine list using the coordinate arrays.
+                for (int i = 0; i < machinesHexoriumFurnaceX.length; i++) {
+                    machinesHexoriumFurnace.add((TileHexoriumFurnace)
+                            worldObj.getTileEntity(machinesHexoriumFurnaceX[i], machinesHexoriumFurnaceY[i], machinesHexoriumFurnaceZ[i]));
+                }
+                // Build the machine list using the coordinate arrays.
+                for (int i = 0; i < machinesCrystalSeparatorX.length; i++) {
+                    machinesCrystalSeparator.add((TileCrystalSeparator)
+                            worldObj.getTileEntity(machinesCrystalSeparatorX[i], machinesCrystalSeparatorY[i], machinesCrystalSeparatorZ[i]));
+                }
+                // Build the machine list using the coordinate arrays.
                 for (int i = 0; i < machinesMatrixReconstructorX.length; i++) {
                     machinesMatrixReconstructor.add((TileMatrixReconstructor)
                             worldObj.getTileEntity(machinesMatrixReconstructorX[i], machinesMatrixReconstructorY[i], machinesMatrixReconstructorZ[i]));
                 }
                 // Build the machine list using the coordinate arrays.
-                for (int i = 0; i < machinesHexoriumFurnaceX.length; i++) {
-                    machinesHexoriumFurnace.add((TileHexoriumFurnace)
-                            worldObj.getTileEntity(machinesHexoriumFurnaceX[i], machinesHexoriumFurnaceY[i], machinesHexoriumFurnaceZ[i]));
+                for (int i = 0; i < machinesPersonalTeleportationPadX.length; i++) {
+                    machinesPersonalTeleportationPad.add((TilePersonalTeleportationPad)
+                            worldObj.getTileEntity(machinesPersonalTeleportationPadX[i], machinesPersonalTeleportationPadY[i], machinesPersonalTeleportationPadZ[i]));
                 }
+                
                 // Finalize first tick.
                 firstTick = false;
             }
@@ -471,9 +522,9 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 }
             }
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) (energy / energyPerTick) & 32767;
-            energyTotalGui = (int) (energyTotal / energyPerTick) & 32767;
-            energyOutGui = (Math.round(energyOut)) & 32767;
+            energyGui = (int) (energy / energyPerTick);
+            energyTotalGui = (int) (energyTotal / energyPerTick);
+            energyOutGui = (Math.round(energyOut));
         }
     }
 
@@ -580,6 +631,13 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStop();
+
+        // Make sure that the machine list is not null.
+        if (machinesPersonalTeleportationPad != null)
+            // Send a restart-stop signal to all machines in the list.
+            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad)
+                if (entry != null)
+                    entry.restartMachineStop();
     }
 
     /**
@@ -606,14 +664,26 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
                 if (entry != null)
                     entry.restartMachineStart();
+
+        // Make sure that the machine list is not null.
+        if (machinesPersonalTeleportationPad != null)
+            // Send a restart-start signal to all machines in the list.
+            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad)
+                if (entry != null)
+                    entry.restartMachineStart();
     }
 
     /**
      * Called by the NetworkAnalyzer class when exchanging data between machines.
-     * @param incomingMatrixReconstructor The ArrayList of machines recieved.
-     * @param incomingHexoriumFurnace The ArrayList of machines recieved.
+     * @param incomingHexoriumFurnace The ArrayList of machines received.
+     * @param incomingCrystalSeparator The ArrayList of machines received.
+     * @param incomingMatrixReconstructor The ArrayList of machines received.
+     * @param incomingPersonalTeleportationPad The ArrayList of machines received.
      */
-    public void injectMachines(ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace, ArrayList<TileCrystalSeparator> incomingCrystalSeparator, ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor) {
+    public void injectMachines(ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace,
+                               ArrayList<TileCrystalSeparator> incomingCrystalSeparator,
+                               ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor,
+                               ArrayList<TilePersonalTeleportationPad> incomingPersonalTeleportationPad) {
 
         // Check if the size of the incoming list is larger then 0.
         if (incomingHexoriumFurnace.size() != 0)
@@ -638,6 +708,14 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         else
             // Otherwise, set the local list to null.
             machinesMatrixReconstructor = null;
+
+        // Check if the size of the incoming list is larger then 0.
+        if (incomingPersonalTeleportationPad.size() != 0)
+            // If it is, save it to local list.
+            machinesPersonalTeleportationPad = incomingPersonalTeleportationPad;
+        else
+            // Otherwise, set the local list to null.
+            machinesPersonalTeleportationPad = null;
     }
 
     /**

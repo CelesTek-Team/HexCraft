@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.inventory.*;
-import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
-import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
-import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -41,6 +38,10 @@ public class HexGui implements IGuiHandler {
             TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
             return new ContainerMatrixReconstructor(player.inventory, tileEntity);
         }
+        if(ID == 4){
+            TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
+            return new ContainerPersonalTeleportationPad(player.inventory, tileEntity);
+        }
         return null;
     }
 
@@ -65,6 +66,10 @@ public class HexGui implements IGuiHandler {
         if(ID == 3){
             TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
             return new GuiMatrixReconstructor(player.inventory, tileEntity);
+        }
+        if(ID == 4){
+            TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
+            return new GuiPersonalTeleportationPad(player.inventory, tileEntity);
         }
         return null;
     }

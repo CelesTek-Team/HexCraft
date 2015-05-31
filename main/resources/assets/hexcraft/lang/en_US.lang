@@ -173,6 +173,8 @@ tile.blockHexoriumFurnace.name=Hexorium Furnace
 tile.blockCrystalSeparator.name=Crystal Separator
 tile.blockMatrixReconstructor.name=Matrix Reconstructor
 
+tile.blockPersonalTeleportationPad.name=Personal Teleportation Pad
+
 tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
 tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)
 tile.blockHexoriumCableYellow.name=Hexorium Cable (Yellow)
@@ -233,10 +235,21 @@ item.itemMatrixAdjuster.name=Matrix Adjuster
 item.itemHexoriumManipulator.name=Hexorium Manipulator
 
 
-msg.linkStart.txt=[Hexorium Manipulator] Linking...
-msg.linkSuccess.txt=[Hexorium Manipulator] Pylons successfully linked.
-msg.linkBreak.txt=[Hexorium Manipulator] Pylons already linked. Breaking link.
-msg.linkFail1.txt=[Hexorium Manipulator] Linking failed. Incompatible color.
-msg.linkFail2.txt=[Hexorium Manipulator] Linking failed. Pylon no longer exists.
-msg.linkFail3.txt=[Hexorium Manipulator] Linking failed. Pylons too far.
-msg.linkFail4.txt=[Hexorium Manipulator] Linking failed. Beam path obstructed.
+msg.pylonLinkCancel.txt=[Hexorium Manipulator] Pylon linking canceled.
+msg.pylonLinkStart.txt=[Hexorium Manipulator] Linking Pylon...
+msg.pylonLinkSuccess.txt=[Hexorium Manipulator] Pylons successfully linked.
+msg.pylonLinkBreak.txt=[Hexorium Manipulator] Pylons already linked. Breaking link.
+msg.pylonLinkFail1.txt=[Hexorium Manipulator] Linking failed. Incompatible color.
+msg.pylonLinkFail2.txt=[Hexorium Manipulator] Linking failed. Pylon no longer exists.
+msg.pylonLinkFail3.txt=[Hexorium Manipulator] Linking failed. Pylons too far.
+msg.pylonLinkFail4.txt=[Hexorium Manipulator] Linking failed. Beam path obstructed.
+
+msg.teleportLinkCancel.txt=[Hexorium Manipulator] Teleport linking canceled.
+msg.teleportLinkStart.txt=[Hexorium Manipulator] Linking Teleport...
+msg.teleportLinkSuccess.txt=[Hexorium Manipulator] Teleports successfully linked.
+msg.teleportLinkBreak.txt=[Hexorium Manipulator] Teleports already linked. Breaking link.
+msg.teleportLinkFail1.txt=[Hexorium Manipulator] Linking failed. Teleport no longer exists.
+msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleports not on same network.
+
+msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
+msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!

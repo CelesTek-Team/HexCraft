@@ -1,15 +1,19 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexProcessingCrystalSeparator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.DamageSource;
 
 import java.util.ArrayList;
 
@@ -18,10 +22,10 @@ import java.util.ArrayList;
  * @version 0.1.0
  * @since 2015-05-06
  */
-public class TileCrystalSeparator extends TileEntity implements ISidedInventory {
+public class TilePersonalTeleportationPad extends TileEntity implements ISidedInventory {
 
     // Set machine name.
-    private static String machineName = "Crystal Separator";
+    private static String machineName = "Personal Teleportation Pad";
 
     // Prepare machine list and arrays for coordinates.
     private ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator;
@@ -29,20 +33,29 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
     private int[] machinesHexoriumGeneratorY;
     private int[] machinesHexoriumGeneratorZ;
 
+    // Prepare teleport list and arrays for coordinates.
+    private ArrayList<TilePersonalTeleportationPad> teleportsPersonalTeleportationPad;
+    private int[] teleportsPersonalTeleportationPadX;
+    private int[] teleportsPersonalTeleportationPadY;
+    private int[] teleportsPersonalTeleportationPadZ;
+
+    // Prepare linked teleport state and coordinates.
+    private boolean linkedTeleportExists;
+    private int linkedTeleportX;
+    private int linkedTeleportY;
+    private int linkedTeleportZ;
+
     // Define sides and slots.
-    private static final int[] slotsTop = new int[] { 0 };
-    private static final int[] slotsSide = new int[] { 1 };
-    private static final int[] slotsBlank = new int[] { 2 };
-    private ItemStack[] machineItemStacks = new ItemStack[3];
+    private static final int[] slotsBlank = new int[] { 0 };
+    private ItemStack[] machineItemStacks = new ItemStack[1];
 
     // Prepare energy variables.
-    public static int energyPerTick = 32;
-    private static float energyTotal = 6400;
+    private static float energyTotal = 102400;
     private float energy;
     private float energyIn;
 
     // Prepare GUI variables.
-    private static int energyTotalGui = (int) energyTotal / energyPerTick;
+    private static int energyTotalGui = (int) energyTotal / 128;
     public int energyGui;
     public int energyInGui;
 
@@ -51,6 +64,11 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
     private boolean hasEnergy = false;
     public boolean isActive = false;
     private int usableGenerators = 0;
+
+    // Prepare teleportation variables.
+    public boolean isTeleporting = false;
+    private static int teleportCountdown = 80;
+    private int teleportCounter = 0;
 
     /**
      * Fired when opening the inventory.
@@ -124,7 +142,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
 
     @Override
     public int getInventoryStackLimit() {
-        return 64;
+        return 0;
     }
 
     /**
@@ -132,28 +150,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
      */
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        // Get the machine meta.
-        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-
-        // Strip away the texture states from meta.
-        if (meta >= 4 && meta < 8)
-            meta -= 4;
-        else if (meta >= 8)
-            meta -= 8;
-
-        // Make side slot available only from front, and top from top.
-        if (side == 1)
-            return slotsTop;
-        else if (side == 2 && meta == 0)
-            return slotsSide;
-        else if (side == 3 && meta == 2)
-            return slotsSide;
-        else if (side == 4 && meta == 3)
-            return slotsSide;
-        else if (side == 5 && meta == 1)
-            return slotsSide;
-        else
-            return slotsBlank;
+        return slotsBlank;
     }
 
     /**
@@ -169,7 +166,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
      */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-        return slot == 0;
+        return false;
     }
 
     /**
@@ -177,7 +174,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
      */
     @Override
     public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
-        return par3 != 0;
+        return false;
     }
 
     /**
@@ -229,8 +226,23 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
         machinesHexoriumGeneratorZ = tagCompound.getIntArray("MachinesHexoriumGeneratorZ");
         // Prepare the ArrayList for machines.
         machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
+
+        // Read the coordinate arrays.
+        teleportsPersonalTeleportationPadX = tagCompound.getIntArray("TeleportsPersonalTeleportationPadX");
+        teleportsPersonalTeleportationPadY = tagCompound.getIntArray("TeleportsPersonalTeleportationPadY");
+        teleportsPersonalTeleportationPadZ = tagCompound.getIntArray("TeleportsPersonalTeleportationPadZ");
+        // Prepare the ArrayList for teleports.
+        teleportsPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
+        
         // Prime the updateEntity() for first-tick startup.
         firstTick = true;
+
+        // Read the link state.
+        linkedTeleportExists = tagCompound.getBoolean("LinkedTeleportExists");
+        // Read the link coordinates.
+        linkedTeleportX = tagCompound.getInteger("LinkedTeleportX");
+        linkedTeleportY = tagCompound.getInteger("LinkedTeleportY");
+        linkedTeleportZ = tagCompound.getInteger("LinkedTeleportZ");
 
         // Read the items.
         machineItemStacks = new ItemStack[getSizeInventory()];
@@ -293,6 +305,51 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
             tagCompound.setIntArray("MachinesHexoriumGeneratorZ", machinesHexoriumGeneratorZ);
         }
 
+        // Check if teleport list is not null.
+        if (teleportsPersonalTeleportationPad != null) {
+            // Initialize the coordinate arrays.
+            teleportsPersonalTeleportationPadX = new int[teleportsPersonalTeleportationPad.size()];
+            teleportsPersonalTeleportationPadY = new int[teleportsPersonalTeleportationPad.size()];
+            teleportsPersonalTeleportationPadZ = new int[teleportsPersonalTeleportationPad.size()];
+            // Save the coordinates of teleports to arrays.
+            int i = 0;
+            for (TilePersonalTeleportationPad entry : teleportsPersonalTeleportationPad) {
+                teleportsPersonalTeleportationPadX[i] = entry.xCoord;
+                teleportsPersonalTeleportationPadY[i] = entry.yCoord;
+                teleportsPersonalTeleportationPadZ[i] = entry.zCoord;
+                i++;
+            }
+            // Write the coordinate arrays.
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadX", teleportsPersonalTeleportationPadX);
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadY", teleportsPersonalTeleportationPadY);
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadZ", teleportsPersonalTeleportationPadZ);
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else  {
+            teleportsPersonalTeleportationPadX = new int[0];
+            teleportsPersonalTeleportationPadY = new int[0];
+            teleportsPersonalTeleportationPadZ = new int[0];
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadX", teleportsPersonalTeleportationPadX);
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadY", teleportsPersonalTeleportationPadY);
+            tagCompound.setIntArray("TeleportsPersonalTeleportationPadZ", teleportsPersonalTeleportationPadZ);
+        }
+
+        // Save linking state.
+        tagCompound.setBoolean("LinkedTeleportExists", linkedTeleportExists);
+        // Check if the teleport is linked.
+        if (linkedTeleportExists) {
+            // If it is, save the coordinates normally.
+            tagCompound.setInteger("LinkedTeleportX", linkedTeleportX);
+            tagCompound.setInteger("LinkedTeleportY", linkedTeleportY);
+            tagCompound.setInteger("LinkedTeleportZ", linkedTeleportZ);
+        }
+        else {
+            // Otherwise, set coordinates to 0.
+            tagCompound.setInteger("LinkedTeleportX", 0);
+            tagCompound.setInteger("LinkedTeleportY", 0);
+            tagCompound.setInteger("LinkedTeleportZ", 0);
+        }
+
         // Write the items.
         NBTTagList tagsItems = new NBTTagList();
         for (int i = 0; i < machineItemStacks.length; i++)
@@ -321,62 +378,65 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
                     machinesHexoriumGenerator.add((TileHexoriumGenerator)
                             worldObj.getTileEntity(machinesHexoriumGeneratorX[i], machinesHexoriumGeneratorY[i], machinesHexoriumGeneratorZ[i]));
                 }
+                // Build the teleport list using the coordinate arrays.
+                for (int i = 0; i < teleportsPersonalTeleportationPadX.length; i++) {
+                    teleportsPersonalTeleportationPad.add((TilePersonalTeleportationPad)
+                            worldObj.getTileEntity(teleportsPersonalTeleportationPadX[i], teleportsPersonalTeleportationPadY[i], teleportsPersonalTeleportationPadZ[i]));
+                }
                 // Finalize first tick.
                 firstTick = false;
             }
             // Otherwise continue normally.
             else {
                 // Run an energy check on every tick. This will make the texture appear as READY.
-                checkEnergy();
-                // If the machine has energy, and there are items to process...
-                if (hasEnergy && canProcess()) {
-                    // If the machine was inactive...
+                if (!isTeleporting)
+                    checkEnergy();
+                // If the teleport has energy, and there is still space for energy...
+                if (hasEnergy && energy < energyTotal * 2) {
+                    // If the teleport was inactive...
                     if (!isActive) {
                         // Attempt to start it.
                         isActive = startMachine();
-                        // If the machine was successfully started, set the texture to ACTIVE.
-                        if (isActive)
-                            HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
-                        else
-                            // Set the pulled energy to -1. This is used for GUI rendering.
-                            energyIn = -1;
                     }
 
-                    // If the machine is active...
+                    // If the teleport is active...
                     if (isActive) {
-
-                        // Reset the energy input variable.
-                        energyIn = 0;
                         // Check if the generator list is not null.
                         if (machinesHexoriumGenerator != null)
                             // Pull energy from every generator.
                             for (TileHexoriumGenerator entry : machinesHexoriumGenerator)
                                 if (entry != null)
-                                    // Pull energy by dividing the energy per tick with number of usable generators.
-                                    energyIn = energyIn + entry.pullEnergy((float) energyPerTick / usableGenerators);
+                                    // Pull the maximum energy.
+                                    energyIn = energyIn + entry.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
 
-                        // If the total energy pulled is 0...
-                        if (energyIn == 0)
-                            // Stop the processing.
-                            stopProcessing();
-                        else
-                            // Otherwise, increase the progress.
-                            energy = energy + energyIn;
-
-                        // If the energy has reached required energy for the process...
-                        if (energy >= energyTotal) {
-                            // Set the energy back to 0.
-                            energy = 0;
-                            // Execute the item processing.
-                            processItem();
-                        }
+                        // Increase the stored energy.
+                        energy = energy + energyIn;
                     }
                 } else
                     // If the machine has no energy and/or there are no items to process, stop the processing.
                     stopProcessing();
+
+                // If the teleporter is charging the teleport...
+                if (isTeleporting) {
+                    // And if the countdown is reached...
+                    if (teleportCounter >= teleportCountdown) {
+                        // Perform the teleport.
+                        teleport();
+                        // Deduct the energy used.
+                        energy = energy - energyTotal;
+                        if (energy < 0)
+                            energy = 0;
+                        // Reset variables
+                        isTeleporting = false;
+                        hasEnergy = false;
+                    }
+                    else
+                        // Increment counter.
+                        teleportCounter++;
+                }
             }
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) (energy / energyPerTick);
+            energyGui = (int) (energy / 128);
             energyInGui = (Math.round(energyIn));
         }
     }
@@ -404,7 +464,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
             // Go through all generators and register self as one of the machines pulling the energy. Use the energy per tick divided by number of usable generators.
             for (TileHexoriumGenerator entry : machinesHexoriumGenerator)
                 if (entry != null && entry.canProvideEnergy)
-                    checkEnergy = entry.startPulling((float) energyPerTick / usableGenerators);
+                    checkEnergy = entry.startPulling((float) TileHexoriumGenerator.energyPerTick);
 
         // Return the boolean if registration was successful.
         return checkEnergy;
@@ -419,7 +479,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
             // Go through all generators and unregister self. Use the energy per tick divided by number of usable generators.
             for (TileHexoriumGenerator entry : machinesHexoriumGenerator)
                 if (entry != null && entry.canProvideEnergy)
-                    entry.stopPulling((float) energyPerTick / usableGenerators);
+                    entry.stopPulling((float) TileHexoriumGenerator.energyPerTick);
     }
 
     /**
@@ -442,8 +502,6 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
             isActive = startMachine();
             // If the machine should no longer be active...
             if (!isActive) {
-                // Set the energy back to 0.
-                energy = 0;
                 // Set the texture to READY.
                 HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
             }
@@ -464,6 +522,9 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
                 if (entry != null && entry.canProvideEnergy)
                     checkEnergy = true;
 
+        if (energy > 0)
+            checkEnergy = true;
+
         // Check if the energy is now available, but wasn't previously.
         if (checkEnergy && !hasEnergy)
             // If yes, set the texture to READY.
@@ -478,25 +539,21 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
     }
 
     /**
-     * Called when the machine should no longer be processing the item.
+     * Called when the teleport should no longer be pulling energy.
      */
     public void stopProcessing() {
-        // Set the energy back to 0.
-        energy = 0;
-        // If the machine is active...
+        // If the teleport is active...
         if (isActive) {
             // Make it inactive.
             isActive = false;
-            // Set the texture to READY.
-            HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-            // Stop the machine.
+            // Stop the teleport.
             stopMachine();
         }
     }
 
     /**
      * Called by the NetworkAnalyzer class when exchanging data between machines.
-     * @param incomingMachines The ArrayList of machines received.
+     * @param incomingMachines The ArrayList of machines recieved.
      */
     public void injectMachines(ArrayList<TileHexoriumGenerator> incomingMachines) {
 
@@ -516,55 +573,145 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
     }
 
     /**
-     * Called to check if the machine can process a certain item.
-     * @return If the item can be processed.
+     * Called by the NetworkAnalyzer class when exchanging data between teleports.
+     * @param incomingTeleports The ArrayList of teleports received.
      */
-    private boolean canProcess() {
-        // Check if the item stack in input is null. If yes, it cannot be processed.
-        if (this.machineItemStacks[0] == null)
-            return false;
-        // Otherwise...
+    public void injectTeleports(ArrayList<TilePersonalTeleportationPad> incomingTeleports) {
+
+        // Check if the size of the incoming list is larger then 0.
+        if (incomingTeleports.size() != 0) {
+            // If it is, save it to the local list.
+            teleportsPersonalTeleportationPad = incomingTeleports;
+
+            // If the teleport is already linked...
+            if (linkedTeleportExists) {
+                // Analyze the incoming list and unling if necessary.
+                boolean checkLink = false;
+                for (TilePersonalTeleportationPad entry : teleportsPersonalTeleportationPad)
+                    if (entry.xCoord == linkedTeleportX && entry.yCoord == linkedTeleportY && entry.zCoord == linkedTeleportZ)
+                        checkLink = true;
+                if (!checkLink) {
+                    System.out.println("Teleports unlinked!");
+                    linkedTeleportExists = false;
+                }
+            }
+        }
         else {
-            // Save the result of processing to ItemStack.
-            ItemStack itemStack = HexProcessingCrystalSeparator.processing().getProcessingResult(machineItemStacks[0]);
-            // If the result is null, it cannot be processed.
-            if (itemStack == null)
-                return false;
-            // If there are no items in output slot, it can be processed.
-            if (machineItemStacks[1] == null)
-                return true;
-            // If there are items in output slot, but are not same as result, it cannot be processed.
-            if (!machineItemStacks[1].isItemEqual(itemStack))
-                return false;
-            // Check if more items can fit in the output. If yes, it can be processed.
-            int result = machineItemStacks[1].stackSize + itemStack.stackSize;
-            return result <= getInventoryStackLimit() && result <= machineItemStacks[1].getMaxStackSize();
+            // Otherwise, set the local list to null.
+            teleportsPersonalTeleportationPad = null;
+            linkedTeleportExists = false;
         }
     }
 
     /**
-     * Called to execute the item processing.
+     * Begins teleportation.
      */
-    public void processItem() {
-        // If the item can be processed...
-        if (canProcess()) {
-            // Prepare a new ItemStack that is the result of processing.
-            ItemStack itemStack = HexProcessingCrystalSeparator.processing().getProcessingResult(machineItemStacks[0]);
-
-            // If there are no items in the output, put the result in.
-            if (machineItemStacks[1] == null)
-                machineItemStacks[1] = itemStack.copy();
-            // If there are items, but are of same type, increment the stack.
-            else if (machineItemStacks[1].getItem() == itemStack.getItem())
-                machineItemStacks[1].stackSize += itemStack.stackSize;
-
-            // Reduce the number of items in the input.
-            machineItemStacks[0].stackSize--;
-
-            // If the amount of items in input is 0, remove the items.
-            if (machineItemStacks[0].stackSize == 0)
-                machineItemStacks[0] = null;
+    public void beginTeleport() {
+        // If the teleport is linked and has enough energy...
+        if (linkedTeleportExists && energy >= energyTotal) {
+            // Get the player and send the chat message.
+            EntityPlayer player = worldObj.getClosestPlayer(xCoord + 0.5, yCoord + 1, zCoord + 0.5, 4);
+            if (player != null)
+                player.addChatMessage(new ChatComponentTranslation("msg.teleportProcess1.txt"));
+            // Activate teleportation countdown.
+            isTeleporting = true;
+            teleportCounter = 0;
+            // Set the texture to ACTIVE.
+            HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
         }
+    }
+
+    /**
+     * Performs the teleportation.
+     */
+    private void teleport() {
+        // Get the player.
+        EntityPlayer player = worldObj.getClosestPlayer(xCoord + 0.5, yCoord + 1, zCoord + 0.5, 1);
+        // If player exists and the teleport is linked...
+        if (player != null && linkedTeleportExists)
+            // If the player is located on top of the teleport...
+            if (player.posX >= xCoord && player.posX <= xCoord + 1 &&
+                    player.posY >= yCoord && player.posY <= yCoord + 1 &&
+                    player.posZ >= zCoord && player.posZ <= zCoord + 1) {
+                // Send the chat message.
+                player.addChatMessage(new ChatComponentTranslation("msg.teleportProcess2.txt"));
+                // Teleport the player.
+                player.setPositionAndUpdate(linkedTeleportX + 0.5, linkedTeleportY + 1, linkedTeleportZ + 0.5);
+                // Apply confusion effect.
+                player.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 180, 100, false));
+                // Hurt the player.
+                player.attackEntityFrom(DamageSource.generic, 4F);
+            }
+    }
+
+    /**
+     * Checks if teleports are connected via network.
+     * @param x Coordinate x of the target teleport.
+     * @param y Coordinate y of the target teleport.
+     * @param z Coordinate z of the target teleport.
+     * @return Boolean whether the teleports are on same network.
+     */
+    public boolean checkConnectivity(int x, int y, int z) {
+        // Get the target teleport.
+        TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
+        // Check if it is null.
+        if (tileEntity != null) {
+            // If the teleport exists, return true.
+            for (TilePersonalTeleportationPad entry : teleportsPersonalTeleportationPad)
+                if (entry.xCoord == x && entry.yCoord == y && entry.zCoord == z)
+                    return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if teleports are already linked.
+     * @param x Coordinate x of the target teleport.
+     * @param y Coordinate y of the target teleport.
+     * @param z Coordinate z of the target teleport.
+     * @return Boolean whether the teleports are already linked.
+     */
+    public boolean checkLinked(int x, int y, int z) {
+        // Return true if the teleport is already linked with target.
+        return linkedTeleportExists && linkedTeleportX == x && linkedTeleportY == y && linkedTeleportZ == z;
+    }
+
+    /**
+     * Links a teleport.
+     * @param x Coordinate x of the target teleport.
+     * @param y Coordinate y of the target teleport.
+     * @param z Coordinate z of the target teleport.
+     * @return Boolean whether the linking was successful.
+     */
+    public boolean linkTeleport(int x, int y, int z) {
+        // System.out.println("Linking! " + "(" + xCoord + ", " + yCoord + ", " + zCoord + ")");
+        // Get the target teleport.
+        TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
+        // Make sure it is not null.
+        if (tileEntity != null) {
+            // If the teleport is already linked, unlink it.
+            if (linkedTeleportExists) {
+                TilePersonalTeleportationPad old = (TilePersonalTeleportationPad) worldObj.getTileEntity(linkedTeleportX, linkedTeleportY, linkedTeleportZ);
+                if (old != null)
+                    old.unlinkTeleport();
+            }
+            // Link the teleport with new target.
+            linkedTeleportExists = true;
+            linkedTeleportX = x;
+            linkedTeleportY = y;
+            linkedTeleportZ = z;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Unlinks a teleport.
+     */
+    public void unlinkTeleport() {
+        // System.out.println("Unlinking! " + "(" + xCoord + ", " + yCoord + ", " + zCoord + ")");
+        // Unlink the teleport.
+        linkedTeleportExists = false;
     }
 
     /**

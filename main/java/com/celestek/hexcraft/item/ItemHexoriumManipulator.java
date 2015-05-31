@@ -7,6 +7,7 @@ import com.celestek.hexcraft.block.BlockHexoriumCable;
 import com.celestek.hexcraft.block.BlockPylonBase;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
+import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -82,74 +83,183 @@ public class ItemHexoriumManipulator extends Item {
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
 
+                    if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
+                        stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                        stack.setItemDamage(0);
+                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
+
+                    }
                     // If this is the first use, just save the pylon location.
-                    if (!stack.stackTagCompound.getBoolean("Linking")) {
-                        stack.stackTagCompound.setInteger("X", x);
-                        stack.stackTagCompound.setInteger("Y", y);
-                        stack.stackTagCompound.setInteger("Z", z);
-                        stack.stackTagCompound.setBoolean("Linking", true);
+                    if (!stack.stackTagCompound.getBoolean("PylonLinking")) {
+                        stack.stackTagCompound.setInteger("PylonX", x);
+                        stack.stackTagCompound.setInteger("PylonY", y);
+                        stack.stackTagCompound.setInteger("PylonZ", z);
+                        stack.stackTagCompound.setBoolean("PylonLinking", true);
                         stack.setItemDamage(1);
-                        player.addChatMessage(new ChatComponentTranslation("msg.linkStart.txt"));
+                        player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkStart.txt"));
                     }
                     // If this is the second use, perform linking.
                     else {
                         // Retrieve previous pylon.
-                        int tx = stack.stackTagCompound.getInteger("X");
-                        int ty = stack.stackTagCompound.getInteger("Y");
-                        int tz = stack.stackTagCompound.getInteger("Z");
+                        int tx = stack.stackTagCompound.getInteger("PylonX");
+                        int ty = stack.stackTagCompound.getInteger("PylonY");
+                        int tz = stack.stackTagCompound.getInteger("PylonZ");
 
-                        // Determine length of the link.
-                        double len = Vec3.createVectorHelper(tx, ty, tz).subtract(Vec3.createVectorHelper(x, y, z)).lengthVector();
+                        if (!(tx == x && ty == y && tz == z)) {
+                            // Determine length of the link.
+                            double len = Vec3.createVectorHelper(tx, ty, tz).subtract(Vec3.createVectorHelper(x, y, z)).lengthVector();
 
-                        // Perform ray tracing, if success, proceed.
-                        if (TileEnergyPylon.tracePylons(world, x, y, z, tx, ty, tz)) {
+                            // Perform ray tracing, if success, proceed.
+                            if (TileEnergyPylon.tracePylons(world, x, y, z, tx, ty, tz)) {
 
-                            // Check if pylons are within reach.
-                            if (len <= 32) {
+                                // Check if pylons are within reach.
+                                if (len <= 32) {
 
-                                // Fetch tile entities of pylons.
-                                TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
-                                TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
+                                    // Fetch tile entities of pylons.
+                                    TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
+                                    TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
 
-                                // Make sure they are not null.
-                                if (pylonA != null && pylonB != null) {
+                                    // Make sure they are not null.
+                                    if (pylonA != null && pylonB != null) {
 
-                                    // Check if the color combinations are okay.
-                                    if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
+                                        // Check if the color combinations are okay.
+                                        if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
 
-                                        // Try to add pylons.
-                                        if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true)) {
-                                            // If the pylons are not added yet, link them.
-                                            player.addChatMessage(new ChatComponentTranslation("msg.linkSuccess.txt"));
+                                            // Try to add pylons.
+                                            if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true)) {
+                                                // If the pylons are not added yet, link them.
+                                                player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkSuccess.txt"));
 
-                                            // System.out.println("Pylons linked, analyzing!");
+                                                // System.out.println("Pylons linked, analyzing!");
 
                                              /* DO ANALYSIS */
-                                            // Prepare the network analyzer.
-                                            NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                                            // Call the analysis.
-                                            analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
-                                        }
-                                        else {
-                                            // If the pylons were already added, unlink them.
-                                            pylonA.removePylon(tx, ty, tz);
-                                            pylonB.removePylon(x, y, z);
-                                            player.addChatMessage(new ChatComponentTranslation("msg.linkBreak.txt"));
-                                        }
-                                    // Error messages for all situations.
+                                                // Prepare the network analyzer.
+                                                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                                                // Call the analysis.
+                                                analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
+                                            } else {
+                                                // If the pylons were already added, unlink them.
+                                                pylonA.removePylon(tx, ty, tz);
+                                                pylonB.removePylon(x, y, z);
+                                                player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkBreak.txt"));
+                                            }
+                                            // Error messages for all situations.
+                                        } else
+                                            player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail1.txt"));
                                     } else
-                                        player.addChatMessage(new ChatComponentTranslation("msg.linkFail1.txt"));
+                                        player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail2.txt"));
                                 } else
-                                    player.addChatMessage(new ChatComponentTranslation("msg.linkFail2.txt"));
+                                    player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail3.txt"));
                             } else
-                                player.addChatMessage(new ChatComponentTranslation("msg.linkFail3.txt"));
-                        } else
-                            player.addChatMessage(new ChatComponentTranslation("msg.linkFail4.txt"));
+                                player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail4.txt"));
 
-                        stack.stackTagCompound.setBoolean("Linking", false);
-                        stack.setItemDamage(0);
+                            stack.stackTagCompound.setBoolean("PylonLinking", false);
+                            stack.setItemDamage(0);
+                        }
+                        else {
+                            player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
+                            stack.stackTagCompound.setBoolean("PylonLinking", false);
+                            stack.setItemDamage(0);
+                        }
                     }
+
                     // System.out.println("Block: (" + x + ", " + y + ", " + z + "), Linking: " + stack.stackTagCompound.getBoolean("linking"));
+                }
+                // Link Teleports.
+                if (block == HexBlocks.blockPersonalTeleportationPad) {
+                    // Create a new tag compound for the manipulator if it doesn't exist.
+                    if (stack.stackTagCompound == null)
+                        stack.stackTagCompound = new NBTTagCompound();
+
+                    if (stack.stackTagCompound.getBoolean("PylonLinking")) {
+                        stack.stackTagCompound.setBoolean("PylonLinking", false);
+                        stack.setItemDamage(0);
+                        player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
+
+                    }
+
+                    // If this is the first use, just save the teleport location.
+                    if (!stack.stackTagCompound.getBoolean("TeleportLinking")) {
+                        stack.stackTagCompound.setInteger("TeleportX", x);
+                        stack.stackTagCompound.setInteger("TeleportY", y);
+                        stack.stackTagCompound.setInteger("TeleportZ", z);
+                        stack.stackTagCompound.setBoolean("TeleportLinking", true);
+                        stack.setItemDamage(1);
+                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkStart.txt"));
+                    }
+                    // If this is the second use, perform linking.
+                    else {
+                        // Retrieve previous teleport.
+                        int tx = stack.stackTagCompound.getInteger("TeleportX");
+                        int ty = stack.stackTagCompound.getInteger("TeleportY");
+                        int tz = stack.stackTagCompound.getInteger("TeleportZ");
+
+                        if (!(tx == x && ty == y && tz == z)) {
+                            // Fetch tile entities of teleports.
+                            TilePersonalTeleportationPad teleportA = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
+                            TilePersonalTeleportationPad teleportB = (TilePersonalTeleportationPad) world.getTileEntity(tx, ty, tz);
+
+                            if (!(teleportA.checkLinked(tx, ty, tz) && teleportB.checkLinked(x, y, z))) {
+                                if (teleportA.checkConnectivity(tx, ty, tz) && teleportB.checkConnectivity(x, y, z)) {
+                                    if (teleportA.linkTeleport(tx, ty, tz) && teleportB.linkTeleport(x, y, z))
+                                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkSuccess.txt"));
+                                    else
+                                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
+                                } else
+                                    player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail2.txt"));
+                            } else {
+                                player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkBreak.txt"));
+                                teleportA.unlinkTeleport();
+                                teleportB.unlinkTeleport();
+                            }
+
+                            stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                            stack.setItemDamage(0);
+                        }
+                        else {
+                            player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
+                            stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                            stack.setItemDamage(0);
+                        }
+                    }
+                }
+                // Rotate teleport.
+                else if (block == HexBlocks.blockPersonalTeleportationPad) {
+                    // Get meta.
+                    int meta = world.getBlockMetadata(x, y, z);
+                    int metaOld = world.getBlockMetadata(x, y, z);
+
+                    // Rotate meta
+                    if (meta < 4) {
+                        meta++;
+                        if (meta == 4)
+                            meta = 0;
+                    }
+                    else if (meta >= 4 && meta < 8) {
+                        meta++;
+                        if (meta == 8)
+                            meta = 4;
+                    }
+                    else if (meta >= 8) {
+                        meta++;
+                        if (meta == 12)
+                            meta = 8;
+                    }
+
+                    // Push meta to block.
+                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+
+                    System.out.println("Teleport rotated, analyzing!");
+
+                    /* DO ANALYSIS */
+                    // Prepare the network analyzers.
+                    NetworkAnalyzer analyzerOld = new NetworkAnalyzer();
+                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                    NetworkAnalyzer analyzerDown = new NetworkAnalyzer();
+                    // Call the analysis in original and new direction.
+                    analyzerOld.analyzeMachine(world, x, y, z, metaOld);
+                    analyzer.analyzeMachine(world, x, y, z, meta);
+                    analyzerDown.analyzeTeleport(world, x, y, z);
                 }
                 // Rotate machines.
                 else if (block == HexBlocks.blockHexoriumGenerator ||

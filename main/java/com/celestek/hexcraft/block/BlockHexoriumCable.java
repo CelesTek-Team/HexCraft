@@ -76,7 +76,8 @@ public class BlockHexoriumCable extends HexBlockModel {
                 block == HexBlocks.blockHexoriumGenerator ||
                 block == HexBlocks.blockHexoriumFurnace ||
                 block == HexBlocks.blockCrystalSeparator ||
-                block == HexBlocks.blockMatrixReconstructor) {
+                block == HexBlocks.blockMatrixReconstructor ||
+                block == HexBlocks.blockPersonalTeleportationPad) {
 
             // System.out.println("Neighbour cable or machine destroyed, analyzing!");
 

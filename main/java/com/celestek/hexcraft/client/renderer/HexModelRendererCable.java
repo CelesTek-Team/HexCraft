@@ -1221,28 +1221,32 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if (world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x - 1, y, z) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockMatrixReconstructor)
+                world.getBlock(x - 1, y, z) == HexBlocks.blockMatrixReconstructor ||
+                world.getBlock(x - 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
             metas[0] = world.getBlockMetadata(x - 1, y, z);
         else
             metas[0] = -1;
         if (world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockMatrixReconstructor)
+                world.getBlock(x + 1, y, z) == HexBlocks.blockMatrixReconstructor ||
+                world.getBlock(x + 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
             metas[1] = world.getBlockMetadata(x + 1, y, z);
         else
             metas[1] = -1;
         if (world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockMatrixReconstructor)
+                world.getBlock(x, y, z - 1) == HexBlocks.blockMatrixReconstructor ||
+                world.getBlock(x, y, z - 1) == HexBlocks.blockPersonalTeleportationPad)
             metas[2] = world.getBlockMetadata(x, y, z - 1);
         else
             metas[2] = -1;
         if (world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockMatrixReconstructor)
+                world.getBlock(x, y, z + 1) == HexBlocks.blockMatrixReconstructor ||
+                world.getBlock(x, y, z + 1) == HexBlocks.blockPersonalTeleportationPad)
             metas[3] = world.getBlockMetadata(x, y, z + 1);
         else
             metas[3] = -1;
@@ -1265,7 +1269,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 block == world.getBlock(x, y + 1, z) ||
                 world.getBlock(x, y + 1, z) == HexBlocks.blockHexoriumCableRainbow ||
                 (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y + 1, z) != 0) ||
-                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y + 1, z) == 0))
+                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y + 1, z) == 0) ||
+                world.getBlock(x, y + 1, z) == HexBlocks.blockPersonalTeleportationPad)
             sides[1] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x - 1, y, z) ||

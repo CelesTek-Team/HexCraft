@@ -109,12 +109,12 @@ public class BlockCrystalSeparator extends HexBlockContainer {
         // Prepare the name string of the broken block.
         String blockName = block.getUnlocalizedName();
 
-        // Prepare the block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-
         // Check if the changed block is a cable.
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
+
+            // Prepare the block meta.
+            int meta = world.getBlockMetadata(x, y, z);
 
             // System.out.println("Neighbour cable destroyed, analyzing!");
 

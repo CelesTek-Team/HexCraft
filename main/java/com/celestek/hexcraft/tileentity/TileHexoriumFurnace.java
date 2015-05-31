@@ -376,8 +376,8 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
                     stopProcessing();
             }
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) (energy / energyPerTick) & 32767;
-            energyInGui = (Math.round(energyIn)) & 32767;
+            energyGui = (int) (energy / energyPerTick);
+            energyInGui = (Math.round(energyIn));
         }
     }
 
@@ -496,7 +496,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
 
     /**
      * Called by the NetworkAnalyzer class when exchanging data between machines.
-     * @param incomingMachines The ArrayList of machines recieved.
+     * @param incomingMachines The ArrayList of machines received.
      */
     public void injectMachines(ArrayList<TileHexoriumGenerator> incomingMachines) {
 

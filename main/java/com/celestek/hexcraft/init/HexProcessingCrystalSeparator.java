@@ -62,7 +62,7 @@ public class HexProcessingCrystalSeparator {
         addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 12), experience);
 
         // Regular Recipes
-        addRecipe(Item.getItemFromBlock(Blocks.diamond_ore), new ItemStack(Items.diamond, 3), experience);
+        addRecipe(Item.getItemFromBlock(Blocks.diamond_ore), new ItemStack(Items.diamond, 4), experience);
         addRecipe(Item.getItemFromBlock(Blocks.emerald_ore), new ItemStack(Items.emerald, 3), experience);
         addRecipe(Item.getItemFromBlock(Blocks.quartz_ore), new ItemStack(Items.quartz, 4), experience);
     }
