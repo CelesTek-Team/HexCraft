@@ -15,7 +15,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.1.0
+ * @version 0.3.0
  * @since 2015-05-06
  */
 public class ContainerPersonalTeleportationPad extends Container {

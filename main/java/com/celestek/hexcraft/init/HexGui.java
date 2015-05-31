@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.1.0
+ * @version 0.3.0
  * @since 2015-04-25
  */
 public class HexGui implements IGuiHandler {

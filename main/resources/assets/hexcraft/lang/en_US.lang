@@ -224,6 +224,7 @@ item.itemHexoriumProcessor.name=Hexorium Processor
 item.itemMineralAnalyzer.name=Mineral Analyzer
 item.itemPylonEnergyConverter.name=Pylon Energy Converter
 item.itemEnergyInjector.name=Energy Injector
+item.itemMolecularRecoder.name=Molecular Recoder
 
 item.itemMachineControlPanel.name=Machine Control Panel
 item.itemMachineEnergyRouter.name=Machine Energy Router
@@ -231,6 +232,8 @@ item.itemHeatDissipator.name=Heat Dissipator
 item.itemHeatingArray.name=Heating Array
 item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
+item.itemMaterialInteractionPlane.name=Interaction Plane
+item.itemTeleportationFieldProjector.name=Field Projector
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
 

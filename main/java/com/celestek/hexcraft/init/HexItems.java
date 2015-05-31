@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.1.0
+ * @version 0.3.0
  * @since 2015-04-15
  */
 public class HexItems {
@@ -35,6 +35,7 @@ public class HexItems {
     public static Item itemMineralAnalyzer;
     public static Item itemPylonEnergyConverter;
     public static Item itemEnergyInjector;
+    public static Item itemMolecularRecoder;
 
     // Components MP
     public static Item itemMachineControlPanel;
@@ -43,6 +44,8 @@ public class HexItems {
     public static Item itemHeatingArray;
     public static Item itemCrystalExtractionUnit;
     public static Item itemMatrixAdjuster;
+    public static Item itemMaterialInteractionPlane;
+    public static Item itemTeleportationFieldProjector;
     
     // Tools
     public static Item itemHexoriumManipulator;
@@ -93,6 +96,8 @@ public class HexItems {
         GameRegistry.registerItem(itemPylonEnergyConverter, "itemPylonEnergyConverter");
         itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
         GameRegistry.registerItem(itemEnergyInjector, "itemEnergyInjector");
+        itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
+        GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
@@ -107,6 +112,10 @@ public class HexItems {
         GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
         itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
         GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
+        itemMaterialInteractionPlane = new HexItemComponent("itemMaterialInteractionPlane");
+        GameRegistry.registerItem(itemMaterialInteractionPlane, "itemMaterialInteractionPlane");
+        itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
+        GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");
