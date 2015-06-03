@@ -135,15 +135,15 @@ public class TileEnergyPylon extends TileEntity {
         if (!worldObj.isRemote) {
             // If the list should be rebuilt, do it.
             if (firstTickServer) {
+                firstTickServer = false;
                 pylons = new ArrayList<HexPylon>();
                 for (int i = 0; i < pylonsX.length; i++) {
                     if (i < pylonsMaster.length)
                         pylons.add(new HexPylon((TileEnergyPylon) worldObj.getTileEntity(pylonsX[i], pylonsY[i], pylonsZ[i]), pylonsMaster[i]));
-                    // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ")");
+                        // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ")");
                     else
                         pylons.add(new HexPylon((TileEnergyPylon) worldObj.getTileEntity(pylonsX[i], pylonsY[i], pylonsZ[i]), false));
                 }
-                firstTickServer = false;
             }
             // Re-trace pylons every second.
             tickCount++;
@@ -236,7 +236,7 @@ public class TileEnergyPylon extends TileEntity {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
                 // Change the pylon meta.
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) + 6, 2);
+                // worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) + 6, 2);
 
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -264,7 +264,7 @@ public class TileEnergyPylon extends TileEntity {
             clearPylons();
 
             // Change the pylon meta.
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) - 6, 2);
+            // worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) - 6, 2);
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -418,7 +418,4 @@ public class TileEnergyPylon extends TileEntity {
         }
         return false;
     }
-
-
-
 }

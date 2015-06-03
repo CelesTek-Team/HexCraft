@@ -25,7 +25,7 @@ import org.lwjgl.opengl.GL11;
 
 public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
-    // Static valuse
+    // Brightness when lamp is OFF.
     private static float darkLamp = 0.15F;
 
     // Variables

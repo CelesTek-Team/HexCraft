@@ -25,6 +25,9 @@ import java.util.Random;
 
 public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
+    // Brightness when pylon is OFF.
+    private static float darkMonolith = 0.15F;
+
     // Variables
     private int renderID;
     private int renderBlockID;
@@ -408,6 +411,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         float b = HexColors.colorWhiteB;
         IIcon c = block.getIcon(6, 0);
 
+        int metaFull = meta;
         // Strip away the meta.
         if (meta >= 6)
             meta = meta - 6;
@@ -508,7 +512,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 /* Monolith */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
-                tessellator.setColorRGBA_F(r, g, b, opacity);
+                if (metaFull < 6)
+                    tessellator.setColorRGBA_F(r, g, b, opacity);
+                else
+                    tessellator.setColorRGBA_F(r * darkMonolith, g * darkMonolith, b * darkMonolith, opacity);
 
                 // Prepare the icon.
                 double u = c.getInterpolatedU(uMonoSide);
@@ -786,7 +793,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 /* Ball */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
-                tessellator.setColorOpaque_F(r, g, b);
+                if (metaFull < 6)
+                    tessellator.setColorOpaque_F(r, g, b);
+                else
+                    tessellator.setColorOpaque_F(r * darkMonolith, g * darkMonolith, b * darkMonolith);
 
                 // Render the ball. Use the block meta to rotate the model.
                 if (meta == 0) {
@@ -1883,7 +1893,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
             }
 
             // If there is a monolith...
-            if (renderMonolith) {
+            if (renderMonolith && metaFull < 6) {
                 /* Beams */
 
                 // Check if the pylon list is not null.
@@ -1900,103 +1910,185 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     // Go through each pylon entry.
                     for (HexPylon entry : tileEntity.pylons) {
                         if (entry.pylon != null) {
-                            // Check if any of the pylons are rainbow.
-                            if (tileEntity.monolith == 18 || entry.pylon.monolith == 18) {
-                                // If they are, set the rainbow texture.
-                                tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
-                                c = block.getIcon(11, 0);
-                                u = c.getMinU();
-                                U = c.getMaxU();
-                                v = c.getMinV();
-                                V = c.getMaxV();
-                            } else {
-                                // Otherwise, set the color normally.
-                                tessellator.setColorOpaque_F(r, g, b);
-                                c = block.getIcon(10, 0);
-                                u = c.getMinU();
-                                U = c.getMaxU();
-                                v = c.getMinV();
-                                V = c.getMaxV();
+                            // Check if the target pylon is ON.
+                            if (world.getBlockMetadata(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord) < 6) {
+                                // Check if both of the pylons are rainbow.
+                                if (tileEntity.monolith == 18 && entry.pylon.monolith == 18) {
+                                    // If they are, set the rainbow texture.
+                                    tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                                    c = block.getIcon(11, 0);
+                                    u = c.getMinU();
+                                    U = c.getMaxU();
+                                    v = c.getMinV();
+                                    V = c.getMaxV();
+                                } else if (tileEntity.monolith == 18 && entry.pylon.monolith != 18) {
+                                    // If this is rainbow and target is not, use target color.
+                                    float tr = HexColors.colorWhiteR;
+                                    float tg = HexColors.colorWhiteG;
+                                    float tb = HexColors.colorWhiteB;
+                                    if (entry.pylon.monolith == 1) {
+                                        tr = HexColors.colorRedR;
+                                        tg = HexColors.colorRedG;
+                                        tb = HexColors.colorRedB;
+                                    } else if (entry.pylon.monolith == 2) {
+                                        tr = HexColors.colorOrangeR;
+                                        tg = HexColors.colorOrangeG;
+                                        tb = HexColors.colorOrangeB;
+                                    } else if (entry.pylon.monolith == 3) {
+                                        tr = HexColors.colorYellowR;
+                                        tg = HexColors.colorYellowG;
+                                        tb = HexColors.colorYellowB;
+                                    } else if (entry.pylon.monolith == 4) {
+                                        tr = HexColors.colorLimeR;
+                                        tg = HexColors.colorLimeG;
+                                        tb = HexColors.colorLimeB;
+                                    } else if (entry.pylon.monolith == 5) {
+                                        tr = HexColors.colorGreenR;
+                                        tg = HexColors.colorGreenG;
+                                        tb = HexColors.colorGreenB;
+                                    } else if (entry.pylon.monolith == 6) {
+                                        tr = HexColors.colorTurquoiseR;
+                                        tg = HexColors.colorTurquoiseG;
+                                        tb = HexColors.colorTurquoiseB;
+                                    } else if (entry.pylon.monolith == 7) {
+                                        tr = HexColors.colorCyanR;
+                                        tg = HexColors.colorCyanG;
+                                        tb = HexColors.colorCyanB;
+                                    } else if (entry.pylon.monolith == 8) {
+                                        tr = HexColors.colorSkyBlueR;
+                                        tg = HexColors.colorSkyBlueG;
+                                        tb = HexColors.colorSkyBlueB;
+                                    } else if (entry.pylon.monolith == 9) {
+                                        tr = HexColors.colorBlueR;
+                                        tg = HexColors.colorBlueG;
+                                        tb = HexColors.colorBlueB;
+                                    } else if (entry.pylon.monolith == 10) {
+                                        tr = HexColors.colorPurpleR;
+                                        tg = HexColors.colorPurpleG;
+                                        tb = HexColors.colorPurpleB;
+                                    } else if (entry.pylon.monolith == 11) {
+                                        tr = HexColors.colorMagentaR;
+                                        tg = HexColors.colorMagentaG;
+                                        tb = HexColors.colorMagentaB;
+                                    } else if (entry.pylon.monolith == 12) {
+                                        tr = HexColors.colorPinkR;
+                                        tg = HexColors.colorPinkG;
+                                        tb = HexColors.colorPinkB;
+                                    } else if (entry.pylon.monolith == 13) {
+                                        tr = HexColors.colorWhiteR;
+                                        tg = HexColors.colorWhiteG;
+                                        tb = HexColors.colorWhiteB;
+                                    } else if (entry.pylon.monolith == 14) {
+                                        tr = HexColors.colorLightGrayR;
+                                        tg = HexColors.colorLightGrayG;
+                                        tb = HexColors.colorLightGrayB;
+                                    } else if (entry.pylon.monolith == 15) {
+                                        tr = HexColors.colorGrayR;
+                                        tg = HexColors.colorGrayG;
+                                        tb = HexColors.colorGrayB;
+                                    } else if (entry.pylon.monolith == 16) {
+                                        tr = HexColors.colorDarkGrayR;
+                                        tg = HexColors.colorDarkGrayG;
+                                        tb = HexColors.colorDarkGrayB;
+                                    } else if (entry.pylon.monolith == 17) {
+                                        tr = HexColors.colorBlackR;
+                                        tg = HexColors.colorBlackG;
+                                        tb = HexColors.colorBlackB;
+                                    }
+                                    tessellator.setColorOpaque_F(tr, tg, tb);
+                                    c = block.getIcon(10, 0);
+                                    u = c.getMinU();
+                                    U = c.getMaxU();
+                                    v = c.getMinV();
+                                    V = c.getMaxV();
+                                } else {
+                                    // Otherwise, set the color normally.
+                                    tessellator.setColorOpaque_F(r, g, b);
+                                    c = block.getIcon(10, 0);
+                                    u = c.getMinU();
+                                    U = c.getMaxU();
+                                    v = c.getMinV();
+                                    V = c.getMaxV();
+                                }
+
+                                // Create the vector from pylon A to pylon B.
+                                Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
+
+                                // Prepare additional vectors.
+                                Vec3 vec2;
+                                Vec3 vec3;
+                                Vec3 vec4;
+                                Vec3 vec5;
+
+                                // If the pylons are exactly above each other...
+                                if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
+                                    // Create start vectors.
+                                    vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
+                                    vec2 = centerVector(vec2);
+
+                                    vec3 = Vec3.createVectorHelper(0, 0, beamRadius); // B
+                                    vec3 = centerVector(vec3);
+
+                                    vec4 = Vec3.createVectorHelper(-beamRadius, 0, 0); // C
+                                    vec4 = centerVector(vec4);
+
+                                    vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
+                                    vec5 = centerVector(vec5);
+                                } else {
+                                    // Create helper vector.
+                                    Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
+                                    vec1.rotateAroundY((float) -Math.PI / 2);
+                                    vec1.yCoord = 0;
+
+                                    // Create start vectors.
+                                    vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
+                                    vec2 = vec2.normalize();
+                                    vec2 = scaleVector(vec2, beamRadius / 2);
+                                    vec2 = centerVector(vec2);
+
+                                    vec3 = vec1.crossProduct(vec0); // B
+                                    vec3 = vec3.normalize();
+                                    vec3 = scaleVector(vec3, beamRadius / 2);
+                                    vec3 = centerVector(vec3);
+
+                                    vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
+                                    vec4 = vec4.normalize();
+                                    vec4 = scaleVector(vec4, -beamRadius / 2);
+                                    vec4 = centerVector(vec4);
+
+                                    vec5 = vec1.crossProduct(vec0); // D
+                                    vec5 = vec5.normalize();
+                                    vec5 = scaleVector(vec5, -beamRadius / 2);
+                                    vec5 = centerVector(vec5);
+                                }
+
+                                // Create destination vectors.
+                                Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
+                                Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
+                                Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
+                                Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
+
+                                // Draw the beam.
+                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+
+                                tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+                                tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+
+                                tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+                                tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+
+                                tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+                                tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                                tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                                tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
                             }
-
-                            // Create the vector from pylon A to pylon B.
-                            Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
-
-                            // Prepare additional vectors.
-                            Vec3 vec2;
-                            Vec3 vec3;
-                            Vec3 vec4;
-                            Vec3 vec5;
-
-                            // If the pylons are exactly above each other...
-                            if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
-                                // Create start vectors.
-                                vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
-                                vec2 = centerVector(vec2);
-
-                                vec3 = Vec3.createVectorHelper(0, 0, beamRadius); // B
-                                vec3 = centerVector(vec3);
-
-                                vec4 = Vec3.createVectorHelper(-beamRadius, 0, 0); // C
-                                vec4 = centerVector(vec4);
-
-                                vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
-                                vec5 = centerVector(vec5);
-                            }
-                            else {
-                                // Create helper vector.
-                                Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
-                                vec1.rotateAroundY((float) -Math.PI / 2);
-                                vec1.yCoord = 0;
-
-                                // Create start vectors.
-                                vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
-                                vec2 = vec2.normalize();
-                                vec2 = scaleVector(vec2, beamRadius / 2);
-                                vec2 = centerVector(vec2);
-
-                                vec3 = vec1.crossProduct(vec0); // B
-                                vec3 = vec3.normalize();
-                                vec3 = scaleVector(vec3, beamRadius / 2);
-                                vec3 = centerVector(vec3);
-
-                                vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
-                                vec4 = vec4.normalize();
-                                vec4 = scaleVector(vec4, -beamRadius / 2);
-                                vec4 = centerVector(vec4);
-
-                                vec5 = vec1.crossProduct(vec0); // D
-                                vec5 = vec5.normalize();
-                                vec5 = scaleVector(vec5, -beamRadius / 2);
-                                vec5 = centerVector(vec5);
-                            }
-
-                            // Create destination vectors.
-                            Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
-                            Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
-                            Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
-                            Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
-
-                            // Draw the beam.
-                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
-                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
-                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
-
-                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
-                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
-                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
-                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
-
-                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
-                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
-                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
-                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
-
-                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
-                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
-                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
-                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
                         }
                     }
                 }
