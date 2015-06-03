@@ -24,7 +24,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.3.0
+ * @version 0.4.0
  * @since 2015-04-14
  */
 
@@ -49,9 +49,12 @@ public class BlockOfHexoriumCrystal extends HexBlock {
         // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
-        this.setHardness(5.0F);
-        this.setStepSound(Block.soundTypeGlass);
+
         this.setHarvestLevel("pickaxe", 2);
+        this.setHardness(5F);
+        this.setResistance(30F);
+
+        this.setStepSound(Block.soundTypeGlass);
     }
 
     /**

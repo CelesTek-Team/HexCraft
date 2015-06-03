@@ -23,7 +23,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.3.0
+ * @version 0.4.0
  * @since 2015-04-14
  */
 
@@ -42,7 +42,10 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
+
         this.setHardness(0.3F);
+        this.setResistance(1.5F);
+
         this.setStepSound(Block.soundTypeGlass);
         this.setLightOpacity(0);
     }

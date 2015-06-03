@@ -2,8 +2,10 @@ package com.celestek.hexcraft.client.renderer;
 
 import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.block.BlockGlowingHexoriumGlass;
 import com.celestek.hexcraft.block.BlockHexoriumLamp;
 import com.celestek.hexcraft.block.BlockHexoriumLampInv;
+import com.celestek.hexcraft.block.BlockOfHexoriumCrystal;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -17,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.3.0
+ * @version 0.4.0
  * @since 2015-04-14
  */
 
@@ -33,8 +35,6 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-    private boolean renderExtra;
-    private boolean isLamp;
 
     /**
      * Constructor for custom block rendering.
@@ -43,9 +43,8 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * @param r Red component of the inner block layer color.
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
-     * @param renderExtra If the renderer should render 6 different outer sides.
      */
-    public HexBlockRenderer(int renderID, int brightness, float r, float g, float b, boolean renderExtra, boolean isLamp)
+    public HexBlockRenderer(int renderID, int brightness, float r, float g, float b)
     {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
@@ -61,8 +60,6 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         this.r = r;
         this.g = g;
         this.b = b;
-        this.renderExtra = renderExtra;
-        this.isLamp = isLamp;
 
         /** Increment block counter in HexCraft class. */
         HexCraft.idCounter++;
@@ -82,102 +79,90 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         // Start drawing inner layer of the block.
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
+        else
+            tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-            renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
+        else
+            tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         // If special faces should be drawn, use those textures instead.
-        if(!renderExtra)
-            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
-        else
+        if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 1));
+        else
+            renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
+        else
+            tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        if(!renderExtra)
-            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
-        else
+        if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 1));
+        else
+            renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
+        else
+            tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        if(!renderExtra)
-            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
-        else
+        if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 1));
+        else
+            renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
+        else
+            tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        if(!renderExtra)
-            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
-        else
+        if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 1));
+        else
+            renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (!isLamp)
+        if (block instanceof BlockHexoriumLamp)
+            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+        else if (block instanceof BlockHexoriumLampInv)
             tessellator.setColorOpaque_F(r, g, b);
-        else {
-            if (block instanceof BlockHexoriumLamp)
-                tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            else if (block instanceof BlockHexoriumLampInv)
-                tessellator.setColorOpaque_F(r, g, b);
-        }
-        tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        if (!renderExtra)
-            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         else
+            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(1.0F, 0.0F, 0.0F);
+        if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 1));
+        else
+            renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         // Start drawing outer layer of the block.
@@ -241,21 +226,28 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
 
-            if (!isLamp)
-                tessellator.setColorOpaque_F(r, g, b);
-            else {
+            if (block instanceof BlockHexoriumLamp || block instanceof BlockHexoriumLampInv) {
                 if (meta == 0)
                     tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
                 else if (meta == 1)
                     tessellator.setColorOpaque_F(r, g, b);
             }
+            else
+                tessellator.setColorOpaque_F(r, g, b);
 
             // DOWN
             // Check if the block face should be visible. If yes draw it.
-            if(!world.getBlock(x, y-1, z).isOpaqueCube()) {
-                if(renderExtra) {
-                    // If special faces should be drawn, use those textures instead.
+            if(block.shouldSideBeRendered(world, x, y - 1, z, 0)) {
+                // If special faces should be drawn, use those textures instead.
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(6, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 6);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -268,9 +260,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             }
 
             // UP
-            if(!world.getBlock(x, y+1, z).isOpaqueCube()) {
-                if(renderExtra) {
+            if(block.shouldSideBeRendered(world, x, y + 1, z, 1)) {
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(7, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 7);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -283,9 +282,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             }
 
             // NORTH
-            if(!world.getBlock(x, y, z-1).isOpaqueCube()) {
-                if(renderExtra) {
+            if(block.shouldSideBeRendered(world, x, y, z - 1, 2)) {
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(8, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 8);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -298,9 +304,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             }
 
             // SOUTH
-            if(!world.getBlock(x, y, z+1).isOpaqueCube()) {
-                if(renderExtra) {
+            if(block.shouldSideBeRendered(world, x, y, z + 1, 3)) {
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(9, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 9);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -313,9 +326,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             }
 
             // WEST
-            if(!world.getBlock(x-1, y, z).isOpaqueCube()) {
-                if(renderExtra) {
+            if(block.shouldSideBeRendered(world, x - 1, y, z, 4)) {
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(10, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 10);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();
@@ -328,9 +348,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             }
 
             // EAST
-            if(!world.getBlock(x + 1, y, z).isOpaqueCube()) {
-                if (renderExtra) {
+            if(block.shouldSideBeRendered(world, x + 1, y, z, 5)) {
+                if (block instanceof BlockOfHexoriumCrystal) {
                     c = block.getIcon(11, meta);
+                    u = c.getMinU();
+                    v = c.getMinV();
+                    U = c.getMaxU();
+                    V = c.getMaxV();
+                }
+                else if (block instanceof BlockGlowingHexoriumGlass) {
+                    c = block.getIcon(world, x, y, z, 11);
                     u = c.getMinU();
                     v = c.getMinV();
                     U = c.getMaxU();

@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.3.0
+ * @version 0.4.0
  * @since 2015-04-14
  */
 
@@ -29,9 +29,12 @@ public class BlockHexoriumMachineBlock extends HexBlock {
         // Set all block parameters.
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
-        this.setHardness(1.5F);
+
+        this.setHarvestLevel("pickaxe", 2);
+        this.setHardness(5F);
+        this.setResistance(30F);
+
         this.setStepSound(Block.soundTypeMetal);
-        this.setHarvestLevel("pickaxe", 0);
     }
 
     // Prepare the icons.
