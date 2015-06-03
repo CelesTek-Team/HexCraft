@@ -194,44 +194,35 @@ public class NetworkAnalyzer {
             // Get the block meta.
             int meta = world.getBlockMetadata(x, y, z);
 
+            // Analyze pylons only if the pylon is ON.
+            if (meta < 6) {
+                // Check if the direction is correct or if this is the entry point.
+                if ((meta == direction) || direction == -1) {
+                    // Check if the pylon is not already added.
+                    if (!pylons.contains(new HexDevice(x, y, z, block))) {
+                        // Add the pylon.
+                        pylons.add(new HexDevice(x, y, z, block));
+                        TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+
+                        // Perform the analysis on all other pylons linked to this one.
+                        if (pylon != null) {
+                            if (pylon.pylons != null)
+                                for (HexPylon entry : pylon.pylons)
+                                    if (entry.pylon != null)
+                                        if (world.getBlockMetadata(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord) < 6)
+                                            if (!pylons.contains(new HexDevice(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord,
+                                                    world.getBlock(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord))))
+                                                pylonize(world, entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord, block, -1);
+                        } else
+                            return;
+                    } else
+                        return;
+                } else
+                    return;
+            }
             // Strip away the meta.
             if (meta >= 6)
                 meta = meta - 6;
-
-            // Check if the direction is correct or if this is the entry point.
-            if ((meta == direction) || direction == -1) {
-                // Check if the pylon is not already added.
-                if (!pylons.contains(new HexDevice(x, y, z, block))) {
-                    // Add the pylon.
-                    pylons.add(new HexDevice(x, y, z, block));
-                    TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-
-                    // Perform the analysis on all other pylons linked to this one.
-                    if (pylon != null) {
-                        if (pylon.pylons != null)
-                            for (HexPylon entry : pylon.pylons) {
-                                if (entry.pylon != null) {
-                                    // If the pylon is ON, proceed.
-                                    if (world.getBlockMetadata(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord) < 6) {
-                                        if (!pylons.contains(new HexDevice(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord,
-                                                world.getBlock(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord))))
-                                            pylonize(world, entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord, block, -1);
-                                    }
-                                    // If the pylon is OFF, stop.
-                                    else {
-                                        return;
-                                    }
-                                }
-                            }
-                    }
-                    else
-                        return;
-                }
-                else
-                    return;
-            }
-            else
-                return;
 
             // Check if the previous block was not a Pylon Base.
             if (!(blockPrev instanceof BlockPylonBase)) {
@@ -575,7 +566,7 @@ public class NetworkAnalyzer {
     private void pushMachines(World world) {
 
         // Notify about pushing machines.
-         System.out.println("Done! Pushing data to machines:");
+        // System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
@@ -587,7 +578,7 @@ public class NetworkAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
             if (entry.block == HexBlocks.blockHexoriumGenerator) {

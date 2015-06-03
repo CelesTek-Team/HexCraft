@@ -79,7 +79,7 @@ public class TileEnergyPylon extends TileEntity {
             // Save the coordinates of pylon to arrays.
             int i = 0;
             for (HexPylon entry : pylons) {
-                if (entry != null) {
+                if (entry.pylon != null) {
                     pylonsX[i] = entry.pylon.xCoord;
                     pylonsY[i] = entry.pylon.yCoord;
                     pylonsZ[i] = entry.pylon.zCoord;

@@ -343,6 +343,9 @@ public class BlockEnergyPylon extends HexBlockContainer {
                 orientation = 0;
         }
 
+        if(world.isBlockIndirectlyGettingPowered(x, y, z))
+            orientation = orientation + 6;
+
         // Return the new orientation as meta.
         return orientation;
     }
@@ -416,6 +419,12 @@ public class BlockEnergyPylon extends HexBlockContainer {
                         }
                     }
             }
+            // Start analysis from this pylon.
+            // Prepare the network analyzer.
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            // Call the analysis.
+            analyzer.analyzePylon(world, x, y, z, HexBlocks.blockEnergyPylon);
+
         } else if (!world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) >= 6) {
             // Turn ON.
             world.setBlockMetadataWithNotify(x, y, z, meta, 2);

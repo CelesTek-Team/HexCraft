@@ -26,7 +26,7 @@ import java.util.Random;
 public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
     // Brightness when pylon is OFF.
-    private static float darkMonolith = 0.15F;
+    private static float darkMonolith = 0.25F;
 
     // Variables
     private int renderID;
@@ -1911,7 +1911,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     for (HexPylon entry : tileEntity.pylons) {
                         if (entry.pylon != null) {
                             // Check if the target pylon is ON.
-                            if (world.getBlockMetadata(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord) < 6) {
+                            if (entry.pylon.getBlockMetadata() < 6) {
                                 // Check if both of the pylons are rainbow.
                                 if (tileEntity.monolith == 18 && entry.pylon.monolith == 18) {
                                     // If they are, set the rainbow texture.
