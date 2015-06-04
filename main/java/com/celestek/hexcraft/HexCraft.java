@@ -49,7 +49,7 @@ public class HexCraft
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
-            return HexItems.itemHexoriumCrystalBlue;
+            return Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRainbow);
         }
     };
 
