@@ -296,7 +296,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            System.out.println("Pylon placed, analyzing!");
+            // System.out.println("Pylon placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.

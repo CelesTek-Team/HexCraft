@@ -144,6 +144,26 @@ tile.blockReinforcedHexoriumBlockBlack.name=Reinforced Hexorium Block (Black)
 tile.blockReinforcedHexoriumBlockRainbow.name=Reinforced Hexorium Block (Rainbow)
 
 
+tile.blockGlowingHexoriumGlassRed.name=Glowing Hexorium Glass (Red)
+tile.blockGlowingHexoriumGlassOrange.name=Glowing Hexorium Glass (Orange)
+tile.blockGlowingHexoriumGlassYellow.name=Glowing Hexorium Glass (Yellow)
+tile.blockGlowingHexoriumGlassLime.name=Glowing Hexorium Glass (Lime)
+tile.blockGlowingHexoriumGlassGreen.name=Glowing Hexorium Glass (Green)
+tile.blockGlowingHexoriumGlassTurquoise.name=Glowing Hexorium Glass (Turquoise)
+tile.blockGlowingHexoriumGlassCyan.name=Glowing Hexorium Glass (Cyan)
+tile.blockGlowingHexoriumGlassSkyBlue.name=Glowing Hexorium Glass (Sky Blue)
+tile.blockGlowingHexoriumGlassBlue.name=Glowing Hexorium Glass (Blue)
+tile.blockGlowingHexoriumGlassPurple.name=Glowing Hexorium Glass (Purple)
+tile.blockGlowingHexoriumGlassMagenta.name=Glowing Hexorium Glass (Magenta)
+tile.blockGlowingHexoriumGlassPink.name=Glowing Hexorium Glass (Pink)
+
+tile.blockGlowingHexoriumGlassWhite.name=Glowing Hexorium Glass (White)
+tile.blockGlowingHexoriumGlassLightGray.name=Glowing Hexorium Glass (Light Gray)
+tile.blockGlowingHexoriumGlassGray.name=Glowing Hexorium Glass (Gray)
+tile.blockGlowingHexoriumGlassDarkGray.name=Glowing Hexorium Glass (Dark Gray)
+tile.blockGlowingHexoriumGlassBlack.name=Glowing Hexorium Glass (Black)
+
+
 tile.blockEnergizedHexoriumMonolithRed.name=Energized Hexorium Monolith (Red)
 tile.blockEnergizedHexoriumMonolithOrange.name=Energized Hexorium Monolith (Orange)
 tile.blockEnergizedHexoriumMonolithYellow.name=Energized Hexorium Monolith (Yellow)
