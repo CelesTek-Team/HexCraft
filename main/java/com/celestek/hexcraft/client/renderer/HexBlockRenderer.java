@@ -74,7 +74,12 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         // Create the Tessellator and prepare OpenGL.
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        GL11.glEnable(GL11.GL_BLEND);
+
+        // Turn Mipmap OFF.
+        int minFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER);
+        int magFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
         // Start drawing inner layer of the block.
         tessellator.startDrawingQuads();
@@ -195,6 +200,10 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, 2));
         tessellator.draw();
+
+        // Turn Mipmap ON.
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilter);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, magFilter);
 
         // Finish drawing.
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
