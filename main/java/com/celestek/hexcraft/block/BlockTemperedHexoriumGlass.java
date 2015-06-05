@@ -21,7 +21,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -63,7 +63,7 @@ public class BlockTemperedHexoriumGlass extends Block {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeGlass);
         this.setLightOpacity(0);
@@ -96,7 +96,7 @@ public class BlockTemperedHexoriumGlass extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
         return icon[0];
     }

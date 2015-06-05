@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -38,7 +38,6 @@ public class BlockHexoriumOre extends HexBlock {
 
     // Used for tool enchants.
     private int fortune = 0;
-    private boolean silk = false;
 
     /**
      * Constructor for the block.
@@ -60,19 +59,26 @@ public class BlockHexoriumOre extends HexBlock {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(3F);
-        this.setResistance(30F);
+        this.setResistance(5F);
 
         this.setStepSound(Block.soundTypeStone);
     }
 
     /**
-     * Checks if the player harvesting the block has Silk Touch enchant and/or Fortune enchant.
+     * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
+     */
+    protected boolean canSilkHarvest()
+    {
+        return true;
+    }
+
+    /**
+     * Checks if the player harvesting the block has Fortune enchant.
      */
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         // Reset the fortune and silk touch parameters.
         fortune = 0;
-        silk = false;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             // Prepare a list of all enchants.
@@ -80,13 +86,10 @@ public class BlockHexoriumOre extends HexBlock {
             // If the list is not empty...
             if (list != null)
                 // Go through all entries.
-                for (int i = 0; i < list.tagCount(); i++) {
-                    // If Silk Touch (id 33) is found, set it to true.
-                    silk = list.getCompoundTagAt(i).getByte("id") == 33;
+                for (int i = 0; i < list.tagCount(); i++)
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
-                }
         }
     }
 
@@ -95,28 +98,22 @@ public class BlockHexoriumOre extends HexBlock {
      */
     @Override
     public int quantityDropped(Random random) {
-        // Check if Silk Touch should be used. If not...
-        if(!silk) {
-            // Prepare the fortune extra drop count.
-            int fortuneDrop = 0;
+        // Prepare the fortune extra drop count.
+        int fortuneDrop = 0;
 
-            // Set the according fortune extra drop count.
-            if (fortune == 1)
-                fortuneDrop = 1;
-            else if (fortune == 2)
-                fortuneDrop = 2;
-            else if (fortune == 3)
-                fortuneDrop = 3;
+        // Set the according fortune extra drop count.
+        if (fortune == 1)
+            fortuneDrop = 1;
+        else if (fortune == 2)
+            fortuneDrop = 2;
+        else if (fortune == 3)
+            fortuneDrop = 3;
 
-            // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
-            if (hexoriumDropMin == hexoriumDropMax)
-                return hexoriumDropMin;
-            else
-                return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
-        }
+        // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
+        if (hexoriumDropMin == hexoriumDropMax)
+            return hexoriumDropMin;
         else
-            // Return only 1 block (because of Silk Touch).
-            return 1;
+            return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
     }
 
     /**
@@ -124,25 +121,19 @@ public class BlockHexoriumOre extends HexBlock {
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
-        // Check if Silk Touch should be used. If not...
-        if(!silk) {
-            // Return the according crystal color.
-            if (this == HexBlocks.blockHexoriumOreRed)
-                return HexItems.itemHexoriumCrystalRed;
-            else if (this == HexBlocks.blockHexoriumOreGreen)
-                return HexItems.itemHexoriumCrystalGreen;
-            else if (this == HexBlocks.blockHexoriumOreBlue)
-                return HexItems.itemHexoriumCrystalBlue;
-            else if (this == HexBlocks.blockHexoriumOreWhite)
-                return HexItems.itemHexoriumCrystalWhite;
-            else if (this == HexBlocks.blockHexoriumOreBlack)
-                return HexItems.itemHexoriumCrystalBlack;
-            else
-                return null;
-        }
+        // Return the according crystal color.
+        if (this == HexBlocks.blockHexoriumOreRed)
+            return HexItems.itemHexoriumCrystalRed;
+        else if (this == HexBlocks.blockHexoriumOreGreen)
+            return HexItems.itemHexoriumCrystalGreen;
+        else if (this == HexBlocks.blockHexoriumOreBlue)
+            return HexItems.itemHexoriumCrystalBlue;
+        else if (this == HexBlocks.blockHexoriumOreWhite)
+            return HexItems.itemHexoriumCrystalWhite;
+        else if (this == HexBlocks.blockHexoriumOreBlack)
+            return HexItems.itemHexoriumCrystalBlack;
         else
-            // Return the block (because of Silk Touch).
-            return Item.getItemFromBlock(this);
+            return null;
     }
 
     // Prepare the icons.
@@ -156,12 +147,11 @@ public class BlockHexoriumOre extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[7];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
+        icon = new IIcon[2];
+        // Load the outer texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
         // Load the inner texture.
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
     }
 
     /**
@@ -169,8 +159,11 @@ public class BlockHexoriumOre extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[i];
+        if (side < 6)
+            return icon[0];
+        else
+            return icon[1];
     }
 }

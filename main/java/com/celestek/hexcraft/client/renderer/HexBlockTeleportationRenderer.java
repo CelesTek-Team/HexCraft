@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -24,6 +24,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
     // Static valuse
     private static float darkLamp = 0.15F;
+    private static float teleportOffset = 0.015625F;
 
     // Variables
     private int renderID;
@@ -250,7 +251,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 float u = c.getInterpolatedU(0);
                 float v = c.getInterpolatedV(0);
                 float U = c.getInterpolatedU(8);
-                float V = c.getInterpolatedU(16);
+                float V = c.getInterpolatedV(16);
 
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
@@ -258,48 +259,48 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
                 tessellator.addTranslation(x, y, z);
                 // NORTH
-                tessellator.addVertexWithUV(1, 1, 0, u, V);
-                tessellator.addVertexWithUV(0, 1, 0, U, V);
-                tessellator.addVertexWithUV(0, 3, 0, U, v);
-                tessellator.addVertexWithUV(1, 3, 0, u, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, u, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 0 + teleportOffset, U, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 0 + teleportOffset, U, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 0 + teleportOffset, u, v);
 
-                tessellator.addVertexWithUV(1, 3, 0, u, v);
-                tessellator.addVertexWithUV(0, 3, 0, U, v);
-                tessellator.addVertexWithUV(0, 1, 0, U, V);
-                tessellator.addVertexWithUV(1, 1, 0, u, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 0 + teleportOffset, u, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 0 + teleportOffset, U, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 0 + teleportOffset, U, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, u, V);
 
                 // SOUTH
-                tessellator.addVertexWithUV(0, 3, 1, u, v);
-                tessellator.addVertexWithUV(0, 1, 1, u, V);
-                tessellator.addVertexWithUV(1, 1, 1, U, V);
-                tessellator.addVertexWithUV(1, 3, 1, U, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 1 - teleportOffset, u, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 1 - teleportOffset, u, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, U, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 1 - teleportOffset, U, v);
 
-                tessellator.addVertexWithUV(1, 3, 1, U, v);
-                tessellator.addVertexWithUV(1, 1, 1, U, V);
-                tessellator.addVertexWithUV(0, 1, 1, u, V);
-                tessellator.addVertexWithUV(0, 3, 1, u, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 1 - teleportOffset, U, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, U, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 1 - teleportOffset, u, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 1 - teleportOffset, u, v);
 
                 // WEST
-                tessellator.addVertexWithUV(0, 1, 0, u, V);
-                tessellator.addVertexWithUV(0, 1, 1, U, V);
-                tessellator.addVertexWithUV(0, 3, 1, U, v);
-                tessellator.addVertexWithUV(0, 3, 0, u, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 0 + teleportOffset, u, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 1, U, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 1, U, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 0 + teleportOffset, u, v);
 
-                tessellator.addVertexWithUV(0, 3, 0, u, v);
-                tessellator.addVertexWithUV(0, 3, 1, U, v);
-                tessellator.addVertexWithUV(0, 1, 1, U, V);
-                tessellator.addVertexWithUV(0, 1, 0, u, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 0 + teleportOffset, u, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 3, 1 - teleportOffset, U, v);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 1 - teleportOffset, U, V);
+                tessellator.addVertexWithUV(0 + teleportOffset, 1, 0 + teleportOffset, u, V);
 
                 // EAST
-                tessellator.addVertexWithUV(1, 1, 1, u, V);
-                tessellator.addVertexWithUV(1, 1, 0, U, V);
-                tessellator.addVertexWithUV(1, 3, 0, U, v);
-                tessellator.addVertexWithUV(1, 3, 1, u, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, u, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, U, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 0 + teleportOffset, U, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 1 - teleportOffset, u, v);
 
-                tessellator.addVertexWithUV(1, 3, 1, u, v);
-                tessellator.addVertexWithUV(1, 3, 0, U, v);
-                tessellator.addVertexWithUV(1, 1, 0, U, V);
-                tessellator.addVertexWithUV(1, 1, 1, u, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 1 - teleportOffset, u, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 3, 0 + teleportOffset, U, v);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, U, V);
+                tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, u, V);
 
                 tessellator.addTranslation(-x, -y, -z);
             }

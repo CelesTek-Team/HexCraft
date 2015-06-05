@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -55,7 +55,7 @@ public class BlockGlowingHexoriumGlass extends HexBlock {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeGlass);
         this.setLightOpacity(0);
@@ -96,9 +96,9 @@ public class BlockGlowingHexoriumGlass extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        if (i < 6)
+        if (side < 6)
             return icon[0];
         else
             return icon[48];

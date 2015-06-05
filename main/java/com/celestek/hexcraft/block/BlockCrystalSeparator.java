@@ -24,7 +24,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-05-06
  */
 
@@ -48,7 +48,7 @@ public class BlockCrystalSeparator extends HexBlockContainer {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
     }

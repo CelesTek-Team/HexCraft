@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -32,7 +32,7 @@ public class BlockHexoriumMachineBlock extends HexBlock {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
     }
@@ -48,13 +48,12 @@ public class BlockHexoriumMachineBlock extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[7];
+        icon = new IIcon[3];
         // Load the outer textures.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineBottom");
-        for(int i = 1; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineSide");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineSide");
         // Load the inner texture
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
@@ -62,8 +61,13 @@ public class BlockHexoriumMachineBlock extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[i];
+        if (side == 0)
+            return icon[0];
+        else if (side > 0 && side < 6)
+            return icon[1];
+        else
+            return icon[2];
     }
 }

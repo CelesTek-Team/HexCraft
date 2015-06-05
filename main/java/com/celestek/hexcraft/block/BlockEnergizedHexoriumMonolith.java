@@ -23,7 +23,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -44,7 +44,6 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         this.setCreativeTab(HexCraft.hexCraftTab);
 
         this.setHardness(0.3F);
-        this.setResistance(1.5F);
 
         this.setStepSound(Block.soundTypeGlass);
         this.setLightOpacity(0);
@@ -319,15 +318,14 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[7];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        icon = new IIcon[2];
+        // Load the outer texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockEnergizedHexoriumMonolithRainbow)
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
         else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
     }
 
     /**
@@ -335,8 +333,11 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[i];
+        if (side < 6)
+            return icon[0];
+        else
+            return icon[1];
     }
 }

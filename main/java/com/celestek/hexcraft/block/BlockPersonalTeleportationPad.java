@@ -25,7 +25,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-05-06
  */
 
@@ -47,7 +47,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
     }
@@ -190,7 +190,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[15];
+        icon = new IIcon[7];
         // Load the outer textures.
         for (int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i + 1));
@@ -203,10 +203,10 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // System.out.println("Sides requested!");
         if (meta == 0) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -217,7 +217,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 1) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -228,7 +228,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 2) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[3];
@@ -239,7 +239,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 3) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -250,7 +250,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 4) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -261,7 +261,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 5) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -272,7 +272,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 6) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[3];
@@ -283,7 +283,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 7) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[4];
@@ -294,7 +294,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 8) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[1];
                 case 2: return icon[4];
@@ -305,7 +305,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 9) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[1];
                 case 2: return icon[4];
@@ -316,7 +316,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 10) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[1];
                 case 2: return icon[3];
@@ -327,7 +327,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         } else if (meta == 11) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[1];
                 case 2: return icon[4];
@@ -338,6 +338,6 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
                 case 7: return icon[5];
             }
         }
-        return icon[i];
+        return icon[side];
     }
 }

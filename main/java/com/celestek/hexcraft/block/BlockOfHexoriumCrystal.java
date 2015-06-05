@@ -24,7 +24,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -52,7 +52,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeGlass);
     }
@@ -77,15 +77,14 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[18];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        // Load the outer texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the inner textures.
-        for(int i = 0; i < 12; i++)
-            if(i < 9)
-                icon[i + 6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + "0" + (i + 1));
+        for(int i = 1; i < 13; i++)
+            if(i < 10)
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + "0" + (i));
             else
-                icon[i + 6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + (i));
     }
 
     /**
@@ -93,69 +92,67 @@ public class BlockOfHexoriumCrystal extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
-        // If the requested icons are for the extra sides...
-        if (i > 5) {
-            // Return the icons based on meta (rotation) and side.
+    public IIcon getIcon(int side, int meta) {
+        // Return the icons based on meta (rotation) and side.
+        if (side < 6)
+            return icon[0];
+        else {
             if (meta == 0) {
-                switch (i) {
-                    case 6: return icon[6];
-                    case 7: return icon[16];
-                    case 8: return icon[10];
-                    case 9: return icon[10];
-                    case 10: return icon[14];
-                    case 11: return icon[14];
-                }
-            } else if (meta == 1) {
-                switch (i) {
-                    case 6: return icon[16];
-                    case 7: return icon[6];
-                    case 8: return icon[8];
-                    case 9: return icon[8];
-                    case 10: return icon[12];
-                    case 11: return icon[12];
-                }
-            } else if (meta == 2) {
-                switch (i) {
-                    case 6: return icon[12];
-                    case 7: return icon[12];
-                    case 8: return icon[7];
-                    case 9: return icon[17];
-                    case 10: return icon[11];
+                switch (side) {
+                    case 6: return icon[1];
+                    case 7: return icon[11];
+                    case 8: return icon[5];
+                    case 9: return icon[5];
+                    case 10: return icon[9];
                     case 11: return icon[9];
                 }
-            } else if (meta == 3) {
-                switch (i) {
-                    case 6: return icon[14];
-                    case 7: return icon[14];
-                    case 8: return icon[17];
-                    case 9: return icon[7];
-                    case 10: return icon[9];
-                    case 11: return icon[11];
-                }
-            } else if (meta == 4) {
-                switch (i) {
-                    case 6: return icon[15];
-                    case 7: return icon[15];
-                    case 8: return icon[9];
-                    case 9: return icon[11];
+            } else if (meta == 1) {
+                switch (side) {
+                    case 6: return icon[11];
+                    case 7: return icon[1];
+                    case 8: return icon[3];
+                    case 9: return icon[3];
                     case 10: return icon[7];
-                    case 11: return icon[17];
-                }
-            } else if (meta == 5) {
-                switch (i) {
-                    case 6: return icon[13];
-                    case 7: return icon[13];
-                    case 8: return icon[11];
-                    case 9: return icon[9];
-                    case 10: return icon[17];
                     case 11: return icon[7];
                 }
+            } else if (meta == 2) {
+                switch (side) {
+                    case 6: return icon[7];
+                    case 7: return icon[7];
+                    case 8: return icon[2];
+                    case 9: return icon[12];
+                    case 10: return icon[6];
+                    case 11: return icon[4];
+                }
+            } else if (meta == 3) {
+                switch (side) {
+                    case 6: return icon[9];
+                    case 7: return icon[9];
+                    case 8: return icon[12];
+                    case 9: return icon[2];
+                    case 10: return icon[4];
+                    case 11: return icon[6];
+                }
+            } else if (meta == 4) {
+                switch (side) {
+                    case 6: return icon[10];
+                    case 7: return icon[10];
+                    case 8: return icon[4];
+                    case 9: return icon[6];
+                    case 10: return icon[2];
+                    case 11: return icon[12];
+                }
+            } else if (meta == 5) {
+                switch (side) {
+                    case 6: return icon[8];
+                    case 7: return icon[8];
+                    case 8: return icon[6];
+                    case 9: return icon[4];
+                    case 10: return icon[12];
+                    case 11: return icon[2];
+                }
             }
-            return icon[i];
+            return icon[side];
         }
-        else
-            // Otherwise, just return first icons.
-            return icon[i];
     }
 }

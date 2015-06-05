@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-15
  */
 
@@ -53,11 +53,11 @@ public class ItemHexoriumReinforcer extends Item {
      */
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        // Get the block.
+        Block block = world.getBlock(x, y, z);
+
         // Check if this is the server thread.
         if (!world.isRemote) {
-            // Get the block.
-            Block block = world.getBlock(x, y, z);
-
             if (block instanceof BlockEngineeredHexoriumBlock ||
                     block instanceof BlockFramedHexoriumBlock ||
                     block instanceof BlockPlatedHexoriumBlock ||
@@ -65,7 +65,7 @@ public class ItemHexoriumReinforcer extends Item {
                 if (world.getBlockMetadata(x, y, z) == 0) {
                     world.setBlockMetadataWithNotify(x, y, z, 1, 2);
                     stack.stackSize--;
-                    if(stack.stackSize == 0)
+                    if (stack.stackSize == 0)
                         stack = null;
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
                 }

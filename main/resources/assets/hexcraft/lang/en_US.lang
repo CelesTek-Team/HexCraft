@@ -300,6 +300,7 @@ item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
+item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 
 
 msg.pylonLinkCancel.txt=[Hexorium Manipulator] Pylon linking canceled.

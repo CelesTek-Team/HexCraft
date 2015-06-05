@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-17
  */
 public class HexGenOre extends WorldGenerator {

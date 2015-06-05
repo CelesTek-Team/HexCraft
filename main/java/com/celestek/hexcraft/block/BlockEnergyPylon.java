@@ -32,7 +32,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-05-06
  */
 
@@ -56,10 +56,19 @@ public class BlockEnergyPylon extends HexBlockContainer {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
         this.setLightOpacity(0);
+    }
+
+    /**
+     * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
+     */
+    @Override
+    protected boolean canSilkHarvest()
+    {
+        return false;
     }
 
     /**
@@ -304,15 +313,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
             // Call the analysis.
             analyzer.analyzePylon(world, x, y, z, this);
         }
-    }
-
-    /**
-     * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
-     */
-    @Override
-    protected boolean canSilkHarvest()
-    {
-        return false;
     }
 
     /**
@@ -633,17 +633,18 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[12];
-        // Load the pylon base textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
+        icon = new IIcon[7];
+        // Load the pylon base texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
         // Load the monolith textures.
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME);
-        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
-        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
-        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
-        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beamRainbow");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME);
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
+        // Load additional textures.
+        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
+        // Load the beam textures.
+        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beamRainbow");
     }
 
     /**
@@ -651,8 +652,12 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
-        return icon[i];
+    public IIcon getIcon(int side, int meta) {
+        // Retrieve icon based on side.
+        if (side < 6)
+            return icon[0];
+        else
+            return icon[side - 5];
     }
 
     /**

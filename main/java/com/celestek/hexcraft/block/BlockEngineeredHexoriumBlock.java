@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -33,7 +33,8 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.hexCraftTab);
 
-        this.setHarvestLevel("pickaxe", 2);
+        this.setHarvestLevel("pickaxe", 2, 0);
+        this.setHarvestLevel("pickaxe", 3, 1);
 
         this.setStepSound(Block.soundTypeStone);
     }
@@ -47,7 +48,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
         // If this is a normal block, return normal hardness.
         if (world.getBlockMetadata(x, y, z) == 0)
             return 1.5F;
-            // If this is a reinforced block, return obsidian hardness.
+        // If this is a reinforced block, return obsidian hardness.
         else
             return 50F;
     }
@@ -56,8 +57,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
      * Location sensitive version of getExplosionRestance
      */
     @Override
-    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
-    {
+    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
         // If this is a normal block, return normal resistance.
         if (world.getBlockMetadata(x, y, z) == 0)
             return 30F / 5F;

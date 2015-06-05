@@ -24,7 +24,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-05-06
  */
 
@@ -48,7 +48,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
     }
@@ -109,9 +109,6 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare the name string of the broken block.
-        String blockName = block.getUnlocalizedName();
-
         // Check if the changed block is a cable.
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
@@ -223,10 +220,10 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // System.out.println("Sides requested!");
         if (meta == 0) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[4];
                 case 2: return icon[10];
@@ -236,7 +233,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 1) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[5];
                 case 2: return icon[13];
@@ -246,7 +243,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 2) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[1];
@@ -256,7 +253,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 3) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[3];
                 case 2: return icon[13];
@@ -266,7 +263,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 4) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[8];
                 case 2: return icon[11];
@@ -276,7 +273,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 5) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[9];
                 case 2: return icon[13];
@@ -286,7 +283,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 6) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[6];
                 case 2: return icon[1];
@@ -296,7 +293,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 7) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[7];
                 case 2: return icon[13];
@@ -306,7 +303,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 8) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[4];
                 case 2: return icon[12];
@@ -316,7 +313,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 9) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[5];
                 case 2: return icon[13];
@@ -326,7 +323,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 10) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[2];
                 case 2: return icon[1];
@@ -336,7 +333,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         } else if (meta == 11) {
-            switch (i) {
+            switch (side) {
                 case 0: return icon[0];
                 case 1: return icon[3];
                 case 2: return icon[13];
@@ -346,6 +343,6 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
                 case 6: return icon[14];
             }
         }
-        return icon[i];
+        return icon[side];
     }
 }

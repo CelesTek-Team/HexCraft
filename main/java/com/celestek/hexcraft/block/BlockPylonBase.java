@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -42,7 +42,7 @@ public class BlockPylonBase extends Block {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
     }
@@ -138,7 +138,7 @@ public class BlockPylonBase extends Block {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         int i0;
         int i1;
 
@@ -153,7 +153,7 @@ public class BlockPylonBase extends Block {
         }
 
         // Return only one icon depending on orientation.
-        if (meta == i)
+        if (meta == side)
             return icon[i0];
         else
             return icon[i1];

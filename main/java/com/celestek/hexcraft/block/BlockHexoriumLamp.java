@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -41,7 +41,7 @@ public class BlockHexoriumLamp extends HexBlock {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);
-        this.setResistance(30F);
+        this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeGlass);
     }
@@ -112,15 +112,14 @@ public class BlockHexoriumLamp extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[7];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon = new IIcon[2];
+        // Load the outer texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         // Load the inner texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockHexoriumLampRainbow)
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
@@ -128,9 +127,12 @@ public class BlockHexoriumLamp extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[i];
+        if (side < 6)
+            return icon[0];
+        else
+            return icon[1];
     }
 
     /**

@@ -26,7 +26,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.4.0
+ * @version 0.5.0
  * @since 2015-04-14
  */
 
@@ -44,7 +44,6 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
 
     // Used for tool enchants.
     private int fortune = 0;
-    private boolean silk = false;
 
     /**
      * Constructor for the block.
@@ -66,10 +65,18 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(3F);
-        this.setResistance(30F);
+        this.setResistance(5F);
 
         this.setStepSound(Block.soundTypeGlass);
         this.setLightOpacity(0);
+    }
+
+    /**
+     * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
+     */
+    protected boolean canSilkHarvest()
+    {
+        return true;
     }
 
     /**
@@ -175,13 +182,12 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
     }
 
     /**
-     * Checks if the player harvesting the monolith has Silk Touch enchant and/or Fortune enchant.
+     * Checks if the player harvesting the monolith has Fortune enchant.
      */
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         // Reset the fortune and silk touch parameters.
         fortune = 0;
-        silk = false;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             // Prepare a list of all enchants.
@@ -189,13 +195,10 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
             // If the list is not empty...
             if (list != null)
                 // Go through all entries.
-                for (int i = 0; i < list.tagCount(); i++) {
-                    // If Silk Touch (id 33) is found, set it to true.
-                    silk = list.getCompoundTagAt(i).getByte("id") == 33;
+                for (int i = 0; i < list.tagCount(); i++)
                     // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
-                }
         }
     }
 
@@ -204,28 +207,22 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      */
     @Override
     public int quantityDropped(Random random) {
-        // Check if Silk Touch should be used. If not...
-        if(!silk) {
-            // Prepare the fortune extra drop count.
-            int fortuneDrop = 0;
+        // Prepare the fortune extra drop count.
+        int fortuneDrop = 0;
 
-            // Set the according fortune extra drop count.
-            if (fortune == 1)
-                fortuneDrop = 2;
-            else if (fortune == 2)
-                fortuneDrop = 4;
-            else if (fortune == 3)
-                fortuneDrop = 6;
+        // Set the according fortune extra drop count.
+        if (fortune == 1)
+            fortuneDrop = 2;
+        else if (fortune == 2)
+            fortuneDrop = 4;
+        else if (fortune == 3)
+            fortuneDrop = 6;
 
-            // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
-            if (hexoriumDropMin == hexoriumDropMax)
-                return hexoriumDropMin;
-            else
-                return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
-        }
+        // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
+        if (hexoriumDropMin == hexoriumDropMax)
+            return hexoriumDropMin;
         else
-            // Return only 1 block (because of Silk Touch).
-            return 1;
+            return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
     }
 
     /**
@@ -233,25 +230,19 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
-        // Check if Silk Touch should be used. If not...
-        if(!silk) {
-            // Return the according crystal color.
-            if (this == HexBlocks.blockHexoriumNetherMonolithRed)
-                return HexItems.itemHexoriumCrystalRed;
-            else if (this == HexBlocks.blockHexoriumNetherMonolithGreen)
-                return HexItems.itemHexoriumCrystalGreen;
-            else if (this == HexBlocks.blockHexoriumNetherMonolithBlue)
-                return HexItems.itemHexoriumCrystalBlue;
-            else if (this == HexBlocks.blockHexoriumNetherMonolithWhite)
-                return HexItems.itemHexoriumCrystalWhite;
-            else if (this == HexBlocks.blockHexoriumNetherMonolithBlack)
-                return HexItems.itemHexoriumCrystalBlack;
-            else
-                return null;
-        }
+        // Return the according crystal color.
+        if (this == HexBlocks.blockHexoriumNetherMonolithRed)
+            return HexItems.itemHexoriumCrystalRed;
+        else if (this == HexBlocks.blockHexoriumNetherMonolithGreen)
+            return HexItems.itemHexoriumCrystalGreen;
+        else if (this == HexBlocks.blockHexoriumNetherMonolithBlue)
+            return HexItems.itemHexoriumCrystalBlue;
+        else if (this == HexBlocks.blockHexoriumNetherMonolithWhite)
+            return HexItems.itemHexoriumCrystalWhite;
+        else if (this == HexBlocks.blockHexoriumNetherMonolithBlack)
+            return HexItems.itemHexoriumCrystalBlack;
         else
-            // Return the block (because of Silk Touch).
-            return Item.getItemFromBlock(this);
+            return null;
     }
 
     /**
@@ -302,14 +293,13 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[8];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
+        icon = new IIcon[3];
+        // Load the outer texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture from normal ore.
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
         // Load the netherrack texture.
-        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
     }
 
     /**
@@ -317,8 +307,15 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
+    public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[i];
+        if (side < 6)
+            return icon[0];
+        else if (side == 6)
+            return icon[1];
+        else if (side == 7)
+            return icon[2];
+        else
+            return icon[0];
     }
 }
