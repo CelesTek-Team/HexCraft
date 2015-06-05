@@ -15,16 +15,16 @@ import net.minecraft.util.IIcon;
  * @since 2015-04-14
  */
 
-public class BlockReinforcedHexoriumBlock extends HexBlock {
+public class BlockConcentricHexoriumBlock extends HexBlock {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockReinforcedHexoriumBlock";
+    public static String UNLOCALISEDNAME = "blockConcentricHexoriumBlock";
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockReinforcedHexoriumBlock(String blockName) {
+    public BlockConcentricHexoriumBlock(String blockName) {
         super(Material.rock);
 
         // Set all block parameters.
@@ -54,7 +54,7 @@ public class BlockReinforcedHexoriumBlock extends HexBlock {
         for(int i = 0; i < 6; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockReinforcedHexoriumBlockRainbow)
+        if(this == HexBlocks.blockConcentricHexoriumBlockRainbow)
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

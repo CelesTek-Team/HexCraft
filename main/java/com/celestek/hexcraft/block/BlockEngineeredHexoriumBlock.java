@@ -7,7 +7,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -32,10 +34,36 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
         this.setCreativeTab(HexCraft.hexCraftTab);
 
         this.setHarvestLevel("pickaxe", 2);
-        this.setHardness(1.5F);
-        this.setResistance(30F);
 
         this.setStepSound(Block.soundTypeStone);
+    }
+
+    /**
+     * Returns the block hardness at a location. Args: world, x, y, z
+     */
+    @Override
+    public float getBlockHardness(World world, int x, int y, int z)
+    {
+        // If this is a normal block, return normal hardness.
+        if (world.getBlockMetadata(x, y, z) == 0)
+            return 1.5F;
+            // If this is a reinforced block, return obsidian hardness.
+        else
+            return 50F;
+    }
+
+    /**
+     * Location sensitive version of getExplosionRestance
+     */
+    @Override
+    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+    {
+        // If this is a normal block, return normal resistance.
+        if (world.getBlockMetadata(x, y, z) == 0)
+            return 30F / 5F;
+        // If this is a reinforced block, return obsidian resistance.
+        else
+            return 6000F / 5F;
     }
 
     // Prepare the icons.
@@ -49,15 +77,16 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[7];
-        // Load the outer textures.
-        for(int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon = new IIcon[3];
+        // Load the outer normal texture.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        // Load the outer reinforced texture.
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Reinforced");
         // Load the inner texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockEngineeredHexoriumBlockRainbow)
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+            icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
-            icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+            icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
@@ -65,8 +94,15 @@ public class BlockEngineeredHexoriumBlock extends HexBlock {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int i, int meta) {
-        // Retrieve icon based on side.
-        return icon[i];
+    public IIcon getIcon(int side, int meta) {
+        // Retrieve icon based on side and meta.
+        if (side < 6 && meta == 0)
+            return icon[0];
+        else if (side < 6 && meta == 1)
+            return icon[1];
+        else if (side == 6)
+            return icon[2];
+        else
+            return icon[0];
     }
 }

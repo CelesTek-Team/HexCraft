@@ -33,10 +33,6 @@ public class ItemHexoriumManipulator extends Item {
     // Set default item name.
     public static String UNLOCALISEDNAME = "itemHexoriumManipulator";
 
-    int prevX = 0;
-    int prevY = 0;
-    int prevZ = 0;
-
     /**
      * Constructor for the item.
      * @param itemName Unlocalized name for the item.

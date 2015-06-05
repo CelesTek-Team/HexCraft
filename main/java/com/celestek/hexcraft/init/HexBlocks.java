@@ -153,27 +153,27 @@ public class HexBlocks {
 
     public static Block blockPlatedHexoriumBlockRainbow;
 
-    // Reinforced Hexorium Block
-    public static Block blockReinforcedHexoriumBlockRed;
-    public static Block blockReinforcedHexoriumBlockOrange;
-    public static Block blockReinforcedHexoriumBlockYellow;
-    public static Block blockReinforcedHexoriumBlockLime;
-    public static Block blockReinforcedHexoriumBlockGreen;
-    public static Block blockReinforcedHexoriumBlockTurquoise;
-    public static Block blockReinforcedHexoriumBlockCyan;
-    public static Block blockReinforcedHexoriumBlockSkyBlue;
-    public static Block blockReinforcedHexoriumBlockBlue;
-    public static Block blockReinforcedHexoriumBlockPurple;
-    public static Block blockReinforcedHexoriumBlockMagenta;
-    public static Block blockReinforcedHexoriumBlockPink;
+    // Concentric Hexorium Block
+    public static Block blockConcentricHexoriumBlockRed;
+    public static Block blockConcentricHexoriumBlockOrange;
+    public static Block blockConcentricHexoriumBlockYellow;
+    public static Block blockConcentricHexoriumBlockLime;
+    public static Block blockConcentricHexoriumBlockGreen;
+    public static Block blockConcentricHexoriumBlockTurquoise;
+    public static Block blockConcentricHexoriumBlockCyan;
+    public static Block blockConcentricHexoriumBlockSkyBlue;
+    public static Block blockConcentricHexoriumBlockBlue;
+    public static Block blockConcentricHexoriumBlockPurple;
+    public static Block blockConcentricHexoriumBlockMagenta;
+    public static Block blockConcentricHexoriumBlockPink;
 
-    public static Block blockReinforcedHexoriumBlockWhite;
-    public static Block blockReinforcedHexoriumBlockLightGray;
-    public static Block blockReinforcedHexoriumBlockGray;
-    public static Block blockReinforcedHexoriumBlockDarkGray;
-    public static Block blockReinforcedHexoriumBlockBlack;
+    public static Block blockConcentricHexoriumBlockWhite;
+    public static Block blockConcentricHexoriumBlockLightGray;
+    public static Block blockConcentricHexoriumBlockGray;
+    public static Block blockConcentricHexoriumBlockDarkGray;
+    public static Block blockConcentricHexoriumBlockBlack;
 
-    public static Block blockReinforcedHexoriumBlockRainbow;
+    public static Block blockConcentricHexoriumBlockRainbow;
 
     // Glowing Hexorium Glass
     public static Block blockGlowingHexoriumGlassRed;
@@ -535,45 +535,45 @@ public class HexBlocks {
         blockPlatedHexoriumBlockRainbow = new BlockPlatedHexoriumBlock(BlockPlatedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
         GameRegistry.registerBlock(blockPlatedHexoriumBlockRainbow, BlockPlatedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
 
-        // Reinforced Hexorium Block
-        blockReinforcedHexoriumBlockRed = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Red");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockRed, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Red");
-        blockReinforcedHexoriumBlockOrange = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Orange");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockOrange, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Orange");
-        blockReinforcedHexoriumBlockYellow = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Yellow");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockYellow, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Yellow");
-        blockReinforcedHexoriumBlockLime = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Lime");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockLime, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Lime");
-        blockReinforcedHexoriumBlockGreen = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Green");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockGreen, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Green");
-        blockReinforcedHexoriumBlockTurquoise = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Turquoise");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockTurquoise, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Turquoise");
-        blockReinforcedHexoriumBlockCyan = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Cyan");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockCyan, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Cyan");
-        blockReinforcedHexoriumBlockSkyBlue = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "SkyBlue");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockSkyBlue, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "SkyBlue");
-        blockReinforcedHexoriumBlockBlue = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Blue");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockBlue, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Blue");
-        blockReinforcedHexoriumBlockPurple = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Purple");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockPurple, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Purple");
-        blockReinforcedHexoriumBlockMagenta = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Magenta");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockMagenta, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Magenta");
-        blockReinforcedHexoriumBlockPink = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Pink");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockPink, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Pink");
+        // Concentric Hexorium Block
+        blockConcentricHexoriumBlockRed = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockRed, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Red");
+        blockConcentricHexoriumBlockOrange = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Orange");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockOrange, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Orange");
+        blockConcentricHexoriumBlockYellow = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Yellow");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockYellow, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Yellow");
+        blockConcentricHexoriumBlockLime = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Lime");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockLime, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Lime");
+        blockConcentricHexoriumBlockGreen = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockGreen, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Green");
+        blockConcentricHexoriumBlockTurquoise = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Turquoise");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockTurquoise, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Turquoise");
+        blockConcentricHexoriumBlockCyan = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Cyan");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockCyan, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Cyan");
+        blockConcentricHexoriumBlockSkyBlue = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "SkyBlue");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockSkyBlue, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "SkyBlue");
+        blockConcentricHexoriumBlockBlue = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockBlue, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Blue");
+        blockConcentricHexoriumBlockPurple = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Purple");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockPurple, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Purple");
+        blockConcentricHexoriumBlockMagenta = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Magenta");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockMagenta, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Magenta");
+        blockConcentricHexoriumBlockPink = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Pink");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockPink, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Pink");
 
-        blockReinforcedHexoriumBlockWhite = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "White");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockWhite, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "White");
-        blockReinforcedHexoriumBlockLightGray = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "LightGray");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockLightGray, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "LightGray");
-        blockReinforcedHexoriumBlockGray = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Gray");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockGray, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Gray");
-        blockReinforcedHexoriumBlockDarkGray = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "DarkGray");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockDarkGray, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "DarkGray");
-        blockReinforcedHexoriumBlockBlack = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Black");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockBlack, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Black");
+        blockConcentricHexoriumBlockWhite = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockWhite, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "White");
+        blockConcentricHexoriumBlockLightGray = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "LightGray");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockLightGray, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "LightGray");
+        blockConcentricHexoriumBlockGray = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Gray");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockGray, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Gray");
+        blockConcentricHexoriumBlockDarkGray = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "DarkGray");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockDarkGray, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "DarkGray");
+        blockConcentricHexoriumBlockBlack = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Black");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockBlack, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Black");
 
-        blockReinforcedHexoriumBlockRainbow = new BlockReinforcedHexoriumBlock(BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
-        GameRegistry.registerBlock(blockReinforcedHexoriumBlockRainbow, BlockReinforcedHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
+        blockConcentricHexoriumBlockRainbow = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
+        GameRegistry.registerBlock(blockConcentricHexoriumBlockRainbow, BlockConcentricHexoriumBlock.UNLOCALISEDNAME + "Rainbow");
 
         // Glowing Hexorium Glass
         blockGlowingHexoriumGlassRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.UNLOCALISEDNAME + "Red");

@@ -307,6 +307,15 @@ public class BlockEnergyPylon extends HexBlockContainer {
     }
 
     /**
+     * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
+     */
+    @Override
+    protected boolean canSilkHarvest()
+    {
+        return false;
+    }
+
+    /**
      * Called when a block is placed using its ItemBlock.
      */
     @Override
