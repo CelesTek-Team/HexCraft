@@ -150,7 +150,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
         // Get the machine meta.
-        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        int meta = blockMetadata;
 
         // Strip away the texture states from meta.
         if (meta >= 4 && meta < 8)

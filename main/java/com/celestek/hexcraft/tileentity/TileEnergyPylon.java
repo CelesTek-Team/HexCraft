@@ -149,7 +149,8 @@ public class TileEnergyPylon extends TileEntity {
             tickCount++;
             if (tickCount >= 20) {
                 tickCount = 0;
-                retracePylons();
+                if (blockMetadata < 6)
+                    retracePylons();
             }
         }
         else {
@@ -235,9 +236,6 @@ public class TileEnergyPylon extends TileEntity {
                 // Push the stack back to player.
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
-                // Change the pylon meta.
-                // worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) + 6, 2);
-
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
@@ -262,9 +260,6 @@ public class TileEnergyPylon extends TileEntity {
 
             // Unlink all pylons.
             clearPylons();
-
-            // Change the pylon meta.
-            // worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, worldObj.getBlockMetadata(xCoord, yCoord, zCoord) - 6, 2);
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
