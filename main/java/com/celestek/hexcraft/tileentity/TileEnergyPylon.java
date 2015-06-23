@@ -57,6 +57,8 @@ public class TileEnergyPylon extends TileEntity {
             pylons.add(new HexPylon(pylonsX[i], pylonsY[i], pylonsZ[i], pylonsMaster[i]));
             // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ")");
         }
+
+        // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded!");
     }
 
     /**

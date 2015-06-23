@@ -400,15 +400,17 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                     if (machinesHexoriumGenerator != null)
                         // Pull energy from every generator.
                         for (HexDevice entry : machinesHexoriumGenerator) {
-                            TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                            if (generator != null)
-                                // Pull the maximum energy.
-                                if (energy + energyIn < energyTotal * 2) {
-                                    if (energyTotal * 2 - energy - energyIn < TileHexoriumGenerator.energyPerTick)
-                                        energyIn = energyIn + generator.pullEnergy((float) energyTotal * 2 - energy - energyIn);
-                                    else
-                                        energyIn = energyIn + generator.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
-                                }
+                            if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                                if (generator != null)
+                                    // Pull the maximum energy.
+                                    if (energy + energyIn < energyTotal * 2) {
+                                        if (energyTotal * 2 - energy - energyIn < TileHexoriumGenerator.energyPerTick)
+                                            energyIn = energyIn + generator.pullEnergy((float) energyTotal * 2 - energy - energyIn);
+                                        else
+                                            energyIn = energyIn + generator.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
+                                    }
+                            }
                         }
 
                     // Increase the stored energy.
@@ -458,10 +460,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         if(machinesHexoriumGenerator != null)
             // Go through all generators and check how many of them can provide energy.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if(generator.canProvideEnergy)
-                        usableGenerators1++;
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            usableGenerators1++;
+                }
             }
         // Save the usable generator count.
         usableGenerators = usableGenerators1;
@@ -472,10 +476,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         if(machinesHexoriumGenerator != null)
             // Go through all generators and register self as one of the machines pulling the energy. Use the energy per tick divided by number of usable generators.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if(generator.canProvideEnergy)
-                        checkEnergy = generator.startPulling((float) TileHexoriumGenerator.energyPerTick);
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            checkEnergy = generator.startPulling((float) TileHexoriumGenerator.energyPerTick);
+                }
             }
 
         // Return the boolean if registration was successful.
@@ -490,10 +496,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         if (machinesHexoriumGenerator != null)
             // Go through all generators and unregister self. Use the energy per tick divided by number of usable generators.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if (generator.canProvideEnergy)
-                        generator.stopPulling((float) TileHexoriumGenerator.energyPerTick);
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            generator.stopPulling((float) TileHexoriumGenerator.energyPerTick);
+                }
             }
     }
 
@@ -534,10 +542,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         if (machinesHexoriumGenerator != null)
             // Go through all generators and check if any of them can provide energy.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if (generator.canProvideEnergy)
-                        checkEnergy = true;
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            checkEnergy = true;
+                }
             }
 
         if (energy > 0)
@@ -670,10 +680,8 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
      * @return Boolean whether the teleports are on same network.
      */
     public boolean checkConnectivity(int x, int y, int z) {
-        // Get the target teleport.
-        TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
         // Check if it is null.
-        if (tileEntity != null) {
+        if (worldObj.getBlock(x, y, z) == HexBlocks.blockPersonalTeleportationPad) {
             // If the teleport exists, return true.
             for (HexDevice entry : teleportsPersonalTeleportationPad)
                 if (entry.x == x && entry.y == y && entry.z == z)

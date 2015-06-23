@@ -598,36 +598,44 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         if (machinesHexoriumFurnace != null)
             // Send a restart-stop signal to all machines in the list.
             for (HexDevice entry : machinesHexoriumFurnace) {
-                TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStop();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStop();
+                }
             }
 
         // Make sure that the machine list is not null.
         if (machinesCrystalSeparator != null)
             // Send a restart-stop signal to all machines in the list.
             for (HexDevice entry : machinesCrystalSeparator) {
-                TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStop();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStop();
+                }
             }
         
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-stop signal to all machines in the list.
             for (HexDevice entry : machinesMatrixReconstructor) {
-                TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStop();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStop();
+                }
             }
 
         // Make sure that the machine list is not null.
         if (machinesPersonalTeleportationPad != null)
             // Send a restart-stop signal to all machines in the list.
             for (HexDevice entry : machinesPersonalTeleportationPad) {
-                TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStop();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStop();
+                }
             }
     }
 
@@ -639,36 +647,44 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         if (machinesHexoriumFurnace != null)
             // Send a restart-start signal to all machines in the list.
             for (HexDevice entry : machinesHexoriumFurnace) {
-                TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStart();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStart();
+                }
             }
 
         // Make sure that the machine list is not null.
         if (machinesCrystalSeparator != null)
             // Send a restart-start signal to all machines in the list.
             for (HexDevice entry : machinesCrystalSeparator) {
-                TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStart();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStart();
+                }
             }
 
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-start signal to all machines in the list.
             for (HexDevice entry : machinesMatrixReconstructor) {
-                TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStart();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStart();
+                }
             }
 
         // Make sure that the machine list is not null.
         if (machinesPersonalTeleportationPad != null)
             // Send a restart-start signal to all machines in the list.
             for (HexDevice entry : machinesPersonalTeleportationPad) {
-                TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (tileEntity != null)
-                    tileEntity.restartMachineStart();
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null)
+                        tileEntity.restartMachineStart();
+                }
             }
     }
 

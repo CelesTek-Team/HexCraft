@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.chunk.Chunk;
 
 import java.util.ArrayList;
 
@@ -343,15 +344,17 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
                     if (machinesHexoriumGenerator != null)
                         // Pull energy from every generator.
                         for (HexDevice entry : machinesHexoriumGenerator) {
-                            TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                            if (generator != null)
-                                // Pull the according energy.
-                                if (energy + energyIn < energyTotal) {
-                                    if (energyTotal - energy - energyIn < energyPerTick / usableGenerators)
-                                        energyIn = energyIn + generator.pullEnergy(energyTotal - energy - energyIn);
-                                    else
-                                        energyIn = energyIn + generator.pullEnergy((float) energyPerTick / usableGenerators);
-                                }
+                            if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                                if (generator != null)
+                                    // Pull the according energy.
+                                    if (energy + energyIn < energyTotal) {
+                                        if (energyTotal - energy - energyIn < energyPerTick / usableGenerators)
+                                            energyIn = energyIn + generator.pullEnergy(energyTotal - energy - energyIn);
+                                        else
+                                            energyIn = energyIn + generator.pullEnergy((float) energyPerTick / usableGenerators);
+                                    }
+                            }
                         }
 
                     // If the total energy pulled is 0...
@@ -391,10 +394,12 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
         if(machinesHexoriumGenerator != null)
             // Go through all generators and check how many of them can provide energy.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if(generator.canProvideEnergy)
-                        usableGenerators1++;
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            usableGenerators1++;
+                }
             }
         // Save the usable generator count.
         usableGenerators = usableGenerators1;
@@ -405,10 +410,12 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
         if(machinesHexoriumGenerator != null)
             // Go through all generators and register self as one of the machines pulling the energy. Use the energy per tick divided by number of usable generators.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if(generator.canProvideEnergy)
-                        checkEnergy = generator.startPulling((float) energyPerTick / usableGenerators);
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            checkEnergy = generator.startPulling((float) energyPerTick / usableGenerators);
+                }
             }
 
         // Return the boolean if registration was successful.
@@ -423,10 +430,12 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
         if (machinesHexoriumGenerator != null)
             // Go through all generators and unregister self. Use the energy per tick divided by number of usable generators.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if (generator.canProvideEnergy)
-                        generator.stopPulling((float) energyPerTick / usableGenerators);
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            generator.stopPulling((float) energyPerTick / usableGenerators);
+                }
             }
     }
 
@@ -469,10 +478,12 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory 
         if (machinesHexoriumGenerator != null)
             // Go through all generators and check if any of them can provide energy.
             for (HexDevice entry : machinesHexoriumGenerator) {
-                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                if (generator != null)
-                    if (generator.canProvideEnergy)
-                        checkEnergy = true;
+                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
+                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (generator != null)
+                        if (generator.canProvideEnergy)
+                            checkEnergy = true;
+                }
             }
 
         // Check if the energy is now available, but wasn't previously.

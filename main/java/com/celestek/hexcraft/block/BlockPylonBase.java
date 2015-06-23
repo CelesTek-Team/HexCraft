@@ -80,7 +80,7 @@ public class BlockPylonBase extends Block {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            System.out.println("Base placed, analyzing!");
+            // System.out.println("Base placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
@@ -105,7 +105,7 @@ public class BlockPylonBase extends Block {
                 block == HexBlocks.blockCrystalSeparator ||
                 block == HexBlocks.blockMatrixReconstructor) {
 
-            System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            // System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
