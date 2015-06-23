@@ -208,11 +208,9 @@ public class NetworkAnalyzer {
                         if (pylon != null) {
                             if (pylon.pylons != null)
                                 for (HexPylon entry : pylon.pylons)
-                                    if (entry.pylon != null)
-                                        if (world.getBlockMetadata(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord) < 6)
-                                            if (!pylons.contains(new HexDevice(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord,
-                                                    world.getBlock(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord))))
-                                                pylonize(world, entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord, block, -1);
+                                    if (world.getBlockMetadata(entry.x, entry.y, entry.z) < 6)
+                                        if (!pylons.contains(new HexDevice(entry.x, entry.y, entry.z, world.getBlock(entry.x, entry.y, entry.z))))
+                                            pylonize(world, entry.x, entry.y, entry.z, block, -1);
                         } else
                             return;
                     } else

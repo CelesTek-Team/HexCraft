@@ -418,14 +418,12 @@ public class BlockEnergyPylon extends HexBlockContainer {
             if (pylon != null) {
                 if (pylon.pylons != null)
                     for (HexPylon entry : pylon.pylons) {
-                        if (entry.pylon != null) {
-                            // Refresh pylon.
-                            world.markBlockForUpdate(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord);
-                            // Prepare the network analyzer.
-                            NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                            // Call the analysis.
-                            analyzer.analyzePylon(world, entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord, HexBlocks.blockEnergyPylon);
-                        }
+                        // Refresh pylon.
+                        world.markBlockForUpdate(entry.x, entry.y, entry.z);
+                        // Prepare the network analyzer.
+                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                        // Call the analysis.
+                        analyzer.analyzePylon(world, entry.x, entry.y, entry.z, HexBlocks.blockEnergyPylon);
                     }
             }
             // Start analysis from this pylon.
@@ -442,9 +440,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
             if (pylon != null) {
                 if (pylon.pylons != null)
                     for (HexPylon entry : pylon.pylons) {
-                        if (entry.pylon != null) {
-                            world.markBlockForUpdate(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord);
-                        }
+                        world.markBlockForUpdate(entry.x, entry.y, entry.z);
                     }
             }
             // Start analysis from this pylon.

@@ -1922,11 +1922,14 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
                     // Go through each pylon entry.
                     for (HexPylon entry : tileEntity.pylons) {
-                        if (entry.pylon != null) {
+                        TileEnergyPylon pylon = (TileEnergyPylon) tileEntity.getWorldObj().getTileEntity(entry.x, entry.y, entry.z);
+                        if (pylon != null) {
+                            int tMono = pylon.monolith;
                             // Check if the target pylon is ON.
-                            if (entry.pylon.getBlockMetadata() < 6) {
+                            if (pylon.getBlockMetadata() < 6) {
+                                // System.out.println("Pylon at (" + x + ", " + y + ", " + z + ") rendering link to (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
                                 // Check if both of the pylons are rainbow.
-                                if (tileEntity.monolith == 18 && entry.pylon.monolith == 18) {
+                                if (tileEntity.monolith == 18 && tMono == 18) {
                                     // If they are, set the rainbow texture.
                                     tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
                                     c = block.getIcon(11, 0);
@@ -1934,76 +1937,76 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                     U = c.getMaxU();
                                     v = c.getMinV();
                                     V = c.getMaxV();
-                                } else if (tileEntity.monolith == 18 && entry.pylon.monolith != 18) {
+                                } else if (tileEntity.monolith == 18 && tMono != 18) {
                                     // If this is rainbow and target is not, use target color.
                                     float tr = HexColors.colorWhiteR;
                                     float tg = HexColors.colorWhiteG;
                                     float tb = HexColors.colorWhiteB;
-                                    if (entry.pylon.monolith == 1) {
+                                    if (tMono == 1) {
                                         tr = HexColors.colorRedR;
                                         tg = HexColors.colorRedG;
                                         tb = HexColors.colorRedB;
-                                    } else if (entry.pylon.monolith == 2) {
+                                    } else if (tMono == 2) {
                                         tr = HexColors.colorOrangeR;
                                         tg = HexColors.colorOrangeG;
                                         tb = HexColors.colorOrangeB;
-                                    } else if (entry.pylon.monolith == 3) {
+                                    } else if (tMono == 3) {
                                         tr = HexColors.colorYellowR;
                                         tg = HexColors.colorYellowG;
                                         tb = HexColors.colorYellowB;
-                                    } else if (entry.pylon.monolith == 4) {
+                                    } else if (tMono == 4) {
                                         tr = HexColors.colorLimeR;
                                         tg = HexColors.colorLimeG;
                                         tb = HexColors.colorLimeB;
-                                    } else if (entry.pylon.monolith == 5) {
+                                    } else if (tMono == 5) {
                                         tr = HexColors.colorGreenR;
                                         tg = HexColors.colorGreenG;
                                         tb = HexColors.colorGreenB;
-                                    } else if (entry.pylon.monolith == 6) {
+                                    } else if (tMono == 6) {
                                         tr = HexColors.colorTurquoiseR;
                                         tg = HexColors.colorTurquoiseG;
                                         tb = HexColors.colorTurquoiseB;
-                                    } else if (entry.pylon.monolith == 7) {
+                                    } else if (tMono == 7) {
                                         tr = HexColors.colorCyanR;
                                         tg = HexColors.colorCyanG;
                                         tb = HexColors.colorCyanB;
-                                    } else if (entry.pylon.monolith == 8) {
+                                    } else if (tMono == 8) {
                                         tr = HexColors.colorSkyBlueR;
                                         tg = HexColors.colorSkyBlueG;
                                         tb = HexColors.colorSkyBlueB;
-                                    } else if (entry.pylon.monolith == 9) {
+                                    } else if (tMono == 9) {
                                         tr = HexColors.colorBlueR;
                                         tg = HexColors.colorBlueG;
                                         tb = HexColors.colorBlueB;
-                                    } else if (entry.pylon.monolith == 10) {
+                                    } else if (tMono == 10) {
                                         tr = HexColors.colorPurpleR;
                                         tg = HexColors.colorPurpleG;
                                         tb = HexColors.colorPurpleB;
-                                    } else if (entry.pylon.monolith == 11) {
+                                    } else if (tMono == 11) {
                                         tr = HexColors.colorMagentaR;
                                         tg = HexColors.colorMagentaG;
                                         tb = HexColors.colorMagentaB;
-                                    } else if (entry.pylon.monolith == 12) {
+                                    } else if (tMono == 12) {
                                         tr = HexColors.colorPinkR;
                                         tg = HexColors.colorPinkG;
                                         tb = HexColors.colorPinkB;
-                                    } else if (entry.pylon.monolith == 13) {
+                                    } else if (tMono == 13) {
                                         tr = HexColors.colorWhiteR;
                                         tg = HexColors.colorWhiteG;
                                         tb = HexColors.colorWhiteB;
-                                    } else if (entry.pylon.monolith == 14) {
+                                    } else if (tMono == 14) {
                                         tr = HexColors.colorLightGrayR;
                                         tg = HexColors.colorLightGrayG;
                                         tb = HexColors.colorLightGrayB;
-                                    } else if (entry.pylon.monolith == 15) {
+                                    } else if (tMono == 15) {
                                         tr = HexColors.colorGrayR;
                                         tg = HexColors.colorGrayG;
                                         tb = HexColors.colorGrayB;
-                                    } else if (entry.pylon.monolith == 16) {
+                                    } else if (tMono == 16) {
                                         tr = HexColors.colorDarkGrayR;
                                         tg = HexColors.colorDarkGrayG;
                                         tb = HexColors.colorDarkGrayB;
-                                    } else if (entry.pylon.monolith == 17) {
+                                    } else if (tMono == 17) {
                                         tr = HexColors.colorBlackR;
                                         tg = HexColors.colorBlackG;
                                         tb = HexColors.colorBlackB;
@@ -2025,7 +2028,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                 }
 
                                 // Create the vector from pylon A to pylon B.
-                                Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.pylon.xCoord, entry.pylon.yCoord, entry.pylon.zCoord));
+                                Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.x, entry.y, entry.z));
 
                                 // Prepare additional vectors.
                                 Vec3 vec2;
