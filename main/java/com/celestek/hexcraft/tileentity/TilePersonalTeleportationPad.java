@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -391,7 +390,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                 // If the teleport was inactive...
                 if (!isActive) {
                     // Attempt to start it.
-                    isActive = startMachine();
+                    isActive = countGenerators();
                 }
 
                 // If the teleport is active...
@@ -450,10 +449,10 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
     }
 
     /**
-     * Called to start the machine.
-     * @return Boolean if the registration to generators was successful.
+     * Called to count the generators.
+     * @return Boolean if any generators were found.
      */
-    public boolean startMachine() {
+    public boolean countGenerators() {
         // Prepare a usable generator count.
         int usableGenerators1 = 0;
         // Check if the generator list is not null.
@@ -470,65 +469,8 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         // Save the usable generator count.
         usableGenerators = usableGenerators1;
 
-        // Prepare a boolean for checking if the registration process is successful.
-        boolean checkEnergy = false;
-        // Check if the generator list is not null.
-        if(machinesHexoriumGenerator != null)
-            // Go through all generators and register self as one of the machines pulling the energy. Use the energy per tick divided by number of usable generators.
-            for (HexDevice entry : machinesHexoriumGenerator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (generator != null)
-                        if (generator.canProvideEnergy)
-                            checkEnergy = generator.startPulling((float) TileHexoriumGenerator.energyPerTick);
-                }
-            }
-
-        // Return the boolean if registration was successful.
-        return checkEnergy;
-    }
-
-    /**
-     * Called to stop the machine.
-     */
-    public void stopMachine() {
-        // Check if the generator list is not null.
-        if (machinesHexoriumGenerator != null)
-            // Go through all generators and unregister self. Use the energy per tick divided by number of usable generators.
-            for (HexDevice entry : machinesHexoriumGenerator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (generator != null)
-                        if (generator.canProvideEnergy)
-                            generator.stopPulling((float) TileHexoriumGenerator.energyPerTick);
-                }
-            }
-    }
-
-    /**
-     * Called to restart-stop the machine.
-     */
-    public void restartMachineStop() {
-        // Check if the machine is active.
-        if (isActive)
-            // If it is, stop it.
-            stopMachine();
-    }
-
-    /**
-     * Called to restart-start the machine.
-     */
-    public void restartMachineStart() {
-        // Check if the machine is active.
-        if (isActive) {
-            // If it is, start the machine and save the result.
-            isActive = startMachine();
-            // If the machine should no longer be active...
-            if (!isActive) {
-                // Set the texture to READY.
-                HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-            }
-        }
+        // Return true of there are any generators.
+        return usableGenerators != 0;
     }
 
     /**
@@ -574,8 +516,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         if (isActive) {
             // Make it inactive.
             isActive = false;
-            // Stop the teleport.
-            stopMachine();
         }
     }
 
@@ -585,9 +525,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
      */
     public void injectMachines(ArrayList<HexDevice> incomingMachines) {
 
-        // Restart-stop the machine.
-        restartMachineStop();
-
         // Check if the size of the incoming list is larger then 0.
         if (incomingMachines.size() != 0)
             // If it is, save it to the local list.
@@ -596,8 +533,8 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
             // Otherwise, set the local list to null.
             machinesHexoriumGenerator = null;
 
-        // Restart-start the machine.
-        restartMachineStart();
+        // Recount the generators.
+        countGenerators();
     }
 
     /**

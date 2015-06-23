@@ -1,7 +1,5 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockHexoriumFurnace;
-import com.celestek.hexcraft.block.BlockHexoriumLamp;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexDevice;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -450,6 +448,16 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     public void updateEntity() {
         // Confirm that this is server side.
         if (!worldObj.isRemote) {
+            
+            // Change the texture if energy started to be pulled or stopped to.
+            if (pulledThisTick > 0 && canProvideEnergy &&
+                    getBlockMetadata() < 4)
+                HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
+            else if (pulledThisTick == 0 && canProvideEnergy &&
+                    (getBlockMetadata() >= 4 && getBlockMetadata() < 8))
+                HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
+            // Save the total energy out from previous tick.
+            energyOut = pulledThisTick;
             // Reset the pulling per tick variable.
             pulledThisTick = 0;
 
@@ -477,8 +485,6 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
                 // Check if the generator can provide energy. If not, set it to true.
                 if (!canProvideEnergy) {
-                    // Restart-stop all of the machines pulling the energy.
-                    restartMachinesStop();
                     // Make the generator available after stopping.
                     canProvideEnergy = true;
                     // Restart-start them again. This will update their generator list and add this generator.
@@ -492,8 +498,6 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
                 // Check if the generator can provide energy. If yes, set it to false.
                 if(canProvideEnergy) {
-                    // Restart-stop all of the machines pulling the energy.
-                    restartMachinesStop();
                     // Make the generator unavailable after stopping.
                     canProvideEnergy = false;
                     // Restart-start them again. This will update their generator list and remove this generator.
@@ -509,34 +513,6 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             energyTotalGui = (int) (energyTotal / energyPerTick);
             energyOutGui = (Math.round(energyOut));
         }
-    }
-
-    /**
-     * Called by machines to register themselves when they start using the generator.
-     * @param requestedEnergy The announced amount of energy that the machine will be pulling.
-     * @return Boolean if the registration to this generator was successful.
-     */
-    public boolean startPulling(float requestedEnergy) {
-        // Check if the generator is able to provide energy.
-        if(canProvideEnergy) {
-            // During the first machine's registration, change the texture.
-            if (energyOut <= 0)
-                // Set the ACTIVE texture.
-                HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
-
-            // Check if the generator still has some energy available. The epsilon is deducted to mitigate possible float rounding errors.
-            if (energyOut < energyPerTick - epsilon) {
-                // If there is some energy left, add the requested energy to the energy output variable. The total energy might exceed maximum.
-                energyOut = energyOut + requestedEnergy;
-                // Tell the machine that the registration was successful.
-                return true;
-            }
-            else
-                // Tell the machine that the registration was unsuccessful.
-                return false;
-        }
-        // If the generator cannot provide energy, tell the machine that the registration was unsuccessful.
-        return false;
     }
 
     /**
@@ -572,75 +548,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     }
 
     /**
-     * Called by machines when they stop pulling energy from the generator.
-     * @param requestedEnergy The amount of energy that the machine will stop pulling.
-     */
-    public void stopPulling(float requestedEnergy) {
-        // If there is energy being pulled by machines...
-        if (energyOut > 0)
-            // Decrease the energy being pulled by the requested energy.
-            energyOut = energyOut - requestedEnergy;
-
-        // If no energy is being pulled any more, use an epsilon to mitigate possible float rounding errors...
-        if (energyOut <= epsilon) {
-            // Correct possible negative value.
-            energyOut = 0;
-            // Set the READY texture.
-            HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-        }
-    }
-
-    /**
-     * Sends a restart-stop signal to all machines. Used when restarting.
-     */
-    private void restartMachinesStop() {
-        // Make sure that the machine list is not null.
-        if (machinesHexoriumFurnace != null)
-            // Send a restart-stop signal to all machines in the list.
-            for (HexDevice entry : machinesHexoriumFurnace) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.restartMachineStop();
-                }
-            }
-
-        // Make sure that the machine list is not null.
-        if (machinesCrystalSeparator != null)
-            // Send a restart-stop signal to all machines in the list.
-            for (HexDevice entry : machinesCrystalSeparator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.restartMachineStop();
-                }
-            }
-        
-        // Make sure that the machine list is not null.
-        if (machinesMatrixReconstructor != null)
-            // Send a restart-stop signal to all machines in the list.
-            for (HexDevice entry : machinesMatrixReconstructor) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.restartMachineStop();
-                }
-            }
-
-        // Make sure that the machine list is not null.
-        if (machinesPersonalTeleportationPad != null)
-            // Send a restart-stop signal to all machines in the list.
-            for (HexDevice entry : machinesPersonalTeleportationPad) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.restartMachineStop();
-                }
-            }
-    }
-
-    /**
-     * Sends a restart-start signal to all machines. Used when restarting.
+     * Sends a recount signal to all machines.
      */
     private void restartMachinesStart() {
         // Make sure that the machine list is not null.
@@ -650,7 +558,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (tileEntity != null)
-                        tileEntity.restartMachineStart();
+                        tileEntity.countGenerators();
                 }
             }
 
@@ -661,7 +569,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (tileEntity != null)
-                        tileEntity.restartMachineStart();
+                        tileEntity.countGenerators();
                 }
             }
 
@@ -672,7 +580,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (tileEntity != null)
-                        tileEntity.restartMachineStart();
+                        tileEntity.countGenerators();
                 }
             }
 
@@ -683,7 +591,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (tileEntity != null)
-                        tileEntity.restartMachineStart();
+                        tileEntity.countGenerators();
                 }
             }
     }
