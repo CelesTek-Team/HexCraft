@@ -407,7 +407,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                             for (TileHexoriumGenerator entry : machinesHexoriumGenerator)
                                 if (entry != null)
                                     // Pull the maximum energy.
-                                    energyIn = energyIn + entry.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
+                                    if (energy + energyIn < energyTotal * 2) {
+                                        if (energyTotal * 2 - energy - energyIn < TileHexoriumGenerator.energyPerTick)
+                                            energyIn = energyIn + entry.pullEnergy((float) energyTotal * 2 - energy - energyIn);
+                                        else
+                                            energyIn = energyIn + entry.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
+                                    }
 
                         // Increase the stored energy.
                         energy = energy + energyIn;
@@ -428,7 +433,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                             energy = 0;
                         // Reset variables
                         isTeleporting = false;
-                        hasEnergy = false;
+                        if (energy > 0)
+                            HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
+                        else {
+                            HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
+                            hasEnergy = false;
+                        }
                     }
                     else
                         // Increment counter.
