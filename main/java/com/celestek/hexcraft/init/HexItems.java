@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.0
+ * @version 0.5.1
  * @since 2015-04-15
  */
 public class HexItems {

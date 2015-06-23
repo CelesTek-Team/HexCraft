@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.0
+ * @version 0.5.1
  * @since 2015-04-25
  */
 public class TileEnergyPylon extends TileEntity {
@@ -151,7 +151,7 @@ public class TileEnergyPylon extends TileEntity {
                 for (HexPylon entry : pylons) {
                     // Update all linked blocks.
                     worldObj.markBlockForUpdate(entry.x, entry.y, entry.z);
-                     System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") updated pylon at (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
+                    // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") updated pylon at (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
                 }
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

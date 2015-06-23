@@ -32,7 +32,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.0
+ * @version 0.5.1
  * @since 2015-05-06
  */
 

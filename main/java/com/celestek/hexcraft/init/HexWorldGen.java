@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.0
+ * @version 0.5.1
  * @since 2015-04-16
  */
 public class HexWorldGen implements IWorldGenerator {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.0
+ * @version 0.5.1
  * @since 2015-05-06
  */
 public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
