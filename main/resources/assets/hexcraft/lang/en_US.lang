@@ -317,7 +317,7 @@ msg.teleportLinkStart.txt=[Hexorium Manipulator] Linking Teleport...
 msg.teleportLinkSuccess.txt=[Hexorium Manipulator] Teleports successfully linked.
 msg.teleportLinkBreak.txt=[Hexorium Manipulator] Teleports already linked. Breaking link.
 msg.teleportLinkFail1.txt=[Hexorium Manipulator] Linking failed. Teleport no longer exists.
-msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleports not on same network.
+msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleport unreachable.
 
 msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
 msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!

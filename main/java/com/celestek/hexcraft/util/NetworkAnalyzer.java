@@ -564,57 +564,57 @@ public class NetworkAnalyzer {
     private void pushMachines(World world) {
 
         // Notify about pushing machines.
-        // System.out.println("Done! Pushing data to machines:");
+         System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
-        ArrayList<TileHexoriumGenerator> machinesHexoriumGenerator = new ArrayList<TileHexoriumGenerator>();
-        ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
-        ArrayList<TileCrystalSeparator> machinesCrystalSeparator = new ArrayList<TileCrystalSeparator>();
-        ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
-        ArrayList<TilePersonalTeleportationPad> machinesPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
+        ArrayList<HexDevice> machinesHexoriumGenerator = new ArrayList<HexDevice>();
+        ArrayList<HexDevice> machinesHexoriumFurnace = new ArrayList<HexDevice>();
+        ArrayList<HexDevice> machinesCrystalSeparator = new ArrayList<HexDevice>();
+        ArrayList<HexDevice> machinesMatrixReconstructor = new ArrayList<HexDevice>();
+        ArrayList<HexDevice> machinesPersonalTeleportationPad = new ArrayList<HexDevice>();
 
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
             if (entry.block == HexBlocks.blockHexoriumGenerator) {
-                machinesHexoriumGenerator.add((TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesHexoriumGenerator.add(entry);
             }
             if (entry.block == HexBlocks.blockHexoriumFurnace) {
-                machinesHexoriumFurnace.add((TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesHexoriumFurnace.add(entry);
             }
             if (entry.block == HexBlocks.blockCrystalSeparator) {
-                machinesCrystalSeparator.add((TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesCrystalSeparator.add(entry);
             }
             if (entry.block == HexBlocks.blockMatrixReconstructor) {
-                machinesMatrixReconstructor.add((TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesMatrixReconstructor.add(entry);
             }
             if (entry.block == HexBlocks.blockPersonalTeleportationPad) {
-                machinesPersonalTeleportationPad.add((TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z));
+                machinesPersonalTeleportationPad.add(entry);
             }
         }
 
         // Push data to all machines. Consumers to generators, generators to consumers.
-        for (TileHexoriumGenerator entry : machinesHexoriumGenerator) {
-            TileHexoriumGenerator machine = (TileHexoriumGenerator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : machinesHexoriumGenerator) {
+            TileHexoriumGenerator machine = (TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z);
             machine.injectMachines(machinesHexoriumFurnace, machinesCrystalSeparator, machinesMatrixReconstructor, machinesPersonalTeleportationPad);
         }
-        for (TileHexoriumFurnace entry : machinesHexoriumFurnace) {
-            TileHexoriumFurnace machine = (TileHexoriumFurnace) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : machinesHexoriumFurnace) {
+            TileHexoriumFurnace machine = (TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z);
             machine.injectMachines(machinesHexoriumGenerator);
         }
-        for (TileCrystalSeparator entry : machinesCrystalSeparator) {
-            TileCrystalSeparator machine = (TileCrystalSeparator) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : machinesCrystalSeparator) {
+            TileCrystalSeparator machine = (TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z);
             machine.injectMachines(machinesHexoriumGenerator);
         }
-        for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
-            TileMatrixReconstructor machine = (TileMatrixReconstructor) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : machinesMatrixReconstructor) {
+            TileMatrixReconstructor machine = (TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z);
             machine.injectMachines(machinesHexoriumGenerator);
         }
-        for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad) {
-            TilePersonalTeleportationPad machine = (TilePersonalTeleportationPad) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : machinesPersonalTeleportationPad) {
+            TilePersonalTeleportationPad machine = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
             machine.injectMachines(machinesHexoriumGenerator);
         }
     }
@@ -626,25 +626,25 @@ public class NetworkAnalyzer {
     private void pushTeleports(World world) {
 
         // Notify about pushing machines.
-        // System.out.println("Done! Pushing data to teleports:");
+         System.out.println("Done! Pushing data to teleports:");
 
         // Prepare ArrayLists for different machine types.
-        ArrayList<TilePersonalTeleportationPad> teleportsPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
+        ArrayList<HexDevice> teleportsPersonalTeleportationPad = new ArrayList<HexDevice>();
 
         // Go through all machines ArrayList entries.
         for (HexDevice entry : teleports) {
             // Notify about every machine.
-            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add teleports to their ArrayList.
             if (entry.block == HexBlocks.blockPersonalTeleportationPad) {
-                teleportsPersonalTeleportationPad.add((TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z));
+                teleportsPersonalTeleportationPad.add(entry);
             }
         }
 
         // Push data to all teleports.
-        for (TilePersonalTeleportationPad entry : teleportsPersonalTeleportationPad) {
-            TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.xCoord, entry.yCoord, entry.zCoord);
+        for (HexDevice entry : teleportsPersonalTeleportationPad) {
+            TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
             teleport.injectTeleports(teleportsPersonalTeleportationPad);
         }
     }

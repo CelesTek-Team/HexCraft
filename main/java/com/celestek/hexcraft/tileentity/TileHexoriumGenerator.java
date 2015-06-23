@@ -1,6 +1,9 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.block.BlockHexoriumFurnace;
+import com.celestek.hexcraft.block.BlockHexoriumLamp;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexDevice;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,23 +30,11 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     // Set machine name.
     private static String machineName = "Hexorium Generator";
 
-    // Prepare machine list and arrays for coordinates.
-    private ArrayList<TileHexoriumFurnace> machinesHexoriumFurnace;
-    private int[] machinesHexoriumFurnaceX;
-    private int[] machinesHexoriumFurnaceY;
-    private int[] machinesHexoriumFurnaceZ;
-    private ArrayList<TileCrystalSeparator> machinesCrystalSeparator;
-    private int[] machinesCrystalSeparatorX;
-    private int[] machinesCrystalSeparatorY;
-    private int[] machinesCrystalSeparatorZ;
-    private ArrayList<TileMatrixReconstructor> machinesMatrixReconstructor;
-    private int[] machinesMatrixReconstructorX;
-    private int[] machinesMatrixReconstructorY;
-    private int[] machinesMatrixReconstructorZ;
-    private ArrayList<TilePersonalTeleportationPad> machinesPersonalTeleportationPad;
-    private int[] machinesPersonalTeleportationPadX;
-    private int[] machinesPersonalTeleportationPadY;
-    private int[] machinesPersonalTeleportationPadZ;
+    // Prepare machine lists.
+    private ArrayList<HexDevice> machinesHexoriumFurnace;
+    private ArrayList<HexDevice> machinesCrystalSeparator;
+    private ArrayList<HexDevice> machinesMatrixReconstructor;
+    private ArrayList<HexDevice> machinesPersonalTeleportationPad;
 
     // Define sides and slots.
     private static final int[] slotsSide = new int[] { 0 };
@@ -240,36 +231,50 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         // Read the state variables.
         canProvideEnergy = tagCompound.getBoolean("CanProvideEnergy");
 
-        // Read the coordinate arrays.
-        machinesHexoriumFurnaceX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
-        machinesHexoriumFurnaceY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
-        machinesHexoriumFurnaceZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
-        // Prepare the ArrayList for machines.
-        machinesHexoriumFurnace = new ArrayList<TileHexoriumFurnace>();
+        // Prepare coordinate arrays.
+        int machinesX[];
+        int machinesY[];
+        int machinesZ[];
 
         // Read the coordinate arrays.
-        machinesCrystalSeparatorX = tagCompound.getIntArray("MachinesCrystalSeparatorX");
-        machinesCrystalSeparatorY = tagCompound.getIntArray("MachinesCrystalSeparatorY");
-        machinesCrystalSeparatorZ = tagCompound.getIntArray("MachinesCrystalSeparatorZ");
+        machinesX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
+        machinesY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
+        machinesZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
         // Prepare the ArrayList for machines.
-        machinesCrystalSeparator = new ArrayList<TileCrystalSeparator>();
+        machinesHexoriumFurnace = new ArrayList<HexDevice>();
+        // Build the machine list using the coordinate arrays.
+        for (int i = 0; i < machinesX.length; i++)
+            machinesHexoriumFurnace.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockHexoriumFurnace));
 
         // Read the coordinate arrays.
-        machinesMatrixReconstructorX = tagCompound.getIntArray("MachinesMatrixReconstructorX");
-        machinesMatrixReconstructorY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
-        machinesMatrixReconstructorZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
+        machinesX = tagCompound.getIntArray("MachinesCrystalSeparatorX");
+        machinesY = tagCompound.getIntArray("MachinesCrystalSeparatorY");
+        machinesZ = tagCompound.getIntArray("MachinesCrystalSeparatorZ");
         // Prepare the ArrayList for machines.
-        machinesMatrixReconstructor = new ArrayList<TileMatrixReconstructor>();
+        machinesCrystalSeparator = new ArrayList<HexDevice>();
+        // Build the machine list using the coordinate arrays.
+        for (int i = 0; i < machinesX.length; i++)
+            machinesCrystalSeparator.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockCrystalSeparator));
 
         // Read the coordinate arrays.
-        machinesPersonalTeleportationPadX = tagCompound.getIntArray("MachinesPersonalTeleportationPadX");
-        machinesPersonalTeleportationPadY = tagCompound.getIntArray("MachinesPersonalTeleportationPadY");
-        machinesPersonalTeleportationPadZ = tagCompound.getIntArray("MachinesPersonalTeleportationPadZ");
+        machinesX = tagCompound.getIntArray("MachinesMatrixReconstructorX");
+        machinesY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
+        machinesZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
         // Prepare the ArrayList for machines.
-        machinesPersonalTeleportationPad = new ArrayList<TilePersonalTeleportationPad>();
+        machinesMatrixReconstructor = new ArrayList<HexDevice>();
+        // Build the machine list using the coordinate arrays.
+        for (int i = 0; i < machinesX.length; i++)
+            machinesMatrixReconstructor.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockMatrixReconstructor));
 
-        // Prime the updateEntity() for first-tick startup.
-        firstTick = true;
+        // Read the coordinate arrays.
+        machinesX = tagCompound.getIntArray("MachinesPersonalTeleportationPadX");
+        machinesY = tagCompound.getIntArray("MachinesPersonalTeleportationPadY");
+        machinesZ = tagCompound.getIntArray("MachinesPersonalTeleportationPadZ");
+        // Prepare the ArrayList for machines.
+        machinesPersonalTeleportationPad = new ArrayList<HexDevice>();
+        // Build the machine list using the coordinate arrays.
+        for (int i = 0; i < machinesX.length; i++)
+            machinesPersonalTeleportationPad.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockPersonalTeleportationPad));
 
         // Read the items.
         machineItemStacks = new ItemStack[getSizeInventory()];
@@ -304,120 +309,125 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         // Write the state variables.
         tagCompound.setBoolean("CanProvideEnergy", canProvideEnergy);
 
+        // Prepare coordinate arrays.
+        int machinesX[];
+        int machinesY[];
+        int machinesZ[];
+
         // Check if machine list is not null.
         if (machinesHexoriumFurnace != null) {
             // Initialize the coordinate arrays.
-            machinesHexoriumFurnaceX = new int[machinesHexoriumFurnace.size()];
-            machinesHexoriumFurnaceY = new int[machinesHexoriumFurnace.size()];
-            machinesHexoriumFurnaceZ = new int[machinesHexoriumFurnace.size()];
+            machinesX = new int[machinesHexoriumFurnace.size()];
+            machinesY = new int[machinesHexoriumFurnace.size()];
+            machinesZ = new int[machinesHexoriumFurnace.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TileHexoriumFurnace entry : machinesHexoriumFurnace) {
-                machinesHexoriumFurnaceX[i] = entry.xCoord;
-                machinesHexoriumFurnaceY[i] = entry.yCoord;
-                machinesHexoriumFurnaceZ[i] = entry.zCoord;
+            for (HexDevice entry : machinesHexoriumFurnace) {
+                machinesX[i] = entry.x;
+                machinesY[i] = entry.y;
+                machinesZ[i] = entry.z;
                 i++;
             }
             // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesHexoriumFurnaceX);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesHexoriumFurnaceY);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesHexoriumFurnaceZ);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesX);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesY);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesZ);
         }
         // If it is null, write the coordinate arrays as empty.
         else {
-            machinesHexoriumFurnaceX = new int[0];
-            machinesHexoriumFurnaceY = new int[0];
-            machinesHexoriumFurnaceZ = new int[0];
-            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesHexoriumFurnaceX);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesHexoriumFurnaceY);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesHexoriumFurnaceZ);
+            machinesX = new int[0];
+            machinesY = new int[0];
+            machinesZ = new int[0];
+            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesX);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesY);
+            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesZ);
         }
 
         // Check if machine list is not null.
         if (machinesCrystalSeparator != null) {
             // Initialize the coordinate arrays.
-            machinesCrystalSeparatorX = new int[machinesCrystalSeparator.size()];
-            machinesCrystalSeparatorY = new int[machinesCrystalSeparator.size()];
-            machinesCrystalSeparatorZ = new int[machinesCrystalSeparator.size()];
+            machinesX = new int[machinesCrystalSeparator.size()];
+            machinesY = new int[machinesCrystalSeparator.size()];
+            machinesZ = new int[machinesCrystalSeparator.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TileCrystalSeparator entry : machinesCrystalSeparator) {
-                machinesCrystalSeparatorX[i] = entry.xCoord;
-                machinesCrystalSeparatorY[i] = entry.yCoord;
-                machinesCrystalSeparatorZ[i] = entry.zCoord;
+            for (HexDevice entry : machinesCrystalSeparator) {
+                machinesX[i] = entry.x;
+                machinesY[i] = entry.y;
+                machinesZ[i] = entry.z;
                 i++;
             }
             // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesCrystalSeparatorX);
-            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesCrystalSeparatorY);
-            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesCrystalSeparatorZ);
+            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesX);
+            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesY);
+            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesZ);
         }
         // If it is null, write the coordinate arrays as empty.
         else {
-            machinesCrystalSeparatorX = new int[0];
-            machinesCrystalSeparatorY = new int[0];
-            machinesCrystalSeparatorZ = new int[0];
-            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesCrystalSeparatorX);
-            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesCrystalSeparatorY);
-            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesCrystalSeparatorZ);
+            machinesX = new int[0];
+            machinesY = new int[0];
+            machinesZ = new int[0];
+            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesX);
+            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesY);
+            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesZ);
         }
 
         // Check if machine list is not null.
         if (machinesMatrixReconstructor != null) {
             // Initialize the coordinate arrays.
-            machinesMatrixReconstructorX = new int[machinesMatrixReconstructor.size()];
-            machinesMatrixReconstructorY = new int[machinesMatrixReconstructor.size()];
-            machinesMatrixReconstructorZ = new int[machinesMatrixReconstructor.size()];
+            machinesX = new int[machinesMatrixReconstructor.size()];
+            machinesY = new int[machinesMatrixReconstructor.size()];
+            machinesZ = new int[machinesMatrixReconstructor.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor) {
-                machinesMatrixReconstructorX[i] = entry.xCoord;
-                machinesMatrixReconstructorY[i] = entry.yCoord;
-                machinesMatrixReconstructorZ[i] = entry.zCoord;
+            for (HexDevice entry : machinesMatrixReconstructor) {
+                machinesX[i] = entry.x;
+                machinesY[i] = entry.y;
+                machinesZ[i] = entry.z;
                 i++;
             }
             // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
+            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesX);
+            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesY);
+            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesZ);
         }
         // If it is null, write the coordinate arrays as empty.
         else {
-            machinesMatrixReconstructorX = new int[0];
-            machinesMatrixReconstructorY = new int[0];
-            machinesMatrixReconstructorZ = new int[0];
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesMatrixReconstructorX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesMatrixReconstructorY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesMatrixReconstructorZ);
+            machinesX = new int[0];
+            machinesY = new int[0];
+            machinesZ = new int[0];
+            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesX);
+            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesY);
+            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesZ);
         }
 
         // Check if machine list is not null.
         if (machinesPersonalTeleportationPad != null) {
             // Initialize the coordinate arrays.
-            machinesPersonalTeleportationPadX = new int[machinesPersonalTeleportationPad.size()];
-            machinesPersonalTeleportationPadY = new int[machinesPersonalTeleportationPad.size()];
-            machinesPersonalTeleportationPadZ = new int[machinesPersonalTeleportationPad.size()];
+            machinesX = new int[machinesPersonalTeleportationPad.size()];
+            machinesY = new int[machinesPersonalTeleportationPad.size()];
+            machinesZ = new int[machinesPersonalTeleportationPad.size()];
             // Save the coordinates of machines to arrays.
             int i = 0;
-            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad) {
-                machinesPersonalTeleportationPadX[i] = entry.xCoord;
-                machinesPersonalTeleportationPadY[i] = entry.yCoord;
-                machinesPersonalTeleportationPadZ[i] = entry.zCoord;
+            for (HexDevice entry : machinesPersonalTeleportationPad) {
+                machinesX[i] = entry.x;
+                machinesY[i] = entry.y;
+                machinesZ[i] = entry.z;
                 i++;
             }
             // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesPersonalTeleportationPadX);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesPersonalTeleportationPadY);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesPersonalTeleportationPadZ);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesX);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesY);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesZ);
         }
         // If it is null, write the coordinate arrays as empty.
         else {
-            machinesPersonalTeleportationPadX = new int[0];
-            machinesPersonalTeleportationPadY = new int[0];
-            machinesPersonalTeleportationPadZ = new int[0];
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesPersonalTeleportationPadX);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesPersonalTeleportationPadY);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesPersonalTeleportationPadZ);
+            machinesX = new int[0];
+            machinesY = new int[0];
+            machinesZ = new int[0];
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesX);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesY);
+            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesZ);
         }
 
         // Write the items.
@@ -442,85 +452,58 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         if (!worldObj.isRemote) {
             // Reset the pulling per tick variable.
             pulledThisTick = 0;
-            // If this is the first tick...
-            if (firstTick) {
-                // Build the machine list using the coordinate arrays.
-                for (int i = 0; i < machinesHexoriumFurnaceX.length; i++) {
-                    machinesHexoriumFurnace.add((TileHexoriumFurnace)
-                            worldObj.getTileEntity(machinesHexoriumFurnaceX[i], machinesHexoriumFurnaceY[i], machinesHexoriumFurnaceZ[i]));
+
+            // Check if the energy is empty and if the item can burn. This is fired either if there is a new item present or current one has burned out.
+            if (energy <= 0 && canBurn(machineItemStacks[0])) {
+
+                // Get the item burn time and multiply it with the energy. Save the results. The generator now has energy.
+                energyTotal = energy = getItemBurnTime(machineItemStacks[0]) * energyPerTick;
+
+                // If there are still items present, decrement the stack.
+                if (machineItemStacks[0] != null) {
+                    machineItemStacks[0].stackSize--;
+
+                    if (machineItemStacks[0].stackSize == 0)
+                        machineItemStacks[0] = machineItemStacks[0].getItem().getContainerItem(machineItemStacks[0]);
                 }
-                // Build the machine list using the coordinate arrays.
-                for (int i = 0; i < machinesCrystalSeparatorX.length; i++) {
-                    machinesCrystalSeparator.add((TileCrystalSeparator)
-                            worldObj.getTileEntity(machinesCrystalSeparatorX[i], machinesCrystalSeparatorY[i], machinesCrystalSeparatorZ[i]));
-                }
-                // Build the machine list using the coordinate arrays.
-                for (int i = 0; i < machinesMatrixReconstructorX.length; i++) {
-                    machinesMatrixReconstructor.add((TileMatrixReconstructor)
-                            worldObj.getTileEntity(machinesMatrixReconstructorX[i], machinesMatrixReconstructorY[i], machinesMatrixReconstructorZ[i]));
-                }
-                // Build the machine list using the coordinate arrays.
-                for (int i = 0; i < machinesPersonalTeleportationPadX.length; i++) {
-                    machinesPersonalTeleportationPad.add((TilePersonalTeleportationPad)
-                            worldObj.getTileEntity(machinesPersonalTeleportationPadX[i], machinesPersonalTeleportationPadY[i], machinesPersonalTeleportationPadZ[i]));
-                }
-                
-                // Finalize first tick.
-                firstTick = false;
-            }
-            // Otherwise continue normally.
-            else {
-                // Check if the energy is empty and if the item can burn. This is fired either if there is a new item present or current one has burned out.
-                if (energy <= 0 && canBurn(machineItemStacks[0])) {
 
-                    // Get the item burn time and multiply it with the energy. Save the results. The generator now has energy.
-                    energyTotal = energy = getItemBurnTime(machineItemStacks[0]) * energyPerTick;
+                // Check if there is any energy being pulled by machines.
+                if (energyOut > 0)
+                    // If there is, set the ACTIVE texture.
+                    HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
+                else
+                    // Otherwise, set the READY texture.
+                    HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
 
-                    // If there are still items present, decrement the stack.
-                    if (machineItemStacks[0] != null) {
-                        machineItemStacks[0].stackSize--;
-
-                        if (machineItemStacks[0].stackSize == 0)
-                            machineItemStacks[0] = machineItemStacks[0].getItem().getContainerItem(machineItemStacks[0]);
-                    }
-
-                    // Check if there is any energy being pulled by machines.
-                    if (energyOut > 0)
-                        // If there is, set the ACTIVE texture.
-                        HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
-                    else
-                        // Otherwise, set the READY texture.
-                        HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-
-                    // Check if the generator can provide energy. If not, set it to true.
-                    if (!canProvideEnergy) {
-                        // Restart-stop all of the machines pulling the energy.
-                        restartMachinesStop();
-                        // Make the generator available after stopping.
-                        canProvideEnergy = true;
-                        // Restart-start them again. This will update their generator list and add this generator.
-                        restartMachinesStart();
-                    }
-                }
-                // Otherwise, check if the energy is empty and item can't burn. This is fired when all items have burned out.
-                else if (energy <= 0 && !canBurn(machineItemStacks[0])) {
-                    // Set total energy to 0.
-                    energyTotal = 0;
-
-                    // Check if the generator can provide energy. If yes, set it to false.
-                    if(canProvideEnergy) {
-                        // Restart-stop all of the machines pulling the energy.
-                        restartMachinesStop();
-                        // Make the generator unavailable after stopping.
-                        canProvideEnergy = false;
-                        // Restart-start them again. This will update their generator list and remove this generator.
-                        restartMachinesStart();
-                    }
-
-                    // Set the DEAD texture.
-                    HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
+                // Check if the generator can provide energy. If not, set it to true.
+                if (!canProvideEnergy) {
+                    // Restart-stop all of the machines pulling the energy.
+                    restartMachinesStop();
+                    // Make the generator available after stopping.
+                    canProvideEnergy = true;
+                    // Restart-start them again. This will update their generator list and add this generator.
+                    restartMachinesStart();
                 }
             }
+            // Otherwise, check if the energy is empty and item can't burn. This is fired when all items have burned out.
+            else if (energy <= 0 && !canBurn(machineItemStacks[0])) {
+                // Set total energy to 0.
+                energyTotal = 0;
+
+                // Check if the generator can provide energy. If yes, set it to false.
+                if(canProvideEnergy) {
+                    // Restart-stop all of the machines pulling the energy.
+                    restartMachinesStop();
+                    // Make the generator unavailable after stopping.
+                    canProvideEnergy = false;
+                    // Restart-start them again. This will update their generator list and remove this generator.
+                    restartMachinesStart();
+                }
+
+                // Set the DEAD texture.
+                HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
+            }
+
             // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
             energyGui = (int) (energy / energyPerTick);
             energyTotalGui = (int) (energyTotal / energyPerTick);
@@ -614,30 +597,38 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         // Make sure that the machine list is not null.
         if (machinesHexoriumFurnace != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
-                if (entry != null)
-                    entry.restartMachineStop();
+            for (HexDevice entry : machinesHexoriumFurnace) {
+                TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStop();
+            }
 
         // Make sure that the machine list is not null.
         if (machinesCrystalSeparator != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileCrystalSeparator entry : machinesCrystalSeparator)
-                if (entry != null)
-                    entry.restartMachineStop();
+            for (HexDevice entry : machinesCrystalSeparator) {
+                TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStop();
+            }
         
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
-                if (entry != null)
-                    entry.restartMachineStop();
+            for (HexDevice entry : machinesMatrixReconstructor) {
+                TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStop();
+            }
 
         // Make sure that the machine list is not null.
         if (machinesPersonalTeleportationPad != null)
             // Send a restart-stop signal to all machines in the list.
-            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad)
-                if (entry != null)
-                    entry.restartMachineStop();
+            for (HexDevice entry : machinesPersonalTeleportationPad) {
+                TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStop();
+            }
     }
 
     /**
@@ -647,30 +638,38 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         // Make sure that the machine list is not null.
         if (machinesHexoriumFurnace != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileHexoriumFurnace entry : machinesHexoriumFurnace)
-                if (entry != null)
-                    entry.restartMachineStart();
+            for (HexDevice entry : machinesHexoriumFurnace) {
+                TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStart();
+            }
 
         // Make sure that the machine list is not null.
         if (machinesCrystalSeparator != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileCrystalSeparator entry : machinesCrystalSeparator)
-                if (entry != null)
-                    entry.restartMachineStart();
-        
+            for (HexDevice entry : machinesCrystalSeparator) {
+                TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStart();
+            }
+
         // Make sure that the machine list is not null.
         if (machinesMatrixReconstructor != null)
             // Send a restart-start signal to all machines in the list.
-            for (TileMatrixReconstructor entry : machinesMatrixReconstructor)
-                if (entry != null)
-                    entry.restartMachineStart();
+            for (HexDevice entry : machinesMatrixReconstructor) {
+                TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStart();
+            }
 
         // Make sure that the machine list is not null.
         if (machinesPersonalTeleportationPad != null)
             // Send a restart-start signal to all machines in the list.
-            for (TilePersonalTeleportationPad entry : machinesPersonalTeleportationPad)
-                if (entry != null)
-                    entry.restartMachineStart();
+            for (HexDevice entry : machinesPersonalTeleportationPad) {
+                TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                if (tileEntity != null)
+                    tileEntity.restartMachineStart();
+            }
     }
 
     /**
@@ -680,10 +679,10 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      * @param incomingMatrixReconstructor The ArrayList of machines received.
      * @param incomingPersonalTeleportationPad The ArrayList of machines received.
      */
-    public void injectMachines(ArrayList<TileHexoriumFurnace> incomingHexoriumFurnace,
-                               ArrayList<TileCrystalSeparator> incomingCrystalSeparator,
-                               ArrayList<TileMatrixReconstructor> incomingMatrixReconstructor,
-                               ArrayList<TilePersonalTeleportationPad> incomingPersonalTeleportationPad) {
+    public void injectMachines(ArrayList<HexDevice> incomingHexoriumFurnace,
+                               ArrayList<HexDevice> incomingCrystalSeparator,
+                               ArrayList<HexDevice> incomingMatrixReconstructor,
+                               ArrayList<HexDevice> incomingPersonalTeleportationPad) {
 
         // Check if the size of the incoming list is larger then 0.
         if (incomingHexoriumFurnace.size() != 0)

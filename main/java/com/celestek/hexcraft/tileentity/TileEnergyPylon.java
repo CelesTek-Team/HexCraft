@@ -27,10 +27,6 @@ public class TileEnergyPylon extends TileEntity {
 
     // Prepare pylon list and arrays for coordinates.
     public ArrayList<HexPylon> pylons;
-    private int[] pylonsX;
-    private int[] pylonsY;
-    private int[] pylonsZ;
-    private int[] pylonsMaster;
 
     // ID of the monolith inserted.
     public int monolith = 0;
@@ -51,10 +47,10 @@ public class TileEnergyPylon extends TileEntity {
         monolith = tagCompound.getInteger("Monolith");
 
         // Read the coordinate arrays.
-        pylonsX = tagCompound.getIntArray("PylonsX");
-        pylonsY = tagCompound.getIntArray("PylonsY");
-        pylonsZ = tagCompound.getIntArray("PylonsZ");
-        pylonsMaster = tagCompound.getIntArray("PylonsMaster");
+        int pylonsX[] = tagCompound.getIntArray("PylonsX");
+        int pylonsY[] = tagCompound.getIntArray("PylonsY");
+        int pylonsZ[] = tagCompound.getIntArray("PylonsZ");
+        int pylonsMaster[] = tagCompound.getIntArray("PylonsMaster");
 
         pylons = new ArrayList<HexPylon>();
         for (int i = 0; i < pylonsX.length; i++) {
@@ -72,6 +68,12 @@ public class TileEnergyPylon extends TileEntity {
 
         // Write the monolith ID.
         tagCompound.setInteger("Monolith", monolith);
+
+        // Prepare the coordinate arrays.
+        int[] pylonsX;
+        int[] pylonsY;
+        int[] pylonsZ;
+        int[] pylonsMaster;
 
         // Check if pylon list is not null.
         if (pylons != null) {
@@ -146,12 +148,10 @@ public class TileEnergyPylon extends TileEntity {
         else {
             // If the list should be rebuilt, do it.
             if (firstTickClient) {
-                pylons = new ArrayList<HexPylon>();
-                for (int i = 0; i < pylonsX.length; i++) {
-                    pylons.add(new HexPylon(pylonsX[i], pylonsY[i], pylonsZ[i], pylonsMaster[i]));
+                for (HexPylon entry : pylons) {
                     // Update all linked blocks.
-                    worldObj.markBlockForUpdate(pylonsX[i], pylonsY[i], pylonsZ[i]);
-                    // System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") loaded pylon at (" + pylonsX[i] + ", " + pylonsY[i] + ", " + pylonsZ[i] + ")");
+                    worldObj.markBlockForUpdate(entry.x, entry.y, entry.z);
+                     System.out.println("Pylon at (" + xCoord + ", " + yCoord + ", " + zCoord + ") updated pylon at (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
                 }
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -367,8 +367,8 @@ public class TileEnergyPylon extends TileEntity {
             // Remove all pylons in the main list using the removal list.
             for (HexPylon entry : remove) {
                 TileEnergyPylon pylon = (TileEnergyPylon) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                removePylon(entry.x, entry.y, entry.z);
                 pylon.removePylon(xCoord, yCoord, zCoord);
+                removePylon(entry.x, entry.y, entry.z);
             }
         }
     }
