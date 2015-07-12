@@ -1,0 +1,323 @@
+itemGroup.tabHexCraft=HEXCraft
+
+
+tile.blockHexoriumNetherOreRed.name=Mena de Infrahexorium Rojo
+tile.blockHexoriumNetherOreGreen.name=Mena de Infrahexorium Verde
+tile.blockHexoriumNetherOreBlue.name=Mena de Infrahexorium Azul
+tile.blockHexoriumNetherOreWhite.name=Mena de Infrahexorium Blanco
+tile.blockHexoriumNetherOreBlack.name=Mena de Infrahexorium Negro
+
+tile.blockHexoriumOreRed.name=Mena de Hexorium Rojo
+tile.blockHexoriumOreGreen.name=Mena de Hexorium Verde
+tile.blockHexoriumOreBlue.name=Mena de Hexorium Azul
+tile.blockHexoriumOreWhite.name=Mena de Hexorium Blanco
+tile.blockHexoriumOreBlack.name=Mena de Hexorium Negro
+
+
+tile.blockHexoriumNetherMonolithRed.name=Monolito de Infrahexorium Rojo
+tile.blockHexoriumNetherMonolithGreen.name=Monolito de Infrahexorium Verde
+tile.blockHexoriumNetherMonolithBlue.name=Monolito de Infrahexorium Azul
+tile.blockHexoriumNetherMonolithWhite.name=Monolito de Infrahexorium Blanco
+tile.blockHexoriumNetherMonolithBlack.name=Monolito de Infrahexorium Negro
+
+tile.blockHexoriumMonolithRed.name=Monolito de Hexorium Rojo
+tile.blockHexoriumMonolithGreen.name=Monolito de Hexorium Verde
+tile.blockHexoriumMonolithBlue.name=Monolito de Hexorium Azul
+tile.blockHexoriumMonolithWhite.name=Mena de Hexorium Blanco
+tile.blockHexoriumMonolithBlack.name=Mena de Hexorium Negro
+
+
+tile.blockOfHexoriumCrystalRed.name=Bloque de Cristal de Hexorium Rojo
+tile.blockOfHexoriumCrystalGreen.name=Bloque de Cristal de Hexorium Verde
+tile.blockOfHexoriumCrystalBlue.name=Bloque de Cristal de Hexorium Azul
+tile.blockOfHexoriumCrystalWhite.name=Bloque de Cristal de Hexorium Blanco
+tile.blockOfHexoriumCrystalBlack.name=Bloque de Cristal de Hexorium Negro
+
+
+tile.blockEnergizedHexoriumRed.name=Hexorium Energizado (Rojo)
+tile.blockEnergizedHexoriumOrange.name=Hexorium Energizado (Naranja)
+tile.blockEnergizedHexoriumYellow.name=Hexorium Energizado (Amarillo)
+tile.blockEnergizedHexoriumLime.name=Hexorium Energizado (Lima)
+tile.blockEnergizedHexoriumGreen.name=Hexorium Energizado (Verde)
+tile.blockEnergizedHexoriumTurquoise.name=Hexorium Energizado (Turquesa)
+tile.blockEnergizedHexoriumCyan.name=Hexorium Energizado (Cian)
+tile.blockEnergizedHexoriumSkyBlue.name=Hexorium Energizado (Azul cielo)
+tile.blockEnergizedHexoriumBlue.name=Hexorium Energizado (Azul)
+tile.blockEnergizedHexoriumPurple.name=Hexorium Energizado (Morado)
+tile.blockEnergizedHexoriumMagenta.name=Hexorium Energizado (Magenta)
+tile.blockEnergizedHexoriumPink.name=Hexorium Energizado (Rosa)
+
+tile.blockEnergizedHexoriumWhite.name=Hexorium Energizado (Blanco)
+tile.blockEnergizedHexoriumLightGray.name=Hexorium Energizado (Gris Claro)
+tile.blockEnergizedHexoriumGray.name=Hexorium Energizado (Gris)
+tile.blockEnergizedHexoriumDarkGray.name=Hexorium Energizado (Gris Oscuro)
+tile.blockEnergizedHexoriumBlack.name=Hexorium Energizado (Negro)
+
+tile.blockEnergizedHexoriumRainbow.name=Hexorium Energizado (Multicolor)
+
+
+tile.blockEngineeredHexoriumBlockRed.name=Bloque de Diseño de Hexorium (Rojo)
+tile.blockEngineeredHexoriumBlockOrange.name=Bloque de Diseño de Hexorium (Naranja)
+tile.blockEngineeredHexoriumBlockYellow.name=Bloque de Diseño de Hexorium (Amarillo)
+tile.blockEngineeredHexoriumBlockLime.name=Bloque de Diseño de Hexorium (Lima)
+tile.blockEngineeredHexoriumBlockGreen.name=Bloque de Diseño de Hexorium (Verde)
+tile.blockEngineeredHexoriumBlockTurquoise.name=Bloque de Diseño de Hexorium (Turquesa)
+tile.blockEngineeredHexoriumBlockCyan.name=Bloque de Diseño de Hexorium (Cian)
+tile.blockEngineeredHexoriumBlockSkyBlue.name=Bloque de Diseño de Hexorium (Azul Cielo)
+tile.blockEngineeredHexoriumBlockBlue.name=Bloque de Diseño de Hexorium (Azul)
+tile.blockEngineeredHexoriumBlockPurple.name=Bloque de Diseño de Hexorium (Morado)
+tile.blockEngineeredHexoriumBlockMagenta.name=Bloque de Diseño de Hexorium (Magenta)
+tile.blockEngineeredHexoriumBlockPink.name=Bloque de Diseño de Hexorium (Rosa)
+
+tile.blockEngineeredHexoriumBlockWhite.name=Bloque de Diseño de Hexorium (Blanco)
+tile.blockEngineeredHexoriumBlockLightGray.name=Bloque de Diseño de Hexorium (Gris Claro)
+tile.blockEngineeredHexoriumBlockGray.name=Bloque de Diseño de Hexorium (Gris)
+tile.blockEngineeredHexoriumBlockDarkGray.name=Bloque de Diseño de Hexorium (Gris Oscuro)
+tile.blockEngineeredHexoriumBlockBlack.name=Bloque de Diseño de Hexorium (Negro)
+
+tile.blockEngineeredHexoriumBlockRainbow.name=Bloque de Diseño de Hexorium (Multicolor)
+
+
+tile.blockFramedHexoriumBlockRed.name=Bloque Enmarcado de Hexorium (Rojo)
+tile.blockFramedHexoriumBlockOrange.name=Bloque Enmarcado de Hexorium (Naranja)
+tile.blockFramedHexoriumBlockYellow.name=Bloque Enmarcado de Hexorium (Amarillo)
+tile.blockFramedHexoriumBlockLime.name=Bloque Enmarcado de Hexorium (Lima)
+tile.blockFramedHexoriumBlockGreen.name=Bloque Enmarcado de Hexorium (Verde)
+tile.blockFramedHexoriumBlockTurquoise.name=Bloque Enmarcado de Hexorium (Turquesa)
+tile.blockFramedHexoriumBlockCyan.name=Bloque Enmarcado de Hexorium (Cian)
+tile.blockFramedHexoriumBlockSkyBlue.name=Bloque Enmarcado de Hexorium (Azul Cielo)
+tile.blockFramedHexoriumBlockBlue.name=Bloque Enmarcado de Hexorium (Azul)
+tile.blockFramedHexoriumBlockPurple.name=Bloque Enmarcado de Hexorium (Morado)
+tile.blockFramedHexoriumBlockMagenta.name=Bloque Enmarcado de Hexorium (Magenta)
+tile.blockFramedHexoriumBlockPink.name=Bloque Enmarcado de Hexorium (Rosa)
+
+tile.blockFramedHexoriumBlockWhite.name=Bloque Enmarcado de Hexorium (Blanco)
+tile.blockFramedHexoriumBlockLightGray.name=Bloque Enmarcado de Hexorium (Gris Claro)
+tile.blockFramedHexoriumBlockGray.name=Bloque Enmarcado de Hexorium (Gris)
+tile.blockFramedHexoriumBlockDarkGray.name=Bloque Enmarcado de Hexorium (Gris Oscuro)
+tile.blockFramedHexoriumBlockBlack.name=Bloque Enmarcado de Hexorium (Negro)
+
+tile.blockFramedHexoriumBlockRainbow.name=Bloque Enmarcado de Hexorium (Multicolor)
+
+
+tile.blockPlatedHexoriumBlockRed.name=Bloque Chapado de Hexorium (Rojo)
+tile.blockPlatedHexoriumBlockOrange.name=Bloque Chapado de Hexorium (Naranja)
+tile.blockPlatedHexoriumBlockYellow.name=Bloque Chapado de Hexorium (Amarillo)
+tile.blockPlatedHexoriumBlockLime.name=Bloque Chapado de Hexorium (Lima)
+tile.blockPlatedHexoriumBlockGreen.name=Bloque Chapado de Hexorium (Verde)
+tile.blockPlatedHexoriumBlockTurquoise.name=Bloque Chapado de Hexorium (Turquesa)
+tile.blockPlatedHexoriumBlockCyan.name=Bloque Chapado de Hexorium (Cian)
+tile.blockPlatedHexoriumBlockSkyBlue.name=Bloque Chapado de Hexorium (Azul Cielo)
+tile.blockPlatedHexoriumBlockBlue.name=Bloque Chapado de Hexorium (Azul)
+tile.blockPlatedHexoriumBlockPurple.name=Bloque Chapado de Hexorium (Morado)
+tile.blockPlatedHexoriumBlockMagenta.name=Bloque Chapado de Hexorium (Magenta)
+tile.blockPlatedHexoriumBlockPink.name=Bloque Chapado de Hexorium (Rosa)
+
+tile.blockPlatedHexoriumBlockWhite.name=Bloque Chapado de Hexorium (Blanco)
+tile.blockPlatedHexoriumBlockLightGray.name=Bloque Chapado de Hexorium (Gris Claro)
+tile.blockPlatedHexoriumBlockGray.name=Plated Bloque Chapado de Hexorium (Gris)
+tile.blockPlatedHexoriumBlockDarkGray.name=Bloque Chapado de Hexorium (Gris Oscuro)
+tile.blockPlatedHexoriumBlockBlack.name=Bloque Chapado de Hexorium (Negro)
+
+tile.blockPlatedHexoriumBlockRainbow.name=Bloque Chapado de Hexorium (Multicolor)
+
+
+tile.blockConcentricHexoriumBlockRed.name=Bloque Concentrico de Hexorium (Rojo)
+tile.blockConcentricHexoriumBlockOrange.name=Bloque Concentrico de Hexorium (Naranja)
+tile.blockConcentricHexoriumBlockYellow.name=Bloque Concentrico de Hexorium (Amarillo)
+tile.blockConcentricHexoriumBlockLime.name=Bloque Concentrico de Hexorium (Lima)
+tile.blockConcentricHexoriumBlockGreen.name=Bloque Concentrico de Hexorium (Verde)
+tile.blockConcentricHexoriumBlockTurquoise.name=Bloque Concentrico de Hexorium (Turquesa)
+tile.blockConcentricHexoriumBlockCyan.name=Bloque Concentrico de Hexorium (Cian)
+tile.blockConcentricHexoriumBlockSkyBlue.name=Bloque Concentrico de Hexorium (Azul Cielo)
+tile.blockConcentricHexoriumBlockBlue.name=Bloque Concentrico de Hexorium (Azul)
+tile.blockConcentricHexoriumBlockPurple.name=Bloque Concentrico de Hexorium (Morado)
+tile.blockConcentricHexoriumBlockMagenta.name=Bloque Concentrico de Hexorium (Magenta)
+tile.blockConcentricHexoriumBlockPink.name=Bloque Concentrico de Hexorium (Rosa)
+
+tile.blockConcentricHexoriumBlockWhite.name=Bloque Concentrico de Hexorium (Blanco)
+tile.blockConcentricHexoriumBlockLightGray.name=Bloque Concentrico de Hexorium (Gris Claro)
+tile.blockConcentricHexoriumBlockGray.name=Bloque Concentrico de Hexorium (Gris)
+tile.blockConcentricHexoriumBlockDarkGray.name=Bloque Concentrico de Hexorium (Gris Oscuro)
+tile.blockConcentricHexoriumBlockBlack.name=Bloque Concentrico de Hexorium (Negro)
+
+tile.blockConcentricHexoriumBlockRainbow.name=Bloque Concentrico de Hexorium (Multicolor)
+
+
+tile.blockGlowingHexoriumGlassRed.name=Cristal Brillante de Hexorium (Rojo)
+tile.blockGlowingHexoriumGlassOrange.name=Cristal Brillante de Hexorium (Naranja)
+tile.blockGlowingHexoriumGlassYellow.name=Cristal Brillante de Hexorium (Amarillo)
+tile.blockGlowingHexoriumGlassLime.name=Cristal Brillante de Hexorium (Lima)
+tile.blockGlowingHexoriumGlassGreen.name=Cristal Brillante de Hexorium (Verde)
+tile.blockGlowingHexoriumGlassTurquoise.name=Cristal Brillante de Hexorium (Turquesa)
+tile.blockGlowingHexoriumGlassCyan.name=Cristal Brillante de Hexorium (Cian)
+tile.blockGlowingHexoriumGlassSkyBlue.name=Cristal Brillante de Hexorium (Azul Cielo)
+tile.blockGlowingHexoriumGlassBlue.name=Cristal Brillante de Hexorium (Azul)
+tile.blockGlowingHexoriumGlassPurple.name=Cristal Brillante de Hexorium (Morado)
+tile.blockGlowingHexoriumGlassMagenta.name=Cristal Brillante de Hexorium (Magenta)
+tile.blockGlowingHexoriumGlassPink.name=Cristal Brillante de Hexorium (Rosa)
+
+tile.blockGlowingHexoriumGlassWhite.name=Cristal Brillante de Hexorium (Blanco)
+tile.blockGlowingHexoriumGlassLightGray.name=Cristal Brillante de Hexorium (Gris Claro)
+tile.blockGlowingHexoriumGlassGray.name=Cristal Brillante de Hexorium (Gris)
+tile.blockGlowingHexoriumGlassDarkGray.name=Cristal Brillante de Hexorium (Gris Oscuro)
+tile.blockGlowingHexoriumGlassBlack.name=Cristal Brillante de Hexorium (Negro)
+
+
+tile.blockEnergizedHexoriumMonolithRed.name=Monolito Energizado de Hexorium (Rojo)
+tile.blockEnergizedHexoriumMonolithOrange.name=Monolito Energizado de Hexorium (Naranja)
+tile.blockEnergizedHexoriumMonolithYellow.name=Monolito Energizado de Hexorium (Amarillo)
+tile.blockEnergizedHexoriumMonolithLime.name=Monolito Energizado de Hexorium (Lima)
+tile.blockEnergizedHexoriumMonolithGreen.name=Monolito Energizado de Hexorium (Verde)
+tile.blockEnergizedHexoriumMonolithTurquoise.name=Monolito Energizado de Hexorium (Turquesa)
+tile.blockEnergizedHexoriumMonolithCyan.name=Monolito Energizado de Hexorium (Cian)
+tile.blockEnergizedHexoriumMonolithSkyBlue.name=Monolito Energizado de Hexorium (Azul Cielo)
+tile.blockEnergizedHexoriumMonolithBlue.name=Monolito Energizado de Hexorium (Azul)
+tile.blockEnergizedHexoriumMonolithPurple.name=Monolito Energizado de Hexorium (Morado)
+tile.blockEnergizedHexoriumMonolithMagenta.name=Monolito Energizado de Hexorium (Magenta)
+tile.blockEnergizedHexoriumMonolithPink.name=Monolito Energizado de Hexorium (Rosa)
+
+tile.blockEnergizedHexoriumMonolithWhite.name=Monolito Energizado de Hexorium (Blanco)
+tile.blockEnergizedHexoriumMonolithLightGray.name=Monolito Energizado de Hexorium (Gris Claro)
+tile.blockEnergizedHexoriumMonolithGray.name=Monolito Energizado de Hexorium (Gris)
+tile.blockEnergizedHexoriumMonolithDarkGray.name=Monolito Energizado de Hexorium (Gris Oscuro)
+tile.blockEnergizedHexoriumMonolithBlack.name=Monolito Energizado de Hexorium (Negro)
+
+tile.blockEnergizedHexoriumMonolithRainbow.name=Monolito Energizado de Hexorium (Multicolor)
+
+
+tile.blockHexoriumLampRed.name=Lampara de Hexorium (Rojo)
+tile.blockHexoriumLampOrange.name=Lampara de Hexorium (Naranja)
+tile.blockHexoriumLampYellow.name=Lampara de Hexorium (Amarillo)
+tile.blockHexoriumLampLime.name=Lampara de Hexorium (Lima)
+tile.blockHexoriumLampGreen.name=Lampara de Hexorium (Verde)
+tile.blockHexoriumLampTurquoise.name=Lampara de Hexorium (Turquesa)
+tile.blockHexoriumLampCyan.name=Lampara de Hexorium (Cian)
+tile.blockHexoriumLampSkyBlue.name=Lampara de Hexorium (Azul Cielo)
+tile.blockHexoriumLampBlue.name=Lampara de Hexorium (Azul)
+tile.blockHexoriumLampPurple.name=Lampara de Hexorium (Morado)
+tile.blockHexoriumLampMagenta.name=Lampara de Hexorium (Magenta)
+tile.blockHexoriumLampPink.name=Lampara de Hexorium (Rosa)
+
+tile.blockHexoriumLampWhite.name=Lampara de Hexorium (Blanco)
+tile.blockHexoriumLampLightGray.name=Lampara de Hexorium (Gris Claro)
+tile.blockHexoriumLampGray.name=Lampara de Hexorium (Gris)
+tile.blockHexoriumLampDarkGray.name=Lampara de Hexorium (Gris Oscuro)
+tile.blockHexoriumLampBlack.name=Lampara de Hexorium (Negro)
+
+tile.blockHexoriumLampRainbow.name=Lampara de Hexorium (Multicolor)
+
+
+tile.blockHexoriumLampInvRed.name=Lampara Invertida de Hexorium (Rojo)
+tile.blockHexoriumLampInvOrange.name=Lampara Invertida de Hexorium (Naranja)
+tile.blockHexoriumLampInvYellow.name=Lampara Invertida de Hexorium (Amarillo)
+tile.blockHexoriumLampInvLime.name=Lampara Invertida de Hexorium (Lima)
+tile.blockHexoriumLampInvGreen.name=Lampara Invertida de Hexorium (Verde)
+tile.blockHexoriumLampInvTurquoise.name=Lampara Invertida de Hexorium (Turquesa)
+tile.blockHexoriumLampInvCyan.name=Lampara Invertida de Hexorium (Cian)
+tile.blockHexoriumLampInvSkyBlue.name=Lampara Invertida de Hexorium (Azul Cielo)
+tile.blockHexoriumLampInvBlue.name=Lampara Invertida de Hexorium (Azul)
+tile.blockHexoriumLampInvPurple.name=Lampara Invertida de Hexorium (Morado)
+tile.blockHexoriumLampInvMagenta.name=Lampara Invertida de Hexorium (Magenta)
+tile.blockHexoriumLampInvPink.name=Lampara Invertida de Hexorium (Rosa)
+
+tile.blockHexoriumLampInvWhite.name=Lampara Invertida de Hexorium (Blanco)
+tile.blockHexoriumLampInvLightGray.name=Lampara Invertida de Hexorium (Gris Claro)
+tile.blockHexoriumLampInvGray.name=Lampara Invertida de Hexorium (Gris)
+tile.blockHexoriumLampInvDarkGray.name=Lampara Invertida de Hexorium (Gris Oscuro)
+tile.blockHexoriumLampInvBlack.name=Lampara Invertida de Hexorium (Negro)
+
+tile.blockHexoriumLampInvRainbow.name=Lampara Invertida de Hexorium (Multicolor)
+
+
+tile.blockHexoriumMachineBlock.name=Bloque de Maquina de Hexorium
+
+tile.blockHexoriumGenerator.name=Generador de Hexorium
+tile.blockHexoriumFurnace.name=Horno de Hexorium
+tile.blockCrystalSeparator.name=Separador de Cristales
+tile.blockMatrixReconstructor.name=Matriz Reconstructor
+
+tile.blockPersonalTeleportationPad.name=Pedestal Personal de Teletransporte
+
+tile.blockHexoriumCableRed.name=Cable de Hexorium (Rojo)
+tile.blockHexoriumCableOrange.name=Cable de Hexorium (Naranja)
+tile.blockHexoriumCableYellow.name=Cable de Hexorium (Amarillo)
+tile.blockHexoriumCableLime.name=Cable de Hexorium (Lima)
+tile.blockHexoriumCableGreen.name=Cable de Hexorium (Verde)
+tile.blockHexoriumCableTurquoise.name=Cable de Hexorium (Turquesa)
+tile.blockHexoriumCableCyan.name=Cable de Hexorium (Cian)
+tile.blockHexoriumCableSkyBlue.name=Cable de Hexorium (Azul Cielo)
+tile.blockHexoriumCableBlue.name=Cable de Hexorium (Azul)
+tile.blockHexoriumCablePurple.name=Cable de Hexorium (Morado)
+tile.blockHexoriumCableMagenta.name=Cable de Hexorium (Magenta)
+tile.blockHexoriumCablePink.name=Cable de Hexorium (Rosa)
+
+tile.blockHexoriumCableWhite.name=Cable de Hexorium (Blanco)
+tile.blockHexoriumCableLightGray.name=Cable de Hexorium (Gris Claro)
+tile.blockHexoriumCableGray.name=Cable de Hexorium (Gris)
+tile.blockHexoriumCableDarkGray.name=Cable de Hexorium (Gris Oscuro)
+tile.blockHexoriumCableBlack.name=Cable de Hexorium (Negro)
+
+tile.blockHexoriumCableRainbow.name=Cable de Hexorium (Multicolor)
+
+tile.blockEnergyPylon.name=Pilón de Energía
+tile.blockPylonBase51.name=Base de Pilón 5-a-1
+tile.blockPylonBase15.name=Base de Pilón 1-a-5
+
+
+tile.blockTemperedHexoriumGlass.name=Cristal Templado de Hexorium
+
+
+item.itemHexoriumCrystalRed.name=Cristal Rojo de Hexorium
+item.itemHexoriumCrystalGreen.name=Cristal Verde de Hexorium
+item.itemHexoriumCrystalBlue.name=Cristal Azul de Hexorium
+item.itemHexoriumCrystalWhite.name=Cristal Blanco de Hexorium
+item.itemHexoriumCrystalBlack.name=Cristal Negro de Hexorium
+
+item.itemRainbowEnergizedGlobule.name=Globulo Energizado Multicolor
+item.itemWhiteHexoriumWafer.name=Oblea de Hexorium Blanco
+item.itemBlackHexoriumWafer.name=Oblea de Hexorium Negro
+item.itemSpatialProjector.name=Proyector Espacial
+item.itemOreActuator.name=Actuador de Mineral
+item.itemPylonSocket.name=Enchufe de Pilón
+item.itemHexoriumGlassPackage.name=Paquete de Cristal de Hexorium
+
+item.itemRainbowCore.name=Núcleo Multicolor
+item.itemHexoriumCoprocessor.name=Coprocesador de Hexorium
+item.itemHexoriumProcessor.name=Procesador de Hexorium
+item.itemMineralAnalyzer.name=Analizador de Minerales
+item.itemPylonEnergyConverter.name=Conversor de Energía de Pilón
+item.itemEnergyInjector.name=Inyector de Energía
+item.itemMolecularRecoder.name=Recodificador Molecular
+
+item.itemMachineControlPanel.name=Panel de control
+item.itemMachineEnergyRouter.name=Router de energía
+item.itemHeatDissipator.name=Heat Disipador
+item.itemHeatingArray.name=Matriz de Calentamiento
+item.itemCrystalExtractionUnit.name=Unidad de Extracción de Cristales
+item.itemMatrixAdjuster.name=Configurador de Matriz
+item.itemMaterialInteractionPlane.name=Plano de Interacción de Materiales
+item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
+
+item.itemHexoriumManipulator.name=Manipulador de Hexorium
+item.itemHexoriumReinforcer.name=Reforzador de Hexorium
+
+
+msg.pylonLinkCancel.txt=[Manipulador de Hexorium] Vínculación de Pilones cancelada.
+msg.pylonLinkStart.txt=[Manipulador de Hexorium] Vinculando Pilones...
+msg.pylonLinkSuccess.txt=[Manipulador de Hexorium] Pilones vinculados satisfactoriamente.
+msg.pylonLinkBreak.txt=[Manipulador de Hexorium] Los Pilones ya están vinculados. Rompiendo el vínculo.
+msg.pylonLinkFail1.txt=[Manipulador de Hexorium] Vinculación fallida. Color incompatible.
+msg.pylonLinkFail2.txt=[Manipulador de Hexorium] Vinculación fallida. El pilón ya no existe.
+msg.pylonLinkFail3.txt=[Manipulador de Hexorium] Vinculación fallida. Los pilones están demasiado lejos.
+msg.pylonLinkFail4.txt=[Manipulador de Hexorium] Vinculación fallida. El recorrido del láser está obstruido.
+
+msg.teleportLinkCancel.txt=[Manipulador de Hexorium] Vinculación de Teletransportes cancelada.
+msg.teleportLinkStart.txt=[Manipulador de Hexorium] Vinculando Teletransportes...
+msg.teleportLinkSuccess.txt=[Manipulador de Hexorium] Teletransporte vinculado satisfactoriamente.
+msg.teleportLinkBreak.txt=[Manipulador de Hexorium] El Teletransporte ya está vinculado. Rompiendo el vínculo.
+msg.teleportLinkFail1.txt=[Manipulador de Hexorium] Vinculación fallida. El Teletransporte ya no existe.
+msg.teleportLinkFail2.txt=[Manipulador de Hexorium] Vinculación fallida. El Teletransporte es inalcanzable.
+
+msg.teleportProcess1.txt=[Pedestal Personal de Teletransporte] Teletransportando en 4 segundos...
+msg.teleportProcess2.txt=[Pedestal Personal de Teletransporte] Teletransportando!
