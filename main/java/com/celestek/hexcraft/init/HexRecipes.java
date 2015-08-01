@@ -253,6 +253,10 @@ public class HexRecipes {
         // Energy Pylon
         ItemStack stackEnergyPylon_1 = new ItemStack(HexBlocks.blockEnergyPylon, 1);
 
+        // Hexorium Switch
+        ItemStack stackHexoriumSwitchRedGreen_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedGreen, 1);
+        ItemStack stackHexoriumSwitchRedBlue_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedBlue, 1);
+
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
         ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
@@ -2002,6 +2006,18 @@ public class HexRecipes {
                 "RBR",
                 "CAC",
                 'R', stackRedstone_1, 'A', stackPylonSocket_1, 'B', stackEnergyInjector_1, 'C', stackIronIngot_1);
+
+
+        GameRegistry.addRecipe(stackHexoriumSwitchRedGreen_1,
+                "ARB",
+                "CDC",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackIronIngot_1, 'D', stackStoneButton_1);
+        GameRegistry.addRecipe(stackHexoriumSwitchRedBlue_1,
+                "ARB",
+                "CDC",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', stackIronIngot_1, 'D', stackStoneButton_1);
 
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);

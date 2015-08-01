@@ -388,7 +388,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
 
             // Draw the outer layer of the block.
-            renderer.renderStandardBlockWithAmbientOcclusion(block, x, y, z, 1.0F, 1.0F, 1.0F);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
         return true;

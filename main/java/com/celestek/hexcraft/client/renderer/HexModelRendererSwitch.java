@@ -205,7 +205,7 @@ public class HexModelRendererSwitch implements ISimpleBlockRenderingHandler {
             else
                 renderer.setRenderBounds(switchHori, 1 - switchFron, switchVert, 1 - switchHori, 1 - switchBack, 1 - switchVert);
 
-            renderer.renderStandardBlockWithAmbientOcclusion(block, x, y, z, 1.0F, 1.0F, 1.0F);
+            renderer.renderStandardBlock(block, x, y, z);
         }
         else {
             tessellator.addTranslation(x, y, z);
