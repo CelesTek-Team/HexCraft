@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 211;
+    public static int countBlocks = 213;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -295,6 +295,10 @@ public class HexBlocks {
     
     // Energy Pylon
     public static Block blockEnergyPylon;
+
+    // Hexorium Switch
+    public static Block blockHexoriumSwitchRedGreen;
+    public static Block blockHexoriumSwitchRedBlue;
 
     // Regular Blocks
     public static Block blockTemperedHexoriumGlass;
@@ -792,6 +796,12 @@ public class HexBlocks {
         // Energy Pylon
         blockEnergyPylon = new BlockEnergyPylon(BlockEnergyPylon.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockEnergyPylon, BlockEnergyPylon.UNLOCALISEDNAME);
+
+        // Hexorium Switch
+        blockHexoriumSwitchRedGreen = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedGreen");
+        GameRegistry.registerBlock(blockHexoriumSwitchRedGreen, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedGreen");
+        blockHexoriumSwitchRedBlue = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedBlue");
+        GameRegistry.registerBlock(blockHexoriumSwitchRedBlue, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedBlue");
 
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);

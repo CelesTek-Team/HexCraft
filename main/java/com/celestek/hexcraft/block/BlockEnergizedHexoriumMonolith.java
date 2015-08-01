@@ -117,7 +117,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Called when a block near is changed.
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) { // TODO: Fix dropping!
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
