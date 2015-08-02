@@ -754,13 +754,13 @@ public class HexClientProxy extends HexCommonProxy {
 
         // Hexorium Switch
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitch(renderID[HexCraft.idCounter],
+        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitch(renderID[HexCraft.idCounter],
+        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitch(renderID[HexCraft.idCounter],
+        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                 HexColors.brightnessBright));
     }
 }

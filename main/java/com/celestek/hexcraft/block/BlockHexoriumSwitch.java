@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
-import com.celestek.hexcraft.client.renderer.HexModelRendererSwitch;
-import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,8 +15,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
@@ -54,7 +49,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     }
 
     /**
-     * Called when a player tries to place the monolith.
+     * Called when a player tries to place the switch.
      */
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
@@ -193,35 +188,38 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     }
 
     /**
-     * Updates the blocks bounds based on its current state. Args: world, x, y, z
+     * Updates the blocks bounds based on its current state.
      */
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
-        float switchBack = HexModelRendererSwitch.switchBack;
-        float switchFron = HexModelRendererSwitch.switchFron;
-        float switchHori = HexModelRendererSwitch.switchHori;
-        float switchVert = HexModelRendererSwitch.switchVert;
+        // Prepare the variables.
+        float sbBack = HexModelRendererSwitchButton.sbBack;
+        float sbFron = HexModelRendererSwitchButton.sbFron;
+        float sbHori = HexModelRendererSwitchButton.sbHori;
+        float sbVert = HexModelRendererSwitchButton.sbVert;
 
+        // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7)
             meta = meta - 8;
 
+        // Set bounds based on meta.
         if (meta == 1)
-            this.setBlockBounds(switchHori, switchBack, switchVert, 1 - switchHori, switchFron, 1 - switchVert);
+            this.setBlockBounds(sbHori, sbBack, sbVert, 1 - sbHori, sbFron, 1 - sbVert);
         else if (meta == 7)
-            this.setBlockBounds(switchVert, switchBack, switchHori, 1 - switchVert, switchFron, 1 - switchHori);
+            this.setBlockBounds(sbVert, sbBack, sbHori, 1 - sbVert, sbFron, 1 - sbHori);
         else if (meta == 2)
-            this.setBlockBounds(switchHori, switchVert, 1 - switchFron, 1 - switchHori, 1 - switchVert, 1 - switchBack);
+            this.setBlockBounds(sbHori, sbVert, 1 - sbFron, 1 - sbHori, 1 - sbVert, 1 - sbBack);
         else if (meta == 3)
-            this.setBlockBounds(switchHori, switchVert, switchBack, 1 - switchHori, 1 - switchVert, switchFron);
+            this.setBlockBounds(sbHori, sbVert, sbBack, 1 - sbHori, 1 - sbVert, sbFron);
         else if (meta == 4)
-            this.setBlockBounds(1 - switchFron, switchVert, switchHori, 1 - switchBack, 1 - switchVert, 1 - switchHori);
+            this.setBlockBounds(1 - sbFron, sbVert, sbHori, 1 - sbBack, 1 - sbVert, 1 - sbHori);
         else if (meta == 5)
-            this.setBlockBounds(switchBack, switchVert, switchHori, switchFron, 1 - switchVert, 1 - switchHori);
+            this.setBlockBounds(sbBack, sbVert, sbHori, sbFron, 1 - sbVert, 1 - sbHori);
         else if (meta == 6)
-            this.setBlockBounds(switchVert, 1 - switchFron, switchHori, 1 - switchVert, 1 - switchBack, 1 - switchHori);
+            this.setBlockBounds(sbVert, 1 - sbFron, sbHori, 1 - sbVert, 1 - sbBack, 1 - sbHori);
         else
-            this.setBlockBounds(switchHori, 1 - switchFron, switchVert, 1 - switchHori, 1 - switchBack, 1 - switchVert);
+            this.setBlockBounds(sbHori, 1 - sbFron, sbVert, 1 - sbHori, 1 - sbBack, 1 - sbVert);
     }
 
     /**
@@ -229,44 +227,48 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
     {
+        // If this is client side...
         if (world.isRemote)
         {
+            // Simply return true.
             return true;
         }
         else
         {
+            // Otherwise, get block meta.
             int meta = world.getBlockMetadata(x, y, z);
 
-            int meta1;
-            if (meta > 7)
-                meta1 = meta - 8;
-            else
-                meta1 = meta;
-
+            // Change meta on click.
             if (meta > 7)
                 world.setBlockMetadataWithNotify(x, y, z, meta - 8, 3);
             else
                 world.setBlockMetadataWithNotify(x, y, z, meta + 8, 3);
 
-            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, meta > 7 ? 0.5F : 0.6F);
+            // Play a sound effect.
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, meta > 7 ? 0.6F : 0.5F);
+
+            // Notify surrounding blocks of the change.
             world.notifyBlocksOfNeighborChange(x, y, z, this);
 
-            if(meta1 == 0 || meta1 == 6) {
+            // Notify blocks around the strongly powered block.
+            if (meta > 7)
+                meta = meta - 8;
+            if(meta == 0 || meta == 6) {
                 world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
             }
-            else if(meta1 == 1 || meta1 == 7) {
+            else if(meta == 1 || meta == 7) {
                 world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
             }
-            else if(meta1 == 2) {
+            else if(meta == 2) {
                 world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
             }
-            else if(meta1 == 3) {
+            else if(meta == 3) {
                 world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
             }
-            else if(meta1 == 4) {
+            else if(meta == 4) {
                 world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
             }
-            else if(meta1 == 5) {
+            else if(meta == 5) {
                 world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
             }
 
@@ -274,13 +276,19 @@ public class BlockHexoriumSwitch extends HexBlockModel {
         }
     }
 
+    /**
+     * Called upon breaking the block.
+     */
     public void breakBlock(World world, int x, int y, int z, Block block, int meta)
     {
+        // If the switch was active...
         if (meta > 7)
         {
+            // Notify surrounding blocks of the change.
             world.notifyBlocksOfNeighborChange(x, y, z, this);
-            meta = meta - 8;
 
+            // Notify blocks around the strongly powered block.
+            meta = meta - 8;
             if(meta == 0 || meta == 6) {
                 world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
             }
@@ -304,18 +312,27 @@ public class BlockHexoriumSwitch extends HexBlockModel {
         super.breakBlock(world, x, y, z, block, meta);
     }
 
+    /**
+     * Checks if the block is providing weak power.
+     */
     public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta)
     {
+        // Return 15 if switch is on.
         if (world.getBlockMetadata(x, y, z) > 7)
             return 15;
         else
             return 0;
     }
 
+    /**
+     * Checks if the block is providing strong power.
+     */
     public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side)
     {
+        // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
 
+        /// Return 15 based on side and if switch is on.
         if (meta > 7)
         {
             meta = meta - 8;
@@ -343,7 +360,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     }
 
     /**
-     * Can this block provide power. Only wire currently seems to have this change based on its state.
+     * Can this block provide power.
      */
     public boolean canProvidePower()
     {
