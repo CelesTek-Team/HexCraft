@@ -218,12 +218,16 @@ public class HexModelRendererSwitch implements ISimpleBlockRenderingHandler {
                     tessellator.setColorOpaque_F(0, 1, 0);
                 else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
                     tessellator.setColorOpaque_F(0, 0, 1);
+                else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
+                    tessellator.setColorOpaque_F(1, 1, 1);
             }
             else {
                 if (block == HexBlocks.blockHexoriumSwitchRedGreen)
                     tessellator.setColorOpaque_F(0, darkLight, 0);
                 else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
                     tessellator.setColorOpaque_F(0, 0, darkLight);
+                else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
+                    tessellator.setColorOpaque_F(darkLight, darkLight, darkLight);
             }
 
             if (meta1 == 1) {
