@@ -266,6 +266,11 @@ tile.blockHexoriumSwitchRedGreen.name=Hexorium Switch (Red-Green)
 tile.blockHexoriumSwitchRedBlue.name=Hexorium Switch (Red-Blue)
 tile.blockHexoriumSwitchRedWhite.name=Hexorium Switch (Red-White)
 
+tile.blockHexoriumButtonRed.name=Hexorium Button (Red)
+tile.blockHexoriumButtonGreen.name=Hexorium Button (Green)
+tile.blockHexoriumButtonBlue.name=Hexorium Button (Blue)
+tile.blockHexoriumButtonWhite.name=Hexorium Button (White)
+
 tile.blockPylonBase51.name=5-to-1 Pylon Base
 tile.blockPylonBase15.name=1-to-5 Pylon Base
 

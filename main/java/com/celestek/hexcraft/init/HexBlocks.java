@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 214;
+    public static int countBlocks = 218;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -300,6 +300,12 @@ public class HexBlocks {
     public static Block blockHexoriumSwitchRedGreen;
     public static Block blockHexoriumSwitchRedBlue;
     public static Block blockHexoriumSwitchRedWhite;
+
+    // Hexorium Button
+    public static Block blockHexoriumButtonRed;
+    public static Block blockHexoriumButtonGreen;
+    public static Block blockHexoriumButtonBlue;
+    public static Block blockHexoriumButtonWhite;
 
     // Regular Blocks
     public static Block blockTemperedHexoriumGlass;
@@ -805,6 +811,16 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumSwitchRedBlue, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedBlue");
         blockHexoriumSwitchRedWhite = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedWhite");
         GameRegistry.registerBlock(blockHexoriumSwitchRedWhite, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedWhite");
+
+        // Hexorium Button
+        blockHexoriumButtonRed = new BlockHexoriumButton(BlockHexoriumButton.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockHexoriumButtonRed, BlockHexoriumButton.UNLOCALISEDNAME + "Red");
+        blockHexoriumButtonGreen = new BlockHexoriumButton(BlockHexoriumButton.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockHexoriumButtonGreen, BlockHexoriumButton.UNLOCALISEDNAME + "Green");
+        blockHexoriumButtonBlue = new BlockHexoriumButton(BlockHexoriumButton.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockHexoriumButtonBlue, BlockHexoriumButton.UNLOCALISEDNAME + "Blue");
+        blockHexoriumButtonWhite = new BlockHexoriumButton(BlockHexoriumButton.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockHexoriumButtonWhite, BlockHexoriumButton.UNLOCALISEDNAME + "White");
 
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);

@@ -259,6 +259,12 @@ public class HexRecipes {
         ItemStack stackHexoriumSwitchRedBlue_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedBlue, 1);
         ItemStack stackHexoriumSwitchRedWhite_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedWhite, 1);
 
+        // Hexorium Button
+        ItemStack stackHexoriumButtonRed_1 = new ItemStack(HexBlocks.blockHexoriumButtonRed, 1);
+        ItemStack stackHexoriumButtonGreen_1 = new ItemStack(HexBlocks.blockHexoriumButtonGreen, 1);
+        ItemStack stackHexoriumButtonBlue_1 = new ItemStack(HexBlocks.blockHexoriumButtonBlue, 1);
+        ItemStack stackHexoriumButtonWhite_1 = new ItemStack(HexBlocks.blockHexoriumButtonWhite, 1);
+
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
         ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
@@ -2025,6 +2031,28 @@ public class HexRecipes {
                 "CDC",
                 "   ",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalWhite_1, 'C', stackIronIngot_1, 'D', stackLever_1);
+
+        // Hexorium Button
+        GameRegistry.addRecipe(stackHexoriumButtonRed_1,
+                " A ",
+                "BRB",
+                " C ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackIronIngot_1, 'C', stackStoneButton_1);
+        GameRegistry.addRecipe(stackHexoriumButtonGreen_1,
+                " A ",
+                "BRB",
+                " C ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackIronIngot_1, 'C', stackStoneButton_1);
+        GameRegistry.addRecipe(stackHexoriumButtonBlue_1,
+                " A ",
+                "BRB",
+                " C ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackIronIngot_1, 'C', stackStoneButton_1);
+        GameRegistry.addRecipe(stackHexoriumButtonWhite_1,
+                " A ",
+                "BRB",
+                " C ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1, 'C', stackStoneButton_1);
 
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);
