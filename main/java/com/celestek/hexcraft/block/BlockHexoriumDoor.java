@@ -50,6 +50,25 @@ public class BlockHexoriumDoor extends HexBlockModel {
         this.setLightOpacity(0);
     }
 
+    public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z)
+    {
+        if (world.getBlock(x, y + 1, z) == this) {
+            int meta = world.getBlockMetadata(x, y, z);
+            if (meta > 7)
+                meta = meta - 8;
+            if (meta > 3)
+                return true;
+        }
+        else if (world.getBlock(x, y - 1, z) == this) {
+            int meta = world.getBlockMetadata(x, y - 1, z);
+            if (meta > 7)
+                meta = meta - 8;
+            if (meta > 3)
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Called when a player tries to place the door.
      */
@@ -103,8 +122,6 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
             }
         }
-
-        System.out.println("Door placed. Meta: " + direction);
     }
 
     /**
@@ -119,6 +136,26 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
             world.setBlockToAir(x, y, z);
         }
+    }
+
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
+    }
+
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /**
@@ -254,7 +291,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[12];
+        icon = new IIcon[11];
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "01");
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "02");
@@ -269,7 +306,6 @@ public class BlockHexoriumDoor extends HexBlockModel {
         icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "06");
         // Load the inner texture.
         icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
-        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
     }
 
     /**
@@ -279,7 +315,10 @@ public class BlockHexoriumDoor extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        return icon[0];
+        if (meta == 1)
+            return icon[side];
+        else
+            return icon[0];
     }
 
 

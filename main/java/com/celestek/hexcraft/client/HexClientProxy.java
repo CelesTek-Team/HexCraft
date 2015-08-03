@@ -670,7 +670,7 @@ public class HexClientProxy extends HexCommonProxy {
         // Hexorium Door
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererDoor(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB));
+                HexColors.brightnessBright, HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB));
 
         // Machines
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();

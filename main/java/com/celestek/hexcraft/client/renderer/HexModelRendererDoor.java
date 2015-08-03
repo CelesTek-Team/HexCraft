@@ -34,7 +34,10 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
 
     // Model constants.
     public static float dThck = 0.1875F;
-    public static float sbBack = 0.0F;
+    public static float dEdge = 0.03125F;
+    public static float dWidt = 0.125F;
+    public static float dOffs = 0.001F;
+
     public static float sbFron = 0.125F;
     public static float sbHori = 0.375F;
     public static float sbVert = 0.375F;
@@ -190,11 +193,8 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
                 flippedDoor = true;
         }
 
-        int meta1;
         if (meta > 7)
-            meta1 = meta - 8;
-        else
-            meta1 = meta;
+            meta = meta - 8;
 
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
@@ -205,177 +205,184 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
             tessellator.addTranslation(x, y, z);
 
             tessellator.setBrightness(brightness);
-            IIcon c = block.getIcon(6, 0);
+            IIcon c = block.getIcon(10, 1);
+            tessellator.setColorOpaque_F(r, g, b);
 
+            boolean upperDoor = false;
+            if (world.getBlock(x, y - 1, z) == block)
+                upperDoor = true;
 
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
+            if (meta == 0 || (meta == 7 && !flippedDoor) || (meta == 5 && flippedDoor)) {
+                tessellator.addVertexWithUV(1 - dEdge, 1, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dEdge, 0, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 1, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
 
-            if (block instanceof BlockHexoriumSwitch) {
-                if (meta > 7)
-                    tessellator.setColorOpaque_F(1, 0, 0);
-                else
-                    tessellator.setColorOpaque_F(1, 0, 0);
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 1, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge, 0, dThck - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge, 1, dThck - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
 
-                if (meta1 == 1) {
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                } else if (meta1 == 7) {
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
-                    tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
-                    tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
-                    tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, 1 - sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 6) {
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                } else {
-                    tessellator.addVertexWithUV(sbHori, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
+                tessellator.addVertexWithUV(dEdge + dWidt, 1, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dEdge + dWidt, 0, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge, 0, dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge, 1, dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(dEdge, 1, dThck - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dEdge, 0, dThck - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge + dWidt, 0, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge + dWidt, 1, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+
+                if (upperDoor) {
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge - dWidt, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge - dWidt, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge - dWidt, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge - dWidt, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 }
+                else {
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge + dWidt, dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
 
-                if (meta > 7) {
-                    if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
-                } else {
-                    if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge + dWidt, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge, dThck - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
                 }
+            } else if (meta == 2 || meta == 5 || meta == 7) {
+                tessellator.addVertexWithUV(1 - dEdge, 1, 1 - dThck + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dEdge, 0, 1 - dThck + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 1, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
 
-                if (meta1 == 1) {
-                    tessellator.addVertexWithUV(1 - sbHori, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 7) {
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
-                    tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 6) {
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else {
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(7));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 1, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge, 0, 1 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dEdge, 1, 1 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(dEdge + dWidt, 1, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dEdge + dWidt, 0, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge, 0, 1 - dThck + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge, 1, 1 - dThck + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(dEdge, 1, 1 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dEdge, 0, 1 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge + dWidt, 0, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dEdge + dWidt, 1, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+
+                if (upperDoor) {
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge - dWidt, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge - dWidt, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, 1 - dEdge - dWidt, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge - dWidt, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, 1 - dEdge, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+                }
+                else {
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge + dWidt, 1 - dThck + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
+
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge + dWidt, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(dEdge + dWidt, dEdge, 1 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
                 }
             }
-            else if (block instanceof BlockHexoriumButton) {
+            else if (meta == 3 || (meta == 6 && !flippedDoor) || (meta == 4 && flippedDoor)) {
+                tessellator.addVertexWithUV(dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dOffs, 1, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
 
-                float push;
+                tessellator.addVertexWithUV(dThck - dOffs, 1, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dThck - dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dThck - dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dThck - dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
 
-                if (meta > 7) {
-                    push = sbPixl;
-                    if (block == HexBlocks.blockHexoriumButtonRed)
-                        tessellator.setColorOpaque_F(1, 0, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumButtonWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
+                tessellator.addVertexWithUV(dOffs, 1, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dOffs, 0, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dOffs, 0, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dOffs, 1, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(dThck - dOffs, 1, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(dThck - dOffs, 0, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dThck - dOffs, 0, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(dThck - dOffs, 1, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+
+                if (upperDoor) {
+                    tessellator.addVertexWithUV(dOffs, 1 - dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(dOffs, 1 - dEdge - dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dOffs, 1 - dEdge - dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dOffs, 1 - dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+
+                    tessellator.addVertexWithUV(dThck - dOffs, 1 - dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, 1 - dEdge - dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, 1 - dEdge - dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, 1 - dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
                 } else {
-                    push = sbFron;
-                    if (block == HexBlocks.blockHexoriumButtonRed)
-                        tessellator.setColorOpaque_F(1, 0, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumButtonWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
+                    tessellator.addVertexWithUV(dOffs, dEdge + dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(dOffs, dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dOffs, dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dOffs, dEdge + dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+
+                    tessellator.addVertexWithUV(dThck - dOffs, dEdge + dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(dThck - dOffs, dEdge + dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
                 }
+            }
+            else if (meta == 1 || meta == 6 || meta == 4) {
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 1, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
 
-                if (meta1 == 1) {
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, push + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, push + sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, push + sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, push + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - push - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, push + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, push + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, push + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, push + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
-                    tessellator.addVertexWithUV(1 - push - sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(1 - push - sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - push - sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - push - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
-                    tessellator.addVertexWithUV(push + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(push + sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(push + sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(push + sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
+                tessellator.addVertexWithUV(1 - dOffs, 1, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 1, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 0, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 0, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dThck + dOffs, 1, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+
+                tessellator.addVertexWithUV(1 - dOffs, 1, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+                tessellator.addVertexWithUV(1 - dOffs, 0, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dOffs, 0, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+                tessellator.addVertexWithUV(1 - dOffs, 1, dEdge, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+
+                if (upperDoor) {
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, 1 - dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, 1 - dEdge - dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, 1 - dEdge - dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, 1 - dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+
+                    tessellator.addVertexWithUV(1 - dOffs, 1 - dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+                    tessellator.addVertexWithUV(1 - dOffs, 1 - dEdge - dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dOffs, 1 - dEdge - dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+                    tessellator.addVertexWithUV(1 - dOffs, 1 - dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
                 } else {
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - push - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                    tessellator.addVertexWithUV(sbHori + sbPixl, 1 - push - sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - push - sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
-                    tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - push - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, dEdge + dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dThck + dOffs, dEdge + dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+
+                    tessellator.addVertexWithUV(1 - dOffs, dEdge + dWidt, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
+                    tessellator.addVertexWithUV(1 - dOffs, dEdge, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dOffs, dEdge, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
+                    tessellator.addVertexWithUV(1 - dOffs, dEdge + dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
                 }
             }
 
@@ -390,45 +397,43 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
 
             if (flippedDoor) {
-                if (meta1 == 1)
+                if (meta == 1)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta1 == 2)
+                else if (meta == 2)
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta1 == 3)
+                else if (meta == 3)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-                else if (meta1 == 4)
+                else if (meta == 4)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-                else if (meta1 == 5)
+                else if (meta == 5)
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
-                else if (meta1 == 6)
+                else if (meta == 6)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta1 == 7)
+                else if (meta == 7)
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
                 else
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
             }
             else {
-                if (meta1 == 1)
+                if (meta == 1)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta1 == 2)
+                else if (meta == 2)
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta1 == 3)
+                else if (meta == 3)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-                else if (meta1 == 4)
+                else if (meta == 4)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta1 == 5)
+                else if (meta == 5)
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta1 == 6)
+                else if (meta == 6)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-                else if (meta1 == 7)
+                else if (meta == 7)
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
                 else
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
             }
 
             renderer.renderStandardBlock(block, x, y, z);
-
-
         }
 
         return true;
