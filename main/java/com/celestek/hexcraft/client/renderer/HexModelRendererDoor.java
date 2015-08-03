@@ -83,12 +83,14 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
-        // Set up brightness.
+        // Set icon
         IIcon c = block.getIcon(10, 1);
 
+        // Draw the inner glow.
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
@@ -98,6 +100,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
@@ -107,6 +110,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
@@ -116,6 +120,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
@@ -125,6 +130,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
@@ -134,6 +140,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.25 + dEdge / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
@@ -143,6 +150,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
@@ -152,6 +160,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
         tessellator.addVertexWithUV(0.75 - dEdge / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
@@ -161,6 +170,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
@@ -170,6 +180,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
@@ -179,6 +190,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
@@ -188,13 +200,14 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
         tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
         tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
         tessellator.draw();
 
-
+        // Draw the outer frame.
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
         c = block.getIcon(0, 1);
@@ -280,7 +293,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(0.25, 0, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
         tessellator.draw();
 
-            // Turn Mipmap ON.
+        // Turn Mipmap ON.
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilter);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, magFilter);
 
@@ -293,20 +306,19 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        // Fetch block data.
+        // Get block metadata and normalize it, also determine if door is flipped.
         int meta = 0;
         boolean flippedDoor = false;
         if (world.getBlock(x, y - 1, z) == block) {
             meta = world.getBlockMetadata(x, y - 1, z);
-            if (world.getBlockMetadata(x, y, z) == 1)
+            if (world.getBlockMetadata(x, y, z) == 1 || world.getBlockMetadata(x, y, z) == 9)
                 flippedDoor = true;
         }
         else if (world.getBlock(x, y + 1, z) == block) {
             meta = world.getBlockMetadata(x, y, z);
-            if (world.getBlockMetadata(x, y + 1, z) == 1)
+            if (world.getBlockMetadata(x, y + 1, z) == 1 || world.getBlockMetadata(x, y + 1, z) == 9)
                 flippedDoor = true;
         }
-
         if (meta > 7)
             meta = meta - 8;
 
@@ -315,17 +327,20 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-
+            // Additional tessellator preparation.
             tessellator.addTranslation(x, y, z);
 
+            // Set up brightness, color and icon.
             tessellator.setBrightness(brightness);
-            IIcon c = block.getIcon(10, 1);
             tessellator.setColorOpaque_F(r, g, b);
+            IIcon c = block.getIcon(10, 1);
 
+            // Determine if this is the upper door.
             boolean upperDoor = false;
             if (world.getBlock(x, y - 1, z) == block)
                 upperDoor = true;
 
+            // Draw the inner glow.
             if (meta == 0 || (meta == 7 && !flippedDoor) || (meta == 5 && flippedDoor)) {
                 tessellator.addVertexWithUV(1 - dEdge, 1, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
                 tessellator.addVertexWithUV(1 - dEdge, 0, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
@@ -510,6 +525,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
 
+            // Adjust the rendering bounds.
             if (flippedDoor) {
                 if (meta == 1)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
@@ -547,6 +563,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
             }
 
+            // Render the outer frame.
             renderer.renderStandardBlock(block, x, y, z);
         }
 
