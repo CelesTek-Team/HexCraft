@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 218;
+    public static int countBlocks = 219;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -260,6 +260,9 @@ public class HexBlocks {
     public static Block blockHexoriumLampInvBlack;
 
     public static Block blockHexoriumLampInvRainbow;
+
+    // Hexorium Door
+    public static Block blockHexoriumDoorRed;
 
     // Machines
     public static Block blockHexoriumMachineBlock;
@@ -742,6 +745,10 @@ public class HexBlocks {
 
         blockHexoriumLampInvRainbow = new BlockHexoriumLampInv(BlockHexoriumLampInv.UNLOCALISEDNAME + "Rainbow");
         GameRegistry.registerBlock(blockHexoriumLampInvRainbow, BlockHexoriumLampInv.UNLOCALISEDNAME + "Rainbow");
+
+        // Hexorium Door
+        blockHexoriumDoorRed = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockHexoriumDoorRed, BlockHexoriumDoor.UNLOCALISEDNAME + "Red");
 
 
         // Machines
