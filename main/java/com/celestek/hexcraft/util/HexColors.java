@@ -2,7 +2,7 @@ package com.celestek.hexcraft.util;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.5.1
+ * @version 0.6.0
  * @since 2015-04-15
  */
 public class HexColors {
