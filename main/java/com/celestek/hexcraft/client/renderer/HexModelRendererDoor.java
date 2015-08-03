@@ -38,12 +38,6 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
     public static float dWidt = 0.125F;
     public static float dOffs = 0.001F;
 
-    public static float sbFron = 0.125F;
-    public static float sbHori = 0.375F;
-    public static float sbVert = 0.375F;
-    public static float sbPixl = 0.0625F;
-    public static float sbOffs = 0.001F;
-
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
@@ -89,82 +83,202 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
-        renderer.setRenderBounds(sbHori, sbVert, sbHori + sbPixl, 1 - sbHori, 1 - sbVert, 1 - sbHori - sbPixl);
+        // Set up brightness.
+        IIcon c = block.getIcon(10, 1);
 
         tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 0));
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, 0));
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, 0));
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 1, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(15.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 0.5, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2 - dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, 1 - dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 + dThck / 4 - dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(0.5));
+        tessellator.addVertexWithUV(0.75 - dEdge / 2 - dWidt / 2, dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(2.5));
+        tessellator.addVertexWithUV(0.25 + dEdge / 2 + dWidt / 2, dEdge / 2 + dWidt / 2, 0.5 - dThck / 4 + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
+        tessellator.draw();
+
+
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
+        c = block.getIcon(0, 1);
+        tessellator.addVertexWithUV(0.25, 1, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75, 1, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, 0));
+        c = block.getIcon(1, 1);
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75, 0, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
-        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 0));
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
+        c = block.getIcon(0, 1);
+        tessellator.addVertexWithUV(0.75, 1, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25, 1, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.draw();
+
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
+        c = block.getIcon(1, 1);
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75, 0, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(16));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, 0));
+        c = block.getIcon(4, 1);
+        tessellator.addVertexWithUV(0.75, 1, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 1, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
         tessellator.draw();
 
-        // Set up brightness.
-        tessellator.setBrightness(brightness);
-        tessellator.setNormal(0F, 1F, 0F);
-        IIcon c = block.getIcon(6, 0);
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(1.0F, 0.0F, 0.0F);
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75, 0, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 0, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.draw();
 
-        if (block instanceof BlockHexoriumSwitch) {
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+        tessellator.addVertexWithUV(0.25, 1, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 1, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.draw();
 
-            tessellator.startDrawingQuads();
-            tessellator.setColorOpaque_F(1, 0, 0);
-            tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6) , c.getInterpolatedV(7));
-            tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6) , c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-            tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 0.5, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.draw();
 
-            tessellator.startDrawingQuads();
-            if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                tessellator.setColorOpaque_F(0, 1, 0);
-            else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                tessellator.setColorOpaque_F(0, 0, 1);
-            tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-            tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
-            tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
+        tessellator.addVertexWithUV(0.25, 1, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.25, 1, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 1, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.75, 1, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.draw();
 
-        } else if (block instanceof BlockHexoriumButton) {
-
-            tessellator.startDrawingQuads();
-            if (block == HexBlocks.blockHexoriumButtonRed)
-                tessellator.setColorOpaque_F(1, 0, 0);
-            else if (block == HexBlocks.blockHexoriumButtonGreen)
-                tessellator.setColorOpaque_F(0, 1, 0);
-            else if (block == HexBlocks.blockHexoriumButtonBlue)
-                tessellator.setColorOpaque_F(0, 0, 1);
-            else if (block == HexBlocks.blockHexoriumButtonWhite)
-                tessellator.setColorOpaque_F(1, 1, 1);
-            tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-            tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
-            tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-            tessellator.draw();
-
-        }
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, -1.0F);
+        tessellator.addVertexWithUV(0.75, 0, 0.5 - dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(0));
+        tessellator.addVertexWithUV(0.75, 0, 0.5 + dThck / 4, c.getInterpolatedU(16), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 + dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(3));
+        tessellator.addVertexWithUV(0.25, 0, 0.5 - dThck / 4, c.getInterpolatedU(0), c.getInterpolatedV(0));
+        tessellator.draw();
 
             // Turn Mipmap ON.
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilter);

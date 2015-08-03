@@ -140,9 +140,9 @@ public class BlockHexoriumLampInv extends HexBlock {
         if (!world.isRemote) {
             // Set meta according to power.
             if (world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+                world.setBlockMetadataWithNotify(x, y, z, 0, 3);
             else
-                world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+                world.setBlockMetadataWithNotify(x, y, z, 1, 3);
         }
     }
 }

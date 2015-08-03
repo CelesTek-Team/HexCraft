@@ -136,6 +136,44 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
             world.setBlockToAir(x, y, z);
         }
+
+        boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+        if ((powered || block.canProvidePower()) && block != this)
+        {
+            int meta = 0;
+            if (world.getBlock(x, y + 1, z) == this)
+                meta = world.getBlockMetadata(x, y, z);
+            else if (world.getBlock(x, y - 1, z) == this)
+                meta = world.getBlockMetadata(x, y - 1, z);
+
+            if (meta > 7)
+                meta = meta - 8;
+
+            if (meta < 4 && powered) {
+                if (world.getBlock(x, y + 1, z) == this) {
+                    world.setBlockMetadataWithNotify(x, y, z, meta + 4, 3);
+                    world.markBlockForUpdate(x, y + 1, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+                else if (world.getBlock(x, y - 1, z) == this) {
+                    world.setBlockMetadataWithNotify(x, y - 1, z, meta + 4, 3);
+                    world.markBlockForUpdate(x, y, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+            }
+            else if (meta > 3 && !powered) {
+                if (world.getBlock(x, y + 1, z) == this) {
+                    world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
+                    world.markBlockForUpdate(x, y + 1, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+                else if (world.getBlock(x, y - 1, z) == this) {
+                    world.setBlockMetadataWithNotify(x, y - 1, z, meta - 4, 3);
+                    world.markBlockForUpdate(x, y, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+            }
+        }
     }
 
     /**
