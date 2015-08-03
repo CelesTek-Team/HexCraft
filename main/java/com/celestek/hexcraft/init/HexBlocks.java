@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 219;
+    public static int countBlocks = 236;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -263,6 +263,25 @@ public class HexBlocks {
 
     // Hexorium Door
     public static Block blockHexoriumDoorRed;
+    public static Block blockHexoriumDoorOrange;
+    public static Block blockHexoriumDoorYellow;
+    public static Block blockHexoriumDoorLime;
+    public static Block blockHexoriumDoorGreen;
+    public static Block blockHexoriumDoorTurquoise;
+    public static Block blockHexoriumDoorCyan;
+    public static Block blockHexoriumDoorSkyBlue;
+    public static Block blockHexoriumDoorBlue;
+    public static Block blockHexoriumDoorPurple;
+    public static Block blockHexoriumDoorMagenta;
+    public static Block blockHexoriumDoorPink;
+
+    public static Block blockHexoriumDoorWhite;
+    public static Block blockHexoriumDoorLightGray;
+    public static Block blockHexoriumDoorGray;
+    public static Block blockHexoriumDoorDarkGray;
+    public static Block blockHexoriumDoorBlack;
+
+    public static Block blockHexoriumDoorRainbow;
 
     // Machines
     public static Block blockHexoriumMachineBlock;
@@ -749,6 +768,42 @@ public class HexBlocks {
         // Hexorium Door
         blockHexoriumDoorRed = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Red");
         GameRegistry.registerBlock(blockHexoriumDoorRed, BlockHexoriumDoor.UNLOCALISEDNAME + "Red");
+        blockHexoriumDoorOrange = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Orange");
+        GameRegistry.registerBlock(blockHexoriumDoorOrange, BlockHexoriumDoor.UNLOCALISEDNAME + "Orange");
+        blockHexoriumDoorYellow = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Yellow");
+        GameRegistry.registerBlock(blockHexoriumDoorYellow, BlockHexoriumDoor.UNLOCALISEDNAME + "Yellow");
+        blockHexoriumDoorLime = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Lime");
+        GameRegistry.registerBlock(blockHexoriumDoorLime, BlockHexoriumDoor.UNLOCALISEDNAME + "Lime");
+        blockHexoriumDoorGreen = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockHexoriumDoorGreen, BlockHexoriumDoor.UNLOCALISEDNAME + "Green");
+        blockHexoriumDoorTurquoise = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Turquoise");
+        GameRegistry.registerBlock(blockHexoriumDoorTurquoise, BlockHexoriumDoor.UNLOCALISEDNAME + "Turquoise");
+        blockHexoriumDoorCyan = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Cyan");
+        GameRegistry.registerBlock(blockHexoriumDoorCyan, BlockHexoriumDoor.UNLOCALISEDNAME + "Cyan");
+        blockHexoriumDoorSkyBlue = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "SkyBlue");
+        GameRegistry.registerBlock(blockHexoriumDoorSkyBlue, BlockHexoriumDoor.UNLOCALISEDNAME + "SkyBlue");
+        blockHexoriumDoorBlue = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockHexoriumDoorBlue, BlockHexoriumDoor.UNLOCALISEDNAME + "Blue");
+        blockHexoriumDoorPurple = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Purple");
+        GameRegistry.registerBlock(blockHexoriumDoorPurple, BlockHexoriumDoor.UNLOCALISEDNAME + "Purple");
+        blockHexoriumDoorMagenta = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Magenta");
+        GameRegistry.registerBlock(blockHexoriumDoorMagenta, BlockHexoriumDoor.UNLOCALISEDNAME + "Magenta");
+        blockHexoriumDoorPink = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Pink");
+        GameRegistry.registerBlock(blockHexoriumDoorPink, BlockHexoriumDoor.UNLOCALISEDNAME + "Pink");
+
+        blockHexoriumDoorWhite = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockHexoriumDoorWhite, BlockHexoriumDoor.UNLOCALISEDNAME + "White");
+        blockHexoriumDoorLightGray = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "LightGray");
+        GameRegistry.registerBlock(blockHexoriumDoorLightGray, BlockHexoriumDoor.UNLOCALISEDNAME + "LightGray");
+        blockHexoriumDoorGray = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Gray");
+        GameRegistry.registerBlock(blockHexoriumDoorGray, BlockHexoriumDoor.UNLOCALISEDNAME + "Gray");
+        blockHexoriumDoorDarkGray = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "DarkGray");
+        GameRegistry.registerBlock(blockHexoriumDoorDarkGray, BlockHexoriumDoor.UNLOCALISEDNAME + "DarkGray");
+        blockHexoriumDoorBlack = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Black");
+        GameRegistry.registerBlock(blockHexoriumDoorBlack, BlockHexoriumDoor.UNLOCALISEDNAME + "Black");
+
+        blockHexoriumDoorRainbow = new BlockHexoriumDoor(BlockHexoriumDoor.UNLOCALISEDNAME + "Rainbow");
+        GameRegistry.registerBlock(blockHexoriumDoorRainbow, BlockHexoriumDoor.UNLOCALISEDNAME + "Rainbow");
 
 
         // Machines

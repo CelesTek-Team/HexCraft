@@ -218,6 +218,28 @@ public class HexRecipes {
 
         ItemStack stackHexoriumLampInvRainbow_1 = new ItemStack(HexBlocks.blockHexoriumLampInvRainbow, 1);
 
+        // Hexorium Door
+        ItemStack stackHexoriumDoorRed_1 = new ItemStack(HexBlocks.blockHexoriumDoorRed, 1);
+        ItemStack stackHexoriumDoorOrange_1 = new ItemStack(HexBlocks.blockHexoriumDoorOrange, 1);
+        ItemStack stackHexoriumDoorYellow_1 = new ItemStack(HexBlocks.blockHexoriumDoorYellow, 1);
+        ItemStack stackHexoriumDoorLime_1 = new ItemStack(HexBlocks.blockHexoriumDoorLime, 1);
+        ItemStack stackHexoriumDoorGreen_1 = new ItemStack(HexBlocks.blockHexoriumDoorGreen, 1);
+        ItemStack stackHexoriumDoorTurquoise_1 = new ItemStack(HexBlocks.blockHexoriumDoorTurquoise, 1);
+        ItemStack stackHexoriumDoorCyan_1 = new ItemStack(HexBlocks.blockHexoriumDoorCyan, 1);
+        ItemStack stackHexoriumDoorSkyBlue_1 = new ItemStack(HexBlocks.blockHexoriumDoorSkyBlue, 1);
+        ItemStack stackHexoriumDoorBlue_1 = new ItemStack(HexBlocks.blockHexoriumDoorBlue, 1);
+        ItemStack stackHexoriumDoorPurple_1 = new ItemStack(HexBlocks.blockHexoriumDoorPurple, 1);
+        ItemStack stackHexoriumDoorMagenta_1 = new ItemStack(HexBlocks.blockHexoriumDoorMagenta, 1);
+        ItemStack stackHexoriumDoorPink_1 = new ItemStack(HexBlocks.blockHexoriumDoorPink, 1);
+
+        ItemStack stackHexoriumDoorWhite_1 = new ItemStack(HexBlocks.blockHexoriumDoorWhite, 1);
+        ItemStack stackHexoriumDoorLightGray_1 = new ItemStack(HexBlocks.blockHexoriumDoorLightGray, 1);
+        ItemStack stackHexoriumDoorGray_1 = new ItemStack(HexBlocks.blockHexoriumDoorGray, 1);
+        ItemStack stackHexoriumDoorDarkGray_1 = new ItemStack(HexBlocks.blockHexoriumDoorDarkGray, 1);
+        ItemStack stackHexoriumDoorBlack_1 = new ItemStack(HexBlocks.blockHexoriumDoorBlack, 1);
+
+        ItemStack stackHexoriumDoorRainbow_1 = new ItemStack(HexBlocks.blockHexoriumDoorRainbow, 1);
+
         // Machines
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
 
@@ -1566,6 +1588,100 @@ public class HexRecipes {
                 "AHA",
                 "BCB",
                 'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1, 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1);
+
+        // Hexorium Door
+        GameRegistry.addRecipe(stackHexoriumDoorRed_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumRed_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorOrange_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumOrange_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorYellow_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumYellow_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorLime_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumLime_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorGreen_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumGreen_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorTurquoise_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorCyan_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumCyan_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorSkyBlue_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorBlue_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorPurple_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumPurple_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorMagenta_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumMagenta_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorPink_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumPink_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+
+        GameRegistry.addRecipe(stackHexoriumDoorWhite_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumWhite_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorLightGray_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumLightGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorGray_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorDarkGray_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumDoorBlack_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumBlack_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
+
+        GameRegistry.addRecipe(stackHexoriumDoorRainbow_1,
+                "BB ",
+                "HA ",
+                "BB ",
+                'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1);
 
         // Machines
         GameRegistry.addRecipe(stackHexoriumMachineBlock_1,

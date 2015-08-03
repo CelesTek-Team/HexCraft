@@ -230,6 +230,28 @@ tile.blockHexoriumLampInvBlack.name=Inverted Hexorium Lamp (Black)
 tile.blockHexoriumLampInvRainbow.name=Inverted Hexorium Lamp (Rainbow)
 
 
+tile.blockHexoriumDoorRed.name=Hexorium Door (Red)
+tile.blockHexoriumDoorOrange.name=Hexorium Door (Orange)
+tile.blockHexoriumDoorYellow.name=Hexorium Door (Yellow)
+tile.blockHexoriumDoorLime.name=Hexorium Door (Lime)
+tile.blockHexoriumDoorGreen.name=Hexorium Door (Green)
+tile.blockHexoriumDoorTurquoise.name=Hexorium Door (Turquoise)
+tile.blockHexoriumDoorCyan.name=Hexorium Door (Cyan)
+tile.blockHexoriumDoorSkyBlue.name=Hexorium Door (Sky Blue)
+tile.blockHexoriumDoorBlue.name=Hexorium Door (Blue)
+tile.blockHexoriumDoorPurple.name=Hexorium Door (Purple)
+tile.blockHexoriumDoorMagenta.name=Hexorium Door (Magenta)
+tile.blockHexoriumDoorPink.name=Hexorium Door (Pink)
+
+tile.blockHexoriumDoorWhite.name=Hexorium Door (White)
+tile.blockHexoriumDoorLightGray.name=Hexorium Door (Light Gray)
+tile.blockHexoriumDoorGray.name=Hexorium Door (Gray)
+tile.blockHexoriumDoorDarkGray.name=Hexorium Door (Dark Gray)
+tile.blockHexoriumDoorBlack.name=Hexorium Door (Black)
+
+tile.blockHexoriumDoorRainbow.name=Hexorium Door (Rainbow)
+
+
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
 tile.blockHexoriumGenerator.name=Hexorium Generator

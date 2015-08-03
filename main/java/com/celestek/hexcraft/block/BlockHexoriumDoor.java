@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumReinforcer;
 import cpw.mods.fml.relauncher.Side;
@@ -132,28 +133,28 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
         // Set make the door flipped if it should be double-doors.
         if (direction == 0) {
-            if (world.getBlock(x + 1, y, z) == this) {
+            if (world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor) {
                 int meta = world.getBlockMetadata(x + 1, y, z);
                 if (meta == 0 || meta == 4 || meta == 8 || meta == 12)
                     world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
             }
         }
         else if (direction == 1) {
-            if (world.getBlock(x, y, z + 1) == this) {
+            if (world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor) {
                 int meta = world.getBlockMetadata(x, y, z + 1);
                 if (meta == 1 || meta == 5 || meta == 9 || meta == 13)
                     world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
             }
         }
         else if (direction == 2) {
-            if (world.getBlock(x - 1, y, z) == this) {
+            if (world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor) {
                 int meta = world.getBlockMetadata(x - 1, y, z);
                 if (meta == 2 || meta == 6 || meta == 10 || meta == 14)
                     world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
             }
         }
         else if (direction == 3) {
-            if (world.getBlock(x, y, z - 1) == this) {
+            if (world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor) {
                 int meta = world.getBlockMetadata(x, y, z - 1);
                 if (meta == 3 || meta == 7 || meta == 11 || meta == 15)
                     world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
@@ -417,7 +418,10 @@ public class BlockHexoriumDoor extends HexBlockModel {
         icon[8] = new IconFlipped(icon[6], true, false);
         icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "06");
         // Load the inner texture.
-        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+        if(this == HexBlocks.blockHexoriumDoorRainbow)
+            icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+        else
+            icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
