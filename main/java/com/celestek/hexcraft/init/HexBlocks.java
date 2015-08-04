@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 254;
+    public static int countBlocks = 258;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -350,6 +350,12 @@ public class HexBlocks {
     public static Block blockHexoriumButtonGreen;
     public static Block blockHexoriumButtonBlue;
     public static Block blockHexoriumButtonWhite;
+
+    // Hexorium Pressure Plate
+    public static Block blockHexoriumPressurePlateRed;
+    public static Block blockHexoriumPressurePlateGreen;
+    public static Block blockHexoriumPressurePlateBlue;
+    public static Block blockHexoriumPressurePlateWhite;
 
     // Regular Blocks
     public static Block blockTemperedHexoriumGlass;
@@ -945,6 +951,16 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumButtonBlue, BlockHexoriumButton.UNLOCALISEDNAME + "Blue");
         blockHexoriumButtonWhite = new BlockHexoriumButton(BlockHexoriumButton.UNLOCALISEDNAME + "White");
         GameRegistry.registerBlock(blockHexoriumButtonWhite, BlockHexoriumButton.UNLOCALISEDNAME + "White");
+
+        // Hexorium Pressure Plate
+        blockHexoriumPressurePlateRed = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Red");
+        GameRegistry.registerBlock(blockHexoriumPressurePlateRed, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Red");
+        blockHexoriumPressurePlateGreen = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Green");
+        GameRegistry.registerBlock(blockHexoriumPressurePlateGreen, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Green");
+        blockHexoriumPressurePlateBlue = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Blue");
+        GameRegistry.registerBlock(blockHexoriumPressurePlateBlue, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Blue");
+        blockHexoriumPressurePlateWhite = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
+        GameRegistry.registerBlock(blockHexoriumPressurePlateWhite, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
 
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);

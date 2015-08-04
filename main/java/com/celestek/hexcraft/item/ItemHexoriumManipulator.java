@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockEnergizedHexorium;
-import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
-import com.celestek.hexcraft.block.BlockHexoriumCable;
-import com.celestek.hexcraft.block.BlockPylonBase;
+import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
@@ -108,6 +105,32 @@ public class ItemHexoriumManipulator extends Item {
                     analyzer.analyzeMachine(world, x, y, z, meta);
                     analyzerDown.analyzeTeleport(world, x, y, z);
                 }
+                // Change Pressure Plate mode.
+                else if (block instanceof BlockHexoriumPressurePlate) {
+                    // Get block meta and normalize it.
+                    int meta = world.getBlockMetadata(x, y, z);
+                    int meta1;
+                    if (meta > 3)
+                        meta1 = meta - 4;
+                    else
+                        meta1 = meta;
+
+                    // Change meta accordingly.
+                    if (meta1 < 3)
+                        world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+                    else
+                        world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
+
+                    // Print message about change.
+                    if (meta1 == 0)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange2.txt"));
+                    if (meta1 == 1)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange3.txt"));
+                    if (meta1 == 2)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
+                    if (meta1 == 3)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange1.txt"));
+                }
             }
             // Fired on normal use.
             else {
@@ -200,7 +223,7 @@ public class ItemHexoriumManipulator extends Item {
                     // System.out.println("Block: (" + x + ", " + y + ", " + z + "), Linking: " + stack.stackTagCompound.getBoolean("linking"));
                 }
                 // Link Teleports.
-                if (block == HexBlocks.blockPersonalTeleportationPad) {
+                else if (block == HexBlocks.blockPersonalTeleportationPad) {
                     // Create a new tag compound for the manipulator if it doesn't exist.
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
@@ -295,6 +318,24 @@ public class ItemHexoriumManipulator extends Item {
                     // Call the analysis in original and new direction.
                     analyzerOld.analyzeMachine(world, x, y, z, metaOld);
                     analyzer.analyzeMachine(world, x, y, z, meta);
+                }
+                // Show Pressure Plate mode.
+                else if (block instanceof BlockHexoriumPressurePlate) {
+                    // Get block meta and normalize it.
+                    int meta = world.getBlockMetadata(x, y, z);
+                    if (meta > 3)
+                        meta = meta - 4;
+
+                    // Print message about mode.
+                    if (meta == 0)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState1.txt"));
+                    if (meta == 1)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState2.txt"));
+                    if (meta == 2)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState3.txt"));
+                    if (meta == 3)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState4.txt"));
+                    player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateSneak.txt"));
                 }
                 // Rotate Pylon Vase.
                 else if (block instanceof BlockPylonBase) {

@@ -315,6 +315,11 @@ tile.blockHexoriumButtonGreen.name=Hexorium Button (Green)
 tile.blockHexoriumButtonBlue.name=Hexorium Button (Blue)
 tile.blockHexoriumButtonWhite.name=Hexorium Button (White)
 
+tile.blockHexoriumPressurePlateRed.name=Hexorium Pressure Plate (Red)
+tile.blockHexoriumPressurePlateGreen.name=Hexorium Pressure Plate (Green)
+tile.blockHexoriumPressurePlateBlue.name=Hexorium Pressure Plate (Blue)
+tile.blockHexoriumPressurePlateWhite.name=Hexorium Pressure Plate (White)
+
 tile.blockPylonBase51.name=5-to-1 Pylon Base
 tile.blockPylonBase15.name=1-to-5 Pylon Base
 
@@ -374,3 +379,14 @@ msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleport unreac
 
 msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
 msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!
+
+msg.pressurePlateState1.txt=[Hexorium Manipulator] Current mode: Everything
+msg.pressurePlateState2.txt=[Hexorium Manipulator] Current mode: Entities
+msg.pressurePlateState3.txt=[Hexorium Manipulator] Current mode: Mobs
+msg.pressurePlateState4.txt=[Hexorium Manipulator] Current mode: Players
+msg.pressurePlateSneak.txt=Sneak to change.
+
+msg.pressurePlateChange1.txt=[Hexorium Manipulator] Mode changed to: Everything
+msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
+msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
+msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
