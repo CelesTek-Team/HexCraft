@@ -24,6 +24,7 @@ public class HexRecipes {
         ItemStack stackGlass_1 = new ItemStack(Blocks.glass, 1);
         ItemStack stackObsidian_1 = new ItemStack(Blocks.obsidian, 1);
         ItemStack stackStoneButton_1 = new ItemStack(Blocks.stone_button, 1);
+        ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
         ItemStack stackRedstoneTorch_1 = new ItemStack(Blocks.redstone_torch, 1);
 
@@ -308,6 +309,12 @@ public class HexRecipes {
         ItemStack stackHexoriumButtonGreen_1 = new ItemStack(HexBlocks.blockHexoriumButtonGreen, 1);
         ItemStack stackHexoriumButtonBlue_1 = new ItemStack(HexBlocks.blockHexoriumButtonBlue, 1);
         ItemStack stackHexoriumButtonWhite_1 = new ItemStack(HexBlocks.blockHexoriumButtonWhite, 1);
+
+        // Hexorium Pressure Plate
+        ItemStack stackHexoriumPressurePlateRed_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateRed, 1);
+        ItemStack stackHexoriumPressurePlateGreen_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateGreen, 1);
+        ItemStack stackHexoriumPressurePlateBlue_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateBlue, 1);
+        ItemStack stackHexoriumPressurePlateWhite_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateWhite, 1);
 
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
@@ -2285,6 +2292,28 @@ public class HexRecipes {
                 "BRB",
                 " C ",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1, 'C', stackStoneButton_1);
+
+        // Hexorium Pressure Plate
+        GameRegistry.addRecipe(stackHexoriumPressurePlateRed_1,
+                "ARA",
+                "BCB",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackIronIngot_1, 'C', stackHeavyWeightedPressurePlate_1);
+        GameRegistry.addRecipe(stackHexoriumPressurePlateGreen_1,
+                "ARA",
+                "BCB",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackIronIngot_1, 'C', stackHeavyWeightedPressurePlate_1);
+        GameRegistry.addRecipe(stackHexoriumPressurePlateBlue_1,
+                "ARA",
+                "BCB",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackIronIngot_1, 'C', stackHeavyWeightedPressurePlate_1);
+        GameRegistry.addRecipe(stackHexoriumPressurePlateWhite_1,
+                "ARA",
+                "BCB",
+                "   ",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackIronIngot_1, 'C', stackHeavyWeightedPressurePlate_1);
 
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);

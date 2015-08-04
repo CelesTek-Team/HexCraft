@@ -67,10 +67,6 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
-
         // Turn Mipmap OFF.
         int minFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER);
         int magFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER);
@@ -80,7 +76,11 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         // Adjust the rendering bounds.
         renderer.setRenderBounds(pSide, 0.5 - pThck / 2, pSide, 1 - pSide, 0.5 + pThck / 2, 1 - pSide);
 
-        // Render the outer frame.
+        // Prepare the Tessellator.
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
+
+        // Render the pressure plate base.
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 0));
@@ -115,7 +115,6 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         IIcon c = block.getIcon(6, 0);
 
         // Draw pressure plate glow.
-
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -127,6 +126,7 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
             tessellator.setColorOpaque_F(0, 0, 1);
         else if (block == HexBlocks.blockHexoriumPressurePlateWhite)
             tessellator.setColorOpaque_F(1, 1, 1);
+
         tessellator.addVertexWithUV(pSide + pEdge, 0.5 + pWidt / 2 + pOffs, pSide + pEdge, c.getInterpolatedU(2), c.getInterpolatedV(2));
         tessellator.addVertexWithUV(pSide + pEdge, 0.5 + pWidt / 2 + pOffs, pSide + pEdge + pLeng, c.getInterpolatedU(2), c.getInterpolatedV(6));
         tessellator.addVertexWithUV(pSide + pEdge + pWidt, 0.5 + pWidt / 2 + pOffs, pSide + pEdge + pLeng, c.getInterpolatedU(3), c.getInterpolatedV(6));
@@ -184,36 +184,30 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         // Get block meta and normalize it.
         int meta = world.getBlockMetadata(x, y, z);
 
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
-
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-
+            // Adjust the rendering bounds.
             if (meta < 4)
                 renderer.setRenderBounds(pSide, 0, pSide, 1 - pSide, pThck, 1 - pSide);
             else
                 renderer.setRenderBounds(pSide, 0, pSide, 1 - pSide, pThck / 2, 1 - pSide);
 
-            // Render the outer frame.
+            // Render the pressure plate base.
             renderer.renderStandardBlock(block, x, y, z);
         }
+        // If this is the second (transparent) render pass...
         else {
-            // Additional tessellator preparation.
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
 
             // Set up brightness and icon.
             tessellator.setBrightness(brightness);
             IIcon c = block.getIcon(6, 0);
 
+            // Adjust parameters.
             float push;
             float color;
-
             if (meta < 4) {
                 color = 1;
                 push = pThck;
@@ -223,6 +217,7 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
                 push = pThck / 2;
             }
 
+            // Get Colors.
             if (block == HexBlocks.blockHexoriumPressurePlateRed)
                 tessellator.setColorOpaque_F(color, 0, 0);
             else if (block == HexBlocks.blockHexoriumPressurePlateGreen)
