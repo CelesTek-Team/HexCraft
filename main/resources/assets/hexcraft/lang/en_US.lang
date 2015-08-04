@@ -252,6 +252,28 @@ tile.blockHexoriumDoorBlack.name=Hexorium Door (Black)
 tile.blockHexoriumDoorRainbow.name=Hexorium Door (Rainbow)
 
 
+tile.blockHexoriumHatchRed.name=Hexorium Hatch (Red)
+tile.blockHexoriumHatchOrange.name=Hexorium Hatch (Orange)
+tile.blockHexoriumHatchYellow.name=Hexorium Hatch (Yellow)
+tile.blockHexoriumHatchLime.name=Hexorium Hatch (Lime)
+tile.blockHexoriumHatchGreen.name=Hexorium Hatch (Green)
+tile.blockHexoriumHatchTurquoise.name=Hexorium Hatch (Turquoise)
+tile.blockHexoriumHatchCyan.name=Hexorium Hatch (Cyan)
+tile.blockHexoriumHatchSkyBlue.name=Hexorium Hatch (Sky Blue)
+tile.blockHexoriumHatchBlue.name=Hexorium Hatch (Blue)
+tile.blockHexoriumHatchPurple.name=Hexorium Hatch (Purple)
+tile.blockHexoriumHatchMagenta.name=Hexorium Hatch (Magenta)
+tile.blockHexoriumHatchPink.name=Hexorium Hatch (Pink)
+
+tile.blockHexoriumHatchWhite.name=Hexorium Hatch (White)
+tile.blockHexoriumHatchLightGray.name=Hexorium Hatch (Light Gray)
+tile.blockHexoriumHatchGray.name=Hexorium Hatch (Gray)
+tile.blockHexoriumHatchDarkGray.name=Hexorium Hatch (Dark Gray)
+tile.blockHexoriumHatchBlack.name=Hexorium Hatch (Black)
+
+tile.blockHexoriumHatchRainbow.name=Hexorium Hatch (Rainbow)
+
+
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
 tile.blockHexoriumGenerator.name=Hexorium Generator

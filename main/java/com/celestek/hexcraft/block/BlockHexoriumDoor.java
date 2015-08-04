@@ -84,10 +84,10 @@ public class BlockHexoriumDoor extends HexBlockModel {
     }
 
     /**
-     * Returns if mobs can walk through the blck.
+     * Returns if mobs can walk through the block.
      */
     public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z) {
-        // Check meta and return true if the doors are open.
+        // Check meta and return true if the door is open.
         if (world.getBlock(x, y + 1, z) == this) {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta > 7)
@@ -170,7 +170,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
         // Check if the block below is still solid and if the upper door still exists, or if the lower door still exists.
         if (!((world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP) && world.getBlock(x, y + 1, z) == this) ||
                 (world.getBlock(x, y - 1, z) == this))) {
-            // If it doesn't, and this is the lower door, drop it abnd set the block to air..
+            // If it doesn't, and this is the lower door, drop it and set the block to air.
             if (world.getBlock(x, y + 1, z) == this)
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
@@ -264,40 +264,24 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
         // Set block bounds depending on parameters.
         if (flippedDoor) {
-            if (meta == 1)
-                this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 2)
-                this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else if (meta == 3)
-                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
-            else if (meta == 4)
-                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
-            else if (meta == 5)
+            if (meta == 0 || meta == 5)
                 this.setBlockBounds(0, 0, 0, 1, 1, dThck);
-            else if (meta == 6)
+            else if (meta == 1 || meta == 6)
                 this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 7)
+            else if (meta == 2 || meta == 7)
                 this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else
-                this.setBlockBounds(0, 0, 0, 1, 1, dThck);
+            else if (meta == 3 || meta == 4)
+                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
         }
         else {
-            if (meta == 1)
-                this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 2)
-                this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else if (meta == 3)
-                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
-            else if (meta == 4)
-                this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 5)
-                this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else if (meta == 6)
-                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
-            else if (meta == 7)
+            if (meta == 0 || meta == 7)
                 this.setBlockBounds(0, 0, 0, 1, 1, dThck);
-            else
-                this.setBlockBounds(0, 0, 0, 1, 1, dThck);
+            else if (meta == 1 || meta == 4)
+                this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
+            else if (meta == 2 || meta == 5)
+                this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
+            else if (meta == 3 || meta == 6)
+                this.setBlockBounds(0, 0, 0, dThck, 1, 1);
         }
     }
 
@@ -314,7 +298,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
         }
         else
         {
-            // Prepare a variable if the doors are in a usable state.
+            // Prepare a variable if the door is in a usable state.
             boolean use = false;
             // If player has no item in hand.
             if (player.getCurrentEquippedItem() == null)

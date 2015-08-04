@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockHexoriumButton;
-import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
@@ -13,7 +10,6 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -22,7 +18,7 @@ import org.lwjgl.opengl.GL11;
  * @since 2015-04-14
  */
 
-public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
+public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
 
     // Variables
     private int renderID;
@@ -46,7 +42,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
      */
-    public HexModelRendererDoor(int renderID, int brightness, float r, float g, float b)
+    public HexModelRendererHatch(int renderID, int brightness, float r, float g, float b)
     {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
@@ -307,18 +303,8 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
         // Get block metadata and normalize it, also determine if door is flipped.
-        int meta = 0;
+        int meta = world.getBlockMetadata(x, y, z);
         boolean flippedDoor = false;
-        if (world.getBlock(x, y - 1, z) == block) {
-            meta = world.getBlockMetadata(x, y - 1, z);
-            if (world.getBlockMetadata(x, y, z) == 1 || world.getBlockMetadata(x, y, z) == 9)
-                flippedDoor = true;
-        }
-        else if (world.getBlock(x, y + 1, z) == block) {
-            meta = world.getBlockMetadata(x, y, z);
-            if (world.getBlockMetadata(x, y + 1, z) == 1 || world.getBlockMetadata(x, y + 1, z) == 9)
-                flippedDoor = true;
-        }
         if (meta > 7)
             meta = meta - 8;
 
@@ -526,26 +512,16 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
 
             // Adjust the rendering bounds.
-            if (flippedDoor) {
-                if (meta == 0 || meta == 5)
-                    renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
-                else if (meta == 1 || meta == 6)
-                    renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta == 2 || meta == 7)
-                    renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta == 3 || meta == 4)
-                    renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-            }
-            else {
-                if (meta == 0 || meta == 7)
-                    renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
-                else if (meta == 1 || meta == 4)
-                    renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta == 2 || meta == 5)
-                    renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta == 3 || meta == 6)
-                    renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
-            }
+            if (meta == 0 || meta == 1 || meta == 2 || meta == 3)
+                renderer.setRenderBounds(0, 0, 0, 1, dThck, 1);
+            else if (meta == 4)
+                renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
+            else if (meta == 5)
+                renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
+            else if (meta == 6)
+                renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
+            else if (meta == 7)
+                renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
 
             // Render the outer frame.
             renderer.renderStandardBlock(block, x, y, z);
