@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexModelRendererPressurePlate;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -97,39 +98,17 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         // Prepare the variables.
-        float sbBack = HexModelRendererSwitchButton.sbBack;
-        float sbFron = HexModelRendererSwitchButton.sbFron;
-        float sbHori = HexModelRendererSwitchButton.sbHori;
-        float sbVert = HexModelRendererSwitchButton.sbVert;
-        float sbPixl = HexModelRendererSwitchButton.sbPixl;
-        float push;
+        float pThck = HexModelRendererPressurePlate.pThck;
+        float pSide = HexModelRendererPressurePlate.pSide;
 
         // Prepare block meta.
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7) {
-            push = sbPixl;
-            meta = meta - 8;
-        }
-        else
-            push = sbFron;
 
         // Set bounds based on meta.
-        if (meta == 1)
-            this.setBlockBounds(sbHori, sbBack, sbVert, 1 - sbHori, push, 1 - sbVert);
-        else if (meta == 7)
-            this.setBlockBounds(sbVert, sbBack, sbHori, 1 - sbVert, push, 1 - sbHori);
-        else if (meta == 2)
-            this.setBlockBounds(sbHori, sbVert, 1 - push, 1 - sbHori, 1 - sbVert, 1 - sbBack);
-        else if (meta == 3)
-            this.setBlockBounds(sbHori, sbVert, sbBack, 1 - sbHori, 1 - sbVert, push);
-        else if (meta == 4)
-            this.setBlockBounds(1 - push, sbVert, sbHori, 1 - sbBack, 1 - sbVert, 1 - sbHori);
-        else if (meta == 5)
-            this.setBlockBounds(sbBack, sbVert, sbHori, push, 1 - sbVert, 1 - sbHori);
-        else if (meta == 6)
-            this.setBlockBounds(sbVert, 1 - push, sbHori, 1 - sbVert, 1 - sbBack, 1 - sbHori);
+        if (meta < 4)
+            this.setBlockBounds(pSide, 0, pSide, 1 - pSide, pThck, 1 - pSide);
         else
-            this.setBlockBounds(sbHori, 1 - push, sbVert, 1 - sbHori, 1 - sbBack, 1 - sbVert);
+            this.setBlockBounds(pSide, 0, pSide, 1 - pSide, pThck / 2, 1 - pSide);
     }
 
     /**
@@ -155,6 +134,9 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
                 // Play a sound effect.
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.6F);
                 world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
+                // Notify surrounding blocks of the change.
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
             }
         }
     }
@@ -172,6 +154,9 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
                 world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
                 // Play a sound effect.
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.5F);
+                // Notify surrounding blocks of the change.
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
             }
             else if (active) {
                 world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
@@ -184,16 +169,16 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
         if (meta > 3)
             meta = meta - 4;
 
-        float f = 0.125F;
+        float pSide = HexModelRendererPressurePlate.pSide;
         List list = null;
         if (meta == 0)
-            list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBox(x + f, y, z + f, x + 1 - f, y + 0.25D, z + 1 - f));
+            list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
         else if (meta == 1)
-            list = world.getEntitiesWithinAABBExcludingEntity((Entity)null, AxisAlignedBB.getBoundingBox(x + f, y, z + f, x + 1 - f, y + 0.25D, z + 1 - f));
+            list = world.getEntitiesWithinAABBExcludingEntity((Entity)null, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
         else if (meta == 2)
-            list = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x + f, y, z + f, x + 1 - f, y + 0.25D, z + 1 - f));
+            list = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
         else if (meta == 3)
-            list = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x + f, y, z + f, x + 1 - f, y + 0.25D, z + 1 - f));
+            list = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
 
         if (list != null && !list.isEmpty()) {
             Iterator iterator = list.iterator();
@@ -216,31 +201,13 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
     public void breakBlock(World world, int x, int y, int z, Block block, int meta)
     {
         // If the button was active...
-        if (meta > 7)
+        if (meta > 3)
         {
             // Notify surrounding blocks of the change.
             world.notifyBlocksOfNeighborChange(x, y, z, this);
 
             // Notify blocks around the strongly powered block.
-            meta = meta - 8;
-            if(meta == 0) {
-                world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
-            }
-            else if(meta == 1) {
-                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-            }
-            else if(meta == 2) {
-                world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
-            }
-            else if(meta == 3) {
-                world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
-            }
-            else if(meta == 4) {
-                world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
-            }
-            else if(meta == 5) {
-                world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
-            }
+            world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
         }
 
         super.breakBlock(world, x, y, z, block, meta);
@@ -253,7 +220,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
     public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta)
     {
         // Return 15 if button is on.
-        if (world.getBlockMetadata(x, y, z) > 7)
+        if (world.getBlockMetadata(x, y, z) > 3)
             return 15;
         else
             return 0;
@@ -265,30 +232,12 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
     @Override
     public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side)
     {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-
         /// Return 15 based on side and if button is on.
-        if (meta > 7)
-        {
-            meta = meta - 8;
-            if (meta == 0 && side == 0)
+        if (world.getBlockMetadata(x, y, z) > 3)
+            if (side == 1)
                 return 15;
-            else if (meta == 1 && side == 1)
-                return 15;
-            else if (meta == 2 && side == 2)
-                return 15;
-            else if (meta == 3 && side == 3)
-                return 15;
-            else if (meta == 4 && side == 4)
-                return 15;
-            else if (meta == 5 && side == 5)
-                return 15;
-            else
-                return 0;
-        }
-        else
-            return 0;
+
+        return 0;
     }
 
     /**

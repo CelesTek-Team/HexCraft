@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandler {
 
     // Brightness when light is OFF.
-    private static float darkLight = 0.1F;
+    private static float darkLight = 0.15F;
 
     // Variables
     private int renderID;
@@ -112,27 +112,26 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
         tessellator.draw();
 
         // Set up brightness and icon.
-        tessellator.setBrightness(brightness);
-        tessellator.setNormal(0F, 1F, 0F);
         IIcon c = block.getIcon(6, 0);
 
         // Render glow.
         if (block instanceof BlockHexoriumSwitch) {
             tessellator.startDrawingQuads();
             tessellator.setColorOpaque_F(1, 0, 0);
+            tessellator.setBrightness(brightness);
+
             tessellator.setNormal(0.0F, 0.0F, 1.0F);
-            tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6) , c.getInterpolatedV(7));
-            tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6) , c.getInterpolatedV(9));
+            tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
+            tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-            tessellator.draw();
 
-            tessellator.startDrawingQuads();
             if (block == HexBlocks.blockHexoriumSwitchRedGreen)
                 tessellator.setColorOpaque_F(0, 1, 0);
             else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
                 tessellator.setColorOpaque_F(0, 0, 1);
-            tessellator.setNormal(0.0F, 0.0F, 1.0F);
+            else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
+                tessellator.setColorOpaque_F(1, 1, 1);
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
@@ -148,6 +147,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 tessellator.setColorOpaque_F(0, 0, 1);
             else if (block == HexBlocks.blockHexoriumButtonWhite)
                 tessellator.setColorOpaque_F(1, 1, 1);
+            tessellator.setBrightness(brightness);
             tessellator.setNormal(0.0F, 0.0F, 1.0F);
             tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
             tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
@@ -236,9 +236,9 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
             // Draw switch glow.
             if (block instanceof BlockHexoriumSwitch) {
                 if (meta > 7)
-                    tessellator.setColorOpaque_F(darkLight, 0, 0);
-                else
                     tessellator.setColorOpaque_F(1, 0, 0);
+                else
+                    tessellator.setColorOpaque_F(darkLight, 0, 0);
 
                 if (meta1 == 1) {
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
@@ -282,21 +282,18 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                 }
 
-                if (meta > 7) {
-                    if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
-                } else {
-                    if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                        tessellator.setColorOpaque_F(0, darkLight, 0);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                        tessellator.setColorOpaque_F(0, 0, darkLight);
-                    else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
-                        tessellator.setColorOpaque_F(darkLight, darkLight, darkLight);
-                }
+                float color;
+                if (meta > 7)
+                    color = darkLight;
+                else
+                    color = 1;
+
+                if (block == HexBlocks.blockHexoriumSwitchRedGreen)
+                    tessellator.setColorOpaque_F(0, color, 0);
+                else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
+                    tessellator.setColorOpaque_F(0, 0, color);
+                else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
+                    tessellator.setColorOpaque_F(color, color, color);
 
                 if (meta1 == 1) {
                     tessellator.addVertexWithUV(1 - sbHori, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(7));
@@ -344,28 +341,25 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
             else if (block instanceof BlockHexoriumButton) {
 
                 float push;
-
+                float color;
+                
                 if (meta > 7) {
+                    color = darkLight;
                     push = sbPixl;
-                    if (block == HexBlocks.blockHexoriumButtonRed)
-                        tessellator.setColorOpaque_F(darkLight, 0, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonGreen)
-                        tessellator.setColorOpaque_F(0, darkLight, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonBlue)
-                        tessellator.setColorOpaque_F(0, 0, darkLight);
-                    else if (block == HexBlocks.blockHexoriumButtonWhite)
-                        tessellator.setColorOpaque_F(darkLight, darkLight, darkLight);
-                } else {
-                    push = sbFron;
-                    if (block == HexBlocks.blockHexoriumButtonRed)
-                        tessellator.setColorOpaque_F(1, 0, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonGreen)
-                        tessellator.setColorOpaque_F(0, 1, 0);
-                    else if (block == HexBlocks.blockHexoriumButtonBlue)
-                        tessellator.setColorOpaque_F(0, 0, 1);
-                    else if (block == HexBlocks.blockHexoriumButtonWhite)
-                        tessellator.setColorOpaque_F(1, 1, 1);
                 }
+                else {
+                    color = 1;
+                    push = sbFron;
+                }
+
+                if (block == HexBlocks.blockHexoriumButtonRed)
+                    tessellator.setColorOpaque_F(color, 0, 0);
+                else if (block == HexBlocks.blockHexoriumButtonGreen)
+                    tessellator.setColorOpaque_F(0, color, 0);
+                else if (block == HexBlocks.blockHexoriumButtonBlue)
+                    tessellator.setColorOpaque_F(0, 0, color);
+                else if (block == HexBlocks.blockHexoriumButtonWhite)
+                    tessellator.setColorOpaque_F(color, color, color);
 
                 if (meta1 == 1) {
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, push + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
