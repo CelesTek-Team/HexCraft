@@ -80,7 +80,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
         // Set icon
-        IIcon c = block.getIcon(10, 1);
+        IIcon c = block.getIcon(6, 0);
 
         // Draw the inner glow.
         tessellator.startDrawingQuads();
@@ -169,32 +169,32 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
         // Render the outer frame.
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, 1));
+        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, 1));
+        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 1));
+        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 1));
+        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 1));
+        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 2));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, 1));
+        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(7, 2));
         tessellator.draw();
 
         // Turn Mipmap ON.
@@ -226,7 +226,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
             // Set up brightness, color and icon.
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(r, g, b);
-            IIcon c = block.getIcon(10, 1);
+            IIcon c = block.getIcon(6, 0);
 
             // Draw the inner glow.
             if (meta == 0 || meta == 1 || meta == 2 || meta == 3) {

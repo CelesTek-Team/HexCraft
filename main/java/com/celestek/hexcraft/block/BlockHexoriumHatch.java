@@ -87,6 +87,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     /**
      * Returns if mobs can walk through the block.
      */
+    @Override
     public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z) {
         // Check meta and return true if the hatch is open.
         int meta = world.getBlockMetadata(x, y, z);
@@ -184,6 +185,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     /**
      * Returns the bounding box of the wired rectangular prism to render.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
@@ -195,6 +197,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
         this.setBlockBoundsBasedOnState(world, x, y, z);
@@ -204,6 +207,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     /**
      * Updates the blocks bounds based on its current state.
      */
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         // Prepare the variables.
@@ -230,6 +234,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     /**
      * Called upon block activation (right click on the block.)
      */
+    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
     {
         // If this is client side...
@@ -302,20 +307,19 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[11];
+        icon = new IIcon[12];
         // Load the outer textures.
-        for (int i = 0; i < 4; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i+1));
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockHexoriumDoor.UNLOCALISEDNAME + "/" + BlockHexoriumDoor.UNLOCALISEDNAME + "03");
-        // Load the outer reinforced textures.
-        for (int i = 5; i < 9; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + i);
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockHexoriumDoor.UNLOCALISEDNAME + "/" + BlockHexoriumDoor.UNLOCALISEDNAME + "06");
+        for (int i = 0; i < 11; i++) {
+            if (i < 10)
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i+1));
+            else
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + (i+1));
+        }
         // Load the inner texture.
         if(this == HexBlocks.blockHexoriumHatchRainbow)
-            icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+            icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
-            icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+            icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
@@ -324,23 +328,6 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        // Retrieve icon based on side and meta.
-        if (meta == 1)
-            return icon[side];
-        else
-            return icon[0];
-    }
-
-
-    /**
-     * Retrieves the icons and sets the connected texture.
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        // Get the meta.
-        int meta = world.getBlockMetadata(x, y, z);
-
         // Prepare texture parameters: rei - reinforced
         int rei = 0;
 
@@ -351,7 +338,11 @@ public class BlockHexoriumHatch extends HexBlockModel {
         }
 
         // Return icons based on parameters, side and meta.
-        if (meta == 0 || meta == 1 || meta == 2 || meta == 3) {
+        if (side == 6)
+            return icon[11];
+        else if (side == 7)
+            return icon[10];
+        else if (meta == 0 || meta == 1 || meta == 2 || meta == 3) {
             if (side < 2)
                 return icon[meta + rei];
             else

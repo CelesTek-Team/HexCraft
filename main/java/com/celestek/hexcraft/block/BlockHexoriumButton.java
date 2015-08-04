@@ -157,6 +157,7 @@ public class BlockHexoriumButton extends HexBlockModel {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
         return null;
@@ -165,6 +166,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Updates the blocks bounds based on its current state.
      */
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         // Prepare the variables.
@@ -206,6 +208,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Called upon block activation (right click on the block.)
      */
+    @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
     {
         // If this is client side...
@@ -259,6 +262,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * How many world ticks before ticking.
      */
+    @Override
     public int tickRate(World world)
     {
         // 1 second duration.
@@ -268,6 +272,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Ticks the block if it's been scheduled
      */
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random)
     {
         if (!world.isRemote)
@@ -310,6 +315,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Called upon breaking the block.
      */
+    @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta)
     {
         // If the button was active...
@@ -346,6 +352,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Checks if the block is providing weak power.
      */
+    @Override
     public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta)
     {
         // Return 15 if button is on.
@@ -358,6 +365,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Checks if the block is providing strong power.
      */
+    @Override
     public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side)
     {
         // Prepare block meta.
@@ -389,6 +397,7 @@ public class BlockHexoriumButton extends HexBlockModel {
     /**
      * Can this block provide power.
      */
+    @Override
     public boolean canProvidePower()
     {
         return true;
