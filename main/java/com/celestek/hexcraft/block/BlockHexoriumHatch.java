@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
+import com.celestek.hexcraft.client.renderer.HexModelRendererHatch;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
@@ -172,7 +173,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 4, 3);
                 world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
             }
-            // Close the door.
+            // Close the hatch.
             else if (meta > 3 && !world.isBlockIndirectlyGettingPowered(x, y, z)) {
                 world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
                 world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
@@ -206,9 +207,9 @@ public class BlockHexoriumHatch extends HexBlockModel {
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         // Prepare the variables.
-        float hThck = HexModelRendererDoor.dThck;
+        float hThck = HexModelRendererHatch.hThck;
 
-        // Prepare block meta and if the door is flipped, normalize meta.
+        // Prepare block meta and normalize meta.
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7)
             meta = meta - 8;
@@ -337,7 +338,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-        // Get the meta and determine if door should be flipped.
+        // Get the meta.
         int meta = world.getBlockMetadata(x, y, z);
 
         // Prepare texture parameters: rei - reinforced
