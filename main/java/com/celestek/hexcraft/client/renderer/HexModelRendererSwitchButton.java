@@ -236,9 +236,9 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
             // Draw switch glow.
             if (block instanceof BlockHexoriumSwitch) {
                 if (meta > 7)
-                    tessellator.setColorOpaque_F(1, 0, 0);
-                else
                     tessellator.setColorOpaque_F(darkLight, 0, 0);
+                else
+                    tessellator.setColorOpaque_F(1, 0, 0);
 
                 if (meta1 == 1) {
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
@@ -284,9 +284,9 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
 
                 float color;
                 if (meta > 7)
-                    color = darkLight;
-                else
                     color = 1;
+                else
+                    color = darkLight;
 
                 if (block == HexBlocks.blockHexoriumSwitchRedGreen)
                     tessellator.setColorOpaque_F(0, color, 0);
