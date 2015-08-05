@@ -38,7 +38,7 @@ public class BlockPylonBase extends Block {
         // Set all block parameters.
         this.setBlockName(blockName);
         this.type = type;
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);

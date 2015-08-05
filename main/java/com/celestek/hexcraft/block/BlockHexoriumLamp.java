@@ -10,10 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -37,7 +34,7 @@ public class BlockHexoriumLamp extends HexBlock {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);

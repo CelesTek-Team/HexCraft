@@ -34,7 +34,7 @@ public class BlockHexoriumLampInv extends HexBlock {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);

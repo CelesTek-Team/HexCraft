@@ -31,7 +31,7 @@ public class BlockFramedHexoriumBlock extends HexBlock {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2, 0);
         this.setHarvestLevel("pickaxe", 3, 1);

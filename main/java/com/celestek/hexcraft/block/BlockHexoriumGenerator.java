@@ -44,7 +44,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);

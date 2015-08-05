@@ -1,4 +1,6 @@
-itemGroup.tabHexCraft=HEXCraft
+itemGroup.tabDecorative=HEXCraft: Decorative
+itemGroup.tabMachines=HEXCraft: Machines
+itemGroup.tabComponents=HEXCraft: Components
 
 
 tile.blockHexoriumNetherOreRed.name=Red Hexorium Nether Ore

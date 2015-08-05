@@ -17,7 +17,7 @@ public class HexItemComponent extends Item {
      */
     public HexItemComponent(String itemName) {
         setUnlocalizedName(itemName);
-        setCreativeTab(HexCraft.hexCraftTab);
+        setCreativeTab(HexCraft.tabComponents);
         setMaxStackSize(64);
         setTextureName(HexCraft.MODID + ":" + itemName);
     }

@@ -2,10 +2,8 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
-import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
-import com.celestek.hexcraft.item.ItemHexoriumReinforcer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -44,7 +42,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
         for (int i = 0; i < 8; i++)

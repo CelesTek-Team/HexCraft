@@ -2,21 +2,10 @@ package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
-import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileEnergyPylon;
-import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
-import com.celestek.hexcraft.util.NetworkAnalyzer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 /**
@@ -36,7 +25,7 @@ public class ItemHexoriumReinforcer extends Item {
      */
     public ItemHexoriumReinforcer(String itemName) {
         setUnlocalizedName(itemName);
-        setCreativeTab(HexCraft.hexCraftTab);
+        setCreativeTab(HexCraft.tabMachines);
         setTextureName(HexCraft.MODID + ":" + itemName);
     }
 

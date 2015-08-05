@@ -44,12 +44,26 @@ public class HexCraft
     @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.server.HexServerProxy")
     public static HexCommonProxy proxy;
 
-    // Set up creative tab.
-    public static CreativeTabs hexCraftTab = new CreativeTabs("tabHexCraft") {
+    // Set up creative tabs.
+    public static CreativeTabs tabDecorative = new CreativeTabs("tabHexCraftDecorative") {
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRainbow);
+        }
+    };
+    public static CreativeTabs tabMachines = new CreativeTabs("tabHexCraftMachines") {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getTabIconItem() {
+            return Item.getItemFromBlock(HexBlocks.blockHexoriumGenerator);
+        }
+    };
+    public static CreativeTabs tabComponents = new CreativeTabs("tabComponents") {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getTabIconItem() {
+            return HexItems.itemHexoriumGlassPackage;
         }
     };
 

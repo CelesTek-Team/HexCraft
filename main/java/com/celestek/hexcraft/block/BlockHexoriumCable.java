@@ -39,7 +39,7 @@ public class BlockHexoriumCable extends HexBlockModel {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.hexCraftTab);
+        this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(1.5F);

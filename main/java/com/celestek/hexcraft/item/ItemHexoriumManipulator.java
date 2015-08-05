@@ -36,7 +36,7 @@ public class ItemHexoriumManipulator extends Item {
      */
     public ItemHexoriumManipulator(String itemName) {
         setUnlocalizedName(itemName);
-        setCreativeTab(HexCraft.hexCraftTab);
+        setCreativeTab(HexCraft.tabMachines);
         setMaxStackSize(1);
     }
 
