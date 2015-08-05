@@ -3,6 +3,7 @@ package com.celestek.hexcraft.item;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -96,7 +97,8 @@ public class ItemHexoriumManipulator extends Item {
                     // Push meta to block.
                     world.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
-                    // System.out.println("Teleport rotated, analyzing!");
+                    if (HexConfig.cfgGeneralNetworkDebug)
+                        System.out.println("Teleport rotated, analyzing!");
 
                     /* DO ANALYSIS */
                     // Prepare the network analyzers.
@@ -200,7 +202,7 @@ public class ItemHexoriumManipulator extends Item {
                             if (TileEnergyPylon.tracePylons(world, x, y, z, tx, ty, tz)) {
 
                                 // Check if pylons are within reach.
-                                if (len <= 32) {
+                                if (len <= HexConfig.cfgGeneralPylonRange) {
 
                                     // Fetch tile entities of pylons.
                                     TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
@@ -217,9 +219,10 @@ public class ItemHexoriumManipulator extends Item {
                                                 // If the pylons are not added yet, link them.
                                                 player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkSuccess.txt"));
 
-                                                // System.out.println("Pylons linked, analyzing!");
+                                                if (HexConfig.cfgGeneralNetworkDebug)
+                                                    System.out.println("Pylons linked, analyzing!");
 
-                                             /* DO ANALYSIS */
+                                                /* DO ANALYSIS */
                                                 // Prepare the network analyzer.
                                                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                                                 // Call the analysis.
@@ -339,7 +342,8 @@ public class ItemHexoriumManipulator extends Item {
                     // Push meta to block.
                     world.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
-                    // System.out.println("Machine rotated, analyzing!");
+                    if (HexConfig.cfgGeneralNetworkDebug)
+                        System.out.println("Machine rotated, analyzing!");
 
                     /* DO ANALYSIS */
                     // Prepare the network analyzers.
@@ -456,7 +460,8 @@ public class ItemHexoriumManipulator extends Item {
 
     private void analyzePylonBase(World world, int x, int y, int z) {
 
-        // System.out.println("Base rotated, analyzing!");
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Base rotated, analyzing!");
 
         /* DO ANALYSIS */
 

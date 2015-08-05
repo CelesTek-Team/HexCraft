@@ -10,6 +10,11 @@ import net.minecraftforge.common.config.Configuration;
  */
 public class HexConfig {
 
+    // General
+    public static boolean cfgGeneralNetworkDebug = false;
+    public static boolean cfgGeneralVerboseNetworkDebug = false;
+    public static int cfgGeneralPylonRange = 32;
+
     // General - Personal Teleportation Pad
     public static String categoryTeleport = "General - Personal Teleportation Pad";
     public static boolean cfgTeleportShouldDamagePlayers = true;
@@ -216,6 +221,9 @@ public class HexConfig {
 
         // General
         config.setCategoryComment(Configuration.CATEGORY_GENERAL, "The configuration below deals with different machines and details of the mod.");
+        cfgGeneralNetworkDebug = config.getBoolean("HEX Energy Network debugging", Configuration.CATEGORY_GENERAL, cfgGeneralNetworkDebug, "If set to true, will output the HEX Energy Network connections between machines to console upon scanning.");
+        cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", Configuration.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network debugging needs to be enabled.");
+        cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.");
 
         // General - Personal Teleportation Pad
         cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.");

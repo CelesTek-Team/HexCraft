@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.HexPylon;
 import net.minecraft.block.Block;
@@ -323,7 +324,8 @@ public class TileEnergyPylon extends TileEntity {
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
 
-        // System.out.println("Pylon unlinked, analyzing!");
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Pylon unlinked, analyzing!");
 
         /* DO ANALYSIS */
         // Prepare the network analyzer.

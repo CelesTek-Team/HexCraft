@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -57,7 +58,8 @@ public class BlockHexoriumCable extends HexBlockModel {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            // System.out.println("Cable placed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Cable placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
@@ -82,7 +84,8 @@ public class BlockHexoriumCable extends HexBlockModel {
                 block == HexBlocks.blockMatrixReconstructor ||
                 block == HexBlocks.blockPersonalTeleportationPad) {
 
-            // System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.

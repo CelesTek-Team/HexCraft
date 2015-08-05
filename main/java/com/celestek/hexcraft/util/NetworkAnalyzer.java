@@ -2,6 +2,7 @@ package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -92,8 +93,9 @@ public class NetworkAnalyzer {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
 
-        // Console spam for debugging analysis. Uncomment to enable.
-        // System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+        // Console spam for debugging analysis.
+        if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is not a pylon base.
         if (!(block instanceof BlockPylonBase)) {
@@ -186,8 +188,9 @@ public class NetworkAnalyzer {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
 
-        // Console spam for debugging analysis. Uncomment to enable.
-        // System.out.println("Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+        // Console spam for debugging analysis.
+        if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is an Energy Pylon.
         if (block == HexBlocks.blockEnergyPylon) {
@@ -564,7 +567,8 @@ public class NetworkAnalyzer {
     private void pushMachines(World world) {
 
         // Notify about pushing machines.
-        // System.out.println("Done! Pushing data to machines:");
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Done! Pushing data to machines:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<HexDevice> machinesHexoriumGenerator = new ArrayList<HexDevice>();
@@ -576,7 +580,8 @@ public class NetworkAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : machines) {
             // Notify about every machine.
-            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add machines to their respective ArrayLists.
             if (entry.block == HexBlocks.blockHexoriumGenerator) {
@@ -626,7 +631,8 @@ public class NetworkAnalyzer {
     private void pushTeleports(World world) {
 
         // Notify about pushing machines.
-        // System.out.println("Done! Pushing data to teleports:");
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Done! Pushing data to teleports:");
 
         // Prepare ArrayLists for different machine types.
         ArrayList<HexDevice> teleportsPersonalTeleportationPad = new ArrayList<HexDevice>();
@@ -634,7 +640,8 @@ public class NetworkAnalyzer {
         // Go through all machines ArrayList entries.
         for (HexDevice entry : teleports) {
             // Notify about every machine.
-            // System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             // Add teleports to their ArrayList.
             if (entry.block == HexBlocks.blockPersonalTeleportationPad) {

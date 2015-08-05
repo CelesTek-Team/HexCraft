@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -76,7 +77,8 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            // System.out.println("Machine placed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -116,7 +118,8 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
             // Prepare the block meta.
             int meta = world.getBlockMetadata(x, y, z);
 
-            // System.out.println("Neighbour cable destroyed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.

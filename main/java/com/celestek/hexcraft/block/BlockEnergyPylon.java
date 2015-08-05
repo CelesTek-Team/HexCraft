@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPylon;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.util.HexPylon;
@@ -305,7 +306,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            // System.out.println("Pylon placed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Pylon placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
@@ -420,12 +422,21 @@ public class BlockEnergyPylon extends HexBlockContainer {
                     for (HexPylon entry : pylon.pylons) {
                         // Refresh pylon.
                         world.markBlockForUpdate(entry.x, entry.y, entry.z);
+
+                        if (HexConfig.cfgGeneralNetworkDebug)
+                            System.out.println("Pylon toggled, analyzing!");
+
+                        /* DO ANALYSIS */
                         // Prepare the network analyzer.
                         NetworkAnalyzer analyzer = new NetworkAnalyzer();
                         // Call the analysis.
                         analyzer.analyzePylon(world, entry.x, entry.y, entry.z, HexBlocks.blockEnergyPylon);
                     }
             }
+
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Pylon toggled, analyzing!");
+
             // Start analysis from this pylon.
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -443,6 +454,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
                         world.markBlockForUpdate(entry.x, entry.y, entry.z);
                     }
             }
+
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Pylon toggled, analyzing!");
+
             // Start analysis from this pylon.
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();

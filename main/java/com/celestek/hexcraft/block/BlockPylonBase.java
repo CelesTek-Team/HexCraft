@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -80,7 +81,8 @@ public class BlockPylonBase extends Block {
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
-            // System.out.println("Base placed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Base placed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
@@ -105,7 +107,8 @@ public class BlockPylonBase extends Block {
                 block == HexBlocks.blockCrystalSeparator ||
                 block == HexBlocks.blockMatrixReconstructor) {
 
-            // System.out.println("Neighbour cable or machine destroyed, analyzing!");
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
             // Prepare the network analyzer.
