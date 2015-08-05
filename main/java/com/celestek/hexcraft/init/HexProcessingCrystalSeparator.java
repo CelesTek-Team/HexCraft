@@ -4,7 +4,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -65,6 +67,15 @@ public class HexProcessingCrystalSeparator {
         addRecipe(Item.getItemFromBlock(Blocks.diamond_ore), new ItemStack(Items.diamond, 4), experience);
         addRecipe(Item.getItemFromBlock(Blocks.emerald_ore), new ItemStack(Items.emerald, 3), experience);
         addRecipe(Item.getItemFromBlock(Blocks.quartz_ore), new ItemStack(Items.quartz, 4), experience);
+
+        // Mod-specific recipes
+        ArrayList<ItemStack> certusOres = OreDictionary.getOres("oreCertusQuartz");
+        ArrayList<ItemStack> certusCrystals = OreDictionary.getOres("crystalCertusQuartz");
+        ItemStack output = certusCrystals.get(0);
+        output.stackSize = 4;
+        for (ItemStack input : certusOres) {
+            addRecipe(input.getItem(), output, experience);
+        }
     }
 
     public void addRecipe(Item item, ItemStack itemstack, float experience){
