@@ -64,9 +64,11 @@ public class ItemHexoriumManipulator extends Item {
                 if (block instanceof BlockEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                     world.setBlockToAir(x, y, z);
+                }
                 // Eject monolith from Energy Pylon.
-                } else if (block == HexBlocks.blockEnergyPylon)
+                else if (block == HexBlocks.blockEnergyPylon) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
+                }
                 // Rotate teleport.
                 else if (block == HexBlocks.blockPersonalTeleportationPad) {
                     // Get meta.
@@ -140,11 +142,11 @@ public class ItemHexoriumManipulator extends Item {
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
 
+                    // Cancel linking.
                     if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
                         stack.stackTagCompound.setBoolean("TeleportLinking", false);
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
-
                     }
                     // If this is the first use, just save the pylon location.
                     if (!stack.stackTagCompound.getBoolean("PylonLinking")) {
@@ -228,11 +230,11 @@ public class ItemHexoriumManipulator extends Item {
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
 
+                    // Cancel linking.
                     if (stack.stackTagCompound.getBoolean("PylonLinking")) {
                         stack.stackTagCompound.setBoolean("PylonLinking", false);
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
-
                     }
 
                     // If this is the first use, just save the teleport location.
@@ -467,6 +469,29 @@ public class ItemHexoriumManipulator extends Item {
             }
         }
         return false;
+    }
+
+    /**
+     * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+     */
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (!world.isRemote) {
+            if (player.isSneaking()) {
+                // Cancel all linking.
+                if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
+                    stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                    stack.setItemDamage(0);
+                    player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
+                }
+                if (stack.stackTagCompound.getBoolean("PylonLinking")) {
+                    stack.stackTagCompound.setBoolean("PylonLinking", false);
+                    stack.setItemDamage(0);
+                    player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
+                }
+            }
+        }
+        return stack;
     }
 
     // Prepare the icons.
