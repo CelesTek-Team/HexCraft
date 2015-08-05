@@ -63,19 +63,156 @@ public class HexProcessingCrystalSeparator {
         addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithWhite), new ItemStack(HexItems.itemHexoriumCrystalWhite, 12), experience);
         addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 12), experience);
 
-        // Regular Recipes
-        addRecipe(Item.getItemFromBlock(Blocks.diamond_ore), new ItemStack(Items.diamond, 4), experience);
-        addRecipe(Item.getItemFromBlock(Blocks.emerald_ore), new ItemStack(Items.emerald, 3), experience);
-        addRecipe(Item.getItemFromBlock(Blocks.quartz_ore), new ItemStack(Items.quartz, 4), experience);
+        /* Ore Dictionary recipes */
+        ArrayList<ItemStack> ore;
+        ArrayList<ItemStack> gem;
+        ItemStack output;
 
-        // Mod-specific recipes
-        ArrayList<ItemStack> certusOres = OreDictionary.getOres("oreCertusQuartz");
-        ArrayList<ItemStack> certusCrystals = OreDictionary.getOres("crystalCertusQuartz");
-        ItemStack output = certusCrystals.get(0);
-        output.stackSize = 4;
-        for (ItemStack input : certusOres) {
-            addRecipe(input.getItem(), output, experience);
+        // Regular Ores
+        ore = OreDictionary.getOres("oreDiamond");
+        for (ItemStack input : ore) {
+            addRecipe(input.getItem(), new ItemStack(Items.diamond, 4), experience);
         }
+        ore = OreDictionary.getOres("oreEmerald");
+        for (ItemStack input : ore) {
+            addRecipe(input.getItem(), new ItemStack(Items.emerald, 4), experience);
+        }
+        ore = OreDictionary.getOres("oreQuartz");
+        for (ItemStack input : ore) {
+            addRecipe(input.getItem(), new ItemStack(Items.quartz, 4), experience);
+        }
+
+        // Applied Energistics
+        ore = OreDictionary.getOres("oreCertusQuartz");
+        gem = OreDictionary.getOres("crystalCertusQuartz");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+
+        // Thaumcraft
+        ore = OreDictionary.getOres("oreAmber");
+        gem = OreDictionary.getOres("gemAmber");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input, output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedAir");
+        gem = OreDictionary.getOres("shardAir");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedFire");
+        gem = OreDictionary.getOres("shardFire");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedWater");
+        gem = OreDictionary.getOres("shardWater");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedEarth");
+        gem = OreDictionary.getOres("shardEarth");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedOrder");
+        gem = OreDictionary.getOres("shardOrder");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreInfusedEntropy");
+        gem = OreDictionary.getOres("shardEntropy");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+
+        // ProjectRed
+        ore = OreDictionary.getOres("oreRuby");
+        gem = OreDictionary.getOres("gemRuby");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("oreSapphire");
+        gem = OreDictionary.getOres("gemSapphire");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+        ore = OreDictionary.getOres("orePeridot");
+        gem = OreDictionary.getOres("gemPeridot");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+
+        // Forestry
+        ore = OreDictionary.getOres("oreApatite");
+        gem = OreDictionary.getOres("gemApatite");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+
+        // Erebus
+        ore = OreDictionary.getOres("oreJade");
+        gem = OreDictionary.getOres("gemJade");
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            output = gem.get(0);
+            output.stackSize = 4;
+            for (ItemStack input : ore) {
+                addRecipe(input.getItem(), output, experience);
+            }
+        }
+
+    }
+
+    public void addRecipe(ItemStack itemstack1, ItemStack itemstack2, float experience){
+        putLists(itemstack1, itemstack2, experience);
     }
 
     public void addRecipe(Item item, ItemStack itemstack, float experience){
@@ -105,7 +242,7 @@ public class HexProcessingCrystalSeparator {
     }
 
     private boolean canBeSmelted(ItemStack itemstack1, ItemStack itemstack2) {
-        return itemstack2.getItem() == itemstack1.getItem() && (itemstack2.getItemDamage() == 32767 || itemstack2.getItemDamage() == itemstack1.getItemDamage());
+        return OreDictionary.itemMatches(itemstack1, itemstack2, true) || (itemstack2.getItem() == itemstack1.getItem() && (itemstack2.getItemDamage() == 32767 || itemstack2.getItemDamage() == itemstack1.getItemDamage()));
     }
 
     public float giveExperience(ItemStack itemstack){
