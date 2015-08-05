@@ -51,7 +51,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
      * @param hexoriumDropMax Maximum amount of Hexorium Crystals dropped.
      */
     public BlockHexoriumNetherMonolith(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
-        super(Material.rock);
+        super(Material.glass);
 
         // Load the constructor parameters.
         this.blockName = blockName;

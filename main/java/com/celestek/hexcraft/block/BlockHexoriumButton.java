@@ -40,7 +40,7 @@ public class BlockHexoriumButton extends HexBlockModel {
         this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
-        this.setHardness(5F);
+        this.setHardness(1.5F);
         this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);

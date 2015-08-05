@@ -35,7 +35,7 @@ public class BlockHexoriumCable extends HexBlockModel {
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockHexoriumCable(String blockName) {
-        super(Material.iron);
+        super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);

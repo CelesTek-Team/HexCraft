@@ -27,7 +27,7 @@ public class BlockConcentricHexoriumBlock extends HexBlock {
      * @param blockName Unlocalized name for the block. Contains color name.
      */
     public BlockConcentricHexoriumBlock(String blockName) {
-        super(Material.rock);
+        super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -36,7 +36,7 @@ public class BlockConcentricHexoriumBlock extends HexBlock {
         this.setHarvestLevel("pickaxe", 2, 0);
         this.setHarvestLevel("pickaxe", 3, 1);
 
-        this.setStepSound(Block.soundTypeStone);
+        this.setStepSound(Block.soundTypeMetal);
     }
 
     /**

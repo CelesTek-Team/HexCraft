@@ -24,7 +24,7 @@ public class BlockHexoriumMachineBlock extends HexBlock {
      * @param blockName Unlocalized name for the block.
      */
     public BlockHexoriumMachineBlock(String blockName) {
-        super(Material.rock);
+        super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
