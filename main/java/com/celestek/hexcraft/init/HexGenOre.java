@@ -70,38 +70,45 @@ public class HexGenOre extends WorldGenerator {
             switch (genDirection) {
                 case 0:
                     x++;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
-                        x = x - 2;
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
+                            x = x - 2;
                     break;
                 case 1:
                     x--;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
                         x = x + 2;
                     break;
                 case 2:
                     y++;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
                         y = y - 2;
                     break;
                 case 3:
                     y--;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
                         y = y + 2;
                     break;
                 case 4:
                     z++;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
                         z = z - 2;
                     break;
                 case 5:
                     z--;
-                    if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.air))
+                    if (world.blockExists(x, y, z))
+                        if (world.isAirBlock(x, y, z))
                         z = z - 2;
                     break;
             }
             // Generate a vein block.
-            if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
-                world.setBlock(x, y, z, block, blockmeta, 2);
+            if (world.blockExists(x, y, z))
+                if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
+                    world.setBlock(x, y, z, block, blockmeta, 2);
         }
         return true;
     }

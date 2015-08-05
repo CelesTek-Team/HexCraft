@@ -49,37 +49,65 @@ public class HexWorldGen implements IWorldGenerator {
          * Numbers in vein spawning control the number of ores per vein.
          * First number: Minimum ore blocks.
          * Second number: Maximum ore blocks.
-         * Numbers in monolith spawning control the number of ores per vein.
+         * Numbers in monolith spawning control the spawning height.
          * First number: Minimum height.
          * Second number: Maximum height.
          * Third number: Chance to spawn a monolith, 0-100.
          */
 
         // Nether
-        oreHexoriumNetherOreRed = new HexGenOre(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreGreen = new HexGenOre(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreBlue = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 1, 3);
-        oreHexoriumNetherOreWhite = new HexGenOre(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 2, 6);
-        oreHexoriumNetherOreBlack = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 2, 6);
+        if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreNetherShouldGenerate) {
+            oreHexoriumNetherOreRed = new HexGenOre(HexBlocks.blockHexoriumNetherOreRed, Blocks.netherrack, 
+                    HexConfig.cfgNetherOreRedCountMin, HexConfig.cfgNetherOreRedCountMax);
+            oreHexoriumNetherOreGreen = new HexGenOre(HexBlocks.blockHexoriumNetherOreGreen, Blocks.netherrack, 
+                    HexConfig.cfgNetherOreGreenCountMin, HexConfig.cfgNetherOreGreenCountMax);
+            oreHexoriumNetherOreBlue = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlue, Blocks.netherrack, 
+                    HexConfig.cfgNetherOreBlueCountMin, HexConfig.cfgNetherOreBlueCountMax);
+            oreHexoriumNetherOreWhite = new HexGenOre(HexBlocks.blockHexoriumNetherOreWhite, Blocks.netherrack, 
+                    HexConfig.cfgNetherOreWhiteCountMin, HexConfig.cfgNetherOreWhiteCountMax);
+            oreHexoriumNetherOreBlack = new HexGenOre(HexBlocks.blockHexoriumNetherOreBlack, Blocks.netherrack, 
+                    HexConfig.cfgNetherOreBlackCountMin, HexConfig.cfgNetherOreBlackCountMax);
+        }
 
-        oreHexoriumNetherMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithRed, Blocks.netherrack, 0, 128, 10);
-        oreHexoriumNetherMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithGreen, Blocks.netherrack, 0, 128, 10);
-        oreHexoriumNetherMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlue, Blocks.netherrack, 0, 128, 10);
-        oreHexoriumNetherMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithWhite, Blocks.netherrack, 0, 128, 50);
-        oreHexoriumNetherMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlack, Blocks.netherrack, 0, 128, 50);
+        if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithNetherShouldGenerate) {
+            oreHexoriumNetherMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithRed, Blocks.netherrack,
+                    HexConfig.cfgNetherMonolithRedHeightMin, HexConfig.cfgNetherMonolithRedHeightMax, HexConfig.cfgNetherMonolithRedChance);
+            oreHexoriumNetherMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithGreen, Blocks.netherrack,
+                    HexConfig.cfgNetherMonolithGreenHeightMin, HexConfig.cfgNetherMonolithGreenHeightMax, HexConfig.cfgNetherMonolithGreenChance);
+            oreHexoriumNetherMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlue, Blocks.netherrack,
+                    HexConfig.cfgNetherMonolithBlueHeightMin, HexConfig.cfgNetherMonolithBlueHeightMax, HexConfig.cfgNetherMonolithBlueChance);
+            oreHexoriumNetherMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithWhite, Blocks.netherrack,
+                    HexConfig.cfgNetherMonolithWhiteHeightMin, HexConfig.cfgNetherMonolithWhiteHeightMax, HexConfig.cfgNetherMonolithWhiteChance);
+            oreHexoriumNetherMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumNetherMonolithBlack, Blocks.netherrack,
+                    HexConfig.cfgNetherMonolithBlackHeightMin, HexConfig.cfgNetherMonolithBlackHeightMax, HexConfig.cfgNetherMonolithBlackChance);
+        }
 
         // Overworld
-        oreHexoriumOreRed = new HexGenOre(HexBlocks.blockHexoriumOreRed, Blocks.stone, 2, 6);
-        oreHexoriumOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 2, 6);
-        oreHexoriumOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 2, 6);
-        oreHexoriumOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 1, 3);
-        oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 1, 3);
-        
-        oreHexoriumMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone, 0, 60, 100);
-        oreHexoriumMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone, 0, 60, 100);
-        oreHexoriumMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlue, Blocks.stone, 0, 60, 100);
-        oreHexoriumMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumMonolithWhite, Blocks.stone, 0, 20, 10);
-        oreHexoriumMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlack, Blocks.stone, 0, 20, 10);
+        if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreOverworldShouldGenerate) {
+            oreHexoriumOreRed = new HexGenOre(HexBlocks.blockHexoriumOreRed, Blocks.stone, 
+                    HexConfig.cfgOverworldOreRedCountMin, HexConfig.cfgOverworldOreRedCountMax);
+            oreHexoriumOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone, 
+                    HexConfig.cfgOverworldOreGreenCountMin, HexConfig.cfgOverworldOreGreenCountMax);
+            oreHexoriumOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone, 
+                    HexConfig.cfgOverworldOreBlueCountMin, HexConfig.cfgOverworldOreBlueCountMax);
+            oreHexoriumOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone, 
+                    HexConfig.cfgOverworldOreWhiteCountMin, HexConfig.cfgOverworldOreWhiteCountMax);
+            oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone, 
+                    HexConfig.cfgOverworldOreBlackCountMin, HexConfig.cfgOverworldOreBlackCountMax);
+        }
+
+        if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithOverworldShouldGenerate) {
+            oreHexoriumMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone,
+                    HexConfig.cfgOverworldMonolithRedHeightMin, HexConfig.cfgOverworldMonolithRedHeightMax, HexConfig.cfgOverworldMonolithRedChance);
+            oreHexoriumMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone,
+                    HexConfig.cfgOverworldMonolithGreenHeightMin, HexConfig.cfgOverworldMonolithGreenHeightMax, HexConfig.cfgOverworldMonolithGreenChance);
+            oreHexoriumMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlue, Blocks.stone,
+                    HexConfig.cfgOverworldMonolithBlueHeightMin, HexConfig.cfgOverworldMonolithBlueHeightMax, HexConfig.cfgOverworldMonolithBlueChance);
+            oreHexoriumMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumMonolithWhite, Blocks.stone,
+                    HexConfig.cfgOverworldMonolithWhiteHeightMin, HexConfig.cfgOverworldMonolithWhiteHeightMax, HexConfig.cfgOverworldMonolithWhiteChance);
+            oreHexoriumMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlack, Blocks.stone,
+                    HexConfig.cfgOverworldMonolithBlackHeightMin, HexConfig.cfgOverworldMonolithBlackHeightMax, HexConfig.cfgOverworldMonolithBlackChance);
+        }
     }
 
     /**
@@ -97,32 +125,60 @@ public class HexWorldGen implements IWorldGenerator {
 
             // Nether
             case -1:
-                runGenerator(oreHexoriumNetherOreRed, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreGreen, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreBlue, world, random, chunkX, chunkZ, 5, 0, 128);
-                runGenerator(oreHexoriumNetherOreWhite, world, random, chunkX, chunkZ, 10, 0, 128);
-                runGenerator(oreHexoriumNetherOreBlack, world, random, chunkX, chunkZ, 10, 0, 128);
+                if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreNetherShouldGenerate) {
+                    runGenerator(oreHexoriumNetherOreRed, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgNetherOreRedVeins, HexConfig.cfgNetherOreRedHeightMin, HexConfig.cfgNetherOreRedHeightMax);
+                    runGenerator(oreHexoriumNetherOreGreen, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgNetherOreGreenVeins, HexConfig.cfgNetherOreGreenHeightMin, HexConfig.cfgNetherOreGreenHeightMax);
+                    runGenerator(oreHexoriumNetherOreBlue, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgNetherOreBlueVeins, HexConfig.cfgNetherOreBlueHeightMin, HexConfig.cfgNetherOreBlueHeightMax);
+                    runGenerator(oreHexoriumNetherOreWhite, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgNetherOreWhiteVeins, HexConfig.cfgNetherOreWhiteHeightMin, HexConfig.cfgNetherOreWhiteHeightMax);
+                    runGenerator(oreHexoriumNetherOreBlack, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgNetherOreBlackVeins, HexConfig.cfgNetherOreBlackHeightMin, HexConfig.cfgNetherOreBlackHeightMax);
+                }
 
-                runGenerator(oreHexoriumNetherMonolithRed, world, random, chunkX, chunkZ, 1, 0, 128);
-                runGenerator(oreHexoriumNetherMonolithGreen, world, random, chunkX, chunkZ, 1, 0, 128);
-                runGenerator(oreHexoriumNetherMonolithBlue, world, random, chunkX, chunkZ, 1, 0, 128);
-                runGenerator(oreHexoriumNetherMonolithWhite, world, random, chunkX, chunkZ, 1, 0, 128);
-                runGenerator(oreHexoriumNetherMonolithBlack, world, random, chunkX, chunkZ, 1, 0, 128);
+                if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithNetherShouldGenerate) {
+                    runGenerator(oreHexoriumNetherMonolithRed, world, random, chunkX, chunkZ,
+                            HexConfig.cfgNetherMonolithRedCount, HexConfig.cfgNetherMonolithRedHeightMin, HexConfig.cfgNetherMonolithRedHeightMax);
+                    runGenerator(oreHexoriumNetherMonolithGreen, world, random, chunkX, chunkZ,
+                            HexConfig.cfgNetherMonolithGreenCount, HexConfig.cfgNetherMonolithGreenHeightMin, HexConfig.cfgNetherMonolithGreenHeightMax);
+                    runGenerator(oreHexoriumNetherMonolithBlue, world, random, chunkX, chunkZ,
+                            HexConfig.cfgNetherMonolithBlueCount, HexConfig.cfgNetherMonolithBlueHeightMin, HexConfig.cfgNetherMonolithBlueHeightMax);
+                    runGenerator(oreHexoriumNetherMonolithWhite, world, random, chunkX, chunkZ,
+                            HexConfig.cfgNetherMonolithWhiteCount, HexConfig.cfgNetherMonolithWhiteHeightMin, HexConfig.cfgNetherMonolithWhiteHeightMax);
+                    runGenerator(oreHexoriumNetherMonolithBlack, world, random, chunkX, chunkZ,
+                            HexConfig.cfgNetherMonolithBlackCount, HexConfig.cfgNetherMonolithBlackHeightMin, HexConfig.cfgNetherMonolithBlackHeightMax);
+                }
                 break;
 
             // Overworld
             case 0:
-                runGenerator(oreHexoriumOreRed, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreGreen, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreBlue, world, random, chunkX, chunkZ, 10, 0, 64);
-                runGenerator(oreHexoriumOreWhite, world, random, chunkX, chunkZ, 5, 0, 20);
-                runGenerator(oreHexoriumOreBlack, world, random, chunkX, chunkZ, 5, 0, 20);
+                if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreOverworldShouldGenerate) {
+                    runGenerator(oreHexoriumOreRed, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgOverworldOreRedVeins, HexConfig.cfgOverworldOreRedHeightMin, HexConfig.cfgOverworldOreRedHeightMax);
+                    runGenerator(oreHexoriumOreGreen, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgOverworldOreGreenVeins, HexConfig.cfgOverworldOreGreenHeightMin, HexConfig.cfgOverworldOreGreenHeightMax);
+                    runGenerator(oreHexoriumOreBlue, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgOverworldOreBlueVeins, HexConfig.cfgOverworldOreBlueHeightMin, HexConfig.cfgOverworldOreBlueHeightMax);
+                    runGenerator(oreHexoriumOreWhite, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgOverworldOreWhiteVeins, HexConfig.cfgOverworldOreWhiteHeightMin, HexConfig.cfgOverworldOreWhiteHeightMax);
+                    runGenerator(oreHexoriumOreBlack, world, random, chunkX, chunkZ, 
+                            HexConfig.cfgOverworldOreBlackVeins, HexConfig.cfgOverworldOreBlackHeightMin, HexConfig.cfgOverworldOreBlackHeightMax);
+                }
 
-                runGenerator(oreHexoriumMonolithRed, world, random, chunkX, chunkZ, 1, 0, 60);
-                runGenerator(oreHexoriumMonolithGreen, world, random, chunkX, chunkZ, 1, 0, 60);
-                runGenerator(oreHexoriumMonolithBlue, world, random, chunkX, chunkZ, 1, 0, 60);
-                runGenerator(oreHexoriumMonolithWhite, world, random, chunkX, chunkZ, 1, 0, 20);
-                runGenerator(oreHexoriumMonolithBlack, world, random, chunkX, chunkZ, 1, 0, 20);
+                if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithOverworldShouldGenerate) {
+                    runGenerator(oreHexoriumMonolithRed, world, random, chunkX, chunkZ,
+                            HexConfig.cfgOverworldMonolithRedCount, HexConfig.cfgOverworldMonolithRedHeightMin, HexConfig.cfgOverworldMonolithRedHeightMax);
+                    runGenerator(oreHexoriumMonolithGreen, world, random, chunkX, chunkZ,
+                            HexConfig.cfgOverworldMonolithGreenCount, HexConfig.cfgOverworldMonolithGreenHeightMin, HexConfig.cfgOverworldMonolithGreenHeightMax);
+                    runGenerator(oreHexoriumMonolithBlue, world, random, chunkX, chunkZ,
+                            HexConfig.cfgOverworldMonolithBlueCount, HexConfig.cfgOverworldMonolithBlueHeightMin, HexConfig.cfgOverworldMonolithBlueHeightMax);
+                    runGenerator(oreHexoriumMonolithWhite, world, random, chunkX, chunkZ,
+                            HexConfig.cfgOverworldMonolithWhiteCount, HexConfig.cfgOverworldMonolithWhiteHeightMin, HexConfig.cfgOverworldMonolithWhiteHeightMax);
+                    runGenerator(oreHexoriumMonolithBlack, world, random, chunkX, chunkZ,
+                            HexConfig.cfgOverworldMonolithBlackCount, HexConfig.cfgOverworldMonolithBlackHeightMin, HexConfig.cfgOverworldMonolithBlackHeightMax);
+                }
                 break;
 
             // End

@@ -310,7 +310,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
         icon = new IIcon[12];
         // Load the outer textures.
         for (int i = 0; i < 11; i++) {
-            if (i < 10)
+            if (i < 9)
                 icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i+1));
             else
                 icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + (i+1));

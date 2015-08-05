@@ -76,6 +76,9 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
 
         // Draw the progress bar.
         int i = tileEntity.getEnergyScaled(64);
+        // If the bar exceeds total length, trim it.
+        if (i > 128)
+            i = 128;
         drawTexturedModalRect(x + 23, y + 37, 0, 166, i + 1, 12);
     }
 }

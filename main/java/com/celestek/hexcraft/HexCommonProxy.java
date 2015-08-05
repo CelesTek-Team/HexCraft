@@ -22,6 +22,8 @@ public class HexCommonProxy {
      */
     public void preInit(FMLPreInitializationEvent e)
     {
+        // Set up config.
+        HexConfig.initializeConfig(e);
         // Set up all ingame blocks, items and recipes.
         HexBlocks.initializeBlocks();
         HexItems.initializeItems();

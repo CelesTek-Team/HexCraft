@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -41,7 +42,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
     private ItemStack[] machineItemStacks = new ItemStack[1];
 
     // Prepare energy variables.
-    private static float energyTotal = 102400;
+    private static float energyTotal = HexConfig.cfgTeleportUsageCost;
     private float energy;
     private float energyIn;
 
@@ -602,10 +603,12 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                 player.addChatMessage(new ChatComponentTranslation("msg.teleportProcess2.txt"));
                 // Teleport the player.
                 player.setPositionAndUpdate(linkedTeleport.x + 0.5, linkedTeleport.y + 1, linkedTeleport.z + 0.5);
-                // Apply confusion effect.
-                player.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 180, 100, false));
-                // Hurt the player.
-                player.attackEntityFrom(DamageSource.generic, 4F);
+                if (HexConfig.cfgTeleportShouldDamagePlayers) {
+                    // Apply confusion effect.
+                    player.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 180, 100, false));
+                    // Hurt the player.
+                    player.attackEntityFrom(DamageSource.generic, HexConfig.cfgTeleportDamageAmount);
+                }
             }
     }
 

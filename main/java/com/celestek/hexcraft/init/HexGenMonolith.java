@@ -63,24 +63,28 @@ public class HexGenMonolith extends WorldGenerator {
                     // And if it should be placed upside-down...
                     if (side == 0) {
                         // Check if the current spot is fitting.
-                        if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
-                            // If yes, place monolith.
-                            world.setBlock(x, y, z, block, 0, 2);
-                            break;
-                        } else
-                        // Otherwise, move downwards.
-                            y--;
+                        if (world.blockExists(x, y, z)) {
+                            if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
+                                // If yes, place monolith.
+                                world.setBlock(x, y, z, block, 0, 2);
+                                break;
+                            } else
+                                // Otherwise, move downwards.
+                                y--;
+                        }
                     }
                     // And if it should be placed upwards...
                     else {
                         // Check if the current spot is fitting.
-                        if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
-                            // If yes, place monolith.
-                            world.setBlock(x, y, z, block, 1, 2);
-                            break;
-                        } else
-                        // Otherwise, move downwards.
-                            y--;
+                        if (world.blockExists(x, y, z)) {
+                            if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
+                                // If yes, place monolith.
+                                world.setBlock(x, y, z, block, 1, 2);
+                                break;
+                            } else
+                                // Otherwise, move downwards.
+                                y--;
+                        }
                     }
                 } while (y >= heightMin);
             }
@@ -90,24 +94,28 @@ public class HexGenMonolith extends WorldGenerator {
                     // And if it should be placed upside-down...
                     if (side == 0) {
                         // Check if the current spot is fitting.
-                        if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
-                            // If yes, place monolith.
-                            world.setBlock(x, y, z, block, 0, 2);
-                            break;
-                        } else
-                        // Otherwise, move upwards.
-                            y++;
+                        if (world.blockExists(x, y, z)) {
+                            if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
+                                // If yes, place monolith.
+                                world.setBlock(x, y, z, block, 0, 2);
+                                break;
+                            } else
+                                // Otherwise, move upwards.
+                                y++;
+                        }
                     }
                     // And if it should be placed upwards...
                     else {
                         // Check if the current spot is fitting.
-                        if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
-                            // If yes, place monolith.
-                            world.setBlock(x, y, z, block, 1, 2);
-                            break;
-                        } else
-                        // Otherwise, move upwards.
-                            y++;
+                        if (world.blockExists(x, y, z)) {
+                            if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
+                                // If yes, place monolith.
+                                world.setBlock(x, y, z, block, 1, 2);
+                                break;
+                            } else
+                                // Otherwise, move upwards.
+                                y++;
+                        }
                     }
                 } while (y <= heightMax);
             }
