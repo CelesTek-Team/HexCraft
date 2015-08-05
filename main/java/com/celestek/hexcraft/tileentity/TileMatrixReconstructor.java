@@ -426,8 +426,8 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
                 }
             }
 
-        // Check if the energy is now available, but wasn't previously.
-        if (checkEnergy && !hasEnergy)
+        // Check if the energy is now available, but wasn't previously, or if the machine was active, but no longer should be.
+        if ((checkEnergy && !hasEnergy) || (blockMetadata >= 4 && blockMetadata < 8 && !isActive))
             // If yes, set the texture to READY.
             HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
         // Otherwise, check if the energy is now unavailable, but was previously.
