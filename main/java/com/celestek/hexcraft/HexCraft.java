@@ -45,14 +45,14 @@ public class HexCraft
     public static HexCommonProxy proxy;
 
     // Set up creative tabs.
-    public static CreativeTabs tabDecorative = new CreativeTabs("tabHexCraftDecorative") {
+    public static CreativeTabs tabDecorative = new CreativeTabs("tabDecorative") {
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRainbow);
         }
     };
-    public static CreativeTabs tabMachines = new CreativeTabs("tabHexCraftMachines") {
+    public static CreativeTabs tabMachines = new CreativeTabs("tabMachines") {
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {

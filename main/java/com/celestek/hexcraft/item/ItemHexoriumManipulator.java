@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -132,6 +133,33 @@ public class ItemHexoriumManipulator extends Item {
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
                     if (meta1 == 3)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange1.txt"));
+                }
+                // Rotate Pylon Base away from player.
+                else if (block instanceof BlockPylonBase) {
+                    // Rotate meta
+                    int direction;
+                    if (player.rotationPitch > 60.0F)
+                        // If player is looking up.
+                        direction = 0;
+                    else if (player.rotationPitch < -60.0F)
+                        // If player is looking down.
+                        direction = 1;
+                    else {
+                        direction = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        // If player is looking towards NSWE.
+                        if (direction == 0)
+                            direction = 3;
+                        else if (direction == 1)
+                            direction = 4;
+                        else if (direction == 2)
+                            direction = 2;
+                        else if (direction == 3)
+                            direction = 5;
+                    }
+
+                    world.setBlockMetadataWithNotify(x, y, z, direction, 3);
+
+                    analyzePylonBase(world, x, y, z);
                 }
             }
             // Fired on normal use.
@@ -339,132 +367,32 @@ public class ItemHexoriumManipulator extends Item {
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState4.txt"));
                     player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateSneak.txt"));
                 }
-                // Rotate Pylon Vase.
+                // Rotate Pylon Base.
                 else if (block instanceof BlockPylonBase) {
-                    // Get meta.
-                    int meta = world.getBlockMetadata(x, y, z);
-
                     // Rotate meta
-                    if (meta < 6) {
-                        meta++;
-                        if (meta == 6)
-                            meta = 0;
+                    int direction;
+                    if (player.rotationPitch > 60.0F)
+                        // If player is looking up.
+                        direction = 1;
+                    else if (player.rotationPitch < -60.0F)
+                        // If player is looking down.
+                        direction = 0;
+                    else {
+                        direction = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        // If player is looking towards NSWE.
+                        if (direction == 0)
+                            direction = 2;
+                        else if (direction == 1)
+                            direction = 5;
+                        else if (direction == 2)
+                            direction = 3;
+                        else if (direction == 3)
+                            direction = 4;
                     }
 
-                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                    world.setBlockMetadataWithNotify(x, y, z, direction, 3);
 
-                    // System.out.println("Base rotated, analyzing!");
-
-                    /* DO ANALYSIS */
-
-                    // Perform an analysis in all directions around the base.
-                    Block blockSurr = world.getBlock(x, y - 1, z);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x, y - 1, z, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x, y - 1, z, world.getBlockMetadata(x, y - 1, z));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x, y - 1, z, blockSurr);
-                    }
-
-                    blockSurr = world.getBlock(x, y + 1, z);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x, y + 1, z, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x, y + 1, z, world.getBlockMetadata(x, y + 1, z));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x, y + 1, z, blockSurr);
-                    }
-
-                    blockSurr = world.getBlock(x - 1, y, z);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x - 1, y, z, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x - 1, y, z, world.getBlockMetadata(x - 1, y, z));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x - 1, y, z, blockSurr);
-                    }
-
-                    blockSurr = world.getBlock(x + 1, y, z);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x + 1, y, z, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x + 1, y, z, world.getBlockMetadata(x + 1, y, z));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x + 1, y, z, blockSurr);
-                    }
-
-                    blockSurr = world.getBlock(x, y, z - 1);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x, y, z - 1, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x, y, z - 1, world.getBlockMetadata(x, y, z - 1));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x, y, z - 1, blockSurr);
-                    }
-
-                    blockSurr = world.getBlock(x, y, z + 1);
-                    if (blockSurr instanceof BlockHexoriumCable ||
-                            blockSurr instanceof BlockPylonBase) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeCable(world, x, y, z + 1, blockSurr);
-                    }
-                    else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                            blockSurr == HexBlocks.blockHexoriumFurnace ||
-                            blockSurr == HexBlocks.blockCrystalSeparator ||
-                            blockSurr == HexBlocks.blockMatrixReconstructor) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzeMachine(world, x, y, z + 1, world.getBlockMetadata(x, y, z + 1));
-                    }
-                    else if (blockSurr == HexBlocks.blockEnergyPylon) {
-                        NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        analyzer.analyzePylon(world, x, y, z + 1, blockSurr);
-                    }
+                    analyzePylonBase(world, x, y, z);
                 }
             }
         }
@@ -478,6 +406,9 @@ public class ItemHexoriumManipulator extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (player.isSneaking()) {
+                // Create a new tag compound for the manipulator if it doesn't exist.
+                if (stack.stackTagCompound == null)
+                    stack.stackTagCompound = new NBTTagCompound();
                 // Cancel all linking.
                 if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
                     stack.stackTagCompound.setBoolean("TeleportLinking", false);
@@ -521,5 +452,121 @@ public class ItemHexoriumManipulator extends Item {
             return icon[0];
         else
             return icon[1];
+    }
+
+    private void analyzePylonBase(World world, int x, int y, int z) {
+
+        // System.out.println("Base rotated, analyzing!");
+
+        /* DO ANALYSIS */
+
+        // Perform an analysis in all directions around the base.
+        Block blockSurr = world.getBlock(x, y - 1, z);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x, y - 1, z, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x, y - 1, z, world.getBlockMetadata(x, y - 1, z));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x, y - 1, z, blockSurr);
+        }
+
+        blockSurr = world.getBlock(x, y + 1, z);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x, y + 1, z, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x, y + 1, z, world.getBlockMetadata(x, y + 1, z));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x, y + 1, z, blockSurr);
+        }
+
+        blockSurr = world.getBlock(x - 1, y, z);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x - 1, y, z, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x - 1, y, z, world.getBlockMetadata(x - 1, y, z));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x - 1, y, z, blockSurr);
+        }
+
+        blockSurr = world.getBlock(x + 1, y, z);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x + 1, y, z, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x + 1, y, z, world.getBlockMetadata(x + 1, y, z));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x + 1, y, z, blockSurr);
+        }
+
+        blockSurr = world.getBlock(x, y, z - 1);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x, y, z - 1, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x, y, z - 1, world.getBlockMetadata(x, y, z - 1));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x, y, z - 1, blockSurr);
+        }
+
+        blockSurr = world.getBlock(x, y, z + 1);
+        if (blockSurr instanceof BlockHexoriumCable ||
+                blockSurr instanceof BlockPylonBase) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeCable(world, x, y, z + 1, blockSurr);
+        }
+        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
+                blockSurr == HexBlocks.blockHexoriumFurnace ||
+                blockSurr == HexBlocks.blockCrystalSeparator ||
+                blockSurr == HexBlocks.blockMatrixReconstructor) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzeMachine(world, x, y, z + 1, world.getBlockMetadata(x, y, z + 1));
+        }
+        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(world, x, y, z + 1, blockSurr);
+        }
     }
 }

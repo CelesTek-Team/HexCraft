@@ -74,7 +74,7 @@ public class BlockPylonBase extends Block {
         }
 
         // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction, 2);
+        world.setBlockMetadataWithNotify(x, y, z, direction, 3);
 
 
         // Check if the code is executed on the server.

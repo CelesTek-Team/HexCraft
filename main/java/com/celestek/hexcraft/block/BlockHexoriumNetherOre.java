@@ -149,7 +149,7 @@ public class BlockHexoriumNetherOre extends HexBlock {
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
         // Load the inner texture from normal ore.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
     }
 
     /**
