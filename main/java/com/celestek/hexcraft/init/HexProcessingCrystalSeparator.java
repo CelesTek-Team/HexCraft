@@ -31,203 +31,118 @@ public class HexProcessingCrystalSeparator {
         // Give 0 experience.
         float experience = 0F;
 
+        /* Hexorium Recipes */
+
         // Nether Ores
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreRed), new ItemStack(HexItems.itemHexoriumCrystalRed, 6), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreGreen), new ItemStack(HexItems.itemHexoriumCrystalGreen, 6), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreBlue), new ItemStack(HexItems.itemHexoriumCrystalBlue, 6), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreRed), HexItems.itemHexoriumCrystalRed, 6, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreGreen), HexItems.itemHexoriumCrystalGreen, 6, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreBlue), HexItems.itemHexoriumCrystalBlue, 6, experience);
         
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreWhite), new ItemStack(HexItems.itemHexoriumCrystalWhite, 8), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 8), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreWhite), HexItems.itemHexoriumCrystalWhite, 8, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherOreBlack), HexItems.itemHexoriumCrystalBlack, 8, experience);
 
         // Overworld Ores
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreRed), new ItemStack(HexItems.itemHexoriumCrystalRed, 8), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreGreen), new ItemStack(HexItems.itemHexoriumCrystalGreen, 8), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreBlue), new ItemStack(HexItems.itemHexoriumCrystalBlue, 8), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreRed), HexItems.itemHexoriumCrystalRed, 8, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreGreen), HexItems.itemHexoriumCrystalGreen, 8, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreBlue), HexItems.itemHexoriumCrystalBlue, 8, experience);
 
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreWhite), new ItemStack(HexItems.itemHexoriumCrystalWhite, 6), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 6), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreWhite), HexItems.itemHexoriumCrystalWhite, 6, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumOreBlack), HexItems.itemHexoriumCrystalBlack, 6, experience);
         
         // Nether Monoliths
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithRed), new ItemStack(HexItems.itemHexoriumCrystalRed, 12), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithGreen), new ItemStack(HexItems.itemHexoriumCrystalGreen, 12), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlue), new ItemStack(HexItems.itemHexoriumCrystalBlue, 12), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithRed), HexItems.itemHexoriumCrystalRed, 12, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithGreen), HexItems.itemHexoriumCrystalGreen, 12, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlue), HexItems.itemHexoriumCrystalBlue, 12, experience);
 
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithWhite), new ItemStack(HexItems.itemHexoriumCrystalWhite, 16), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 16), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithWhite), HexItems.itemHexoriumCrystalWhite, 16, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumNetherMonolithBlack), HexItems.itemHexoriumCrystalBlack, 16, experience);
 
         //  Monoliths
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithRed), new ItemStack(HexItems.itemHexoriumCrystalRed, 16), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithGreen), new ItemStack(HexItems.itemHexoriumCrystalGreen, 16), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlue), new ItemStack(HexItems.itemHexoriumCrystalBlue, 16), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithRed), HexItems.itemHexoriumCrystalRed, 16, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithGreen), HexItems.itemHexoriumCrystalGreen, 16, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlue), HexItems.itemHexoriumCrystalBlue, 16, experience);
 
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithWhite), new ItemStack(HexItems.itemHexoriumCrystalWhite, 12), experience);
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlack), new ItemStack(HexItems.itemHexoriumCrystalBlack, 12), experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithWhite), HexItems.itemHexoriumCrystalWhite, 12, experience);
+        addRecipe(Item.getItemFromBlock(HexBlocks.blockHexoriumMonolithBlack), HexItems.itemHexoriumCrystalBlack, 12, experience);
 
-        /* Ore Dictionary recipes */
-        ArrayList<ItemStack> ore;
-        ArrayList<ItemStack> gem;
-        ItemStack output;
+        /* Ore Dictionary Recipes */
 
         // Regular Ores
-        ore = OreDictionary.getOres("oreDiamond");
-        for (ItemStack input : ore) {
-            addRecipe(input.getItem(), new ItemStack(Items.diamond, 4), experience);
-        }
-        ore = OreDictionary.getOres("oreEmerald");
-        for (ItemStack input : ore) {
-            addRecipe(input.getItem(), new ItemStack(Items.emerald, 4), experience);
-        }
-        ore = OreDictionary.getOres("oreQuartz");
-        for (ItemStack input : ore) {
-            addRecipe(input.getItem(), new ItemStack(Items.quartz, 4), experience);
-        }
+        addRecipe(OreDictionary.getOres("oreDiamond"), Items.diamond, 4, experience);
+        addRecipe(OreDictionary.getOres("oreEmerald"), Items.emerald, 4, experience);
+        addRecipe(OreDictionary.getOres("oreQuartz"), Items.quartz, 4, experience);
+
+        // Dense Ores
+        addRecipe(OreDictionary.getOres("denseoreDiamond"), Items.diamond, 16, experience);
+        addRecipe(OreDictionary.getOres("denseoreEmerald"), Items.emerald, 16, experience);
+        addRecipe(OreDictionary.getOres("denseoreQuartz"), Items.quartz, 16, experience);
 
         // Applied Energistics
-        ore = OreDictionary.getOres("oreCertusQuartz");
-        gem = OreDictionary.getOres("crystalCertusQuartz");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
+        addRecipe(OreDictionary.getOres("oreCertusQuartz"), OreDictionary.getOres("crystalCertusQuartz"), 4, experience);
 
         // Thaumcraft
-        ore = OreDictionary.getOres("oreAmber");
-        gem = OreDictionary.getOres("gemAmber");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input, output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedAir");
-        gem = OreDictionary.getOres("shardAir");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedFire");
-        gem = OreDictionary.getOres("shardFire");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedWater");
-        gem = OreDictionary.getOres("shardWater");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedEarth");
-        gem = OreDictionary.getOres("shardEarth");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedOrder");
-        gem = OreDictionary.getOres("shardOrder");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreInfusedEntropy");
-        gem = OreDictionary.getOres("shardEntropy");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
+        addRecipe(OreDictionary.getOres("oreAmber"), OreDictionary.getOres("gemAmber"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedAir"), OreDictionary.getOres("shardAir"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedFire"), OreDictionary.getOres("shardFire"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedWater"), OreDictionary.getOres("shardWater"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedEarth"), OreDictionary.getOres("shardEarth"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedOrder"), OreDictionary.getOres("shardOrder"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreInfusedEntropy"), OreDictionary.getOres("shardEntropy"), 4, experience);
 
         // ProjectRed
-        ore = OreDictionary.getOres("oreRuby");
-        gem = OreDictionary.getOres("gemRuby");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("oreSapphire");
-        gem = OreDictionary.getOres("gemSapphire");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
-        ore = OreDictionary.getOres("orePeridot");
-        gem = OreDictionary.getOres("gemPeridot");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
+        addRecipe(OreDictionary.getOres("oreRuby"), OreDictionary.getOres("gemRuby"), 4, experience);
+        addRecipe(OreDictionary.getOres("oreSapphire"), OreDictionary.getOres("gemSapphire"), 4, experience);
+        addRecipe(OreDictionary.getOres("orePeridot"), OreDictionary.getOres("gemPeridot"), 4, experience);
 
         // Forestry
-        ore = OreDictionary.getOres("oreApatite");
-        gem = OreDictionary.getOres("gemApatite");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
-        }
+        addRecipe(OreDictionary.getOres("oreApatite"), OreDictionary.getOres("gemApatite"), 4, experience);
 
         // Erebus
-        ore = OreDictionary.getOres("oreJade");
-        gem = OreDictionary.getOres("gemJade");
-        if (!ore.isEmpty() && !gem.isEmpty()) {
-            output = gem.get(0);
-            output.stackSize = 4;
-            for (ItemStack input : ore) {
-                addRecipe(input.getItem(), output, experience);
-            }
+        addRecipe(OreDictionary.getOres("oreJade"), OreDictionary.getOres("gemJade"), 4, experience);
+
+    }
+
+    /**
+     * Adds a processing recipe out of one Ore Dictionary entry and one item.
+     */
+    private void addRecipe(ArrayList<ItemStack> ore, Item gem, int count, float experience) {
+        if (!ore.isEmpty()) {
+            ItemStack output = new ItemStack(gem, count);
+            for (ItemStack input : ore)
+                putLists(input, output, experience);
         }
-
     }
 
-    public void addRecipe(ItemStack itemstack1, ItemStack itemstack2, float experience){
-        putLists(itemstack1, itemstack2, experience);
+    /**
+     * Adds a processing recipe out of two Ore Dictionary entries.
+     */
+    private void addRecipe(ArrayList<ItemStack> ore, ArrayList<ItemStack> gem, int count, float experience) {
+        if (!ore.isEmpty() && !gem.isEmpty()) {
+            ItemStack output = gem.get(0);
+            output.stackSize = count;
+            for (ItemStack input : ore)
+                putLists(input, output, experience);
+        }
     }
 
-    public void addRecipe(Item item, ItemStack itemstack, float experience){
-        addLists(item, itemstack, experience);
+    /**
+     * Adds a processing recipe out of two items.
+     */
+    public void addRecipe(Item ore, Item gem, int count, float experience) {
+        putLists(new ItemStack(ore, 1), new ItemStack(gem, count), experience);
     }
 
-    public void addLists(Item item, ItemStack itemstack, float experience){
-        putLists(new ItemStack(item, 1, 32767), itemstack, experience);
-    }
-
+    /**
+     * Inserts the recipe into lists.
+     */
     public void putLists(ItemStack itemstack1, ItemStack itemstack2, float experience){
         processingList.put(itemstack1, itemstack2);
         experienceList.put(itemstack2, experience);
     }
 
+    /**
+     * Gets a result of certain processing.
+     */
     public ItemStack getProcessingResult(ItemStack itemstack) {
         Iterator iterator = processingList.entrySet().iterator();
         Map.Entry entry;
@@ -237,12 +152,8 @@ public class HexProcessingCrystalSeparator {
                 return null;
             }
             entry = (Map.Entry) iterator.next();
-        } while (!canBeSmelted(itemstack, (ItemStack) entry.getKey()));
+        } while (!OreDictionary.itemMatches(itemstack, (ItemStack) entry.getKey(), true));
         return (ItemStack) entry.getValue();
-    }
-
-    private boolean canBeSmelted(ItemStack itemstack1, ItemStack itemstack2) {
-        return OreDictionary.itemMatches(itemstack1, itemstack2, true) || (itemstack2.getItem() == itemstack1.getItem() && (itemstack2.getItemDamage() == 32767 || itemstack2.getItemDamage() == itemstack1.getItemDamage()));
     }
 
     public float giveExperience(ItemStack itemstack){
@@ -256,7 +167,7 @@ public class HexProcessingCrystalSeparator {
 
             entry = (Map.Entry) iterator.next();
         }
-        while(!canBeSmelted(itemstack, (ItemStack) entry.getKey()));
+        while(!OreDictionary.itemMatches(itemstack, (ItemStack) entry.getKey(), true));
 
         if(itemstack.getItem().getSmeltingExperience(itemstack) != -1){
             return itemstack.getItem().getSmeltingExperience(itemstack);

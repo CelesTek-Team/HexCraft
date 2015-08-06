@@ -27,6 +27,7 @@ public class HexCommonProxy {
         // Set up all ingame blocks, items and recipes.
         HexBlocks.initializeBlocks();
         HexItems.initializeItems();
+        HexOreDict.registerOres();
         HexRecipes.initializeRecipes();
         HexTileEntities.initializeTileEntities();
     }
