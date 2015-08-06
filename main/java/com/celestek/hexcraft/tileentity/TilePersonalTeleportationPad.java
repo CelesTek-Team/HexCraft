@@ -623,9 +623,11 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
         // Check if it is null.
         if (worldObj.getBlock(x, y, z) == HexBlocks.blockPersonalTeleportationPad) {
             // If the teleport exists, return true.
-            for (HexDevice entry : teleportsPersonalTeleportationPad)
-                if (entry.x == x && entry.y == y && entry.z == z)
-                    return true;
+            if (teleportsPersonalTeleportationPad != null) {
+                for (HexDevice entry : teleportsPersonalTeleportationPad)
+                    if (entry.x == x && entry.y == y && entry.z == z)
+                        return true;
+            }
         }
         return false;
     }
