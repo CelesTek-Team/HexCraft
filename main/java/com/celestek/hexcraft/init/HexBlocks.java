@@ -25,7 +25,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 258;
+    public static int countBlocks = 259;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -364,6 +364,9 @@ public class HexBlocks {
 
     public static Block blockPylonBase51;
     public static Block blockPylonBase15;
+
+    // Hexiroum Valve
+    public static Block blockHexoriumValve;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -972,6 +975,10 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.UNLOCALISEDNAME + "51");
         blockPylonBase15 = new BlockPylonBase(BlockPylonBase.UNLOCALISEDNAME + "15", true);
         GameRegistry.registerBlock(blockPylonBase15, BlockPylonBase.UNLOCALISEDNAME + "15");
+
+        // Hexorium Valve
+        blockHexoriumValve = new BlockHexoriumValve(BlockHexoriumValve.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockHexoriumValve, BlockHexoriumValve.UNLOCALISEDNAME);
     }
 
     public static void updateMachineState(int status, World world, int x, int y, int z) {

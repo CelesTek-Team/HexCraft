@@ -6,7 +6,9 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
+import com.celestek.hexcraft.tileentity.TileHexoriumValve;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -164,6 +167,15 @@ public class ItemHexoriumManipulator extends Item {
                     world.setBlockMetadataWithNotify(x, y, z, direction, 3);
 
                     analyzePylonBase(world, x, y, z);
+                }
+                // Create Multitank
+                else if (block instanceof BlockHexoriumValve) {
+                    TileEntity teHexValve = world.getTileEntity(x,y,z);
+                    ((TileHexoriumValve) teHexValve).setupMultiTank();
+                }
+                else if (block instanceof BlockTemperedHexoriumGlass) {
+                    int meta = world.getBlockMetadata(x,y,z);
+                    System.out.format("(DEBUG) Tempered glass meta: %s\n", HexUtils.getBit(meta, 1));
                 }
             }
             // Fired on normal use.

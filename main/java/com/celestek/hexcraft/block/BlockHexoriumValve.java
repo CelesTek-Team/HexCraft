@@ -1,0 +1,83 @@
+package com.celestek.hexcraft.block;
+
+import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+
+/**
+ * @Author CoffeePirate     <celestek@openmailbox.org>
+ * @Version 0.1.0
+ */
+public class BlockHexoriumValve extends HexBlockContainer {
+    // Set default block name.
+    public static String UNLOCALISEDNAME = "blockHexoriumValve";
+
+    /**
+     * Constructor for the block.
+     * @param blockName Unlocalized name for the block.
+     */
+    public BlockHexoriumValve(String blockName) {
+        super(Material.iron);
+
+        // Set all block parameters.
+        this.setBlockName(blockName);
+        this.setCreativeTab(HexCraft.tabMachines);
+
+        this.setHarvestLevel("pickaxe", 2);
+        this.setHardness(5F);
+        this.setResistance(10F);
+
+        this.setStepSound(Block.soundTypeMetal);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
+        super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, int metadata) {
+        return new TileHexoriumValve();
+    }
+
+    // Prepare the icons.
+    @SideOnly(Side.CLIENT)
+    private IIcon icon[];
+
+    /**
+     * Registers the icons.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        // Initialize the icons.
+        icon = new IIcon[3];
+        // Load the outer textures.
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockHexoriumValve");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockHexoriumValve");
+        // Load the inner texture
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+    }
+
+    /**
+     * Retrieves the icons.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        // Retrieve icon based on side.
+        if (side == 0)
+            return icon[0];
+        else if (side > 0 && side < 6)
+            return icon[1];
+        else
+            return icon[2];
+    }
+}
