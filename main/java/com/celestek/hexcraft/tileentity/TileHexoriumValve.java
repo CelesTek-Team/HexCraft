@@ -4,7 +4,6 @@ import com.celestek.hexcraft.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import com.celestek.hexcraft.util.HexUtils;
-import scala.xml.dtd.impl.Base;
 
 /**
  * @Author CoffeePirate     <celestek@openmailbox.org>
@@ -350,7 +349,7 @@ public class TileHexoriumValve extends TileEntity {
 
         switch (baseScanResult.getOrientation()) {
             case BaseScanResult.ORIENT_X_N:
-                startX = xCoord - baseScanResult.getDept();
+                startX = xCoord - baseScanResult.getDept() + 1;
                 endX = xCoord;
                 startZ = zCoord - widthScanResult.getNegativeCount();
                 endZ = zCoord + widthScanResult.getPositiveCount();
@@ -358,7 +357,7 @@ public class TileHexoriumValve extends TileEntity {
 
             case BaseScanResult.ORIENT_X_P:
                 startX = xCoord;
-                endX = xCoord + baseScanResult.getDept();
+                endX = xCoord + baseScanResult.getDept() - 1;
                 startZ = zCoord - widthScanResult.getNegativeCount();
                 endZ = zCoord + widthScanResult.getPositiveCount();
                 break;
@@ -366,7 +365,7 @@ public class TileHexoriumValve extends TileEntity {
             case BaseScanResult.ORIENT_Z_N:
                 startX = xCoord - widthScanResult.getNegativeCount();
                 endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord - baseScanResult.getDept();
+                startZ = zCoord - baseScanResult.getDept() + 1;
                 endZ = zCoord;
                 break;
 
@@ -374,7 +373,7 @@ public class TileHexoriumValve extends TileEntity {
                 startX = xCoord - widthScanResult.getNegativeCount();
                 endX = xCoord + widthScanResult.getPositiveCount();
                 startZ = zCoord;
-                endZ = zCoord + baseScanResult.getDept();
+                endZ = zCoord + baseScanResult.getDept() - 1;
                 break;
         }
 
@@ -387,15 +386,20 @@ public class TileHexoriumValve extends TileEntity {
                 for (int z = startZ; z <= endZ; z++) {
                     Block block = worldObj.getBlock(x,y,z);
 
-                    if (y == startY) {      // Setup base
+                    if (y > startY && y < endY -2) {    // RINGS
+                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
+                        if (check) {
+                            setIsPart(x,y,z, true);
+                        }
+
+
+                    } else {        // Base and Top
                         setIsPart(x,y,z,true);
-                    } else if (y > startX && y < endY-1) {
-
                     }
 
-                    if (isMultiTankBlock(block, x,y,z)) {
-                        setIsPart(x,y,z,true);      // TODO: Optimise this with coordinate checking
-                    }
+//                    if (isMultiTankBlock(block, x,y,z)) {
+//                        setIsPart(x,y,z,true);      // TODO: Optimise this with coordinate checking
+//                    }
 
                 }
             }

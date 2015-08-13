@@ -200,4 +200,9 @@ public class BlockTemperedHexoriumGlass extends Block {
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
     }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
+        super.onNeighborBlockChange(world, x, y, z, neighbour);
+    }
 }
