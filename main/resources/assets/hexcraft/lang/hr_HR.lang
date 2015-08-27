@@ -392,3 +392,110 @@ msg.pressurePlateChange1.txt=[Heksorijski Upravljač] Mod promijenjen na: Sve
 msg.pressurePlateChange2.txt=[Heksorijski Upravljač] Mod promijenjen na: Entiteti
 msg.pressurePlateChange3.txt=[Heksorijski Upravljač] Mod promijenjen na: Stvorenja
 msg.pressurePlateChange4.txt=[Heksorijski Upravljač] Mod promijenjen na: Igrači
+
+
+achievement.hexcraft.achMineHexOre=Svijetleći Potencijal
+achievement.hexcraft.achMineHexOre.desc=Pronađi i sakupi Heksorijsku Rudu bilo koje boje.
+achievement.hexcraft.achMineHexMonolith=Rijedak Pogled
+achievement.hexcraft.achMineHexMonolith.desc=Pronađi i sakupi Heksorijski Monolit bilo koje boje.
+
+achievement.hexcraft.achCraftEnergizedRed=Energetski Crveno
+achievement.hexcraft.achCraftEnergizedRed.desc=Napravi Heksorij Napunjen Energijom (Crveni).
+achievement.hexcraft.achCraftEnergizedOrange=Energetski Narančasto
+achievement.hexcraft.achCraftEnergizedOrange.desc=Napravi Heksorij Napunjen Energijom (Narančasti).
+achievement.hexcraft.achCraftEnergizedYellow=Energetski Žuto
+achievement.hexcraft.achCraftEnergizedYellow.desc=Napravi Heksorij Napunjen Energijom (Žuti).
+achievement.hexcraft.achCraftEnergizedLime=Energetska Limeta
+achievement.hexcraft.achCraftEnergizedLime.desc=Napravi Heksorij Napunjen Energijom (Limeta).
+achievement.hexcraft.achCraftEnergizedGreen=Energetski Zeleno
+achievement.hexcraft.achCraftEnergizedGreen.desc=Napravi Heksorij Napunjen Energijom (Zeleni).
+achievement.hexcraft.achCraftEnergizedTurquoise=Energetski Tirkizno
+achievement.hexcraft.achCraftEnergizedTurquoise.desc=Napravi Heksorij Napunjen Energijom (Tirkizni).
+achievement.hexcraft.achCraftEnergizedCyan=Energetski Cijan
+achievement.hexcraft.achCraftEnergizedCyan.desc=Napravi Heksorij Napunjen Energijom (Cijan).
+achievement.hexcraft.achCraftEnergizedSkyBlue=Energetski Nebesko Plavo
+achievement.hexcraft.achCraftEnergizedSkyBlue.desc=Napravi Heksorij Napunjen Energijom (Nebesko Plavi).
+achievement.hexcraft.achCraftEnergizedBlue=Energetski Plavo
+achievement.hexcraft.achCraftEnergizedBlue.desc=Napravi Heksorij Napunjen Energijom (Plavi).
+achievement.hexcraft.achCraftEnergizedPurple=Energetski Ljubičasto
+achievement.hexcraft.achCraftEnergizedPurple.desc=Napravi Heksorij Napunjen Energijom (Ljubičasti).
+achievement.hexcraft.achCraftEnergizedMagenta=Energetski Purpurnocrveno
+achievement.hexcraft.achCraftEnergizedMagenta.desc=Napravi Heksorij Napunjen Energijom (Purpurnocrveni).
+achievement.hexcraft.achCraftEnergizedPink=Energetski Ružičasto
+achievement.hexcraft.achCraftEnergizedPink.desc=Napravi Heksorij Napunjen Energijom (Ružičasti).
+
+achievement.hexcraft.achCraftEnergizedWhite=Energetski Bijelo
+achievement.hexcraft.achCraftEnergizedWhite.desc=Napravi Heksorij Napunjen Energijom (Bijeli).
+achievement.hexcraft.achCraftEnergizedLightGray=Energetski Svijetlo Sivo
+achievement.hexcraft.achCraftEnergizedLightGray.desc=Napravi Heksorij Napunjen Energijom (Svijetlo Sivi).
+achievement.hexcraft.achCraftEnergizedGray=Energetski Sivo
+achievement.hexcraft.achCraftEnergizedGray.desc=Napravi Heksorij Napunjen Energijom (Sivi).
+achievement.hexcraft.achCraftEnergizedDarkGray=Energetski Tamno Sivo
+achievement.hexcraft.achCraftEnergizedDarkGray.desc=Napravi Heksorij Napunjen Energijom (Tamno Sivi).
+achievement.hexcraft.achCraftEnergizedBlack=Energetski Crnio
+achievement.hexcraft.achCraftEnergizedBlack.desc=Napravi Heksorij Napunjen Energijom (Crni).
+
+achievement.hexcraft.achCraftEnergizedRainbow=Energetske Dugine Boje
+achievement.hexcraft.achCraftEnergizedRainbow.desc=Napravi Heksorij Napunjen Energijom (Dugine Boje).
+
+achievement.hexcraft.achGroupColors=Dugina Moć
+achievement.hexcraft.achGroupColors.desc=Napravi sve obojene Heksorije Napunjene Energijom.
+achievement.hexcraft.achGroupGrays=Pet Nijansi Sive
+achievement.hexcraft.achGroupGrays.desc=Napravi sve crno-bijele Heksorije Napunjene Energijom.
+
+achievement.hexcraft.achCraftEngineeredBlock=Inženjering Za Budućnost
+achievement.hexcraft.achCraftEngineeredBlock.desc=Napravi Inženjersko Obrađen Heksorijski Blok bilo koje boje.
+achievement.hexcraft.achCraftFramedBlock=Poput Okvira Za Sliku
+achievement.hexcraft.achCraftFramedBlock.desc=Napravi Uokviren Heksorijski Blok bilo koje boje.
+achievement.hexcraft.achCraftPlatedBlock=Oklop Je Uvijek Dobar
+achievement.hexcraft.achCraftPlatedBlock.desc=Napravi Popločen Heksorijski Blok bilo koje boje.
+achievement.hexcraft.achCraftConcentricBlock=Psihodelični Blokovi
+achievement.hexcraft.achCraftConcentricBlock.desc=Napravi Koncentričan Heksorijski Blok bilo koje boje.
+achievement.hexcraft.achCraftDoor=Elegantna Prozirna Vrata
+achievement.hexcraft.achCraftDoor.desc=Napravi Heksorijska Vrata bilo koje boje.
+achievement.hexcraft.achCraftHatch=Rupa U Podu
+achievement.hexcraft.achCraftHatch.desc=Napravi Heksorijski Poklopac bilo koje boje.
+achievement.hexcraft.achCraftGlowingGlass=Svjetlostaklo!
+achievement.hexcraft.achCraftGlowingGlass.desc=Napravi Svijetleće Heksorijsko Staklo bilo koje boje.
+achievement.hexcraft.achCraftLamp=Neka Bude Svjetlost!
+achievement.hexcraft.achCraftLamp.desc=Napravi Heksorijsku Svjetiljku bilo koje boje.
+achievement.hexcraft.achCraftLampInv=Neka Bude Tama!
+achievement.hexcraft.achCraftLampInv.desc=Napravi Obrnutu Heksorijsku Svjetiljku bilo koje boje.
+
+achievement.hexcraft.achGroupDecorations=Dekorativni Savjetnik
+achievement.hexcraft.achGroupDecorations.desc=Napravi sve dekorativne blokove.
+
+achievement.hexcraft.achUseReinforcer=Tvrdo Kao Obsidijan
+achievement.hexcraft.achUseReinforcer.desc=Pojačaj bilo koji ukrasni blok sa Heksorijskim Pojačavačem.
+
+achievement.hexcraft.achCraftMachineBlock=Industrijska Revolucija
+achievement.hexcraft.achCraftMachineBlock.desc=Napravi Heksorijski Strojni Blok.
+achievement.hexcraft.achCraftCable=Prijenos Bez Gubitaka
+achievement.hexcraft.achCraftCable.desc=Napravi Heksorijski Kabel bilo koje boje.
+
+achievement.hexcraft.achCraftMachineGenerator=Izvor Energije
+achievement.hexcraft.achCraftMachineGenerator.desc=Napravi Heksorijski Generator.
+achievement.hexcraft.achCraftMachineFurnace=Postoje Bolje Peći...
+achievement.hexcraft.achCraftMachineFurnace.desc=Napravi Heksorijsku Peć.
+achievement.hexcraft.achCraftMachineSeparator=Kupanje U Draguljima
+achievement.hexcraft.achCraftMachineSeparator.desc=Napravi Kristalni Razdvajač.
+achievement.hexcraft.achCraftMachineReconstructor=Možemo Ponovno Izgraditi!
+achievement.hexcraft.achCraftMachineReconstructor.desc=Napravi Matrični Rekonstruktor.
+achievement.hexcraft.achCraftMachineTeleport=Biološka Tvar U Energiju
+achievement.hexcraft.achCraftMachineTeleport.desc=Napravi Osobnu Teleportacijsku Ploču.
+achievement.hexcraft.achCraftPylon=Moraš Izgraditi Dodatne Stupove!
+achievement.hexcraft.achCraftPylon.desc=Napravi Energetski Stup.
+
+achievement.hexcraft.achGroupMachines=To Je Bilo Komplicirano...
+achievement.hexcraft.achGroupMachines.desc=Napravi sve strojeve osim Energetskog Stupa.
+
+achievement.hexcraft.achCraftManipulator=Ljudski-Heksorijsko Sučelje
+achievement.hexcraft.achCraftManipulator.desc=Napravi Heksorijski Upravljač.
+
+achievement.hexcraft.achLinkTeleport=Povezivanje: Teleporti
+achievement.hexcraft.achLinkTeleport.desc=Poveži dvije Osobne Teleportacijske Ploče. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
+achievement.hexcraft.achLinkPylon=Povezivanje: Stupovi
+achievement.hexcraft.achLinkPylon.desc=Poveži dvija Energetska Stupa. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
+
+achievement.hexcraft.achUseTeleport=Teleportiraj Me, Scotty!
+achievement.hexcraft.achUseTeleport.desc=Iskoristi Osobnu Teleportacijsku Ploču kako bi se teleportirao na drugu.

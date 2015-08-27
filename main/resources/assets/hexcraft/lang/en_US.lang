@@ -393,6 +393,7 @@ msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
 msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
 msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
 
+
 achievement.hexcraft.achMineHexOre=A Glowing Potential
 achievement.hexcraft.achMineHexOre.desc=Find and harvest Hexorium Ore of any color.
 achievement.hexcraft.achMineHexMonolith=A Rare Sight
