@@ -242,26 +242,26 @@ public class HexRecipes {
         ItemStack stackHexoriumDoorRainbow_1 = new ItemStack(HexBlocks.blockHexoriumDoorRainbow, 1);
 
         // Hexorium Hatch
-        ItemStack stackHexoriumHatchRed_2 = new ItemStack(HexBlocks.blockHexoriumHatchRed, 1);
-        ItemStack stackHexoriumHatchOrange_2 = new ItemStack(HexBlocks.blockHexoriumHatchOrange, 1);
-        ItemStack stackHexoriumHatchYellow_2 = new ItemStack(HexBlocks.blockHexoriumHatchYellow, 1);
-        ItemStack stackHexoriumHatchLime_2 = new ItemStack(HexBlocks.blockHexoriumHatchLime, 1);
-        ItemStack stackHexoriumHatchGreen_2 = new ItemStack(HexBlocks.blockHexoriumHatchGreen, 1);
-        ItemStack stackHexoriumHatchTurquoise_2 = new ItemStack(HexBlocks.blockHexoriumHatchTurquoise, 1);
-        ItemStack stackHexoriumHatchCyan_2 = new ItemStack(HexBlocks.blockHexoriumHatchCyan, 1);
-        ItemStack stackHexoriumHatchSkyBlue_2 = new ItemStack(HexBlocks.blockHexoriumHatchSkyBlue, 1);
-        ItemStack stackHexoriumHatchBlue_2 = new ItemStack(HexBlocks.blockHexoriumHatchBlue, 1);
-        ItemStack stackHexoriumHatchPurple_2 = new ItemStack(HexBlocks.blockHexoriumHatchPurple, 1);
-        ItemStack stackHexoriumHatchMagenta_2 = new ItemStack(HexBlocks.blockHexoriumHatchMagenta, 1);
-        ItemStack stackHexoriumHatchPink_2 = new ItemStack(HexBlocks.blockHexoriumHatchPink, 1);
+        ItemStack stackHexoriumHatchRed_2 = new ItemStack(HexBlocks.blockHexoriumHatchRed, 2);
+        ItemStack stackHexoriumHatchOrange_2 = new ItemStack(HexBlocks.blockHexoriumHatchOrange, 2);
+        ItemStack stackHexoriumHatchYellow_2 = new ItemStack(HexBlocks.blockHexoriumHatchYellow, 2);
+        ItemStack stackHexoriumHatchLime_2 = new ItemStack(HexBlocks.blockHexoriumHatchLime, 2);
+        ItemStack stackHexoriumHatchGreen_2 = new ItemStack(HexBlocks.blockHexoriumHatchGreen, 2);
+        ItemStack stackHexoriumHatchTurquoise_2 = new ItemStack(HexBlocks.blockHexoriumHatchTurquoise, 2);
+        ItemStack stackHexoriumHatchCyan_2 = new ItemStack(HexBlocks.blockHexoriumHatchCyan, 2);
+        ItemStack stackHexoriumHatchSkyBlue_2 = new ItemStack(HexBlocks.blockHexoriumHatchSkyBlue, 2);
+        ItemStack stackHexoriumHatchBlue_2 = new ItemStack(HexBlocks.blockHexoriumHatchBlue, 2);
+        ItemStack stackHexoriumHatchPurple_2 = new ItemStack(HexBlocks.blockHexoriumHatchPurple, 2);
+        ItemStack stackHexoriumHatchMagenta_2 = new ItemStack(HexBlocks.blockHexoriumHatchMagenta, 2);
+        ItemStack stackHexoriumHatchPink_2 = new ItemStack(HexBlocks.blockHexoriumHatchPink, 2);
 
-        ItemStack stackHexoriumHatchWhite_2 = new ItemStack(HexBlocks.blockHexoriumHatchWhite, 1);
-        ItemStack stackHexoriumHatchLightGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchLightGray, 1);
-        ItemStack stackHexoriumHatchGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchGray, 1);
-        ItemStack stackHexoriumHatchDarkGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchDarkGray, 1);
-        ItemStack stackHexoriumHatchBlack_2 = new ItemStack(HexBlocks.blockHexoriumHatchBlack, 1);
+        ItemStack stackHexoriumHatchWhite_2 = new ItemStack(HexBlocks.blockHexoriumHatchWhite, 2);
+        ItemStack stackHexoriumHatchLightGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchLightGray, 2);
+        ItemStack stackHexoriumHatchGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchGray, 2);
+        ItemStack stackHexoriumHatchDarkGray_2 = new ItemStack(HexBlocks.blockHexoriumHatchDarkGray, 2);
+        ItemStack stackHexoriumHatchBlack_2 = new ItemStack(HexBlocks.blockHexoriumHatchBlack, 2);
 
-        ItemStack stackHexoriumHatchRainbow_2 = new ItemStack(HexBlocks.blockHexoriumHatchRainbow, 1);
+        ItemStack stackHexoriumHatchRainbow_2 = new ItemStack(HexBlocks.blockHexoriumHatchRainbow, 2);
 
         // Machines
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
