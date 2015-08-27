@@ -35,7 +35,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory {
 
     // Prepare energy variables.
     public static int energyPerTick = 32;
-    private static float energyTotal = 6400;
+    private static float energyTotal = 3200;
     private float energy;
     private float energyIn;
 
