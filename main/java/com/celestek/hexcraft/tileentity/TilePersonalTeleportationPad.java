@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
@@ -609,6 +610,10 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                     // Hurt the player.
                     player.attackEntityFrom(DamageSource.generic, HexConfig.cfgTeleportDamageAmount);
                 }
+
+                // Grant player the achievement.
+                if (HexConfig.cfgGeneralUseAchievements)
+                    player.addStat(HexAchievements.achUseTeleport, 1);
             }
     }
 

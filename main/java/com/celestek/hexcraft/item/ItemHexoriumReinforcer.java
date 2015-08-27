@@ -2,6 +2,8 @@ package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.init.HexAchievements;
+import com.celestek.hexcraft.init.HexConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -53,6 +55,11 @@ public class ItemHexoriumReinforcer extends Item {
                     block instanceof BlockConcentricHexoriumBlock) {
                 if (world.getBlockMetadata(x, y, z) == 0) {
                     world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+
+                    // Grant player the achievement.
+                    if (HexConfig.cfgGeneralUseAchievements)
+                        player.addStat(HexAchievements.achUseReinforcer, 1);
+
                     stack.stackSize--;
                     if (stack.stackSize == 0)
                         stack = null;

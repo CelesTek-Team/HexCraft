@@ -2,6 +2,7 @@ package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
@@ -12,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -219,6 +221,13 @@ public class ItemHexoriumManipulator extends Item {
                                                 // If the pylons are not added yet, link them.
                                                 player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkSuccess.txt"));
 
+                                                // Grant player the achievement.
+                                                if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                                    EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                                    if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                                        player.addStat(HexAchievements.achLinkPylon, 1);
+                                                }
+
                                                 if (HexConfig.cfgGeneralNetworkDebug)
                                                     System.out.println("Pylons linked, analyzing!");
 
@@ -291,8 +300,16 @@ public class ItemHexoriumManipulator extends Item {
 
                             if (!(teleportA.checkLinked(tx, ty, tz) && teleportB.checkLinked(x, y, z))) {
                                 if (teleportA.checkConnectivity(tx, ty, tz) && teleportB.checkConnectivity(x, y, z)) {
-                                    if (teleportA.linkTeleport(tx, ty, tz) && teleportB.linkTeleport(x, y, z))
+                                    if (teleportA.linkTeleport(tx, ty, tz) && teleportB.linkTeleport(x, y, z)) {
                                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkSuccess.txt"));
+
+                                        // Grant player the achievement.
+                                        if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                            EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                                player.addStat(HexAchievements.achLinkTeleport, 1);
+                                        }
+                                    }
                                     else
                                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
                                 } else

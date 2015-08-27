@@ -39,7 +39,8 @@ public class HexCommonProxy {
     {
         GameRegistry.registerWorldGenerator(new HexWorldGen(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
-        HexAchievements.initializeAchievements();
+        if (HexConfig.cfgGeneralUseAchievements)
+            HexAchievements.initializeAchievements();
     }
 
     /**

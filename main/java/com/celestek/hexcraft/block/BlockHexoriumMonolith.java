@@ -2,7 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -198,6 +200,9 @@ public class BlockHexoriumMonolith extends HexBlockModel {
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
         }
+        // Grant player the achievement.
+        if (HexConfig.cfgGeneralUseAchievements && !player.capabilities.isCreativeMode && this.canHarvestBlock(player, meta))
+            player.addStat(HexAchievements.achMineHexMonolith, 1);
     }
 
     /**

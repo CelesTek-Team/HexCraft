@@ -2,7 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -312,6 +314,11 @@ public class BlockHexoriumDoor extends HexBlockModel {
                             world.setBlockMetadataWithNotify(x, y - 1, z, world.getBlockMetadata(x, y - 1, z) + 8, 3);
                         else if (world.getBlock(x, y, z) == world.getBlock(x, y + 1, z))
                             world.setBlockMetadataWithNotify(x, y + 1, z, world.getBlockMetadata(x, y + 1, z) + 8, 3);
+
+                        // Grant player the achievement.
+                        if (HexConfig.cfgGeneralUseAchievements)
+                            player.addStat(HexAchievements.achUseReinforcer, 1);
+
                         ItemStack stack = player.getCurrentEquippedItem();
                         stack.stackSize--;
                         if (stack.stackSize == 0)

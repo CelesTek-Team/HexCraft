@@ -2,7 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererHatch;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -253,6 +255,11 @@ public class BlockHexoriumHatch extends HexBlockModel {
                     // If the hatch is not upgraded, upgrade it.
                     if (world.getBlockMetadata(x, y, z) < 8) {
                         world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 8, 3);
+
+                        // Grant player the achievement.
+                        if (HexConfig.cfgGeneralUseAchievements)
+                            player.addStat(HexAchievements.achUseReinforcer, 1);
+
                         ItemStack stack = player.getCurrentEquippedItem();
                         stack.stackSize--;
                         if (stack.stackSize == 0)

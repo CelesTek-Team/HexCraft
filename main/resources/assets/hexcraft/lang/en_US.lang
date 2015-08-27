@@ -392,3 +392,109 @@ msg.pressurePlateChange1.txt=[Hexorium Manipulator] Mode changed to: Everything
 msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
 msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
 msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
+
+achievement.hexcraft.achMineHexOre=A Glowing Potential
+achievement.hexcraft.achMineHexOre.desc=Find and harvest Hexorium Ore of any color.
+achievement.hexcraft.achMineHexMonolith=A Rare Sight
+achievement.hexcraft.achMineHexMonolith.desc=Find and harvest a Hexorium Monolith of any color.
+
+achievement.hexcraft.achCraftEnergizedRed=Energetic Red
+achievement.hexcraft.achCraftEnergizedRed.desc=Craft Energized Hexorium (Red).
+achievement.hexcraft.achCraftEnergizedOrange=Energetic Orange
+achievement.hexcraft.achCraftEnergizedOrange.desc=Craft Energized Hexorium (Orange).
+achievement.hexcraft.achCraftEnergizedYellow=Energetic Yellow
+achievement.hexcraft.achCraftEnergizedYellow.desc=Craft Energized Hexorium (Yellow).
+achievement.hexcraft.achCraftEnergizedLime=Energetic Lime
+achievement.hexcraft.achCraftEnergizedLime.desc=Craft Energized Hexorium (Lime).
+achievement.hexcraft.achCraftEnergizedGreen=Energetic Green
+achievement.hexcraft.achCraftEnergizedGreen.desc=Craft Energized Hexorium (Green).
+achievement.hexcraft.achCraftEnergizedTurquoise=Energetic Turquoise
+achievement.hexcraft.achCraftEnergizedTurquoise.desc=Craft Energized Hexorium (Turquoise).
+achievement.hexcraft.achCraftEnergizedCyan=Energetic Cyan
+achievement.hexcraft.achCraftEnergizedCyan.desc=Craft Energized Hexorium (Cyan).
+achievement.hexcraft.achCraftEnergizedSkyBlue=Energetic Sky Blue
+achievement.hexcraft.achCraftEnergizedSkyBlue.desc=Craft Energized Hexorium (Sky Blue).
+achievement.hexcraft.achCraftEnergizedBlue=Energetic Blue
+achievement.hexcraft.achCraftEnergizedBlue.desc=Craft Energized Hexorium (Blue).
+achievement.hexcraft.achCraftEnergizedPurple=Energetic Purple
+achievement.hexcraft.achCraftEnergizedPurple.desc=Craft Energized Hexorium (Purple).
+achievement.hexcraft.achCraftEnergizedMagenta=Energetic Magenta
+achievement.hexcraft.achCraftEnergizedMagenta.desc=Craft Energized Hexorium (Magenta).
+achievement.hexcraft.achCraftEnergizedPink=Energetic Pink
+achievement.hexcraft.achCraftEnergizedPink.desc=Craft Energized Hexorium (Pink).
+
+achievement.hexcraft.achCraftEnergizedWhite=Energetic White
+achievement.hexcraft.achCraftEnergizedWhite.desc=Craft Energized Hexorium (White).
+achievement.hexcraft.achCraftEnergizedLightGray=Energetic Light Gray
+achievement.hexcraft.achCraftEnergizedLightGray.desc=Craft Energized Hexorium (Light Gray).
+achievement.hexcraft.achCraftEnergizedGray=Energetic Gray
+achievement.hexcraft.achCraftEnergizedGray.desc=Craft Energized Hexorium (Gray).
+achievement.hexcraft.achCraftEnergizedDarkGray=Energetic Dark Gray
+achievement.hexcraft.achCraftEnergizedDarkGray.desc=Craft Energized Hexorium (Dark Gray).
+achievement.hexcraft.achCraftEnergizedBlack=Energetic Black
+achievement.hexcraft.achCraftEnergizedBlack.desc=Craft Energized Hexorium (Black).
+
+achievement.hexcraft.achCraftEnergizedRainbow=Energetic Rainbow
+achievement.hexcraft.achCraftEnergizedRainbow.desc=Craft Energized Hexorium (Rainbow).
+
+achievement.hexcraft.achGroupColors=Full Spectrum
+achievement.hexcraft.achGroupColors.desc=Craft all of the colored Energized Hexorium.
+achievement.hexcraft.achGroupGrays=Five Shades Of Gray
+achievement.hexcraft.achGroupGrays.desc=Craft all of the black and white Energized Hexorium.
+
+achievement.hexcraft.achCraftEngineeredBlock=Engineering The Future
+achievement.hexcraft.achCraftEngineeredBlock.desc=Craft an Engineered Hexorium Block of any color.
+achievement.hexcraft.achCraftFramedBlock=Like A Picture Frame
+achievement.hexcraft.achCraftFramedBlock.desc=Craft a Framed Hexorium Block of any color.
+achievement.hexcraft.achCraftPlatedBlock=Armor Is Always Good
+achievement.hexcraft.achCraftPlatedBlock.desc=Craft a Plated Hexorium Block of any color.
+achievement.hexcraft.achCraftConcentricBlock=Psychedelic Blocks
+achievement.hexcraft.achCraftConcentricBlock.desc=Craft a Concentric Hexorium Block of any color.
+achievement.hexcraft.achCraftDoor=A Fancy See-through Door
+achievement.hexcraft.achCraftDoor.desc=Craft a Hexorium Door of any color.
+achievement.hexcraft.achCraftHatch=It's A Trap(door)!
+achievement.hexcraft.achCraftHatch.desc=Craft a Hexorium Hatch of any color.
+achievement.hexcraft.achCraftGlowingGlass=Glowy Glass!
+achievement.hexcraft.achCraftGlowingGlass.desc=Craft a piece of Glowing Hexorium Glass of any color.
+achievement.hexcraft.achCraftLamp=Let There Be Light!
+achievement.hexcraft.achCraftLamp.desc=Craft a Hexorium Lamp of any color.
+achievement.hexcraft.achCraftLampInv=Let There Be Dark!
+achievement.hexcraft.achCraftLampInv.desc=Craft an Inverted Hexorium Lamp of any color.
+
+achievement.hexcraft.achGroupDecorations=Decoration Adviser
+achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks.
+
+achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
+achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
+
+achievement.hexcraft.achCraftMachineBlock=Industrial Revolution
+achievement.hexcraft.achCraftMachineBlock.desc=Craft a Hexorium Machine Block.
+achievement.hexcraft.achCraftCable=Lossless Transport
+achievement.hexcraft.achCraftCable.desc=Craft a Hexorium Cable of any color.
+
+achievement.hexcraft.achCraftMachineGenerator=A Source Of Energy
+achievement.hexcraft.achCraftMachineGenerator.desc=Craft a Hexorium Generator.
+achievement.hexcraft.achCraftMachineFurnace=There Are Better Furnaces...
+achievement.hexcraft.achCraftMachineFurnace.desc=Craft a Hexorium Furnace.
+achievement.hexcraft.achCraftMachineSeparator=Swimming In Gems
+achievement.hexcraft.achCraftMachineSeparator.desc=Craft a Crystal Separator.
+achievement.hexcraft.achCraftMachineReconstructor=We Can Rebuild It!
+achievement.hexcraft.achCraftMachineReconstructor.desc=Craft a Matrix Reconstructor.
+achievement.hexcraft.achCraftMachineTeleport=Biological Material To Energy
+achievement.hexcraft.achCraftMachineTeleport.desc=Craft a Personal Teleportation Pad.
+achievement.hexcraft.achCraftPylon=You Must Construct Additional Pylons!
+achievement.hexcraft.achCraftPylon.desc=Craft an Energy Pylon.
+
+achievement.hexcraft.achGroupMachines=That Was Complicated...
+achievement.hexcraft.achGroupMachines.desc=Craft all of the different machines excluding Energy Pylons.
+
+achievement.hexcraft.achCraftManipulator=Human-Hexorium Interface
+achievement.hexcraft.achCraftManipulator.desc=Craft a Hexorium Manipulator.
+
+achievement.hexcraft.achLinkTeleport=Linking It Up: Teleports
+achievement.hexcraft.achLinkTeleport.desc=Link two Personal Teleportation Pads together. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achLinkPylon=Linking It Up: Pylons
+achievement.hexcraft.achLinkPylon.desc=Link two Energy Pylons together. Also requires achievement: Human-Hexorium Interface
+
+achievement.hexcraft.achUseTeleport=Beam Me Up, Scotty!
+achievement.hexcraft.achUseTeleport.desc=Use a Personal Teleportation Pad to teleport to another.
