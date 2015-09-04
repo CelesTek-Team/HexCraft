@@ -360,6 +360,7 @@ item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
+item.itemMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 
 
@@ -491,12 +492,13 @@ achievement.hexcraft.achGroupMachines.desc=Craft all of the different machines e
 
 achievement.hexcraft.achCraftManipulator=Human-Hexorium Interface
 achievement.hexcraft.achCraftManipulator.desc=Craft a Hexorium Manipulator.
+
 achievement.hexcraft.achCraftTransposer=Color Customizations
 achievement.hexcraft.achCraftTransposer.desc=Craft a Molecular Transposer.
 achievement.hexcraft.achUseTransposer=The Intended Use
 achievement.hexcraft.achUseTransposer.desc=Use the Molecular Transposer to swap the color of any decorative block.
 achievement.hexcraft.achAttackTransposer=This Might Hurt A Little...
-achievement.hexcraft.achAttackTransposer.desc=Inject a living creature with Energized Hexorium using the Molecular Transposer.
+achievement.hexcraft.achAttackTransposer.desc=Inject Energized Hexorium into a living creature using the Molecular Transposer.
 
 achievement.hexcraft.achLinkTeleport=Linking It Up: Teleports
 achievement.hexcraft.achLinkTeleport.desc=Link two Personal Teleportation Pads together. Also requires achievement: Human-Hexorium Interface
@@ -505,3 +507,7 @@ achievement.hexcraft.achLinkPylon.desc=Link two Energy Pylons together. Also req
 
 achievement.hexcraft.achUseTeleport=Beam Me Up, Scotty!
 achievement.hexcraft.achUseTeleport.desc=Use a Personal Teleportation Pad to teleport to another.
+
+
+death.attack.hexTeleport=%1$s was decomposed during teleportation.
+death.attack.hexTransposer=%1$s was injected with Energized Hexorium.

@@ -360,6 +360,7 @@ item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
 item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
 
 item.itemHexoriumManipulator.name=Heksorijski Upravljač
+item.itemMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
 
 
@@ -492,6 +493,13 @@ achievement.hexcraft.achGroupMachines.desc=Napravi sve strojeve osim Energetskog
 achievement.hexcraft.achCraftManipulator=Ljudski-Heksorijsko Sučelje
 achievement.hexcraft.achCraftManipulator.desc=Napravi Heksorijski Upravljač.
 
+achievement.hexcraft.achCraftTransposer=Prilagođavanje Boja
+achievement.hexcraft.achCraftTransposer.desc=Napravi Molekulski Izmjenivač.
+achievement.hexcraft.achUseTransposer=Namijenjena Primjena
+achievement.hexcraft.achUseTransposer.desc=Iskoristi Molekulski Izmjenivač kako bi zamijenio boju dekoracijskog bloka.
+achievement.hexcraft.achAttackTransposer=Ovo Će Možda Malo Boliti...
+achievement.hexcraft.achAttackTransposer.desc=Ubrizgaj Heksorij Napunjen Energijom u živo stvorenje koristeći Molekulski Izmjenivač.
+
 achievement.hexcraft.achLinkTeleport=Povezivanje: Teleporti
 achievement.hexcraft.achLinkTeleport.desc=Poveži dvije Osobne Teleportacijske Ploče. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
 achievement.hexcraft.achLinkPylon=Povezivanje: Stupovi
@@ -499,3 +507,7 @@ achievement.hexcraft.achLinkPylon.desc=Poveži dvija Energetska Stupa. Također 
 
 achievement.hexcraft.achUseTeleport=Teleportiraj Me, Scotty!
 achievement.hexcraft.achUseTeleport.desc=Iskoristi Osobnu Teleportacijsku Ploču kako bi se teleportirao na drugu.
+
+
+death.attack.hexTeleport=%1$s se raspao tijekom teleportacije.
+death.attack.hexTransposer=%1$s je bio ubrizgan Heksorijem Napunjenim Energijom.
