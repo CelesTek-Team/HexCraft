@@ -181,6 +181,9 @@ public class InventoryMolecularTransposer implements IInventory {
     {
     }
 
+    /**
+     * Writes the inventory.
+     */
     private void writeNBT() {
         // Write the items.
         NBTTagList tagsItems = new NBTTagList();
@@ -193,8 +196,10 @@ public class InventoryMolecularTransposer implements IInventory {
         player.inventory.setInventorySlotContents(player.inventory.currentItem, device);
     }
 
+    /**
+     * Reads the inventory.
+     */
     private void readNBT() {
-        // Read the items.
         this.inventory = new ItemStack[getSizeInventory()];
 
         if (device.stackTagCompound == null)

@@ -71,18 +71,25 @@ public class ItemMolecularTransposer extends Item {
                 // Read the items.
                 ItemStack inventory = readNBT(stack);
 
+                // If there is something in inventory...
                 if (inventory != null) {
+                    // And if the block in inventory is Energized Hexorium...
                     if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
+                        // Get the block.
                         Block block = world.getBlock(x, y, z);
+
+                        // If the block is one of the fecorative blocks...
                         if (block instanceof BlockEngineeredHexoriumBlock ||
                                 block instanceof BlockFramedHexoriumBlock ||
                                 block instanceof BlockPlatedHexoriumBlock ||
                                 block instanceof BlockConcentricHexoriumBlock ||
                                 block instanceof BlockHexoriumLamp ||
                                 block instanceof BlockHexoriumLampInv) {
-                            
+
+                            // Get the block meta.
                             int meta = world.getBlockMetadata(x, y, z);
-                            
+
+                            // Adjust the type of decorative block.
                             int blockType = 0;
                             if (block instanceof BlockFramedHexoriumBlock)
                                 blockType = 1;
@@ -95,7 +102,8 @@ public class ItemMolecularTransposer extends Item {
                             else if (block instanceof BlockHexoriumLampInv)
                                 blockType = 5;
                             
-
+                            // Drop Energized Hexorium.
+                            // Red
                             if (block == HexBlocks.blockEngineeredHexoriumBlockRed ||
                                     block == HexBlocks.blockFramedHexoriumBlockRed ||
                                     block == HexBlocks.blockPlatedHexoriumBlockRed ||
@@ -106,6 +114,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumRed, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Orange
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockOrange ||
                                     block == HexBlocks.blockFramedHexoriumBlockOrange ||
                                     block == HexBlocks.blockPlatedHexoriumBlockOrange ||
@@ -116,6 +125,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumOrange, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Yellow
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockYellow ||
                                     block == HexBlocks.blockFramedHexoriumBlockYellow ||
                                     block == HexBlocks.blockPlatedHexoriumBlockYellow ||
@@ -126,6 +136,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumYellow, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Lime
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockLime ||
                                     block == HexBlocks.blockFramedHexoriumBlockLime ||
                                     block == HexBlocks.blockPlatedHexoriumBlockLime ||
@@ -136,6 +147,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumLime, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Green
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockGreen ||
                                     block == HexBlocks.blockFramedHexoriumBlockGreen ||
                                     block == HexBlocks.blockPlatedHexoriumBlockGreen ||
@@ -146,6 +158,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumGreen, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Turquoise
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockTurquoise ||
                                     block == HexBlocks.blockFramedHexoriumBlockTurquoise ||
                                     block == HexBlocks.blockPlatedHexoriumBlockTurquoise ||
@@ -156,6 +169,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumTurquoise, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Cyan
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockCyan ||
                                     block == HexBlocks.blockFramedHexoriumBlockCyan ||
                                     block == HexBlocks.blockPlatedHexoriumBlockCyan ||
@@ -166,6 +180,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumCyan, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Sky Blue
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockSkyBlue ||
                                     block == HexBlocks.blockFramedHexoriumBlockSkyBlue ||
                                     block == HexBlocks.blockPlatedHexoriumBlockSkyBlue ||
@@ -176,6 +191,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumSkyBlue, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Blue
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockBlue ||
                                     block == HexBlocks.blockFramedHexoriumBlockBlue ||
                                     block == HexBlocks.blockPlatedHexoriumBlockBlue ||
@@ -186,6 +202,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumBlue, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Purple
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockPurple ||
                                     block == HexBlocks.blockFramedHexoriumBlockPurple ||
                                     block == HexBlocks.blockPlatedHexoriumBlockPurple ||
@@ -196,6 +213,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumPurple, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Magenta
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockMagenta ||
                                     block == HexBlocks.blockFramedHexoriumBlockMagenta ||
                                     block == HexBlocks.blockPlatedHexoriumBlockMagenta ||
@@ -206,6 +224,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumMagenta, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Pink
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockPink ||
                                     block == HexBlocks.blockFramedHexoriumBlockPink ||
                                     block == HexBlocks.blockPlatedHexoriumBlockPink ||
@@ -217,6 +236,7 @@ public class ItemMolecularTransposer extends Item {
                                 world.spawnEntityInWorld(entity);
                             }
 
+                            // White
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockWhite ||
                                     block == HexBlocks.blockFramedHexoriumBlockWhite ||
                                     block == HexBlocks.blockPlatedHexoriumBlockWhite ||
@@ -227,6 +247,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumWhite, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Light Gray
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockLightGray ||
                                     block == HexBlocks.blockFramedHexoriumBlockLightGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockLightGray ||
@@ -237,6 +258,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumLightGray, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Gray
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockGray ||
                                     block == HexBlocks.blockFramedHexoriumBlockGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockGray ||
@@ -247,6 +269,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumGray, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Dark Gray
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockDarkGray ||
                                     block == HexBlocks.blockFramedHexoriumBlockDarkGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockDarkGray ||
@@ -257,6 +280,7 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumDarkGray, 1));
                                 world.spawnEntityInWorld(entity);
                             }
+                            // Black
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockBlack ||
                                     block == HexBlocks.blockFramedHexoriumBlockBlack ||
                                     block == HexBlocks.blockPlatedHexoriumBlockBlack ||
@@ -268,6 +292,7 @@ public class ItemMolecularTransposer extends Item {
                                 world.spawnEntityInWorld(entity);
                             }
 
+                            // Rainbow
                             else if (block == HexBlocks.blockEngineeredHexoriumBlockRainbow ||
                                     block == HexBlocks.blockFramedHexoriumBlockRainbow ||
                                     block == HexBlocks.blockPlatedHexoriumBlockRainbow ||
@@ -278,7 +303,10 @@ public class ItemMolecularTransposer extends Item {
                                 entity.setEntityItemStack(new ItemStack(HexBlocks.blockEnergizedHexoriumRainbow, 1));
                                 world.spawnEntityInWorld(entity);
                             }
-                            
+
+
+                            // Set new block.
+                            // Red
                             if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumRed)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockRed); break;
@@ -288,6 +316,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampRed); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRed); break;
                                 }
+                            // Orange
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumOrange)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockOrange); break;
@@ -297,6 +326,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampOrange); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvOrange); break;
                                 }
+                            // Yellow
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumYellow)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockYellow); break;
@@ -306,6 +336,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampYellow); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvYellow); break;
                                 }
+                            // Lime
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumLime)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockLime); break;
@@ -315,6 +346,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLime); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLime); break;
                                 }
+                            // Green
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumGreen)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockGreen); break;
@@ -324,6 +356,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGreen); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGreen); break;
                                 }
+                            // Turquoise
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumTurquoise)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockTurquoise); break;
@@ -333,6 +366,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampTurquoise); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvTurquoise); break;
                                 }
+                            // Cyan
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumCyan)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockCyan); break;
@@ -342,6 +376,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampCyan); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvCyan); break;
                                 }
+                            // Sky Blue
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumSkyBlue)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockSkyBlue); break;
@@ -351,6 +386,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampSkyBlue); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvSkyBlue); break;
                                 }
+                            // Blue
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumBlue)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockBlue); break;
@@ -360,6 +396,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampBlue); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlue); break;
                                 }
+                            // Purple
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumPurple)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockPurple); break;
@@ -369,6 +406,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampPurple); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPurple); break;
                                 }
+                            // Magenta
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumMagenta)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockMagenta); break;
@@ -378,6 +416,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampMagenta); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvMagenta); break;
                                 }
+                            // Pink
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumPink)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockPink); break;
@@ -388,6 +427,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPink); break;
                                 }
 
+                            // white
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumWhite)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockWhite); break;
@@ -397,6 +437,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampWhite); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvWhite); break;
                                 }
+                            // Light Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumLightGray)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockLightGray); break;
@@ -406,6 +447,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLightGray); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLightGray); break;
                                 }
+                            // Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumGray)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockGray); break;
@@ -415,6 +457,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGray); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGray); break;
                                 }
+                            // Dark Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumDarkGray)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockDarkGray); break;
@@ -424,6 +467,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampDarkGray); break;
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvDarkGray); break;
                                 }
+                            // Black
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumBlack)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockBlack); break;
@@ -434,6 +478,7 @@ public class ItemMolecularTransposer extends Item {
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlack); break;
                                 }
 
+                            // Rainbow
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumRainbow)
                                 switch(blockType) {
                                     case 0: world.setBlock(x, y, z, HexBlocks.blockEngineeredHexoriumBlockRainbow); break;
@@ -444,6 +489,10 @@ public class ItemMolecularTransposer extends Item {
                                     case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRainbow); break;
                                 }
 
+                            // Set the block meta.
+                            world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+
+                            // Decrement the count of Energized Hexorium.
                             inventory.stackSize--;
                             if (inventory.stackSize == 0)
                                 inventory = null;
@@ -458,7 +507,10 @@ public class ItemMolecularTransposer extends Item {
                             stack.stackTagCompound.setTag("Items", tagsItems);
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
-                            world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                            // Grant player the achievement.
+                            if (HexConfig.cfgGeneralUseAchievements) {
+                                player.addStat(HexAchievements.achUseTransposer, 1);
+                            }
                         }
                     }
                 }
@@ -472,8 +524,11 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        // If this is server side...
         if (!world.isRemote) {
+            // And if the player is sneaking...
             if (player.isSneaking()) {
+                // Open the GUI.
                 player.openGui(HexCraft.instance, 5, world, (int) player.posX, (int) player.posY, (int) player.posZ);
             }
         }
@@ -484,16 +539,23 @@ public class ItemMolecularTransposer extends Item {
      * Returns true if the item can be used on the given entity, e.g. shears on sheep.
      */
     @Override
-    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
-    {
+    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
+        // If this is server side...
         if (!entity.worldObj.isRemote) {
+            // Read the items.
             ItemStack inventory = readNBT(itemstack);
 
+            // If there is something in inventory...
             if (inventory != null)
+                // And if the block in inventory is Energized Hexorium...
                 if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
+
+                    // Check if the target can be attacked.
                     if (entity.canAttackWithItem()) {
+                        // If yes, deal damage.
                         entity.attackEntityFrom(HexDamage.transposer, 20);
 
+                        // Decrement the count of Energized Hexorium.
                         inventory.stackSize--;
                         if (inventory.stackSize == 0)
                             inventory = null;
@@ -508,6 +570,11 @@ public class ItemMolecularTransposer extends Item {
                         itemstack.stackTagCompound.setTag("Items", tagsItems);
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
 
+                        // Grant player the achievement.
+                        if (HexConfig.cfgGeneralUseAchievements) {
+                            player.addStat(HexAchievements.achAttackTransposer, 1);
+                        }
+
                         return true;
                     }
                 }
@@ -515,22 +582,30 @@ public class ItemMolecularTransposer extends Item {
         return false;
     }
 
+    /**
+     * If the durability bar should be showed.
+     */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean showDurabilityBar(ItemStack stack)
     {
+        // Read the items.
         ItemStack inventory = readNBT(stack);
 
         return (inventory != null);
     }
 
-
+    /**
+     * Renders the durability bar.
+     */
     @Override
     @SideOnly(Side.CLIENT)
     public double getDurabilityForDisplay(ItemStack stack)
     {
+        // Read the items.
         ItemStack inventory = readNBT(stack);
 
+        // Calculate bar.
         if (inventory != null)
             return 1 - (double)inventory.stackSize / (double)64;
         else
@@ -550,9 +625,10 @@ public class ItemMolecularTransposer extends Item {
         // Initialize the icons.
         icon = new IIcon[19];
 
-        // Load all the different icons.
+        // Load the empty icon.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME);
 
+        // Load all the different color icons.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Red");
         icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Orange");
         icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Yellow");
@@ -575,6 +651,9 @@ public class ItemMolecularTransposer extends Item {
         icon[18] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Rainbow");
     }
 
+    /**
+     * Gets an icon index based on player.
+     */
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
@@ -583,14 +662,16 @@ public class ItemMolecularTransposer extends Item {
     }
 
     /**
-     * Gets an icon index based on an item's damage value
+     * Gets an icon index based on an item's damage value.
      */
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconIndex(ItemStack stack)
     {
+        // Read the items.
         ItemStack inventory = readNBT(stack);
 
+        // Get a different icon based on Energized Hexorium.
         if (inventory != null) {
             Block block = Block.getBlockFromItem(inventory.getItem());
             if (block == HexBlocks.blockEnergizedHexoriumRed)
@@ -636,8 +717,10 @@ public class ItemMolecularTransposer extends Item {
         return icon[0];
     }
 
+    /**
+     * Reads the inventory.
+     */
     private ItemStack readNBT(ItemStack device) {
-        // Read the items.
         ItemStack inventory;
 
         if (device.stackTagCompound == null)

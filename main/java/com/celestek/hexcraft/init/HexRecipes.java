@@ -27,6 +27,7 @@ public class HexRecipes {
         ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
         ItemStack stackRedstoneTorch_1 = new ItemStack(Blocks.redstone_torch, 1);
+        ItemStack stackChest_1 = new ItemStack(Blocks.chest, 1);
 
         // Vanilla Items
         ItemStack stackRedstone_1 = new ItemStack(Items.redstone, 1);
@@ -366,6 +367,7 @@ public class HexRecipes {
 
         // Tools
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
+        ItemStack stackMolecularTransposer_1 = new ItemStack(HexItems.itemMolecularTransposer, 1);
         ItemStack stackHexoriumReinforcer_6 = new ItemStack(HexItems.itemHexoriumReinforcer, 6);
 
 
@@ -2574,6 +2576,11 @@ public class HexRecipes {
                 "CBD",
                 " EF",
                 'A', stackHexoriumCrystalBlack_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', stackIronIngot_1, 'F', stackStoneButton_1);
+        GameRegistry.addRecipe(stackMolecularTransposer_1,
+                "E  ",
+                " CB",
+                " DA",
+                'A', stackHexoriumManipulator_1, 'B', stackMachineControlPanel_1, 'C', stackSpatialProjector_1, 'D', stackChest_1, 'E', stackIronIngot_1);
         GameRegistry.addRecipe(stackHexoriumReinforcer_6,
                 " A ",
                 "BBB",

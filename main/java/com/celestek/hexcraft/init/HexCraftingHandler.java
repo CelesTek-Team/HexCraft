@@ -171,6 +171,10 @@ public class HexCraftingHandler {
             else if (event.crafting.getItem() == HexItems.itemHexoriumManipulator)
                 event.player.addStat(HexAchievements.achCraftManipulator, 1);
 
+            // Transposer
+            else if (event.crafting.getItem() == HexItems.itemMolecularTransposer)
+                event.player.addStat(HexAchievements.achCraftTransposer, 1);
+
             // Decorative Special
             if (checkDecorations)
                 if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEngineeredBlock)

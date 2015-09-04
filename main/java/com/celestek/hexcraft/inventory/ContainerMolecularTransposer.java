@@ -23,7 +23,7 @@ import net.minecraft.nbt.NBTTagList;
  */
 public class ContainerMolecularTransposer extends Container {
 
-    // Prepare the Tile Entity.
+    // Prepare the ItemStack.
     private ItemStack device;
     InventoryMolecularTransposer inventory;
 
@@ -36,7 +36,7 @@ public class ContainerMolecularTransposer extends Container {
      * Constructor
      */
     public ContainerMolecularTransposer(EntityPlayer player, InventoryPlayer playerInv, ItemStack device){
-        // Save the Tile Entity.
+        // Save the ItemStack.
         this.device = device;
 
         // Add the container slots.

@@ -88,6 +88,11 @@ public class HexAchievements {
 
     // Manipulator
     public static Achievement achCraftManipulator;
+    
+    // Transposer
+    public static Achievement achCraftTransposer;
+    public static Achievement achUseTransposer;
+    public static Achievement achAttackTransposer;
 
     // Linking and Teleporting
     public static Achievement achLinkTeleport;
@@ -214,6 +219,14 @@ public class HexAchievements {
         // Manipulator
         achCraftManipulator = new Achievement(hex1 + "achCraftManipulator", hex2 + "achCraftManipulator", -1, 5, HexItems.itemHexoriumManipulator, achMineHexOre).registerStat();
         achList.add(achCraftManipulator);
+
+        // Transposer
+        achCraftTransposer = new Achievement(hex1 + "achCraftTransposer", hex2 + "achCraftTransposer", 1, 5, HexItems.itemMolecularTransposer, achCraftManipulator).registerStat();
+        achList.add(achCraftTransposer);
+        achUseTransposer = new Achievement(hex1 + "achUseTransposer", hex2 + "achUseTransposer", 3, 5, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
+        achList.add(achUseTransposer);
+        achAttackTransposer = new Achievement(hex1 + "acAttackTransposer", hex2 + "achAttackTransposer", 3, 4, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
+        achList.add(achAttackTransposer);
 
         // Linking and Teleporting
         achLinkTeleport = new Achievement(hex1 + "achLinkTeleport", hex2 + "achLinkTeleport", -4, 5, HexItems.itemHexoriumManipulator, achCraftMachineTeleport).registerStat();

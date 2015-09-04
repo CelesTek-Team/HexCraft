@@ -1,6 +1,7 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.inventory.ContainerPersonalTeleportationPad;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import cpw.mods.fml.relauncher.Side;

@@ -1,6 +1,7 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.inventory.ContainerCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

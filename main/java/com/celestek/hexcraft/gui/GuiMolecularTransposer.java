@@ -1,6 +1,8 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.inventory.ContainerMolecularTransposer;
+import com.celestek.hexcraft.inventory.InventoryMolecularTransposer;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,16 +23,16 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GuiMolecularTransposer extends GuiContainer {
 
-    // Prepare the Tile Entity.
+    // Prepare the ItemStack.
     private ItemStack device;
 
     /**
-     * Constructor for GuiMatrixReconstructor.
+     * Constructor for GuiMolecularTransposer.
      */
     public GuiMolecularTransposer(EntityPlayer player, InventoryPlayer invPlayer, ItemStack device) {
         super(new ContainerMolecularTransposer(player, invPlayer, device));
 
-        // Save the Tile Entity.
+        // Save the ItemStack.
         this.device = device;
     }
 
