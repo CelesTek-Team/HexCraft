@@ -4,6 +4,7 @@ import com.celestek.hexcraft.inventory.*;
 import com.celestek.hexcraft.tileentity.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
@@ -26,21 +27,25 @@ public class HexGui implements IGuiHandler {
             TileHexoriumGenerator tileEntity = (TileHexoriumGenerator) world.getTileEntity(x, y, z);
             return new ContainerHexoriumGenerator(player.inventory, tileEntity);
         }
-        if(ID == 1){
+        else if(ID == 1){
             TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
             return new ContainerHexoriumFurnace(player.inventory, tileEntity);
         }
-        if(ID == 2){
+        else if(ID == 2){
             TileCrystalSeparator tileEntity = (TileCrystalSeparator) world.getTileEntity(x, y, z);
             return new ContainerCrystalSeparator(player.inventory, tileEntity);
         }
-        if(ID == 3){
+        else if(ID == 3){
             TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
             return new ContainerMatrixReconstructor(player.inventory, tileEntity);
         }
-        if(ID == 4){
+        else if(ID == 4){
             TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
             return new ContainerPersonalTeleportationPad(player.inventory, tileEntity);
+        }
+        else if(ID == 5){
+            ItemStack itemStack = player.getCurrentEquippedItem();
+            return new ContainerMolecularTransposer(player, player.inventory, itemStack);
         }
         return null;
     }
@@ -55,21 +60,25 @@ public class HexGui implements IGuiHandler {
             TileHexoriumGenerator tileEntity = (TileHexoriumGenerator) world.getTileEntity(x, y, z);
             return new GuiHexoriumGenerator(player.inventory, tileEntity);
         }
-        if(ID == 1){
+        else if(ID == 1){
             TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
             return new GuiHexoriumFurnace(player.inventory, tileEntity);
         }
-        if(ID == 2){
+        else if(ID == 2){
             TileCrystalSeparator tileEntity = (TileCrystalSeparator) world.getTileEntity(x, y, z);
             return new GuiCrystalSeparator(player.inventory, tileEntity);
         }
-        if(ID == 3){
+        else if(ID == 3){
             TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
             return new GuiMatrixReconstructor(player.inventory, tileEntity);
         }
-        if(ID == 4){
+        else if(ID == 4){
             TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
             return new GuiPersonalTeleportationPad(player.inventory, tileEntity);
+        }
+        else if(ID == 5){
+            ItemStack itemStack = player.getCurrentEquippedItem();
+            return new GuiMolecularTransposer(player, player.inventory, itemStack);
         }
         return null;
     }

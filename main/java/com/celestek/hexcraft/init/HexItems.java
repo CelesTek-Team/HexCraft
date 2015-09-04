@@ -3,6 +3,7 @@ package com.celestek.hexcraft.init;
 import com.celestek.hexcraft.item.HexItemComponent;
 import com.celestek.hexcraft.item.ItemHexoriumManipulator;
 import com.celestek.hexcraft.item.ItemHexoriumReinforcer;
+import com.celestek.hexcraft.item.ItemMolecularTransposer;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
@@ -50,6 +51,7 @@ public class HexItems {
     
     // Tools
     public static Item itemHexoriumManipulator;
+    public static Item itemMolecularTransposer;
     public static Item itemHexoriumReinforcer;
 
     /**
@@ -122,6 +124,8 @@ public class HexItems {
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");
         GameRegistry.registerItem(itemHexoriumManipulator, "itemHexoriumManipulator");
+        itemMolecularTransposer = new ItemMolecularTransposer("itemMolecularTransposer");
+        GameRegistry.registerItem(itemMolecularTransposer, "itemMolecularTransposer");
         itemHexoriumReinforcer = new ItemHexoriumReinforcer("itemHexoriumReinforcer");
         GameRegistry.registerItem(itemHexoriumReinforcer, "itemHexoriumReinforcer");
     }
