@@ -3,6 +3,7 @@ package com.celestek.hexcraft.tileentity;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.HexDevice;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -608,7 +609,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
                     // Apply confusion effect.
                     player.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 180, 100, false));
                     // Hurt the player.
-                    player.attackEntityFrom(DamageSource.generic, HexConfig.cfgTeleportDamageAmount);
+                    player.attackEntityFrom(HexDamage.teleport, HexConfig.cfgTeleportDamageAmount);
                 }
 
                 // Grant player the achievement.

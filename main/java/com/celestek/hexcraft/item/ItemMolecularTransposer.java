@@ -8,11 +8,15 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.inventory.ContainerMolecularTransposer;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,11 +24,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -45,22 +49,6 @@ public class ItemMolecularTransposer extends Item {
         setUnlocalizedName(itemName);
         setCreativeTab(HexCraft.tabMachines);
         setMaxStackSize(1);
-    }
-
-    @Override
-    public boolean onDroppedByPlayer(ItemStack itemstack, EntityPlayer player) {
-        if (itemstack != null &&
-                player instanceof EntityPlayerMP &&
-                player.openContainer instanceof ContainerMolecularTransposer) {
-            player.closeScreen();
-        }
-
-        return super.onDroppedByPlayer(itemstack, player);
-    }
-
-    @Override
-    public boolean getShareTag() {
-        return true;
     }
 
     /**
@@ -479,26 +467,6 @@ public class ItemMolecularTransposer extends Item {
         return false;
     }
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack)
-    {
-        ItemStack inventory = readNBT(stack);
-
-        return (inventory != null);
-    }
-
-
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack)
-    {
-        ItemStack inventory = readNBT(stack);
-
-        if (inventory != null)
-            return 1 - (double)inventory.stackSize / (double)64;
-        else
-            return 1;
-    }
-
     /**
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
@@ -510,6 +478,63 @@ public class ItemMolecularTransposer extends Item {
             }
         }
         return stack;
+    }
+
+    /**
+     * Returns true if the item can be used on the given entity, e.g. shears on sheep.
+     */
+    @Override
+    public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity)
+    {
+        if (!entity.worldObj.isRemote) {
+            ItemStack inventory = readNBT(itemstack);
+
+            if (inventory != null)
+                if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
+                    if (entity.canAttackWithItem()) {
+                        entity.attackEntityFrom(HexDamage.transposer, 20);
+
+                        inventory.stackSize--;
+                        if (inventory.stackSize == 0)
+                            inventory = null;
+
+                        // Write the items.
+                        NBTTagList tagsItems = new NBTTagList();
+                        if (inventory != null) {
+                            NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+                            inventory.writeToNBT(tagCompoundLoop);
+                            tagsItems.appendTag(tagCompoundLoop);
+                        }
+                        itemstack.stackTagCompound.setTag("Items", tagsItems);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
+
+                        return true;
+                    }
+                }
+        }
+        return false;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean showDurabilityBar(ItemStack stack)
+    {
+        ItemStack inventory = readNBT(stack);
+
+        return (inventory != null);
+    }
+
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public double getDurabilityForDisplay(ItemStack stack)
+    {
+        ItemStack inventory = readNBT(stack);
+
+        if (inventory != null)
+            return 1 - (double)inventory.stackSize / (double)64;
+        else
+            return 1;
     }
 
     // Prepare the icons.
