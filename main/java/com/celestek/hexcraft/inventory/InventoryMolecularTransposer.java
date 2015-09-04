@@ -184,13 +184,11 @@ public class InventoryMolecularTransposer implements IInventory {
     private void writeNBT() {
         // Write the items.
         NBTTagList tagsItems = new NBTTagList();
-        for (int i = 0; i < inventory.length; i++)
-            if (inventory[i] != null) {
-                NBTTagCompound tagCompoundLoop = new NBTTagCompound();
-                tagCompoundLoop.setByte("Slot", (byte) i);
-                inventory[i].writeToNBT(tagCompoundLoop);
-                tagsItems.appendTag(tagCompoundLoop);
-            }
+        if (inventory[0] != null) {
+            NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+            inventory[0].writeToNBT(tagCompoundLoop);
+            tagsItems.appendTag(tagCompoundLoop);
+        }
         device.stackTagCompound.setTag("Items", tagsItems);
         player.inventory.setInventorySlotContents(player.inventory.currentItem, device);
     }
@@ -198,16 +196,12 @@ public class InventoryMolecularTransposer implements IInventory {
     private void readNBT() {
         // Read the items.
         this.inventory = new ItemStack[getSizeInventory()];
+
         if (device.stackTagCompound == null)
             device.stackTagCompound = new NBTTagCompound();
-        NBTTagList tagsItems = device.stackTagCompound.getTagList("Items", 10);
-        for (int i = 0; i < tagsItems.tagCount(); ++i) {
-            NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(i);
-            byte byte0 = tagCompound1.getByte("Slot");
 
-            if (byte0 >= 0 && byte0 < inventory.length) {
-                inventory[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
-            }
-        }
+        NBTTagList tagsItems = device.stackTagCompound.getTagList("Items", 10);
+        NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(0);
+        inventory[0] = ItemStack.loadItemStackFromNBT(tagCompound1);
     }
 }
