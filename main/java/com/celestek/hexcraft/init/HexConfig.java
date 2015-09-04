@@ -33,6 +33,7 @@ public class HexConfig {
     public static boolean cfgMonolithGeneralShouldGenerate = true;
     public static boolean cfgMonolithNetherShouldGenerate = true;
     public static boolean cfgMonolithOverworldShouldGenerate = true;
+    public static boolean cfgMonolithOtherShouldGenerate = true;
     
     // Monolith Generation - Nether
     // Monolith Generation - Nether Monolith Red
@@ -116,6 +117,47 @@ public class HexConfig {
     public static int cfgOverworldMonolithBlackHeightMin = 0;
     public static int cfgOverworldMonolithBlackHeightMax = 20;
 
+    // Monolith Generation - Other
+    // Monolith Generation - Other Monolith Red
+    public static String categoryOtherMonolithRed = "Monolith Generation - Other Monolith Red";
+    public static boolean cfgOtherMonolithRedShouldGenerate = true;
+    public static int cfgOtherMonolithRedChance = 100;
+    public static int cfgOtherMonolithRedCount = 1;
+    public static int cfgOtherMonolithRedHeightMin = 0;
+    public static int cfgOtherMonolithRedHeightMax = 60;
+
+    // Monolith Generation - Other Monolith Green
+    public static String categoryOtherMonolithGreen = "Monolith Generation - Other Monolith Green";
+    public static boolean cfgOtherMonolithGreenShouldGenerate = true;
+    public static int cfgOtherMonolithGreenChance = 100;
+    public static int cfgOtherMonolithGreenCount = 1;
+    public static int cfgOtherMonolithGreenHeightMin = 0;
+    public static int cfgOtherMonolithGreenHeightMax = 60;
+
+    // Monolith Generation - Other Monolith Blue
+    public static String categoryOtherMonolithBlue = "Monolith Generation - Other Monolith Blue";
+    public static boolean cfgOtherMonolithBlueShouldGenerate = true;
+    public static int cfgOtherMonolithBlueChance = 100;
+    public static int cfgOtherMonolithBlueCount = 1;
+    public static int cfgOtherMonolithBlueHeightMin = 0;
+    public static int cfgOtherMonolithBlueHeightMax = 60;
+
+    // Monolith Generation - Other Monolith White
+    public static String categoryOtherMonolithWhite = "Monolith Generation - Other Monolith White";
+    public static boolean cfgOtherMonolithWhiteShouldGenerate = true;
+    public static int cfgOtherMonolithWhiteChance = 10;
+    public static int cfgOtherMonolithWhiteCount = 1;
+    public static int cfgOtherMonolithWhiteHeightMin = 0;
+    public static int cfgOtherMonolithWhiteHeightMax = 20;
+
+    // Monolith Generation - Other Monolith Black
+    public static String categoryOtherMonolithBlack = "Monolith Generation - Other Monolith Black";
+    public static boolean cfgOtherMonolithBlackShouldGenerate = true;
+    public static int cfgOtherMonolithBlackChance = 10;
+    public static int cfgOtherMonolithBlackCount = 1;
+    public static int cfgOtherMonolithBlackHeightMin = 0;
+    public static int cfgOtherMonolithBlackHeightMax = 20;
+
     
     
     // Ore Generation
@@ -123,6 +165,7 @@ public class HexConfig {
     public static boolean cfgOreGeneralShouldGenerate = true;
     public static boolean cfgOreNetherShouldGenerate = true;
     public static boolean cfgOreOverworldShouldGenerate = true;
+    public static boolean cfgOreOtherShouldGenerate = true;
 
     // Ore Generation - Nether
     // Ore Generation - Nether Ore Red
@@ -216,6 +259,52 @@ public class HexConfig {
     public static int cfgOverworldOreBlackHeightMin = 0;
     public static int cfgOverworldOreBlackHeightMax = 20;
 
+    // Ore Generation - Other
+    // Ore Generation - Other Ore Red
+    public static String categoryOtherOreRed = "Ore Generation - Other Ore Red";
+    public static boolean cfgOtherOreRedShouldGenerate = true;
+    public static int cfgOtherOreRedVeins = 10;
+    public static int cfgOtherOreRedCountMin = 2;
+    public static int cfgOtherOreRedCountMax = 6;
+    public static int cfgOtherOreRedHeightMin = 0;
+    public static int cfgOtherOreRedHeightMax = 64;
+
+    // Ore Generation - Other Ore Green
+    public static String categoryOtherOreGreen = "Ore Generation - Other Ore Green";
+    public static boolean cfgOtherOreGreenShouldGenerate = true;
+    public static int cfgOtherOreGreenVeins = 10;
+    public static int cfgOtherOreGreenCountMin = 2;
+    public static int cfgOtherOreGreenCountMax = 6;
+    public static int cfgOtherOreGreenHeightMin = 0;
+    public static int cfgOtherOreGreenHeightMax = 64;
+
+    // Ore Generation - Other Ore Blue
+    public static String categoryOtherOreBlue = "Ore Generation - Other Ore Blue";
+    public static boolean cfgOtherOreBlueShouldGenerate = true;
+    public static int cfgOtherOreBlueVeins = 10;
+    public static int cfgOtherOreBlueCountMin = 2;
+    public static int cfgOtherOreBlueCountMax = 6;
+    public static int cfgOtherOreBlueHeightMin = 0;
+    public static int cfgOtherOreBlueHeightMax = 64;
+
+    // Ore Generation - Other Ore White
+    public static String categoryOtherOreWhite = "Ore Generation - Other Ore White";
+    public static boolean cfgOtherOreWhiteShouldGenerate = true;
+    public static int cfgOtherOreWhiteVeins = 5;
+    public static int cfgOtherOreWhiteCountMin = 1;
+    public static int cfgOtherOreWhiteCountMax = 3;
+    public static int cfgOtherOreWhiteHeightMin = 0;
+    public static int cfgOtherOreWhiteHeightMax = 20;
+
+    // Ore Generation - Other Ore Black
+    public static String categoryOtherOreBlack = "Ore Generation - Other Ore Black";
+    public static boolean cfgOtherOreBlackShouldGenerate = true;
+    public static int cfgOtherOreBlackVeins = 5;
+    public static int cfgOtherOreBlackCountMin = 1;
+    public static int cfgOtherOreBlackCountMax = 3;
+    public static int cfgOtherOreBlackHeightMin = 0;
+    public static int cfgOtherOreBlackHeightMax = 20;
+
     /**
      * Initializes all block and adds them to GameRegistry.
      */
@@ -246,6 +335,7 @@ public class HexConfig {
         cfgMonolithGeneralShouldGenerate = config.getBoolean("Generate monolith", categoryMonolith, cfgMonolithGeneralShouldGenerate, "If monolith generator should be working at all. Setting this to false disables ALL monolith generation. Ignores monolith and dimension-specific settings.");
         cfgMonolithNetherShouldGenerate = config.getBoolean("Generate Nether monolith", categoryMonolith, cfgMonolithNetherShouldGenerate, "If monoliths should be generating in the Nether. Setting this to false disables ALL monolith generation in the Nether. Ignores monolith-specific settings.");
         cfgMonolithOverworldShouldGenerate = config.getBoolean("Generate Overworld monolith", categoryMonolith, cfgMonolithOverworldShouldGenerate, "If monoliths should be generating in the Overworld. Setting this to false disables ALL monolith generation in the Overworld. Ignores monolith-specific settings.");
+        cfgMonolithOtherShouldGenerate = config.getBoolean("Generate Other monolith", categoryMonolith, cfgMonolithOtherShouldGenerate, "If monoliths should be generating in other dimensions. Setting this to false disables ALL monolith generation in other dimensions. Ignores monolith-specific settings.");
 
         // Monolith Generation - Nether
         // Monolith Generation - Nether Monolith Red
@@ -318,6 +408,42 @@ public class HexConfig {
         cfgOverworldMonolithBlackCount = config.getInt("Monoliths per chunk", categoryOverworldMonolithBlack, cfgOverworldMonolithBlackCount, 1, 64, "");
         cfgOverworldMonolithBlackHeightMin = config.getInt("Height (Min)", categoryOverworldMonolithBlack, cfgOverworldMonolithBlackHeightMin, 0, 255, "");
         cfgOverworldMonolithBlackHeightMax = config.getInt("Height (Max)", categoryOverworldMonolithBlack, cfgOverworldMonolithBlackHeightMax, 0, 255, "");
+
+        // Monolith Generation - Other
+        // Monolith Generation - Other Monolith Red
+        cfgOtherMonolithRedShouldGenerate = config.getBoolean("Generate monoliths", categoryOtherMonolithRed, cfgOtherMonolithRedShouldGenerate, "");
+        cfgOtherMonolithRedChance = config.getInt("Chance of spawning", categoryOtherMonolithRed, cfgOtherMonolithRedChance, 1, 100, "");
+        cfgOtherMonolithRedCount = config.getInt("Monoliths per chunk", categoryOtherMonolithRed, cfgOtherMonolithRedCount, 1, 64, "");
+        cfgOtherMonolithRedHeightMin = config.getInt("Height (Min)", categoryOtherMonolithRed, cfgOtherMonolithRedHeightMin, 0, 255, "");
+        cfgOtherMonolithRedHeightMax = config.getInt("Height (Max)", categoryOtherMonolithRed, cfgOtherMonolithRedHeightMax, 0, 255, "");
+
+        // Monolith Generation - Other Monolith Green
+        cfgOtherMonolithGreenShouldGenerate = config.getBoolean("Generate monoliths", categoryOtherMonolithGreen, cfgOtherMonolithGreenShouldGenerate, "");
+        cfgOtherMonolithGreenChance = config.getInt("Chance of spawning", categoryOtherMonolithGreen, cfgOtherMonolithGreenChance, 1, 100, "");
+        cfgOtherMonolithGreenCount = config.getInt("Monoliths per chunk", categoryOtherMonolithGreen, cfgOtherMonolithGreenCount, 1, 64, "");
+        cfgOtherMonolithGreenHeightMin = config.getInt("Height (Min)", categoryOtherMonolithGreen, cfgOtherMonolithGreenHeightMin, 0, 255, "");
+        cfgOtherMonolithGreenHeightMax = config.getInt("Height (Max)", categoryOtherMonolithGreen, cfgOtherMonolithGreenHeightMax, 0, 255, "");
+
+        // Monolith Generation - Other Monolith Blue
+        cfgOtherMonolithBlueShouldGenerate = config.getBoolean("Generate monoliths", categoryOtherMonolithBlue, cfgOtherMonolithBlueShouldGenerate, "");
+        cfgOtherMonolithBlueChance = config.getInt("Chance of spawning", categoryOtherMonolithBlue, cfgOtherMonolithBlueChance, 1, 100, "");
+        cfgOtherMonolithBlueCount = config.getInt("Monoliths per chunk", categoryOtherMonolithBlue, cfgOtherMonolithBlueCount, 1, 64, "");
+        cfgOtherMonolithBlueHeightMin = config.getInt("Height (Min)", categoryOtherMonolithBlue, cfgOtherMonolithBlueHeightMin, 0, 255, "");
+        cfgOtherMonolithBlueHeightMax = config.getInt("Height (Max)", categoryOtherMonolithBlue, cfgOtherMonolithBlueHeightMax, 0, 255, "");
+
+        // Monolith Generation - Other Monolith White
+        cfgOtherMonolithWhiteShouldGenerate = config.getBoolean("Generate monoliths", categoryOtherMonolithWhite, cfgOtherMonolithWhiteShouldGenerate, "");
+        cfgOtherMonolithWhiteChance = config.getInt("Chance of spawning", categoryOtherMonolithWhite, cfgOtherMonolithWhiteChance, 1, 100, "");
+        cfgOtherMonolithWhiteCount = config.getInt("Monoliths per chunk", categoryOtherMonolithWhite, cfgOtherMonolithWhiteCount, 1, 64, "");
+        cfgOtherMonolithWhiteHeightMin = config.getInt("Height (Min)", categoryOtherMonolithWhite, cfgOtherMonolithWhiteHeightMin, 0, 255, "");
+        cfgOtherMonolithWhiteHeightMax = config.getInt("Height (Max)", categoryOtherMonolithWhite, cfgOtherMonolithWhiteHeightMax, 0, 255, "");
+
+        // Monolith Generation - Other Monolith Black
+        cfgOtherMonolithBlackShouldGenerate = config.getBoolean("Generate monoliths", categoryOtherMonolithBlack, cfgOtherMonolithBlackShouldGenerate, "");
+        cfgOtherMonolithBlackChance = config.getInt("Chance of spawning", categoryOtherMonolithBlack, cfgOtherMonolithBlackChance, 1, 100, "");
+        cfgOtherMonolithBlackCount = config.getInt("Monoliths per chunk", categoryOtherMonolithBlack, cfgOtherMonolithBlackCount, 1, 64, "");
+        cfgOtherMonolithBlackHeightMin = config.getInt("Height (Min)", categoryOtherMonolithBlack, cfgOtherMonolithBlackHeightMin, 0, 255, "");
+        cfgOtherMonolithBlackHeightMax = config.getInt("Height (Max)", categoryOtherMonolithBlack, cfgOtherMonolithBlackHeightMax, 0, 255, "");
         
         
         
@@ -326,6 +452,7 @@ public class HexConfig {
         cfgOreGeneralShouldGenerate = config.getBoolean("Generate ores", categoryOre, cfgOreGeneralShouldGenerate, "If ore generator should be working at all. Setting this to false disables ALL ore generation. Ignores ore and dimension-specific settings.");
         cfgOreNetherShouldGenerate = config.getBoolean("Generate Nether ores", categoryOre, cfgOreNetherShouldGenerate, "If ores should be generating in the Nether. Setting this to false disables ALL ore generation in the Nether. Ignores ore-specific settings.");
         cfgOreOverworldShouldGenerate = config.getBoolean("Generate Overworld ores", categoryOre, cfgOreOverworldShouldGenerate, "If ores should be generating in the Overworld. Setting this to false disables ALL ore generation in the Overworld. Ignores ore-specific settings.");
+        cfgOreOtherShouldGenerate = config.getBoolean("Generate Other ores", categoryOre, cfgOreOtherShouldGenerate, "If ores should be generating in other dimensions. Setting this to false disables ALL ore generation in other dimensions. Ignores ore-specific settings.");
 
         // Ore Generation - Nether
         // Ore Generation - Nether Ore Red
@@ -408,6 +535,47 @@ public class HexConfig {
         cfgOverworldOreBlackCountMax = config.getInt("Ores per vein (Max)", categoryOverworldOreBlack, cfgOverworldOreBlackCountMax, 1, 64, "");
         cfgOverworldOreBlackHeightMin = config.getInt("Height (Min)", categoryOverworldOreBlack, cfgOverworldOreBlackHeightMin, 0, 255, "");
         cfgOverworldOreBlackHeightMax = config.getInt("Height (Max)", categoryOverworldOreBlack, cfgOverworldOreBlackHeightMax, 0, 255, "");
+
+        // Ore Generation - Other
+        // Ore Generation - Other Ore Red
+        cfgOtherOreRedShouldGenerate = config.getBoolean("Generate ores", categoryOtherOreRed, cfgOtherOreRedShouldGenerate, "");
+        cfgOtherOreRedVeins = config.getInt("Veins per chunk", categoryOtherOreRed, cfgOtherOreRedVeins, 1, 64, "");
+        cfgOtherOreRedCountMin = config.getInt("Ores per vein (Min)", categoryOtherOreRed, cfgOtherOreRedCountMin, 1, 64, "");
+        cfgOtherOreRedCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreRed, cfgOtherOreRedCountMax, 1, 64, "");
+        cfgOtherOreRedHeightMin = config.getInt("Height (Min)", categoryOtherOreRed, cfgOtherOreRedHeightMin, 0, 255, "");
+        cfgOtherOreRedHeightMax = config.getInt("Height (Max)", categoryOtherOreRed, cfgOtherOreRedHeightMax, 0, 255, "");
+
+        // Ore Generation - Other Ore Green
+        cfgOtherOreGreenShouldGenerate = config.getBoolean("Generate ores", categoryOtherOreGreen, cfgOtherOreGreenShouldGenerate, "");
+        cfgOtherOreGreenVeins = config.getInt("Veins per chunk", categoryOtherOreGreen, cfgOtherOreGreenVeins, 1, 64, "");
+        cfgOtherOreGreenCountMin = config.getInt("Ores per vein (Min)", categoryOtherOreGreen, cfgOtherOreGreenCountMin, 1, 64, "");
+        cfgOtherOreGreenCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreGreen, cfgOtherOreGreenCountMax, 1, 64, "");
+        cfgOtherOreGreenHeightMin = config.getInt("Height (Min)", categoryOtherOreGreen, cfgOtherOreGreenHeightMin, 0, 255, "");
+        cfgOtherOreGreenHeightMax = config.getInt("Height (Max)", categoryOtherOreGreen, cfgOtherOreGreenHeightMax, 0, 255, "");
+
+        // Ore Generation - Other Ore Blue
+        cfgOtherOreBlueShouldGenerate = config.getBoolean("Generate ores", categoryOtherOreBlue, cfgOtherOreBlueShouldGenerate, "");
+        cfgOtherOreBlueVeins = config.getInt("Veins per chunk", categoryOtherOreBlue, cfgOtherOreBlueVeins, 1, 64, "");
+        cfgOtherOreBlueCountMin = config.getInt("Ores per vein (Min)", categoryOtherOreBlue, cfgOtherOreBlueCountMin, 1, 64, "");
+        cfgOtherOreBlueCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreBlue, cfgOtherOreBlueCountMax, 1, 64, "");
+        cfgOtherOreBlueHeightMin = config.getInt("Height (Min)", categoryOtherOreBlue, cfgOtherOreBlueHeightMin, 0, 255, "");
+        cfgOtherOreBlueHeightMax = config.getInt("Height (Max)", categoryOtherOreBlue, cfgOtherOreBlueHeightMax, 0, 255, "");
+
+        // Ore Generation - Other Ore White
+        cfgOtherOreWhiteShouldGenerate = config.getBoolean("Generate ores", categoryOtherOreWhite, cfgOtherOreWhiteShouldGenerate, "");
+        cfgOtherOreWhiteVeins = config.getInt("Veins per chunk", categoryOtherOreWhite, cfgOtherOreWhiteVeins, 1, 64, "");
+        cfgOtherOreWhiteCountMin = config.getInt("Ores per vein (Min)", categoryOtherOreWhite, cfgOtherOreWhiteCountMin, 1, 64, "");
+        cfgOtherOreWhiteCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreWhite, cfgOtherOreWhiteCountMax, 1, 64, "");
+        cfgOtherOreWhiteHeightMin = config.getInt("Height (Min)", categoryOtherOreWhite, cfgOtherOreWhiteHeightMin, 0, 255, "");
+        cfgOtherOreWhiteHeightMax = config.getInt("Height (Max)", categoryOtherOreWhite, cfgOtherOreWhiteHeightMax, 0, 255, "");
+
+        // Ore Generation - Other Ore Black
+        cfgOtherOreBlackShouldGenerate = config.getBoolean("Generate ores", categoryOtherOreBlack, cfgOtherOreBlackShouldGenerate, "");
+        cfgOtherOreBlackVeins = config.getInt("Veins per chunk", categoryOtherOreBlack, cfgOtherOreBlackVeins, 1, 64, "");
+        cfgOtherOreBlackCountMin = config.getInt("Ores per vein (Min)", categoryOtherOreBlack, cfgOtherOreBlackCountMin, 1, 64, "");
+        cfgOtherOreBlackCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreBlack, cfgOtherOreBlackCountMax, 1, 64, "");
+        cfgOtherOreBlackHeightMin = config.getInt("Height (Min)", categoryOtherOreBlack, cfgOtherOreBlackHeightMin, 0, 255, "");
+        cfgOtherOreBlackHeightMax = config.getInt("Height (Max)", categoryOtherOreBlack, cfgOtherOreBlackHeightMax, 0, 255, "");
 
 
         config.save();
