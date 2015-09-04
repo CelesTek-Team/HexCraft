@@ -18,7 +18,7 @@ public class InventoryMolecularTransposer implements IInventory {
     private final ItemStack device;
     private final EntityPlayer player;
     private ItemStack[] inventory = new ItemStack[1];
-    public static String name = "Molecular Tranposer";
+    public static String name = "Molecular Transposer";
 
     public InventoryMolecularTransposer(EntityPlayer player, ItemStack device)
     {
