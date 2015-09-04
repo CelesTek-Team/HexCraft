@@ -491,6 +491,12 @@ achievement.hexcraft.achGroupMachines.desc=Craft all of the different machines e
 
 achievement.hexcraft.achCraftManipulator=Human-Hexorium Interface
 achievement.hexcraft.achCraftManipulator.desc=Craft a Hexorium Manipulator.
+achievement.hexcraft.achCraftTransposer=Color Customizations
+achievement.hexcraft.achCraftTransposer.desc=Craft a Molecular Transposer.
+achievement.hexcraft.achUseTransposer=The Intended Use
+achievement.hexcraft.achUseTransposer.desc=Use the Molecular Transposer to swap the color of any decorative block.
+achievement.hexcraft.achAttackTransposer=This Might Hurt A Little...
+achievement.hexcraft.achAttackTransposer.desc=Inject a living creature with Energized Hexorium using the Molecular Transposer.
 
 achievement.hexcraft.achLinkTeleport=Linking It Up: Teleports
 achievement.hexcraft.achLinkTeleport.desc=Link two Personal Teleportation Pads together. Also requires achievement: Human-Hexorium Interface

@@ -542,42 +542,46 @@ public class ItemMolecularTransposer extends Item {
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
         // If this is server side...
         if (!entity.worldObj.isRemote) {
-            // Read the items.
-            ItemStack inventory = readNBT(itemstack);
+            if (HexConfig.cfgGeneralTransposerAttack) {
+                if (!(entity instanceof EntityPlayer) || HexConfig.cfgGeneralTransposerAttackPlayers) {
+                    // Read the items.
+                    ItemStack inventory = readNBT(itemstack);
 
-            // If there is something in inventory...
-            if (inventory != null)
-                // And if the block in inventory is Energized Hexorium...
-                if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
+                    // If there is something in inventory...
+                    if (inventory != null)
+                        // And if the block in inventory is Energized Hexorium...
+                        if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
 
-                    // Check if the target can be attacked.
-                    if (entity.canAttackWithItem()) {
-                        // If yes, deal damage.
-                        entity.attackEntityFrom(HexDamage.transposer, 20);
+                            // Check if the target can be attacked.
+                            if (entity.canAttackWithItem()) {
+                                // If yes, deal damage.
+                                entity.attackEntityFrom(HexDamage.transposer, 20);
 
-                        // Decrement the count of Energized Hexorium.
-                        inventory.stackSize--;
-                        if (inventory.stackSize == 0)
-                            inventory = null;
+                                // Decrement the count of Energized Hexorium.
+                                inventory.stackSize--;
+                                if (inventory.stackSize == 0)
+                                    inventory = null;
 
-                        // Write the items.
-                        NBTTagList tagsItems = new NBTTagList();
-                        if (inventory != null) {
-                            NBTTagCompound tagCompoundLoop = new NBTTagCompound();
-                            inventory.writeToNBT(tagCompoundLoop);
-                            tagsItems.appendTag(tagCompoundLoop);
+                                // Write the items.
+                                NBTTagList tagsItems = new NBTTagList();
+                                if (inventory != null) {
+                                    NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+                                    inventory.writeToNBT(tagCompoundLoop);
+                                    tagsItems.appendTag(tagCompoundLoop);
+                                }
+                                itemstack.stackTagCompound.setTag("Items", tagsItems);
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
+
+                                // Grant player the achievement.
+                                if (HexConfig.cfgGeneralUseAchievements) {
+                                    player.addStat(HexAchievements.achAttackTransposer, 1);
+                                }
+
+                                return true;
+                            }
                         }
-                        itemstack.stackTagCompound.setTag("Items", tagsItems);
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
-
-                        // Grant player the achievement.
-                        if (HexConfig.cfgGeneralUseAchievements) {
-                            player.addStat(HexAchievements.achAttackTransposer, 1);
-                        }
-
-                        return true;
-                    }
                 }
+            }
         }
         return false;
     }

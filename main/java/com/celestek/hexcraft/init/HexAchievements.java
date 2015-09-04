@@ -225,8 +225,10 @@ public class HexAchievements {
         achList.add(achCraftTransposer);
         achUseTransposer = new Achievement(hex1 + "achUseTransposer", hex2 + "achUseTransposer", 3, 5, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
         achList.add(achUseTransposer);
-        achAttackTransposer = new Achievement(hex1 + "acAttackTransposer", hex2 + "achAttackTransposer", 3, 4, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
-        achList.add(achAttackTransposer);
+        if (HexConfig.cfgGeneralTransposerAttack) {
+            achAttackTransposer = new Achievement(hex1 + "acAttackTransposer", hex2 + "achAttackTransposer", 3, 4, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
+            achList.add(achAttackTransposer);
+        }
 
         // Linking and Teleporting
         achLinkTeleport = new Achievement(hex1 + "achLinkTeleport", hex2 + "achLinkTeleport", -4, 5, HexItems.itemHexoriumManipulator, achCraftMachineTeleport).registerStat();

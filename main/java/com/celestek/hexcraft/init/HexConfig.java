@@ -15,6 +15,10 @@ public class HexConfig {
     public static boolean cfgGeneralVerboseNetworkDebug = false;
     public static int cfgGeneralPylonRange = 32;
     public static boolean cfgGeneralUseAchievements = true;
+    public static boolean cfgGeneralTransposerAttack = true;
+    public static boolean cfgGeneralTransposerAttackPlayers = true;
+    public static int cfgGeneralTransposerAttackDamage = 20;
+
 
     // General - Personal Teleportation Pad
     public static String categoryTeleport = "General - Personal Teleportation Pad";
@@ -226,6 +230,9 @@ public class HexConfig {
         cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", Configuration.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network debugging needs to be enabled.");
         cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.");
         cfgGeneralUseAchievements = config.getBoolean("Use achievements", Configuration.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.");
+        cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.");
+        cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all entities has to be enabled first.");
+        cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.");
 
         // General - Personal Teleportation Pad
         cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.");
