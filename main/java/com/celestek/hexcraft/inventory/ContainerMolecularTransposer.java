@@ -13,6 +13,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -23,6 +25,7 @@ public class ContainerMolecularTransposer extends Container {
 
     // Prepare the Tile Entity.
     private ItemStack device;
+    InventoryMolecularTransposer inventory;
 
     // Prepare the variables to store GUI data.
     private int lastEnergy;
@@ -37,7 +40,7 @@ public class ContainerMolecularTransposer extends Container {
         this.device = device;
 
         // Add the container slots.
-        InventoryMolecularTransposer inventory = new InventoryMolecularTransposer(player, device);
+        inventory = new InventoryMolecularTransposer(player, device);
         addSlotToContainer(new Slot(inventory, 0, 80, 36));
 
         // Add inventory slots.
@@ -50,7 +53,10 @@ public class ContainerMolecularTransposer extends Container {
 
         // Add action bar slots.
         for(i = 0; i < 9; ++i){
-            addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
+            if (playerInv.getStackInSlot(i) == playerInv.getCurrentItem())
+                addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+            else
+                addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
         }
     }
 
@@ -60,6 +66,18 @@ public class ContainerMolecularTransposer extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return true;
+    }
+
+    /**
+     * Called when the container is closed.
+     */
+    @Override
+    public void onContainerClosed(EntityPlayer player)
+    {
+        super.onContainerClosed(player);
+
+        if (!player.worldObj.isRemote)
+            inventory.getStackInSlotOnClosing(0);
     }
 
     /**
@@ -77,16 +95,20 @@ public class ContainerMolecularTransposer extends Container {
             if (par2 != 0) {
                 if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockEnergizedHexorium) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
+                        //writeNBT(player, itemStack1);
                         return null;
                     }
                 } else if(par2 >= 1 && par2 < 28) {
                     if (!mergeItemStack(itemStack1, 28, 37, false)) {
+                        //writeNBT(player, itemStack1);
                         return null;
                     }
                 } else if( par2 >= 28 && par2 < 38 && !mergeItemStack(itemStack1, 1, 28, false)) {
+                    //writeNBT(player, itemStack1);
                     return null;
                 }
             } else if(!mergeItemStack(itemStack1, 1, 37, false)) {
+                //writeNBT(player, itemStack1);
                 return null;
             }
 
@@ -95,11 +117,32 @@ public class ContainerMolecularTransposer extends Container {
             else
                 slot.onSlotChanged();
 
-            if(itemStack1.stackSize == itemStack.stackSize)
+            if(itemStack1.stackSize == itemStack.stackSize) {
+                //writeNBT(player, itemStack1);
                 return null;
+            }
 
             slot.onPickupFromSlot(player, itemStack1);
+            //writeNBT(player, itemStack1);
         }
+
         return itemStack;
+    }
+
+    private void writeNBT(EntityPlayer player, ItemStack stack) {
+        // Write the items.
+        NBTTagList tagsItems = new NBTTagList();
+
+        if (stack != null) {
+            NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+            tagCompoundLoop.setByte("Slot", (byte) 0);
+            stack.writeToNBT(tagCompoundLoop);
+            tagsItems.appendTag(tagCompoundLoop);
+        }
+
+        device.stackTagCompound.setTag("Items", tagsItems);
+        player.inventory.setInventorySlotContents(player.inventory.currentItem, device);
+
+        System.out.println("Stacked");
     }
 }
