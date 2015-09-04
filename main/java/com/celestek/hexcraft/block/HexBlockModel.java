@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.0
+ * @version 0.6.1
  * @since 2015-04-14
  */
 

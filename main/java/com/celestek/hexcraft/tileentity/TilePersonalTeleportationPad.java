@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.0
+ * @version 0.6.1
  * @since 2015-05-06
  */
 public class TilePersonalTeleportationPad extends TileEntity implements ISidedInventory {

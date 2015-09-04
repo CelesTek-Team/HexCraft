@@ -29,7 +29,7 @@ import net.minecraft.world.World;
  * @since 2015-04-15
  */
 
-public class ItemHexoriumManipulator extends Item {
+public class ItemMolecularTransposer extends Item {
 
     // Set default item name.
     public static String UNLOCALISEDNAME = "itemHexoriumManipulator";
@@ -38,7 +38,7 @@ public class ItemHexoriumManipulator extends Item {
      * Constructor for the item.
      * @param itemName Unlocalized name for the item.
      */
-    public ItemHexoriumManipulator(String itemName) {
+    public ItemMolecularTransposer(String itemName) {
         setUnlocalizedName(itemName);
         setCreativeTab(HexCraft.tabMachines);
         setMaxStackSize(1);
