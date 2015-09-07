@@ -171,7 +171,7 @@ public class ItemHexoriumManipulator extends Item {
                 // Create Multitank
                 else if (block instanceof BlockHexoriumValve) {
                     TileEntity teHexValve = world.getTileEntity(x,y,z);
-                    ((TileHexoriumValve) teHexValve).setupMultiTank();
+                    ((TileHexoriumValve) teHexValve).printDebug();
                 }
                 else if (block instanceof BlockTemperedHexoriumGlass) {
                     int meta = world.getBlockMetadata(x,y,z);
@@ -426,6 +426,10 @@ public class ItemHexoriumManipulator extends Item {
                     world.setBlockMetadataWithNotify(x, y, z, direction, 3);
 
                     analyzePylonBase(world, x, y, z);
+                }
+                else if (block instanceof BlockHexoriumValve) {
+                    TileEntity teHexValve = world.getTileEntity(x,y,z);
+                    ((TileHexoriumValve) teHexValve).setupMultiTank();
                 }
             }
         }

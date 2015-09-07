@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -10,6 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.Sys;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -17,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @since 2015-04-14
  */
 
-public class BlockTemperedHexoriumGlass extends Block {
+public class BlockTemperedHexoriumGlass extends HexBaseBlock {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockTemperedHexoriumGlass";
@@ -203,6 +206,80 @@ public class BlockTemperedHexoriumGlass extends Block {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
+
+        if (neighbour instanceof HexBaseBlock) {
+            //notify(world, x, y, z);
+            pingChange(world, x, y, z);
+        }
         super.onNeighborBlockChange(world, x, y, z, neighbour);
+    }
+
+    private void pingChange(World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x,y,z);
+
+        boolean hasNotified = HexUtils.getBit(meta, TileHexoriumValve.META_HAS_NOTIFIED);
+        boolean isMultiBlock = HexUtils.getBit(meta, TileHexoriumValve.META_IS_PART);
+
+        if (!hasNotified && isMultiBlock) {
+            System.out.format("[DEBUG] Glass notification: %s\n", System.currentTimeMillis());
+            meta = HexUtils.setBit(meta, TileHexoriumValve.META_HAS_NOTIFIED, true);
+            world.setBlockMetadataWithNotify(x, y, z, meta, 1);
+        }
+    }
+
+    /**
+     * Notifies block that the multiblock structure has changed
+     * @param world World
+     * @param x Own X
+     * @param y Own Y
+     * @param z Own Z
+     */
+    public void notify(World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x,y,z);
+        meta = HexUtils.setBit(meta, TileHexoriumValve.META_HAS_NOTIFIED, true);
+        world.setBlockMetadataWithNotify(x,y,z,meta,2);
+
+        notifyNeighbor(world, x, y, z);
+    }
+
+    private void notifyNeighbor(World world, int x, int y, int z) {
+        int startX = x - 1;
+        int endX = x + 1;
+
+        int startY = y - 1;
+        int endY = y + 1;
+
+        int startZ = z - 1;
+        int endZ = z + 1;
+        
+        for (int forX = startX; forX <= endX; forX++) {
+            for (int forY = startY; forY <= endY; forY++) {
+                for (int forZ = startZ; forZ <= endZ; forZ++) {
+                    // BlockHexoriumValve can't be cast into HexBaseBlock
+                    // Two problems with one stone solved, block check and error handling
+
+                    if (!world.isAirBlock(forX, forY, forZ)) {
+                        Block block = world.getBlock(forX, forY, forZ);
+
+                        if (block instanceof HexBaseBlock) {
+                            HexBaseBlock hexBlock = (HexBaseBlock) block;
+
+                            int blockMeta = world.getBlockMetadata(forX, forY, forZ);
+                            boolean hasNotified = HexUtils.getBit(blockMeta, TileHexoriumValve.META_HAS_NOTIFIED);
+
+                            if (!hasNotified) {
+                                hexBlock.notify(world, forX, forY, forZ);
+                            }
+
+                        } else if (block instanceof HexBlockContainer) {
+                            TileHexoriumValve valve = (TileHexoriumValve) world.getTileEntity(x, y, z);
+                            valve.notifyChange();
+                        }
+
+                    }
+                }
+            }
+            
+        }
     }
 }

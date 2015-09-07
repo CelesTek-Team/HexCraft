@@ -11,11 +11,27 @@ import com.celestek.hexcraft.util.HexUtils;
  */
 public class TileHexoriumValve extends TileEntity {
 
+    /**
+     * Meta bit for identifying blocks which are already part of a multitank
+     */
+    public static final int META_IS_PART = 1;
+    /**
+     * Meta bit for identifying which blocks have tried to "contact" the valve block
+     */
+    public static final int META_HAS_NOTIFIED = 2;
+
     // Set machine name.
     public static String ID = "tileHexoriumValve";
     private static String machineName = "Hexorium Valve";
 
     private int tankMaxSize = 16;
+    private int notifyCounter = 0;
+
+    private WidthScanResult mWidthScanResult;
+    private BaseScanResult mBaseScanResult;
+    private int mHeight;
+
+    private boolean mIsSetup;
 
     public boolean setupMultiTank() {
         debug();
@@ -24,16 +40,16 @@ public class TileHexoriumValve extends TileEntity {
     }
 
     private void debug() {
-        WidthScanResult widthScanResult = scanWidth();
-        if (widthScanResult != null) {
-            BaseScanResult baseSearchResult = scanBase(widthScanResult);
-            if (baseSearchResult != null ) {
+        mWidthScanResult = scanWidth();
+        if (mWidthScanResult != null) {
+            mBaseScanResult = scanBase(mWidthScanResult);
+            if (mBaseScanResult != null ) {
 
-                int height = scanHeight();
-                boolean rings = scanRings(widthScanResult, baseSearchResult, height);
-                boolean top = scanForTop(widthScanResult, baseSearchResult, height);
+                mHeight = scanHeight();
+                boolean rings = scanRings(mWidthScanResult, mBaseScanResult, mHeight);
+                boolean top = scanForTop(mWidthScanResult, mBaseScanResult, mHeight);
 
-                switch (widthScanResult.getOrientation()) {
+                switch (mWidthScanResult.getOrientation()) {
                     case WidthScanResult.ORIENT_X:
                         System.out.println("(DEBUG) Width: X");
                         break;
@@ -47,7 +63,7 @@ public class TileHexoriumValve extends TileEntity {
                 }
 
 
-                switch (baseSearchResult.getOrientation()) {
+                switch (mBaseScanResult.getOrientation()) {
                     case BaseScanResult.ORIENT_Z_N:
                         System.out.format("(DEBUG) Orientation: ZN\n");
                         break;
@@ -62,16 +78,16 @@ public class TileHexoriumValve extends TileEntity {
                         break;
                 }
 
-                System.out.format("(DEBUG) height: %s\n", height);
+                System.out.format("(DEBUG) mHeight: %s\n", mHeight);
                 System.out.format("(DEBUG) rings: %s\n", rings);
                 System.out.format("(DEBUG) top: %s\n", top);
 
-                setupStructure(widthScanResult, baseSearchResult, height);
+                setupStructure(mWidthScanResult, mBaseScanResult, mHeight);
             }
         }
     }
 
-    private boolean isMultiTankBlock(Block block, int x, int y, int z) {
+    private boolean isMultiTankBlock(Block block, int x, int y, int z) { // TODO: Don't pass block
         boolean notNull = block != null;
 
         boolean isFree = false;
@@ -80,7 +96,7 @@ public class TileHexoriumValve extends TileEntity {
             isFree = !HexUtils.getBit(blockMeta, 1);
         }
 
-        boolean correctBlock = (block instanceof BlockConcentricHexoriumBlock) ||
+        boolean correctBlock = (block instanceof BlockConcentricHexoriumBlock) || // TODO: Use instanceof HexBaseBlock
                 (block instanceof BlockEngineeredHexoriumBlock) ||
                 (block instanceof BlockFramedHexoriumBlock) ||
                 (block instanceof BlockGlowingHexoriumGlass) ||
@@ -97,9 +113,54 @@ public class TileHexoriumValve extends TileEntity {
     }
 
     private void setIsPart(int x, int y, int z, boolean isPart) {
-        int currentMeta = worldObj.getBlockMetadata(x,y,z);
-        currentMeta = HexUtils.setBit(currentMeta, 1, isPart);
-        worldObj.setBlockMetadataWithNotify(x,y,z,currentMeta, 2);
+        int meta = worldObj.getBlockMetadata(x,y,z);
+        meta = HexUtils.setBit(meta, META_IS_PART, isPart);
+        worldObj.setBlockMetadataWithNotify(x,y,z,meta, 4);
+    }
+
+    private void setHasNotified(int x, int y, int z, boolean hasNotified) {
+        int meta = worldObj.getBlockMetadata(x,y,z);
+        meta = HexUtils.setBit(meta, META_HAS_NOTIFIED, hasNotified);
+        worldObj.setBlockMetadataWithNotify(x,y,z,meta, 4);
+    }
+
+    private WidthScanResult rescanWidth(WidthScanResult oldWidthScanResult) {
+        int countPositiveTarget = oldWidthScanResult.getPositiveCount();
+        int countNegativeTarget = oldWidthScanResult.getNegativeCount();
+
+        int countPositive = 0;
+        int countNegative = 0;
+
+        switch (oldWidthScanResult.getOrientation()) {
+            case WidthScanResult.ORIENT_X:
+                for (int i = 1; i <= countPositiveTarget; i++) {
+                    int xPos = xCoord + i;
+                    Block block = worldObj.getBlock(xPos, yCoord-1, zCoord);
+                    if (block instanceof HexBaseBlock) {countPositive++;}
+                }
+
+                for (int i = 1; i <= countNegativeTarget; i++) {
+                    int xPos = xCoord - i;
+                    Block block = worldObj.getBlock(xPos, yCoord-1, zCoord);
+                    if (block instanceof HexBaseBlock) {countNegative++;}
+                }
+                break;
+            case WidthScanResult.ORIENT_Z:
+                for (int i = 1; i <= countPositiveTarget; i++) {
+                    int zPos = zCoord + i;
+                    Block block = worldObj.getBlock(xCoord, yCoord-1, zPos);
+                    if (block instanceof HexBaseBlock) {countPositive++;}
+                }
+
+                for (int i = 1; i <= countNegativeTarget; i++) {
+                    int zPos = zCoord - i;
+                    Block block = worldObj.getBlock(xCoord, yCoord-1, zPos);
+                    if (block instanceof HexBaseBlock) {countNegative++;}
+                }
+                break;
+        }
+
+        return new WidthScanResult(oldWidthScanResult.getOrientation(), countNegative, countPositive);
     }
 
     private WidthScanResult scanWidth() {
@@ -148,7 +209,143 @@ public class TileHexoriumValve extends TileEntity {
             orientation = WidthScanResult.ORIENT_Z;
         }
 
-        return new WidthScanResult(orientation, countNegative, countPositive);
+        WidthScanResult result = new WidthScanResult(orientation, countNegative, countPositive);
+
+        mWidthScanResult = result;
+
+
+        return result;
+    }
+
+//    private BaseScanResult rescanBase(BaseScanResult oldBaseScanResult, WidthScanResult oldWidthScanResult) {
+//        int widthStart = 0;
+//        int widthEnd = 0;
+//
+//        int depthCount = 0;
+//
+//        int widthTarget = oldWidthScanResult.getNegativeCount() + oldWidthScanResult.getPositiveCount() + 1;
+//
+//        switch (oldWidthScanResult.getOrientation()) {
+//            case WidthScanResult.ORIENT_X:
+//                widthStart = xCoord - oldWidthScanResult.getNegativeCount();
+//                widthEnd = xCoord + oldWidthScanResult.getPositiveCount();
+//                break;
+//
+//            case WidthScanResult.ORIENT_Z:
+//                widthStart = zCoord - oldWidthScanResult.getNegativeCount();
+//                widthEnd = zCoord + oldWidthScanResult.getPositiveCount();
+//                break;
+//        }
+//
+//        switch (oldBaseScanResult.getOrientation()) {
+//            case BaseScanResult.ORIENT_X_P:
+//                for (int i = xCoord; i <= xCoord+oldBaseScanResult.getDept() + 1; i++) {
+//                    int widthCount = 0;
+//                    for (int j = widthStart; j <= widthEnd; j++) {
+//                        if (widthCount == widthTarget) {
+//                            depthCount++;
+//                        }
+//                    }
+//                }
+//                break;
+//
+//            case BaseScanResult.ORIENT_X_N:
+//                for (int i = xCoord - oldBaseScanResult.getDept() - 1; i <= xCoord; i++) {
+//                    for (int j = widthStart; j <= widthEnd; j++) {
+//
+//                    }
+//                }
+//                break;
+//
+//            case BaseScanResult.ORIENT_Z_P:
+//                break;
+//
+//            case BaseScanResult.ORIENT_Z_N:
+//                break;
+//        }
+//
+//    }
+
+    private BaseScanResult rescanBase(BaseScanResult oldBaseScanResult, WidthScanResult oldWidthScanResult) {
+        int startDepth = 0;
+        int endDepth = 0;
+
+        int startWidth = 0;
+        int endWidth = 0;
+
+        int depth = 0;
+        int targetWidth = oldWidthScanResult.getNegativeCount() + oldWidthScanResult.getPositiveCount() + 1;
+
+        switch (oldBaseScanResult.getOrientation()) {
+            case BaseScanResult.ORIENT_X_N:
+                startDepth = xCoord - oldBaseScanResult.getDept() + 1;
+                endDepth = xCoord;
+                startWidth = zCoord - oldWidthScanResult.getNegativeCount();
+                endWidth = zCoord + oldWidthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_X_P:
+                startDepth = xCoord;
+                endDepth = xCoord + oldBaseScanResult.getDept() - 1;
+                startWidth = zCoord - oldWidthScanResult.getNegativeCount();
+                endWidth = zCoord + oldWidthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_Z_N:
+                startDepth = zCoord - oldBaseScanResult.getDept() + 1;
+                endDepth = zCoord;
+                startWidth = xCoord - oldWidthScanResult.getNegativeCount();
+                endWidth = xCoord + oldWidthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_Z_P:
+                startDepth = zCoord;
+                endDepth = zCoord + oldBaseScanResult.getDept() - 1;
+                startWidth = xCoord - oldWidthScanResult.getNegativeCount();
+                endWidth = xCoord + oldWidthScanResult.getPositiveCount();
+                break;
+        }
+
+        switch (oldWidthScanResult.getOrientation()) {
+            case WidthScanResult.ORIENT_X:
+                for (int d = startDepth; d <= endDepth; d++) {
+                    int widthCount = 0;
+                    for (int w = startWidth; w <= endWidth; w++) {
+                        Block block = worldObj.getBlock(w,yCoord-1,d);
+                        if (block instanceof HexBaseBlock) {widthCount++;}
+                    }
+                    if (targetWidth == widthCount) {depth++;}
+                }
+                break;
+
+            case WidthScanResult.ORIENT_Z:
+                for (int d = startDepth; d <= endDepth; d++) {
+                    int widthCount = 0;
+                    for (int w = startWidth; w <= endWidth; w++) {
+                        Block block = worldObj.getBlock(d,yCoord-1,w);
+                        if (block instanceof HexBaseBlock) {widthCount++;}
+                    }
+                    if (targetWidth == widthCount) {depth++;}
+                }
+                break;
+        }
+        return new BaseScanResult(oldBaseScanResult.getOrientation(), depth);
+    }
+
+    private BaseScanResult scanBase(int side) {
+        // Sides:
+        // 0 - Bottom (-Y)
+        // 1 - Top (+Y)
+        // 2 - North (-Z)
+        // 3 - South (+Z)
+        // 4 - West (-X)
+        // 5 - East (+X)
+
+        switch (side) {
+
+        }
+
+        return null;
     }
 
     private BaseScanResult scanBase(WidthScanResult widthScanResult) {
@@ -181,7 +378,8 @@ public class TileHexoriumValve extends TileEntity {
             }
 
             if (depth - 1 > 0) {
-                return new BaseScanResult(orientation, depth);
+                BaseScanResult result = new BaseScanResult(orientation, depth);
+                return result;
             }
 
             depth = 0;
@@ -206,7 +404,8 @@ public class TileHexoriumValve extends TileEntity {
                 else { break; }
             }
             if (depth - 1 > 0) {
-                return new BaseScanResult(orientation, depth);
+                BaseScanResult result = new BaseScanResult(orientation, depth);
+                return result;
             }
             else {
                 return null;
@@ -232,7 +431,8 @@ public class TileHexoriumValve extends TileEntity {
             }
 
             if (depth - 1 > 0) {
-                return new BaseScanResult(orientation, depth);
+                BaseScanResult result = new BaseScanResult(orientation, depth);
+                return result;
             }
 
             depth = 0;
@@ -257,7 +457,8 @@ public class TileHexoriumValve extends TileEntity {
                 else { break; }
             }
             if (depth - 1 > 0) {
-                return new BaseScanResult(orientation, depth);
+                BaseScanResult result = new BaseScanResult(orientation, depth);
+                return result;
             }
             else {
                 return null;
@@ -279,7 +480,7 @@ public class TileHexoriumValve extends TileEntity {
                 break;
             }
         }
-        return height + 1; // Include the base
+        return height+1; // Include the base
     }
 
     private boolean scanForTop(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
@@ -321,90 +522,6 @@ public class TileHexoriumValve extends TileEntity {
         }
 
         return hasRings;
-    }
-
-    private void setupStructure(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
-
-        // Conditions for setting up the base:
-        //      Base is always 1 block below the valve
-        //      Base is a slab, so width-negative to width+negative from current block to depthMax
-
-        // Conditions for setting up the rings:
-        //      Start at same Y as the valve
-        //      At Depths 0 to maxHeight - 1, and max go from one width+negative to width+positive
-        //      At all other depths skip everything which isn't width+negative or width+positive
-
-        // Conditions for setting up the top:
-        //      Top is at the top, so max y: yCoord + height
-        //      Top is a slab, so width-negative to width+positive from current block to depthMax
-
-        int startX = 0;
-        int endX = 0;
-
-        int startY = yCoord - 1;
-        int endY = yCoord + height;
-
-        int startZ = 0;
-        int endZ = 0;
-
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_N:
-                startX = xCoord - baseScanResult.getDept() + 1;
-                endX = xCoord;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_X_P:
-                startX = xCoord;
-                endX = xCoord + baseScanResult.getDept() - 1;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_N:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord - baseScanResult.getDept() + 1;
-                endZ = zCoord;
-                break;
-
-            case BaseScanResult.ORIENT_Z_P:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord;
-                endZ = zCoord + baseScanResult.getDept() - 1;
-                break;
-        }
-
-        System.out.format("(DEBUG) StartX: %s, EndX: %s\n", startX, endX);
-        System.out.format("(DEBUG) StartY: %s, EndY: %s\n", startY, endY);
-        System.out.format("(DEBUG) StartZ: %s, EndZ: %s\n", startZ, endZ);
-
-        for (int y = startY; y < endY; y++) { // TODO: Check height scanning, could be it returns wrong value (check where it's height-2)
-            for (int x = startX; x <= endX; x++) {
-                for (int z = startZ; z <= endZ; z++) {
-                    Block block = worldObj.getBlock(x,y,z);
-
-                    if (y > startY && y < endY -2) {    // RINGS
-                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
-                        if (check) {
-                            setIsPart(x,y,z, true);
-                        }
-
-
-                    } else {        // Base and Top
-                        setIsPart(x,y,z,true);
-                    }
-
-//                    if (isMultiTankBlock(block, x,y,z)) {
-//                        setIsPart(x,y,z,true);      // TODO: Optimise this with coordinate checking
-//                    }
-
-                }
-            }
-        }
-
     }
 
     private boolean scanRingsXP(WidthScanResult widthScanResult, int depth, int height) {
@@ -763,6 +880,242 @@ public class TileHexoriumValve extends TileEntity {
         return depth == depthTarget;
     }
 
+    private void setupStructure(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
+
+        // Conditions for setting up the base:
+        //      Base is always 1 block below the valve
+        //      Base is a slab, so width-negative to width+negative from current block to depthMax
+
+        // Conditions for setting up the rings:
+        //      Start at same Y as the valve
+        //      At Depths 0 to maxHeight - 1, and max go from one width+negative to width+positive
+        //      At all other depths skip everything which isn't width+negative or width+positive
+
+        // Conditions for setting up the top:
+        //      Top is at the top, so max y: yCoord + mHeight
+        //      Top is a slab, so width-negative to width+positive from current block to depthMax
+
+        int startX = 0;
+        int endX = 0;
+
+        int startY = yCoord - 1;
+        int endY = yCoord + height;
+
+        int startZ = 0;
+        int endZ = 0;
+
+        switch (baseScanResult.getOrientation()) {
+            case BaseScanResult.ORIENT_X_N:
+                startX = xCoord - baseScanResult.getDept() + 1;
+                endX = xCoord;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_X_P:
+                startX = xCoord;
+                endX = xCoord + baseScanResult.getDept() - 1;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_Z_N:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord - baseScanResult.getDept() + 1;
+                endZ = zCoord;
+                break;
+
+            case BaseScanResult.ORIENT_Z_P:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord;
+                endZ = zCoord + baseScanResult.getDept() - 1;
+                break;
+        }
+
+        System.out.format("(DEBUG) StartX: %s, EndX: %s\n", startX, endX);
+        System.out.format("(DEBUG) StartY: %s, EndY: %s\n", startY, endY);
+        System.out.format("(DEBUG) StartZ: %s, EndZ: %s\n", startZ, endZ);
+
+        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+            for (int x = startX; x <= endX; x++) {
+                for (int z = startZ; z <= endZ; z++) {
+                    if (y > startY && y < endY -2) {    // RINGS
+                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
+                        if (check) {
+                            setIsPart(x,y,z, true);
+                        }
+                    } else {        // Base and Top
+                        setIsPart(x,y,z,true);
+                    }
+                }
+            }
+        }
+        mIsSetup = true;
+        mWidthScanResult = widthScanResult;
+        mBaseScanResult = baseScanResult;
+        mHeight = height;
+    }
+
+    private void resetStructure(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
+
+        // Conditions for setting up the base:
+        //      Base is always 1 block below the valve
+        //      Base is a slab, so width-negative to width+negative from current block to depthMax
+
+        // Conditions for setting up the rings:
+        //      Start at same Y as the valve
+        //      At Depths 0 to maxHeight - 1, and max go from one width+negative to width+positive
+        //      At all other depths skip everything which isn't width+negative or width+positive
+
+        // Conditions for setting up the top:
+        //      Top is at the top, so max y: yCoord + mHeight
+        //      Top is a slab, so width-negative to width+positive from current block to depthMax
+
+        int startX = 0;
+        int endX = 0;
+
+        int startY = yCoord - 1;
+        int endY = yCoord + height;
+
+        int startZ = 0;
+        int endZ = 0;
+
+        switch (baseScanResult.getOrientation()) {
+            case BaseScanResult.ORIENT_X_N:
+                startX = xCoord - baseScanResult.getDept() + 1;
+                endX = xCoord;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_X_P:
+                startX = xCoord;
+                endX = xCoord + baseScanResult.getDept() - 1;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_Z_N:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord - baseScanResult.getDept() + 1;
+                endZ = zCoord;
+                break;
+
+            case BaseScanResult.ORIENT_Z_P:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord;
+                endZ = zCoord + baseScanResult.getDept() - 1;
+                break;
+        }
+
+        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+            for (int x = startX; x <= endX; x++) {
+                for (int z = startZ; z <= endZ; z++) {
+                    if (y > startY && y < endY -2) {    // RINGS
+                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
+                        if (check) {
+                            setIsPart(x,y,z, false);
+                            setHasNotified(x,y,z,false);
+                        }
+                    } else {        // Base and Top
+                        setIsPart(x,y,z,false);
+                        setHasNotified(x,y,z,false);
+                    }
+                }
+            }
+        }
+        mIsSetup = false;
+    }
+
+    private void resetNotify(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
+        int startX = 0;
+        int endX = 0;
+
+        int startY = yCoord - 1;
+        int endY = yCoord + height;
+
+        int startZ = 0;
+        int endZ = 0;
+
+        switch (baseScanResult.getOrientation()) {
+            case BaseScanResult.ORIENT_X_N:
+                startX = xCoord - baseScanResult.getDept() + 1;
+                endX = xCoord;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_X_P:
+                startX = xCoord;
+                endX = xCoord + baseScanResult.getDept() - 1;
+                startZ = zCoord - widthScanResult.getNegativeCount();
+                endZ = zCoord + widthScanResult.getPositiveCount();
+                break;
+
+            case BaseScanResult.ORIENT_Z_N:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord - baseScanResult.getDept() + 1;
+                endZ = zCoord;
+                break;
+
+            case BaseScanResult.ORIENT_Z_P:
+                startX = xCoord - widthScanResult.getNegativeCount();
+                endX = xCoord + widthScanResult.getPositiveCount();
+                startZ = zCoord;
+                endZ = zCoord + baseScanResult.getDept() - 1;
+                break;
+        }
+
+        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+            for (int x = startX; x <= endX; x++) {
+                for (int z = startZ; z <= endZ; z++) {
+                    if (y > startY && y < endY -2) {    // RINGS
+                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
+                        if (check) {
+                            setHasNotified(x,y,z,false);
+                        }
+                    } else {        // Base and Top
+                        setHasNotified(x,y,z,false);
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void recheckStructure() {
+
+        if (mIsSetup) {
+            BaseScanResult baseCheckScan = rescanBase(mBaseScanResult, mWidthScanResult);
+
+
+            boolean baseCheck = mBaseScanResult.equals(baseCheckScan);
+            boolean ringsCheck = scanRings(mWidthScanResult, mBaseScanResult, mHeight);
+            boolean topCheck = scanForTop(mWidthScanResult, mBaseScanResult, mHeight);
+
+            if (baseCheck && ringsCheck && topCheck) {
+                resetNotify(mWidthScanResult, mBaseScanResult, mHeight);
+            } else {
+                resetStructure(mWidthScanResult, mBaseScanResult, mHeight);
+            }
+        }
+    }
+
+    public void notifyChange() {
+        notifyCounter++;
+        recheckStructure();
+        System.out.format("[DEBUG] Notified: %s\n", System.currentTimeMillis());
+    }
+
+    public void printDebug() {
+        System.out.format("[DEBUG] IsSetup: %s\n", mIsSetup);
+    }
+
     private class WidthScanResult {
         /** The width expands along the X axis */
         public static final int ORIENT_X=0;
@@ -816,6 +1169,28 @@ public class TileHexoriumValve extends TileEntity {
         public void setPositiveCount(int positiveCount) {
             this.positiveCount = positiveCount;
         }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            WidthScanResult result = (WidthScanResult) o;
+
+            if (getOrientation() != result.getOrientation()) return false;
+            if (getNegativeCount() != result.getNegativeCount()) return false;
+            return getPositiveCount() == result.getPositiveCount();
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = getOrientation();
+            result = 31 * result + getNegativeCount();
+            result = 31 * result + getPositiveCount();
+            return result;
+        }
     }
 
     private class BaseScanResult {
@@ -860,5 +1235,23 @@ public class TileHexoriumValve extends TileEntity {
             this.dept = dept;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            BaseScanResult result = (BaseScanResult) o;
+
+            if (getOrientation() != result.getOrientation()) return false;
+            return getDept() == result.getDept();
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = getOrientation();
+            result = 31 * result + getDept();
+            return result;
+        }
     }
 }

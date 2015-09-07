@@ -1,8 +1,6 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockHexoriumLamp;
-import com.celestek.hexcraft.block.BlockHexoriumLampInv;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;

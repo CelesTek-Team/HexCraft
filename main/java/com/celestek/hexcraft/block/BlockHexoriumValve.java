@@ -38,8 +38,11 @@ public class BlockHexoriumValve extends HexBlockContainer {
     }
 
     @Override
-    public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-        super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
+        TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) world.getTileEntity(x,y,z);
+        tileHexoriumValve.notifyChange();
+
+        super.onNeighborBlockChange(world, x, y, z, neighbor);
     }
 
     @Override
