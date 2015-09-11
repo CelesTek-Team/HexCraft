@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -12,6 +13,10 @@ import net.minecraft.tileentity.TileEntity;
  * @Version 0.1.0
  */
 public class TileHexoriumValve extends TileEntity {
+
+    // Set machine name.
+    public static String ID = "tileHexoriumValve";
+    private static String machineName = "Hexorium Valve";
 
     /**
      * Meta bit for identifying blocks which are already part of a multitank
@@ -22,25 +27,71 @@ public class TileHexoriumValve extends TileEntity {
      */
     public static final int META_HAS_NOTIFIED = 2;
 
-    // Set machine name.
-    public static String ID = "tileHexoriumValve";
-    private static String machineName = "Hexorium Valve";
+    private static final String NBT_IS_SETUP = "ctek_mt_issetup";
+    private static final String NBT_IS_MASTER = "ctek_mt_ismaster";
+    private static final String NBT_MASTER_X = "ctek_mt_master_x";
+    private static final String NBT_MASTER_Y = "ctek_mt_master_y";
+    private static final String NBT_MASTER_Z = "ctek_mt_master_z";
 
-    private Dimension mDimension;
-    private int mTankMaxSize = 16;
+
+    private static final int mTankMaxSize = 16;
     private int notifyCounter = 0;
 
+    private Dimension mDimension;
 
-    private boolean mIsSetup;
 
-    private int mMasterX;
-    private int mMasterY;
-    private int mMasterZ;
-    private boolean mIsMaster;
+    private int masterX;
+    private int masterY;
+    private int masterZ;
+
+    private boolean isMaster;
+    private boolean isSetup;
 
     public TileHexoriumValve() {
-        mIsMaster = false;
-        mIsSetup = false;
+        mDimension = new Dimension();
+
+        this.notifyCounter = 0;
+
+        this.isMaster = false;
+        this.isSetup = false;
+
+        this.masterX = xCoord;
+        this.masterY = yCoord;
+        this.masterZ = zCoord;
+
+    }
+
+    @Override public void writeToNBT(NBTTagCompound data) {
+        super.writeToNBT(data);
+        mDimension.saveToNBT(data);
+
+        data.setBoolean(this.NBT_IS_MASTER, isMaster());
+        data.setBoolean(this.NBT_IS_SETUP, isSetup());
+
+        data.setInteger(this.NBT_MASTER_X, getMasterX());
+        data.setInteger(this.NBT_MASTER_Y, getMasterY());
+        data.setInteger(this.NBT_MASTER_Z, getMasterZ());
+
+
+        if (isMaster() && isSetup()) {
+
+        }
+    }
+
+    @Override public void readFromNBT(NBTTagCompound data) {
+        super.readFromNBT(data);
+        mDimension.loadFromNBT(data);
+
+        setSetup(data.getBoolean(this.NBT_IS_SETUP));
+        setMaster(data.getBoolean(this.NBT_IS_MASTER));
+
+        setMasterX(data.getInteger(this.NBT_MASTER_X));
+        setMasterY(data.getInteger(this.NBT_MASTER_Y));
+        setMasterZ(data.getInteger(this.NBT_MASTER_Z));
+
+        if (isMaster() && isSetup()) {
+
+        }
     }
 
     /**
@@ -156,24 +207,24 @@ public class TileHexoriumValve extends TileEntity {
                 if (tileEntity instanceof TileHexoriumValve) {
                     TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
 
-                    tileHexoriumValve.setmMasterX(xCoord);
-                    tileHexoriumValve.setmMasterY(yCoord);
-                    tileHexoriumValve.setmMasterZ(zCoord);
+                    tileHexoriumValve.setMasterX(xCoord);
+                    tileHexoriumValve.setMasterY(yCoord);
+                    tileHexoriumValve.setMasterZ(zCoord);
 
-                    tileHexoriumValve.setmIsMaster(false);
-                    tileHexoriumValve.setmIsSetup(false);
+                    tileHexoriumValve.setMaster(false);
+                    tileHexoriumValve.setSetup(false);
                 }
             } else {
                 TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
                 if (tileEntity instanceof TileHexoriumValve) {
                     TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
 
-                    tileHexoriumValve.setmMasterX(xCoord);
-                    tileHexoriumValve.setmMasterY(yCoord);
-                    tileHexoriumValve.setmMasterZ(zCoord);
+                    tileHexoriumValve.setMasterX(xCoord);
+                    tileHexoriumValve.setMasterY(yCoord);
+                    tileHexoriumValve.setMasterZ(zCoord);
 
-                    tileHexoriumValve.setmIsMaster(false);
-                    tileHexoriumValve.setmIsSetup(false);
+                    tileHexoriumValve.setMaster(false);
+                    tileHexoriumValve.setSetup(false);
                 }
             }
         }
@@ -421,19 +472,6 @@ public class TileHexoriumValve extends TileEntity {
      * @param dimension The dimensions of the relevant MultiTank structure
      */
     private void setupStructure(Dimension dimension) {
-        // Conditions for setting up the base:
-        //      Base is always 1 block below the valve
-        //      Base is a slab, so width-negative to width+negative from current block to depthMax
-
-        // Conditions for setting up the rings:
-        //      Start at same Y as the valve
-        //      At Depths 0 to maxHeight - 1, and max go from one width+negative to width+positive
-        //      At all other depths skip everything which isn't width+negative or width+positive
-
-        // Conditions for setting up the top:
-        //      Top is at the top, so max y: yCoord + mHeight
-        //      Top is a slab, so width-negative to width+positive from current block to depthMax
-
         CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
@@ -541,18 +579,14 @@ public class TileHexoriumValve extends TileEntity {
         if (checkStructure(dimension, true)) {
             setupStructure(dimension);
 
-            mIsMaster = true;
-            mIsSetup = true;
+            isMaster = true;
+            isSetup = true;
             mDimension = dimension;
 
-            mMasterX = xCoord;
-            mMasterY = yCoord;
-            mMasterZ = zCoord;
+            masterX = xCoord;
+            masterY = yCoord;
+            masterZ = zCoord;
         }
-
-        System.out.format("[DEBUG] Dimensions: o:%s, nW:%s, pW:%s, w:%s, h:%s, d:%s\n",
-            dimension.getOrientation(), dimension.getNegativeWidth(), dimension.getPositiveWidth(),
-            dimension.getWidth(), dimension.getHeight(), dimension.getDepth());
     }
 
     /**
@@ -564,8 +598,7 @@ public class TileHexoriumValve extends TileEntity {
         notifyCounter++;
 
         if (notifyCounter > 3) {
-            System.out.format("[DEBUG] Re-checking structure\n");
-            if (mIsSetup && mIsMaster) {
+            if (isSetup && isMaster) {
                 if (checkStructure(mDimension, false)) {
                     resetNotify(mDimension);
                 } else {
@@ -576,49 +609,78 @@ public class TileHexoriumValve extends TileEntity {
         }
     }
 
-    // TODO: JavaDoc
-    public boolean ismIsSetup() {
-        return mIsSetup;
-    }
-
-    public void setmIsSetup(boolean mIsSetup) {
-        this.mIsSetup = mIsSetup;
-    }
-
-    public int getmMasterX() {
-        return mMasterX;
-    }
-
-    public void setmMasterX(int mMasterX) {
-        this.mMasterX = mMasterX;
-    }
-
-    public int getmMasterY() {
-        return mMasterY;
-    }
-
-    public void setmMasterY(int mMasterY) {
-        this.mMasterY = mMasterY;
-    }
-
-    public int getmMasterZ() {
-        return mMasterZ;
-    }
-
-    public void setmMasterZ(int mMasterZ) {
-        this.mMasterZ = mMasterZ;
-    }
-
-    public boolean ismIsMaster() {
-        return mIsMaster;
-    }
-
-    public void setmIsMaster(boolean mIsMaster) {
-        this.mIsMaster = mIsMaster;
+    /**
+     * @return is the multi tank set up
+     */
+    public boolean isSetup() {
+        return isSetup;
     }
 
     /**
-     * Data holder class which holds relevant data needed for operation of the multitank
+     * @param setup is the multi tank set up
+     */
+    public void setSetup(boolean setup) {
+        this.isSetup = setup;
+    }
+
+    /**
+     * @return X coordinate of the master valve
+     */
+    public int getMasterX() {
+        return masterX;
+    }
+
+    /**
+     * @param masterX X coordinate of the master valve
+     */
+    public void setMasterX(int masterX) {
+        this.masterX = masterX;
+    }
+
+    /**
+     * @return Y coordinate of the master valve
+     */
+    public int getMasterY() {
+        return masterY;
+    }
+
+    /**
+     * @param masterY Y coordinate of the master valve
+     */
+    public void setMasterY(int masterY) {
+        this.masterY = masterY;
+    }
+
+    /**
+     * @return Z coordinate of the master valve
+     */
+    public int getMasterZ() {
+        return masterZ;
+    }
+
+    /**
+     * @param masterZ Z coordinate of the master valve
+     */
+    public void setMasterZ(int masterZ) {
+        this.masterZ = masterZ;
+    }
+
+    /**
+     * @return Is the valve master
+     */
+    public boolean isMaster() {
+        return isMaster;
+    }
+
+    /**
+     * @param master Is the valve master
+     */
+    public void setMaster(boolean master) {
+        this.isMaster = master;
+    }
+
+    /**
+     * Data holder class which holds relevant data needed for operation of the MultiTank
      */
     private class Dimension {
         /**
@@ -638,12 +700,28 @@ public class TileHexoriumValve extends TileEntity {
          */
         private static final int ORIENT_Z_N = 3;
 
+        private static final String ORIENT = "ctek_mt_orientation";
+        private static final String N_WIDTH = "ctek_mt_negative_width";
+        private static final String P_WIDTH = "ctek_mt_positive_width";
+        private static final String WIDTH = "ctek_mt_width";
+        private static final String DEPTH = "ctek_mt_depth";
+        private static final String HEIGHT = "ctek_mt_height";
+
         private int orientation;
         private int negativeWidth;
         private int positiveWidth;
         private int width;
         private int depth;
         private int height;
+
+        public Dimension() {
+            this.orientation = -1;
+            this.negativeWidth = -1;
+            this.positiveWidth = -1;
+            this.width = -1;
+            this.depth = -1;
+            this.height = -1;
+        }
 
         /**
          * Constructor
@@ -662,6 +740,34 @@ public class TileHexoriumValve extends TileEntity {
             this.depth = depth;
             this.width = negativeWidth + positiveWidth + 1;
             this.height = height;
+        }
+
+        /**
+         * Saves contained data into NBTTag
+         *
+         * @param data NBTTag
+         */
+        public void saveToNBT(NBTTagCompound data) {
+            data.setInteger(this.ORIENT, this.orientation);
+            data.setInteger(this.N_WIDTH, this.negativeWidth);
+            data.setInteger(this.P_WIDTH, this.positiveWidth);
+            data.setInteger(this.WIDTH, this.width);
+            data.setInteger(this.DEPTH, this.depth);
+            data.setInteger(this.HEIGHT, this.height);
+        }
+
+        /**
+         * Loads data from NBTTag into itself
+         *
+         * @param data NBTTag
+         */
+        public void loadFromNBT(NBTTagCompound data) {
+            this.orientation = data.getInteger(this.ORIENT);
+            this.negativeWidth = data.getInteger(this.N_WIDTH);
+            this.positiveWidth = data.getInteger(this.P_WIDTH);
+            this.width = data.getInteger(this.WIDTH);
+            this.depth = data.getInteger(this.DEPTH);
+            this.height = data.getInteger(this.HEIGHT);
         }
 
         /**
@@ -761,9 +867,22 @@ public class TileHexoriumValve extends TileEntity {
         private int startZ;
         private int endZ;
 
+        /**
+         * Data holder for coordinate ranges used in traversing the structure
+         */
         public CoordRange() {
         }
 
+        /**
+         * Data holder for coordinate ranges used in traversing the structure
+         *
+         * @param startX Start X coordinate
+         * @param endX   End X coordinate
+         * @param startY Start Y coordinate
+         * @param endY   End Y coordinate
+         * @param startZ Start Z coordinate
+         * @param endZ   End Z coordinate
+         */
         public CoordRange(int startX, int endX, int startY, int endY, int startZ, int endZ) {
             this.startX = startX;
             this.endX = endX;
@@ -774,52 +893,88 @@ public class TileHexoriumValve extends TileEntity {
 
         }
 
-        public int getEndZ() {
-            return endZ;
-        }
-
-        public void setEndZ(int endZ) {
-            this.endZ = endZ;
-        }
-
+        /**
+         * @return Start X coordinate
+         */
         public int getStartX() {
             return startX;
         }
 
+        /**
+         * @param startX Start X coordinate
+         */
         public void setStartX(int startX) {
             this.startX = startX;
         }
 
+        /**
+         * @return End X coordinate
+         */
         public int getEndX() {
             return endX;
         }
 
+        /**
+         * @param endX End X coordinate
+         */
         public void setEndX(int endX) {
             this.endX = endX;
         }
 
+        /**
+         * @return Start Y coordinate
+         */
         public int getStartY() {
             return startY;
         }
 
+        /**
+         * @param startY Start Y coordinate
+         */
         public void setStartY(int startY) {
             this.startY = startY;
         }
 
+        /**
+         * @return End Y coordinate
+         */
         public int getEndY() {
             return endY;
         }
 
+        /**
+         * @param endY End Y coordinate
+         */
         public void setEndY(int endY) {
             this.endY = endY;
         }
 
+        /**
+         * @return Start Z coordinate
+         */
         public int getStartZ() {
             return startZ;
         }
 
+        /**
+         * @param startZ End Z coordinate
+         */
         public void setStartZ(int startZ) {
             this.startZ = startZ;
+        }
+
+        /**
+         * @return End Z coordinate
+         */
+        public int getEndZ() {
+            return endZ;
+        }
+
+        /**
+         * @param endZ End Z coordinate
+         */
+        public void setEndZ(int endZ) {
+            this.endZ = endZ;
         }
     }
 }
