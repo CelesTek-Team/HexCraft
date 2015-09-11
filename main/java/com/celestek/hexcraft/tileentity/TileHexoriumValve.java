@@ -1,9 +1,11 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.block.BlockHexoriumValve;
+import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
+import com.celestek.hexcraft.block.HexBlockMT;
+import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
-import com.celestek.hexcraft.util.HexUtils;
 
 /**
  * @Author CoffeePirate     <celestek@openmailbox.org>
@@ -24,315 +26,180 @@ public class TileHexoriumValve extends TileEntity {
     public static String ID = "tileHexoriumValve";
     private static String machineName = "Hexorium Valve";
 
-    private int tankMaxSize = 16;
+    private Dimension mDimension;
+    private int mTankMaxSize = 16;
     private int notifyCounter = 0;
 
-    private WidthScanResult mWidthScanResult;
-    private BaseScanResult mBaseScanResult;
-    private int mHeight;
 
     private boolean mIsSetup;
 
-    public boolean setupMultiTank() {
-        debug();
+    private int mMasterX;
+    private int mMasterY;
+    private int mMasterZ;
+    private boolean mIsMaster;
 
-        return false;
+    public TileHexoriumValve() {
+        mIsMaster = false;
+        mIsSetup = false;
     }
 
-    private void debug() {
-        mWidthScanResult = scanWidth();
-        if (mWidthScanResult != null) {
-            mBaseScanResult = scanBase(mWidthScanResult);
-            if (mBaseScanResult != null ) {
+    /**
+     * Calculates coordinate ranges based on given coordinates and dimensions
+     *
+     * @param x         X coordinate
+     * @param y         Y coordinate
+     * @param z         Z coordinate
+     * @param dimension MultiTank dimensions
+     * @return Coordinate ranges needed to properly traverse the multitank structure
+     */
+    private CoordRange getCoordRanges(int x, int y, int z, Dimension dimension) {
+        int startX = 0;
+        int endX = 0;
 
-                mHeight = scanHeight();
-                boolean rings = scanRings(mWidthScanResult, mBaseScanResult, mHeight);
-                boolean top = scanForTop(mWidthScanResult, mBaseScanResult, mHeight);
+        int startY = y - 1;
+        int endY = startY + (dimension.getHeight() - 1);
 
-                switch (mWidthScanResult.getOrientation()) {
-                    case WidthScanResult.ORIENT_X:
-                        System.out.println("(DEBUG) Width: X");
-                        break;
+        int startZ = 0;
+        int endZ = 0;
 
-                    case WidthScanResult.ORIENT_Z:
-                        System.out.println("(DEBUG) Width: Z");
-                        break;
+        switch (dimension.getOrientation()) {
+            case Dimension.ORIENT_X_N:
+                startX = x - dimension.getDepth() + 1;
+                endX = x;
+                startZ = z - dimension.getNegativeWidth();
+                endZ = z + dimension.getPositiveWidth();
+                break;
 
-                    case -1:
-                        System.out.println("(DEBUG) Width: Error");
-                }
+            case Dimension.ORIENT_X_P:
+                startX = x;
+                endX = x + dimension.getDepth() - 1;
+                startZ = z - dimension.getNegativeWidth();
+                endZ = z + dimension.getPositiveWidth();
+                break;
 
+            case Dimension.ORIENT_Z_N:
+                startX = x - dimension.getNegativeWidth();
+                endX = x + dimension.getPositiveWidth();
+                startZ = z - dimension.getDepth() + 1;
+                endZ = z;
+                break;
 
-                switch (mBaseScanResult.getOrientation()) {
-                    case BaseScanResult.ORIENT_Z_N:
-                        System.out.format("(DEBUG) Orientation: ZN\n");
-                        break;
-                    case BaseScanResult.ORIENT_Z_P:
-                        System.out.format("(DEBUG) Orientation: ZP\n");
-                        break;
-                    case BaseScanResult.ORIENT_X_N:
-                        System.out.format("(DEBUG) Orientation: XN\n");
-                        break;
-                    case BaseScanResult.ORIENT_X_P:
-                        System.out.format("(DEBUG) Orientation: XP\n");
-                        break;
-                }
-
-                System.out.format("(DEBUG) mHeight: %s\n", mHeight);
-                System.out.format("(DEBUG) rings: %s\n", rings);
-                System.out.format("(DEBUG) top: %s\n", top);
-
-                setupStructure(mWidthScanResult, mBaseScanResult, mHeight);
-            }
+            case Dimension.ORIENT_Z_P:
+                startX = x - dimension.getNegativeWidth();
+                endX = x + dimension.getPositiveWidth();
+                startZ = z;
+                endZ = z + dimension.getDepth() - 1;
+                break;
         }
+        return new CoordRange(startX, endX, startY, endY, startZ, endZ);
     }
 
-    private boolean isMultiTankBlock(Block block, int x, int y, int z) { // TODO: Don't pass block
+    /**
+     * Checks if block at given coordinates is a valid MultiTank building block.
+     *
+     * @param x         X coordinate
+     * @param y         Y coordinate
+     * @param z         Z coordinate
+     * @param checkMeta switch whether or not to check the block's meta as well.
+     *                  Used when re-checking a structure
+     * @return is block at given coordinates valid
+     */
+    private boolean isMultiTankBlock(int x, int y, int z, boolean checkMeta) {
+        Block block = worldObj.getBlock(x, y, z);
+
         boolean notNull = block != null;
-
+        boolean blockType = block instanceof HexBlockMT || block instanceof BlockHexoriumValve
+            || block instanceof BlockTemperedHexoriumGlass;
         boolean isFree = false;
+
         if (notNull) {
-            int blockMeta = worldObj.getBlockMetadata(x, y, z);
-            isFree = !HexUtils.getBit(blockMeta, 1);
+            int meta = worldObj.getBlockMetadata(x, y, z);
+            isFree = !HexUtils.getBit(meta, META_IS_PART);
         }
 
-        boolean correctBlock = (block instanceof BlockConcentricHexoriumBlock) || // TODO: Use instanceof HexBaseBlock
-                (block instanceof BlockEngineeredHexoriumBlock) ||
-                (block instanceof BlockFramedHexoriumBlock) ||
-                (block instanceof BlockGlowingHexoriumGlass) ||
-                (block instanceof BlockHexoriumMachineBlock) ||
-                (block instanceof BlockPlatedHexoriumBlock) ||
-                (block instanceof BlockTemperedHexoriumGlass) ||
-                (block instanceof BlockHexoriumValve);
+        if (checkMeta) {
+            return notNull && blockType && isFree;
+        } else {
+            return notNull && blockType;
+        }
 
-        return notNull && isFree && correctBlock;
     }
 
-    private boolean isCorrectWidth(int counted, int negative, int positive) {
-        return counted == (negative + positive + 1); // +1 to include the valve/block below it, fixable in scanWidth()
+    /**
+     * Checks if given coordinates are clear
+     *
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param z Z coordinate
+     * @return are the coordinates clear
+     */
+    private boolean isClear(int x, int y, int z) {
+        return worldObj.isAirBlock(x, y, z);
     }
 
+    /**
+     * Marks the block as part of a MultiTank and sets relevant data
+     *
+     * @param x      X coordinate
+     * @param y      Y coordinate
+     * @param z      Z coordinate
+     * @param isPart is or isn't part
+     */
     private void setIsPart(int x, int y, int z, boolean isPart) {
-        int meta = worldObj.getBlockMetadata(x,y,z);
+        int meta = worldObj.getBlockMetadata(x, y, z);
         meta = HexUtils.setBit(meta, META_IS_PART, isPart);
-        worldObj.setBlockMetadataWithNotify(x,y,z,meta, 4);
+        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
+
+        if (x != xCoord && y != yCoord && z != zCoord) {
+            if (isPart) {
+                TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
+                if (tileEntity instanceof TileHexoriumValve) {
+                    TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
+
+                    tileHexoriumValve.setmMasterX(xCoord);
+                    tileHexoriumValve.setmMasterY(yCoord);
+                    tileHexoriumValve.setmMasterZ(zCoord);
+
+                    tileHexoriumValve.setmIsMaster(false);
+                    tileHexoriumValve.setmIsSetup(false);
+                }
+            } else {
+                TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
+                if (tileEntity instanceof TileHexoriumValve) {
+                    TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
+
+                    tileHexoriumValve.setmMasterX(xCoord);
+                    tileHexoriumValve.setmMasterY(yCoord);
+                    tileHexoriumValve.setmMasterZ(zCoord);
+
+                    tileHexoriumValve.setmIsMaster(false);
+                    tileHexoriumValve.setmIsSetup(false);
+                }
+            }
+        }
     }
 
+    /**
+     * Sets whether or not the block has notified surrounding blocks of a change
+     *
+     * @param x           X coordinate
+     * @param y           Y coordinate
+     * @param z           Z coordinate
+     * @param hasNotified has or hasn't fired a notification
+     */
     private void setHasNotified(int x, int y, int z, boolean hasNotified) {
-        int meta = worldObj.getBlockMetadata(x,y,z);
+        int meta = worldObj.getBlockMetadata(x, y, z);
         meta = HexUtils.setBit(meta, META_HAS_NOTIFIED, hasNotified);
-        worldObj.setBlockMetadataWithNotify(x,y,z,meta, 4);
+        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
     }
 
-    private WidthScanResult rescanWidth(WidthScanResult oldWidthScanResult) {
-        int countPositiveTarget = oldWidthScanResult.getPositiveCount();
-        int countNegativeTarget = oldWidthScanResult.getNegativeCount();
-
-        int countPositive = 0;
-        int countNegative = 0;
-
-        switch (oldWidthScanResult.getOrientation()) {
-            case WidthScanResult.ORIENT_X:
-                for (int i = 1; i <= countPositiveTarget; i++) {
-                    int xPos = xCoord + i;
-                    Block block = worldObj.getBlock(xPos, yCoord-1, zCoord);
-                    if (block instanceof HexBaseBlock) {countPositive++;}
-                }
-
-                for (int i = 1; i <= countNegativeTarget; i++) {
-                    int xPos = xCoord - i;
-                    Block block = worldObj.getBlock(xPos, yCoord-1, zCoord);
-                    if (block instanceof HexBaseBlock) {countNegative++;}
-                }
-                break;
-            case WidthScanResult.ORIENT_Z:
-                for (int i = 1; i <= countPositiveTarget; i++) {
-                    int zPos = zCoord + i;
-                    Block block = worldObj.getBlock(xCoord, yCoord-1, zPos);
-                    if (block instanceof HexBaseBlock) {countPositive++;}
-                }
-
-                for (int i = 1; i <= countNegativeTarget; i++) {
-                    int zPos = zCoord - i;
-                    Block block = worldObj.getBlock(xCoord, yCoord-1, zPos);
-                    if (block instanceof HexBaseBlock) {countNegative++;}
-                }
-                break;
-        }
-
-        return new WidthScanResult(oldWidthScanResult.getOrientation(), countNegative, countPositive);
-    }
-
-    private WidthScanResult scanWidth() {
-        int countPositive = 0;
-        int countNegative = 0;
-        int orientation = -1;
-
-        Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-        if (!isMultiTankBlock(blockBelow, xCoord, yCoord-1, zCoord)) {
-            return null;
-        }
-
-        // Search on the X axis
-        for (int i = 1; true; i++) {
-            int xPositive = xCoord + i;
-            int xNegative = xCoord - i;
-
-            Block blockPositive = worldObj.getBlock(xPositive, yCoord, zCoord);
-            Block blockNegative = worldObj.getBlock(xNegative, yCoord, zCoord);
-
-            if (isMultiTankBlock(blockPositive, xPositive, yCoord, zCoord)) { countPositive++; }
-            if (isMultiTankBlock(blockNegative, xNegative, yCoord, zCoord)) { countNegative++; }
-
-            if (!isMultiTankBlock(blockPositive, xPositive, yCoord, zCoord) && !isMultiTankBlock(blockNegative, xNegative, yCoord, zCoord)) {
-                orientation = WidthScanResult.ORIENT_X;
-                break;
-            }
-        }
-
-        // Search on the Z axis if no width was found on X axis
-        if (countPositive == 0 && countNegative == 0) {
-            countPositive = 0;
-            countNegative = 0;
-            for (int i = 1; true; i++) {
-                int zPositive = zCoord + i;
-                int zNegative = zCoord - i;
-                Block blockPositive = worldObj.getBlock(xCoord, yCoord, zPositive);
-                Block blockNegative = worldObj.getBlock(xCoord, yCoord, zNegative);
-
-                if (isMultiTankBlock(blockPositive, xCoord, yCoord, zPositive)) { countPositive++; }
-                if (isMultiTankBlock(blockNegative, xCoord, yCoord, zNegative)) { countNegative++; }
-
-                // No more mutlitank building blocks
-                if (!isMultiTankBlock(blockPositive, xCoord, yCoord, zPositive) && !isMultiTankBlock(blockNegative, xCoord, yCoord, zNegative)) { break; }
-            }
-            orientation = WidthScanResult.ORIENT_Z;
-        }
-
-        WidthScanResult result = new WidthScanResult(orientation, countNegative, countPositive);
-
-        mWidthScanResult = result;
-
-
-        return result;
-    }
-
-//    private BaseScanResult rescanBase(BaseScanResult oldBaseScanResult, WidthScanResult oldWidthScanResult) {
-//        int widthStart = 0;
-//        int widthEnd = 0;
-//
-//        int depthCount = 0;
-//
-//        int widthTarget = oldWidthScanResult.getNegativeCount() + oldWidthScanResult.getPositiveCount() + 1;
-//
-//        switch (oldWidthScanResult.getOrientation()) {
-//            case WidthScanResult.ORIENT_X:
-//                widthStart = xCoord - oldWidthScanResult.getNegativeCount();
-//                widthEnd = xCoord + oldWidthScanResult.getPositiveCount();
-//                break;
-//
-//            case WidthScanResult.ORIENT_Z:
-//                widthStart = zCoord - oldWidthScanResult.getNegativeCount();
-//                widthEnd = zCoord + oldWidthScanResult.getPositiveCount();
-//                break;
-//        }
-//
-//        switch (oldBaseScanResult.getOrientation()) {
-//            case BaseScanResult.ORIENT_X_P:
-//                for (int i = xCoord; i <= xCoord+oldBaseScanResult.getDept() + 1; i++) {
-//                    int widthCount = 0;
-//                    for (int j = widthStart; j <= widthEnd; j++) {
-//                        if (widthCount == widthTarget) {
-//                            depthCount++;
-//                        }
-//                    }
-//                }
-//                break;
-//
-//            case BaseScanResult.ORIENT_X_N:
-//                for (int i = xCoord - oldBaseScanResult.getDept() - 1; i <= xCoord; i++) {
-//                    for (int j = widthStart; j <= widthEnd; j++) {
-//
-//                    }
-//                }
-//                break;
-//
-//            case BaseScanResult.ORIENT_Z_P:
-//                break;
-//
-//            case BaseScanResult.ORIENT_Z_N:
-//                break;
-//        }
-//
-//    }
-
-    private BaseScanResult rescanBase(BaseScanResult oldBaseScanResult, WidthScanResult oldWidthScanResult) {
-        int startDepth = 0;
-        int endDepth = 0;
-
-        int startWidth = 0;
-        int endWidth = 0;
-
-        int depth = 0;
-        int targetWidth = oldWidthScanResult.getNegativeCount() + oldWidthScanResult.getPositiveCount() + 1;
-
-        switch (oldBaseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_N:
-                startDepth = xCoord - oldBaseScanResult.getDept() + 1;
-                endDepth = xCoord;
-                startWidth = zCoord - oldWidthScanResult.getNegativeCount();
-                endWidth = zCoord + oldWidthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_X_P:
-                startDepth = xCoord;
-                endDepth = xCoord + oldBaseScanResult.getDept() - 1;
-                startWidth = zCoord - oldWidthScanResult.getNegativeCount();
-                endWidth = zCoord + oldWidthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_N:
-                startDepth = zCoord - oldBaseScanResult.getDept() + 1;
-                endDepth = zCoord;
-                startWidth = xCoord - oldWidthScanResult.getNegativeCount();
-                endWidth = xCoord + oldWidthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_P:
-                startDepth = zCoord;
-                endDepth = zCoord + oldBaseScanResult.getDept() - 1;
-                startWidth = xCoord - oldWidthScanResult.getNegativeCount();
-                endWidth = xCoord + oldWidthScanResult.getPositiveCount();
-                break;
-        }
-
-        switch (oldWidthScanResult.getOrientation()) {
-            case WidthScanResult.ORIENT_X:
-                for (int d = startDepth; d <= endDepth; d++) {
-                    int widthCount = 0;
-                    for (int w = startWidth; w <= endWidth; w++) {
-                        Block block = worldObj.getBlock(w,yCoord-1,d);
-                        if (block instanceof HexBaseBlock) {widthCount++;}
-                    }
-                    if (targetWidth == widthCount) {depth++;}
-                }
-                break;
-
-            case WidthScanResult.ORIENT_Z:
-                for (int d = startDepth; d <= endDepth; d++) {
-                    int widthCount = 0;
-                    for (int w = startWidth; w <= endWidth; w++) {
-                        Block block = worldObj.getBlock(d,yCoord-1,w);
-                        if (block instanceof HexBaseBlock) {widthCount++;}
-                    }
-                    if (targetWidth == widthCount) {depth++;}
-                }
-                break;
-        }
-        return new BaseScanResult(oldBaseScanResult.getOrientation(), depth);
-    }
-
-    private BaseScanResult scanBase(int side) {
+    /**
+     * Determines the dimensions and orientation of the MultiTank structure
+     *
+     * @param side Side that the manipulator was used on
+     * @return The dimensions and orientation
+     */
+    private Dimension scanDimensions(int side) {
         // Sides:
         // 0 - Bottom (-Y)
         // 1 - Top (+Y)
@@ -341,547 +208,219 @@ public class TileHexoriumValve extends TileEntity {
         // 4 - West (-X)
         // 5 - East (+X)
 
-        switch (side) {
-
-        }
-
-        return null;
-    }
-
-    private BaseScanResult scanBase(WidthScanResult widthScanResult) {
-        int orientScan = widthScanResult.getOrientation();
-        int wNegative = widthScanResult.getNegativeCount();
-        int wPositive = widthScanResult.getPositiveCount();
-
-        int orientation = 0;
         int depth = 0;
-
-        if (orientScan == WidthScanResult.ORIENT_X) {
-            // Scan pozitive depth growth on X axis
-            for (int i = 0; true; i++) {
-                int widthCounter = 0;
-
-                for (int x = xCoord-wNegative; x <= xCoord+wPositive; x++) {
-                    int y = yCoord - 1;
-                    int z = zCoord + i;
-                    Block block = worldObj.getBlock(x, y, z);
-
-                    if(isMultiTankBlock(block, x, y, z)) { widthCounter++; }
-                    else { break; }
-                }
-
-                if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                    depth++;
-                    orientation = BaseScanResult.ORIENT_Z_P;
-                }
-                else { break; }
-            }
-
-            if (depth - 1 > 0) {
-                BaseScanResult result = new BaseScanResult(orientation, depth);
-                return result;
-            }
-
-            depth = 0;
-
-            // Scan negative depth growth on X axis
-            for (int i = 0; true; i++) {
-                int widthCounter = 0;
-
-                for (int x = xCoord-wNegative; x <= xCoord+wPositive; x++) {
-                    int y = yCoord - 1;
-                    int z = zCoord - i;
-                    Block block = worldObj.getBlock(x, y, z);
-
-                    if(isMultiTankBlock(block, x, y, z)) { widthCounter++; }
-                    else { break; }
-                }
-
-                if (widthCounter == (wNegative + wPositive + 1)) {
-                    depth++;
-                    orientation = BaseScanResult.ORIENT_Z_N;
-                }
-                else { break; }
-            }
-            if (depth - 1 > 0) {
-                BaseScanResult result = new BaseScanResult(orientation, depth);
-                return result;
-            }
-            else {
-                return null;
-            }
-        }
-        else {
-            for (int i = 0; true; i++) {
-                int widthCounter = 0;
-
-                for (int z = zCoord - wNegative; z <= zCoord + wPositive; z++) {
-                    int x = xCoord + i;
-                    int y = yCoord - 1;
-                    Block block = worldObj.getBlock(xCoord + i, yCoord - 1, z);
-
-                    if(isMultiTankBlock(block, x, y, z)) { widthCounter++; }
-                    else { break; }
-                }
-                if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                    depth++;
-                    orientation = BaseScanResult.ORIENT_X_P;
-                }
-                else { break; }
-            }
-
-            if (depth - 1 > 0) {
-                BaseScanResult result = new BaseScanResult(orientation, depth);
-                return result;
-            }
-
-            depth = 0;
-
-            for (int i = 0; true; i++) {
-                int widthCounter = 0;
-
-                for (int z = zCoord - wNegative; z <= zCoord + wPositive; z++) {
-                    int x = xCoord - i;
-                    int y = yCoord - 1;
-
-                    Block block = worldObj.getBlock(xCoord - i, yCoord - 1, z);
-
-                    if (isMultiTankBlock(block, x, y, z)) { widthCounter++; }
-                    else { break; }
-                }
-
-                if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                    depth++;
-                    orientation = BaseScanResult.ORIENT_X_N;
-                }
-                else { break; }
-            }
-            if (depth - 1 > 0) {
-                BaseScanResult result = new BaseScanResult(orientation, depth);
-                return result;
-            }
-            else {
-                return null;
-            }
-        }
-    }
-
-    private int scanHeight() {
+        int widthPositive = 0;
+        int widthNegative = 0;
         int height = 0;
-        // Get the max Y size
-        for (int y = yCoord; y < yCoord + tankMaxSize - 1; y++) {   // TODO: Potential bug here
-            int x = xCoord;
-            int z = zCoord;
-            Block block = worldObj.getBlock(xCoord, y, zCoord);
+        int orientation = 0;
 
-            if (isMultiTankBlock(block, x, y, z)) {
-                height++;
-            } else {
-                break;
-            }
-        }
-        return height+1; // Include the base
-    }
+        switch (side) {
+            case 2:
+                orientation = Dimension.ORIENT_Z_P;
 
-    private boolean scanForTop(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
-        boolean hasTop = false;
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_P:
-                hasTop = scanTopXP(widthScanResult, baseScanResult.getDept(), height);
-                break;
-            case BaseScanResult.ORIENT_X_N:
-                hasTop = scanTopXN(widthScanResult, baseScanResult.getDept(), height);
-                break;
-            case BaseScanResult.ORIENT_Z_P:
-                hasTop = scanTopZP(widthScanResult, baseScanResult.getDept(), height);
-                break;
-            case BaseScanResult.ORIENT_Z_N:
-                hasTop = scanTopZN(widthScanResult, baseScanResult.getDept(), height);
-                break;
-        }
-        return hasTop;
-    }
-
-    private boolean scanRings(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
-        boolean hasRings = false;
-        int depth = baseScanResult.getDept();
-
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_P:
-                hasRings = scanRingsXP(widthScanResult, depth, height);
-                break;
-            case BaseScanResult.ORIENT_X_N:
-                hasRings = scanRingsXN(widthScanResult, depth, height);
-                break;
-            case BaseScanResult.ORIENT_Z_P:
-                hasRings = scanRingsZP(widthScanResult, depth, height);
-                break;
-            case BaseScanResult.ORIENT_Z_N:
-                hasRings = scanRingsZN(widthScanResult, depth, height);
-                break;
-        }
-
-        return hasRings;
-    }
-
-    private boolean scanRingsXP(WidthScanResult widthScanResult, int depth, int height) {
-        int width = widthScanResult.getNegativeCount() + widthScanResult.getPositiveCount() + 1;
-
-        int ringBlocksCounter = 0;
-        int emptyBlocksCounter = 0;
-        int ringBlocksTarget = (((2*width) + (2*depth)) - 4) * (height - 2);
-        int emptyBlocksTarget = ((width * depth) * (height - 2)) - ringBlocksTarget;
-
-        int zCoordMin = zCoord - widthScanResult.getNegativeCount();
-        int zCoordMax = zCoord + widthScanResult.getPositiveCount();
-
-        boolean correctBlocks = true;
-
-        boolean hasRings = false;
-        boolean hasEmpty = false;
-
-        // Sanity Check
-        if (ringBlocksTarget > 0 && emptyBlocksTarget > 0) {
-
-            for (int y = yCoord; y < (yCoord + height - 2); y++) {
-                if (!correctBlocks) {
-                    break;
-                }
-                for (int x = xCoord; x < xCoord + depth; x++) {
-                    if (!correctBlocks) {
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - i, yCoord, zCoord + 1)) {
+                        widthNegative++;
+                    } else {
                         break;
                     }
-                    for (int z = zCoordMin; z <= zCoordMax; z++) {
-                        if ((x > xCoord) && (z > zCoordMin) && (x < xCoord + (depth - 1)) && (z < zCoordMax)) {
-                            if (worldObj.isAirBlock(x,y,z)) {
-                                emptyBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + i, yCoord, zCoord + 1)) {
+                        widthPositive++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord, yCoord, zCoord + i)) {
+                        depth++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 0; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord, yCoord + i, zCoord + 1)) {
+                        height++;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+
+            case 3:
+                orientation = Dimension.ORIENT_Z_N;
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - i, yCoord, zCoord - 1)) {
+                        widthNegative++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + i, yCoord, zCoord - 1)) {
+                        widthPositive++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord, yCoord, zCoord - i)) {
+                        depth++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 0; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord, yCoord + i, zCoord - 1)) {
+                        height++;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+
+            case 4:
+                orientation = Dimension.ORIENT_X_P;
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + 1, yCoord, zCoord - i)) {
+                        widthNegative++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + 1, yCoord, zCoord - i)) {
+                        widthPositive++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + i, yCoord, zCoord)) {
+                        depth++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 0; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord + 1, yCoord + i, zCoord)) {
+                        height++;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+
+            case 5:
+                orientation = Dimension.ORIENT_X_N;
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - 1, yCoord, zCoord - i)) {
+                        widthNegative++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - 1, yCoord, zCoord - i)) {
+                        widthPositive++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - i, yCoord, zCoord)) {
+                        depth++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 0; i <= mTankMaxSize - 2; i++) {
+                    if (isClear(xCoord - 1, yCoord + i, zCoord)) {
+                        height++;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+        }
+
+        // Increment by one or two if greater than zero, we're counting empty blocks, have to include walls
+        widthNegative = widthNegative + 1;
+        widthPositive = widthPositive + 1;
+        depth = (depth > 0) ? depth + 2 : 0;
+        height = (height > 0) ? height + 2 : 0;
+
+
+        return new Dimension(orientation, widthNegative, widthPositive, depth, height);
+    }
+
+    /**
+     * Checks if the MultiTank is built properly: Base, rings and top
+     *
+     * @param dimension Dimensions of the MultiTank
+     * @param metaFlag  switch whether or not to check the block's meta as well.
+     *                  Used when re-checking a structure
+     * @return is the structure correct
+     */
+    private boolean checkStructure(Dimension dimension, boolean metaFlag) {
+        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
+
+        int startX = coordRange.getStartX();
+        int endX = coordRange.getEndX();
+        int startY = coordRange.getStartY();
+        int endY = coordRange.getEndY();
+        int startZ = coordRange.getStartZ();
+        int endZ = coordRange.getEndZ();
+
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
+                for (int z = startZ; z <= endZ; z++) {
+                    // RINGS
+                    if (y > startY && y < endY) {
+                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
+                        if (check) {
+                            if (!isMultiTankBlock(x, y, z, metaFlag)) {
+                                return false;
                             }
                         } else {
-                            Block block = worldObj.getBlock(x, y, z);
-
-                            if (isMultiTankBlock(block, x, y, z)) {
-                                ringBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
+                            if (!isClear(x, y, z)) {
+                                return false;
                             }
+                        }
+                        // Base and Top
+                    } else {
+                        if (!isMultiTankBlock(x, y, z, metaFlag)) {
+                            return false;
                         }
                     }
                 }
             }
-            hasRings = (ringBlocksCounter == ringBlocksTarget);
-            hasEmpty = (emptyBlocksCounter == emptyBlocksTarget);
         }
-
-        return hasRings && hasEmpty;
+        return true;
     }
 
-    private boolean scanRingsXN(WidthScanResult widthScanResult, int depth, int height) {
-        int width = widthScanResult.getNegativeCount() + widthScanResult.getPositiveCount() + 1;
-
-        int ringBlocksCounter = 0;
-        int emptyBlocksCounter = 0;
-        int ringBlocksTarget = (((2*width) + (2*depth)) - 4) * (height - 2);
-        int emptyBlocksTarget = ((width * depth) * (height - 2)) - ringBlocksTarget;
-
-        int zCoordMin = zCoord - widthScanResult.getNegativeCount();
-        int zCoordMax = zCoord + widthScanResult.getPositiveCount();
-
-        boolean correctBlocks = true;
-
-        boolean hasRings = false;
-        boolean hasEmpty = false;
-
-        // Sanity Check
-        if (ringBlocksTarget > 0 && emptyBlocksTarget > 0) {
-
-            for (int y = yCoord; y < (yCoord + height - 2); y++) {
-                if (!correctBlocks) {
-                    break;
-                }
-                for (int x = xCoord; x > xCoord - depth; x--) {
-                    if (!correctBlocks) {
-                        break;
-                    }
-                    for (int z = zCoordMin; z <= zCoordMax; z++) {
-                        if ((x < xCoord) && (z > zCoordMin) && (x > xCoord - (depth - 1)) && (z < zCoordMax)) {
-                            if (worldObj.isAirBlock(x,y,z)) {
-                                emptyBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        } else {
-                            Block block = worldObj.getBlock(x, y, z);
-
-                            if (isMultiTankBlock(block, x, y, z)) {
-                                ringBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            hasRings = (ringBlocksCounter == ringBlocksTarget);
-            hasEmpty = (emptyBlocksCounter == emptyBlocksTarget);
-        }
-
-        return hasRings && hasEmpty;
-    }
-
-    private boolean scanRingsZP(WidthScanResult widthScanResult, int depth, int height) {
-        int width = widthScanResult.getNegativeCount() + widthScanResult.getPositiveCount() + 1;
-
-        int ringBlocksCounter = 0;
-        int emptyBlocksCounter = 0;
-        int ringBlocksTarget = (((2*width) + (2*depth)) - 4) * (height - 2);
-        int emptyBlocksTarget = ((width * depth) * (height - 2)) - ringBlocksTarget;
-
-        int xCoordMin = xCoord - widthScanResult.getNegativeCount();
-        int xCoordMax = xCoord + widthScanResult.getPositiveCount();
-
-        boolean correctBlocks = true;
-
-        boolean hasRings = false;
-        boolean hasEmpty = false;
-
-        // Sanity Check
-        if (ringBlocksTarget > 0 && emptyBlocksTarget > 0) {
-
-            for (int y = yCoord; y < (yCoord + height - 2); y++) {
-                if (!correctBlocks) {
-                    break;
-                }
-                for (int z = zCoord; z < zCoord + depth; z++) {
-                    if (!correctBlocks) {
-                        break;
-                    }
-
-                    for (int x = xCoordMin; x <= xCoordMax; x++) {
-                        if ((z > zCoord) && (x > xCoordMin) && (z < zCoord + (depth - 1)) && (x < xCoordMax)) {
-                            if (worldObj.isAirBlock(x,y,z)) {
-                                emptyBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        } else {
-                            Block block = worldObj.getBlock(x, y, z);
-
-                            if (isMultiTankBlock(block, x, y, z)) {
-                                ringBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            hasRings = (ringBlocksCounter == ringBlocksTarget);
-            hasEmpty = (emptyBlocksCounter == emptyBlocksTarget);
-        }
-
-        return hasRings && hasEmpty;
-    }
-
-    private boolean scanRingsZN(WidthScanResult widthScanResult, int depth, int height) {
-        int width = widthScanResult.getNegativeCount() + widthScanResult.getPositiveCount() + 1;
-
-        int ringBlocksCounter = 0;
-        int emptyBlocksCounter = 0;
-        int ringBlocksTarget = (((2*width) + (2*depth)) - 4) * (height - 2);
-        int emptyBlocksTarget = ((width * depth) * (height - 2)) - ringBlocksTarget;
-
-        int xCoordMin = xCoord - widthScanResult.getNegativeCount();
-        int xCoordMax = xCoord + widthScanResult.getPositiveCount();
-
-        boolean correctBlocks = true;
-
-        boolean hasRings = false;
-        boolean hasEmpty = false;
-
-        // Sanity Check
-        if (ringBlocksTarget > 0 && emptyBlocksTarget > 0) {
-
-            for (int y = yCoord; y < (yCoord + height - 2); y++) {
-                if (!correctBlocks) {
-                    break;
-                }
-                for (int z = zCoord; z > zCoord - depth; z--) {
-                    if(!correctBlocks) {
-                        break;
-                    }
-
-                    for (int x = xCoordMin; x <= xCoordMax; x++) {
-                        if ((z < zCoord) && (x > xCoordMin) && (z > zCoord - (depth - 1)) && (x < xCoordMax)) {
-                            if (worldObj.isAirBlock(x,y,z)) {
-                                emptyBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        } else {
-                            Block block = worldObj.getBlock(x, y, z);
-
-                            if (isMultiTankBlock(block, x, y, z)) {
-                                ringBlocksCounter++;
-                            } else {
-                                correctBlocks = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            hasRings = (ringBlocksCounter == ringBlocksTarget);
-            hasEmpty = (emptyBlocksCounter == emptyBlocksTarget);
-        }
-
-
-        return hasRings && hasEmpty;
-    }
-
-    private boolean scanTopXP(WidthScanResult widthScanResult, int depthTarget, int height) {
-        int wNegative = widthScanResult.getNegativeCount();
-        int wPositive = widthScanResult.getPositiveCount();
-
-        int depth = 0;
-
-        int elev = yCoord + height - 2;
-
-        for (int i = 0; true; i++) {
-            int widthCounter = 0;
-            for (int z = zCoord - wNegative; z <= zCoord + wPositive; z++) {
-                int x  = xCoord + i;
-                int y = elev;
-
-                Block block = worldObj.getBlock(xCoord + i, elev, z);
-
-                if(isMultiTankBlock(block, x, y, z)) {
-                    widthCounter++;
-                } else {
-                    break;
-                }
-            }
-            if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                depth++;
-            } else {
-                break;
-            }
-        }
-
-        return depth == depthTarget;
-    }
-
-    private boolean scanTopXN(WidthScanResult widthScanResult, int depthTarget, int height) {
-        int wNegative = widthScanResult.getNegativeCount();
-        int wPositive = widthScanResult.getPositiveCount();
-
-        int depth = 0;
-
-        int elev = yCoord + height - 2;
-
-        for (int i = 0; true; i++) {
-            int widthCounter = 0;
-            for (int z = zCoord - wNegative; z <= zCoord + wPositive; z++) {
-                int x  = xCoord - i;
-                int y = elev;
-
-                Block block = worldObj.getBlock(xCoord - i, elev, z);
-
-                if(isMultiTankBlock(block, x, y, z)) {
-                    widthCounter++;
-                } else {
-                    break;
-                }
-            }
-
-            if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                depth++;
-            } else {
-                break;
-            }
-        }
-
-        return depth == depthTarget;
-    }
-
-    private boolean scanTopZP(WidthScanResult widthScanResult, int depthTarget, int height) {
-        int wNegative = widthScanResult.getNegativeCount();
-        int wPositive = widthScanResult.getPositiveCount();
-
-        int depth = 0;
-
-        int elev = yCoord + height - 2;
-
-
-        for (int i = 0; true; i++) {
-            int widthCounter = 0;
-
-            for (int x = xCoord-wNegative; x <= xCoord+wPositive; x++) {
-                int y = elev;
-                int z = zCoord+i;
-                Block block = worldObj.getBlock(x, elev, zCoord + i);
-
-                if(isMultiTankBlock(block, x, y, z)) {
-                    widthCounter++;
-                } else {
-                    break;
-                }
-            }
-
-            if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                depth++;
-            } else {
-                break;
-            }
-        }
-
-        return depth == depthTarget;
-    }
-
-    private boolean scanTopZN(WidthScanResult widthScanResult, int depthTarget, int height) {
-        int wNegative = widthScanResult.getNegativeCount();
-        int wPositive = widthScanResult.getPositiveCount();
-
-        int depth = 0;
-
-        int elev = yCoord + height - 2;
-
-        for (int i = 0; true; i++) {
-            int widthCounter = 0;
-
-            for (int x = xCoord-wNegative; x <= xCoord+wPositive; x++) {
-                int y = elev;
-                int z = zCoord - i;
-
-                Block block = worldObj.getBlock(x, elev, zCoord - i);
-
-                if(isMultiTankBlock(block, x, y, z)) {
-                    widthCounter++;
-                } else {
-                    break;
-                }
-            }
-
-            if (isCorrectWidth(widthCounter, wNegative, wPositive)) {
-                depth++;
-            } else {
-                break;
-            }
-        }
-
-        return depth == depthTarget;
-    }
-
-    private void setupStructure(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
-
+    /**
+     * Sets up the structure, marking appropriate blocks and setting them relevant data.
+     *
+     * @param dimension The dimensions of the relevant MultiTank structure
+     */
+    private void setupStructure(Dimension dimension) {
         // Conditions for setting up the base:
         //      Base is always 1 block below the valve
         //      Base is a slab, so width-negative to width+negative from current block to depthMax
@@ -895,305 +434,193 @@ public class TileHexoriumValve extends TileEntity {
         //      Top is at the top, so max y: yCoord + mHeight
         //      Top is a slab, so width-negative to width+positive from current block to depthMax
 
-        int startX = 0;
-        int endX = 0;
+        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
 
-        int startY = yCoord - 1;
-        int endY = yCoord + height;
+        int startX = coordRange.getStartX();
+        int endX = coordRange.getEndX();
+        int startY = coordRange.getStartY();
+        int endY = coordRange.getEndY();
+        int startZ = coordRange.getStartZ();
+        int endZ = coordRange.getEndZ();
 
-        int startZ = 0;
-        int endZ = 0;
-
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_N:
-                startX = xCoord - baseScanResult.getDept() + 1;
-                endX = xCoord;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_X_P:
-                startX = xCoord;
-                endX = xCoord + baseScanResult.getDept() - 1;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_N:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord - baseScanResult.getDept() + 1;
-                endZ = zCoord;
-                break;
-
-            case BaseScanResult.ORIENT_Z_P:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord;
-                endZ = zCoord + baseScanResult.getDept() - 1;
-                break;
-        }
-
-        System.out.format("(DEBUG) StartX: %s, EndX: %s\n", startX, endX);
-        System.out.format("(DEBUG) StartY: %s, EndY: %s\n", startY, endY);
-        System.out.format("(DEBUG) StartZ: %s, EndZ: %s\n", startZ, endZ);
-
-        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+        for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
-                    if (y > startY && y < endY -2) {    // RINGS
+                    // RINGS
+                    if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            setIsPart(x,y,z, true);
+                            setIsPart(x, y, z, true);
                         }
-                    } else {        // Base and Top
-                        setIsPart(x,y,z,true);
+                        // Base and Top
+                    } else {
+                        setIsPart(x, y, z, true);
                     }
                 }
             }
         }
-        mIsSetup = true;
-        mWidthScanResult = widthScanResult;
-        mBaseScanResult = baseScanResult;
-        mHeight = height;
     }
 
-    private void resetStructure(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
+    /**
+     * Resets the data in the relevant blocks, freeing them up to be used in another structure.
+     *
+     * @param dimension The dimensions of the relevant MultiTank structure
+     */
+    private void resetStructure(Dimension dimension) {
+        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
 
-        // Conditions for setting up the base:
-        //      Base is always 1 block below the valve
-        //      Base is a slab, so width-negative to width+negative from current block to depthMax
+        int startX = coordRange.getStartX();
+        int endX = coordRange.getEndX();
+        int startY = coordRange.getStartY();
+        int endY = coordRange.getEndY();
+        int startZ = coordRange.getStartZ();
+        int endZ = coordRange.getEndZ();
 
-        // Conditions for setting up the rings:
-        //      Start at same Y as the valve
-        //      At Depths 0 to maxHeight - 1, and max go from one width+negative to width+positive
-        //      At all other depths skip everything which isn't width+negative or width+positive
-
-        // Conditions for setting up the top:
-        //      Top is at the top, so max y: yCoord + mHeight
-        //      Top is a slab, so width-negative to width+positive from current block to depthMax
-
-        int startX = 0;
-        int endX = 0;
-
-        int startY = yCoord - 1;
-        int endY = yCoord + height;
-
-        int startZ = 0;
-        int endZ = 0;
-
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_N:
-                startX = xCoord - baseScanResult.getDept() + 1;
-                endX = xCoord;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_X_P:
-                startX = xCoord;
-                endX = xCoord + baseScanResult.getDept() - 1;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_N:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord - baseScanResult.getDept() + 1;
-                endZ = zCoord;
-                break;
-
-            case BaseScanResult.ORIENT_Z_P:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord;
-                endZ = zCoord + baseScanResult.getDept() - 1;
-                break;
-        }
-
-        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+        for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
-                    if (y > startY && y < endY -2) {    // RINGS
+                    // RINGS
+                    if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            setIsPart(x,y,z, false);
-                            setHasNotified(x,y,z,false);
+                            setIsPart(x, y, z, false);
+                            setHasNotified(x, y, z, false);
                         }
-                    } else {        // Base and Top
-                        setIsPart(x,y,z,false);
-                        setHasNotified(x,y,z,false);
+                        // Base and Top
+                    } else {
+                        setIsPart(x, y, z, false);
+                        setHasNotified(x, y, z, false);
                     }
                 }
             }
         }
-        mIsSetup = false;
     }
 
-    private void resetNotify(WidthScanResult widthScanResult, BaseScanResult baseScanResult, int height) {
-        int startX = 0;
-        int endX = 0;
+    /**
+     * Resets the notify meta in the relevant blocks, allowing the structure to report changes.
+     *
+     * @param dimension The dimensions of the relevant MultiTank structure
+     */
+    public void resetNotify(Dimension dimension) {
+        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
 
-        int startY = yCoord - 1;
-        int endY = yCoord + height;
+        int startX = coordRange.getStartX();
+        int endX = coordRange.getEndX();
+        int startY = coordRange.getStartY();
+        int endY = coordRange.getEndY();
+        int startZ = coordRange.getStartZ();
+        int endZ = coordRange.getEndZ();
 
-        int startZ = 0;
-        int endZ = 0;
-
-        switch (baseScanResult.getOrientation()) {
-            case BaseScanResult.ORIENT_X_N:
-                startX = xCoord - baseScanResult.getDept() + 1;
-                endX = xCoord;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_X_P:
-                startX = xCoord;
-                endX = xCoord + baseScanResult.getDept() - 1;
-                startZ = zCoord - widthScanResult.getNegativeCount();
-                endZ = zCoord + widthScanResult.getPositiveCount();
-                break;
-
-            case BaseScanResult.ORIENT_Z_N:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord - baseScanResult.getDept() + 1;
-                endZ = zCoord;
-                break;
-
-            case BaseScanResult.ORIENT_Z_P:
-                startX = xCoord - widthScanResult.getNegativeCount();
-                endX = xCoord + widthScanResult.getPositiveCount();
-                startZ = zCoord;
-                endZ = zCoord + baseScanResult.getDept() - 1;
-                break;
-        }
-
-        for (int y = startY; y < endY; y++) { // TODO: Check mHeight scanning, could be it returns wrong value (check where it's mHeight-2)
+        for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
-                    if (y > startY && y < endY -2) {    // RINGS
+                    // RINGS
+                    if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            setHasNotified(x,y,z,false);
+                            setHasNotified(x, y, z, false);
                         }
-                    } else {        // Base and Top
-                        setHasNotified(x,y,z,false);
+                        // Base and Top
+                    } else {
+                        setHasNotified(x, y, z, false);
                     }
                 }
             }
         }
-
     }
 
-    private void recheckStructure() {
+    /**
+     * Runs through necessary checks and sets up the structure.
+     *
+     * @param side Side that the manipulator was used on
+     */
 
-        if (mIsSetup) {
-            BaseScanResult baseCheckScan = rescanBase(mBaseScanResult, mWidthScanResult);
+    public void setupMultiTank(int side) {
+        Dimension dimension = scanDimensions(side);
 
+        if (checkStructure(dimension, true)) {
+            setupStructure(dimension);
 
-            boolean baseCheck = mBaseScanResult.equals(baseCheckScan);
-            boolean ringsCheck = scanRings(mWidthScanResult, mBaseScanResult, mHeight);
-            boolean topCheck = scanForTop(mWidthScanResult, mBaseScanResult, mHeight);
+            mIsMaster = true;
+            mIsSetup = true;
+            mDimension = dimension;
 
-            if (baseCheck && ringsCheck && topCheck) {
-                resetNotify(mWidthScanResult, mBaseScanResult, mHeight);
-            } else {
-                resetStructure(mWidthScanResult, mBaseScanResult, mHeight);
-            }
+            mMasterX = xCoord;
+            mMasterY = yCoord;
+            mMasterZ = zCoord;
         }
+
+        System.out.format("[DEBUG] Dimensions: o:%s, nW:%s, pW:%s, w:%s, h:%s, d:%s\n",
+            dimension.getOrientation(), dimension.getNegativeWidth(), dimension.getPositiveWidth(),
+            dimension.getWidth(), dimension.getHeight(), dimension.getDepth());
     }
 
+    /**
+     * Receives notification that the structure has been modified in a way.
+     * The master valve will always recieve 4 notifications, that way we know that every block has
+     * fired a notification.
+     */
     public void notifyChange() {
         notifyCounter++;
-        recheckStructure();
-        System.out.format("[DEBUG] Notified: %s\n", System.currentTimeMillis());
-    }
 
-    public void printDebug() {
-        System.out.format("[DEBUG] IsSetup: %s\n", mIsSetup);
-    }
-
-    private class WidthScanResult {
-        /** The width expands along the X axis */
-        public static final int ORIENT_X=0;
-        /** The width expands along the Z axis */
-        public static final int ORIENT_Z=1;
-
-        private int orientation;
-        private int negativeCount;
-        private int positiveCount;
-
-        /**
-         * Constructor
-         * @param orientation Orientation identifier
-         * @param negativeCount Block count in the negative direction
-         * @param positiveCount Block count in the positive direction
-         */
-        public WidthScanResult(int orientation, int negativeCount, int positiveCount) {
-            this.orientation = orientation;
-            this.negativeCount = negativeCount;
-            this.positiveCount = positiveCount;
-        }
-
-        /**
-         * Returns the orientation
-         * @return orientation
-         */
-        public int getOrientation() {
-            return orientation;
-        }
-
-        /**
-         * Sets orientation
-         * @param orientation orientation
-         */
-        public void setOrientation(int orientation) {
-            this.orientation = orientation;
-        }
-
-        public int getNegativeCount() {
-            return negativeCount;
-        }
-
-        public void setNegativeCount(int negativeCount) {
-            this.negativeCount = negativeCount;
-        }
-
-        public int getPositiveCount() {
-            return positiveCount;
-        }
-
-        public void setPositiveCount(int positiveCount) {
-            this.positiveCount = positiveCount;
-        }
-
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            WidthScanResult result = (WidthScanResult) o;
-
-            if (getOrientation() != result.getOrientation()) return false;
-            if (getNegativeCount() != result.getNegativeCount()) return false;
-            return getPositiveCount() == result.getPositiveCount();
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = getOrientation();
-            result = 31 * result + getNegativeCount();
-            result = 31 * result + getPositiveCount();
-            return result;
+        if (notifyCounter > 3) {
+            System.out.format("[DEBUG] Re-checking structure\n");
+            if (mIsSetup && mIsMaster) {
+                if (checkStructure(mDimension, false)) {
+                    resetNotify(mDimension);
+                } else {
+                    resetStructure(mDimension);
+                }
+            }
+            notifyCounter = 0;
         }
     }
 
-    private class BaseScanResult {
+    // TODO: JavaDoc
+    public boolean ismIsSetup() {
+        return mIsSetup;
+    }
+
+    public void setmIsSetup(boolean mIsSetup) {
+        this.mIsSetup = mIsSetup;
+    }
+
+    public int getmMasterX() {
+        return mMasterX;
+    }
+
+    public void setmMasterX(int mMasterX) {
+        this.mMasterX = mMasterX;
+    }
+
+    public int getmMasterY() {
+        return mMasterY;
+    }
+
+    public void setmMasterY(int mMasterY) {
+        this.mMasterY = mMasterY;
+    }
+
+    public int getmMasterZ() {
+        return mMasterZ;
+    }
+
+    public void setmMasterZ(int mMasterZ) {
+        this.mMasterZ = mMasterZ;
+    }
+
+    public boolean ismIsMaster() {
+        return mIsMaster;
+    }
+
+    public void setmIsMaster(boolean mIsMaster) {
+        this.mIsMaster = mIsMaster;
+    }
+
+    /**
+     * Data holder class which holds relevant data needed for operation of the multitank
+     */
+    private class Dimension {
         /**
          * Depth grows on X axis, positive direction
          */
@@ -1212,46 +639,187 @@ public class TileHexoriumValve extends TileEntity {
         private static final int ORIENT_Z_N = 3;
 
         private int orientation;
-        private int dept;
+        private int negativeWidth;
+        private int positiveWidth;
+        private int width;
+        private int depth;
+        private int height;
 
-        public BaseScanResult(int orientation, int dept) {
+        /**
+         * Constructor
+         *
+         * @param orientation   How the structure is oriented
+         * @param negativeWidth Amount of blocks on the negative side
+         * @param positiveWidth Amount of blocks on the positive side
+         * @param depth         Depth
+         * @param height        Height
+         */
+        public Dimension(int orientation, int negativeWidth, int positiveWidth, int depth,
+            int height) {
             this.orientation = orientation;
-            this.dept = dept;
+            this.negativeWidth = negativeWidth;
+            this.positiveWidth = positiveWidth;
+            this.depth = depth;
+            this.width = negativeWidth + positiveWidth + 1;
+            this.height = height;
         }
 
+        /**
+         * @return structure orientation
+         */
         public int getOrientation() {
             return orientation;
         }
 
+        /**
+         * @param orientation structure orientation
+         */
         public void setOrientation(int orientation) {
             this.orientation = orientation;
         }
 
-        public int getDept() {
-            return dept;
+        /**
+         * @return Amount of blocks on the negative side
+         */
+        public int getNegativeWidth() {
+            return negativeWidth;
         }
 
-        public void setDept(int dept) {
-            this.dept = dept;
+        /**
+         * @param negativeWidth Amount of blocks on the negative side
+         */
+        public void setNegativeWidth(int negativeWidth) {
+            this.negativeWidth = negativeWidth;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+        /**
+         * @return Amount of blocks on the positive side
+         */
+        public int getPositiveWidth() {
+            return positiveWidth;
+        }
 
-            BaseScanResult result = (BaseScanResult) o;
+        /**
+         * @param positiveWidth Amount of blocks on the positive side
+         */
+        public void setPositiveWidth(int positiveWidth) {
+            this.positiveWidth = positiveWidth;
+        }
 
-            if (getOrientation() != result.getOrientation()) return false;
-            return getDept() == result.getDept();
+        /**
+         * @return Total width of the structure
+         */
+        public int getWidth() {
+            return width;
+        }
+
+        /**
+         * @param width Total width of the structure
+         */
+        public void setWidth(int width) {
+            this.width = width;
+        }
+
+        /**
+         * @return Depth of the structure
+         */
+        public int getDepth() {
+            return depth;
+        }
+
+        /**
+         * @param depth Depth of the structure
+         */
+        public void setDepth(int depth) {
+            this.depth = depth;
+        }
+
+        /**
+         * @return Height of the structure
+         */
+        public int getHeight() {
+            return height;
+        }
+
+        /**
+         * @param height Height of the structure
+         */
+        public void setHeight(int height) {
+            this.height = height;
+        }
+    }
+
+
+    /**
+     * Data holder for coordinate ranges used in traversing the structure
+     */
+    private class CoordRange { // TODO: Finish JavaDoc
+        private int startX;
+        private int endX;
+        private int startY;
+        private int endY;
+        private int startZ;
+        private int endZ;
+
+        public CoordRange() {
+        }
+
+        public CoordRange(int startX, int endX, int startY, int endY, int startZ, int endZ) {
+            this.startX = startX;
+            this.endX = endX;
+            this.startY = startY;
+            this.endY = endY;
+            this.startZ = startZ;
+            this.endZ = endZ;
 
         }
 
-        @Override
-        public int hashCode() {
-            int result = getOrientation();
-            result = 31 * result + getDept();
-            return result;
+        public int getEndZ() {
+            return endZ;
+        }
+
+        public void setEndZ(int endZ) {
+            this.endZ = endZ;
+        }
+
+        public int getStartX() {
+            return startX;
+        }
+
+        public void setStartX(int startX) {
+            this.startX = startX;
+        }
+
+        public int getEndX() {
+            return endX;
+        }
+
+        public void setEndX(int endX) {
+            this.endX = endX;
+        }
+
+        public int getStartY() {
+            return startY;
+        }
+
+        public void setStartY(int startY) {
+            this.startY = startY;
+        }
+
+        public int getEndY() {
+            return endY;
+        }
+
+        public void setEndY(int endY) {
+            this.endY = endY;
+        }
+
+        public int getStartZ() {
+            return startZ;
+        }
+
+        public void setStartZ(int startZ) {
+            this.startZ = startZ;
         }
     }
 }

@@ -965,6 +965,10 @@ public class HexBlocks {
         blockHexoriumPressurePlateWhite = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
         GameRegistry.registerBlock(blockHexoriumPressurePlateWhite, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
 
+        // Hexorium Valve
+        blockHexoriumValve = new BlockHexoriumValve(BlockHexoriumValve.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockHexoriumValve, BlockHexoriumValve.UNLOCALISEDNAME);
+
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.UNLOCALISEDNAME);
@@ -973,10 +977,6 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.UNLOCALISEDNAME + "51");
         blockPylonBase15 = new BlockPylonBase(BlockPylonBase.UNLOCALISEDNAME + "15", true);
         GameRegistry.registerBlock(blockPylonBase15, BlockPylonBase.UNLOCALISEDNAME + "15");
-
-        // Hexorium Valve
-        blockHexoriumValve = new BlockHexoriumValve(BlockHexoriumValve.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockHexoriumValve, BlockHexoriumValve.UNLOCALISEDNAME);
     }
 
     public static void updateMachineState(int status, World world, int x, int y, int z) {

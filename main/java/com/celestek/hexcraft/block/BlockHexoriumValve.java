@@ -18,9 +18,12 @@ import net.minecraft.world.World;
 public class BlockHexoriumValve extends HexBlockContainer {
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumValve";
+    // Prepare the icons.
+    @SideOnly(Side.CLIENT) private IIcon icon[];
 
     /**
      * Constructor for the block.
+     *
      * @param blockName Unlocalized name for the block.
      */
     public BlockHexoriumValve(String blockName) {
@@ -37,29 +40,21 @@ public class BlockHexoriumValve extends HexBlockContainer {
         this.setStepSound(Block.soundTypeMetal);
     }
 
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
-        TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) world.getTileEntity(x,y,z);
+    @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
+        TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) world.getTileEntity(x, y, z);
         tileHexoriumValve.notifyChange();
 
         super.onNeighborBlockChange(world, x, y, z, neighbor);
     }
 
-    @Override
-    public TileEntity createTileEntity(World world, int metadata) {
+    @Override public TileEntity createTileEntity(World world, int metadata) {
         return new TileHexoriumValve();
     }
-
-    // Prepare the icons.
-    @SideOnly(Side.CLIENT)
-    private IIcon icon[];
 
     /**
      * Registers the icons.
      */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
+    @Override @SideOnly(Side.CLIENT) public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[3];
         // Load the outer textures.
@@ -72,9 +67,7 @@ public class BlockHexoriumValve extends HexBlockContainer {
     /**
      * Retrieves the icons.
      */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
+    @Override @SideOnly(Side.CLIENT) public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
         if (side == 0)
             return icon[0];

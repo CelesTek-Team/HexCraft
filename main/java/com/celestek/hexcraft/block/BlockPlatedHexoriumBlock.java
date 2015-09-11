@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * @since 2015-04-14
  */
 
-public class BlockPlatedHexoriumBlock extends HexBlock {
+public class BlockPlatedHexoriumBlock extends HexBlockMT {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockPlatedHexoriumBlock";

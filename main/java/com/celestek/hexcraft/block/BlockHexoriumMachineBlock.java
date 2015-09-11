@@ -14,7 +14,7 @@ import net.minecraft.util.IIcon;
  * @since 2015-04-14
  */
 
-public class BlockHexoriumMachineBlock extends HexBlock {
+public class BlockHexoriumMachineBlock extends HexBlockMT {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumMachineBlock";

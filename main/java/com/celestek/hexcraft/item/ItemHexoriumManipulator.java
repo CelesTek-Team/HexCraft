@@ -168,14 +168,9 @@ public class ItemHexoriumManipulator extends Item {
 
                     analyzePylonBase(world, x, y, z);
                 }
-                // Create Multitank
-                else if (block instanceof BlockHexoriumValve) {
-                    TileEntity teHexValve = world.getTileEntity(x,y,z);
-                    ((TileHexoriumValve) teHexValve).printDebug();
-                }
-                else if (block instanceof BlockTemperedHexoriumGlass) {
+                else if (block instanceof HexBlockMT ||block instanceof BlockTemperedHexoriumGlass ) { // TODO: Remove this before push
                     int meta = world.getBlockMetadata(x,y,z);
-                    System.out.format("(DEBUG) Tempered glass meta: %s\n", HexUtils.getBit(meta, 1));
+                    System.out.format("(DEBUG) Block meta: %s\n", HexUtils.getBit(meta, 1));
                 }
             }
             // Fired on normal use.
@@ -429,7 +424,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
                 else if (block instanceof BlockHexoriumValve) {
                     TileEntity teHexValve = world.getTileEntity(x,y,z);
-                    ((TileHexoriumValve) teHexValve).setupMultiTank();
+                    ((TileHexoriumValve) teHexValve).setupMultiTank(side);
                 }
             }
         }
