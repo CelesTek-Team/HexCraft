@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -39,6 +40,21 @@ public class BlockHexoriumValve extends HexBlockContainer {
 
         this.setStepSound(Block.soundTypeMetal);
     }
+
+    @Override public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
+        int metadata, float float1, float float2, float float3) {
+
+        TileEntity tileEntity = world.getTileEntity(x,y,z);
+
+        if (tileEntity != null) {
+            TileHexoriumValve tileHexoriumTank = (TileHexoriumValve) tileEntity;
+            tileHexoriumTank.interactedWithTank(player);
+            player.getCurrentEquippedItem();
+        }
+
+        return super.onBlockActivated(world, x, y, z, player, metadata, float1, float2, float3);
+    }
+
 
     @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
         TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) world.getTileEntity(x, y, z);

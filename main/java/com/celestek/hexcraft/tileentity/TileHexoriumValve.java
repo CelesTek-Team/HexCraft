@@ -5,18 +5,18 @@ import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
 
 /**
  * @Author CoffeePirate     <celestek@openmailbox.org>
  * @Version 0.1.0
  */
-public class TileHexoriumValve extends TileEntity {
-
-    // Set machine name.
-    public static String ID = "tileHexoriumValve";
-    private static String machineName = "Hexorium Valve";
+public class TileHexoriumValve extends TileEntity implements IFluidHandler {
 
     /**
      * Meta bit for identifying blocks which are already part of a multitank
@@ -33,11 +33,18 @@ public class TileHexoriumValve extends TileEntity {
     private static final String NBT_MASTER_Y = "ctek_mt_master_y";
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
 
-
     private static final int mTankMaxSize = 16;
+    private static final int mTankCapacityMultiplier = 16;
+
+    // Set machine name.
+    public static String ID = "tileHexoriumValve";
+    private static String machineName = "Hexorium Valve";
+
     private int notifyCounter = 0;
 
     private Dimension mDimension;
+
+    private FluidTank mFluidTank;
 
 
     private int masterX;
@@ -61,36 +68,35 @@ public class TileHexoriumValve extends TileEntity {
 
     }
 
-    @Override public void writeToNBT(NBTTagCompound data) {
-        super.writeToNBT(data);
-        mDimension.saveToNBT(data);
+    @Override public void writeToNBT(NBTTagCompound nbtTagCompound) {
+        super.writeToNBT(nbtTagCompound);
+        mDimension.saveToNBT(nbtTagCompound);
 
-        data.setBoolean(this.NBT_IS_MASTER, isMaster());
-        data.setBoolean(this.NBT_IS_SETUP, isSetup());
+        nbtTagCompound.setBoolean(this.NBT_IS_MASTER, isMaster());
+        nbtTagCompound.setBoolean(this.NBT_IS_SETUP, isSetup());
 
-        data.setInteger(this.NBT_MASTER_X, getMasterX());
-        data.setInteger(this.NBT_MASTER_Y, getMasterY());
-        data.setInteger(this.NBT_MASTER_Z, getMasterZ());
-
+        nbtTagCompound.setInteger(this.NBT_MASTER_X, getMasterX());
+        nbtTagCompound.setInteger(this.NBT_MASTER_Y, getMasterY());
+        nbtTagCompound.setInteger(this.NBT_MASTER_Z, getMasterZ());
 
         if (isMaster() && isSetup()) {
-
+            mFluidTank.writeToNBT(nbtTagCompound);
         }
     }
 
-    @Override public void readFromNBT(NBTTagCompound data) {
-        super.readFromNBT(data);
-        mDimension.loadFromNBT(data);
+    @Override public void readFromNBT(NBTTagCompound nbtTagCompound) {
+        super.readFromNBT(nbtTagCompound);
+        mDimension.loadFromNBT(nbtTagCompound);
 
-        setSetup(data.getBoolean(this.NBT_IS_SETUP));
-        setMaster(data.getBoolean(this.NBT_IS_MASTER));
+        setSetup(nbtTagCompound.getBoolean(this.NBT_IS_SETUP));
+        setMaster(nbtTagCompound.getBoolean(this.NBT_IS_MASTER));
 
-        setMasterX(data.getInteger(this.NBT_MASTER_X));
-        setMasterY(data.getInteger(this.NBT_MASTER_Y));
-        setMasterZ(data.getInteger(this.NBT_MASTER_Z));
+        setMasterX(nbtTagCompound.getInteger(this.NBT_MASTER_X));
+        setMasterY(nbtTagCompound.getInteger(this.NBT_MASTER_Y));
+        setMasterZ(nbtTagCompound.getInteger(this.NBT_MASTER_Z));
 
         if (isMaster() && isSetup()) {
-
+            mFluidTank.writeToNBT(nbtTagCompound);
         }
     }
 
@@ -534,12 +540,17 @@ public class TileHexoriumValve extends TileEntity {
         }
     }
 
+    private int calculateTankSize(Dimension dimension) {
+        return (mTankCapacityMultiplier * FluidContainerRegistry.BUCKET_VOLUME) *
+            (dimension.getWidth() - 2) * (dimension.getHeight() - 2) * (dimension.getDepth() - 2);
+    }
+
     /**
      * Resets the notify meta in the relevant blocks, allowing the structure to report changes.
      *
      * @param dimension The dimensions of the relevant MultiTank structure
      */
-    public void resetNotify(Dimension dimension) {
+    private void resetNotify(Dimension dimension) {
         CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
@@ -586,6 +597,8 @@ public class TileHexoriumValve extends TileEntity {
             masterX = xCoord;
             masterY = yCoord;
             masterZ = zCoord;
+
+            mFluidTank = new FluidTank(calculateTankSize(dimension));
         }
     }
 
@@ -603,9 +616,28 @@ public class TileHexoriumValve extends TileEntity {
                     resetNotify(mDimension);
                 } else {
                     resetStructure(mDimension);
+                    mFluidTank = null;
                 }
             }
             notifyCounter = 0;
+        }
+    }
+
+    public void interactedWithTank(EntityPlayer player) {
+        ItemStack item = player.getCurrentEquippedItem();
+
+        if (FluidContainerRegistry.isContainer(item)) {
+            if (!FluidContainerRegistry.isEmptyContainer(item)) {
+
+                FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(item);
+
+                if (mFluidTank.fill(fluidStack, true) > 0) {
+                    ItemStack emptyFluidContainer =
+                        FluidContainerRegistry.drainFluidContainer(item);
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                        emptyFluidContainer);
+                }
+            }
         }
     }
 
@@ -677,6 +709,81 @@ public class TileHexoriumValve extends TileEntity {
      */
     public void setMaster(boolean master) {
         this.isMaster = master;
+    }
+
+    /**
+     * Fills fluid into internal tanks, distribution is left entirely to the IFluidHandler.
+     *
+     * @param from     Orientation the Fluid is pumped in from.
+     * @param resource FluidStack representing the Fluid and maximum amount of fluid to be filled.
+     * @param doFill   If false, fill will only be simulated.
+     * @return Amount of resource that was (or would have been, if simulated) filled.
+     */
+    @Override public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        return 0;
+    }
+
+    /**
+     * Drains fluid out of internal tanks, distribution is left entirely to the IFluidHandler.
+     *
+     * @param from     Orientation the Fluid is drained to.
+     * @param resource FluidStack representing the Fluid and maximum amount of fluid to be drained.
+     * @param doDrain  If false, drain will only be simulated.
+     * @return FluidStack representing the Fluid and amount that was (or would have been, if
+     * simulated) drained.
+     */
+    @Override public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        return null;
+    }
+
+    /**
+     * Drains fluid out of internal tanks, distribution is left entirely to the IFluidHandler.
+     * <p/>
+     * This method is not Fluid-sensitive.
+     *
+     * @param from     Orientation the fluid is drained to.
+     * @param maxDrain Maximum amount of fluid to drain.
+     * @param doDrain  If false, drain will only be simulated.
+     * @return FluidStack representing the Fluid and amount that was (or would have been, if
+     * simulated) drained.
+     */
+    @Override public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        return null;
+    }
+
+    /**
+     * Returns true if the given fluid can be inserted into the given direction.
+     * <p/>
+     * More formally, this should return true if fluid is able to enter from the given direction.
+     *
+     * @param from
+     * @param fluid
+     */
+    @Override public boolean canFill(ForgeDirection from, Fluid fluid) {
+        return false;
+    }
+
+    /**
+     * Returns true if the given fluid can be extracted from the given direction.
+     * <p/>
+     * More formally, this should return true if fluid is able to leave from the given direction.
+     *
+     * @param from
+     * @param fluid
+     */
+    @Override public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        return false;
+    }
+
+    /**
+     * Returns an array of objects which represent the internal tanks. These objects cannot be used
+     * to manipulate the internal tanks. See {@link FluidTankInfo}.
+     *
+     * @param from Orientation determining which tanks should be queried.
+     * @return Info for the relevant internal tanks.
+     */
+    @Override public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        return new FluidTankInfo[0];
     }
 
     /**
