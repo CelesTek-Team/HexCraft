@@ -32,6 +32,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private static final String NBT_MASTER_X = "ctek_mt_master_x";
     private static final String NBT_MASTER_Y = "ctek_mt_master_y";
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
+    private static final String NBT_TANK_CAPACITY = "ctek_mt_capacity";
 
     private static final int mTankMaxSize = 16;
     private static final int mTankCapacityMultiplier = 16;
@@ -51,11 +52,15 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private int masterY;
     private int masterZ;
 
+    private int mTankCapacity;
+
     private boolean isMaster;
     private boolean isSetup;
 
     public TileHexoriumValve() {
-        mDimension = new Dimension();
+        this.mTankCapacity = 0;
+        this.mDimension = new Dimension();
+        this.mFluidTank = new FluidTank(0);
 
         this.notifyCounter = 0;
 
@@ -79,9 +84,9 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         nbtTagCompound.setInteger(this.NBT_MASTER_Y, getMasterY());
         nbtTagCompound.setInteger(this.NBT_MASTER_Z, getMasterZ());
 
-        if (isMaster() && isSetup()) {
-            mFluidTank.writeToNBT(nbtTagCompound);
-        }
+        nbtTagCompound.setInteger(this.NBT_TANK_CAPACITY, mTankCapacity);
+
+        mFluidTank.writeToNBT(nbtTagCompound);
     }
 
     @Override public void readFromNBT(NBTTagCompound nbtTagCompound) {
@@ -95,9 +100,11 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         setMasterY(nbtTagCompound.getInteger(this.NBT_MASTER_Y));
         setMasterZ(nbtTagCompound.getInteger(this.NBT_MASTER_Z));
 
-        if (isMaster() && isSetup()) {
-            mFluidTank.writeToNBT(nbtTagCompound);
-        }
+        mTankCapacity = nbtTagCompound.getInteger(this.NBT_TANK_CAPACITY);
+
+        mFluidTank = new FluidTank(mTankCapacity);
+
+        mFluidTank.readFromNBT(nbtTagCompound);
     }
 
     /**
@@ -207,31 +214,18 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         meta = HexUtils.setBit(meta, META_IS_PART, isPart);
         worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
 
-        if (x != xCoord && y != yCoord && z != zCoord) {
-            if (isPart) {
-                TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
-                if (tileEntity instanceof TileHexoriumValve) {
-                    TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
 
-                    tileHexoriumValve.setMasterX(xCoord);
-                    tileHexoriumValve.setMasterY(yCoord);
-                    tileHexoriumValve.setMasterZ(zCoord);
+        TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
+        if (tileEntity instanceof TileHexoriumValve) {
+            if (!(x == xCoord && y == yCoord && z == zCoord)) {
+                TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
 
-                    tileHexoriumValve.setMaster(false);
-                    tileHexoriumValve.setSetup(false);
-                }
-            } else {
-                TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
-                if (tileEntity instanceof TileHexoriumValve) {
-                    TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
+                tileHexoriumValve.setMasterX(xCoord);
+                tileHexoriumValve.setMasterY(yCoord);
+                tileHexoriumValve.setMasterZ(zCoord);
 
-                    tileHexoriumValve.setMasterX(xCoord);
-                    tileHexoriumValve.setMasterY(yCoord);
-                    tileHexoriumValve.setMasterZ(zCoord);
-
-                    tileHexoriumValve.setMaster(false);
-                    tileHexoriumValve.setSetup(false);
-                }
+                tileHexoriumValve.setMaster(false);
+                tileHexoriumValve.setSetup(isPart);
             }
         }
     }
@@ -578,6 +572,42 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         }
     }
 
+    private FluidTank getFluidTank() {
+        if (!worldObj.isRemote) {
+            if (isMaster && isSetup) {
+                return mFluidTank;
+            } else if (!isMaster() && isSetup()) {
+                TileHexoriumValve tileHexoriumValve =
+                    (TileHexoriumValve) worldObj.getTileEntity(masterX, masterY, masterZ);
+
+                return tileHexoriumValve.getTank();
+            }
+        }
+        return null;
+    }
+
+    public FluidTank getTank() {
+        return mFluidTank;
+    }
+
+    public void printDebug() {  // TODO: Remove this before push
+
+        System.out.format(
+            "[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
+            xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ);
+    }
+
+    public String getTankStatus() {
+        FluidTank fluidtank = getFluidTank();
+        if (fluidtank != null) {
+            int fluidAmount = fluidtank.getFluidAmount();
+            int tankCapacity = fluidtank.getCapacity();
+
+            return "Fluid: " + fluidAmount + " Capacity: " + tankCapacity;
+        }
+        return "null";
+    }
+
     /**
      * Runs through necessary checks and sets up the structure.
      *
@@ -598,7 +628,11 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             masterY = yCoord;
             masterZ = zCoord;
 
-            mFluidTank = new FluidTank(calculateTankSize(dimension));
+            mTankCapacity = calculateTankSize(dimension);
+
+            mFluidTank = new FluidTank(mTankCapacity);
+
+            printDebug();
         }
     }
 
@@ -628,14 +662,16 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
 
         if (FluidContainerRegistry.isContainer(item)) {
             if (!FluidContainerRegistry.isEmptyContainer(item)) {
-
                 FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(item);
 
-                if (mFluidTank.fill(fluidStack, true) > 0) {
-                    ItemStack emptyFluidContainer =
-                        FluidContainerRegistry.drainFluidContainer(item);
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                        emptyFluidContainer);
+                FluidTank fTank = getFluidTank();
+                if (fTank != null) {
+                    if (fTank.fill(fluidStack, true) > 0) {
+                        ItemStack emptyFluidContainer =
+                            FluidContainerRegistry.drainFluidContainer(item);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                            emptyFluidContainer);
+                    }
                 }
             }
         }
@@ -720,7 +756,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @return Amount of resource that was (or would have been, if simulated) filled.
      */
     @Override public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        return 0;
+        return getFluidTank().fill(resource, doFill);
     }
 
     /**
@@ -733,7 +769,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * simulated) drained.
      */
     @Override public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-        return null;
+        return getFluidTank().drain(calculateTankSize(mDimension), doDrain);
     }
 
     /**
@@ -748,7 +784,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * simulated) drained.
      */
     @Override public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return null;
+        return getFluidTank().drain(maxDrain, doDrain);
     }
 
     /**
@@ -760,7 +796,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param fluid
      */
     @Override public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return false;
+        return true;
     }
 
     /**
@@ -772,7 +808,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param fluid
      */
     @Override public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return false;
+        return true;
     }
 
     /**
@@ -783,7 +819,9 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @return Info for the relevant internal tanks.
      */
     @Override public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[0];
+        FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
+        fluidTankInfos[0] = new FluidTankInfo(getFluidTank());
+        return fluidTankInfos;
     }
 
     /**

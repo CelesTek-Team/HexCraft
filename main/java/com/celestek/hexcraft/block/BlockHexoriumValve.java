@@ -47,9 +47,13 @@ public class BlockHexoriumValve extends HexBlockContainer {
         TileEntity tileEntity = world.getTileEntity(x,y,z);
 
         if (tileEntity != null) {
-            TileHexoriumValve tileHexoriumTank = (TileHexoriumValve) tileEntity;
-            tileHexoriumTank.interactedWithTank(player);
+            TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
+            tileHexoriumValve.interactedWithTank(player);
             player.getCurrentEquippedItem();
+
+            if (player.isSneaking()) {
+                System.out.println(tileHexoriumValve.getTankStatus());
+            }
         }
 
         return super.onBlockActivated(world, x, y, z, player, metadata, float1, float2, float3);

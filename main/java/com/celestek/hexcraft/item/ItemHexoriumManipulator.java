@@ -172,6 +172,14 @@ public class ItemHexoriumManipulator extends Item {
                     int meta = world.getBlockMetadata(x,y,z);
                     System.out.format("(DEBUG) Block meta: %s\n", HexUtils.getBit(meta, 1));
                 }
+                else if (block instanceof BlockHexoriumValve) { // TODO: Remove this before push
+                    TileHexoriumValve tileHexoriumValve =
+                        (TileHexoriumValve) world.getTileEntity(x,y,z);
+
+                    tileHexoriumValve.printDebug();
+
+
+                }
             }
             // Fired on normal use.
             else {
