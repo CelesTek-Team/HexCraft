@@ -108,57 +108,6 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     }
 
     /**
-     * Calculates coordinate ranges based on given coordinates and dimensions
-     *
-     * @param x         X coordinate
-     * @param y         Y coordinate
-     * @param z         Z coordinate
-     * @param dimension MultiTank dimensions
-     * @return Coordinate ranges needed to properly traverse the multitank structure
-     */
-    private CoordRange getCoordRanges(int x, int y, int z, Dimension dimension) {
-        int startX = 0;
-        int endX = 0;
-
-        int startY = y - 1;
-        int endY = startY + (dimension.getHeight() - 1);
-
-        int startZ = 0;
-        int endZ = 0;
-
-        switch (dimension.getOrientation()) {
-            case Dimension.ORIENT_X_N:
-                startX = x - dimension.getDepth() + 1;
-                endX = x;
-                startZ = z - dimension.getNegativeWidth();
-                endZ = z + dimension.getPositiveWidth();
-                break;
-
-            case Dimension.ORIENT_X_P:
-                startX = x;
-                endX = x + dimension.getDepth() - 1;
-                startZ = z - dimension.getNegativeWidth();
-                endZ = z + dimension.getPositiveWidth();
-                break;
-
-            case Dimension.ORIENT_Z_N:
-                startX = x - dimension.getNegativeWidth();
-                endX = x + dimension.getPositiveWidth();
-                startZ = z - dimension.getDepth() + 1;
-                endZ = z;
-                break;
-
-            case Dimension.ORIENT_Z_P:
-                startX = x - dimension.getNegativeWidth();
-                endX = x + dimension.getPositiveWidth();
-                startZ = z;
-                endZ = z + dimension.getDepth() - 1;
-                break;
-        }
-        return new CoordRange(startX, endX, startY, endY, startZ, endZ);
-    }
-
-    /**
      * Checks if block at given coordinates is a valid MultiTank building block.
      *
      * @param x         X coordinate
@@ -430,7 +379,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @return is the structure correct
      */
     private boolean checkStructure(Dimension dimension, boolean metaFlag) {
-        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
+        CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
@@ -472,7 +421,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param dimension The dimensions of the relevant MultiTank structure
      */
     private void setupStructure(Dimension dimension) {
-        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
+        CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
@@ -505,7 +454,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param dimension The dimensions of the relevant MultiTank structure
      */
     private void resetStructure(Dimension dimension) {
-        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
+        CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
@@ -545,7 +494,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param dimension The dimensions of the relevant MultiTank structure
      */
     private void resetNotify(Dimension dimension) {
-        CoordRange coordRange = getCoordRanges(xCoord, yCoord, zCoord, dimension);
+        CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
@@ -808,7 +757,21 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @param fluid
      */
     @Override public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return true;
+
+        int topY = masterY + (mDimension.getHeight() - 2);
+        int botY = masterY - 1;
+
+        boolean canDrain = false;
+        boolean isInRings = yCoord > botY && yCoord < topY;
+
+        if (yCoord >= masterY) {
+            int deltaHeight = yCoord - masterY;
+            int minLvl = deltaHeight * mDimension.getWidth() * mDimension.getDepth()
+                * mTankCapacityMultiplier;
+            canDrain = mFluidTank.getFluidAmount() >= minLvl;
+        }
+
+        return canDrain && isInRings;
     }
 
     /**
@@ -1016,6 +979,63 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
          * Data holder for coordinate ranges used in traversing the structure
          */
         public CoordRange() {
+        }
+
+        /**
+         * Constructor which calculates coordinate ranges based on given coordinates and dimensions
+         * along the way
+         *
+         * @param x         X coordinate
+         * @param y         Y coordinate
+         * @param z         Z coordinate
+         * @param dimension MultiTank dimensions
+         */
+        public CoordRange(int x, int y, int z, Dimension dimension) {
+            int startX = 0;
+            int endX = 0;
+
+            int startY = y - 1;
+            int endY = startY + (dimension.getHeight() - 1);
+
+            int startZ = 0;
+            int endZ = 0;
+
+            switch (dimension.getOrientation()) {
+                case Dimension.ORIENT_X_N:
+                    startX = x - dimension.getDepth() + 1;
+                    endX = x;
+                    startZ = z - dimension.getNegativeWidth();
+                    endZ = z + dimension.getPositiveWidth();
+                    break;
+
+                case Dimension.ORIENT_X_P:
+                    startX = x;
+                    endX = x + dimension.getDepth() - 1;
+                    startZ = z - dimension.getNegativeWidth();
+                    endZ = z + dimension.getPositiveWidth();
+                    break;
+
+                case Dimension.ORIENT_Z_N:
+                    startX = x - dimension.getNegativeWidth();
+                    endX = x + dimension.getPositiveWidth();
+                    startZ = z - dimension.getDepth() + 1;
+                    endZ = z;
+                    break;
+
+                case Dimension.ORIENT_Z_P:
+                    startX = x - dimension.getNegativeWidth();
+                    endX = x + dimension.getPositiveWidth();
+                    startZ = z;
+                    endZ = z + dimension.getDepth() - 1;
+                    break;
+            }
+
+            this.startX = startX;
+            this.endX = endX;
+            this.startY = startY;
+            this.endY = endY;
+            this.startZ = startZ;
+            this.endZ = endZ;
         }
 
         /**
