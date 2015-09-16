@@ -305,6 +305,11 @@ public class HexConfig {
     public static int cfgOtherOreBlackHeightMin = 0;
     public static int cfgOtherOreBlackHeightMax = 20;
 
+    // Multiblock Tank
+    public static String categoryMultiblockTank = "Multiblock Tank";
+    public static int cfgMultiblockTankMaxDimension = 18;
+    public static int cfgMultiblockTankCapacityMultiplier = 16;
+
     /**
      * Initializes all block and adds them to GameRegistry.
      */
@@ -323,13 +328,17 @@ public class HexConfig {
         cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all entities has to be enabled first.");
         cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.");
 
+
         // General - Personal Teleportation Pad
         cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.");
         cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.");
         cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.");
 
-        
-        
+        // General - Multiblock Tank // TODO: Finish up config, name, descriptions, etc.
+        cfgMultiblockTankMaxDimension = config.getInt("Multiblock tank size limit", categoryMultiblockTank, cfgMultiblockTankMaxDimension, 1, 18, "");
+        cfgMultiblockTankCapacityMultiplier = config.getInt("Multiblock tank capacity multiplier", categoryMultiblockTank, cfgMultiblockTankCapacityMultiplier, 1, 256, "");
+
+
         // Monolith Generation
         config.setCategoryComment(categoryMonolith, "The configuration below deals with monolith generation. The monolith gen can be completely disabled, or\nconfigured per dimension and monolith.");
         cfgMonolithGeneralShouldGenerate = config.getBoolean("Generate monolith", categoryMonolith, cfgMonolithGeneralShouldGenerate, "If monolith generator should be working at all. Setting this to false disables ALL monolith generation. Ignores monolith and dimension-specific settings.");
@@ -576,7 +585,6 @@ public class HexConfig {
         cfgOtherOreBlackCountMax = config.getInt("Ores per vein (Max)", categoryOtherOreBlack, cfgOtherOreBlackCountMax, 1, 64, "");
         cfgOtherOreBlackHeightMin = config.getInt("Height (Min)", categoryOtherOreBlack, cfgOtherOreBlackHeightMin, 0, 255, "");
         cfgOtherOreBlackHeightMax = config.getInt("Height (Max)", categoryOtherOreBlack, cfgOtherOreBlackHeightMax, 0, 255, "");
-
 
         config.save();
     }

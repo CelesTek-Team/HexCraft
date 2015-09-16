@@ -3,6 +3,7 @@ package com.celestek.hexcraft.tileentity;
 import com.celestek.hexcraft.block.BlockHexoriumValve;
 import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import org.lwjgl.Sys;
 
 /**
  * @Author CoffeePirate     <celestek@openmailbox.org>
@@ -34,8 +36,8 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
     private static final String NBT_TANK_CAPACITY = "ctek_mt_capacity";
 
-    private static final int mTankMaxSize = 16;
-    private static final int mTankCapacityMultiplier = 16;
+    private static final int mTankMaxSize = HexConfig.cfgMultiblockTankMaxDimension;
+    private static final int mTankCapacityMultiplier = HexConfig.cfgMultiblockTankCapacityMultiplier;
 
     // Set machine name.
     public static String ID = "tileHexoriumValve";
@@ -299,7 +301,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
                 }
 
                 for (int i = 1; i <= mTankMaxSize - 2; i++) {
-                    if (isClear(xCoord + 1, yCoord, zCoord - i)) {
+                    if (isClear(xCoord + 1, yCoord, zCoord + i)) {
                         widthPositive++;
                     } else {
                         break;
@@ -335,7 +337,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
                 }
 
                 for (int i = 1; i <= mTankMaxSize - 2; i++) {
-                    if (isClear(xCoord - 1, yCoord, zCoord - i)) {
+                    if (isClear(xCoord - 1, yCoord, zCoord + i)) {
                         widthPositive++;
                     } else {
                         break;
@@ -484,6 +486,18 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     }
 
     private int calculateTankSize(Dimension dimension) {
+
+        long tankMul = (long)mTankCapacityMultiplier;
+        long bVol = (long)FluidContainerRegistry.BUCKET_VOLUME;
+        long wid = (long)dimension.getWidth() - 2;
+        long hei = (long) dimension.getHeight() - 2;
+        long dep = (long)dimension.getDepth() - 2;
+        long overflow = tankMul * bVol * wid * hei * dep;
+
+        if (overflow > Integer.MAX_VALUE) {
+            System.out.println("[ERR] Int Overflow!:" + overflow);
+        }
+
         return (mTankCapacityMultiplier * FluidContainerRegistry.BUCKET_VOLUME) *
             (dimension.getWidth() - 2) * (dimension.getHeight() - 2) * (dimension.getDepth() - 2);
     }
