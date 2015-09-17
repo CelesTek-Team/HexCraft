@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumValve;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -8,6 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -43,20 +46,19 @@ public class BlockHexoriumValve extends HexBlockContainer {
 
     @Override public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
         int metadata, float float1, float float2, float float3) {
+        ItemStack playerItem = player.getCurrentEquippedItem();
 
         TileEntity tileEntity = world.getTileEntity(x,y,z);
 
-        if (tileEntity != null) {
+        if (playerItem == null) {
+            player.openGui(HexCraft.instance, 6, world, x, y, z);
+        } else {
             TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
             tileHexoriumValve.interactedWithTank(player);
             player.getCurrentEquippedItem();
-
-            if (player.isSneaking()) {
-                System.out.println(tileHexoriumValve.getTankStatus());
-            }
         }
 
-        return super.onBlockActivated(world, x, y, z, player, metadata, float1, float2, float3);
+        return true;
     }
 
 

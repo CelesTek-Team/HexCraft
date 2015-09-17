@@ -48,6 +48,10 @@ public class HexGui implements IGuiHandler {
             ItemStack itemStack = player.getCurrentEquippedItem();
             return new ContainerMolecularTransposer(player, player.inventory, itemStack);
         }
+        else if(ID == 6){
+            TileHexoriumValve tileEntity = (TileHexoriumValve) world.getTileEntity(x, y, z);
+            return new ContainerHexoriumValve(tileEntity);
+        }
         return null;
     }
 
@@ -80,6 +84,10 @@ public class HexGui implements IGuiHandler {
         else if(ID == 5){
             ItemStack itemStack = player.getCurrentEquippedItem();
             return new GuiMolecularTransposer(player, player.inventory, itemStack);
+        }
+        else if(ID == 6){
+            TileHexoriumValve tileEntity = (TileHexoriumValve) world.getTileEntity(x, y, z);
+            return new GuiHexoriumValve(tileEntity);
         }
         return null;
     }
