@@ -360,6 +360,7 @@ item.itemMaterialInteractionPlane.name=Plano de Interacción de Materiales
 item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
 
 item.itemHexoriumManipulator.name=Manipulador de Hexorium
+item.itemMolecularTransposer.name=Reemisor Molecular
 item.itemHexoriumReinforcer.name=Reforzador de Hexorium
 
 
@@ -392,3 +393,121 @@ msg.pressurePlateChange1.txt=[Manipulador de Hexorium] Modo cambiado a: Todo
 msg.pressurePlateChange2.txt=[Manipulador de Hexorium] Modo cambiado a: Entidades
 msg.pressurePlateChange3.txt=[Manipulador de Hexorium] Modo cambiado a: Monstruos
 msg.pressurePlateChange4.txt=[Manipulador de Hexorium] Modo cambiado a: Jugadores
+
+
+achievement.hexcraft.achMineHexOre=Un potencial brillante
+achievement.hexcraft.achMineHexOre.desc=Encuentra y recolecta Mena de Hexorium de cualquier color.
+achievement.hexcraft.achMineHexMonolith=Un extraño avistamiento.
+achievement.hexcraft.achMineHexMonolith.desc=Encuentra y recolecta un monolito de Hexorium de cualquier color.
+
+achievement.hexcraft.achCraftEnergizedRed=Rojo Energético
+achievement.hexcraft.achCraftEnergizedRed.desc=Fabrica Hexorium Energizado (Rojo).
+achievement.hexcraft.achCraftEnergizedOrange=Naranja Energético
+achievement.hexcraft.achCraftEnergizedOrange.desc=Fabrica Hexorium Energizado (Naranja).
+achievement.hexcraft.achCraftEnergizedYellow=Amarillo Energético
+achievement.hexcraft.achCraftEnergizedYellow.desc=Fabrica Hexorium Energizado (Yellow).
+achievement.hexcraft.achCraftEnergizedLime=Lima Energético
+achievement.hexcraft.achCraftEnergizedLime.desc=Fabrica Hexorium Energizado (Lima).
+achievement.hexcraft.achCraftEnergizedGreen=Verde Energético
+achievement.hexcraft.achCraftEnergizedGreen.desc=Fabrica Hexorium Energizado (Verde).
+achievement.hexcraft.achCraftEnergizedTurquoise=Turquesa Energético
+achievement.hexcraft.achCraftEnergizedTurquoise.desc=Fabrica Hexorium Energizado (Turquesa).
+achievement.hexcraft.achCraftEnergizedCyan=Cian Energético
+achievement.hexcraft.achCraftEnergizedCyan.desc=Fabrica Hexorium Energizado (Cian).
+achievement.hexcraft.achCraftEnergizedSkyBlue=Azul Cielo Energético
+achievement.hexcraft.achCraftEnergizedSkyBlue.desc=Fabrica Hexorium Energizado (Azul Cielo).
+achievement.hexcraft.achCraftEnergizedBlue=Azul Energético
+achievement.hexcraft.achCraftEnergizedBlue.desc=Fabrica Hexorium Energizado (Azul).
+achievement.hexcraft.achCraftEnergizedPurple=Morado Energético
+achievement.hexcraft.achCraftEnergizedPurple.desc=Fabrica Hexorium Energizado (Morado).
+achievement.hexcraft.achCraftEnergizedMagenta=Magenta Energético
+achievement.hexcraft.achCraftEnergizedMagenta.desc=Fabrica Hexorium Energizado (Magenta).
+achievement.hexcraft.achCraftEnergizedPink=Rosa Energético
+achievement.hexcraft.achCraftEnergizedPink.desc=Fabrica Hexorium Energizado (Rosa).
+
+achievement.hexcraft.achCraftEnergizedWhite=Blanco Energético
+achievement.hexcraft.achCraftEnergizedWhite.desc=Fabrica Hexorium Energizado (Blanco).
+achievement.hexcraft.achCraftEnergizedLightGray=Gris Claro Energético
+achievement.hexcraft.achCraftEnergizedLightGray.desc=Fabrica Hexorium Energizado (Gris Claro).
+achievement.hexcraft.achCraftEnergizedGray=Gris Energético
+achievement.hexcraft.achCraftEnergizedGray.desc=Fabrica Hexorium Energizado (Gris).
+achievement.hexcraft.achCraftEnergizedDarkGray=Gris Oscuro Energético
+achievement.hexcraft.achCraftEnergizedDarkGray.desc=Fabrica Hexorium Energizado (Gris Oscuro).
+achievement.hexcraft.achCraftEnergizedBlack=Negro Energético
+achievement.hexcraft.achCraftEnergizedBlack.desc=Fabrica Hexorium Energizado (Negro).
+
+achievement.hexcraft.achCraftEnergizedRainbow=Energía Multicolor
+achievement.hexcraft.achCraftEnergizedRainbow.desc=Fabrica Hexorium Energizado (Multicolor).
+
+achievement.hexcraft.achGroupColors=Poder Arcoíris
+achievement.hexcraft.achGroupColors.desc=Fabrica todos los Hexorium Energizados.
+achievement.hexcraft.achGroupGrays=Cinco sombras de Grey
+achievement.hexcraft.achGroupGrays.desc=Fabrica todos los Hexorium Energizados blanco y negro.
+
+achievement.hexcraft.achCraftEngineeredBlock=Ingeniería del Futuro
+achievement.hexcraft.achCraftEngineeredBlock.desc=Fabrica un Bloque de Diseño de Hexorium de cualquier color.
+achievement.hexcraft.achCraftFramedBlock=Like El marco de una imagen
+achievement.hexcraft.achCraftFramedBlock.desc=Fabrica un Bloque Enmarcado de Hexorium de cualquier color.
+achievement.hexcraft.achCraftPlatedBlock=Los refuerzos siempre vienen bien
+achievement.hexcraft.achCraftPlatedBlock.desc=Fabrica un Bloque Chapado de Hexorium de cualquier color.
+achievement.hexcraft.achCraftConcentricBlock=Bloques sicodélicos
+achievement.hexcraft.achCraftConcentricBlock.desc=Fabrica un Bloque Concentrico de Hexorium de cualquier color.
+achievement.hexcraft.achCraftDoor=Una vista clara a través de la puerta
+achievement.hexcraft.achCraftDoor.desc=Fabrica una Puerta de Hexorium de cualquier color.
+achievement.hexcraft.achCraftHatch=It's A Trap(door)!
+achievement.hexcraft.achCraftHatch.desc=Fabrica una Escotilla de Hexorium de cualquier color.
+achievement.hexcraft.achCraftGlowingGlass=Cristal brillante!
+achievement.hexcraft.achCraftGlowingGlass.desc=Fabrica Cristal Brillante de Hexorium de cualquier color.
+achievement.hexcraft.achCraftLamp=Dejemos que haya luz!
+achievement.hexcraft.achCraftLamp.desc=Fabrica una Lámpara de Hexorium de cualquier color.
+achievement.hexcraft.achCraftLampInv=Dejemos que esté oscuro!
+achievement.hexcraft.achCraftLampInv.desc=Fabrica una Lámpara invertida de Hexorium de cualquier color.
+
+achievement.hexcraft.achGroupDecorations=Decorador Profesional
+achievement.hexcraft.achGroupDecorations.desc=Fabrica todos los bloques decorativos.
+
+achievement.hexcraft.achUseReinforcer=Más duro que la obsidiana
+achievement.hexcraft.achUseReinforcer.desc=Refuerza cualquier bloque decorativo con el Reforzador de Hexorium.
+
+achievement.hexcraft.achCraftMachineBlock=Revolución Industrial
+achievement.hexcraft.achCraftMachineBlock.desc=Fabrica un Bloque de Maquina de Hexorium.
+achievement.hexcraft.achCraftCable=Transporte sin pérdidas
+achievement.hexcraft.achCraftCable.desc=Fabrica un cable de Hexorium de cualquier color.
+
+achievement.hexcraft.achCraftMachineGenerator=Una fuente de energía
+achievement.hexcraft.achCraftMachineGenerator.desc=Fabrica un Generador de Hexorium.
+achievement.hexcraft.achCraftMachineFurnace=Estos hornos son mejores...
+achievement.hexcraft.achCraftMachineFurnace.desc=Fabrica un Horno de Hexorium.
+achievement.hexcraft.achCraftMachineSeparator=Swimming In Gems
+achievement.hexcraft.achCraftMachineSeparator.desc=Craft a Crystal Separator.
+achievement.hexcraft.achCraftMachineReconstructor=Lo podemos reconstruir!
+achievement.hexcraft.achCraftMachineReconstructor.desc=Fabrica un Matriz Reconstructor.
+achievement.hexcraft.achCraftMachineTeleport=De material biológico a energía
+achievement.hexcraft.achCraftMachineTeleport.desc=Fabrica un Pedestal Personal de Teletransporte.
+achievement.hexcraft.achCraftPylon=Debes construir más Pilones!
+achievement.hexcraft.achCraftPylon.desc=Fabrica un Pilón de Energía.
+
+achievement.hexcraft.achGroupMachines=Eso era complicado...
+achievement.hexcraft.achGroupMachines.desc=Fabrica tods las maquinas menos Pilones de Energía.
+
+achievement.hexcraft.achCraftManipulator=Interfaz Humano-Hexorium
+achievement.hexcraft.achCraftManipulator.desc=Fabrica un Manipulador de Hexorium.
+
+achievement.hexcraft.achCraftTransposer=Customización de color
+achievement.hexcraft.achCraftTransposer.desc=Fabrica un Reemisor Molecular.
+achievement.hexcraft.achUseTransposer=El uso esperado
+achievement.hexcraft.achUseTransposer.desc=Usa el Reemisor Molecular para cambiar el color de cualquier bloque decorativo.
+achievement.hexcraft.achAttackTransposer=Esto puede doler un poco...
+achievement.hexcraft.achAttackTransposer.desc=Inyecta Hexorium Energizado en una criatura con el Reemisor Molecular.
+
+achievement.hexcraft.achLinkTeleport=Vinculando: Teletransportadores
+achievement.hexcraft.achLinkTeleport.desc=Vincula dos Pedestal Personal de Teletransporte. Requiere el logro: Interfaz Humano-Hexorium
+achievement.hexcraft.achLinkPylon=Vinculando: Pilones
+achievement.hexcraft.achLinkPylon.desc=Vincula dos Pilones de Energía. Requiere el logro: Interfaz Humano-Hexorium
+
+achievement.hexcraft.achUseTeleport=Hasta el infinito y más allá!
+achievement.hexcraft.achUseTeleport.desc=Usa un Pedestal Personal de Teletransporte para ir a otro.
+
+
+death.attack.hexTeleport=%1$s se ha descompuesto durante el teletransporte.
+death.attack.hexTransposer=A %1$s se le ha inyectado Hexorium Energizado.
