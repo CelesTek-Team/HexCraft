@@ -1836,12 +1836,14 @@ public class HexRecipes {
                 "ECE",
                 'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackMatrixAdjuster_1, 'E', stackIronIngot_1);
 
-        GameRegistry.addRecipe(stackPersonalTeleportationPad_1,
-                "DED",
-                "BAC",
-                "FCF",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMolecularRecoder_1, 'C', stackMachineEnergyRouter_1, 'D', stackTeleportationFieldProjector_1,
-                'E', stackMaterialInteractionPlane_1, 'F', stackIronIngot_1);
+        if (HexConfig.cfgTeleportEnable) {
+            GameRegistry.addRecipe(stackPersonalTeleportationPad_1,
+                    "DED",
+                    "BAC",
+                    "FCF",
+                    'A', stackHexoriumMachineBlock_1, 'B', stackMolecularRecoder_1, 'C', stackMachineEnergyRouter_1, 'D', stackTeleportationFieldProjector_1,
+                    'E', stackMaterialInteractionPlane_1, 'F', stackIronIngot_1);
+        }
 
         // Cables
         // Red
@@ -2522,11 +2524,13 @@ public class HexRecipes {
                 " A ",
                 'A', stackHexoriumCableRainbow_1, 'B', stackSpatialProjector_1, 'C', stackHexoriumCrystalRed_1, 'D', stackHexoriumCrystalGreen_1, 'E', stackHexoriumCrystalBlue_1,
                 'F', stackGoldIngot_1);
-        GameRegistry.addRecipe(stackMolecularRecoder_1,
-                "DRD",
-                "CBC",
-                "DAD",
-                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', stackIronIngot_1);
+        if (HexConfig.cfgTeleportEnable) {
+            GameRegistry.addRecipe(stackMolecularRecoder_1,
+                    "DRD",
+                    "CBC",
+                    "DAD",
+                    'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', stackIronIngot_1);
+        }
 
         // Components MP
         GameRegistry.addRecipe(stackMachineControlPanel_1,
@@ -2559,16 +2563,18 @@ public class HexRecipes {
                 "CBA",
                 " RD",
                 'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackRainbowCore_1, 'C', stackSpatialProjector_1, 'D', stackIronIngot_1, 'E', stackDiamond_1);
-        GameRegistry.addRecipe(stackMaterialInteractionPlane_1,
-                "AAA",
-                "ARA",
-                "CBC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumProcessor_1, 'C', stackGoldIngot_1);
-        GameRegistry.addRecipe(stackTeleportationFieldProjector_1,
-                "ADA",
-                "BCB",
-                "ERE",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', stackDiamond_1, 'E', stackGoldIngot_1);
+        if (HexConfig.cfgTeleportEnable) {
+            GameRegistry.addRecipe(stackMaterialInteractionPlane_1,
+                    "AAA",
+                    "ARA",
+                    "CBC",
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumProcessor_1, 'C', stackGoldIngot_1);
+            GameRegistry.addRecipe(stackTeleportationFieldProjector_1,
+                    "ADA",
+                    "BCB",
+                    "ERE",
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', stackDiamond_1, 'E', stackGoldIngot_1);
+        }
 
         // Tools
         GameRegistry.addRecipe(stackHexoriumManipulator_1,

@@ -889,8 +889,10 @@ public class HexBlocks {
         blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.UNLOCALISEDNAME);
 
-        blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.UNLOCALISEDNAME);
+        if (HexConfig.cfgTeleportEnable) {
+            blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);
+            GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.UNLOCALISEDNAME);
+        }
 
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.UNLOCALISEDNAME + "Red");

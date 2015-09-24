@@ -207,8 +207,10 @@ public class HexAchievements {
         achList.add(achCraftMachineSeparator);
         achCraftMachineReconstructor = new Achievement(hex1 + "achCraftMachineReconstructor", hex2 + "achCraftMachineReconstructor", -5, 3, HexBlocks.blockMatrixReconstructor,achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineReconstructor);
-        achCraftMachineTeleport = new Achievement(hex1 + "achCraftMachineTeleport", hex2 + "achCraftMachineTeleport", -4, 3, HexBlocks.blockPersonalTeleportationPad, achCraftMachineBlock).registerStat();
-        achList.add(achCraftMachineTeleport);
+        if (HexConfig.cfgTeleportEnable) {
+            achCraftMachineTeleport = new Achievement(hex1 + "achCraftMachineTeleport", hex2 + "achCraftMachineTeleport", -4, 3, HexBlocks.blockPersonalTeleportationPad, achCraftMachineBlock).registerStat();
+            achList.add(achCraftMachineTeleport);
+        }
         achCraftPylon = new Achievement(hex1 + "achCraftPylon", hex2 + "achCraftPylon", -3, 3, HexBlocks.blockEnergyPylon, achCraftCable).registerStat();
         achList.add(achCraftPylon);
 
@@ -231,12 +233,16 @@ public class HexAchievements {
         }
 
         // Linking and Teleporting
-        achLinkTeleport = new Achievement(hex1 + "achLinkTeleport", hex2 + "achLinkTeleport", -4, 5, HexItems.itemHexoriumManipulator, achCraftMachineTeleport).registerStat();
-        achList.add(achLinkTeleport);
+        if (HexConfig.cfgTeleportEnable) {
+            achLinkTeleport = new Achievement(hex1 + "achLinkTeleport", hex2 + "achLinkTeleport", -4, 5, HexItems.itemHexoriumManipulator, achCraftMachineTeleport).registerStat();
+            achList.add(achLinkTeleport);
+        }
         achLinkPylon = new Achievement(hex1 + "achLinkPylon", hex2 + "achLinkPylon", -3, 5, HexItems.itemHexoriumManipulator, achCraftPylon).registerStat();
         achList.add(achLinkPylon);
-        achUseTeleport = new Achievement(hex1 + "achUseTeleport", hex2 + "achUseTeleport", -6, 5, HexItems.itemTeleportationFieldProjector, achLinkTeleport).setSpecial().registerStat();
-        achList.add(achUseTeleport);
+        if (HexConfig.cfgTeleportEnable) {
+            achUseTeleport = new Achievement(hex1 + "achUseTeleport", hex2 + "achUseTeleport", -6, 5, HexItems.itemTeleportationFieldProjector, achLinkTeleport).setSpecial().registerStat();
+            achList.add(achUseTeleport);
+        }
 
         // Register the achievement page.
         AchievementPage.registerAchievementPage(new AchievementPage("HEXCraft", achList.toArray(new Achievement[achList.size()])));

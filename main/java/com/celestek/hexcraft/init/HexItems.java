@@ -100,8 +100,10 @@ public class HexItems {
         GameRegistry.registerItem(itemPylonEnergyConverter, "itemPylonEnergyConverter");
         itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
         GameRegistry.registerItem(itemEnergyInjector, "itemEnergyInjector");
-        itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
-        GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
+        if (HexConfig.cfgTeleportEnable) {
+            itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
+            GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
+        }
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
@@ -116,10 +118,12 @@ public class HexItems {
         GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
         itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
         GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
-        itemMaterialInteractionPlane = new HexItemComponent("itemMaterialInteractionPlane");
-        GameRegistry.registerItem(itemMaterialInteractionPlane, "itemMaterialInteractionPlane");
-        itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
-        GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
+        if (HexConfig.cfgTeleportEnable) {
+            itemMaterialInteractionPlane = new HexItemComponent("itemMaterialInteractionPlane");
+            GameRegistry.registerItem(itemMaterialInteractionPlane, "itemMaterialInteractionPlane");
+            itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
+            GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
+        }
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");

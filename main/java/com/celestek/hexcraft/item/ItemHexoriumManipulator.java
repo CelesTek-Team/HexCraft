@@ -306,7 +306,7 @@ public class ItemHexoriumManipulator extends Item {
                                         // Grant player the achievement.
                                         if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
                                             EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
                                                 player.addStat(HexAchievements.achLinkTeleport, 1);
                                         }
                                     }

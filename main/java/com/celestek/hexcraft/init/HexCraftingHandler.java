@@ -159,7 +159,7 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftMachineReconstructor, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockPersonalTeleportationPad) {
+            else if (block == HexBlocks.blockPersonalTeleportationPad && HexConfig.cfgTeleportEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineTeleport, 1);
                 checkMachines = true;
             }
@@ -189,13 +189,23 @@ public class HexCraftingHandler {
                     event.player.addStat(HexAchievements.achGroupDecorations, 1);
 
             // Machines Special
-            if (checkMachines)
-                if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineGenerator)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineFurnace)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineSeparator)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineReconstructor)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineTeleport))
-                    event.player.addStat(HexAchievements.achGroupMachines, 1);
+            if (checkMachines) {
+                if (HexConfig.cfgTeleportEnable) {
+                    if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineGenerator)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineFurnace)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineSeparator)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineReconstructor)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineTeleport))
+                        event.player.addStat(HexAchievements.achGroupMachines, 1);
+                }
+                else {
+                    if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineGenerator)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineFurnace)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineSeparator)
+                            && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineReconstructor))
+                        event.player.addStat(HexAchievements.achGroupMachines, 1);
+                }
+            }
         }
     }
 }

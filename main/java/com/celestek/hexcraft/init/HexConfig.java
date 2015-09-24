@@ -22,6 +22,7 @@ public class HexConfig {
 
     // General - Personal Teleportation Pad
     public static String categoryTeleport = "General - Personal Teleportation Pad";
+    public static boolean cfgTeleportEnable = true;
     public static boolean cfgTeleportShouldDamagePlayers = true;
     public static int cfgTeleportDamageAmount = 4;
     public static int cfgTeleportUsageCost = 102400;
@@ -324,6 +325,7 @@ public class HexConfig {
         cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.");
 
         // General - Personal Teleportation Pad
+        cfgTeleportEnable = config.getBoolean("Enable Personal Teleportation Pad", categoryTeleport, cfgTeleportEnable, "Enables the Personal Teleportation Pad block.");
         cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.");
         cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.");
         cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.");
