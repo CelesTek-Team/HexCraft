@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.1.0
- * @since 2015-09-04
+ * @version 0.6.2
+
  */
 public class InventoryMolecularTransposer implements IInventory {
 

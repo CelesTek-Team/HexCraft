@@ -33,8 +33,8 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-05-06
+ * @version 0.6.2
+
  */
 
 public class BlockEnergyPylon extends HexBlockContainer {

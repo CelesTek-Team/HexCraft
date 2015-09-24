@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-04-25
+ * @version 0.6.2
+
  */
 public class ContainerHexoriumGenerator extends Container {
 

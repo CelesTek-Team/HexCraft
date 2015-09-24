@@ -19,8 +19,8 @@ import net.minecraft.item.Item;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-04-14
+ * @version 0.6.2
+
  */
 
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
@@ -29,7 +29,7 @@ public class HexCraft
     // Set default mod info.
     public static final String MODID = "hexcraft";
     public static final String MODNAME = "HEXCraft";
-    public static final String VERSION = "0.6.1";
+    public static final String VERSION = "0.6.2";
 
     // Set up the instance.
     @Mod.Instance(value = HexCraft.MODID)

@@ -14,8 +14,8 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-04-14
+ * @version 0.6.2
+
  */
 
 public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {

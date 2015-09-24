@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-04-15
+ * @version 0.6.2
+
  */
 
 public class ItemHexoriumManipulator extends Item {
