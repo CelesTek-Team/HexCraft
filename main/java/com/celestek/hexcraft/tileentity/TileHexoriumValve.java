@@ -1,12 +1,15 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.BlockHexoriumValve;
+import com.celestek.hexcraft.block.BlockTankInfo;
 import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -47,6 +50,10 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private int masterX;
     private int masterY;
     private int masterZ;
+
+    private int infoBlockX;
+    private int infoBlockY;
+    private int infoBlockZ;
 
     private boolean isMaster;
     private boolean isSetup;
@@ -145,7 +152,12 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * @return are the coordinates clear
      */
     private boolean isClear(int x, int y, int z) {
-        return worldObj.isAirBlock(x, y, z);
+        if (worldObj.isAirBlock(x, y, z)) {
+            return true;
+        } else {
+            TileEntity te = worldObj.getTileEntity(x,y,z);
+            return te instanceof TileTankInfo;
+        }
     }
 
     /**
@@ -479,6 +491,8 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
                 }
             }
         }
+
+        destroyInfoBlock(infoBlockX, infoBlockY, infoBlockZ);
     }
 
     private int calculateTankSize(Dimension dimension) {
@@ -550,6 +564,26 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         tankFluidLevel = getFluidTank().getFluidAmount();
     }
 
+    private void spawnInfoBlock(int x, int y, int z, CoordRange coordRange) {
+
+        worldObj.setBlock(x,y,z, new BlockTankInfo(BlockTankInfo.UNLOCALISEDNAME));
+
+        TileTankInfo ttInfo = (TileTankInfo) worldObj.getTileEntity(x,y,z);
+
+        ttInfo.startX = coordRange.getStartX();
+        ttInfo.startY = coordRange.getStartY();
+        ttInfo.startZ = coordRange.getStartZ();
+
+        ttInfo.endX = coordRange.getEndX();
+        ttInfo.endY = coordRange.getEndY();
+        ttInfo.endZ = coordRange.getEndZ();
+        
+    }
+
+    private void destroyInfoBlock(int x, int y, int z) {
+        worldObj.setBlock(x,y,z, Blocks.air);
+    }
+
     public FluidTank getTank() {
         return fluidTank;
     }
@@ -580,6 +614,14 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             masterX = xCoord;
             masterY = yCoord;
             masterZ = zCoord;
+
+            CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
+
+            infoBlockX = coordRange.getStartX() + dimension.getCenterOffsetX();
+            infoBlockY = coordRange.getStartY() + 1;
+            infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
+
+            spawnInfoBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
 
 
             tankCapacity = calculateTankSize(dimension);
@@ -915,6 +957,54 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             this.width = data.getInteger(this.WIDTH);
             this.depth = data.getInteger(this.DEPTH);
             this.height = data.getInteger(this.HEIGHT);
+        }
+
+        /**
+         * Calculates the offset for the center of the multiblock
+         * @return offset for X
+         */
+        public int getCenterOffsetX() {
+            int side = 0;
+
+            switch (orientation) {
+                case ORIENT_X_N:
+                    side = depth;
+                    break;
+                case ORIENT_X_P:
+                    side = depth;
+                    break;
+                case ORIENT_Z_P:
+                    side = width;
+                    break;
+                case ORIENT_Z_N:
+                    side = width;
+                    break;
+            }
+            return (int) Math.floor(side/ 2d);
+        }
+
+        /**
+         * Calculates the offset for the center of the multiblock
+         * @return offset for Z
+         */
+        public int getCenterOffsetZ() {
+            int side = 0;
+
+            switch (orientation) {
+                case ORIENT_X_N:
+                    side = width;
+                    break;
+                case ORIENT_X_P:
+                    side = width;
+                    break;
+                case ORIENT_Z_P:
+                    side = depth;
+                    break;
+                case ORIENT_Z_N:
+                    side = depth;
+                    break;
+            }
+            return (int) Math.floor(side/ 2d);
         }
 
         /**
