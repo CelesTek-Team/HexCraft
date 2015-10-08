@@ -39,6 +39,9 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private static final String NBT_MASTER_Y = "ctek_mt_master_y";
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
     private static final String NBT_TANK_CAPACITY = "ctek_mt_capacity";
+    private static final String NBT_INFOBLOCK_X = "ctek_mt_master_x";
+    private static final String NBT_INFOBLOCK_Y = "ctek_mt_master_y";
+    private static final String NBT_INFOBLOCK_Z = "ctek_mt_master_z";
     private static final int TANK_MAX_DIMENSION = HexConfig.cfgMultiblockTankMaxDimension;
     private static final int TANK_CAPACITY_MULTIPLIER =
         HexConfig.cfgMultiblockTankCapacityMultiplier;
@@ -110,6 +113,10 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         fluidTank = new FluidTank(tankCapacity);
 
         fluidTank.readFromNBT(nbtTagCompound);
+
+        infoBlockX = nbtTagCompound.getInteger(NBT_INFOBLOCK_X);
+        infoBlockY = nbtTagCompound.getInteger(NBT_INFOBLOCK_Y);
+        infoBlockZ = nbtTagCompound.getInteger(NBT_INFOBLOCK_Z);
     }
 
     /**
@@ -559,9 +566,20 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         return null;
     }
 
+    private void updateInfoBlock(int x, int y, int z, int capacity, int level, String fluidName) {
+        TileTankInfo ttInfo = (TileTankInfo) worldObj.getTileEntity(x,y,z);
+
+        ttInfo.currVolume=level;
+        ttInfo.maxVolume=capacity;
+        ttInfo.fluidName = fluidName;
+    }
+
     private void updateTankStatus() {
         tankCapacity = getFluidTank().getCapacity();
         tankFluidLevel = getFluidTank().getFluidAmount();
+        String fluidName = getFluidTank().getFluid().getUnlocalizedName();
+
+        updateInfoBlock(infoBlockX, infoBlockY, infoBlockZ, tankCapacity, tankFluidLevel, fluidName);
     }
 
     private void spawnInfoBlock(int x, int y, int z, CoordRange coordRange) {
