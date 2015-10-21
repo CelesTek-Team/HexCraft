@@ -30,6 +30,11 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
      * Meta bit for identifying which blocks have tried to "contact" the valve block
      */
     public static final int META_HAS_NOTIFIED = 2;
+    /**
+     * Meta bit for setting the valve texture orientation
+     */
+    public static final int META_ROTATION = 3;
+
     // Set machine name.
     public static final String ID = "tileHexoriumValve";
     public static final String MACHINE_NAME = "Hexorium Valve";
@@ -602,6 +607,22 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         worldObj.setBlock(x,y,z, Blocks.air);
     }
 
+    /**
+     * How should the texture be oriented depending on what axis the wall is
+     *
+     * If set to true the wall is on Z axis, if set to false the wall is on X axis
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @param rotation
+     */
+    private void setTextureOrientation(int x, int y, int z, boolean rotation) {
+        int meta = worldObj.getBlockMetadata(x, y, z);
+        meta = HexUtils.setBit(meta, META_ROTATION, rotation);
+        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
+    }
+
     public FluidTank getTank() {
         return fluidTank;
     }
@@ -635,16 +656,36 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
 
             CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
+            // Spawn info block with necessary info for custom tank rendering
             infoBlockX = coordRange.getStartX() + dimension.getCenterOffsetX();
             infoBlockY = coordRange.getStartY() + 1;
             infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
-
             spawnInfoBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
 
 
+            // Setup internal tank
             tankCapacity = calculateTankSize(dimension);
             fluidTank = new FluidTank(tankCapacity);
             tankFluidLevel = fluidTank.getFluidAmount();
+
+            //
+            switch (dimension.getOrientation()) {
+                case Dimension.ORIENT_X_N:
+                    setTextureOrientation(masterX, masterY, masterZ, false);
+                    break;
+
+                case Dimension.ORIENT_X_P:
+                    setTextureOrientation(masterX, masterY, masterZ, false);
+                    break;
+
+                case Dimension.ORIENT_Z_N:
+                    setTextureOrientation(masterX, masterY, masterZ, true);
+                    break;
+
+                case Dimension.ORIENT_Z_P:
+                    setTextureOrientation(masterX, masterY, masterZ, true);
+                    break;
+            }
 
 
             printDebug();
