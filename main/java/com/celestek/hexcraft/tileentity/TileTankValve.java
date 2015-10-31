@@ -138,8 +138,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         Block block = worldObj.getBlock(x, y, z);
 
         boolean notNull = block != null;
-        boolean blockType = block instanceof HexBlockMT || block instanceof BlockTankValve
-            || block instanceof BlockTemperedHexoriumGlass;
+        boolean blockType = block instanceof HexBlockMT
+                || block == HexBlocks.blockTankValve
+                || block == HexBlocks.blockTemperedHexoriumGlass;
         boolean isFree = false;
 
         if (notNull) {
@@ -164,12 +165,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @return are the coordinates clear
      */
     private boolean isClear(int x, int y, int z) {
-        if (worldObj.isAirBlock(x, y, z)) {
-            return true;
-        } else {
-            TileEntity te = worldObj.getTileEntity(x,y,z);
-            return te instanceof TileTankRender;
-        }
+        return worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
     }
 
     /**
@@ -469,8 +465,8 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                     Block block = worldObj.getBlock(x,y,z);
 
                     // Remove any pre-existing render blocks
-                    if (block instanceof BlockTankRender) {
-                        worldObj.setBlock(x,y,z, Blocks.air);
+                    if (block == HexBlocks.blockTankRender) {
+                        worldObj.setBlock(x, y, z, Blocks.air);
                     }
                 }
             }
@@ -561,6 +557,15 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                     }
                 }
             }
+        }
+    }
+
+    public void valveInducedStructureReset() {
+        if (isSetup && isMaster) {
+            System.out.println("[DEBUG] valve destroyed");
+            resetStructure(structureDimension);
+            System.out.println("[DEBUG] structure reset");
+            fluidTank = null;
         }
     }
 

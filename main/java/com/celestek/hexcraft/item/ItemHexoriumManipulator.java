@@ -430,9 +430,9 @@ public class ItemHexoriumManipulator extends Item {
 
                     analyzePylonBase(world, x, y, z);
                 }
-                else if (block instanceof BlockTankValve) {
-                    TileEntity teHexValve = world.getTileEntity(x,y,z);
-                    ((TileTankValve) teHexValve).setupMultiTank(side);
+                else if (block == HexBlocks.blockTankValve) {
+                    TileEntity tileTankValve = world.getTileEntity(x,y,z);
+                    ((TileTankValve) tileTankValve).setupMultiTank(side);
                 }
             }
         }

@@ -2,15 +2,18 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.tileentity.TileTankValve;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 /**
@@ -42,6 +45,17 @@ public class BlockTankValve extends HexBlockContainer {
         this.setStepSound(Block.soundTypeMetal);
     }
 
+    /**
+     * Called when a block is placed by a player.
+     */
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
+        // Get the direction of the block.
+        int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        // Set the block's meta data according to direction.
+        HexUtils.setMetaBit(TileTankValve.META_ROTATION, !HexUtils.getBit(direction, 0), world, x, y, z, 2);
+    }
+
     @Override public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
         int metadata, float float1, float float2, float float3) {
         ItemStack playerItem = player.getCurrentEquippedItem();
@@ -59,12 +73,20 @@ public class BlockTankValve extends HexBlockContainer {
         return true;
     }
 
-
     @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
-        TileTankValve tileHexoriumValve = (TileTankValve) world.getTileEntity(x, y, z);
-        tileHexoriumValve.notifyChange();
+        TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
+        tileTankValve.notifyChange();
 
         super.onNeighborBlockChange(world, x, y, z, neighbor);
+    }
+
+    /**
+     * Called when the block is broken.
+     */
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
+        tileTankValve.valveInducedStructureReset();
     }
 
     @Override public TileEntity createTileEntity(World world, int metadata) {

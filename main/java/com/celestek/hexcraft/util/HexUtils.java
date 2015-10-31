@@ -5,6 +5,8 @@ package com.celestek.hexcraft.util;
  * @Version 0.1.0
  */
 
+import net.minecraft.world.World;
+
 /**
  * A simple utilities class which holds methods commonly used throughout the project
  */
@@ -33,6 +35,19 @@ public class HexUtils {
     }
 
     /**
+     * Returns n-th bit from block meta.
+     * @param n Which bit of meta.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @return Returns the bool of bit.
+     */
+    public static boolean getMetaBit(int n, World world, int x, int y, int z) {
+        return getBit(world.getBlockMetadata(x, y, z), n);
+    }
+
+    /**
      * Sets n-th bit for the given integer
      * @param num The integer to set the bit for
      * @param n Which bit, LSB is 0
@@ -45,6 +60,20 @@ public class HexUtils {
             return num^mask;
         }
         return num;
+    }
+
+    /**
+     * Sets n-th bit for meta of a block.
+     * @param n Which bit of meta.
+     * @param val Bool to set the bit to.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @param notify Notify parameter to use.
+     */
+    public static void setMetaBit(int n, boolean val, World world, int x, int y, int z, int notify) {
+        world.setBlockMetadataWithNotify(x, y, z, setBit(world.getBlockMetadata(x, y, z), n, val), notify);
     }
 
     /**
