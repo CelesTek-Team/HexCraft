@@ -49,7 +49,7 @@ public class HexGui implements IGuiHandler {
             return new ContainerMolecularTransposer(player, player.inventory, itemStack);
         }
         else if(ID == 6){
-            TileHexoriumValve tileEntity = (TileHexoriumValve) world.getTileEntity(x, y, z);
+            TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
             return new ContainerHexoriumValve(tileEntity);
         }
         return null;
@@ -86,7 +86,7 @@ public class HexGui implements IGuiHandler {
             return new GuiMolecularTransposer(player, player.inventory, itemStack);
         }
         else if(ID == 6){
-            TileHexoriumValve tileEntity = (TileHexoriumValve) world.getTileEntity(x, y, z);
+            TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
             return new GuiHexoriumValve(tileEntity);
         }
         return null;

@@ -1,7 +1,6 @@
 package com.celestek.hexcraft.inventory;
 
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,7 +14,7 @@ import net.minecraft.inventory.ICrafting;
  */
 public class ContainerHexoriumValve extends Container {
 
-    private TileHexoriumValve tileHexoriumValve;
+    private TileTankValve tileHexoriumValve;
 
     private static final int TANK_CAP_MC_INT_0 = 0;
     private static final int TANK_CAP_MC_INT_1 = 1;
@@ -25,7 +24,7 @@ public class ContainerHexoriumValve extends Container {
     private int lastTankCap;
     private int lastTankLevel;
 
-    public ContainerHexoriumValve(TileHexoriumValve tileHexoriumValve) {
+    public ContainerHexoriumValve(TileTankValve tileHexoriumValve) {
         this.tileHexoriumValve = tileHexoriumValve;
     }
 

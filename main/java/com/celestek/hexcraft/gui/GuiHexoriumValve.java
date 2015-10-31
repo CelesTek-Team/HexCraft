@@ -2,7 +2,7 @@ package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.inventory.ContainerHexoriumValve;
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,9 +12,9 @@ import net.minecraft.util.ResourceLocation;
  */
 
 public class GuiHexoriumValve extends GuiContainer {
-    private TileHexoriumValve tileHexoriumValve;
+    private TileTankValve tileHexoriumValve;
 
-    public GuiHexoriumValve(TileHexoriumValve tileHexoriumValve) {
+    public GuiHexoriumValve(TileTankValve tileHexoriumValve) {
         super(new ContainerHexoriumValve(tileHexoriumValve));
 
         this.tileHexoriumValve = tileHexoriumValve;
@@ -23,7 +23,7 @@ public class GuiHexoriumValve extends GuiContainer {
     @Override protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
 
-        String name = TileHexoriumValve.MACHINE_NAME;
+        String name = TileTankValve.MACHINE_NAME;
 
         String tankCap = "Capacity: " + tileHexoriumValve.getTankCapacity() + "mB";
         String tankFluidLevel = "Current: " + tileHexoriumValve.getTankFluidLevel() + "mB";

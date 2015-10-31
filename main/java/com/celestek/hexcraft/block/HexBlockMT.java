@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.block;
 
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
@@ -24,12 +24,12 @@ public class HexBlockMT extends HexBlock {
     protected void pingChange(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
 
-        boolean hasNotified = HexUtils.getBit(meta, TileHexoriumValve.META_HAS_NOTIFIED);
-        boolean isMultiBlock = HexUtils.getBit(meta, TileHexoriumValve.META_IS_PART);
+        boolean hasNotified = HexUtils.getBit(meta, TileTankValve.META_HAS_NOTIFIED);
+        boolean isMultiBlock = HexUtils.getBit(meta, TileTankValve.META_IS_PART);
 
         if (!hasNotified && isMultiBlock) {
             System.out.format("[DEBUG] Glass notification: %s\n", System.currentTimeMillis()); // TODO: Remove before final merge
-            meta = HexUtils.setBit(meta, TileHexoriumValve.META_HAS_NOTIFIED, true);
+            meta = HexUtils.setBit(meta, TileTankValve.META_HAS_NOTIFIED, true);
             world.setBlockMetadataWithNotify(x, y, z, meta, 1);
         }
     }

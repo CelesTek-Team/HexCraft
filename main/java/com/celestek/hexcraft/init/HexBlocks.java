@@ -23,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 259;
+    public static int countBlocks = 260;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -315,6 +315,10 @@ public class HexBlocks {
 
     public static Block blockPersonalTeleportationPad;
 
+    // Hexiroum Valve
+    public static Block blockTankValve;
+    public static Block blockTankRender;
+
     // Cables
     public static Block blockHexoriumCableRed;
     public static Block blockHexoriumCableOrange;
@@ -362,9 +366,6 @@ public class HexBlocks {
 
     public static Block blockPylonBase51;
     public static Block blockPylonBase15;
-
-    // Hexiroum Valve
-    public static Block blockHexoriumValve;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -893,6 +894,12 @@ public class HexBlocks {
         blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.UNLOCALISEDNAME);
 
+        // Tank Valve
+        blockTankValve = new BlockTankValve(BlockTankValve.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockTankValve, BlockTankValve.UNLOCALISEDNAME);
+        blockTankRender = new BlockTankRender(BlockTankRender.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockTankRender, BlockTankRender.UNLOCALISEDNAME);
+
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.UNLOCALISEDNAME + "Red");
         GameRegistry.registerBlock(blockHexoriumCableRed, BlockHexoriumCable.UNLOCALISEDNAME + "Red");
@@ -964,10 +971,6 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumPressurePlateBlue, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "Blue");
         blockHexoriumPressurePlateWhite = new BlockHexoriumPressurePlate(BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
         GameRegistry.registerBlock(blockHexoriumPressurePlateWhite, BlockHexoriumPressurePlate.UNLOCALISEDNAME + "White");
-
-        // Hexorium Valve
-        blockHexoriumValve = new BlockHexoriumValve(BlockHexoriumValve.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockHexoriumValve, BlockHexoriumValve.UNLOCALISEDNAME);
 
         // Regular Blocks
         blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.UNLOCALISEDNAME);

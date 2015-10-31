@@ -1,15 +1,13 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.init.HexItems;
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -19,9 +17,9 @@ import net.minecraft.world.World;
  * @Author CoffeePirate     <celestek@openmailbox.org>
  * @Version 0.1.0
  */
-public class BlockHexoriumValve extends HexBlockContainer {
+public class BlockTankValve extends HexBlockContainer {
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumValve";
+    public static String UNLOCALISEDNAME = "blockTankValve";
     // Prepare the icons.
     @SideOnly(Side.CLIENT) private IIcon icon[];
 
@@ -30,7 +28,7 @@ public class BlockHexoriumValve extends HexBlockContainer {
      *
      * @param blockName Unlocalized name for the block.
      */
-    public BlockHexoriumValve(String blockName) {
+    public BlockTankValve(String blockName) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -53,8 +51,8 @@ public class BlockHexoriumValve extends HexBlockContainer {
         if (playerItem == null) {
             player.openGui(HexCraft.instance, 6, world, x, y, z);
         } else {
-            TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
-            tileHexoriumValve.interactedWithTank(player);
+            TileTankValve tileTankValve = (TileTankValve) tileEntity;
+            tileTankValve.interactedWithTank(player);
             player.getCurrentEquippedItem();
         }
 
@@ -63,14 +61,14 @@ public class BlockHexoriumValve extends HexBlockContainer {
 
 
     @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
-        TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) world.getTileEntity(x, y, z);
+        TileTankValve tileHexoriumValve = (TileTankValve) world.getTileEntity(x, y, z);
         tileHexoriumValve.notifyChange();
 
         super.onNeighborBlockChange(world, x, y, z, neighbor);
     }
 
     @Override public TileEntity createTileEntity(World world, int metadata) {
-        return new TileHexoriumValve();
+        return new TileTankValve();
     }
 
     /**
@@ -80,8 +78,8 @@ public class BlockHexoriumValve extends HexBlockContainer {
         // Initialize the icons.
         icon = new IIcon[3];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockHexoriumValve");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockHexoriumValve");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockTankValve");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockTankValve");
         // Load the inner texture
         icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }

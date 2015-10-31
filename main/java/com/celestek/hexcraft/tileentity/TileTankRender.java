@@ -3,7 +3,7 @@ package com.celestek.hexcraft.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileTankInfo extends TileEntity {
+public class TileTankRender extends TileEntity {
     
     private static final String NBT_START_X = "ctek_tti_start_x";
     private static final String NBT_START_Y = "ctek_tti_start_y";
@@ -29,7 +29,7 @@ public class TileTankInfo extends TileEntity {
     public int currVolume;
     public String fluidName;
 
-    public TileTankInfo() {
+    public TileTankRender() {
 
     }
 

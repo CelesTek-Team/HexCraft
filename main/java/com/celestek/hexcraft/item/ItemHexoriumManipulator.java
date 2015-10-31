@@ -6,7 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -172,9 +172,9 @@ public class ItemHexoriumManipulator extends Item {
                     int meta = world.getBlockMetadata(x,y,z);
                     System.out.format("(DEBUG) Block meta: %s\n", HexUtils.getBit(meta, 1));
                 }
-                else if (block instanceof BlockHexoriumValve) { // TODO: Remove this before push
-                    TileHexoriumValve tileHexoriumValve =
-                        (TileHexoriumValve) world.getTileEntity(x,y,z);
+                else if (block instanceof BlockTankValve) { // TODO: Remove this before push
+                    TileTankValve tileHexoriumValve =
+                        (TileTankValve) world.getTileEntity(x,y,z);
 
                     tileHexoriumValve.printDebug();
 
@@ -430,9 +430,9 @@ public class ItemHexoriumManipulator extends Item {
 
                     analyzePylonBase(world, x, y, z);
                 }
-                else if (block instanceof BlockHexoriumValve) {
+                else if (block instanceof BlockTankValve) {
                     TileEntity teHexValve = world.getTileEntity(x,y,z);
-                    ((TileHexoriumValve) teHexValve).setupMultiTank(side);
+                    ((TileTankValve) teHexValve).setupMultiTank(side);
                 }
             }
         }

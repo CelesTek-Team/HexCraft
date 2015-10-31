@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.tileentity.TileHexoriumValve;
+import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,7 +12,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.Sys;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -217,12 +216,12 @@ public class BlockTemperedHexoriumGlass extends Block {
     private void pingChange(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x,y,z);
 
-        boolean hasNotified = HexUtils.getBit(meta, TileHexoriumValve.META_HAS_NOTIFIED);
-        boolean isMultiBlock = HexUtils.getBit(meta, TileHexoriumValve.META_IS_PART);
+        boolean hasNotified = HexUtils.getBit(meta, TileTankValve.META_HAS_NOTIFIED);
+        boolean isMultiBlock = HexUtils.getBit(meta, TileTankValve.META_IS_PART);
 
         if (!hasNotified && isMultiBlock) {
             System.out.format("[DEBUG] Glass notification: %s\n", System.currentTimeMillis());
-            meta = HexUtils.setBit(meta, TileHexoriumValve.META_HAS_NOTIFIED, true);
+            meta = HexUtils.setBit(meta, TileTankValve.META_HAS_NOTIFIED, true);
             world.setBlockMetadataWithNotify(x, y, z, meta, 1);
         }
     }

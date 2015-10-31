@@ -1,13 +1,12 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockHexoriumValve;
-import com.celestek.hexcraft.block.BlockTankInfo;
+import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,7 +19,7 @@ import net.minecraftforge.fluids.*;
  * @Author CoffeePirate     <celestek@openmailbox.org>
  * @Version 0.1.0
  */
-public class TileHexoriumValve extends TileEntity implements IFluidHandler {
+public class TileTankValve extends TileEntity implements IFluidHandler {
 
     /**
      * Meta bit for identifying blocks which are already part of a multitank
@@ -69,7 +68,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
     private int tankCapacity = 0;
     private int tankFluidLevel = 0;
 
-    public TileHexoriumValve() {
+    public TileTankValve() {
         this.tankCapacity = 0;
         this.tankFluidLevel = 0;
         this.structureDimension = new Dimension();
@@ -138,7 +137,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         Block block = worldObj.getBlock(x, y, z);
 
         boolean notNull = block != null;
-        boolean blockType = block instanceof HexBlockMT || block instanceof BlockHexoriumValve
+        boolean blockType = block instanceof HexBlockMT || block instanceof BlockTankValve
             || block instanceof BlockTemperedHexoriumGlass;
         boolean isFree = false;
 
@@ -168,7 +167,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             return true;
         } else {
             TileEntity te = worldObj.getTileEntity(x,y,z);
-            return te instanceof TileTankInfo;
+            return te instanceof TileTankRender;
         }
     }
 
@@ -187,9 +186,9 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
 
 
         TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
-        if (tileEntity instanceof TileHexoriumValve) {
+        if (tileEntity instanceof TileTankValve) {
             if (!(x == xCoord && y == yCoord && z == zCoord)) {
-                TileHexoriumValve tileHexoriumValve = (TileHexoriumValve) tileEntity;
+                TileTankValve tileHexoriumValve = (TileTankValve) tileEntity;
 
                 tileHexoriumValve.setMasterX(xCoord);
                 tileHexoriumValve.setMasterY(yCoord);
@@ -504,7 +503,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             }
         }
 
-        destroyInfoBlock(infoBlockX, infoBlockY, infoBlockZ);
+        destroyRenderBlock(infoBlockX, infoBlockY, infoBlockZ);
     }
 
     private int calculateTankSize(Dimension dimension) {
@@ -562,8 +561,8 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             if (isMaster && isSetup) {
                 return fluidTank;
             } else if (!isMaster() && isSetup()) {
-                TileHexoriumValve tileHexoriumValve =
-                    (TileHexoriumValve) worldObj.getTileEntity(masterX, masterY, masterZ);
+                TileTankValve tileHexoriumValve =
+                    (TileTankValve) worldObj.getTileEntity(masterX, masterY, masterZ);
 
                 return tileHexoriumValve.getTank();
             }
@@ -571,11 +570,11 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         return null;
     }
 
-    private void updateInfoBlock(int x, int y, int z, int capacity, int level, String fluidName) {
-        TileTankInfo ttInfo = (TileTankInfo) worldObj.getTileEntity(x,y,z);
+    private void updateRenderBlock(int x, int y, int z, int capacity, int level, String fluidName) {
+        TileTankRender ttInfo = (TileTankRender) worldObj.getTileEntity(x,y,z);
 
-        ttInfo.currVolume=level;
-        ttInfo.maxVolume=capacity;
+        ttInfo.currVolume = level;
+        ttInfo.maxVolume = capacity;
         ttInfo.fluidName = fluidName;
     }
 
@@ -584,14 +583,14 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         tankFluidLevel = getFluidTank().getFluidAmount();
         String fluidName = getFluidTank().getFluid().getUnlocalizedName();
 
-        updateInfoBlock(infoBlockX, infoBlockY, infoBlockZ, tankCapacity, tankFluidLevel, fluidName);
+        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankCapacity, tankFluidLevel, fluidName);
     }
 
-    private void spawnInfoBlock(int x, int y, int z, CoordRange coordRange) {
+    private void spawnRenderBlock(int x, int y, int z, CoordRange coordRange) {
+        System.out.print("Render spawned: " + x + ", " + y + ", " + z);
+        worldObj.setBlock(x,y,z, HexBlocks.blockTankRender);
 
-        worldObj.setBlock(x,y,z, new BlockTankInfo(BlockTankInfo.UNLOCALISEDNAME));
-
-        TileTankInfo ttInfo = (TileTankInfo) worldObj.getTileEntity(x,y,z);
+        TileTankRender ttInfo = (TileTankRender) worldObj.getTileEntity(x,y,z);
 
         ttInfo.startX = coordRange.getStartX();
         ttInfo.startY = coordRange.getStartY();
@@ -600,10 +599,12 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
         ttInfo.endX = coordRange.getEndX();
         ttInfo.endY = coordRange.getEndY();
         ttInfo.endZ = coordRange.getEndZ();
-        
+
+        ttInfo.fluidName = "";
     }
 
-    private void destroyInfoBlock(int x, int y, int z) {
+    private void destroyRenderBlock(int x, int y, int z) {
+        System.out.print("Render destroyed: " + x + ", " + y + ", " + z);
         worldObj.setBlock(x,y,z, Blocks.air);
     }
 
@@ -660,7 +661,7 @@ public class TileHexoriumValve extends TileEntity implements IFluidHandler {
             infoBlockX = coordRange.getStartX() + dimension.getCenterOffsetX();
             infoBlockY = coordRange.getStartY() + 1;
             infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
-            spawnInfoBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
+            spawnRenderBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
 
 
             // Setup internal tank
