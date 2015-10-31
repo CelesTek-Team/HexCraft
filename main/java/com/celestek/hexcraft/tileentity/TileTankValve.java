@@ -699,14 +699,19 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * fired a notification.
      */
     public void notifyChange() {
+        System.out.println("[DEBUG] Got notification");
         notifyCounter++;
 
         if (notifyCounter > 3) {
             if (isSetup && isMaster) {
+                System.out.println("[DEBUG] Is setup and is master");
                 if (checkStructure(structureDimension, false)) {
+                    System.out.println("[DEBUG] structure is good");
                     resetNotify(structureDimension);
                 } else {
+                    System.out.println("[DEBUG] structure is bad");
                     resetStructure(structureDimension);
+                    System.out.println("[DEBUG] structure reset");
                     fluidTank = null;
                 }
             }

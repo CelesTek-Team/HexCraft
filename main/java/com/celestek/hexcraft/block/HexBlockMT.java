@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
@@ -19,6 +20,16 @@ public class HexBlockMT extends HexBlock {
      */
     public HexBlockMT(Material material) {
         super(material);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
+
+        if (neighbour instanceof HexBlockMT || neighbour instanceof BlockTemperedHexoriumGlass) {
+            //notify(world, x, y, z);
+            pingChange(world, x, y, z);
+        }
+        super.onNeighborBlockChange(world, x, y, z, neighbour);
     }
 
     protected void pingChange(World world, int x, int y, int z) {
