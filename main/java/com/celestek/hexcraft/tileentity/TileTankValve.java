@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.block.BlockTankRender;
 import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
@@ -464,6 +465,13 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                     } else {
                         setIsPart(x, y, z, true);
                     }
+
+                    Block block = worldObj.getBlock(x,y,z);
+
+                    // Remove any pre-existing render blocks
+                    if (block instanceof BlockTankRender) {
+                        worldObj.setBlock(x,y,z, Blocks.air);
+                    }
                 }
             }
         }
@@ -645,7 +653,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         Dimension dimension = scanDimensions(side);
 
         if (checkStructure(dimension, true)) {
-            setupStructure(dimension);
+            setupStructure(dimension); // Must be run before spawnRenderBlock because it removes pre-existing render blocks
 
             isMaster = true;
             isSetup = true;
