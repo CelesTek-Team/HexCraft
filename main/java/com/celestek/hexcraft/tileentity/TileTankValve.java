@@ -134,7 +134,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      *                  Used when re-checking a structure
      * @return is block at given coordinates valid
      */
-    private boolean isMultiTankBlock(int x, int y, int z, boolean checkMeta) {
+    private boolean isMultiTankBlock(int x, int y, int z, Dimension dimension, boolean checkMeta) { // TODO: Rename method maybe?
         Block block = worldObj.getBlock(x, y, z);
 
         boolean notNull = block != null;
@@ -142,17 +142,24 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                 || block == HexBlocks.blockTankValve
                 || block == HexBlocks.blockTemperedHexoriumGlass;
         boolean isFree = false;
+        boolean rotation = false;
 
         if (notNull) {
             int meta = worldObj.getBlockMetadata(x, y, z);
             isFree = !HexUtils.getBit(meta, META_IS_PART);
         }
 
-        if (checkMeta) {
-            return notNull && blockType && isFree;
-        } else {
-            return notNull && blockType;
+        if (block == HexBlocks.blockTankValve) {
+            rotation = checkValveRotation(x,y,z, dimension);
         }
+
+        if (checkMeta) {
+            return notNull && blockType && isFree && rotation;
+        } else {
+            return notNull && blockType && rotation;
+        }
+
+
 
     }
 
@@ -413,7 +420,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                     if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            if (!isMultiTankBlock(x, y, z, metaFlag)) {
+                            if (!isMultiTankBlock(x, y, z, dimension, metaFlag)) {
                                 return false;
                             }
                         } else {
@@ -423,7 +430,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                         }
                         // Base and Top
                     } else {
-                        if (!isMultiTankBlock(x, y, z, metaFlag)) {
+                        if (!isMultiTankBlock(x, y, z, dimension ,metaFlag)) {
                             return false;
                         }
                     }
@@ -646,6 +653,61 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         System.out.format(
             "[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
             xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ);
+    }
+
+    private boolean checkValveRotation(int x, int y, int z, Dimension dimension) {
+        // Use dimension and orientation info to derrive sides, check valve orientation there, return if valve is properly turned around
+
+        int side1 = 0;
+        int side2 = 0;
+
+        boolean result = false;
+
+        switch (dimension.getOrientation()) {
+
+            case Dimension.ORIENT_X_P:
+                side1 = zCoord - dimension.getNegativeWidth();
+                side2 = zCoord + dimension.getPositiveWidth();
+
+                if (z == side1 || z == side2) {
+                    result =  HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z); // instead of metaBit == true
+                } else {
+                    result =  true;
+                }
+                break;
+            case Dimension.ORIENT_X_N:
+                side1 = zCoord - dimension.getNegativeWidth();
+                side2 = zCoord + dimension.getPositiveWidth();
+
+                if (z == side1 || z == side2) {
+                    result =  HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                } else {
+                    result =  true;
+                }
+                break;
+            case Dimension.ORIENT_Z_P:
+                side1 = xCoord - dimension.getNegativeWidth();
+                side2 = xCoord + dimension.getPositiveWidth();
+
+                if (x == side1 || x == side2) {
+                    result =  !HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                } else {
+                    result =  true;
+                }
+                break;
+            case Dimension.ORIENT_Z_N:
+                side1 = xCoord - dimension.getNegativeWidth();
+                side2 = xCoord + dimension.getPositiveWidth();
+
+                if (x == side1 || x == side2) {
+                    result =  !HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                } else {
+                    result =  true;
+                }
+                break;
+        }
+
+        return result;
     }
 
     /**
