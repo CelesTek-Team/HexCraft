@@ -142,15 +142,16 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                 || block == HexBlocks.blockTankValve
                 || block == HexBlocks.blockTemperedHexoriumGlass;
         boolean isFree = false;
-        boolean rotation = false;
+        boolean rotation = true;
 
         if (notNull) {
             int meta = worldObj.getBlockMetadata(x, y, z);
             isFree = !HexUtils.getBit(meta, META_IS_PART);
         }
 
-        if (block == HexBlocks.blockTankValve) {
+        if (block instanceof BlockTankValve) {
             rotation = checkValveRotation(x,y,z, dimension);
+            System.out.println("[DEBUG] CHECKING VALVE ROTATION" + rotation);
         }
 
         if (checkMeta) {
@@ -406,6 +407,8 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     private boolean checkStructure(Dimension dimension, boolean metaFlag) {
         CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
+        boolean selfRotation = checkSelfeValveRotation(xCoord, yCoord, zCoord, dimension);
+
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
         int startY = coordRange.getStartY();
@@ -421,23 +424,23 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
                             if (!isMultiTankBlock(x, y, z, dimension, metaFlag)) {
-                                return false;
+                                return false && selfRotation;
                             }
                         } else {
                             if (!isClear(x, y, z)) {
-                                return false;
+                                return false && selfRotation;
                             }
                         }
                         // Base and Top
                     } else {
                         if (!isMultiTankBlock(x, y, z, dimension ,metaFlag)) {
-                            return false;
+                            return false && selfRotation;
                         }
                     }
                 }
             }
         }
-        return true;
+        return true && selfRotation;
     }
 
     /**
@@ -710,6 +713,31 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         return result;
     }
 
+    private boolean checkSelfeValveRotation(int x, int y, int z, Dimension dimension) {
+        // Use dimension and orientation info to derrive sides, check valve orientation there, return if valve is properly turned around
+
+        boolean result = false;
+
+        switch (dimension.getOrientation()) {
+
+            case Dimension.ORIENT_X_P:
+                result =  !HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z); // instead of metaBit == true
+                break;
+            case Dimension.ORIENT_X_N:
+                result =  !HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                break;
+            case Dimension.ORIENT_Z_P:
+                result =  HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                break;
+            case Dimension.ORIENT_Z_N:
+                result =  HexUtils.getMetaBit(TileTankValve.META_ROTATION, worldObj, x,y,z);
+                break;
+        }
+
+        return result;
+
+    }
+
     /**
      * Runs through necessary checks and sets up the structure.
      *
@@ -745,7 +773,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
             tankFluidLevel = fluidTank.getFluidAmount();
 
             //
-            switch (dimension.getOrientation()) {
+            /*switch (dimension.getOrientation()) {
                 case Dimension.ORIENT_X_N:
                     setTextureOrientation(masterX, masterY, masterZ, false);
                     break;
@@ -761,7 +789,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                 case Dimension.ORIENT_Z_P:
                     setTextureOrientation(masterX, masterY, masterZ, true);
                     break;
-            }
+            }*/
 
 
             printDebug();

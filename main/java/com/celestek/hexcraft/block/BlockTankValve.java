@@ -53,7 +53,10 @@ public class BlockTankValve extends HexBlockContainer {
         // Get the direction of the block.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         // Set the block's meta data according to direction.
-        HexUtils.setMetaBit(TileTankValve.META_ROTATION, !HexUtils.getBit(direction, 0), world, x, y, z, 2);
+        boolean rotation = !HexUtils.getBit(direction, 0);
+        HexUtils.setMetaBit(TileTankValve.META_ROTATION, rotation, world, x, y, z, 2);
+
+        System.out.println("[DEBUG] Valve rotation: " + rotation);
     }
 
     @Override public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
