@@ -99,6 +99,11 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
 
         nbtTagCompound.setInteger(this.NBT_TANK_CAPACITY, tankCapacity);
 
+        nbtTagCompound.setInteger(NBT_INFOBLOCK_X, infoBlockX);
+        nbtTagCompound.setInteger(NBT_INFOBLOCK_Y, infoBlockY);
+        nbtTagCompound.setInteger(NBT_INFOBLOCK_Z, infoBlockZ);
+
+
         fluidTank.writeToNBT(nbtTagCompound);
     }
 
