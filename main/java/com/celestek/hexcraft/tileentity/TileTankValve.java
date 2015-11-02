@@ -839,6 +839,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                 FluidTank fTank = getFluidTank();
                 if (fTank != null) {
                     if (fTank.fill(fluidStack, true) > 0) {
+                        updateTankStatus();
                         ItemStack emptyFluidContainer =
                             FluidContainerRegistry.drainFluidContainer(item);
                         player.inventory.setInventorySlotContents(player.inventory.currentItem,
@@ -930,7 +931,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      */
     @Override public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int fill = getFluidTank().fill(resource, doFill);
-        updateTankStatus();
+        if (doFill) {
+            updateTankStatus();
+        }
         return fill;
     }
 
