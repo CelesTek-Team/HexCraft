@@ -44,9 +44,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     private static final String NBT_MASTER_Y = "ctek_mt_master_y";
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
     private static final String NBT_TANK_CAPACITY = "ctek_mt_capacity";
-    private static final String NBT_INFOBLOCK_X = "ctek_mt_master_x";
-    private static final String NBT_INFOBLOCK_Y = "ctek_mt_master_y";
-    private static final String NBT_INFOBLOCK_Z = "ctek_mt_master_z";
+    private static final String NBT_INFOBLOCK_X = "ctek_mt_infoblock_x";
+    private static final String NBT_INFOBLOCK_Y = "ctek_mt_infoblock_y";
+    private static final String NBT_INFOBLOCK_Z = "ctek_mt_infoblock_z";
     private static final int TANK_MAX_DIMENSION = HexConfig.cfgMultiblockTankMaxDimension;
     private static final int TANK_CAPACITY_MULTIPLIER =
         HexConfig.cfgMultiblockTankCapacityMultiplier;
@@ -604,7 +604,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     private void updateTankStatus() {
         tankCapacity = getFluidTank().getCapacity();
         tankFluidLevel = getFluidTank().getFluidAmount();
-        String fluidName = getFluidTank().getFluid().getUnlocalizedName();
+        String fluidName = getFluidTank().getInfo().fluid.getFluidID() + "";
+
+        System.out.format("[DEBUG] UpdateTankStatus: TankCap: %s FluidLevl: %s, FluidName: %s \n", tankCapacity, tankFluidLevel, fluidName);
 
         updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankCapacity, tankFluidLevel, fluidName);
     }
