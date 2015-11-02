@@ -178,7 +178,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @return are the coordinates clear
      */
     private boolean isClear(int x, int y, int z) {
-        return worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
+        boolean isClear = worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
+        System.out.format("[DEBUG] IsClear (%s, %s, %s): %s\n", x, y, z, isClear);
+        return isClear;
     }
 
     /**
@@ -414,12 +416,22 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
 
         boolean selfRotation = checkSelfeValveRotation(xCoord, yCoord, zCoord, dimension);
 
+        boolean goodSize = dimension.width > 2 && dimension.height > 2 && dimension.depth > 2;
+        System.out.print("[DEBUG] GoodSize: " + goodSize);
+
+        if (!goodSize) {
+            return false;
+        }
+
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
         int startY = coordRange.getStartY();
         int endY = coordRange.getEndY();
         int startZ = coordRange.getStartZ();
         int endZ = coordRange.getEndZ();
+
+        System.out.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
+                startX, startY, startZ, endX, endY, endZ);
 
         for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
@@ -771,6 +783,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
             infoBlockX = coordRange.getStartX() + dimension.getCenterOffsetX();
             infoBlockY = coordRange.getStartY() + 1;
             infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
+
             spawnRenderBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
 
 
