@@ -37,7 +37,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
 
     // Set machine name.
     public static final String ID = "tileHexoriumValve";
-    public static final String MACHINE_NAME = "Hexorium Valve";
+    public static final String MACHINE_NAME = "Tank Valve";
     private static final String NBT_IS_SETUP = "ctek_mt_issetup";
     private static final String NBT_IS_MASTER = "ctek_mt_ismaster";
     private static final String NBT_MASTER_X = "ctek_mt_master_x";
@@ -73,12 +73,12 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         this.tankCapacity = 0;
         this.tankFluidLevel = 0;
         this.structureDimension = new Dimension();
-        this.fluidTank = new FluidTank(0);
 
         this.notifyCounter = 0;
 
         this.isMaster = false;
         this.isSetup = false;
+        this.fluidTank = new FluidTank(0);
 
         this.masterX = xCoord;
         this.masterY = yCoord;
@@ -103,8 +103,8 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
         nbtTagCompound.setInteger(NBT_INFOBLOCK_Y, infoBlockY);
         nbtTagCompound.setInteger(NBT_INFOBLOCK_Z, infoBlockZ);
 
-
         fluidTank.writeToNBT(nbtTagCompound);
+
     }
 
     @Override public void readFromNBT(NBTTagCompound nbtTagCompound) {
@@ -592,22 +592,20 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
             System.out.println("[DEBUG] valve destroyed");
             resetStructure(structureDimension);
             System.out.println("[DEBUG] structure reset");
-            fluidTank = null;
+            fluidTank = new FluidTank(0);
         }
     }
 
     private FluidTank getFluidTank() {
         if (!worldObj.isRemote) {
-            if (isMaster && isSetup) {
-                return fluidTank;
-            } else if (!isMaster() && isSetup()) {
+            if (!isMaster() && isSetup()) {
                 TileTankValve tileTankValve =
                     (TileTankValve) worldObj.getTileEntity(masterX, masterY, masterZ);
 
                 return tileTankValve.getTank();
             }
         }
-        return null;
+        return fluidTank;
     }
 
     private void updateRenderBlock(int x, int y, int z, int capacity, int level, String fluidName) {
@@ -647,23 +645,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
 
     private void destroyRenderBlock(int x, int y, int z) {
         System.out.print("Render destroyed: " + x + ", " + y + ", " + z);
-        worldObj.setBlock(x,y,z, Blocks.air);
-    }
-
-    /**
-     * How should the texture be oriented depending on what axis the wall is
-     *
-     * If set to true the wall is on Z axis, if set to false the wall is on X axis
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @param rotation
-     */
-    private void setTextureOrientation(int x, int y, int z, boolean rotation) {
-        int meta = worldObj.getBlockMetadata(x, y, z);
-        meta = HexUtils.setBit(meta, META_ROTATION, rotation);
-        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
+        worldObj.setBlock(x, y, z, Blocks.air);
     }
 
     public FluidTank getTank() {
@@ -673,8 +655,8 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     public void printDebug() {  // TODO: Remove this before push
 
         System.out.format(
-            "[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
-            xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ);
+                "[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
+                xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ);
     }
 
     private boolean checkValveRotation(int x, int y, int z, Dimension dimension) {
@@ -835,7 +817,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
                     System.out.println("[DEBUG] structure is bad");
                     resetStructure(structureDimension);
                     System.out.println("[DEBUG] structure reset");
-                    fluidTank = null;
+                    fluidTank = new FluidTank(0);
                 }
             }
             notifyCounter = 0;
