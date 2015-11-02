@@ -101,24 +101,57 @@ public class BlockTankValve extends HexBlockContainer {
      */
     @Override @SideOnly(Side.CLIENT) public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[3];
+        icon = new IIcon[5];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockTankValve");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "blockTankValve");
+        for (int i = 0; i < 4; i++)
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i + 1));
         // Load the inner texture
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
 
     /**
      * Retrieves the icons.
      */
     @Override @SideOnly(Side.CLIENT) public IIcon getIcon(int side, int meta) {
+        // Prepare variables.
+        int formed = 0;
+        boolean rotation = HexUtils.getBit(meta, TileTankValve.META_ROTATION);
+        if (HexUtils.getBit(meta, TileTankValve.META_IS_PART))
+            formed = 1;
+
         // Retrieve icon based on side.
-        if (side == 0)
-            return icon[0];
-        else if (side > 0 && side < 6)
-            return icon[1];
-        else
-            return icon[2];
+        switch (side) {
+            case 0:
+                if (rotation)
+                    return icon[3];
+                else
+                    return icon[2];
+            case 1:
+                if (rotation)
+                    return icon[3];
+                else
+                    return icon[2];
+            case 2:
+                if (rotation)
+                    return icon[formed];
+                else
+                    return icon[2];
+            case 3:
+                if (rotation)
+                    return icon[formed];
+                else
+                    return icon[2];
+            case 4:
+                if (rotation)
+                    return icon[2];
+                else
+                    return icon[formed];
+            case 5:
+                if (rotation)
+                    return icon[2];
+                else
+                    return icon[formed];
+        }
+        return icon[4];
     }
 }

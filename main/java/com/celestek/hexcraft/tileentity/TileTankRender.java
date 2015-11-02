@@ -33,6 +33,14 @@ public class TileTankRender extends TileEntity {
 
     }
 
+    /**
+     * Fired on every tick. Main processing is done here.
+     */
+    @Override
+    public void updateEntity() {
+        System.out.println("Render: (" + startX + ", " + startY + ", " + startZ + ") (" + endX + ", " + endY + ", " + endZ + ") m: " + maxVolume + " c: " + currVolume + " n: " + fluidName);
+    }
+
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);

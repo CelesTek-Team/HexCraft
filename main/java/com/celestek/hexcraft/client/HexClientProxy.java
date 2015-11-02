@@ -807,11 +807,11 @@ public class HexClientProxy extends HexCommonProxy {
 
         // Tank Valve
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler((new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB)));
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB));
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler((new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB)));
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.brightnessBright, HexColors.colorGrayR, HexColors.colorGrayG, HexColors.colorGrayB));
 
         // Cables
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();

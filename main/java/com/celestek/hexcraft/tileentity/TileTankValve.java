@@ -187,7 +187,7 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     private void setIsPart(int x, int y, int z, boolean isPart) {
         int meta = worldObj.getBlockMetadata(x, y, z);
         meta = HexUtils.setBit(meta, META_IS_PART, isPart);
-        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 4);
+        worldObj.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
 
         TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
@@ -584,10 +584,10 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
             if (isMaster && isSetup) {
                 return fluidTank;
             } else if (!isMaster() && isSetup()) {
-                TileTankValve tileHexoriumValve =
+                TileTankValve tileTankValve =
                     (TileTankValve) worldObj.getTileEntity(masterX, masterY, masterZ);
 
-                return tileHexoriumValve.getTank();
+                return tileTankValve.getTank();
             }
         }
         return null;
