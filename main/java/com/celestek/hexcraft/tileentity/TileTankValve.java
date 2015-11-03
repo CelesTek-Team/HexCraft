@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.*;
  * @Author CoffeePirate     <celestek@openmailbox.org>
  * @Version 0.1.0
  */
-public class TileTankValve extends TileEntity implements IFluidHandler {
+public class TileTankValve extends TileFluidHandler {
 
     /**
      * Meta bit for identifying blocks which are already part of a multitank
@@ -619,7 +619,9 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
     private void updateTankStatus() {
         tankCapacity = getFluidTank().getCapacity();
         tankFluidLevel = getFluidTank().getFluidAmount();
-        String fluidName = getFluidTank().getInfo().fluid.getFluidID() + "";
+        String fluidName = "";
+        if (getFluidTank().getFluid() != null)
+            fluidName = getFluidTank().getFluid().getUnlocalizedName();
 
         System.out.format("[DEBUG] UpdateTankStatus: TankCap: %s FluidLevl: %s, FluidName: %s \n", tankCapacity, tankFluidLevel, fluidName);
 
@@ -925,11 +927,18 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @return Amount of resource that was (or would have been, if simulated) filled.
      */
     @Override public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        int fill = getFluidTank().fill(resource, doFill);
-        if (doFill) {
-            updateTankStatus();
+        if (isSetup()
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+
+            int fill = getFluidTank().fill(resource, doFill);
+            if (doFill) {
+                updateTankStatus();
+            }
+            return fill;
         }
-        return fill;
+
+        return 0;
     }
 
     /**
@@ -942,9 +951,31 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * simulated) drained.
      */
     @Override public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-        FluidStack drained = getFluidTank().drain(calculateTankSize(structureDimension), doDrain);
-        updateTankStatus();
-        return drained;
+        if (isSetup()
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+
+            int topY = masterY + (structureDimension.getHeight() - 2);
+            int botY = masterY - 1;
+
+            boolean canDrain = false;
+            boolean isInRings = yCoord > botY && yCoord < topY;
+
+            if (yCoord >= masterY) {
+                int deltaHeight = yCoord - masterY;
+                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
+                        * TANK_CAPACITY_MULTIPLIER;
+                canDrain = fluidTank.getFluidAmount() >= minLvl;
+            }
+
+            if (canDrain && isInRings) {
+                FluidStack drained = getFluidTank().drain(calculateTankSize(structureDimension), doDrain);
+                updateTankStatus();
+                return drained;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -959,9 +990,31 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * simulated) drained.
      */
     @Override public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        FluidStack drained = getFluidTank().drain(maxDrain, doDrain);
-        updateTankStatus();
-        return drained;
+        if (isSetup()
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+
+            int topY = masterY + (structureDimension.getHeight() - 2);
+            int botY = masterY - 1;
+
+            boolean canDrain = false;
+            boolean isInRings = yCoord > botY && yCoord < topY;
+
+            if (yCoord >= masterY) {
+                int deltaHeight = yCoord - masterY;
+                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
+                        * TANK_CAPACITY_MULTIPLIER;
+                canDrain = fluidTank.getFluidAmount() >= minLvl;
+            }
+
+            if (canDrain && isInRings) {
+                FluidStack drained = getFluidTank().drain(maxDrain, doDrain);
+                updateTankStatus();
+                return drained;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -973,7 +1026,8 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @param fluid
      */
     @Override public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return true;
+        return isSetup() && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION)) ||
+                ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)));
     }
 
     /**
@@ -985,21 +1039,27 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @param fluid
      */
     @Override public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        if (isSetup()
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
 
-        int topY = masterY + (structureDimension.getHeight() - 2);
-        int botY = masterY - 1;
+            int topY = masterY + (structureDimension.getHeight() - 2);
+            int botY = masterY - 1;
 
-        boolean canDrain = false;
-        boolean isInRings = yCoord > botY && yCoord < topY;
+            boolean canDrain = false;
+            boolean isInRings = yCoord > botY && yCoord < topY;
 
-        if (yCoord >= masterY) {
-            int deltaHeight = yCoord - masterY;
-            int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
-                * TANK_CAPACITY_MULTIPLIER;
-            canDrain = fluidTank.getFluidAmount() >= minLvl;
+            if (yCoord >= masterY) {
+                int deltaHeight = yCoord - masterY;
+                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
+                        * TANK_CAPACITY_MULTIPLIER;
+                canDrain = fluidTank.getFluidAmount() >= minLvl;
+            }
+
+            return canDrain && isInRings;
         }
 
-        return canDrain && isInRings;
+        return false;
     }
 
     /**
@@ -1010,10 +1070,17 @@ public class TileTankValve extends TileEntity implements IFluidHandler {
      * @return Info for the relevant internal tanks.
      */
     @Override public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
-        fluidTankInfos[0] = new FluidTankInfo(getFluidTank());
+        if (isSetup()
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
 
-        return fluidTankInfos;
+            FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
+            fluidTankInfos[0] = new FluidTankInfo(getFluidTank());
+
+            return fluidTankInfos;
+        }
+
+        return null;
     }
 
     /**
