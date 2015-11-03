@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
  */
 
-public class BlockConcentricHexoriumBlock extends HexBlock {
+public class BlockConcentricHexoriumBlock extends HexBlockMT {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockConcentricHexoriumBlock";
@@ -104,5 +104,15 @@ public class BlockConcentricHexoriumBlock extends HexBlock {
             return icon[2];
         else
             return icon[0];
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
+
+        if (neighbour instanceof HexBlockMT || neighbour instanceof BlockTemperedHexoriumGlass) {
+            //notify(world, x, y, z);
+            pingChange(world, x, y, z);
+        }
+        super.onNeighborBlockChange(world, x, y, z, neighbour);
     }
 }

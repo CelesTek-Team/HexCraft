@@ -22,5 +22,9 @@ public class HexTileEntities {
         GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, "tilePersonalTeleportationPad");
 
         GameRegistry.registerTileEntity(TileEnergyPylon.class, "tileEnergyPylon");
+
+        // HexoriumValve
+        GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);
+        GameRegistry.registerTileEntity(TileTankRender.class, "tileTankRender");
     }
 }

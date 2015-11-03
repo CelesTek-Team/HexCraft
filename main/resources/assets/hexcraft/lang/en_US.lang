@@ -278,6 +278,8 @@ tile.blockHexoriumHatchRainbow.name=Hexorium Hatch (Rainbow)
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
 
+tile.blockHexoriumValve.name=Hexorium Valve
+
 tile.blockHexoriumGenerator.name=Hexorium Generator
 tile.blockHexoriumFurnace.name=Hexorium Furnace
 tile.blockCrystalSeparator.name=Crystal Separator

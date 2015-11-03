@@ -1,6 +1,5 @@
 package com.celestek.hexcraft.client.renderer;
 
-import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockGlowingHexoriumGlass;
 import com.celestek.hexcraft.block.BlockHexoriumLamp;

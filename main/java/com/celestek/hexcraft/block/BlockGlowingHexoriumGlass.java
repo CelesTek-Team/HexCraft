@@ -17,7 +17,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
  */
 
-public class BlockGlowingHexoriumGlass extends HexBlock {
+public class BlockGlowingHexoriumGlass extends HexBlockMT {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockGlowingHexoriumGlass";
@@ -219,5 +219,15 @@ public class BlockGlowingHexoriumGlass extends HexBlock {
     @Override
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
+
+        if (neighbour instanceof HexBlockMT || neighbour instanceof BlockTemperedHexoriumGlass) {
+            //notify(world, x, y, z);
+            pingChange(world, x, y, z);
+        }
+        super.onNeighborBlockChange(world, x, y, z, neighbour);
     }
 }

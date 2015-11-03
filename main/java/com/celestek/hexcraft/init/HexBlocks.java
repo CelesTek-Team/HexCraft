@@ -4,9 +4,7 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -25,7 +23,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 258;
+    public static int countBlocks = 260;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -316,6 +314,10 @@ public class HexBlocks {
     public static Block blockMatrixReconstructor;
 
     public static Block blockPersonalTeleportationPad;
+
+    // Hexiroum Valve
+    public static Block blockTankValve;
+    public static Block blockTankRender;
 
     // Cables
     public static Block blockHexoriumCableRed;
@@ -893,6 +895,12 @@ public class HexBlocks {
             blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);
             GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.UNLOCALISEDNAME);
         }
+
+        // Tank Valve
+        blockTankValve = new BlockTankValve(BlockTankValve.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockTankValve, BlockTankValve.UNLOCALISEDNAME);
+        blockTankRender = new BlockTankRender(BlockTankRender.UNLOCALISEDNAME);
+        GameRegistry.registerBlock(blockTankRender, BlockTankRender.UNLOCALISEDNAME);
 
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.UNLOCALISEDNAME + "Red");
