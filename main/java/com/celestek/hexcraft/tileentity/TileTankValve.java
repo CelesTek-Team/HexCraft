@@ -78,7 +78,7 @@ public class TileTankValve extends TileFluidHandler {
 
         this.isMaster = false;
         this.isSetup = false;
-        this.fluidTank = new FluidTank(0);
+        this.fluidTank = new FluidTank(tankCapacity);
 
         this.masterX = xCoord;
         this.masterY = yCoord;
@@ -90,14 +90,14 @@ public class TileTankValve extends TileFluidHandler {
         super.writeToNBT(nbtTagCompound);
         structureDimension.saveToNBT(nbtTagCompound);
 
-        nbtTagCompound.setBoolean(this.NBT_IS_MASTER, isMaster());
-        nbtTagCompound.setBoolean(this.NBT_IS_SETUP, isSetup());
+        nbtTagCompound.setBoolean(NBT_IS_MASTER, isMaster());
+        nbtTagCompound.setBoolean(NBT_IS_SETUP, isSetup());
 
-        nbtTagCompound.setInteger(this.NBT_MASTER_X, getMasterX());
-        nbtTagCompound.setInteger(this.NBT_MASTER_Y, getMasterY());
-        nbtTagCompound.setInteger(this.NBT_MASTER_Z, getMasterZ());
+        nbtTagCompound.setInteger(NBT_MASTER_X, getMasterX());
+        nbtTagCompound.setInteger(NBT_MASTER_Y, getMasterY());
+        nbtTagCompound.setInteger(NBT_MASTER_Z, getMasterZ());
 
-        nbtTagCompound.setInteger(this.NBT_TANK_CAPACITY, tankCapacity);
+        nbtTagCompound.setInteger(NBT_TANK_CAPACITY, tankCapacity);
 
         nbtTagCompound.setInteger(NBT_INFOBLOCK_X, infoBlockX);
         nbtTagCompound.setInteger(NBT_INFOBLOCK_Y, infoBlockY);
@@ -111,22 +111,21 @@ public class TileTankValve extends TileFluidHandler {
         super.readFromNBT(nbtTagCompound);
         structureDimension.loadFromNBT(nbtTagCompound);
 
-        setSetup(nbtTagCompound.getBoolean(this.NBT_IS_SETUP));
-        setMaster(nbtTagCompound.getBoolean(this.NBT_IS_MASTER));
+        setSetup(nbtTagCompound.getBoolean(NBT_IS_SETUP));
+        setMaster(nbtTagCompound.getBoolean(NBT_IS_MASTER));
 
-        setMasterX(nbtTagCompound.getInteger(this.NBT_MASTER_X));
-        setMasterY(nbtTagCompound.getInteger(this.NBT_MASTER_Y));
-        setMasterZ(nbtTagCompound.getInteger(this.NBT_MASTER_Z));
+        setMasterX(nbtTagCompound.getInteger(NBT_MASTER_X));
+        setMasterY(nbtTagCompound.getInteger(NBT_MASTER_Y));
+        setMasterZ(nbtTagCompound.getInteger(NBT_MASTER_Z));
 
-        tankCapacity = nbtTagCompound.getInteger(this.NBT_TANK_CAPACITY);
-
-        fluidTank = new FluidTank(tankCapacity);
-
-        fluidTank.readFromNBT(nbtTagCompound);
+        tankCapacity = nbtTagCompound.getInteger(NBT_TANK_CAPACITY);
 
         infoBlockX = nbtTagCompound.getInteger(NBT_INFOBLOCK_X);
         infoBlockY = nbtTagCompound.getInteger(NBT_INFOBLOCK_Y);
         infoBlockZ = nbtTagCompound.getInteger(NBT_INFOBLOCK_Z);
+
+        fluidTank = new FluidTank(tankCapacity);
+        fluidTank.readFromNBT(nbtTagCompound);
     }
 
     /**
@@ -592,7 +591,8 @@ public class TileTankValve extends TileFluidHandler {
             System.out.println("[DEBUG] valve destroyed");
             resetStructure(structureDimension);
             System.out.println("[DEBUG] structure reset");
-            fluidTank = new FluidTank(0);
+            tankCapacity = 0;
+            fluidTank = new FluidTank(tankCapacity);
         }
     }
 
@@ -608,12 +608,16 @@ public class TileTankValve extends TileFluidHandler {
         return fluidTank;
     }
 
-    private void updateRenderBlock(int x, int y, int z, int capacity, int level, String fluidName) {
-        TileTankRender ttInfo = (TileTankRender) worldObj.getTileEntity(x,y,z);
+    private void updateRenderBlock(int x, int y, int z, int level, int capacity, String fluidName) {
+        if (worldObj.getChunkProvider().chunkExists(x >> 4, z >> 4)) {
+            TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x, y, z);
 
-        ttInfo.currVolume = level;
-        ttInfo.maxVolume = capacity;
-        ttInfo.fluidName = fluidName;
+            if (tileTankRender != null) {
+                tileTankRender.currVolume = level;
+                tileTankRender.maxVolume = capacity;
+                tileTankRender.fluidName = fluidName;
+            }
+        }
     }
 
     private void updateTankStatus() {
@@ -621,28 +625,28 @@ public class TileTankValve extends TileFluidHandler {
         tankFluidLevel = getFluidTank().getFluidAmount();
         String fluidName = "";
         if (getFluidTank().getFluid() != null)
-            fluidName = getFluidTank().getFluid().getUnlocalizedName();
+            fluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
 
-        System.out.format("[DEBUG] UpdateTankStatus: TankCap: %s FluidLevl: %s, FluidName: %s \n", tankCapacity, tankFluidLevel, fluidName);
+        // System.out.format("[DEBUG] UpdateTankStatus: FluidLevel: %s, TankCap: %s, FluidName: %s \n", tankFluidLevel, tankCapacity, fluidName);
 
-        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankCapacity, tankFluidLevel, fluidName);
+        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankFluidLevel, tankCapacity, fluidName);
     }
 
     private void spawnRenderBlock(int x, int y, int z, CoordRange coordRange) {
         System.out.print("Render spawned: " + x + ", " + y + ", " + z);
         worldObj.setBlock(x,y,z, HexBlocks.blockTankRender);
 
-        TileTankRender ttInfo = (TileTankRender) worldObj.getTileEntity(x,y,z);
+        TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x,y,z);
 
-        ttInfo.startX = coordRange.getStartX();
-        ttInfo.startY = coordRange.getStartY();
-        ttInfo.startZ = coordRange.getStartZ();
+        tileTankRender.startX = coordRange.getStartX();
+        tileTankRender.startY = coordRange.getStartY();
+        tileTankRender.startZ = coordRange.getStartZ();
 
-        ttInfo.endX = coordRange.getEndX();
-        ttInfo.endY = coordRange.getEndY();
-        ttInfo.endZ = coordRange.getEndZ();
+        tileTankRender.endX = coordRange.getEndX();
+        tileTankRender.endY = coordRange.getEndY();
+        tileTankRender.endZ = coordRange.getEndZ();
 
-        ttInfo.fluidName = "";
+        tileTankRender.fluidName = "";
     }
 
     private void destroyRenderBlock(int x, int y, int z) {
@@ -809,7 +813,7 @@ public class TileTankValve extends TileFluidHandler {
         System.out.println("[DEBUG] Got notification");
         notifyCounter++;
 
-        if (notifyCounter > 3) {
+        if (notifyCounter > 4) {
             if (isSetup && isMaster) {
                 System.out.println("[DEBUG] Is setup and is master");
                 if (checkStructure(structureDimension, false)) {
@@ -819,7 +823,8 @@ public class TileTankValve extends TileFluidHandler {
                     System.out.println("[DEBUG] structure is bad");
                     resetStructure(structureDimension);
                     System.out.println("[DEBUG] structure reset");
-                    fluidTank = new FluidTank(0);
+                    tankCapacity = 0;
+                    fluidTank = new FluidTank(tankCapacity);
                 }
             }
             notifyCounter = 0;

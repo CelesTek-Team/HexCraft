@@ -1,6 +1,9 @@
 package com.celestek.hexcraft.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileTankRender extends TileEntity {
@@ -25,20 +28,34 @@ public class TileTankRender extends TileEntity {
     public int endY;
     public int endZ;
 
-    public int maxVolume;
+    public int currVolumeOld;
+    public int maxVolumeOld;
+    public String fluidNameOld;
+
     public int currVolume;
+    public int maxVolume;
     public String fluidName;
 
+    public boolean started;
+
     public TileTankRender() {
+        this.startX = 0;
+        this.startY = 0;
+        this.startZ = 0;
 
-    }
+        this.endX = 0;
+        this.endY = 0;
+        this.endZ = 0;
 
-    /**
-     * Fired on every tick. Main processing is done here.
-     */
-    @Override
-    public void updateEntity() {
-        System.out.println("Render: (" + startX + ", " + startY + ", " + startZ + ") (" + endX + ", " + endY + ", " + endZ + ") m: " + maxVolume + " c: " + currVolume + " n: " + fluidName);
+        this.currVolumeOld = 0;
+        this.maxVolumeOld = 0;
+        this.fluidNameOld = "";
+
+        this.currVolume = 0;
+        this.maxVolume = 0;
+        this.fluidName = "";
+
+        started = false;
     }
 
     @Override
@@ -74,5 +91,38 @@ public class TileTankRender extends TileEntity {
         currVolume = nbtTagCompound.getInteger(NBT_CURR_VOL);
 
         fluidName = nbtTagCompound.getString(NBT_FLUID_NAME);
+    }
+
+    /**
+     * Sends the data packet.
+     */
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeToNBT(tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
+    }
+
+    /**
+     * Receives the data packet.
+     */
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        readFromNBT(packet.func_148857_g());
+    }
+
+    /**
+     * Fired on every tick. Main processing is done here.
+     */
+    @Override
+    public void updateEntity() {
+        if (currVolumeOld != currVolume || maxVolumeOld != maxVolume || !fluidNameOld.equals(fluidName)) {
+            // System.out.println("Render: (" + startX + ", " + startY + ", " + startZ + ") (" + endX + ", " + endY + ", " + endZ + ") c: " + currVolume + " m: " + maxVolume + " n: " + fluidName);
+            currVolumeOld = currVolume;
+            maxVolumeOld = maxVolume;
+            fluidNameOld = fluidName;
+            // Prepare the block to update.
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
     }
 }
