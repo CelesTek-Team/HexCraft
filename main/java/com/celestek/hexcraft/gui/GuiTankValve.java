@@ -64,7 +64,7 @@ public class GuiTankValve extends GuiContainer {
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiTankValve.png"));
         drawTexturedModalRect(x, y, 0, 0, 176, 90);
 
-        if (tileTankValve.getGuiFluidInserted() == 1) {
+        if (tileTankValve.getGuiFluidInserted() == 1 || tileTankValve.getGuiFluidInserted() == 2) {
             Fluid fluid = FluidRegistry.getFluid(tileTankValve.getGuiFluidID());
             if (fluid != null) {
                 mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
