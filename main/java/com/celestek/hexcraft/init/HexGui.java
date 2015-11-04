@@ -50,7 +50,7 @@ public class HexGui implements IGuiHandler {
         }
         else if(ID == 6){
             TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
-            return new ContainerHexoriumValve(tileEntity);
+            return new ContainerTankValve(tileEntity);
         }
         return null;
     }
@@ -87,7 +87,7 @@ public class HexGui implements IGuiHandler {
         }
         else if(ID == 6){
             TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
-            return new GuiHexoriumValve(tileEntity);
+            return new GuiTankValve(tileEntity);
         }
         return null;
     }

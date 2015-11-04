@@ -19,7 +19,6 @@ public class HexConfig {
     public static boolean cfgGeneralTransposerAttackPlayers = true;
     public static int cfgGeneralTransposerAttackDamage = 20;
 
-
     // General - Personal Teleportation Pad
     public static String categoryTeleport = "General - Personal Teleportation Pad";
     public static boolean cfgTeleportEnable = true;
@@ -27,8 +26,11 @@ public class HexConfig {
     public static int cfgTeleportDamageAmount = 4;
     public static int cfgTeleportUsageCost = 102400;
 
-    
-    
+    // Multiblock Tank
+    public static String categoryMultiblockTank = "Multiblock Tank";
+    public static int cfgMultiblockTankMaxDimension = 18;
+    public static int cfgMultiblockTankCapacityMultiplier = 16;
+
     // Monolith Generation
     public static String categoryMonolith = "Monolith Generation";
     public static boolean cfgMonolithGeneralShouldGenerate = true;
@@ -305,11 +307,6 @@ public class HexConfig {
     public static int cfgOtherOreBlackCountMax = 3;
     public static int cfgOtherOreBlackHeightMin = 0;
     public static int cfgOtherOreBlackHeightMax = 20;
-
-    // Multiblock Tank
-    public static String categoryMultiblockTank = "Multiblock Tank";
-    public static int cfgMultiblockTankMaxDimension = 18;
-    public static int cfgMultiblockTankCapacityMultiplier = 16;
 
     /**
      * Initializes all block and adds them to GameRegistry.

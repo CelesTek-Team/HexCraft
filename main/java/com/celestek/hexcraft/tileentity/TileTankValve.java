@@ -12,6 +12,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
@@ -44,13 +47,15 @@ public class TileTankValve extends TileFluidHandler {
     private static final String NBT_MASTER_Y = "ctek_mt_master_y";
     private static final String NBT_MASTER_Z = "ctek_mt_master_z";
     private static final String NBT_TANK_CAPACITY = "ctek_mt_capacity";
+    private static final String NBT_TANK_LEVEL = "ctek_mt_level";
+    private static final String NBT_TANK_NAME = "ctek_mt_name";
     private static final String NBT_INFOBLOCK_X = "ctek_mt_infoblock_x";
     private static final String NBT_INFOBLOCK_Y = "ctek_mt_infoblock_y";
     private static final String NBT_INFOBLOCK_Z = "ctek_mt_infoblock_z";
     private static final int TANK_MAX_DIMENSION = HexConfig.cfgMultiblockTankMaxDimension;
     private static final int TANK_CAPACITY_MULTIPLIER =
         HexConfig.cfgMultiblockTankCapacityMultiplier;
-    private int notifyCounter = 0;
+    private int notifyCounter;
 
     private Dimension structureDimension;
     private FluidTank fluidTank;
@@ -66,12 +71,19 @@ public class TileTankValve extends TileFluidHandler {
     private boolean isMaster;
     private boolean isSetup;
 
-    private int tankCapacity = 0;
-    private int tankFluidLevel = 0;
+    private int tankCapacity;
+    private int tankFluidLevel;
+    private String tankFluidName;
+
+    private int guiTankCapacity;
+    private int guiTankFluidLevel;
+    private int guiTankFluidID;
+    private int guiTankFluidInserted;
 
     public TileTankValve() {
         this.tankCapacity = 0;
         this.tankFluidLevel = 0;
+        this.tankFluidName = "";
         this.structureDimension = new Dimension();
 
         this.notifyCounter = 0;
@@ -84,6 +96,10 @@ public class TileTankValve extends TileFluidHandler {
         this.masterY = yCoord;
         this.masterZ = zCoord;
 
+        this.guiTankCapacity = 0;
+        this.guiTankFluidLevel = 0;
+        this.guiTankFluidID = 0;
+        this.guiTankFluidInserted = 0;
     }
 
     @Override public void writeToNBT(NBTTagCompound nbtTagCompound) {
@@ -97,35 +113,38 @@ public class TileTankValve extends TileFluidHandler {
         nbtTagCompound.setInteger(NBT_MASTER_Y, getMasterY());
         nbtTagCompound.setInteger(NBT_MASTER_Z, getMasterZ());
 
-        nbtTagCompound.setInteger(NBT_TANK_CAPACITY, tankCapacity);
-
         nbtTagCompound.setInteger(NBT_INFOBLOCK_X, infoBlockX);
         nbtTagCompound.setInteger(NBT_INFOBLOCK_Y, infoBlockY);
         nbtTagCompound.setInteger(NBT_INFOBLOCK_Z, infoBlockZ);
 
-        fluidTank.writeToNBT(nbtTagCompound);
-
+        nbtTagCompound.setInteger(NBT_TANK_CAPACITY, tankCapacity);
+        nbtTagCompound.setInteger(NBT_TANK_LEVEL, tankFluidLevel);
+        nbtTagCompound.setString(NBT_TANK_NAME, tankFluidName);
     }
 
     @Override public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
         structureDimension.loadFromNBT(nbtTagCompound);
 
-        setSetup(nbtTagCompound.getBoolean(NBT_IS_SETUP));
         setMaster(nbtTagCompound.getBoolean(NBT_IS_MASTER));
+        setSetup(nbtTagCompound.getBoolean(NBT_IS_SETUP));
 
         setMasterX(nbtTagCompound.getInteger(NBT_MASTER_X));
         setMasterY(nbtTagCompound.getInteger(NBT_MASTER_Y));
         setMasterZ(nbtTagCompound.getInteger(NBT_MASTER_Z));
 
-        tankCapacity = nbtTagCompound.getInteger(NBT_TANK_CAPACITY);
-
         infoBlockX = nbtTagCompound.getInteger(NBT_INFOBLOCK_X);
         infoBlockY = nbtTagCompound.getInteger(NBT_INFOBLOCK_Y);
         infoBlockZ = nbtTagCompound.getInteger(NBT_INFOBLOCK_Z);
 
+        tankCapacity = nbtTagCompound.getInteger(NBT_TANK_CAPACITY);
+        tankFluidLevel = nbtTagCompound.getInteger(NBT_TANK_LEVEL);
+        tankFluidName = nbtTagCompound.getString(NBT_TANK_NAME);
+
         fluidTank = new FluidTank(tankCapacity);
-        fluidTank.readFromNBT(nbtTagCompound);
+        Fluid fluid = FluidRegistry.getFluid(tankFluidName);
+        if (fluid != null)
+            fluidTank.setFluid(new FluidStack(fluid, tankFluidLevel));
     }
 
     /**
@@ -618,18 +637,21 @@ public class TileTankValve extends TileFluidHandler {
                 tileTankRender.fluidName = fluidName;
             }
         }
+
+
     }
 
     private void updateTankStatus() {
         tankCapacity = getFluidTank().getCapacity();
         tankFluidLevel = getFluidTank().getFluidAmount();
-        String fluidName = "";
-        if (getFluidTank().getFluid() != null)
-            fluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
+        tankFluidName = "";
+        if (getFluidTank().getFluid() != null) {
+            tankFluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
+        }
 
         // System.out.format("[DEBUG] UpdateTankStatus: FluidLevel: %s, TankCap: %s, FluidName: %s \n", tankFluidLevel, tankCapacity, fluidName);
 
-        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankFluidLevel, tankCapacity, fluidName);
+        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankFluidLevel, tankCapacity, tankFluidName);
     }
 
     private void spawnRenderBlock(int x, int y, int z, CoordRange coordRange) {
@@ -810,25 +832,26 @@ public class TileTankValve extends TileFluidHandler {
      * fired a notification.
      */
     public void notifyChange() {
-        System.out.println("[DEBUG] Got notification");
-        notifyCounter++;
+        if (isSetup && isMaster) {
+            System.out.println("[DEBUG] Got notification, counter: " + notifyCounter);
 
-        if (notifyCounter > 4) {
-            if (isSetup && isMaster) {
-                System.out.println("[DEBUG] Is setup and is master");
-                if (checkStructure(structureDimension, false)) {
-                    System.out.println("[DEBUG] structure is good");
-                    resetNotify(structureDimension);
-                } else {
-                    System.out.println("[DEBUG] structure is bad");
-                    resetStructure(structureDimension);
-                    System.out.println("[DEBUG] structure reset");
-                    tankCapacity = 0;
-                    fluidTank = new FluidTank(tankCapacity);
-                }
+            if (notifyCounter > 3) {
+                    System.out.println("[DEBUG] Is setup and is master");
+                    if (checkStructure(structureDimension, false)) {
+                        System.out.println("[DEBUG] structure is good");
+                        resetNotify(structureDimension);
+                    } else {
+                        System.out.println("[DEBUG] structure is bad");
+                        resetStructure(structureDimension);
+                        System.out.println("[DEBUG] structure reset");
+                        tankCapacity = 0;
+                        fluidTank = new FluidTank(tankCapacity);
+                    }
+                notifyCounter = 0;
             }
-            notifyCounter = 0;
         }
+
+        notifyCounter++;
     }
 
     public void interactedWithTank(EntityPlayer player) {
@@ -933,8 +956,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         if (isSetup()
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
             int fill = getFluidTank().fill(resource, doFill);
             if (doFill) {
@@ -957,8 +980,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         if (isSetup()
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
             int topY = masterY + (structureDimension.getHeight() - 2);
             int botY = masterY - 1;
@@ -996,8 +1019,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         if (isSetup()
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
             int topY = masterY + (structureDimension.getHeight() - 2);
             int botY = masterY - 1;
@@ -1031,8 +1054,8 @@ public class TileTankValve extends TileFluidHandler {
      * @param fluid
      */
     @Override public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return isSetup() && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION)) ||
-                ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)));
+        return isSetup() && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION)) ||
+                ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)));
     }
 
     /**
@@ -1045,8 +1068,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override public boolean canDrain(ForgeDirection from, Fluid fluid) {
         if (isSetup()
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
             int topY = masterY + (structureDimension.getHeight() - 2);
             int botY = masterY - 1;
@@ -1076,8 +1099,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         if (isSetup()
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(blockMetadata, META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(blockMetadata, META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
             FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
             fluidTankInfos[0] = new FluidTankInfo(getFluidTank());
@@ -1097,20 +1120,67 @@ public class TileTankValve extends TileFluidHandler {
             <= 64.0D;
     }
 
+    // Capacity
     public int getTankCapacity() {
-        return tankCapacity;
+        return getFluidTank().getCapacity();
     }
 
-    public void setTankCapacity(int tankCapacity) {
-        this.tankCapacity = tankCapacity;
+    public void setGuiTankCapacity(int tankCapacity) {
+        this.guiTankCapacity = tankCapacity;
     }
 
+    public int getGuiTankCapacity() {
+        return this.guiTankCapacity;
+    }
+
+    // Level
     public int getTankFluidLevel() {
-        return tankFluidLevel;
+        return getFluidTank().getFluidAmount();
     }
 
-    public void setTankFluidLevel(int tankFluidLevel) {
-        this.tankFluidLevel = tankFluidLevel;
+    public void setGuiTankFluidLevel(int tankFluidLevel) {
+        this.guiTankFluidLevel = tankFluidLevel;
+    }
+
+    public int getGuiTankFluidLevel() {
+        return this.guiTankFluidLevel;
+    }
+
+    // ID
+    public int getFluidID() {
+        FluidStack fluid = getFluidTank().getFluid();
+        if (fluid != null)
+            return FluidRegistry.getFluidID(getFluidTank().getFluid().getFluid());
+        return 0;
+    }
+
+    public void setGuiFluidID(int tankFluidID) {
+        this.guiTankFluidID = tankFluidID;
+    }
+
+    public int getGuiFluidID() {
+        return this.guiTankFluidID;
+    }
+
+    // Inserted
+    public int getFluidInserted() {
+        if (!isSetup())
+            return 0;
+        else {
+            FluidStack fluid = getFluidTank().getFluid();
+            if (fluid != null)
+                return 2;
+            else
+                return 1;
+        }
+    }
+
+    public void setGuiFluidInserted(int tankFluidInserted) {
+        this.guiTankFluidInserted = tankFluidInserted;
+    }
+
+    public int getGuiFluidInserted() {
+        return this.guiTankFluidInserted;
     }
 
     /**

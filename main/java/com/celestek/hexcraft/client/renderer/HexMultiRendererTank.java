@@ -286,11 +286,11 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
                 }
 
                 tessellator.addTranslation(-x, -y, -z);
-
-                // Render the test block.
-                renderer.renderStandardBlock(block, x, y, z);
             }
         }
+
+        // Render the test block.
+        renderer.renderStandardBlock(block, x, y, z);
 
         return true;
     }

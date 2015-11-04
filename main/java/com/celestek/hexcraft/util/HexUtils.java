@@ -103,4 +103,14 @@ public class HexUtils {
         return mcInts[0] << 16 | (mcInts[1] & 0xFFFF);
     }
 
+    public static String formatFluids(int value) {
+        if (value >= 1000 && value < 1000000)
+            return String.format("%.3f B", (float) value / 1000);
+        else if (value >= 1000000 && value < 1000000000)
+            return String.format("%.3f KB", (float) value / 1000000);
+        else if (value >= 1000000000)
+            return String.format("%.3f MB", (float) value / 1000000000);
+        else
+            return String.format("%d mB", value);
+    }
 }
