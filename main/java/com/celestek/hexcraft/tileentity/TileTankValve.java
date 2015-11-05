@@ -1,8 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockTankRender;
 import com.celestek.hexcraft.block.BlockTankValve;
-import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -12,9 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
@@ -54,7 +49,7 @@ public class TileTankValve extends TileFluidHandler {
     private static final String NBT_INFOBLOCK_Z = "ctek_mt_infoblock_z";
     private static final int TANK_MAX_DIMENSION = HexConfig.cfgMultiblockTankMaxDimension;
     private static final int TANK_CAPACITY_MULTIPLIER =
-        HexConfig.cfgMultiblockTankCapacityMultiplier;
+            HexConfig.cfgMultiblockTankCapacityMultiplier;
     private int notifyCounter;
 
     private Dimension structureDimension;
@@ -102,7 +97,8 @@ public class TileTankValve extends TileFluidHandler {
         this.guiTankFluidInserted = 0;
     }
 
-    @Override public void writeToNBT(NBTTagCompound nbtTagCompound) {
+    @Override
+    public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
         structureDimension.saveToNBT(nbtTagCompound);
 
@@ -122,7 +118,8 @@ public class TileTankValve extends TileFluidHandler {
         nbtTagCompound.setString(NBT_TANK_NAME, tankFluidName);
     }
 
-    @Override public void readFromNBT(NBTTagCompound nbtTagCompound) {
+    @Override
+    public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
         structureDimension.loadFromNBT(nbtTagCompound);
 
@@ -173,7 +170,7 @@ public class TileTankValve extends TileFluidHandler {
         }
 
         if (block instanceof BlockTankValve) {
-            rotation = checkValveRotation(x,y,z, dimension);
+            rotation = checkValveRotation(x, y, z, dimension);
             System.out.println("[DEBUG] CHECKING VALVE ROTATION" + rotation);
         }
 
@@ -182,7 +179,6 @@ public class TileTankValve extends TileFluidHandler {
         } else {
             return notNull && blockType && rotation;
         }
-
 
 
     }
@@ -214,20 +210,31 @@ public class TileTankValve extends TileFluidHandler {
         meta = HexUtils.setBit(meta, META_IS_PART, isPart);
         worldObj.setBlockMetadataWithNotify(x, y, z, meta, 2);
 
-
         TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
         if (tileEntity instanceof TileTankValve) {
-            if (!(x == xCoord && y == yCoord && z == zCoord)) {
-                TileTankValve tileHexoriumValve = (TileTankValve) tileEntity;
+            TileTankValve tileTankValve = (TileTankValve) tileEntity;
+            if (isPart) {
+                if (!(x == xCoord && y == yCoord && z == zCoord)) {
+                    fluidTank.fill(tileTankValve.getFluidTank().getFluid(), true);
+                    tileTankValve.emptyTank();
 
-                tileHexoriumValve.setMasterX(xCoord);
-                tileHexoriumValve.setMasterY(yCoord);
-                tileHexoriumValve.setMasterZ(zCoord);
+                    tileTankValve.setMasterX(xCoord);
+                    tileTankValve.setMasterY(yCoord);
+                    tileTankValve.setMasterZ(zCoord);
 
-                tileHexoriumValve.setMaster(false);
-                tileHexoriumValve.setSetup(isPart);
+                    tileTankValve.setMaster(false);
+                    tileTankValve.setSetup(true);
+                }
+            } else {
+                tileTankValve.setMaster(false);
+                tileTankValve.setSetup(false);
             }
         }
+    }
+
+    public void emptyTank() {
+        tankCapacity = 0;
+        fluidTank = new FluidTank(tankCapacity);
     }
 
     /**
@@ -432,7 +439,7 @@ public class TileTankValve extends TileFluidHandler {
     private boolean checkStructure(Dimension dimension, boolean metaFlag) {
         CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
-        boolean selfRotation = checkSelfeValveRotation(xCoord, yCoord, zCoord, dimension);
+        boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
 
         boolean goodSize = dimension.width > 2 && dimension.height > 2 && dimension.depth > 2;
         System.out.print("[DEBUG] GoodSize: " + goodSize);
@@ -570,49 +577,6 @@ public class TileTankValve extends TileFluidHandler {
             (dimension.getWidth() - 2) * (dimension.getHeight() - 2) * (dimension.getDepth() - 2);
     }
 
-    /**
-     * Resets the notify meta in the relevant blocks, allowing the structure to report changes.
-     *
-     * @param dimension The dimensions of the relevant MultiTank structure
-     */
-    private void resetNotify(Dimension dimension) {
-        CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
-
-        int startX = coordRange.getStartX();
-        int endX = coordRange.getEndX();
-        int startY = coordRange.getStartY();
-        int endY = coordRange.getEndY();
-        int startZ = coordRange.getStartZ();
-        int endZ = coordRange.getEndZ();
-
-        for (int y = startY; y <= endY; y++) {
-            for (int x = startX; x <= endX; x++) {
-                for (int z = startZ; z <= endZ; z++) {
-                    // RINGS
-                    if (y > startY && y < endY) {
-                        boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
-                        if (check) {
-                            setHasNotified(x, y, z, false);
-                        }
-                        // Base and Top
-                    } else {
-                        setHasNotified(x, y, z, false);
-                    }
-                }
-            }
-        }
-    }
-
-    public void valveInducedStructureReset() {
-        if (isSetup && isMaster) {
-            System.out.println("[DEBUG] valve destroyed");
-            resetStructure(structureDimension);
-            System.out.println("[DEBUG] structure reset");
-            tankCapacity = 0;
-            fluidTank = new FluidTank(tankCapacity);
-        }
-    }
-
     private FluidTank getFluidTank() {
         if (!worldObj.isRemote) {
             if (!isMaster() && isSetup()) {
@@ -626,24 +590,20 @@ public class TileTankValve extends TileFluidHandler {
     }
 
     private void updateRenderBlock(int x, int y, int z, int level, int capacity, String fluidName) {
-        if (worldObj.getChunkProvider().chunkExists(x >> 4, z >> 4)) {
-            TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x, y, z);
+        TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x, y, z);
 
-            if (tileTankRender != null) {
-                tileTankRender.currVolume = level;
-                tileTankRender.maxVolume = capacity;
-                tileTankRender.fluidName = fluidName;
-            }
+        if (tileTankRender != null) {
+            tileTankRender.currVolume = level;
+            tileTankRender.maxVolume = capacity;
+            tileTankRender.fluidName = fluidName;
         }
-
-
     }
 
     private void updateTankStatus() {
         tankCapacity = getFluidTank().getCapacity();
         tankFluidLevel = getFluidTank().getFluidAmount();
         tankFluidName = "";
-        if (getFluidTank().getFluid() != null) {
+        if (fluidTank.getFluid() != null) {
             tankFluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
         }
 
@@ -740,8 +700,8 @@ public class TileTankValve extends TileFluidHandler {
         return result;
     }
 
-    private boolean checkSelfeValveRotation(int x, int y, int z, Dimension dimension) {
-        // Use dimension and orientation info to derrive sides, check valve orientation there, return if valve is properly turned around
+    private boolean checkSelfValveRotation(int x, int y, int z, Dimension dimension) {
+        // Use dimension and orientation info to derive sides, check valve orientation there, return if valve is properly turned around
 
         boolean result = false;
 
@@ -765,6 +725,14 @@ public class TileTankValve extends TileFluidHandler {
 
     }
 
+    public void valveInducedStructureReset() {
+        if (isSetup && isMaster) {
+            System.out.println("[DEBUG] valve destroyed");
+            resetStructure(structureDimension);
+            System.out.println("[DEBUG] structure reset");
+        }
+    }
+
     /**
      * Runs through necessary checks and sets up the structure.
      *
@@ -775,6 +743,14 @@ public class TileTankValve extends TileFluidHandler {
         Dimension dimension = scanDimensions(side);
 
         if (checkStructure(dimension, true)) {
+            // Setup internal tank
+            FluidStack fluid = fluidTank.getFluid();
+            tankCapacity = calculateTankSize(dimension);
+            fluidTank = new FluidTank(tankCapacity);
+            if (fluid != null)
+                fluidTank.fill(fluid, true);
+            tankFluidLevel = fluidTank.getFluidAmount();
+
             setupStructure(dimension); // Must be run before spawnRenderBlock because it removes pre-existing render blocks
 
             isMaster = true;
@@ -793,12 +769,7 @@ public class TileTankValve extends TileFluidHandler {
             infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
 
             spawnRenderBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
-
-
-            // Setup internal tank
-            tankCapacity = calculateTankSize(dimension);
-            fluidTank = new FluidTank(tankCapacity);
-            tankFluidLevel = fluidTank.getFluidAmount();
+            updateTankStatus();
 
             //
             /*switch (dimension.getOrientation()) {

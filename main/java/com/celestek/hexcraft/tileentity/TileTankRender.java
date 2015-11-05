@@ -36,8 +36,6 @@ public class TileTankRender extends TileEntity {
     public int maxVolume;
     public String fluidName;
 
-    public boolean started;
-
     public TileTankRender() {
         this.startX = 0;
         this.startY = 0;
@@ -54,8 +52,6 @@ public class TileTankRender extends TileEntity {
         this.currVolume = 0;
         this.maxVolume = 0;
         this.fluidName = "";
-
-        started = false;
     }
 
     @Override
@@ -71,7 +67,6 @@ public class TileTankRender extends TileEntity {
 
         nbtTagCompound.setInteger(NBT_MAX_VOL, maxVolume);
         nbtTagCompound.setInteger(NBT_CURR_VOL, currVolume);
-
         nbtTagCompound.setString(NBT_FLUID_NAME, fluidName);
     }
 
@@ -89,7 +84,6 @@ public class TileTankRender extends TileEntity {
 
         maxVolume = nbtTagCompound.getInteger(NBT_MAX_VOL);
         currVolume = nbtTagCompound.getInteger(NBT_CURR_VOL);
-
         fluidName = nbtTagCompound.getString(NBT_FLUID_NAME);
     }
 

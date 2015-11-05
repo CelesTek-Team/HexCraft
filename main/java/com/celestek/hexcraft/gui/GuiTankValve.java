@@ -36,20 +36,20 @@ public class GuiTankValve extends GuiContainer {
         fontRendererObj.drawString(name, 176 / 2 - fontRendererObj.getStringWidth(name) / 2, 44, 0x404040);
 
         if (tileTankValve.getGuiFluidInserted() == 1) {
-            fontRendererObj.drawString("F: Empty", 81, 93, 0x404040);
-            fontRendererObj.drawString("S: 0 mB", 81, 102, 0x404040);
-            fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 81, 111, 0x404040);
+            fontRendererObj.drawString("F: Empty", 61, 93, 0x404040);
+            fontRendererObj.drawString("S: 0 mB", 61, 102, 0x404040);
+            fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 61, 111, 0x404040);
         }
         else if (tileTankValve.getGuiFluidInserted() == 2) {
                 Fluid fluid = FluidRegistry.getFluid(tileTankValve.getGuiFluidID());
                 if (fluid != null) {
-                    fontRendererObj.drawString("F: " + fluid.getLocalizedName(null), 81, 93, 0x404040);
-                    fontRendererObj.drawString("S: " + HexUtils.formatFluids(tileTankValve.getGuiTankFluidLevel()), 81, 102, 0x404040);
-                    fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 81, 111, 0x404040);
+                    fontRendererObj.drawString("F: " + fluid.getLocalizedName(null), 61, 93, 0x404040);
+                    fontRendererObj.drawString("S: " + HexUtils.formatFluids(tileTankValve.getGuiTankFluidLevel()), 61, 102, 0x404040);
+                    fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 61, 111, 0x404040);
                 }
             }
         else
-            fontRendererObj.drawString("Tank not set up.", 81, 93, 0xFF0000);
+            fontRendererObj.drawString("Tank not set up.", 61, 93, 0xFF0000);
 
     }
 
@@ -72,17 +72,17 @@ public class GuiTankValve extends GuiContainer {
                 float fill = (float) tileTankValve.getGuiTankFluidLevel() / tileTankValve.getGuiTankCapacity();
 
                 for (int i = 0; i < (int) (fill * 4); i++) {
-                    drawTexturedModelRectFromIcon(x + 40, y + 65 - i * 16, c, 16, 16);
-                    drawTexturedModelRectFromIcon(x + 56, y + 65 - i * 16, c, 16, 16);
+                    drawTexturedModelRectFromIcon(x + 20, y + 66 - i * 16, c, 16, 16);
+                    drawTexturedModelRectFromIcon(x + 36, y + 66 - i * 16, c, 16, 16);
                 }
-                drawTexturedModelRectFromIconPartial(x + 40, y + 81 - fill * 4 * 16, c, 16, (fill * 4 - (int) (fill * 4)) * 16, fill * 4 - (int) (fill * 4));
-                drawTexturedModelRectFromIconPartial(x + 56, y + 81 - fill * 4 * 16, c, 16, (fill * 4 - (int) (fill * 4)) * 16, fill * 4 - (int) (fill * 4));
+                drawTexturedModelRectFromIconPartial(x + 20, y + 82 - fill * 4 * 16, c, 16, (fill * 4 - (int) (fill * 4)) * 16, fill * 4 - (int) (fill * 4));
+                drawTexturedModelRectFromIconPartial(x + 36, y + 82 - fill * 4 * 16, c, 16, (fill * 4 - (int) (fill * 4)) * 16, fill * 4 - (int) (fill * 4));
 
                 mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiTankValve.png"));
             }
         }
 
-        drawTexturedModalRect(x + 40, y + 32, 176, 0, 9, 33);
+        drawTexturedModalRect(x + 20, y + 33, 176, 0, 9, 33);
 
     }
 
