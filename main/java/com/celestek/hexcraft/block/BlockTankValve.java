@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
@@ -17,6 +18,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * @Author CoffeePirate     <celestek@openmailbox.org>
@@ -67,13 +70,18 @@ public class BlockTankValve extends HexBlockContainer {
 
         TileEntity tileEntity = world.getTileEntity(x,y,z);
 
-        if (playerItem == null) {
-            player.openGui(HexCraft.instance, 6, world, x, y, z);
-        } else {
-            TileTankValve tileTankValve = (TileTankValve) tileEntity;
-            tileTankValve.interactedWithTank(player);
-            player.getCurrentEquippedItem();
+        if (playerItem != null) {
+            if (!(playerItem.getItem() == HexItems.itemHexoriumManipulator)) {
+                if (FluidContainerRegistry.isContainer(playerItem)) {
+                    TileTankValve tileTankValve = (TileTankValve) tileEntity;
+                    if (tileTankValve != null)
+                        tileTankValve.interactedWithTank(player);
+                } else
+                    player.openGui(HexCraft.instance, 6, world, x, y, z);
+            }
         }
+        else
+            player.openGui(HexCraft.instance, 6, world, x, y, z);
 
         return true;
     }

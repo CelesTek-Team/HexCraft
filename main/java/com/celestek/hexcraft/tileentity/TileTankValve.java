@@ -816,20 +816,27 @@ public class TileTankValve extends TileFluidHandler {
 
     public void interactedWithTank(EntityPlayer player) {
         ItemStack item = player.getCurrentEquippedItem();
+        FluidTank fTank = getFluidTank();
 
-        if (FluidContainerRegistry.isContainer(item)) {
-            if (!FluidContainerRegistry.isEmptyContainer(item)) {
-                FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(item);
+        if (!FluidContainerRegistry.isEmptyContainer(item)) {
+            FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(item);
+                if (fTank.fill(fluid, false) == fluid.amount) {
+                    fTank.fill(fluid, true);
+                    updateTankStatus();
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                            FluidContainerRegistry.drainFluidContainer(item));
+                }
+        }
+        else {
+            FluidStack fluid = fTank.getFluid();
+            if (fluid != null) {
+                int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
+                if (fTank.drain(capacity, false).amount == capacity) {
+                    fluid = fTank.drain(capacity, true);
+                    updateTankStatus();
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                            FluidContainerRegistry.fillFluidContainer(fluid, item));
 
-                FluidTank fTank = getFluidTank();
-                if (fTank != null) {
-                    if (fTank.fill(fluidStack, true) > 0) {
-                        updateTankStatus();
-                        ItemStack emptyFluidContainer =
-                            FluidContainerRegistry.drainFluidContainer(item);
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                            emptyFluidContainer);
-                    }
                 }
             }
         }
