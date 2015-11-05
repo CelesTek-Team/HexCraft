@@ -1,8 +1,10 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
+import com.celestek.hexcraft.util.TankAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -76,11 +78,11 @@ public class BlockTankValve extends HexBlockContainer {
         return true;
     }
 
-    @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
-        TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
-        tileTankValve.notifyChange();
-
-        super.onNeighborBlockChange(world, x, y, z, neighbor);
+    @Override public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve) {
+            TankAnalyzer analyzer = new TankAnalyzer();
+            analyzer.analyzeCable(world, x, y, z, block);
+        }
     }
 
     /**

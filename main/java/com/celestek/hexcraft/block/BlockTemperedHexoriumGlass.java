@@ -1,8 +1,10 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
+import com.celestek.hexcraft.util.TankAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -204,25 +206,10 @@ public class BlockTemperedHexoriumGlass extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
-
-        if (neighbour instanceof HexBlockMT || neighbour instanceof BlockTemperedHexoriumGlass) {
-            //notify(world, x, y, z);
-            pingChange(world, x, y, z);
-        }
-        super.onNeighborBlockChange(world, x, y, z, neighbour);
-    }
-
-    private void pingChange(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x,y,z);
-
-        boolean hasNotified = HexUtils.getBit(meta, TileTankValve.META_HAS_NOTIFIED);
-        boolean isMultiBlock = HexUtils.getBit(meta, TileTankValve.META_IS_PART);
-
-        if (!hasNotified && isMultiBlock) {
-            System.out.format("[DEBUG] Glass notification: %s\n", System.currentTimeMillis());
-            meta = HexUtils.setBit(meta, TileTankValve.META_HAS_NOTIFIED, true);
-            world.setBlockMetadataWithNotify(x, y, z, meta, 1);
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve) {
+            TankAnalyzer analyzer = new TankAnalyzer();
+            analyzer.analyzeCable(world, x, y, z, block);
         }
     }
 }

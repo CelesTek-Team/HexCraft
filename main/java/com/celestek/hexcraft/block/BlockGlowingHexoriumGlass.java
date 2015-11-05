@@ -220,14 +220,4 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
     }
-
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
-
-        if (neighbour instanceof HexBlockMT || neighbour instanceof BlockTemperedHexoriumGlass) {
-            //notify(world, x, y, z);
-            pingChange(world, x, y, z);
-        }
-        super.onNeighborBlockChange(world, x, y, z, neighbour);
-    }
 }

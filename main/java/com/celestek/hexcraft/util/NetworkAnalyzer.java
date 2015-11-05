@@ -95,7 +95,7 @@ public class NetworkAnalyzer {
 
         // Console spam for debugging analysis.
         if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+            System.out.println("Analyzing Network: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is not a pylon base.
         if (!(block instanceof BlockPylonBase)) {

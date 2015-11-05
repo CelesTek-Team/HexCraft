@@ -541,12 +541,10 @@ public class TileTankValve extends TileFluidHandler {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
                             setIsPart(x, y, z, false);
-                            setHasNotified(x, y, z, false);
                         }
                         // Base and Top
                     } else {
                         setIsPart(x, y, z, false);
-                        setHasNotified(x, y, z, false);
                     }
                 }
             }
@@ -835,23 +833,14 @@ public class TileTankValve extends TileFluidHandler {
         if (isSetup && isMaster) {
             System.out.println("[DEBUG] Got notification, counter: " + notifyCounter);
 
-            if (notifyCounter > 3) {
-                    System.out.println("[DEBUG] Is setup and is master");
-                    if (checkStructure(structureDimension, false)) {
-                        System.out.println("[DEBUG] structure is good");
-                        resetNotify(structureDimension);
-                    } else {
-                        System.out.println("[DEBUG] structure is bad");
-                        resetStructure(structureDimension);
-                        System.out.println("[DEBUG] structure reset");
-                        tankCapacity = 0;
-                        fluidTank = new FluidTank(tankCapacity);
-                    }
-                notifyCounter = 0;
+            if (checkStructure(structureDimension, false)) {
+                System.out.println("[DEBUG] structure is good");
+            } else {
+                System.out.println("[DEBUG] structure is bad");
+                resetStructure(structureDimension);
+                System.out.println("[DEBUG] structure reset");
             }
         }
-
-        notifyCounter++;
     }
 
     public void interactedWithTank(EntityPlayer player) {
