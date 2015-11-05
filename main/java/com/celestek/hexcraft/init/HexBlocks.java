@@ -897,10 +897,12 @@ public class HexBlocks {
         }
 
         // Tank Valve
-        blockTankValve = new BlockTankValve(BlockTankValve.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockTankValve, BlockTankValve.UNLOCALISEDNAME);
-        blockTankRender = new BlockTankRender(BlockTankRender.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockTankRender, BlockTankRender.UNLOCALISEDNAME);
+        if (HexConfig.cfgTankEnable) {
+            blockTankValve = new BlockTankValve(BlockTankValve.UNLOCALISEDNAME);
+            GameRegistry.registerBlock(blockTankValve, BlockTankValve.UNLOCALISEDNAME);
+            blockTankRender = new BlockTankRender(BlockTankRender.UNLOCALISEDNAME);
+            GameRegistry.registerBlock(blockTankRender, BlockTankRender.UNLOCALISEDNAME);
+        }
 
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.UNLOCALISEDNAME + "Red");

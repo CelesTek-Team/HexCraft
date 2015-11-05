@@ -47,9 +47,8 @@ public class TileTankValve extends TileFluidHandler {
     private static final String NBT_INFOBLOCK_X = "ctek_mt_infoblock_x";
     private static final String NBT_INFOBLOCK_Y = "ctek_mt_infoblock_y";
     private static final String NBT_INFOBLOCK_Z = "ctek_mt_infoblock_z";
-    private static final int TANK_MAX_DIMENSION = HexConfig.cfgMultiblockTankMaxDimension;
-    private static final int TANK_CAPACITY_MULTIPLIER =
-            HexConfig.cfgMultiblockTankCapacityMultiplier;
+    private static final int TANK_MAX_DIMENSION = HexConfig.cfgTankMaxDimension;
+    private static final int TANK_CAPACITY_MULTIPLIER = HexConfig.cfgTankCapacityMultiplier;
     private int notifyCounter;
 
     private Dimension structureDimension;
@@ -171,7 +170,9 @@ public class TileTankValve extends TileFluidHandler {
 
         if (block instanceof BlockTankValve) {
             rotation = checkValveRotation(x, y, z, dimension);
-            System.out.println("[DEBUG] CHECKING VALVE ROTATION" + rotation);
+
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[DEBUG] Checking valve rotation: " + rotation);
         }
 
         if (checkMeta) {
@@ -193,7 +194,10 @@ public class TileTankValve extends TileFluidHandler {
      */
     private boolean isClear(int x, int y, int z) {
         boolean isClear = worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
-        System.out.format("[DEBUG] IsClear (%s, %s, %s): %s\n", x, y, z, isClear);
+
+        if (HexConfig.cfgTankDebug && HexConfig.cfgTankVerboseDebug)
+            System.out.println(String.format("[DEBUG] IsClear (%s, %s, %s): %s\n", x, y, z, isClear));
+
         return isClear;
     }
 
@@ -215,7 +219,11 @@ public class TileTankValve extends TileFluidHandler {
             TileTankValve tileTankValve = (TileTankValve) tileEntity;
             if (isPart) {
                 if (!(x == xCoord && y == yCoord && z == zCoord)) {
-                    fluidTank.fill(tileTankValve.getFluidTank().getFluid(), true);
+                    FluidStack fluid = tileTankValve.getFluidTank().getFluid();
+                    if (fluid != null) {
+                        fluid.amount = (int) (fluid.amount * ((float) HexConfig.cfgTankKeepFluid / 100));
+                        fluidTank.fill(fluid, true);
+                    }
                     tileTankValve.emptyTank();
 
                     tileTankValve.setMasterX(xCoord);
@@ -442,7 +450,9 @@ public class TileTankValve extends TileFluidHandler {
         boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
 
         boolean goodSize = dimension.width > 2 && dimension.height > 2 && dimension.depth > 2;
-        System.out.print("[DEBUG] GoodSize: " + goodSize);
+
+        if (HexConfig.cfgTankDebug)
+            System.out.println("[DEBUG] GoodSize: " + goodSize);
 
         if (!goodSize) {
             return false;
@@ -455,8 +465,9 @@ public class TileTankValve extends TileFluidHandler {
         int startZ = coordRange.getStartZ();
         int endZ = coordRange.getEndZ();
 
-        System.out.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
-                startX, startY, startZ, endX, endY, endZ);
+        if (HexConfig.cfgTankDebug)
+            System.out.println(String.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
+                    startX, startY, startZ, endX, endY, endZ));
 
         for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
@@ -561,18 +572,6 @@ public class TileTankValve extends TileFluidHandler {
     }
 
     private int calculateTankSize(Dimension dimension) {
-
-        long tankMul = (long) TANK_CAPACITY_MULTIPLIER;
-        long bVol = (long) FluidContainerRegistry.BUCKET_VOLUME;
-        long wid = (long) dimension.getWidth() - 2;
-        long hei = (long) dimension.getHeight() - 2;
-        long dep = (long) dimension.getDepth() - 2;
-        long overflow = tankMul * bVol * wid * hei * dep;
-
-        if (overflow > Integer.MAX_VALUE) {
-            System.out.println("[ERR] Int Overflow!:" + overflow);
-        }
-
         return (TANK_CAPACITY_MULTIPLIER * FluidContainerRegistry.BUCKET_VOLUME) *
             (dimension.getWidth() - 2) * (dimension.getHeight() - 2) * (dimension.getDepth() - 2);
     }
@@ -599,21 +598,30 @@ public class TileTankValve extends TileFluidHandler {
         }
     }
 
-    private void updateTankStatus() {
-        tankCapacity = getFluidTank().getCapacity();
-        tankFluidLevel = getFluidTank().getFluidAmount();
-        tankFluidName = "";
-        if (fluidTank.getFluid() != null) {
-            tankFluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
+    public void updateTankStatus() {
+        if (isMaster()) {
+            tankCapacity = getFluidTank().getCapacity();
+            tankFluidLevel = getFluidTank().getFluidAmount();
+            tankFluidName = "";
+            if (fluidTank.getFluid() != null) {
+                tankFluidName = FluidRegistry.getFluidName(getFluidTank().getFluid());
+            }
+
+            updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankFluidLevel, tankCapacity, tankFluidName);
         }
-
-        // System.out.format("[DEBUG] UpdateTankStatus: FluidLevel: %s, TankCap: %s, FluidName: %s \n", tankFluidLevel, tankCapacity, fluidName);
-
-        updateRenderBlock(infoBlockX, infoBlockY, infoBlockZ, tankFluidLevel, tankCapacity, tankFluidName);
+        else
+        {
+            TileTankValve tileTankValve = (TileTankValve) worldObj.getTileEntity(masterX, masterY, masterZ);
+            if (tileTankValve != null)
+                tileTankValve.updateTankStatus();
+        }
     }
 
     private void spawnRenderBlock(int x, int y, int z, CoordRange coordRange) {
-        System.out.print("Render spawned: " + x + ", " + y + ", " + z);
+
+        if (HexConfig.cfgTankDebug)
+            System.out.print("Render spawned: " + x + ", " + y + ", " + z);
+
         worldObj.setBlock(x,y,z, HexBlocks.blockTankRender);
 
         TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x,y,z);
@@ -630,7 +638,10 @@ public class TileTankValve extends TileFluidHandler {
     }
 
     private void destroyRenderBlock(int x, int y, int z) {
-        System.out.print("Render destroyed: " + x + ", " + y + ", " + z);
+
+        if (HexConfig.cfgTankDebug)
+            System.out.print("Render destroyed: " + x + ", " + y + ", " + z);
+
         worldObj.setBlock(x, y, z, Blocks.air);
     }
 
@@ -639,10 +650,9 @@ public class TileTankValve extends TileFluidHandler {
     }
 
     public void printDebug() {  // TODO: Remove this before push
-
-        System.out.format(
-                "[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
-                xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ);
+        if (HexConfig.cfgTankDebug)
+            System.out.println(String.format("[DEBUG] X:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s\n",
+                    xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ));
     }
 
     private boolean checkValveRotation(int x, int y, int z, Dimension dimension) {
@@ -727,9 +737,13 @@ public class TileTankValve extends TileFluidHandler {
 
     public void valveInducedStructureReset() {
         if (isSetup && isMaster) {
-            System.out.println("[DEBUG] valve destroyed");
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[DEBUG] valve destroyed");
+
             resetStructure(structureDimension);
-            System.out.println("[DEBUG] structure reset");
+
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[DEBUG] structure reset");
         }
     }
 
@@ -747,8 +761,10 @@ public class TileTankValve extends TileFluidHandler {
             FluidStack fluid = fluidTank.getFluid();
             tankCapacity = calculateTankSize(dimension);
             fluidTank = new FluidTank(tankCapacity);
-            if (fluid != null)
+            if (fluid != null) {
+                fluid.amount = (int) (fluid.amount * ((float) HexConfig.cfgTankKeepFluid / 100));
                 fluidTank.fill(fluid, true);
+            }
             tankFluidLevel = fluidTank.getFluidAmount();
 
             setupStructure(dimension); // Must be run before spawnRenderBlock because it removes pre-existing render blocks
@@ -802,41 +818,45 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void notifyChange() {
         if (isSetup && isMaster) {
-            System.out.println("[DEBUG] Got notification, counter: " + notifyCounter);
-
             if (checkStructure(structureDimension, false)) {
-                System.out.println("[DEBUG] structure is good");
+                if (HexConfig.cfgTankDebug)
+                    System.out.println("[DEBUG] structure is good");
             } else {
-                System.out.println("[DEBUG] structure is bad");
+                if (HexConfig.cfgTankDebug)
+                    System.out.println("[DEBUG] structure is bad");
+
                 resetStructure(structureDimension);
-                System.out.println("[DEBUG] structure reset");
+
+                if (HexConfig.cfgTankDebug)
+                    System.out.println("[DEBUG] structure reset");
             }
         }
     }
 
     public void interactedWithTank(EntityPlayer player) {
-        ItemStack item = player.getCurrentEquippedItem();
-        FluidTank fTank = getFluidTank();
+        if (isSetup) {
+            ItemStack item = player.getCurrentEquippedItem();
+            FluidTank fTank = getFluidTank();
 
-        if (!FluidContainerRegistry.isEmptyContainer(item)) {
-            FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(item);
+            if (!FluidContainerRegistry.isEmptyContainer(item)) {
+                FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(item);
                 if (fTank.fill(fluid, false) == fluid.amount) {
                     fTank.fill(fluid, true);
                     updateTankStatus();
                     player.inventory.setInventorySlotContents(player.inventory.currentItem,
                             FluidContainerRegistry.drainFluidContainer(item));
                 }
-        }
-        else {
-            FluidStack fluid = fTank.getFluid();
-            if (fluid != null) {
-                int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
-                if (fTank.drain(capacity, false).amount == capacity) {
-                    fluid = fTank.drain(capacity, true);
-                    updateTankStatus();
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                            FluidContainerRegistry.fillFluidContainer(fluid, item));
+            } else {
+                FluidStack fluid = fTank.getFluid();
+                if (fluid != null) {
+                    int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
+                    if (fTank.drain(capacity, false).amount == capacity) {
+                        fluid = fTank.drain(capacity, true);
+                        updateTankStatus();
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                                FluidContainerRegistry.fillFluidContainer(fluid, item));
 
+                    }
                 }
             }
         }

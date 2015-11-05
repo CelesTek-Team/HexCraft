@@ -66,7 +66,7 @@ public class TankAnalyzer {
         Block block = world.getBlock(x, y, z);
 
         // Console spam for debugging analysis.
-        //if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+        if (HexConfig.cfgTankVerboseDebug && HexConfig.cfgTankDebug)
             System.out.println("Analyzing Tank: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is usable to build a tank.
@@ -136,13 +136,13 @@ public class TankAnalyzer {
     private void pushValves(World world) {
 
         // Notify about pushing valves.
-        //if (HexConfig.cfgGeneralNetworkDebug)
+        if (HexConfig.cfgTankDebug)
             System.out.println("Done! Pushing data to valves:");
 
         // Go through all valves ArrayList entries.
         for (HexDevice entry : valves) {
             // Notify about every valve.
-            //if (HexConfig.cfgGeneralNetworkDebug)
+            if (HexConfig.cfgTankDebug)
                 System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             TileTankValve valve = (TileTankValve) world.getTileEntity(entry.x, entry.y, entry.z);

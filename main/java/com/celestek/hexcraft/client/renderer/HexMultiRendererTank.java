@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.BlockHexoriumButton;
 import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileTankRender;
 import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -290,7 +291,8 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
         }
 
         // Render the test block.
-        renderer.renderStandardBlock(block, x, y, z);
+        if (HexConfig.cfgTankRenderDebug)
+            renderer.renderStandardBlock(block, x, y, z);
 
         return true;
     }

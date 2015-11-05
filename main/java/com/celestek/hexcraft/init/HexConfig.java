@@ -26,10 +26,15 @@ public class HexConfig {
     public static int cfgTeleportDamageAmount = 4;
     public static int cfgTeleportUsageCost = 102400;
 
-    // Multiblock Tank
-    public static String categoryMultiblockTank = "Multiblock Tank";
-    public static int cfgMultiblockTankMaxDimension = 18;
-    public static int cfgMultiblockTankCapacityMultiplier = 16;
+    // General - Hexorium Tank
+    public static String categoryTank = "General - Hexorium Tank";
+    public static boolean cfgTankEnable = true;
+    public static int cfgTankMaxDimension = 18;
+    public static int cfgTankCapacityMultiplier = 16;
+    public static int cfgTankKeepFluid = 75;
+    public static boolean cfgTankDebug = false;
+    public static boolean cfgTankVerboseDebug = false;
+    public static boolean cfgTankRenderDebug = false;
 
     // Monolith Generation
     public static String categoryMonolith = "Monolith Generation";
@@ -333,9 +338,14 @@ public class HexConfig {
         cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.");
         cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.");
 
-        // General - Multiblock Tank // TODO: Finish up config, name, descriptions, etc.
-        cfgMultiblockTankMaxDimension = config.getInt("Multiblock tank size limit", categoryMultiblockTank, cfgMultiblockTankMaxDimension, 1, 18, "");
-        cfgMultiblockTankCapacityMultiplier = config.getInt("Multiblock tank capacity multiplier", categoryMultiblockTank, cfgMultiblockTankCapacityMultiplier, 1, 256, "");
+        // General - Hexorium Tank
+        cfgTankEnable = config.getBoolean("Enable Hexorium Tank", categoryTank, cfgTankEnable, "Enables the Hexorium Tank multiblock structure.");
+        cfgTankMaxDimension = config.getInt("Hexorium Tank size limit", categoryTank, cfgTankMaxDimension, 3, 18, "The maximum outer size of the Hexorium Tank.");
+        cfgTankCapacityMultiplier = config.getInt("Hexorium Tank capacity multiplier", categoryTank, cfgTankCapacityMultiplier, 1, 256, "Number of buckets per internal block of the tank.");
+        cfgTankKeepFluid = config.getInt("Percentage of fluid to keep", categoryTank, cfgTankKeepFluid, 0, 100, "The percentage of fluid that will be kept inside the master valve once the tank is broken. Set to 0 to disable.");
+        cfgTankDebug = config.getBoolean("Hexorium Tank debugging", categoryTank, cfgTankDebug, "If set to true, will output the Hexorium Tank debugging to console.");
+        cfgTankVerboseDebug = config.getBoolean("Hexorium Tank debugging (verbose)", categoryTank, cfgTankVerboseDebug, "If set to true, will output extremely detailed Hexorium Tank debugging info. Hexorium Tank debugging needs to be enabled.");
+        cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity is located.");
 
 
         // Monolith Generation

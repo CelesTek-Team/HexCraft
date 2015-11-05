@@ -19,12 +19,14 @@ public class HexTileEntities {
         GameRegistry.registerTileEntity(TileCrystalSeparator.class, "tileCrystalSeparator");
         GameRegistry.registerTileEntity(TileMatrixReconstructor.class, "tileMatrixReconstructor");
 
-        GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, "tilePersonalTeleportationPad");
+        if (HexConfig.cfgTeleportEnable)
+            GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, "tilePersonalTeleportationPad");
 
         GameRegistry.registerTileEntity(TileEnergyPylon.class, "tileEnergyPylon");
 
-        // HexoriumValve
-        GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);
-        GameRegistry.registerTileEntity(TileTankRender.class, "tileTankRender");
+        if (HexConfig.cfgTankEnable) {
+            GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);
+            GameRegistry.registerTileEntity(TileTankRender.class, "tileTankRender");
+        }
     }
 }
