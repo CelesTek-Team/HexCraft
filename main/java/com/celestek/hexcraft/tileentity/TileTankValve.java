@@ -781,7 +781,7 @@ public class TileTankValve extends TileFluidHandler {
 
             // Spawn info block with necessary info for custom tank rendering
             infoBlockX = coordRange.getStartX() + dimension.getCenterOffsetX();
-            infoBlockY = coordRange.getStartY() + 1;
+            infoBlockY = (coordRange.getStartY() + coordRange.getEndY()) / 2;
             infoBlockZ = coordRange.getStartZ() + dimension.getCenterOffsetZ();
 
             spawnRenderBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
