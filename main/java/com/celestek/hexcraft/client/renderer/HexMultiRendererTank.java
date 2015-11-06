@@ -152,7 +152,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
                 tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
 
                 float exactY = startY - y + level;
-                int cutY = (int) exactY;
+                int cutY = (int) Math.floor(exactY);
 
                 int k;
 
