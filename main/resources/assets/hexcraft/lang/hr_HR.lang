@@ -397,6 +397,9 @@ msg.pressurePlateChange2.txt=[Heksorijski Upravljač] Mod promijenjen na: Entite
 msg.pressurePlateChange3.txt=[Heksorijski Upravljač] Mod promijenjen na: Stvorenja
 msg.pressurePlateChange4.txt=[Heksorijski Upravljač] Mod promijenjen na: Igrači
 
+msg.tankIsPart.txt=[Heksorijski Upravljač] Blok je dio Heksorijskog Tanka.
+msg.tankValveRotationFail.txt=[Heksorijski Upravljač] Nemoguće rotirati dok je tank stvoren.
+
 
 achievement.hexcraft.achMineHexOre=Svijetleći Potencijal
 achievement.hexcraft.achMineHexOre.desc=Pronađi i sakupi Heksorijsku Rudu bilo koje boje.

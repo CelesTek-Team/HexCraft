@@ -77,6 +77,19 @@ public class HexUtils {
     }
 
     /**
+     * Flips n-th bit for meta of a block.
+     * @param n Which bit of meta.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @param notify Notify parameter to use.
+     */
+    public static void flipMetaBit(int n, World world, int x, int y, int z, int notify) {
+        world.setBlockMetadataWithNotify(x, y, z, setBit(world.getBlockMetadata(x, y, z), n, !getMetaBit(n, world, x, y, z)), notify);
+    }
+
+    /**
      * Spilts a Java int into a so-called Minecraft int - iCrafting.sendProgressBarUpdate truncates
      * to short. You end up being able to send 16 bits instead of full 32.
      *

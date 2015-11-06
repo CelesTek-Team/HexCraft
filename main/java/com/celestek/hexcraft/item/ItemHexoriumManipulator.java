@@ -168,17 +168,15 @@ public class ItemHexoriumManipulator extends Item {
 
                     analyzePylonBase(world, x, y, z);
                 }
-                else if (block instanceof HexBlockMT ||block instanceof BlockTemperedHexoriumGlass ) { // TODO: Remove this before push
-                    int meta = world.getBlockMetadata(x,y,z);
-                    System.out.format("(DEBUG) Block meta: %s\n", HexUtils.getBit(meta, 1));
+                else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
+                    if (HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z))
+                        player.addChatMessage(new ChatComponentTranslation("msg.tankIsPart.txt"));
                 }
-                else if (block instanceof BlockTankValve) { // TODO: Remove this before push
-                    TileTankValve tileHexoriumValve =
-                        (TileTankValve) world.getTileEntity(x,y,z);
-
-                    tileHexoriumValve.printDebug();
-
-
+                else if (block == HexBlocks.blockTankValve) {
+                    if (!HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z))
+                        HexUtils.flipMetaBit(TileTankValve.META_ROTATION, world, x, y, z, 3);
+                    else
+                        player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
                 }
             }
             // Fired on normal use.

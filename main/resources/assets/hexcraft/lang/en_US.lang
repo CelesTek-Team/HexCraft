@@ -399,6 +399,9 @@ msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
 msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
 msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
 
+msg.tankIsPart.txt=[Hexorium Manipulator] Block is part of a Hexorium Tank.
+msg.tankValveRotationFail.txt=[Hexorium Manipulator] Cannot rotate when tank is formed.
+
 
 achievement.hexcraft.achMineHexOre=A Glowing Potential
 achievement.hexcraft.achMineHexOre.desc=Find and harvest Hexorium Ore of any color.
