@@ -11,6 +11,12 @@ import net.minecraft.world.World;
  * A simple utilities class which holds methods commonly used throughout the project
  */
 public class HexUtils {
+
+    public static int META_NOTIFY_NEIGHBOUR = 1;
+    public static int META_NOTIFY_UPDATE = 2;
+    public static int META_NOTIFY_NEIGHBOUR_AND_UPDATE = 3;
+    public static int META_NOTIFY_NOTHING = 4;
+
     /**
      * Spilts an int into 4 bytes
      * @param i Integer to split
