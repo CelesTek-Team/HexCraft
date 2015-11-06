@@ -14,7 +14,7 @@ public class HexUtils {
 
     public static int META_NOTIFY_NEIGHBOUR = 1;
     public static int META_NOTIFY_UPDATE = 2;
-    public static int META_NOTIFY_NEIGHBOUR_AND_UPDATE = 3;
+    public static int META_NOTIFY_BOTH = 3;
     public static int META_NOTIFY_NOTHING = 4;
 
     /**
