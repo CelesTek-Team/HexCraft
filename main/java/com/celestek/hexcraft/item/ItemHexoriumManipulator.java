@@ -429,14 +429,23 @@ public class ItemHexoriumManipulator extends Item {
                     analyzePylonBase(world, x, y, z);
                 }
                 else if (block == HexBlocks.blockTankValve) {
-                    TileEntity tileTankValve = world.getTileEntity(x,y,z);
-                    ((TileTankValve) tileTankValve).setupMultiTank(side);
-                    // Grant player the achievement.
-                    if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
-                        EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTankEnable)
-                            player.addStat(HexAchievements.achFormHexoriumTank, 1);
+                    if (!HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z)) {
+                        TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
+                        if (tileTankValve != null) {
+                            if (tileTankValve.setupMultiTank(side)) {
+                                player.addChatMessage(new ChatComponentTranslation("msg.tankFormSuccess.txt"));
+                                // Grant player the achievement.
+                                if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                    EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                    if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTankEnable)
+                                        player.addStat(HexAchievements.achFormHexoriumTank, 1);
+                                }
+                            } else
+                                player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail1.txt"));
+                        }
                     }
+                    else
+                        player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail2.txt"));
                 }
             }
         }
