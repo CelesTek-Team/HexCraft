@@ -277,7 +277,8 @@ public class TileTankValve extends TileFluidHandler {
         int depth = 0;
         int widthPositive = 0;
         int widthNegative = 0;
-        int height = 0;
+        int toTop = 0;
+        int toBottom = 0;
         int orientation = 0;
 
         switch (side) {
@@ -310,7 +311,15 @@ public class TileTankValve extends TileFluidHandler {
 
                 for (int i = 0; i <= TANK_MAX_DIMENSION - 2; i++) {
                     if (isClear(xCoord, yCoord + i, zCoord + 1)) {
-                        height++;
+                        toTop++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= TANK_MAX_DIMENSION - 2; i++) {
+                    if (isClear(xCoord, yCoord - i, zCoord + 1)) {
+                        toBottom++;
                     } else {
                         break;
                     }
@@ -346,7 +355,15 @@ public class TileTankValve extends TileFluidHandler {
 
                 for (int i = 0; i <= TANK_MAX_DIMENSION - 2; i++) {
                     if (isClear(xCoord, yCoord + i, zCoord - 1)) {
-                        height++;
+                        toTop++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= TANK_MAX_DIMENSION - 2; i++) {
+                    if (isClear(xCoord, yCoord - i, zCoord - 1)) {
+                        toBottom++;
                     } else {
                         break;
                     }
@@ -382,7 +399,15 @@ public class TileTankValve extends TileFluidHandler {
 
                 for (int i = 0; i <= TANK_MAX_DIMENSION - 2; i++) {
                     if (isClear(xCoord + 1, yCoord + i, zCoord)) {
-                        height++;
+                        toTop++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= TANK_MAX_DIMENSION - 2; i++) {
+                    if (isClear(xCoord + 1, yCoord - i, zCoord)) {
+                        toBottom++;
                     } else {
                         break;
                     }
@@ -418,7 +443,15 @@ public class TileTankValve extends TileFluidHandler {
 
                 for (int i = 0; i <= TANK_MAX_DIMENSION - 2; i++) {
                     if (isClear(xCoord - 1, yCoord + i, zCoord)) {
-                        height++;
+                        toTop++;
+                    } else {
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= TANK_MAX_DIMENSION - 2; i++) {
+                    if (isClear(xCoord - 1, yCoord - i, zCoord)) {
+                        toBottom++;
                     } else {
                         break;
                     }
@@ -430,10 +463,14 @@ public class TileTankValve extends TileFluidHandler {
         widthNegative = widthNegative + 1;
         widthPositive = widthPositive + 1;
         depth = (depth > 0) ? depth + 2 : 0;
-        height = (height > 0) ? height + 2 : 0;
+        //height = (height > 0) ? height + 2 : 0;
+        toTop = toTop + 1;
+        toBottom = toBottom + 1;
+
+        System.out.println("[DEBUG] Elev: " + toBottom);
 
 
-        return new Dimension(orientation, widthNegative, widthPositive, depth, height);
+        return new Dimension(orientation, widthNegative, widthPositive, depth, toTop, toBottom);
     }
 
     /**
@@ -447,17 +484,6 @@ public class TileTankValve extends TileFluidHandler {
     private boolean checkStructure(Dimension dimension, boolean metaFlag) {
         CoordRange coordRange = new CoordRange(xCoord, yCoord, zCoord, dimension);
 
-        boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
-
-        boolean goodSize = dimension.width > 2 && dimension.height > 2 && dimension.depth > 2;
-
-        if (HexConfig.cfgTankDebug)
-            System.out.println("[DEBUG] GoodSize: " + goodSize);
-
-        if (!goodSize) {
-            return false;
-        }
-
         int startX = coordRange.getStartX();
         int endX = coordRange.getEndX();
         int startY = coordRange.getStartY();
@@ -465,9 +491,22 @@ public class TileTankValve extends TileFluidHandler {
         int startZ = coordRange.getStartZ();
         int endZ = coordRange.getEndZ();
 
-        if (HexConfig.cfgTankDebug)
-            System.out.println(String.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
-                    startX, startY, startZ, endX, endY, endZ));
+        // if (HexConfig.cfgTankDebug)
+        System.out.println(String.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
+                startX, startY, startZ, endX, endY, endZ));
+
+        boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
+
+        boolean goodSize = dimension.getWidth() > 2 && dimension.getHeight() > 2 && dimension.getDepth() > 2;
+
+        if (HexConfig.cfgTankDebug) {
+            System.out.println("[DEBUG] GoodSize: " + goodSize);
+        }
+
+        if (!goodSize) {
+            return false;
+        }
+
 
         for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
@@ -970,8 +1009,8 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getHeight() - 2);
-            int botY = masterY - 1;
+            int topY = masterY + (structureDimension.getToTop() - 2);
+            int botY = masterY - structureDimension.getToBottom();
 
             boolean canDrain = false;
             boolean isInRings = yCoord > botY && yCoord < topY;
@@ -1009,8 +1048,8 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getHeight() - 2);
-            int botY = masterY - 1;
+            int topY = masterY + (structureDimension.getToTop() - 2);
+            int botY = masterY - structureDimension.getToBottom();
 
             boolean canDrain = false;
             boolean isInRings = yCoord > botY && yCoord < topY;
@@ -1058,8 +1097,8 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getHeight() - 2);
-            int botY = masterY - 1;
+            int topY = masterY + (structureDimension.getToTop() - 2);
+            int botY = masterY - structureDimension.getToBottom();
 
             boolean canDrain = false;
             boolean isInRings = yCoord > botY && yCoord < topY;
@@ -1197,6 +1236,8 @@ public class TileTankValve extends TileFluidHandler {
         private static final String WIDTH = "ctek_mt_width";
         private static final String DEPTH = "ctek_mt_depth";
         private static final String HEIGHT = "ctek_mt_height";
+        private static final String TO_TOP = "ctek_mt_to_top";
+        private static final String TO_BOTTOM = "ctek_mt_to_bottom";
 
         private int orientation;
         private int negativeWidth;
@@ -1204,6 +1245,8 @@ public class TileTankValve extends TileFluidHandler {
         private int width;
         private int depth;
         private int height;
+        private int toTop;
+        private int toBottom;
 
         public Dimension() {
             this.orientation = -1;
@@ -1212,6 +1255,8 @@ public class TileTankValve extends TileFluidHandler {
             this.width = -1;
             this.depth = -1;
             this.height = -1;
+            this.toTop = -1;
+            this.toBottom = -1;
         }
 
         /**
@@ -1221,16 +1266,19 @@ public class TileTankValve extends TileFluidHandler {
          * @param negativeWidth Amount of blocks on the negative side
          * @param positiveWidth Amount of blocks on the positive side
          * @param depth         Depth
-         * @param height        Height
+         * @param toTop        # of blocks to toTop coordinate
+         * @param toBottom      # of blocks to bottom coordinate
          */
         public Dimension(int orientation, int negativeWidth, int positiveWidth, int depth,
-            int height) {
+            int toTop, int toBottom) {
             this.orientation = orientation;
             this.negativeWidth = negativeWidth;
             this.positiveWidth = positiveWidth;
             this.depth = depth;
             this.width = negativeWidth + positiveWidth + 1;
-            this.height = height;
+            this.toTop = toTop;
+            this.toBottom = toBottom;
+            this.height = toTop + toBottom;
         }
 
         /**
@@ -1245,6 +1293,8 @@ public class TileTankValve extends TileFluidHandler {
             data.setInteger(this.WIDTH, this.width);
             data.setInteger(this.DEPTH, this.depth);
             data.setInteger(this.HEIGHT, this.height);
+            data.setInteger(this.TO_TOP, this.toTop);
+            data.setInteger(this.TO_BOTTOM, this.toBottom);
         }
 
         /**
@@ -1259,6 +1309,8 @@ public class TileTankValve extends TileFluidHandler {
             this.width = data.getInteger(this.WIDTH);
             this.depth = data.getInteger(this.DEPTH);
             this.height = data.getInteger(this.HEIGHT);
+            this.toTop = data.getInteger(this.TO_TOP);
+            this.toBottom = data.getInteger(this.TO_BOTTOM);
         }
 
         /**
@@ -1307,6 +1359,22 @@ public class TileTankValve extends TileFluidHandler {
                     break;
             }
             return (int) Math.floor(side/ 2d);
+        }
+
+        public int getToTop() {
+            return toTop;
+        }
+
+        public void setToTop(int toTop) {
+            this.toTop = toTop;
+        }
+
+        public int getToBottom() {
+            return toBottom;
+        }
+
+        public void setToBottom(int toBottom) {
+            this.toBottom = toBottom;
         }
 
         /**
@@ -1425,8 +1493,8 @@ public class TileTankValve extends TileFluidHandler {
             int startX = 0;
             int endX = 0;
 
-            int startY = y - 1;
-            int endY = startY + (dimension.getHeight() - 1);
+            int startY = y - dimension.getToBottom();
+            int endY = y + (dimension.getToTop() - 1);
 
             int startZ = 0;
             int endZ = 0;
