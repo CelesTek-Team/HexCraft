@@ -431,6 +431,12 @@ public class ItemHexoriumManipulator extends Item {
                 else if (block == HexBlocks.blockTankValve) {
                     TileEntity tileTankValve = world.getTileEntity(x,y,z);
                     ((TileTankValve) tileTankValve).setupMultiTank(side);
+                    // Grant player the achievement.
+                    if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTankEnable)
+                            player.addStat(HexAchievements.achFormHexoriumTank, 1);
+                    }
                 }
             }
         }

@@ -490,6 +490,8 @@ achievement.hexcraft.achCraftMachineSeparator=Swimming In Gems
 achievement.hexcraft.achCraftMachineSeparator.desc=Craft a Crystal Separator.
 achievement.hexcraft.achCraftMachineReconstructor=We Can Rebuild It!
 achievement.hexcraft.achCraftMachineReconstructor.desc=Craft a Matrix Reconstructor.
+achievement.hexcraft.achCraftMachineTankValve=HL3 Confirmed!
+achievement.hexcraft.achCraftMachineTankValve.desc=Craft a Tank Valve.
 achievement.hexcraft.achCraftMachineTeleport=Biological Material To Energy
 achievement.hexcraft.achCraftMachineTeleport.desc=Craft a Personal Teleportation Pad.
 achievement.hexcraft.achCraftPylon=You Must Construct Additional Pylons!
@@ -507,6 +509,9 @@ achievement.hexcraft.achUseTransposer=The Intended Use
 achievement.hexcraft.achUseTransposer.desc=Use the Molecular Transposer to swap the color of any decorative block.
 achievement.hexcraft.achAttackTransposer=This Might Hurt A Little...
 achievement.hexcraft.achAttackTransposer.desc=Inject Energized Hexorium into a living creature using the Molecular Transposer.
+
+achievement.hexcraft.achFormHexoriumTank=Tanks For The Memories
+achievement.hexcraft.achFormHexoriumTank.desc=Form a Hexorium Tank. Also requires achievement: Human-Hexorium Interface
 
 achievement.hexcraft.achLinkTeleport=Linking It Up: Teleports
 achievement.hexcraft.achLinkTeleport.desc=Link two Personal Teleportation Pads together. Also requires achievement: Human-Hexorium Interface

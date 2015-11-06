@@ -159,6 +159,10 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftMachineReconstructor, 1);
                 checkMachines = true;
             }
+            else if (block == HexBlocks.blockTankValve && HexConfig.cfgTankEnable) {
+                event.player.addStat(HexAchievements.achCraftMachineTankValve, 1);
+                checkMachines = true;
+            }
             else if (block == HexBlocks.blockPersonalTeleportationPad && HexConfig.cfgTeleportEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineTeleport, 1);
                 checkMachines = true;

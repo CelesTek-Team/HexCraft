@@ -488,6 +488,8 @@ achievement.hexcraft.achCraftMachineSeparator=Kupanje U Draguljima
 achievement.hexcraft.achCraftMachineSeparator.desc=Napravi Kristalni Razdvajač.
 achievement.hexcraft.achCraftMachineReconstructor=Možemo Ponovno Izgraditi!
 achievement.hexcraft.achCraftMachineReconstructor.desc=Napravi Matrični Rekonstruktor.
+achievement.hexcraft.achCraftMachineTankValve=HL3 Potvrđen!
+achievement.hexcraft.achCraftMachineTankValve.desc=Napravi Ventil Tanka.
 achievement.hexcraft.achCraftMachineTeleport=Biološka Tvar U Energiju
 achievement.hexcraft.achCraftMachineTeleport.desc=Napravi Osobnu Teleportacijsku Ploču.
 achievement.hexcraft.achCraftPylon=Moraš Izgraditi Dodatne Stupove!
@@ -505,6 +507,9 @@ achievement.hexcraft.achUseTransposer=Namijenjena Primjena
 achievement.hexcraft.achUseTransposer.desc=Iskoristi Molekulski Izmjenivač kako bi zamijenio boju dekoracijskog bloka.
 achievement.hexcraft.achAttackTransposer=Ovo Će Možda Malo Boliti...
 achievement.hexcraft.achAttackTransposer.desc=Ubrizgaj Heksorij Napunjen Energijom u živo stvorenje koristeći Molekulski Izmjenivač.
+
+achievement.hexcraft.achFormHexoriumTank=Zapremina Tekućine
+achievement.hexcraft.achFormHexoriumTank.desc=Stvori Heksorijski Tank. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
 
 achievement.hexcraft.achLinkTeleport=Povezivanje: Teleporti
 achievement.hexcraft.achLinkTeleport.desc=Poveži dvije Osobne Teleportacijske Ploče. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
