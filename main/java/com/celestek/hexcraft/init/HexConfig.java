@@ -342,7 +342,7 @@ public class HexConfig {
         cfgTankEnable = config.getBoolean("Enable Hexorium Tank", categoryTank, cfgTankEnable, "Enables the Hexorium Tank multiblock structure.");
         cfgTankMaxDimension = config.getInt("Hexorium Tank size limit", categoryTank, cfgTankMaxDimension, 3, 18, "The maximum outer size of the Hexorium Tank.");
         cfgTankCapacityMultiplier = config.getInt("Hexorium Tank capacity multiplier", categoryTank, cfgTankCapacityMultiplier, 1, 256, "Number of buckets per internal block of the tank.");
-        cfgTankKeepFluid = config.getInt("Percentage of fluid to keep", categoryTank, cfgTankKeepFluid, 0, 100, "The percentage of fluid that will be kept inside the master valve once the tank is broken. Set to 0 to disable.");
+        cfgTankKeepFluid = config.getInt("Percentage of fluid to recover", categoryTank, cfgTankKeepFluid, 0, 100, "The percentage of fluid that will be recovered when the tank is broken and re-formed. Set to 0 to disable.");
         cfgTankDebug = config.getBoolean("Hexorium Tank debugging", categoryTank, cfgTankDebug, "If set to true, will output the Hexorium Tank debugging to console.");
         cfgTankVerboseDebug = config.getBoolean("Hexorium Tank debugging (verbose)", categoryTank, cfgTankVerboseDebug, "If set to true, will output extremely detailed Hexorium Tank debugging info. Hexorium Tank debugging needs to be enabled.");
         cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity is located.");

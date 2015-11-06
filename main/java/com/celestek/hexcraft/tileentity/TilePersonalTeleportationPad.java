@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @version 0.6.2
 
  */
-public class TilePersonalTeleportationPad extends TileEntity implements ISidedInventory {
+public class TilePersonalTeleportationPad extends TileEntity {
 
     // Set machine name.
     private static String machineName = "Personal Teleportation Pad";
@@ -65,116 +65,8 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
     private int teleportCounter = 0;
 
     /**
-     * Fired when opening the inventory.
-     */
-    @Override
-    public void openInventory() {
-
-    }
-
-    /**
-     * Fired when closing the inventory.
-     */
-    @Override
-    public void closeInventory() {
-
-    }
-
-    /**
-     * Default methods used for managing the item slots.
-     */
-    @Override
-    public int getSizeInventory() {
-        return machineItemStacks.length;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int slot) {
-        return machineItemStacks[slot];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int slot, int count) {
-        if (machineItemStacks[slot] != null) {
-            ItemStack itemStack;
-            if (machineItemStacks[slot].stackSize <= count) {
-                itemStack = machineItemStacks[slot];
-                machineItemStacks[slot] = null;
-                return itemStack;
-            } else {
-                itemStack = machineItemStacks[slot].splitStack(count);
-
-                if (machineItemStacks[slot].stackSize == 0) {
-                    machineItemStacks[slot] = null;
-                }
-                return itemStack;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slot) {
-        if (machineItemStacks[slot] != null) {
-            ItemStack itemstack = machineItemStacks[slot];
-            machineItemStacks[slot] = null;
-            return itemstack;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void setInventorySlotContents(int slot, ItemStack itemStack) {
-        machineItemStacks[slot] = itemStack;
-
-        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
-            itemStack.stackSize = getInventoryStackLimit();
-        }
-    }
-
-    @Override
-    public int getInventoryStackLimit() {
-        return 0;
-    }
-
-    /**
-     * Return the item slots depending on side. Used for blocks like Hopper.
-     */
-    @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        return slotsBlank;
-    }
-
-    /**
-     * Check if item can be inserted.
-     */
-    @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int par3) {
-        return isItemValidForSlot(slot, itemstack);
-    }
-
-    /**
-     * Check if the item is valid for a certain slot.
-     */
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-        return false;
-    }
-
-    /**
-     * Check if item can be extracted.
-     */
-    @Override
-    public boolean canExtractItem(int par1, ItemStack itemstack, int par3) {
-        return false;
-    }
-
-    /**
      * Retrieves the machine name.
      */
-    @Override
     public String getInventoryName() {
         return machineName;
     }
@@ -182,7 +74,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
     /**
      * Confirms that the machine has custom name.
      */
-    @Override
     public boolean hasCustomInventoryName() {
         return true;
     }
@@ -190,7 +81,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
     /**
      * Check if the TIle Entity can be used by the player.
      */
-    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
     }
@@ -251,18 +141,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
             linkedTeleport = new HexDevice(linkedTeleportX, linkedTeleportY, linkedTeleportZ, HexBlocks.blockPersonalTeleportationPad);
         else
             linkedTeleport = null;
-
-        // Read the items.
-        machineItemStacks = new ItemStack[getSizeInventory()];
-        NBTTagList tagsItems = tagCompound.getTagList("Items", 10);
-        for (int i = 0; i < tagsItems.tagCount(); ++i) {
-            NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(i);
-            byte byte0 = tagCompound1.getByte("Slot");
-
-            if (byte0 >= 0 && byte0 < machineItemStacks.length) {
-                machineItemStacks[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
-            }
-        }
     }
 
     /**
@@ -362,17 +240,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ISidedIn
             tagCompound.setInteger("LinkedTeleportY", 0);
             tagCompound.setInteger("LinkedTeleportZ", 0);
         }
-
-        // Write the items.
-        NBTTagList tagsItems = new NBTTagList();
-        for (int i = 0; i < machineItemStacks.length; i++)
-            if (machineItemStacks[i] != null) {
-                NBTTagCompound tagCompoundLoop = new NBTTagCompound();
-                tagCompoundLoop.setByte("Slot", (byte) i);
-                machineItemStacks[i].writeToNBT(tagCompoundLoop);
-                tagsItems.appendTag(tagCompoundLoop);
-            }
-        tagCompound.setTag("Items", tagsItems);
     }
 
     /**

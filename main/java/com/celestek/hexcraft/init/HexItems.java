@@ -48,6 +48,7 @@ public class HexItems {
     public static Item itemMatrixAdjuster;
     public static Item itemMaterialInteractionPlane;
     public static Item itemTeleportationFieldProjector;
+    public static Item itemDigitalSmartpipe;
     
     // Tools
     public static Item itemHexoriumManipulator;
@@ -124,6 +125,8 @@ public class HexItems {
             itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
             GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
         }
+        itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");
+        GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");

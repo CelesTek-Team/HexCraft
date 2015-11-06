@@ -35,7 +35,7 @@ public class TileTankValve extends TileFluidHandler {
 
     // Set machine name.
     public static final String ID = "tileHexoriumValve";
-    public static final String MACHINE_NAME = "Tank Valve";
+    public static final String MACHINE_NAME = "Hexorium Tank";
     private static final String NBT_IS_SETUP = "ctek_mt_issetup";
     private static final String NBT_IS_MASTER = "ctek_mt_ismaster";
     private static final String NBT_MASTER_X = "ctek_mt_master_x";
@@ -49,7 +49,6 @@ public class TileTankValve extends TileFluidHandler {
     private static final String NBT_INFOBLOCK_Z = "ctek_mt_infoblock_z";
     private static final int TANK_MAX_DIMENSION = HexConfig.cfgTankMaxDimension;
     private static final int TANK_CAPACITY_MULTIPLIER = HexConfig.cfgTankCapacityMultiplier;
-    private int notifyCounter;
 
     private Dimension structureDimension;
     private FluidTank fluidTank;
@@ -79,8 +78,6 @@ public class TileTankValve extends TileFluidHandler {
         this.tankFluidLevel = 0;
         this.tankFluidName = "";
         this.structureDimension = new Dimension();
-
-        this.notifyCounter = 0;
 
         this.isMaster = false;
         this.isSetup = false;

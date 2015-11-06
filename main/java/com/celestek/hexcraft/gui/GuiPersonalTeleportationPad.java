@@ -42,23 +42,21 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
 
         // Draw the input string.
         String out = tileEntity.energyInGui + " HEX/t";
-        fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0x404040);
+        fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, 205 - 94, 0x404040);
 
         // Draw the name string.
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
+        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 45, 0x404040);
 
         // Draw the charge string.
         String charge =  "Charge: " + tileEntity.getEnergyScaled(100) + "%";
-        fontRendererObj.drawString(charge, 24, 51, 0x404040);
+        fontRendererObj.drawString(charge, 24, 90, 0x404040);
 
         // Draw the number strings.
-        fontRendererObj.drawString("1", 91 - fontRendererObj.getStringWidth("1"), 29, 0x404040);
-        fontRendererObj.drawString("2", 155 - fontRendererObj.getStringWidth("2"), 29, 0x404040);
+        fontRendererObj.drawString("1", 91 - fontRendererObj.getStringWidth("1"), 68, 0x404040);
+        fontRendererObj.drawString("2", 155 - fontRendererObj.getStringWidth("2"), 68, 0x404040);
 
-        // Draw the player inventory string.
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 0x404040);
         // Draw the info box string.
-        fontRendererObj.drawString("In:", 111 - fontRendererObj.getStringWidth("In:"), ySize - 94, 0x404040);
+        fontRendererObj.drawString("In:", 111 - fontRendererObj.getStringWidth("In:"), 205 - 94, 0x404040);
     }
 
     /**
@@ -69,17 +67,17 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
         // Bind the texture of the GUI.
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiPersonalTeleportationPad.png"));
         // Prepare x and y values (top left corner).
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
+        int x = (width - 176) / 2;
+        int y = (height - 88) / 2;
 
         // Draw the background of GUI.
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        drawTexturedModalRect(x, y, 0, 0, 176, 88);
 
         // Draw the progress bar.
         int i = tileEntity.getEnergyScaled(64);
         // If the bar exceeds total length, trim it.
         if (i > 128)
             i = 128;
-        drawTexturedModalRect(x + 23, y + 37, 0, 166, i + 1, 12);
+        drawTexturedModalRect(x + 23, y + 37, 0, 88, i + 1, 12);
     }
 }

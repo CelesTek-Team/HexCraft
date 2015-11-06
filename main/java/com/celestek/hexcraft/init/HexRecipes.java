@@ -274,6 +274,8 @@ public class HexRecipes {
 
         ItemStack stackPersonalTeleportationPad_1 = new ItemStack(HexBlocks.blockPersonalTeleportationPad, 1);
 
+        ItemStack stackTankValve_1 = new ItemStack(HexBlocks.blockTankValve, 1);
+
         // Cables
         ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.blockHexoriumCableRed, 2);
         ItemStack stackHexoriumCableOrange_2 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 2);
@@ -364,6 +366,7 @@ public class HexRecipes {
         ItemStack stackMatrixAdjuster_1 = new ItemStack(HexItems.itemMatrixAdjuster, 1);
         ItemStack stackMaterialInteractionPlane_1 = new ItemStack(HexItems.itemMaterialInteractionPlane, 1);
         ItemStack stackTeleportationFieldProjector_1 = new ItemStack(HexItems.itemTeleportationFieldProjector, 1);
+        ItemStack stackDigitalSmartpipe_1 = new ItemStack(HexItems.itemDigitalSmartpipe, 1);
 
         // Tools
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
@@ -1845,6 +1848,15 @@ public class HexRecipes {
                     'E', stackMaterialInteractionPlane_1, 'F', stackIronIngot_1);
         }
 
+        if (HexConfig.cfgTankEnable) {
+            GameRegistry.addRecipe(stackTankValve_1,
+                    "ECE",
+                    "BAB",
+                    "EDE",
+                    'A', stackHexoriumMachineBlock_1, 'B', stackDigitalSmartpipe_1, 'C', stackMachineControlPanel_1, 'D', stackRainbowCore_1,
+                    'E', stackIronIngot_1);
+        }
+
         // Cables
         // Red
         GameRegistry.addRecipe(stackHexoriumCableRed_2,
@@ -2574,6 +2586,13 @@ public class HexRecipes {
                     "BCB",
                     "ERE",
                     'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', stackDiamond_1, 'E', stackGoldIngot_1);
+        }
+        if (HexConfig.cfgTankEnable) {
+            GameRegistry.addRecipe(stackDigitalSmartpipe_1,
+                    "ARR",
+                    " DD",
+                    "BCR",
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCoprocessor_1, 'D', stackIronIngot_1);
         }
 
         // Tools

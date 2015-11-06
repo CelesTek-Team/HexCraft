@@ -33,19 +33,6 @@ public class ContainerPersonalTeleportationPad extends Container {
     public ContainerPersonalTeleportationPad(InventoryPlayer player, TilePersonalTeleportationPad tileEntity){
         // Save the Tile Entity.
         this.tileEntity = tileEntity;
-
-        // Add inventory slots.
-        int i;
-        for(i = 0; i < 3; ++i){
-            for(int j = 0; j < 9; ++j){
-                addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-
-        // Add action bar slots.
-        for(i = 0; i < 9; ++i){
-            addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
-        }
     }
 
     /**
@@ -100,36 +87,5 @@ public class ContainerPersonalTeleportationPad extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return tileEntity.isUseableByPlayer(player);
-    }
-
-    /**
-     * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
-     */
-    @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int par2) {
-        ItemStack itemStack = null;
-        Slot slot = (Slot) inventorySlots.get(par2);
-
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemStack1 = slot.getStack();
-            itemStack = itemStack1.copy();
-
-            if(par2 >= 0 && par2 < 27 && !mergeItemStack(itemStack1, 27, 36, false)) {
-                return null;
-            } else if(par2 >= 27 && par2 < 37 && !mergeItemStack(itemStack1, 0, 27, false)) {
-                return null;
-            }
-
-            if (itemStack1.stackSize == 0)
-                slot.putStack(null);
-            else
-                slot.onSlotChanged();
-
-            if(itemStack1.stackSize == itemStack.stackSize)
-                return null;
-
-            slot.onPickupFromSlot(player, itemStack1);
-        }
-        return itemStack;
     }
 }
