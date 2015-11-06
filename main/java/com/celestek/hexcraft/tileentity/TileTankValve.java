@@ -230,18 +230,19 @@ public class TileTankValve extends TileFluidHandler {
                     tileTankValve.setMaster(false);
                     tileTankValve.setSetup(true);
 
-                    int deltaY = yCoord - y;
+                    int deltaY = y - yCoord;
 
-                    int slaveToBot = structureDimension.getToBottom() + (deltaY * -1);
-                    int slaveToTop = structureDimension.getToTop() - (deltaY * -1);
+                    System.out.println("structureBot: " + structureDimension.getToBottom());
+                    System.out.println("structureTop: " + structureDimension.getToTop());
+
+                    int slaveToBot = structureDimension.getToBottom() + deltaY;
+                    int slaveToTop = structureDimension.getToTop() - deltaY;
 
                     tileTankValve.setValveElevData(slaveToBot, slaveToTop);
-
                 }
             } else {
                 tileTankValve.setMaster(false);
                 tileTankValve.setSetup(false);
-                tileTankValve.setValveElevData(-1, -1);
             }
         }
     }
@@ -522,23 +523,23 @@ public class TileTankValve extends TileFluidHandler {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
                             if (!isMultiTankBlock(x, y, z, dimension, metaFlag)) {
-                                return false && selfRotation;
+                                return false;
                             }
                         } else {
                             if (!isClear(x, y, z)) {
-                                return false && selfRotation;
+                                return false;
                             }
                         }
                         // Base and Top
                     } else {
                         if (!isMultiTankBlock(x, y, z, dimension ,metaFlag)) {
-                            return false && selfRotation;
+                            return false;
                         }
                     }
                 }
             }
         }
-        return true && selfRotation;
+        return selfRotation;
     }
 
     /**
@@ -783,6 +784,7 @@ public class TileTankValve extends TileFluidHandler {
     public void setValveElevData(int toBottom, int toTop) {
         structureDimension.setToBottom(toBottom);
         structureDimension.setToTop(toTop);
+        structureDimension.setHeight(toTop + toBottom);
     }
 
     public void valveInducedStructureReset() {
@@ -817,11 +819,11 @@ public class TileTankValve extends TileFluidHandler {
             }
             tankFluidLevel = fluidTank.getFluidAmount();
 
+            structureDimension = dimension;
             setupStructure(dimension); // Must be run before spawnRenderBlock because it removes pre-existing render blocks
 
             isMaster = true;
             isSetup = true;
-            structureDimension = dimension;
 
             masterX = xCoord;
             masterY = yCoord;
@@ -836,26 +838,6 @@ public class TileTankValve extends TileFluidHandler {
 
             spawnRenderBlock(infoBlockX, infoBlockY, infoBlockZ, coordRange);
             updateTankStatus();
-
-            //
-            /*switch (dimension.getOrientation()) {
-                case Dimension.ORIENT_X_N:
-                    setTextureOrientation(masterX, masterY, masterZ, false);
-                    break;
-
-                case Dimension.ORIENT_X_P:
-                    setTextureOrientation(masterX, masterY, masterZ, false);
-                    break;
-
-                case Dimension.ORIENT_Z_N:
-                    setTextureOrientation(masterX, masterY, masterZ, true);
-                    break;
-
-                case Dimension.ORIENT_Z_P:
-                    setTextureOrientation(masterX, masterY, masterZ, true);
-                    break;
-            }*/
-
 
             printDebug();
             return true;
@@ -901,7 +883,7 @@ public class TileTankValve extends TileFluidHandler {
             } else {
                 FluidStack fluid = fTank.getFluid();
                 if (fluid != null)
-                    if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
+                    if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1) {
                         int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
                         if (fTank.drain(capacity, false).amount == capacity) {
                             fluid = fTank.drain(capacity, true);
@@ -1026,8 +1008,8 @@ public class TileTankValve extends TileFluidHandler {
             FluidTank fTank = getFluidTank();
             FluidStack fluid = fTank.getFluid();
             if (fluid != null)
-                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
-                    FluidStack drained = getFluidTank().drain(calculateTankSize(structureDimension), doDrain);
+                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1) {
+                    FluidStack drained = getFluidTank().drain(getFluidTank().getCapacity(), doDrain);
                     updateTankStatus();
                     return drained;
                 }
@@ -1054,12 +1036,13 @@ public class TileTankValve extends TileFluidHandler {
 
             FluidTank fTank = getFluidTank();
             FluidStack fluid = fTank.getFluid();
-            if (fluid != null)
-                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
+            if (fluid != null) {
+                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1) {
                     FluidStack drained = getFluidTank().drain(maxDrain, doDrain);
                     updateTankStatus();
                     return drained;
                 }
+            }
         }
 
         return null;
@@ -1091,20 +1074,7 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getToTop() - 2);
-            int botY = masterY - structureDimension.getToBottom();
-
-            boolean canDrain = false;
-            boolean isInRings = yCoord > botY && yCoord < topY;
-
-            if (yCoord >= masterY) {
-                int deltaHeight = yCoord - masterY;
-                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
-                        * TANK_CAPACITY_MULTIPLIER;
-                canDrain = fluidTank.getFluidAmount() >= minLvl;
-            }
-
-            return canDrain && isInRings;
+            return true;
         }
 
         return false;
