@@ -287,6 +287,8 @@ tile.blockMatrixReconstructor.name=Matrix Reconstructor
 
 tile.blockPersonalTeleportationPad.name=Personal Teleportation Pad
 
+tile.blockTankValve.name=Tank Valve
+
 tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
 tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)
 tile.blockHexoriumCableYellow.name=Hexorium Cable (Yellow)
@@ -360,6 +362,7 @@ item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
 item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
+item.itemDigitalSmartpipe.name=Digital Smartpipe
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
 item.itemMolecularTransposer.name=Molecular Transposer

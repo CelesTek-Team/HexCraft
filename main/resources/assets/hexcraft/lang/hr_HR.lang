@@ -285,6 +285,8 @@ tile.blockMatrixReconstructor.name=Matrični Rekonstruktor
 
 tile.blockPersonalTeleportationPad.name=Osobna Teleportacijska Ploča
 
+tile.blockTankValve.name=Ventil Tanka
+
 tile.blockHexoriumCableRed.name=Heksorijski Kabel (Crveni)
 tile.blockHexoriumCableOrange.name=Heksorijski Kabel (Narančasti)
 tile.blockHexoriumCableYellow.name=Heksorijski Kabel (Žuti)
@@ -358,6 +360,7 @@ item.itemCrystalExtractionUnit.name=Jedinica Za Ekstrakciju Kristala
 item.itemMatrixAdjuster.name=Ugođivać Matrice
 item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
 item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
+item.itemDigitalSmartpipe.name=Digitalna Pametna Cijev
 
 item.itemHexoriumManipulator.name=Heksorijski Upravljač
 item.itemMolecularTransposer.name=Molekulski Izmjenivač
