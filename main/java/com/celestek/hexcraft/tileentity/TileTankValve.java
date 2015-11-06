@@ -473,7 +473,8 @@ public class TileTankValve extends TileFluidHandler {
         toTop = toTop + 1;
         toBottom = toBottom + 1;
 
-        System.out.println("[DEBUG] Elev: " + toBottom);
+        if (HexConfig.cfgTankDebug)
+            System.out.println("[DEBUG] Elev: " + toBottom);
 
 
         return new Dimension(orientation, widthNegative, widthPositive, depth, toTop, toBottom);
@@ -497,17 +498,16 @@ public class TileTankValve extends TileFluidHandler {
         int startZ = coordRange.getStartZ();
         int endZ = coordRange.getEndZ();
 
-        // if (HexConfig.cfgTankDebug)
-        System.out.println(String.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
+        if (HexConfig.cfgTankDebug)
+            System.out.println(String.format("[DEBUG] SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
                 startX, startY, startZ, endX, endY, endZ));
 
         boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
 
         boolean goodSize = dimension.getWidth() > 2 && dimension.getHeight() > 2 && dimension.getDepth() > 2;
 
-        if (HexConfig.cfgTankDebug) {
+        if (HexConfig.cfgTankDebug)
             System.out.println("[DEBUG] GoodSize: " + goodSize);
-        }
 
         if (!goodSize) {
             return false;
@@ -900,16 +900,17 @@ public class TileTankValve extends TileFluidHandler {
                 }
             } else {
                 FluidStack fluid = fTank.getFluid();
-                if (fluid != null) {
-                    int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
-                    if (fTank.drain(capacity, false).amount == capacity) {
-                        fluid = fTank.drain(capacity, true);
-                        updateTankStatus();
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                                FluidContainerRegistry.fillFluidContainer(fluid, item));
+                if (fluid != null)
+                    if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
+                        int capacity = FluidContainerRegistry.getContainerCapacity(fluid, item);
+                        if (fTank.drain(capacity, false).amount == capacity) {
+                            fluid = fTank.drain(capacity, true);
+                            updateTankStatus();
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                                    FluidContainerRegistry.fillFluidContainer(fluid, item));
 
+                        }
                     }
-                }
             }
         }
     }
@@ -1022,24 +1023,14 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getToTop() - 2);
-            int botY = masterY - structureDimension.getToBottom();
-
-            boolean canDrain = false;
-            boolean isInRings = yCoord > botY && yCoord < topY;
-
-            if (yCoord >= masterY) {
-                int deltaHeight = yCoord - masterY;
-                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
-                        * TANK_CAPACITY_MULTIPLIER;
-                canDrain = fluidTank.getFluidAmount() >= minLvl;
-            }
-
-            if (canDrain && isInRings) {
-                FluidStack drained = getFluidTank().drain(calculateTankSize(structureDimension), doDrain);
-                updateTankStatus();
-                return drained;
-            }
+            FluidTank fTank = getFluidTank();
+            FluidStack fluid = fTank.getFluid();
+            if (fluid != null)
+                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
+                    FluidStack drained = getFluidTank().drain(calculateTankSize(structureDimension), doDrain);
+                    updateTankStatus();
+                    return drained;
+                }
         }
 
         return null;
@@ -1061,24 +1052,14 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), META_ROTATION))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), META_ROTATION)))) {
 
-            int topY = masterY + (structureDimension.getToTop() - 2);
-            int botY = masterY - structureDimension.getToBottom();
-
-            boolean canDrain = false;
-            boolean isInRings = yCoord > botY && yCoord < topY;
-
-            if (yCoord >= masterY) {
-                int deltaHeight = yCoord - masterY;
-                int minLvl = deltaHeight * structureDimension.getWidth() * structureDimension.getDepth()
-                        * TANK_CAPACITY_MULTIPLIER;
-                canDrain = fluidTank.getFluidAmount() >= minLvl;
-            }
-
-            if (canDrain && isInRings) {
-                FluidStack drained = getFluidTank().drain(maxDrain, doDrain);
-                updateTankStatus();
-                return drained;
-            }
+            FluidTank fTank = getFluidTank();
+            FluidStack fluid = fTank.getFluid();
+            if (fluid != null)
+                if ((int) ((structureDimension.getHeight() - 2) * ((float) fluid.amount / fTank.getCapacity())) >= structureDimension.getToBottom() - 1){
+                    FluidStack drained = getFluidTank().drain(maxDrain, doDrain);
+                    updateTankStatus();
+                    return drained;
+                }
         }
 
         return null;
