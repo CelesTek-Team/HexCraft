@@ -229,10 +229,19 @@ public class TileTankValve extends TileFluidHandler {
 
                     tileTankValve.setMaster(false);
                     tileTankValve.setSetup(true);
+
+                    int deltaY = yCoord - y;
+
+                    int slaveToBot = structureDimension.getToBottom() + (deltaY * -1);
+                    int slaveToTop = structureDimension.getToTop() - (deltaY * -1);
+
+                    tileTankValve.setValveElevData(slaveToBot, slaveToTop);
+
                 }
             } else {
                 tileTankValve.setMaster(false);
                 tileTankValve.setSetup(false);
+                tileTankValve.setValveElevData(-1, -1);
             }
         }
     }
@@ -771,6 +780,11 @@ public class TileTankValve extends TileFluidHandler {
 
     }
 
+    public void setValveElevData(int toBottom, int toTop) {
+        structureDimension.setToBottom(toBottom);
+        structureDimension.setToTop(toTop);
+    }
+
     public void valveInducedStructureReset() {
         if (isSetup && isMaster) {
             if (HexConfig.cfgTankDebug)
@@ -789,7 +803,7 @@ public class TileTankValve extends TileFluidHandler {
      * @param side Side that the manipulator was used on
      */
 
-    public void setupMultiTank(int side) {
+    public boolean setupMultiTank(int side) {
         Dimension dimension = scanDimensions(side);
 
         if (checkStructure(dimension, true)) {
@@ -844,7 +858,9 @@ public class TileTankValve extends TileFluidHandler {
 
 
             printDebug();
+            return true;
         }
+        return false;
     }
 
     /**
