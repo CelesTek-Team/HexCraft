@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.BlockTankValve;
+import com.celestek.hexcraft.block.HexBlock;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -206,7 +207,7 @@ public class TileTankValve extends TileFluidHandler {
      * @param z      Z coordinate
      * @param isPart is or isn't part
      */
-    private void setIsPart(int x, int y, int z, boolean isPart) {
+    private void setIsPart(int x, int y, int z, Dimension dimension, boolean isPart) {
         int meta = worldObj.getBlockMetadata(x, y, z);
         meta = HexUtils.setBit(meta, META_IS_PART, isPart);
         worldObj.setBlockMetadataWithNotify(x, y, z, meta, 2);
@@ -518,6 +519,14 @@ public class TileTankValve extends TileFluidHandler {
         for (int y = startY; y <= endY; y++) {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
+                    // CORNERS
+                    if (x == endX && z == endY) {
+                        Block block = worldObj.getBlock(x,y,z);
+                        if (block == HexBlocks.blockTankValve) {
+                            return false;
+                        }
+                    }
+
                     // RINGS
                     if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
@@ -564,11 +573,11 @@ public class TileTankValve extends TileFluidHandler {
                     if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            setIsPart(x, y, z, true);
+                            setIsPart(x, y, z, dimension, true);
                         }
                         // Base and Top
                     } else {
-                        setIsPart(x, y, z, true);
+                        setIsPart(x, y, z, dimension, true);
                     }
 
                     Block block = worldObj.getBlock(x,y,z);
@@ -604,11 +613,11 @@ public class TileTankValve extends TileFluidHandler {
                     if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            setIsPart(x, y, z, false);
+                            setIsPart(x, y, z, dimension, false);
                         }
                         // Base and Top
                     } else {
-                        setIsPart(x, y, z, false);
+                        setIsPart(x, y, z, dimension, false);
                     }
                 }
             }
