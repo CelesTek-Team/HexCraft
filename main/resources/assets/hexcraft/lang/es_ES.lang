@@ -285,6 +285,9 @@ tile.blockMatrixReconstructor.name=Matriz Reconstructor
 
 tile.blockPersonalTeleportationPad.name=Pedestal Personal de Teletransporte
 
+tile.blockTankValve.name=Valvula
+
+
 tile.blockHexoriumCableRed.name=Cable de Hexorium (Rojo)
 tile.blockHexoriumCableOrange.name=Cable de Hexorium (Naranja)
 tile.blockHexoriumCableYellow.name=Cable de Hexorium (Amarillo)
@@ -358,6 +361,7 @@ item.itemCrystalExtractionUnit.name=Unidad de Extracción de Cristales
 item.itemMatrixAdjuster.name=Configurador de Matriz
 item.itemMaterialInteractionPlane.name=Plano de Interacción de Materiales
 item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
+item.itemDigitalSmartpipe.name=Tuberia Inteligente Digital
 
 item.itemHexoriumManipulator.name=Manipulador de Hexorium
 item.itemMolecularTransposer.name=Reemisor Molecular
@@ -393,6 +397,12 @@ msg.pressurePlateChange1.txt=[Manipulador de Hexorium] Modo cambiado a: Todo
 msg.pressurePlateChange2.txt=[Manipulador de Hexorium] Modo cambiado a: Entidades
 msg.pressurePlateChange3.txt=[Manipulador de Hexorium] Modo cambiado a: Monstruos
 msg.pressurePlateChange4.txt=[Manipulador de Hexorium] Modo cambiado a: Jugadores
+
+msg.tankIsPart.txt=[Manipulador de Hexorium] El bloque es parte de un Tanque de Hexorium.
+msg.tankValveRotationFail.txt=[Manipulador de Hexorium] No se puede rotar cuando el Tanque esta formado.
+msg.tankFormSuccess.txt=[Manipulador de Hexorium] Tanque de Hexorium formado satisfactoriamente.
+msg.tankFormFail1.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
+msg.tankFormFail2.txt=[Manipulador de Hexorium] El Tanque ya se ha formado.
 
 
 achievement.hexcraft.achMineHexOre=Un potencial brillante
@@ -482,6 +492,8 @@ achievement.hexcraft.achCraftMachineSeparator=Swimming In Gems
 achievement.hexcraft.achCraftMachineSeparator.desc=Craft a Crystal Separator.
 achievement.hexcraft.achCraftMachineReconstructor=Lo podemos reconstruir!
 achievement.hexcraft.achCraftMachineReconstructor.desc=Fabrica un Matriz Reconstructor.
+achievement.hexcraft.achCraftMachineTankValve=HL3 Confirmado!
+achievement.hexcraft.achCraftMachineTankValve.desc=Fabrica una Valvula.
 achievement.hexcraft.achCraftMachineTeleport=De material biológico a energía
 achievement.hexcraft.achCraftMachineTeleport.desc=Fabrica un Pedestal Personal de Teletransporte.
 achievement.hexcraft.achCraftPylon=Debes construir más Pilones!
@@ -499,6 +511,9 @@ achievement.hexcraft.achUseTransposer=El uso esperado
 achievement.hexcraft.achUseTransposer.desc=Usa el Reemisor Molecular para cambiar el color de cualquier bloque decorativo.
 achievement.hexcraft.achAttackTransposer=Esto puede doler un poco...
 achievement.hexcraft.achAttackTransposer.desc=Inyecta Hexorium Energizado en una criatura con el Reemisor Molecular.
+
+achievement.hexcraft.achFormHexoriumTank=Tanques para los recuerdos
+achievement.hexcraft.achFormHexoriumTank.desc=Forma un Tanque de Hexorium. Tambien requiere el logro: Interfaz Humano-Hexorium
 
 achievement.hexcraft.achLinkTeleport=Vinculando: Teletransportadores
 achievement.hexcraft.achLinkTeleport.desc=Vincula dos Pedestal Personal de Teletransporte. Requiere el logro: Interfaz Humano-Hexorium
