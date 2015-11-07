@@ -151,12 +151,12 @@ public class TileTankValve extends TileFluidHandler {
      *                  Used when re-checking a structure
      * @return is block at given coordinates valid
      */
-    private boolean isMultiTankBlock(int x, int y, int z, Dimension dimension, boolean checkMeta) { // TODO: Rename method maybe?
+    private boolean isMultiTankBlock(int x, int y, int z, Dimension dimension, boolean checkMeta, boolean allowValve) { // TODO: Rename method maybe?
         Block block = worldObj.getBlock(x, y, z);
 
         boolean notNull = block != null;
         boolean blockType = block instanceof HexBlockMT
-                || block == HexBlocks.blockTankValve
+                || (block == HexBlocks.blockTankValve && allowValve)
                 || block == HexBlocks.blockTemperedHexoriumGlass;
         boolean isFree = false;
         boolean rotation = true;
@@ -520,9 +520,10 @@ public class TileTankValve extends TileFluidHandler {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
                     // CORNERS
-                    if ((x == startX || x == endX) && (z == startZ && z == endZ)) {
+                    if ((x == startX && z==startZ) || (x == startX && z == endZ) || (x == endX && z == startZ) || (x == endX && z == endZ)) {
                         Block block = worldObj.getBlock(x,y,z);
-                        if (block == HexBlocks.blockTankValve) {
+
+                        if (block instanceof BlockTankValve) {
                             return false;
                         }
                     }
@@ -531,7 +532,7 @@ public class TileTankValve extends TileFluidHandler {
                     if (y > startY && y < endY) {
                         boolean check = (x == startX || x == endX) || (z == startZ || z == endZ);
                         if (check) {
-                            if (!isMultiTankBlock(x, y, z, dimension, metaFlag)) {
+                            if (!isMultiTankBlock(x, y, z, dimension, metaFlag, true)) {
                                 return false;
                             }
                         } else {
@@ -541,7 +542,7 @@ public class TileTankValve extends TileFluidHandler {
                         }
                         // Base and Top
                     } else {
-                        if (!isMultiTankBlock(x, y, z, dimension ,metaFlag)) {
+                        if (!isMultiTankBlock(x, y, z, dimension ,metaFlag, false)) {
                             return false;
                         }
                     }
