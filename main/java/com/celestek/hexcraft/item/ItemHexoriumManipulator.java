@@ -19,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -28,8 +27,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
 
 public class ItemHexoriumManipulator extends Item {
@@ -169,12 +167,12 @@ public class ItemHexoriumManipulator extends Item {
                     analyzePylonBase(world, x, y, z);
                 }
                 else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
-                    if (HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z))
+                    if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
                         player.addChatMessage(new ChatComponentTranslation("msg.tankIsPart.txt"));
                 }
                 else if (block == HexBlocks.blockTankValve) {
-                    if (!HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z))
-                        HexUtils.flipMetaBit(TileTankValve.META_ROTATION, world, x, y, z, 3);
+                    if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
+                        HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, world, x, y, z, 3);
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
                 }
@@ -429,7 +427,7 @@ public class ItemHexoriumManipulator extends Item {
                     analyzePylonBase(world, x, y, z);
                 }
                 else if (block == HexBlocks.blockTankValve) {
-                    if (!HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z)) {
+                    if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
                         TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
                         if (tileTankValve != null) {
                             if (tileTankValve.setupMultiTank(side)) {

@@ -1,7 +1,6 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.block.BlockHexoriumCable;
-import com.celestek.hexcraft.block.BlockPylonBase;
+import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class TankAnalyzer {
 
     // Prepare ArrayLists for blocks and valves.
@@ -72,7 +71,7 @@ public class TankAnalyzer {
         // Check if the current block is usable to build a tank.
         if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
             // Check if the current block is part of a tank.
-            if (HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
                 // Check if this block has already been added to the blocks ArrayList.
                 if (!blocks.contains(new HexDevice(x, y, z, block)))
                     blocks.add(new HexDevice(x, y, z, block));
@@ -85,7 +84,7 @@ public class TankAnalyzer {
         // Check if the current block is a valve.
         else if (block == HexBlocks.blockTankValve) {
             // Check if the current valve is part of a tank.
-            if (HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
                 // Check if this valve has already been added to the valves ArrayList.
                 if (!valves.contains(new HexDevice(x, y, z, block)))
                     valves.add(new HexDevice(x, y, z, block));
@@ -121,7 +120,7 @@ public class TankAnalyzer {
      * @param y     Y coordinate of the cable.
      * @param z     Z coordinate of the cable.
      */
-    public void analyzeCable(World world, int x, int y, int z, Block block) {
+    public void analyzeCable(World world, int x, int y, int z) {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, -1);
         // Push the results to all found valves.
@@ -147,7 +146,7 @@ public class TankAnalyzer {
 
             TileTankValve valve = (TileTankValve) world.getTileEntity(entry.x, entry.y, entry.z);
             if (valve != null) {
-                valve.notifyChange();
+                valve.notificationStructureReset();
             }
         }
     }

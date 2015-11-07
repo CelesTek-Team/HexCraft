@@ -9,9 +9,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 
 /**
- * @Author CoffeePirate    <celestek@openmailbox.org>
- * @Version 0.1.0
+ * @author CoffeePirate     <celestek@openmailbox.org>
+ * @version 0.7.0
  */
+
 public class ContainerTankValve extends Container {
 
     private TileTankValve tileTankValve;
@@ -34,7 +35,7 @@ public class ContainerTankValve extends Container {
         super.addCraftingToCrafters(crafting);
 
         int tankCap = tileTankValve.getTankCapacity();
-        int tankLevel = tileTankValve.getTankFluidLevel();
+        int tankLevel = tileTankValve.getFluidLevel();
 
         int[] mcTankCap = HexUtils.intToMCInts(tankCap);
         int[] mcTankLevel = HexUtils.intToMCInts(tankLevel);
@@ -46,7 +47,7 @@ public class ContainerTankValve extends Container {
         crafting.sendProgressBarUpdate(this, TANK_LVL_MC_INT_1, mcTankLevel[1]);
 
         crafting.sendProgressBarUpdate(this, 4, tileTankValve.getFluidID());
-        crafting.sendProgressBarUpdate(this, 5, tileTankValve.getFluidInserted());
+        crafting.sendProgressBarUpdate(this, 5, tileTankValve.getFluidIns());
     }
 
 
@@ -65,8 +66,8 @@ public class ContainerTankValve extends Container {
                 craft.sendProgressBarUpdate(this, TANK_CAP_MC_INT_1, mcTankCap[1]);
             }
 
-            if (lastTankLevel != tileTankValve.getTankFluidLevel()) {
-                int tankLevel = tileTankValve.getTankFluidLevel();
+            if (lastTankLevel != tileTankValve.getFluidLevel()) {
+                int tankLevel = tileTankValve.getFluidLevel();
 
                 int[] mcTankLevel = HexUtils.intToMCInts(tankLevel);
 
@@ -78,22 +79,22 @@ public class ContainerTankValve extends Container {
                 craft.sendProgressBarUpdate(this, 4, tileTankValve.getFluidID());
             }
 
-            if (lastFluidInserted != tileTankValve.getFluidInserted()) {
-                craft.sendProgressBarUpdate(this, 5, tileTankValve.getFluidInserted());
+            if (lastFluidInserted != tileTankValve.getFluidIns()) {
+                craft.sendProgressBarUpdate(this, 5, tileTankValve.getFluidIns());
             }
         }
 
         lastTankCap = tileTankValve.getTankCapacity();
-        lastTankLevel = tileTankValve.getTankFluidLevel();
+        lastTankLevel = tileTankValve.getFluidLevel();
 
         lastFluidID = tileTankValve.getFluidID();
-        lastFluidInserted = tileTankValve.getFluidInserted();
+        lastFluidInserted = tileTankValve.getFluidIns();
     }
 
     @SideOnly(Side.CLIENT) @Override public void updateProgressBar(int varID, int value) {
         super.updateProgressBar(varID, value);
         int[] mcTankCap = HexUtils.intToMCInts(tileTankValve.getGuiTankCapacity());
-        int[] mcTankLevel = HexUtils.intToMCInts(tileTankValve.getGuiTankFluidLevel());
+        int[] mcTankLevel = HexUtils.intToMCInts(tileTankValve.getGuiFluidLevel());
 
         switch (varID) {
             case TANK_CAP_MC_INT_0:
@@ -112,7 +113,7 @@ public class ContainerTankValve extends Container {
                 tileTankValve.setGuiFluidID(value);
                 break;
             case 5:
-                tileTankValve.setGuiFluidInserted(value);
+                tileTankValve.setGuiFluidIns(value);
                 break;
         }
 
@@ -120,7 +121,7 @@ public class ContainerTankValve extends Container {
         int tankLevel = HexUtils.joinMCIntsToInt(mcTankLevel);
 
         tileTankValve.setGuiTankCapacity(tankCap);
-        tileTankValve.setGuiTankFluidLevel(tankLevel);
+        tileTankValve.setGuiFluidLevel(tankLevel);
     }
 
     @Override public boolean canInteractWith(EntityPlayer player) {

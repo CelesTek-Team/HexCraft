@@ -13,16 +13,21 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.Sys;
 
+/**
+ * @author CoffeePirate     <celestek@openmailbox.org>
+ * @version 0.7.0
+ */
 
 public class BlockTankRender extends HexBlockContainer {
-    public static String UNLOCALISEDNAME = "blockTankRender";
+
+    // Block ID
+    public static String ID = "blockTankRender";
 
     /**
      * Constructor for the block.
      *
-     * @param blockName Un
+     * @param blockName Unlocalized name for the block.
      */
     public BlockTankRender(String blockName) {
         super(Material.iron);
@@ -39,6 +44,9 @@ public class BlockTankRender extends HexBlockContainer {
         this.setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
     }
 
+    /**
+     * Returns a new instance of a block's TIle Entity class. Called on placing the block.
+     */
     @Override
     public TileEntity createTileEntity(World world, int metadata) {
         return new TileTankRender();
@@ -57,7 +65,7 @@ public class BlockTankRender extends HexBlockContainer {
         // Initialize the icons.
         icon = new IIcon[1];
         // Load the pylon base texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
     }
 
     /**

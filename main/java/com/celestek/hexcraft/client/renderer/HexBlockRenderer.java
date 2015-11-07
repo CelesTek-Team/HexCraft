@@ -1,13 +1,9 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockGlowingHexoriumGlass;
-import com.celestek.hexcraft.block.BlockHexoriumLamp;
-import com.celestek.hexcraft.block.BlockHexoriumLampInv;
-import com.celestek.hexcraft.block.BlockOfHexoriumCrystal;
+import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -85,7 +81,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         int meta;
         if (block == HexBlocks.blockTankValve)
-            meta = HexUtils.setBit(0, TileTankValve.META_ROTATION, true);
+            meta = HexUtils.setBit(0, BlockTankValve.META_ROTATION, true);
         else
             meta = 2;
 

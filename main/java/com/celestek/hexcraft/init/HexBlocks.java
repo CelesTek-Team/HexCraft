@@ -898,10 +898,10 @@ public class HexBlocks {
 
         // Tank Valve
         if (HexConfig.cfgTankEnable) {
-            blockTankValve = new BlockTankValve(BlockTankValve.UNLOCALISEDNAME);
-            GameRegistry.registerBlock(blockTankValve, BlockTankValve.UNLOCALISEDNAME);
-            blockTankRender = new BlockTankRender(BlockTankRender.UNLOCALISEDNAME);
-            GameRegistry.registerBlock(blockTankRender, BlockTankRender.UNLOCALISEDNAME);
+            blockTankValve = new BlockTankValve(BlockTankValve.ID);
+            GameRegistry.registerBlock(blockTankValve, BlockTankValve.ID);
+            blockTankRender = new BlockTankRender(BlockTankRender.ID);
+            GameRegistry.registerBlock(blockTankRender, BlockTankRender.ID);
         }
 
         // Cables

@@ -1,11 +1,11 @@
 package com.celestek.hexcraft.util;
 
-/**
- * @Author CoffeePirate     <celestek@openmailbox.org>
- * @Version 0.1.0
- */
-
 import net.minecraft.world.World;
+
+/**
+ * @author CoffeePirate     <celestek@openmailbox.org>
+ * @version 0.7.0
+ */
 
 /**
  * A simple utilities class which holds methods commonly used throughout the project

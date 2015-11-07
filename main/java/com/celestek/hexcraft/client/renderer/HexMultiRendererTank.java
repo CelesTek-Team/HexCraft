@@ -21,24 +21,13 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.1
- * @since 2015-04-14
+ * @version 0.7.0
  */
 
 public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
 
     // Variables
     private int renderID;
-    private int renderBlockID;
-    private int brightness;
-
-    // Model constants.
-    public static float sbBack = 0.0F;
-    public static float sbFron = 0.125F;
-    public static float sbHori = 0.375F;
-    public static float sbVert = 0.375F;
-    public static float sbPixl = 0.0625F;
-    public static float sbOffs = 0.001F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -46,9 +35,6 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      */
     public HexMultiRendererTank(int renderID)
     {
-        // Save the current HexCraft block ID.
-        this.renderBlockID = HexCraft.idCounter;
-
         // Load the constructor parameters.
         this.renderID = renderID;
 

@@ -1,7 +1,6 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
 import net.minecraft.block.Block;
@@ -9,8 +8,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 /**
- * @Author CoffeePirate     <celestek@openmailbox.org>
- * @Version 0.1.0
+ * @author CoffeePirate     <celestek@openmailbox.org>
+ * @version 0.7.0
  */
 
 public class HexBlockMT extends HexBlock {
@@ -27,9 +26,9 @@ public class HexBlockMT extends HexBlock {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
-                && HexUtils.getMetaBit(TileTankValve.META_IS_PART, world, x, y, z)) {
+                && HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
             TankAnalyzer analyzer = new TankAnalyzer();
-            analyzer.analyzeCable(world, x, y, z, block);
+            analyzer.analyzeCable(world, x, y, z);
         }
     }
 }
