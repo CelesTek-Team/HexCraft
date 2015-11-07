@@ -6,6 +6,11 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * @author CoffeePirate     <celestek@openmailbox.org>
+ * @version 0.7.0
+ */
+
 public class TileTankRender extends TileEntity {
     
     private static final String NBT_START_X = "ctek_tti_start_x";

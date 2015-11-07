@@ -1,13 +1,6 @@
 package com.celestek.hexcraft.init;
 
-import com.celestek.hexcraft.block.HexBlock;
-import com.celestek.hexcraft.item.HexItemComponent;
-import com.celestek.hexcraft.item.ItemHexoriumManipulator;
-import com.celestek.hexcraft.item.ItemHexoriumReinforcer;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.EventBus;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.Item;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
@@ -15,9 +8,9 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class HexAchievements {
 
     // Prepare a list of all achievements.

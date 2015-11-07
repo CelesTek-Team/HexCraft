@@ -1,13 +1,10 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.tileentity.TileEnergyPylon;
-import net.minecraft.block.Block;
-
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class HexPylon {
     public int x;
     public int y;

@@ -19,8 +19,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
 
 public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {

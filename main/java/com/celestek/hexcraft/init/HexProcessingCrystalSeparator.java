@@ -1,6 +1,5 @@
 package com.celestek.hexcraft.init;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,9 +12,9 @@ import java.util.Map;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class HexProcessingCrystalSeparator {
 
     private static final HexProcessingCrystalSeparator PROCESSING_BASE = new HexProcessingCrystalSeparator();

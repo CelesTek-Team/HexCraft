@@ -1,8 +1,6 @@
 package com.celestek.hexcraft;
 
-import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.*;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -11,8 +9,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
 
 public class HexCommonProxy {

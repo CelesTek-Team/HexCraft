@@ -1,18 +1,13 @@
 package com.celestek.hexcraft.init;
 
-import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.*;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class HexOreDict {
 
     /**

@@ -4,9 +4,9 @@ import net.minecraft.util.DamageSource;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class HexDamage extends DamageSource {
 
     // Different damage types added by HEXCraft.
