@@ -233,11 +233,11 @@ public class TileTankValve extends TileFluidHandler {
 
                     int deltaY = y - yCoord;
 
-                    System.out.println("structureBot: " + structureDimension.getToBottom());
-                    System.out.println("structureTop: " + structureDimension.getToTop());
+                    System.out.println("structureBot: " + dimension.getToBottom());
+                    System.out.println("structureTop: " + dimension.getToTop());
 
-                    int slaveToBot = structureDimension.getToBottom() + deltaY;
-                    int slaveToTop = structureDimension.getToTop() - deltaY;
+                    int slaveToBot = dimension.getToBottom() + deltaY;
+                    int slaveToTop = dimension.getToTop() - deltaY;
 
                     tileTankValve.setValveElevData(slaveToBot, slaveToTop);
                 }
