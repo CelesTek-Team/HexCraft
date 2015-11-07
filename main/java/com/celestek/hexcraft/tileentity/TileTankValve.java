@@ -520,7 +520,7 @@ public class TileTankValve extends TileFluidHandler {
             for (int x = startX; x <= endX; x++) {
                 for (int z = startZ; z <= endZ; z++) {
                     // CORNERS
-                    if (x == endX && z == endY) {
+                    if ((x == startX || x == endX) && (z == startZ && z == endZ)) {
                         Block block = worldObj.getBlock(x,y,z);
                         if (block == HexBlocks.blockTankValve) {
                             return false;
