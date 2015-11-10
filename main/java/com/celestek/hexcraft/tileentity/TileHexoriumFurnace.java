@@ -181,6 +181,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
      * Saves the ArrayList of energy sources.
      * @param energySources The ArrayList to save.
      */
+    @Override
     public void setSources(ArrayList<HexDevice> energySources) {
         this.energySources = energySources;
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
@@ -191,6 +192,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
     /**
      * Called by sources to force drains to recheck them.
      */
+    @Override
     public void recheckSources() {
         scanSources();
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
