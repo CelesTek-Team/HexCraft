@@ -78,7 +78,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer1 = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer1.analyzeSourceDrain(world, x, y, z, direction);
+            analyzer1.analyzeMachines(world, x, y, z, direction);
 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
@@ -125,7 +125,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, meta);
+            analyzer.analyzeMachines(world, x, y, z, meta);
 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();

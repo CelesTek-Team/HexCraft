@@ -459,7 +459,7 @@ public class NetworkAnalyzer {
      * @param z Z coordinate of the machine.
      * @param orientation The orientation of the machine.
      */
-    public void analyzeSourceDrain(World world, int x, int y, int z, int orientation)
+    public void analyzeMachines(World world, int x, int y, int z, int orientation)
     {
         // Strip away the texture states from meta.
         orientation = HexUtils.getBitInt(orientation, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
@@ -486,8 +486,11 @@ public class NetworkAnalyzer {
                         (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x + 1, y, z) == 4)))
             analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
 
+        if (energyDrains.size() == 0 || energySources.size() == 0)
+            add(world, x, y, z);
+
         // Push the results to all found machines.
-        pushSourceDrains(world);
+        pushMachines(world);
         pushTeleports(world);
     }
 
@@ -507,7 +510,7 @@ public class NetworkAnalyzer {
             analyze(world, x, y - 1, z, world.getBlock(x, y - 1, z), -1);
 
         // Push the results to all found machines.
-        pushSourceDrains(world);
+        pushMachines(world);
         pushTeleports(world);
     }
 
@@ -523,7 +526,7 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushSourceDrains(world);
+        pushMachines(world);
         pushTeleports(world);
     }
 
@@ -539,7 +542,7 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         pylonize(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushSourceDrains(world);
+        pushMachines(world);
         pushTeleports(world);
     }
 
@@ -547,7 +550,7 @@ public class NetworkAnalyzer {
      * Pushes the results of scanning to sources and drains.
      * @param world The world that the network is in.
      */
-    private void pushSourceDrains(World world) {
+    private void pushMachines(World world) {
 
         // Notify about pushing to sources.
         if (HexConfig.cfgGeneralNetworkDebug)
@@ -598,5 +601,20 @@ public class NetworkAnalyzer {
             if (teleport != null)
                 teleport.injectTeleports(teleports);
         }
+    }
+
+    /**
+     * Called by machine blocks to add themselves if the analyzing result contained no machines.
+     * @param world The world that the machine is in.
+     * @param x X coordinate of the machine.
+     * @param y Y coordinate of the machine.
+     * @param z Z coordinate of the machine.
+     */
+    private void add(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        if (block instanceof IBlockHexEnergySource)
+            energySources.add(new HexDevice(x, y, z, block));
+        else if (block instanceof IBlockHexEnergyDrain)
+            energyDrains.add(new HexDevice(x, y, z, block));
     }
 }

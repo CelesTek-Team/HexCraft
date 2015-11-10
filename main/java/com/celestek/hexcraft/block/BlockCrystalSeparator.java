@@ -83,7 +83,7 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            analyzer.analyzeSourceDrain(world, x, y, z, direction);
+            analyzer.analyzeMachines(world, x, y, z, direction);
         }
     }
 
@@ -127,7 +127,7 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, meta);
+            analyzer.analyzeMachines(world, x, y, z, meta);
         }
     }
 

@@ -894,10 +894,10 @@ public class HexBlocks {
         blockHexoriumMachineBlock = new BlockHexoriumMachineBlock(BlockHexoriumMachineBlock.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockHexoriumMachineBlock, BlockHexoriumMachineBlock.UNLOCALISEDNAME);
 
-        blockHexoriumGenerator = new BlockHexoriumGenerator(BlockHexoriumGenerator.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockHexoriumGenerator, BlockHexoriumGenerator.UNLOCALISEDNAME);
-        blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.UNLOCALISEDNAME);
+        blockHexoriumGenerator = new BlockHexoriumGenerator(BlockHexoriumGenerator.ID);
+        GameRegistry.registerBlock(blockHexoriumGenerator, BlockHexoriumGenerator.ID);
+        blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.ID);
+        GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.ID);
         blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.UNLOCALISEDNAME);
         GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.UNLOCALISEDNAME);
         blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.UNLOCALISEDNAME);

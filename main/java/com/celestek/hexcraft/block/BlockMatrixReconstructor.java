@@ -83,7 +83,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, direction);
+            analyzer.analyzeMachines(world, x, y, z, direction);
         }
     }
 
@@ -124,7 +124,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, meta);
+            analyzer.analyzeMachines(world, x, y, z, meta);
         }
     }
 

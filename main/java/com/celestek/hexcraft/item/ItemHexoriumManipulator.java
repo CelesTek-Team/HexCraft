@@ -77,28 +77,11 @@ public class ItemHexoriumManipulator extends Item {
                 // Rotate teleport.
                 else if (block == HexBlocks.blockPersonalTeleportationPad) {
                     // Get meta.
-                    int meta = world.getBlockMetadata(x, y, z);
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    if (meta < 4) {
-                        meta++;
-                        if (meta == 4)
-                            meta = 0;
-                    }
-                    else if (meta >= 4 && meta < 8) {
-                        meta++;
-                        if (meta == 8)
-                            meta = 4;
-                    }
-                    else if (meta >= 8) {
-                        meta++;
-                        if (meta == 12)
-                            meta = 8;
-                    }
-
-                    // Push meta to block.
-                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                    HexUtils.rotateBlock(true, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1,
+                            world, x, y, z, HexUtils.META_NOTIFY_UPDATE);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
                         System.out.println("Teleport rotated, analyzing!");
@@ -109,8 +92,8 @@ public class ItemHexoriumManipulator extends Item {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     NetworkAnalyzer analyzerDown = new NetworkAnalyzer();
                     // Call the analysis in original and new direction.
-                    analyzerOld.analyzeSourceDrain(world, x, y, z, metaOld);
-                    analyzer.analyzeSourceDrain(world, x, y, z, meta);
+                    analyzerOld.analyzeMachines(world, x, y, z, metaOld);
+                    analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                     analyzerDown.analyzeTeleport(world, x, y, z);
                 }
                 // Change Pressure Plate mode.
@@ -347,28 +330,11 @@ public class ItemHexoriumManipulator extends Item {
                         block == HexBlocks.blockCrystalSeparator ||
                         block == HexBlocks.blockMatrixReconstructor) {
                     // Get meta.
-                    int meta = world.getBlockMetadata(x, y, z);
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    if (meta < 4) {
-                        meta++;
-                        if (meta == 4)
-                            meta = 0;
-                    }
-                    else if (meta >= 4 && meta < 8) {
-                        meta++;
-                        if (meta == 8)
-                            meta = 4;
-                    }
-                    else if (meta >= 8) {
-                        meta++;
-                        if (meta == 12)
-                            meta = 8;
-                    }
-
-                    // Push meta to block.
-                    world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                    HexUtils.rotateBlock(true, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1,
+                            world, x, y, z, HexUtils.META_NOTIFY_UPDATE);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
                         System.out.println("Machine rotated, analyzing!");
@@ -378,8 +344,8 @@ public class ItemHexoriumManipulator extends Item {
                     NetworkAnalyzer analyzerOld = new NetworkAnalyzer();
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     // Call the analysis in original and new direction.
-                    analyzerOld.analyzeSourceDrain(world, x, y, z, metaOld);
-                    analyzer.analyzeSourceDrain(world, x, y, z, meta);
+                    analyzerOld.analyzeMachines(world, x, y, z, metaOld);
+                    analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                 }
                 // Show Pressure Plate mode.
                 else if (block instanceof BlockHexoriumPressurePlate) {
@@ -524,7 +490,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x, y - 1, z, world.getBlockMetadata(x, y - 1, z));
+            analyzer.analyzeMachines(world, x, y - 1, z, world.getBlockMetadata(x, y - 1, z));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -542,7 +508,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x, y + 1, z, world.getBlockMetadata(x, y + 1, z));
+            analyzer.analyzeMachines(world, x, y + 1, z, world.getBlockMetadata(x, y + 1, z));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -560,7 +526,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x - 1, y, z, world.getBlockMetadata(x - 1, y, z));
+            analyzer.analyzeMachines(world, x - 1, y, z, world.getBlockMetadata(x - 1, y, z));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -578,7 +544,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x + 1, y, z, world.getBlockMetadata(x + 1, y, z));
+            analyzer.analyzeMachines(world, x + 1, y, z, world.getBlockMetadata(x + 1, y, z));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -596,7 +562,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x, y, z - 1, world.getBlockMetadata(x, y, z - 1));
+            analyzer.analyzeMachines(world, x, y, z - 1, world.getBlockMetadata(x, y, z - 1));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -614,7 +580,7 @@ public class ItemHexoriumManipulator extends Item {
                 blockSurr == HexBlocks.blockCrystalSeparator ||
                 blockSurr == HexBlocks.blockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeSourceDrain(world, x, y, z + 1, world.getBlockMetadata(x, y, z + 1));
+            analyzer.analyzeMachines(world, x, y, z + 1, world.getBlockMetadata(x, y, z + 1));
         }
         else if (blockSurr == HexBlocks.blockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();

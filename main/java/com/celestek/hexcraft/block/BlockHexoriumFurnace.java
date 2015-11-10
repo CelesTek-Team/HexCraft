@@ -33,7 +33,7 @@ import java.util.Random;
 public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumFurnace";
+    public static final String ID = "blockHexoriumFurnace";
 
     private final Random random = new Random();
 
@@ -59,9 +59,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
      * Returns a new instance of a block's TIle Entity class. Called on placing the block.
      */
     @Override
-    public TileEntity createNewTileEntity(World world, int par2)
-    {
-        // Create the new TIle Entity.
+    public TileEntity createNewTileEntity(World world, int par2) {
         return new TileHexoriumFurnace();
     }
 
@@ -70,12 +68,12 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        // Get the direction of the block.
+        // Get the direction of the block and set the meta.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction + 8, 2);
+        int meta = HexUtils.setBitInt(0, direction, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+        meta = HexUtils.setBitInt(meta, HexBlocks.MACHINE_STATE_DEAD, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
-        // Check if the code is executed on the server.
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
@@ -85,7 +83,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, direction);
+            analyzer.analyzeMachines(world, x, y, z, direction);
         }
     }
 
@@ -98,11 +96,9 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
         ItemStack itemStack = player.getCurrentEquippedItem();
         if (itemStack != null) {
             if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
-                // Open the GUI.
                 player.openGui(HexCraft.instance, 1, world, x, y, z);
         }
         else
-            // Open the GUI.
             player.openGui(HexCraft.instance, 1, world, x, y, z);
         return true;
     }
@@ -116,9 +112,6 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
 
-            // Prepare the block meta.
-            int meta = world.getBlockMetadata(x, y, z);
-
             if (HexConfig.cfgGeneralNetworkDebug)
                 System.out.println("Neighbour cable destroyed, analyzing!");
 
@@ -126,7 +119,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeSourceDrain(world, x, y, z, meta);
+            analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
         }
     }
 
@@ -135,18 +128,16 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        // Get the Tile Entity.
-        TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
+        TileHexoriumFurnace tileHexoriumFurnace = (TileHexoriumFurnace) world.getTileEntity(x, y, z);
 
-        // Check if it is not null.
-        if (tileEntity != null) {
+        if (tileHexoriumFurnace != null) {
 
             // Stop the machine processing.
-            tileEntity.stopProcessing();
+            tileHexoriumFurnace.stopProcessing();
 
             // Drop items.
-            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                ItemStack itemstack = tileEntity.getStackInSlot(i);
+            for (int i = 0; i < tileHexoriumFurnace.getSizeInventory(); ++i) {
+                ItemStack itemstack = tileHexoriumFurnace.getStackInSlot(i);
 
                 if (itemstack != null) {
                     float f = random.nextFloat() * 0.6F + 0.1F;
@@ -210,9 +201,9 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineBack");
         for (int i = 1; i < 13; i++)
             if (i < 10)
-                icon[i + 1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + i);
+                icon[i + 1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + i);
             else
-                icon[i + 1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + i);
+                icon[i + 1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + i);
         // Load the inner texture
         icon[14] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }

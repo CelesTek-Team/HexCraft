@@ -62,6 +62,29 @@ public class HexUtils {
     }
 
     /**
+     * Returns n-th bit from an integer
+     * @param num The integer in question
+     * @param n which bit
+     * @return Returns the bit
+     */
+    public static boolean getBit(int num, int n) {
+        return ((num >> n) & 1) == 1;
+    }
+
+    /**
+     * Returns n-th bit from block meta.
+     * @param n Which bit of meta.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @return Returns the bool of bit.
+     */
+    public static boolean getMetaBit(int n, World world, int x, int y, int z) {
+        return getBit(world.getBlockMetadata(x, y, z), n);
+    }
+
+    /**
      * Returns the int extracted from bits.
      * @param num Number to process.
      * @param n1 First bit.
@@ -101,60 +124,6 @@ public class HexUtils {
     }
 
     /**
-     * Sets the int into meta.
-     * @param num 0-3 int.
-     * @param n1 First bit.
-     * @param n2 Second bit.
-     * @param world World of the block.
-     * @param x X coordinate of block.
-     * @param y Y coordinate of block.
-     * @param z Z coordinate of block.
-     * @param notify Notify parameter to use.
-     */
-    public static void setMetaBitInt(int num, int n1, int n2, World world, int x, int y, int z, int notify) {
-        int meta = world.getBlockMetadata(x, y, z);
-        meta = setBit(meta, n1, getBit(num, 0));
-        meta = setBit(meta, n2, getBit(num, 1));
-        world.setBlockMetadataWithNotify(x, y, z, meta, notify);
-    }
-
-    /**
-     * Spilts an int into 4 bytes
-     * @param i Integer to split
-     * @return 4-byte array, 0th byte being the first byte in an integer
-     */
-    private static byte[] intToBytes(int i) {
-        return new byte[] {
-            (byte) (i >> 24),
-            (byte) (i >> 16),
-            (byte) (i >> 8),
-            (byte) i};
-    }
-
-    /**
-     * Returns n-th bit from an integer
-     * @param num The integer in question
-     * @param n which bit
-     * @return Returns the bit
-     */
-    public static boolean getBit(int num, int n) {
-        return ((num >> n) & 1) == 1;
-    }
-
-    /**
-     * Returns n-th bit from block meta.
-     * @param n Which bit of meta.
-     * @param world World of the block.
-     * @param x X coordinate of block.
-     * @param y Y coordinate of block.
-     * @param z Z coordinate of block.
-     * @return Returns the bool of bit.
-     */
-    public static boolean getMetaBit(int n, World world, int x, int y, int z) {
-        return getBit(world.getBlockMetadata(x, y, z), n);
-    }
-
-    /**
      * Sets n-th bit for the given integer
      * @param num The integer to set the bit for
      * @param n Which bit, LSB is 0
@@ -184,6 +153,35 @@ public class HexUtils {
     }
 
     /**
+     * Sets an int into another int.
+     * @param orig Original int to modify.
+     * @param num 0-3 int.
+     * @param n1 First bit.
+     * @param n2 Second bit.
+     * @return Modified int.
+     */
+    public static int setBitInt(int orig, int num, int n1, int n2) {
+        orig = setBit(orig, n1, getBit(num, 0));
+        orig = setBit(orig, n2, getBit(num, 1));
+        return orig;
+    }
+
+    /**
+     * Sets the int into meta.
+     * @param num 0-3 int.
+     * @param n1 First bit.
+     * @param n2 Second bit.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @param notify Notify parameter to use.
+     */
+    public static void setMetaBitInt(int num, int n1, int n2, World world, int x, int y, int z, int notify) {
+        world.setBlockMetadataWithNotify(x, y, z, setBitInt(world.getBlockMetadata(x, y, z), num, n1, n2), notify);
+    }
+
+    /**
      * Flips n-th bit for meta of a block.
      * @param n Which bit of meta.
      * @param world World of the block.
@@ -194,6 +192,19 @@ public class HexUtils {
      */
     public static void flipMetaBit(int n, World world, int x, int y, int z, int notify) {
         world.setBlockMetadataWithNotify(x, y, z, setBit(world.getBlockMetadata(x, y, z), n, !getMetaBit(n, world, x, y, z)), notify);
+    }
+
+    /**
+     * Spilts an int into 4 bytes
+     * @param i Integer to split
+     * @return 4-byte array, 0th byte being the first byte in an integer
+     */
+    private static byte[] intToBytes(int i) {
+        return new byte[] {
+            (byte) (i >> 24),
+            (byte) (i >> 16),
+            (byte) (i >> 8),
+            (byte) i};
     }
 
     /**
