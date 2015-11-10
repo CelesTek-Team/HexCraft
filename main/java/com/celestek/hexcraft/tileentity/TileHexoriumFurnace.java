@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -182,7 +183,8 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
      */
     public void setSources(ArrayList<HexDevice> energySources) {
         this.energySources = energySources;
-        System.out.println("[Hexorium Furnace] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Sources received.");
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Hexorium Furnace] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Sources received.");
         recheckSources();
     }
 
@@ -191,7 +193,8 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
      */
     public void recheckSources() {
         scanSources();
-        System.out.println("[Hexorium Furnace] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Recheck requested. s: " + usableSources);
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Hexorium Furnace] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Recheck requested. s: " + usableSources);
     }
 
     private void scanSources() {

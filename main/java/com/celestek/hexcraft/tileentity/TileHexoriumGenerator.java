@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -188,7 +189,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     @Override
     public void setDrains(ArrayList<HexDevice> energyDrains) {
         this.energyDrains = energyDrains;
-        System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received.");
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received.");
     }
 
     /**
@@ -212,7 +214,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
             if (energyDrained + amount < energyPerTick - epsilon) {
                 energyTotalLeft = energyTotalLeft - amount;
                 energyDrained = energyDrained + amount;
-                System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(f): " + amount + " t: " + energyDrained);
+                if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+                    System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(f): " + amount + " t: " + energyDrained);
                 return amount;
             }
             // Otherwise, return only the remaining energy.
@@ -220,13 +223,15 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
                 float partial = energyPerTick - energyDrained;
                 energyTotalLeft = energyTotalLeft - partial;
                 energyDrained = energyPerTick;
-                System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(p): " + partial + " t: " + energyDrained);
+                if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+                    System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(p): " + partial + " t: " + energyDrained);
                 return partial;
             }
         }
         // If the source cannot provide energy, return 0.
         else {
-            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(n): " + 0 + " t: " + energyDrained);
+            if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(n): " + 0 + " t: " + energyDrained);
             return 0;
         }
     }
@@ -246,7 +251,8 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      * Sends a recheck request to all drains.
      */
     private void sendRecheck() {
-        System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Requesting recheck.");
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Requesting recheck.");
         if (energyDrains != null)
             // Parse the whole energyDrains ArrayList and call recheckSources() on each of them.
             for (HexDevice entry : energyDrains)
