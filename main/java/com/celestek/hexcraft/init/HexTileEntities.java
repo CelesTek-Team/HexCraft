@@ -14,8 +14,8 @@ public class HexTileEntities {
      */
     public static void initializeTileEntities()
     {
-        GameRegistry.registerTileEntity(TileHexoriumGenerator.class, "tileHexoriumGenerator");
-        GameRegistry.registerTileEntity(TileHexoriumFurnace.class, "tileHexoriumFurnace");
+        GameRegistry.registerTileEntity(TileHexoriumGenerator.class, TileHexoriumGenerator.ID);
+        GameRegistry.registerTileEntity(TileHexoriumFurnace.class, TileHexoriumFurnace.ID);
         GameRegistry.registerTileEntity(TileCrystalSeparator.class, "tileCrystalSeparator");
         GameRegistry.registerTileEntity(TileMatrixReconstructor.class, "tileMatrixReconstructor");
 

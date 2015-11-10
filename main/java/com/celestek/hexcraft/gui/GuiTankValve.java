@@ -18,6 +18,11 @@ import net.minecraftforge.fluids.FluidRegistry;
  */
 
 public class GuiTankValve extends GuiContainer {
+
+    // GUI Sizes
+    private static final int GUI_SIZE_X = 176;
+    private static final int GUI_SIZE_Y = 90;
+
     private TileTankValve tileTankValve;
 
     public GuiTankValve(TileTankValve tileTankValve) {
@@ -32,7 +37,7 @@ public class GuiTankValve extends GuiContainer {
         String name = TileTankValve.MACHINE_NAME;
 
         // Draw the name
-        fontRendererObj.drawString(name, 176 / 2 - fontRendererObj.getStringWidth(name) / 2, 44, 0x404040);
+        fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 44, 0x404040);
 
         if (tileTankValve.getGuiFluidIns() == 1) {
             fontRendererObj.drawString("F: Empty", 61, 93, 0x404040);
@@ -56,12 +61,12 @@ public class GuiTankValve extends GuiContainer {
         int p_146976_3_) {
         // Bind the texture of the GUI.
         // Prepare x and y values (top left corner).
-        int x = (width - 176) / 2;
-        int y = (height - 90) / 2;
+        int x = (width - GUI_SIZE_X) / 2;
+        int y = (height - GUI_SIZE_Y) / 2;
 
         // Draw the background of GUI.
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiTankValve.png"));
-        drawTexturedModalRect(x, y, 0, 0, 176, 90);
+        drawTexturedModalRect(x, y, 0, 0, GUI_SIZE_X, GUI_SIZE_Y);
 
         if (tileTankValve.getGuiFluidIns() == 1 || tileTankValve.getGuiFluidIns() == 2) {
             Fluid fluid = FluidRegistry.getFluid(tileTankValve.getGuiFluidID());

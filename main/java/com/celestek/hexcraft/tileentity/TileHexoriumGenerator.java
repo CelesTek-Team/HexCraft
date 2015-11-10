@@ -2,6 +2,7 @@ package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexDevice;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,7 +14,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
@@ -23,40 +23,311 @@ import java.util.ArrayList;
  * @version 0.7.0
  */
 
-public class TileHexoriumGenerator extends TileEntity implements ISidedInventory {
+public class TileHexoriumGenerator extends TileEntity implements ISidedInventory, ITileHexEnergySource {
 
-    // Set machine name.
-    private static String machineName = "Hexorium Generator";
+    /**** Static Values ****/
 
-    // Prepare machine lists.
-    private ArrayList<HexDevice> machinesHexoriumFurnace;
-    private ArrayList<HexDevice> machinesCrystalSeparator;
-    private ArrayList<HexDevice> machinesMatrixReconstructor;
-    private ArrayList<HexDevice> machinesPersonalTeleportationPad;
+    public static final String ID = "tileHexoriumGenerator";
+
+    private static final String INVENTORY_NAME = "container.hexoriumGenerator";
+
+    // NBT Names
+    private static final String NBT_ENERGY_DRAINS = "energy_drains";
+
+    private static final String NBT_ENERGY_TOTAL = "energy_total";
+    private static final String NBT_ENERGY_TOTAL_LEFT = "energy_total_left";
+    private static final String NBT_ENERGY_DRAINED = "energy_drained";
+
+    private static final String NBT_GUI_ENERGY_TOTAL = "gui_energy_total";
+    private static final String NBT_GUI_ENERGY_TOTAL_LEFT = "gui_energy_total_left";
+    private static final String NBT_GUI_ENERGY_DRAINED = "gui_energy_drained";
+
+    /**** Variables ****/
+
+    // Float rounding epsilon.
+    private static final float epsilon = 0.0001F;
+
+    // Prepare sources list.
+    private ArrayList<HexDevice> energyDrains;
+
+    // Prepare energy variables.
+    private int energyPerTick;
+    private float energyTotal;
+    private float energyTotalLeft;
+    private float energyDrained;
+
+    // Prepare GUI energy variables.
+    private int guiEnergyTotal;
+    private int guiEnergyTotalLeft;
+    private int guiEnergyDrained;
 
     // Define sides and slots.
     private static final int[] slotsSide = new int[] { 0 };
     private static final int[] slotsBlank = new int[] { 1 };
-    private ItemStack[] machineItemStacks = new ItemStack[2];
+    private ItemStack[] inventory;
 
-    // Prepare energy variables.
-    public static int energyPerTick = 32;
-    private float energyTotal;
-    private float energy;
-    private float energyOut = 0;
+    /**** Common TileEntity Methods ****/
 
-    // Prepare GUI variables.
-    public int energyTotalGui;
-    public int energyGui;
-    public int energyOutGui;
+    public TileHexoriumGenerator() {
+        inventory = new ItemStack[2];
+        this.energyPerTick = 32;
+    }
 
-    // Prepare state variables.
-    private boolean firstTick = false;
-    public boolean canProvideEnergy = false;
-    private float pulledThisTick = 0;
+    /**
+     * Writes the tags to NBT.
+     */
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
 
-    // Float rounding epsilon.
-    private float epsilon = 0.0001F;
+        // Write the drains.
+        HexUtils.writeHexDevicesToNBT(tagCompound, NBT_ENERGY_DRAINS, energyDrains);
+
+        // Write the energy variables.
+        tagCompound.setFloat(NBT_ENERGY_TOTAL, energyTotal);
+        tagCompound.setFloat(NBT_ENERGY_TOTAL_LEFT, energyTotalLeft);
+        tagCompound.setFloat(NBT_ENERGY_DRAINED, energyDrained);
+
+        // Write the GUI energy variables.
+        tagCompound.setInteger(NBT_GUI_ENERGY_TOTAL, guiEnergyTotal);
+        tagCompound.setInteger(NBT_GUI_ENERGY_TOTAL_LEFT, guiEnergyTotalLeft);
+        tagCompound.setInteger(NBT_GUI_ENERGY_DRAINED, guiEnergyDrained);
+
+        // Write the inventory.
+        HexUtils.writeInventoryToNBT(tagCompound, inventory);
+    }
+
+    /**
+     * Reads the tags from NBT.
+     */
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+
+        // Read the drains.
+        energyDrains = HexUtils.readHexDevicesFromNBT(tagCompound, NBT_ENERGY_DRAINS);
+
+        // Read the energy variables.
+        energyTotal = tagCompound.getFloat(NBT_ENERGY_TOTAL);
+        energyTotalLeft = tagCompound.getFloat(NBT_ENERGY_TOTAL_LEFT);
+        energyDrained = tagCompound.getFloat(NBT_ENERGY_DRAINED);
+
+        // Read the GUI energy variables.
+        guiEnergyTotal = tagCompound.getInteger(NBT_GUI_ENERGY_TOTAL);
+        guiEnergyTotalLeft = tagCompound.getInteger(NBT_GUI_ENERGY_TOTAL_LEFT);
+        guiEnergyDrained = tagCompound.getInteger(NBT_GUI_ENERGY_DRAINED);
+
+        // Read the inventory.
+        inventory = HexUtils.readInventoryFromNBT(tagCompound, getSizeInventory());
+    }
+
+    /**
+     * Fired on every tick. Main processing is done here.
+     */
+    @Override
+    public void updateEntity() {
+        if (!worldObj.isRemote) {
+            // Will be set to true if there was no energy available on previous tick. This is used to call a source rescan.
+            boolean recheck = energyTotal == 0;
+
+            // Change the state to ACTIVE if energy started to be drained the previous tick.
+            if (energyDrained > 0 && canDrainEnergy()
+                    && HexBlocks.getMachineState(worldObj, xCoord, yCoord, zCoord) == HexBlocks.MACHINE_STATE_READY)
+                HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_ACTIVE, worldObj, xCoord, yCoord, zCoord);
+
+            // Change the state to READY if energy was no longer being drained the previous tick, but still can be drained.
+            else if (energyDrained == 0 && canDrainEnergy()
+                    && HexBlocks.getMachineState(worldObj, xCoord, yCoord, zCoord) == HexBlocks.MACHINE_STATE_ACTIVE)
+                HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_READY, worldObj, xCoord, yCoord, zCoord);
+
+            // Check if the energy is empty and if energy can be drained from the item.
+            // This is fired either if there is a new item present or current one has burned out.
+            if (energyTotalLeft <= 0 && canBurn(inventory[0])) {
+
+                // Get the item burn time and multiply it with the energy. Save the results. The generator now has energy.
+                energyTotal = energyTotalLeft = getItemBurnTime(inventory[0]) * energyPerTick;
+
+                // If there are still items present, decrement the stack.
+                consumeItem();
+
+                // Change the state to ACTIVE if there was any energy drained previous tick and change the states appropriately.
+                if (energyDrained > 0)
+                    HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_ACTIVE, worldObj, xCoord, yCoord, zCoord);
+                // Change the state to READY otherwise.
+                else
+                    HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_READY, worldObj, xCoord, yCoord, zCoord);
+
+                // Send a recheck to all drains to update their sources count.
+                if (recheck)
+                    sendRecheck();
+            }
+
+            // Otherwise, check if the energy is empty and item can't burn.
+            // This is fired when all items have burned out.
+            else if (energyTotalLeft <= 0 && energyTotal > 0 && !canBurn(inventory[0])) {
+                energyTotal = 0;
+                // Set the DEAD state and send a recheck.
+                HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
+                sendRecheck();
+            }
+
+            // Save the energy states to their GUI variables.
+            guiEnergyTotal = Math.round(energyTotal);
+            guiEnergyTotalLeft = Math.round(energyTotalLeft);
+            guiEnergyDrained = Math.round(energyDrained);
+            energyDrained = 0;
+        }
+    }
+
+    /**** ITileHexEnergySource Methods ****/
+
+    /**
+     * Saves the ArrayList of energy drains.
+     * @param energyDrains The ArrayList to save.
+     */
+    @Override
+    public void setDrains(ArrayList<HexDevice> energyDrains) {
+        this.energyDrains = energyDrains;
+        System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received.");
+    }
+
+    /**
+     * Called by drains to check if they can drain energy.
+     * @return Boolean if energy can be drained.
+     */
+    @Override
+    public boolean canDrainEnergy() {
+        return energyTotalLeft > 0;
+    }
+
+    /**
+     * Called by drains to drain energy.
+     * @param amount The amount of energy requested.
+     * @return The amount of energy actually drained.
+     */
+    @Override
+    public float drainEnergy(float amount) {
+        if (canDrainEnergy()) {
+            // If there is enough energy left this tick, return full requested energy to drain.
+            if (energyDrained + amount < energyPerTick - epsilon) {
+                energyTotalLeft = energyTotalLeft - amount;
+                energyDrained = energyDrained + amount;
+                System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(f): " + amount + " t: " + energyDrained);
+                return amount;
+            }
+            // Otherwise, return only the remaining energy.
+            else {
+                float partial = energyPerTick - energyDrained;
+                energyTotalLeft = energyTotalLeft - partial;
+                energyDrained = energyPerTick;
+                System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(p): " + partial + " t: " + energyDrained);
+                return partial;
+            }
+        }
+        // If the source cannot provide energy, return 0.
+        else {
+            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(n): " + 0 + " t: " + energyDrained);
+            return 0;
+        }
+    }
+
+    /**
+     * Called by drains to determine the amount of energy available per tick.
+     * @return The amount of energy available per tick.
+     */
+    @Override
+    public float getEnergyPerTick() {
+        return energyPerTick;
+    }
+
+    /**** Custom Methods ****/
+
+    /**
+     * Sends a recheck request to all drains.
+     */
+    private void sendRecheck() {
+        System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Requesting recheck.");
+        if (energyDrains != null)
+            // Parse the whole energyDrains ArrayList and call recheckSources() on each of them.
+            for (HexDevice entry : energyDrains)
+                if (HexUtils.checkChunk(worldObj, entry.x, entry.z)) {
+                    ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (energyDrain != null)
+                        energyDrain.recheckSources();
+                }
+    }
+
+    /**
+     * Decreases the stack in generator size by 1.
+     */
+    private void consumeItem() {
+        if (inventory[0] != null) {
+            inventory[0].stackSize--;
+
+            if (inventory[0].stackSize == 0)
+                inventory[0] = inventory[0].getItem().getContainerItem(inventory[0]);
+        }
+    }
+
+    /**
+     * Called to check if the item can be used as fuel.
+     * @return If the item can be used as fuel.
+     */
+    public static boolean canBurn(ItemStack itemStack) {
+        return getItemBurnTime(itemStack) > 0;
+    }
+
+    /**
+     * Returns the burn time for item.
+     * @return The item burn time.
+     */
+    private static int getItemBurnTime(ItemStack itemStack){
+        if (itemStack == null)
+            // Return a burn time of 0 if there is nothing inserted.
+            return 0;
+        else {
+            Item item = itemStack.getItem();
+
+            // Check if the item corresponds to different blocks and return burn time if so.
+            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
+            {
+                Block block = Block.getBlockFromItem(item);
+                if (block == Blocks.wooden_slab) return 150;
+                if (block.getMaterial() == Material.wood) return 300;
+                if (block == Blocks.coal_block) return 16000;
+            }
+
+            // Return different burn times if the item corresponds to any of these items.
+            if (item instanceof ItemTool && ((ItemTool)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemSword && ((ItemSword)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemHoe && ((ItemHoe)item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item == Items.stick) return 100;
+            if (item == Items.coal) return 1600;
+            if (item == Items.lava_bucket) return 20000;
+            if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
+            if (item == Items.blaze_rod) return 2400;
+
+            return GameRegistry.getFuelValue(itemStack);
+        }
+    }
+
+    /**
+     * Returns the scaled progress.
+     * @param length Corresponds with the length of the progress bar.
+     * @return Length of the progress bar.
+     */
+    @SideOnly(Side.CLIENT)
+    public int getEnergyScaled(int length) {
+        // Check if the GUI energy is lower or equal to zero.
+        if (guiEnergyTotalLeft <= 0)
+            // If it is, return -1. This way, bar will only be drawn while there is some energy.
+            return -1;
+        else
+            // Otherwise return normally.
+            return guiEnergyTotalLeft * length / guiEnergyTotal;
+    }
+
+    /**** ISidedInventory Methods ****/
 
     /**
      * Fired when opening the inventory.
@@ -79,27 +350,27 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      */
     @Override
     public int getSizeInventory() {
-        return machineItemStacks.length;
+        return inventory.length;
     }
 
     @Override
     public ItemStack getStackInSlot(int slot) {
-        return machineItemStacks[slot];
+        return inventory[slot];
     }
 
     @Override
     public ItemStack decrStackSize(int slot, int count) {
-        if (machineItemStacks[slot] != null) {
+        if (inventory[slot] != null) {
             ItemStack itemStack;
-            if (machineItemStacks[slot].stackSize <= count) {
-                itemStack = machineItemStacks[slot];
-                machineItemStacks[slot] = null;
+            if (inventory[slot].stackSize <= count) {
+                itemStack = inventory[slot];
+                inventory[slot] = null;
                 return itemStack;
             } else {
-                itemStack = machineItemStacks[slot].splitStack(count);
+                itemStack = inventory[slot].splitStack(count);
 
-                if (machineItemStacks[slot].stackSize == 0) {
-                    machineItemStacks[slot] = null;
+                if (inventory[slot].stackSize == 0) {
+                    inventory[slot] = null;
                 }
                 return itemStack;
             }
@@ -110,9 +381,9 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
     @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
-        if (machineItemStacks[slot] != null) {
-            ItemStack itemstack = machineItemStacks[slot];
-            machineItemStacks[slot] = null;
+        if (inventory[slot] != null) {
+            ItemStack itemstack = inventory[slot];
+            inventory[slot] = null;
             return itemstack;
         } else {
             return null;
@@ -121,7 +392,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack) {
-        machineItemStacks[slot] = itemStack;
+        inventory[slot] = itemStack;
 
         if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
             itemStack.stackSize = getInventoryStackLimit();
@@ -190,7 +461,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      */
     @Override
     public String getInventoryName() {
-        return machineName;
+        return INVENTORY_NAME;
     }
 
     /**
@@ -209,505 +480,29 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
     }
 
-    /**
-     * Reads the tags from NBT.
-     */
-    @Override
-    public void readFromNBT(NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
+    /**** Getters and Setters ****/
 
-        // Read the energy variables.
-        energyTotal = tagCompound.getFloat("EnergyTotal");
-        energy = tagCompound.getFloat("Energy");
-        energyOut = tagCompound.getFloat("EnergyOut");
-
-        // Read the GUI variables.
-        energyTotalGui = tagCompound.getInteger("EnergyTotalGui");
-        energyGui = tagCompound.getInteger("EnergyGui");
-        energyOutGui = tagCompound.getInteger("EnergyOutGui");
-
-        // Read the state variables.
-        canProvideEnergy = tagCompound.getBoolean("CanProvideEnergy");
-
-        // Prepare coordinate arrays.
-        int machinesX[];
-        int machinesY[];
-        int machinesZ[];
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("MachinesHexoriumFurnaceX");
-        machinesY = tagCompound.getIntArray("MachinesHexoriumFurnaceY");
-        machinesZ = tagCompound.getIntArray("MachinesHexoriumFurnaceZ");
-        // Prepare the ArrayList for machines.
-        machinesHexoriumFurnace = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            machinesHexoriumFurnace.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockHexoriumFurnace));
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("MachinesCrystalSeparatorX");
-        machinesY = tagCompound.getIntArray("MachinesCrystalSeparatorY");
-        machinesZ = tagCompound.getIntArray("MachinesCrystalSeparatorZ");
-        // Prepare the ArrayList for machines.
-        machinesCrystalSeparator = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            machinesCrystalSeparator.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockCrystalSeparator));
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("MachinesMatrixReconstructorX");
-        machinesY = tagCompound.getIntArray("MachinesMatrixReconstructorY");
-        machinesZ = tagCompound.getIntArray("MachinesMatrixReconstructorZ");
-        // Prepare the ArrayList for machines.
-        machinesMatrixReconstructor = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            machinesMatrixReconstructor.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockMatrixReconstructor));
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("MachinesPersonalTeleportationPadX");
-        machinesY = tagCompound.getIntArray("MachinesPersonalTeleportationPadY");
-        machinesZ = tagCompound.getIntArray("MachinesPersonalTeleportationPadZ");
-        // Prepare the ArrayList for machines.
-        machinesPersonalTeleportationPad = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            machinesPersonalTeleportationPad.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockPersonalTeleportationPad));
-
-        // Read the items.
-        machineItemStacks = new ItemStack[getSizeInventory()];
-        NBTTagList tagsItems = tagCompound.getTagList("Items", 10);
-        for (int i = 0; i < tagsItems.tagCount(); ++i) {
-            NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(i);
-            byte byte0 = tagCompound1.getByte("Slot");
-
-            if (byte0 >= 0 && byte0 < machineItemStacks.length) {
-                machineItemStacks[byte0] = ItemStack.loadItemStackFromNBT(tagCompound1);
-            }
-        }
+    public void setGuiEnergyTotal(int guiEnergyTotal) {
+        this.guiEnergyTotal = guiEnergyTotal;
     }
 
-    /**
-     * Writes the tags to NBT.
-     */
-    @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
-        super.writeToNBT(tagCompound);
-
-        // Read the energy variables.
-        tagCompound.setFloat("EnergyTotal", energyTotal);
-        tagCompound.setFloat("Energy", energy);
-        tagCompound.setFloat("EnergyOut", energyOut);
-
-        // Write the GUI variables.
-        tagCompound.setInteger("EnergyTotalGui", energyTotalGui);
-        tagCompound.setInteger("EnergyGui", energyGui);
-        tagCompound.setInteger("EnergyOutGui", energyOutGui);
-
-        // Write the state variables.
-        tagCompound.setBoolean("CanProvideEnergy", canProvideEnergy);
-
-        // Prepare coordinate arrays.
-        int machinesX[];
-        int machinesY[];
-        int machinesZ[];
-
-        // Check if machine list is not null.
-        if (machinesHexoriumFurnace != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[machinesHexoriumFurnace.size()];
-            machinesY = new int[machinesHexoriumFurnace.size()];
-            machinesZ = new int[machinesHexoriumFurnace.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (HexDevice entry : machinesHexoriumFurnace) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesX);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesY);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("MachinesHexoriumFurnaceX", machinesX);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceY", machinesY);
-            tagCompound.setIntArray("MachinesHexoriumFurnaceZ", machinesZ);
-        }
-
-        // Check if machine list is not null.
-        if (machinesCrystalSeparator != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[machinesCrystalSeparator.size()];
-            machinesY = new int[machinesCrystalSeparator.size()];
-            machinesZ = new int[machinesCrystalSeparator.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (HexDevice entry : machinesCrystalSeparator) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesX);
-            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesY);
-            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("MachinesCrystalSeparatorX", machinesX);
-            tagCompound.setIntArray("MachinesCrystalSeparatorY", machinesY);
-            tagCompound.setIntArray("MachinesCrystalSeparatorZ", machinesZ);
-        }
-
-        // Check if machine list is not null.
-        if (machinesMatrixReconstructor != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[machinesMatrixReconstructor.size()];
-            machinesY = new int[machinesMatrixReconstructor.size()];
-            machinesZ = new int[machinesMatrixReconstructor.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (HexDevice entry : machinesMatrixReconstructor) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("MachinesMatrixReconstructorX", machinesX);
-            tagCompound.setIntArray("MachinesMatrixReconstructorY", machinesY);
-            tagCompound.setIntArray("MachinesMatrixReconstructorZ", machinesZ);
-        }
-
-        // Check if machine list is not null.
-        if (machinesPersonalTeleportationPad != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[machinesPersonalTeleportationPad.size()];
-            machinesY = new int[machinesPersonalTeleportationPad.size()];
-            machinesZ = new int[machinesPersonalTeleportationPad.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (HexDevice entry : machinesPersonalTeleportationPad) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesX);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesY);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadX", machinesX);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadY", machinesY);
-            tagCompound.setIntArray("MachinesPersonalTeleportationPadZ", machinesZ);
-        }
-
-        // Write the items.
-        NBTTagList tagsItems = new NBTTagList();
-        for (int i = 0; i < machineItemStacks.length; ++i) {
-            if (machineItemStacks[i] != null) {
-                NBTTagCompound tagCompound1 = new NBTTagCompound();
-                tagCompound1.setByte("Slot", (byte) i);
-                machineItemStacks[i].writeToNBT(tagCompound1);
-                tagsItems.appendTag(tagCompound1);
-            }
-        }
-        tagCompound.setTag("Items", tagsItems);
+    public int getGuiEnergyTotal() {
+        return this.guiEnergyTotal;
     }
 
-    /**
-     * Fired on every tick. Main processing is done here.
-     */
-    @Override
-    public void updateEntity() {
-        // Confirm that this is server side.
-        if (!worldObj.isRemote) {
-            
-            // Change the texture if energy started to be pulled or stopped to.
-            if (pulledThisTick > 0 && canProvideEnergy &&
-                    getBlockMetadata() < 4)
-                HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
-            else if (pulledThisTick == 0 && canProvideEnergy &&
-                    (getBlockMetadata() >= 4 && getBlockMetadata() < 8))
-                HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-            // Save the total energy out from previous tick.
-            energyOut = pulledThisTick;
-            // Reset the pulling per tick variable.
-            pulledThisTick = 0;
-
-            // Check if the energy is empty and if the item can burn. This is fired either if there is a new item present or current one has burned out.
-            if (energy <= 0 && canBurn(machineItemStacks[0])) {
-
-                // Get the item burn time and multiply it with the energy. Save the results. The generator now has energy.
-                energyTotal = energy = getItemBurnTime(machineItemStacks[0]) * energyPerTick;
-
-                // If there are still items present, decrement the stack.
-                if (machineItemStacks[0] != null) {
-                    machineItemStacks[0].stackSize--;
-
-                    if (machineItemStacks[0].stackSize == 0)
-                        machineItemStacks[0] = machineItemStacks[0].getItem().getContainerItem(machineItemStacks[0]);
-                }
-
-                // Check if there is any energy being pulled by machines.
-                if (energyOut > 0)
-                    // If there is, set the ACTIVE texture.
-                    HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
-                else
-                    // Otherwise, set the READY texture.
-                    HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-
-                // Check if the generator can provide energy. If not, set it to true.
-                if (!canProvideEnergy) {
-                    // Make the generator available after stopping.
-                    canProvideEnergy = true;
-                    // Restart-start them again. This will update their generator list and add this generator.
-                    restartMachinesStart();
-                }
-            }
-            // Otherwise, check if the energy is empty and item can't burn. This is fired when all items have burned out.
-            else if (energy <= 0 && !canBurn(machineItemStacks[0])) {
-                // Set total energy to 0.
-                energyTotal = 0;
-
-                // Check if the generator can provide energy. If yes, set it to false.
-                if(canProvideEnergy) {
-                    // Make the generator unavailable after stopping.
-                    canProvideEnergy = false;
-                    // Restart-start them again. This will update their generator list and remove this generator.
-                    restartMachinesStart();
-                }
-
-                // Set the DEAD texture.
-                HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
-            }
-
-            // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) (energy / energyPerTick);
-            energyTotalGui = (int) (energyTotal / energyPerTick);
-            energyOutGui = (Math.round(energyOut));
-        }
+    public void setGuiEnergyTotalLeft(int guiEnergyTotalLeft) {
+        this.guiEnergyTotalLeft = guiEnergyTotalLeft;
     }
 
-    /**
-     * Called by machines to pull energy from the generator.
-     * @param requestedEnergy The amount of energy that the machine wants to pull.
-     * @return The amount of energy successfully pulled.
-     */
-    public float pullEnergy(float requestedEnergy) {
-        // Check if the generator is able to provide energy.
-        if (canProvideEnergy) {
-            // Check if there is still full requested energy available this tick. The epsilon is deducted to mitigate possible float rounding errors.
-            if (pulledThisTick + requestedEnergy < energyPerTick - epsilon) {
-                // Decrease the amount of energy left in the generator by the amount of requested energy.
-                energy = energy - requestedEnergy;
-                // Increase the amount of energy pulled this tick.
-                pulledThisTick = pulledThisTick + requestedEnergy;
-                // Return the energy to the machine.
-                return requestedEnergy;
-            }
-            else {
-                // Otherwise, save the energy pulled to a variable as remaining energy.
-                float pull = energyPerTick - pulledThisTick;
-                // Decrease the amount of energy left in the generator.
-                energy = energy - pull;
-                // Increase the amount of energy pulled this tick.
-                pulledThisTick = energyPerTick;
-                // Return the energy to the machine.
-                return pull;
-            }
-        } else
-            // If the generator cannot provide energy, return ' energy to the machine.
-            return  0;
+    public int getGuiEnergyTotalLeft() {
+        return this.guiEnergyTotalLeft;
     }
 
-    /**
-     * Sends a recount signal to all machines.
-     */
-    private void restartMachinesStart() {
-        // Make sure that the machine list is not null.
-        if (machinesHexoriumFurnace != null)
-            // Send a restart-start signal to all machines in the list.
-            for (HexDevice entry : machinesHexoriumFurnace) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumFurnace tileEntity = (TileHexoriumFurnace) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.countGenerators();
-                }
-            }
-
-        // Make sure that the machine list is not null.
-        if (machinesCrystalSeparator != null)
-            // Send a restart-start signal to all machines in the list.
-            for (HexDevice entry : machinesCrystalSeparator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileCrystalSeparator tileEntity = (TileCrystalSeparator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.countGenerators();
-                }
-            }
-
-        // Make sure that the machine list is not null.
-        if (machinesMatrixReconstructor != null)
-            // Send a restart-start signal to all machines in the list.
-            for (HexDevice entry : machinesMatrixReconstructor) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.countGenerators();
-                }
-            }
-
-        // Make sure that the machine list is not null.
-        if (machinesPersonalTeleportationPad != null)
-            // Send a restart-start signal to all machines in the list.
-            for (HexDevice entry : machinesPersonalTeleportationPad) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (tileEntity != null)
-                        tileEntity.countGenerators();
-                }
-            }
+    public void setGuiEnergyDrained(int guiEnergyDrained) {
+        this.guiEnergyDrained = guiEnergyDrained;
     }
 
-    /**
-     * Called by the NetworkAnalyzer class when exchanging data between machines.
-     * @param incomingHexoriumFurnace The ArrayList of machines received.
-     * @param incomingCrystalSeparator The ArrayList of machines received.
-     * @param incomingMatrixReconstructor The ArrayList of machines received.
-     * @param incomingPersonalTeleportationPad The ArrayList of machines received.
-     */
-    public void injectMachines(ArrayList<HexDevice> incomingHexoriumFurnace,
-                               ArrayList<HexDevice> incomingCrystalSeparator,
-                               ArrayList<HexDevice> incomingMatrixReconstructor,
-                               ArrayList<HexDevice> incomingPersonalTeleportationPad) {
-
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingHexoriumFurnace.size() != 0)
-            // If it is, save it to local list.
-            machinesHexoriumFurnace = incomingHexoriumFurnace;
-        else
-            // Otherwise, set the local list to null.
-            machinesHexoriumFurnace = null;
-        
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingCrystalSeparator.size() != 0)
-            // If it is, save it to local list.
-            machinesCrystalSeparator = incomingCrystalSeparator;
-        else
-            // Otherwise, set the local list to null.
-            machinesCrystalSeparator = null;
-        
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingMatrixReconstructor.size() != 0)
-            // If it is, save it to local list.
-            machinesMatrixReconstructor = incomingMatrixReconstructor;
-        else
-            // Otherwise, set the local list to null.
-            machinesMatrixReconstructor = null;
-
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingPersonalTeleportationPad.size() != 0)
-            // If it is, save it to local list.
-            machinesPersonalTeleportationPad = incomingPersonalTeleportationPad;
-        else
-            // Otherwise, set the local list to null.
-            machinesPersonalTeleportationPad = null;
-    }
-
-    /**
-     * Called to check if the item can be used as fuel.
-     * @param itemStack ItemStack to analyze.
-     * @return If the item can be used as fuel.
-     */
-    public static boolean canBurn(ItemStack itemStack) {
-        // Check if the passed ItemStack is null. If it isn't, get the burn time and return true if it is bigger than 0.
-        return itemStack != null && getItemBurnTime(itemStack) > 0;
-    }
-
-    /**
-     * Returns the burn time for item.
-     * @param itemStack ItemStack to analyze.
-     * @return The item burn time.
-     */
-    public static int getItemBurnTime(ItemStack itemStack){
-        // If the ItemStack is null, return 0 burn time.
-        if (itemStack == null) {
-            return 0;
-        }
-        else {
-            // Otherwise, prepare a new item made out of ItemStack.
-            Item item = itemStack.getItem();
-
-            // Check if the item corresponds to different blocks.
-            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
-            {
-                // Convert the item to block.
-                Block block = Block.getBlockFromItem(item);
-
-                // Return different burn times if it corresponds to any of these blocks.
-                if (block == Blocks.wooden_slab)
-                    return 150;
-
-                if (block.getMaterial() == Material.wood)
-                    return 300;
-
-                if (block == Blocks.coal_block)
-                    return 16000;
-            }
-
-            // Return different burn times if the item corresponds to any of these items.
-            if (item instanceof ItemTool && ((ItemTool)item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword)item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe)item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item == Items.stick) return 100;
-            if (item == Items.coal) return 1600;
-            if (item == Items.lava_bucket) return 20000;
-            if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
-            if (item == Items.blaze_rod) return 2400;
-            return GameRegistry.getFuelValue(itemStack);
-        }
-    }
-
-    /**
-     * Returns the scaled progress.
-     * @param length Corresponds with the length of the progress bar.
-     * @return Length of the progress bar.
-     */
-    @SideOnly(Side.CLIENT)
-    public int getEnergyScaled(int length) {
-        // Check if the GUI energy is lower or equal to zero.
-        if (energyTotalGui <= 0)
-            // If it is, return -1. This way, bar will only be drawn while there is some energy.
-            return -1;
-        else
-            // Otherwise return normally.
-            return energyGui * length / energyTotalGui;
+    public int getGuiEnergyDrained() {
+        return this.guiEnergyDrained;
     }
 }

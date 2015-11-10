@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,35 +18,40 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerHexoriumGenerator extends Container {
 
-    // Prepare the Tile Entity.
-    private TileHexoriumGenerator tileEntity;
+    // Crafter IDs
+    private static final int GUI_ID_ENERGY_TOTAL_0 = 0;
+    private static final int GUI_ID_ENERGY_TOTAL_1 = 1;
+    private static final int GUI_ID_ENERGY_TOTAL_LEFT_0 = 2;
+    private static final int GUI_ID_ENERGY_TOTAL_LEFT_1 = 3;
+    private static final int GUI_ID_ENERGY_DRAINED = 4;
 
-    // Prepare the variables to store GUI data.
-    private int lastEnergy;
+    private TileHexoriumGenerator tileHexoriumGenerator;
+
     private int lastEnergyTotal;
-    private int lastEnergyOut;
+    private int lastEnergyTotalLeft;
+    private int lastEnergyDrained;
 
     /**
      * Constructor
      */
-    public ContainerHexoriumGenerator(InventoryPlayer player, TileHexoriumGenerator tileEntity){
+    public ContainerHexoriumGenerator(InventoryPlayer player, TileHexoriumGenerator tileHexoriumGenerator){
         // Save the Tile Entity.
-        this.tileEntity = tileEntity;
+        this.tileHexoriumGenerator = tileHexoriumGenerator;
 
         // Add the container slots.
-        addSlotToContainer(new Slot(tileEntity, 0, 80, 42));
+        this.addSlotToContainer(new Slot(tileHexoriumGenerator, 0, 80, 42));
 
         // Add inventory slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){
-                addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Add action bar slots.
         for(i = 0; i < 9; ++i){
-            addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
         }
     }
 
@@ -55,9 +61,18 @@ public class ContainerHexoriumGenerator extends Container {
     @Override
     public void addCraftingToCrafters(ICrafting craft) {
         super.addCraftingToCrafters(craft);
-        craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
-        craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
-        craft.sendProgressBarUpdate(this, 2, tileEntity.energyOutGui);
+
+        int energyTotal = tileHexoriumGenerator.getGuiEnergyTotal();
+        int energyTotalLeft = tileHexoriumGenerator.getGuiEnergyTotalLeft();
+
+        int[] mcEnergyTotal = HexUtils.intToMCInts(energyTotal);
+        int[] mcEnergyTotalLeft = HexUtils.intToMCInts(energyTotalLeft);
+
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_0, mcEnergyTotal[0]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_1, mcEnergyTotal[1]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_LEFT_0, mcEnergyTotalLeft[0]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_LEFT_1, mcEnergyTotalLeft[1]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileHexoriumGenerator.getGuiEnergyDrained());
     }
 
     /**
@@ -67,23 +82,36 @@ public class ContainerHexoriumGenerator extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        // Loop through all crafters.
-        for (int i = 0; i < crafters.size(); ++i) {
+        for (int i = 0; i < crafters.size(); i++) {
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            // Compare if the value has changed, if it has, send the change.
-            if( lastEnergy != tileEntity.energyGui)
-                craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
-            if (lastEnergyTotal != tileEntity.energyTotalGui)
-                craft.sendProgressBarUpdate(this, 1, tileEntity.energyTotalGui);
-            if (lastEnergyOut != tileEntity.energyOutGui)
-                craft.sendProgressBarUpdate(this, 2, tileEntity.energyOutGui);
+            if (lastEnergyTotal != tileHexoriumGenerator.getGuiEnergyTotal()) {
+                int energyTotal = tileHexoriumGenerator.getGuiEnergyTotal();
+
+                int[] mcEnergyTotal = HexUtils.intToMCInts(energyTotal);
+
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_0, mcEnergyTotal[0]);
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_1, mcEnergyTotal[1]);
+            }
+
+            if (lastEnergyTotalLeft != tileHexoriumGenerator.getGuiEnergyTotalLeft()) {
+                int energyTotalLeft = tileHexoriumGenerator.getGuiEnergyTotalLeft();
+
+                int[] mcEnergyTotalLeft = HexUtils.intToMCInts(energyTotalLeft);
+
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_LEFT_0, mcEnergyTotalLeft[0]);
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_LEFT_1, mcEnergyTotalLeft[1]);
+            }
+
+            if (lastEnergyDrained != tileHexoriumGenerator.getGuiEnergyDrained()) {
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileHexoriumGenerator.getGuiEnergyDrained());
+            }
         }
 
         // Save the new values as last value.
-        lastEnergy = tileEntity.energyGui;
-        lastEnergyTotal = tileEntity.energyTotalGui;
-        lastEnergyOut = tileEntity.energyOutGui;
+        lastEnergyTotal = tileHexoriumGenerator.getGuiEnergyTotal();
+        lastEnergyTotalLeft = tileHexoriumGenerator.getGuiEnergyTotalLeft();
+        lastEnergyDrained = tileHexoriumGenerator.getGuiEnergyDrained();
     }
 
     /**
@@ -92,13 +120,32 @@ public class ContainerHexoriumGenerator extends Container {
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int value) {
-        // Save the client-side value depending on ID.
-        if (id == 0)
-            tileEntity.energyGui = value;
-        if (id == 1)
-            tileEntity.energyTotalGui = value;
-        if (id == 2)
-            tileEntity.energyOutGui = value;
+        int[] mcEnergyTotal = HexUtils.intToMCInts(tileHexoriumGenerator.getGuiEnergyTotal());
+        int[] mcEnergyTotalLeft = HexUtils.intToMCInts(tileHexoriumGenerator.getGuiEnergyTotalLeft());
+
+        switch (id) {
+            case GUI_ID_ENERGY_TOTAL_0:
+                mcEnergyTotal[0] = value;
+                break;
+            case GUI_ID_ENERGY_TOTAL_1:
+                mcEnergyTotal[1] = value;
+                break;
+            case GUI_ID_ENERGY_TOTAL_LEFT_0:
+                mcEnergyTotalLeft[0] = value;
+                break;
+            case GUI_ID_ENERGY_TOTAL_LEFT_1:
+                mcEnergyTotalLeft[1] = value;
+                break;
+            case GUI_ID_ENERGY_DRAINED:
+                tileHexoriumGenerator.setGuiEnergyDrained(value);
+                break;
+        }
+
+        int energyTotal = HexUtils.joinMCIntsToInt(mcEnergyTotal);
+        int energyTotalLeft = HexUtils.joinMCIntsToInt(mcEnergyTotalLeft);
+
+        tileHexoriumGenerator.setGuiEnergyTotal(energyTotal);
+        tileHexoriumGenerator.setGuiEnergyTotalLeft(energyTotalLeft);
     }
 
     /**
@@ -106,7 +153,7 @@ public class ContainerHexoriumGenerator extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tileEntity.isUseableByPlayer(player);
+        return tileHexoriumGenerator.isUseableByPlayer(player);
     }
 
     /**

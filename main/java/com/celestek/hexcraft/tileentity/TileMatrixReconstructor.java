@@ -349,9 +349,9 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
                                     // Pull the according energy.
                                     if (energy + energyIn < energyTotal) {
                                         if (energyTotal - energy - energyIn < energyPerTick / usableGenerators)
-                                            energyIn = energyIn + generator.pullEnergy(energyTotal - energy - energyIn);
+                                            energyIn = energyIn + generator.drainEnergy(energyTotal - energy - energyIn);
                                         else
-                                            energyIn = energyIn + generator.pullEnergy((float) energyPerTick / usableGenerators);
+                                            energyIn = energyIn + generator.drainEnergy((float) energyPerTick / usableGenerators);
                                     }
                             }
                         }
@@ -396,7 +396,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (generator != null)
-                        if (generator.canProvideEnergy)
+                        if (generator.canDrainEnergy())
                             usableGenerators1++;
                 }
             }
@@ -421,7 +421,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (generator != null)
-                        if (generator.canProvideEnergy)
+                        if (generator.canDrainEnergy())
                             checkEnergy = true;
                 }
             }

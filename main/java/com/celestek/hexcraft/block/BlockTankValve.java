@@ -28,7 +28,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 public class BlockTankValve extends HexBlockContainer {
 
     // Block ID
-    public static String ID = "blockTankValve";
+    public static final String ID = "blockTankValve";
 
     // Meta Bits
     public static final int META_IS_PART = 1;

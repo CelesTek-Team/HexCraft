@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -17,7 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class HexBlock extends Block {
 
-    // HexCraft's ID for the block.
+    // HEXCraft's ID for the block.
     public int idBlock;
 
     /**

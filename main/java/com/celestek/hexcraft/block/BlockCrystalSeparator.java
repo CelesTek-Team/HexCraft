@@ -28,7 +28,7 @@ import java.util.Random;
  * @version 0.7.0
  */
 
-public class BlockCrystalSeparator extends HexBlockContainer {
+public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockCrystalSeparator";
@@ -83,7 +83,7 @@ public class BlockCrystalSeparator extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated. Also make sure it is a cable.
-            analyzer.analyzeMachine(world, x, y, z, direction);
+            analyzer.analyzeSourceDrain(world, x, y, z, direction);
         }
     }
 
@@ -127,7 +127,7 @@ public class BlockCrystalSeparator extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, meta);
+            analyzer.analyzeSourceDrain(world, x, y, z, meta);
         }
     }
 

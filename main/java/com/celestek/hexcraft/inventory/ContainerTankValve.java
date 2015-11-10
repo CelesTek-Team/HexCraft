@@ -15,12 +15,15 @@ import net.minecraft.inventory.ICrafting;
 
 public class ContainerTankValve extends Container {
 
-    private TileTankValve tileTankValve;
+    // Crafter IDs
+    private static final int GUI_ID_CAPACITY_0 = 0;
+    private static final int GUI_ID_CAPACITY_1 = 1;
+    private static final int GUI_ID_LEVEL_0 = 2;
+    private static final int GUI_ID_LEVEL_1 = 3;
+    private static final int GUI_ID_FLUID_ID = 4;
+    private static final int GUI_ID_FLUID_INS = 5;
 
-    private static final int TANK_CAP_MC_INT_0 = 0;
-    private static final int TANK_CAP_MC_INT_1 = 1;
-    private static final int TANK_LVL_MC_INT_0 = 2;
-    private static final int TANK_LVL_MC_INT_1 = 3;
+    private TileTankValve tileTankValve;
 
     private int lastTankCap;
     private int lastTankLevel;
@@ -31,8 +34,8 @@ public class ContainerTankValve extends Container {
         this.tileTankValve = tileHexoriumValve;
     }
 
-    @Override public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    @Override public void addCraftingToCrafters(ICrafting craft) {
+        super.addCraftingToCrafters(craft);
 
         int tankCap = tileTankValve.getTankCapacity();
         int tankLevel = tileTankValve.getFluidLevel();
@@ -40,14 +43,12 @@ public class ContainerTankValve extends Container {
         int[] mcTankCap = HexUtils.intToMCInts(tankCap);
         int[] mcTankLevel = HexUtils.intToMCInts(tankLevel);
 
-        crafting.sendProgressBarUpdate(this, TANK_CAP_MC_INT_0, mcTankCap[0]);
-        crafting.sendProgressBarUpdate(this, TANK_CAP_MC_INT_1, mcTankCap[1]);
-
-        crafting.sendProgressBarUpdate(this, TANK_LVL_MC_INT_0, mcTankLevel[0]);
-        crafting.sendProgressBarUpdate(this, TANK_LVL_MC_INT_1, mcTankLevel[1]);
-
-        crafting.sendProgressBarUpdate(this, 4, tileTankValve.getFluidID());
-        crafting.sendProgressBarUpdate(this, 5, tileTankValve.getFluidIns());
+        craft.sendProgressBarUpdate(this, GUI_ID_CAPACITY_0, mcTankCap[0]);
+        craft.sendProgressBarUpdate(this, GUI_ID_CAPACITY_1, mcTankCap[1]);
+        craft.sendProgressBarUpdate(this, GUI_ID_LEVEL_0, mcTankLevel[0]);
+        craft.sendProgressBarUpdate(this, GUI_ID_LEVEL_1, mcTankLevel[1]);
+        craft.sendProgressBarUpdate(this, GUI_ID_FLUID_ID, tileTankValve.getFluidID());
+        craft.sendProgressBarUpdate(this, GUI_ID_FLUID_INS, tileTankValve.getFluidIns());
     }
 
 
@@ -62,8 +63,8 @@ public class ContainerTankValve extends Container {
 
                 int[] mcTankCap = HexUtils.intToMCInts(tankCap);
 
-                craft.sendProgressBarUpdate(this, TANK_CAP_MC_INT_0, mcTankCap[0]);
-                craft.sendProgressBarUpdate(this, TANK_CAP_MC_INT_1, mcTankCap[1]);
+                craft.sendProgressBarUpdate(this, GUI_ID_CAPACITY_0, mcTankCap[0]);
+                craft.sendProgressBarUpdate(this, GUI_ID_CAPACITY_1, mcTankCap[1]);
             }
 
             if (lastTankLevel != tileTankValve.getFluidLevel()) {
@@ -71,16 +72,16 @@ public class ContainerTankValve extends Container {
 
                 int[] mcTankLevel = HexUtils.intToMCInts(tankLevel);
 
-                craft.sendProgressBarUpdate(this, TANK_LVL_MC_INT_0, mcTankLevel[0]);
-                craft.sendProgressBarUpdate(this, TANK_LVL_MC_INT_1, mcTankLevel[1]);
+                craft.sendProgressBarUpdate(this, GUI_ID_LEVEL_0, mcTankLevel[0]);
+                craft.sendProgressBarUpdate(this, GUI_ID_LEVEL_1, mcTankLevel[1]);
             }
 
             if (lastFluidID != tileTankValve.getFluidID()) {
-                craft.sendProgressBarUpdate(this, 4, tileTankValve.getFluidID());
+                craft.sendProgressBarUpdate(this, GUI_ID_FLUID_ID, tileTankValve.getFluidID());
             }
 
             if (lastFluidInserted != tileTankValve.getFluidIns()) {
-                craft.sendProgressBarUpdate(this, 5, tileTankValve.getFluidIns());
+                craft.sendProgressBarUpdate(this, GUI_ID_FLUID_INS, tileTankValve.getFluidIns());
             }
         }
 
@@ -91,28 +92,28 @@ public class ContainerTankValve extends Container {
         lastFluidInserted = tileTankValve.getFluidIns();
     }
 
-    @SideOnly(Side.CLIENT) @Override public void updateProgressBar(int varID, int value) {
-        super.updateProgressBar(varID, value);
+    @SideOnly(Side.CLIENT) @Override public void updateProgressBar(int id, int value) {
+        super.updateProgressBar(id, value);
         int[] mcTankCap = HexUtils.intToMCInts(tileTankValve.getGuiTankCapacity());
         int[] mcTankLevel = HexUtils.intToMCInts(tileTankValve.getGuiFluidLevel());
 
-        switch (varID) {
-            case TANK_CAP_MC_INT_0:
+        switch (id) {
+            case GUI_ID_CAPACITY_0:
                 mcTankCap[0] = value;
                 break;
-            case TANK_CAP_MC_INT_1:
+            case GUI_ID_CAPACITY_1:
                 mcTankCap[1] = value;
                 break;
-            case TANK_LVL_MC_INT_0:
+            case GUI_ID_LEVEL_0:
                 mcTankLevel[0] = value;
                 break;
-            case TANK_LVL_MC_INT_1:
+            case GUI_ID_LEVEL_1:
                 mcTankLevel[1] = value;
                 break;
-            case 4:
+            case GUI_ID_FLUID_ID:
                 tileTankValve.setGuiFluidID(value);
                 break;
-            case 5:
+            case GUI_ID_FLUID_INS:
                 tileTankValve.setGuiFluidIns(value);
                 break;
         }

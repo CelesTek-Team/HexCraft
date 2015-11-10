@@ -18,8 +18,11 @@ public class NetworkAnalyzer {
 
     // Prepare ArrayLists for machines and cables.
     private ArrayList<HexDevice> cables;
-    private ArrayList<HexDevice> machines;
     private ArrayList<HexDevice> pylons;
+
+    private ArrayList<HexDevice> energySources;
+    private ArrayList<HexDevice> energyDrains;
+
     private ArrayList<HexDevice> teleports;
 
     /**
@@ -39,12 +42,12 @@ public class NetworkAnalyzer {
             }
         };
 
-        machines = new ArrayList<HexDevice>() {
+        pylons = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
-                HexDevice machine = (HexDevice) o;
+                HexDevice pylon = (HexDevice) o;
                 for (HexDevice entry : this) {
-                    if ((entry.x == machine.x) && (entry.y == machine.y) && (entry.z == machine.z) && (entry.block == machine.block)) {
+                    if ((entry.x == pylon.x) && (entry.y == pylon.y) && (entry.z == pylon.z) && (entry.block == pylon.block)) {
                         return true;
                     }
                 }
@@ -52,12 +55,25 @@ public class NetworkAnalyzer {
             }
         };
 
-        pylons = new ArrayList<HexDevice>() {
+        energySources = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
-                HexDevice pylon = (HexDevice) o;
+                HexDevice energySource = (HexDevice) o;
                 for (HexDevice entry : this) {
-                    if ((entry.x == pylon.x) && (entry.y == pylon.y) && (entry.z == pylon.z) && (entry.block == pylon.block)) {
+                    if ((entry.x == energySource.x) && (entry.y == energySource.y) && (entry.z == energySource.z) && (entry.block == energySource.block)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+
+        energyDrains = new ArrayList<HexDevice>() {
+            @Override
+            public boolean contains(Object o) {
+                HexDevice energyDrain = (HexDevice) o;
+                for (HexDevice entry : this) {
+                    if ((entry.x == energyDrain.x) && (entry.y == energyDrain.y) && (entry.z == energyDrain.z) && (entry.block == energyDrain.block)) {
                         return true;
                     }
                 }
@@ -117,40 +133,46 @@ public class NetworkAnalyzer {
                     // If the cable is already in the cables ArrayList, exit recursion.
                     return;
             }
-            // Check if the current block is a machine.
-            else if (block == HexBlocks.blockHexoriumGenerator ||
-                    block == HexBlocks.blockHexoriumFurnace ||
-                    block == HexBlocks.blockCrystalSeparator ||
-                    block == HexBlocks.blockMatrixReconstructor ||
-                    block == HexBlocks.blockPersonalTeleportationPad) {
+            // Check if the current block is an energy source.
+            else if (block instanceof IBlockHexEnergySource) {
+                {
+                    // Check if this energy source has already been added to the energySources ArrayList.
+                    if (!energySources.contains(new HexDevice(x, y, z, block))) {
+                        // If it hasn't, get the block's rotation.
+                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_1, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
+                        // Add the energy source to the ArrayList if the previous direction responds with the rotation of the energy source.
+                        if ((rotation == 0 && direction == 2) || (rotation == 1 && direction == 5) || (rotation == 2 && direction == 3) || (rotation == 3 && direction == 4))
+                            energySources.add(new HexDevice(x, y, z, block));
+                        // Exit recursion.
+                        return;
+                    } else
+                        // If the energy source is already in the energySources ArrayList, exit recursion.
+                        return;
+                }
+            }
+            // Check if the current block is an energy drain.
+            else if (block instanceof IBlockHexEnergyDrain) {
                 if (block == HexBlocks.blockPersonalTeleportationPad && direction == 1) {
                     if (!teleports.contains(new HexDevice(x, y, z, block)))
                         teleports.add(new HexDevice(x, y, z, block));
                     return;
                 }
                 else {
-                    // Check if this machine has already been added to the machines ArrayList.
-                    if (!machines.contains(new HexDevice(x, y, z, block))) {
-                        // If it hasn't, prepare the block's meta.
-                        int meta = world.getBlockMetadata(x, y, z);
-
-                        // Strip away the texture states from meta.
-                        if (meta >= 4 && meta < 8)
-                            meta = meta - 4;
-                        else if (meta >= 8)
-                            meta = meta - 8;
-
-                        // Add the machine to the ArrayList if the previous direction responds with the orientation of the machine.
-                        if ((meta == 0 && direction == 2) || (meta == 1 && direction == 5) || (meta == 2 && direction == 3) || (meta == 3 && direction == 4))
-                            machines.add(new HexDevice(x, y, z, block));
-
+                    // Check if this energy drain has already been added to the energyDrains ArrayList.
+                    if (!energyDrains.contains(new HexDevice(x, y, z, block))) {
+                        // If it hasn't, get the block's rotation.
+                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_1, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
+                        // Add the energy drain to the ArrayList if the previous direction responds with the rotation of the energy drain.
+                        if ((rotation == 0 && direction == 2) || (rotation == 1 && direction == 5) || (rotation == 2 && direction == 3) || (rotation == 3 && direction == 4))
+                            energyDrains.add(new HexDevice(x, y, z, block));
                         // Exit recursion.
                         return;
                     } else
-                        // If the machine is already in the machines ArrayList, exit recursion.
+                        // If the energy drain is already in the energyDrains ArrayList, exit recursion.
                         return;
                 }
-            } else
+            }
+            else
                 // Exit recursion if the block is not a cable or a machine.
                 return;
 
@@ -437,13 +459,10 @@ public class NetworkAnalyzer {
      * @param z Z coordinate of the machine.
      * @param orientation The orientation of the machine.
      */
-    public void analyzeMachine(World world, int x, int y, int z, int orientation)
+    public void analyzeSourceDrain(World world, int x, int y, int z, int orientation)
     {
         // Strip away the texture states from meta.
-        if (orientation >= 4 && orientation < 8)
-            orientation -= 4;
-        else if (orientation >= 8)
-            orientation -= 8;
+        orientation = HexUtils.getBitInt(orientation, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
 
         // Proceed to side depending on orientation.
         if (orientation == 0 &&
@@ -467,12 +486,8 @@ public class NetworkAnalyzer {
                         (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x + 1, y, z) == 4)))
             analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
 
-        // If the created list has no entries, add self in.
-        if(!size())
-            add(world, x, y, z);
-
         // Push the results to all found machines.
-        pushMachines(world);
+        pushSourceDrains(world);
         pushTeleports(world);
     }
 
@@ -492,7 +507,7 @@ public class NetworkAnalyzer {
             analyze(world, x, y - 1, z, world.getBlock(x, y - 1, z), -1);
 
         // Push the results to all found machines.
-        pushMachines(world);
+        pushSourceDrains(world);
         pushTeleports(world);
     }
 
@@ -508,7 +523,7 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushMachines(world);
+        pushSourceDrains(world);
         pushTeleports(world);
     }
 
@@ -524,103 +539,42 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         pylonize(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushMachines(world);
+        pushSourceDrains(world);
         pushTeleports(world);
     }
 
     /**
-     * Called by machine blocks to check if the scan resulted in any machines.
-     * @return  If the machines list contains machines.
-     */
-    private boolean size() {
-        return machines.size() > 0;
-    }
-
-    /**
-     * Called by machine blocks to add themselves if the analyzing result contained no machines.
-     * @param world The world that the machine is in.
-     * @param x X coordinate of the machine.
-     * @param y Y coordinate of the machine.
-     * @param z Z coordinate of the machine.
-     */
-    private void add(World world, int x, int y, int z) {
-        // Add the machine to machines ArrayList.
-        machines.add(new HexDevice(x, y, z, world.getBlock(x, y, z)));
-    }
-
-    /**
-     * Called by teleports to add themselves if the analyzing result contained no teleports.
-     * @param world The world that the machine is in.
-     * @param x X coordinate of the machine.
-     * @param y Y coordinate of the machine.
-     * @param z Z coordinate of the machine.
-     */
-    private void addTeleport(World world, int x, int y, int z) {
-        // Add the machine to machines ArrayList.
-        teleports.add(new HexDevice(x, y, z, world.getBlock(x, y, z)));
-    }
-
-    /**
-     * Pushes the results of scanning to machines.
+     * Pushes the results of scanning to sources and drains.
      * @param world The world that the network is in.
      */
-    private void pushMachines(World world) {
+    private void pushSourceDrains(World world) {
 
-        // Notify about pushing machines.
+        // Notify about pushing to sources.
         if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Done! Pushing data to machines:");
+            System.out.println("Done! Pushing data to sources:");
 
-        // Prepare ArrayLists for different machine types.
-        ArrayList<HexDevice> machinesHexoriumGenerator = new ArrayList<HexDevice>();
-        ArrayList<HexDevice> machinesHexoriumFurnace = new ArrayList<HexDevice>();
-        ArrayList<HexDevice> machinesCrystalSeparator = new ArrayList<HexDevice>();
-        ArrayList<HexDevice> machinesMatrixReconstructor = new ArrayList<HexDevice>();
-        ArrayList<HexDevice> machinesPersonalTeleportationPad = new ArrayList<HexDevice>();
-
-        // Go through all machines ArrayList entries.
-        for (HexDevice entry : machines) {
-            // Notify about every machine.
+        // Go through all energySources ArrayList entries.
+        for (HexDevice entry : energySources) {
+            // Notify about every source.
             if (HexConfig.cfgGeneralNetworkDebug)
                 System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
-            // Add machines to their respective ArrayLists.
-            if (entry.block == HexBlocks.blockHexoriumGenerator) {
-                machinesHexoriumGenerator.add(entry);
-            }
-            if (entry.block == HexBlocks.blockHexoriumFurnace) {
-                machinesHexoriumFurnace.add(entry);
-            }
-            if (entry.block == HexBlocks.blockCrystalSeparator) {
-                machinesCrystalSeparator.add(entry);
-            }
-            if (entry.block == HexBlocks.blockMatrixReconstructor) {
-                machinesMatrixReconstructor.add(entry);
-            }
-            if (entry.block == HexBlocks.blockPersonalTeleportationPad) {
-                machinesPersonalTeleportationPad.add(entry);
-            }
+            ITileHexEnergySource energySource = (ITileHexEnergySource) world.getTileEntity(entry.x, entry.y, entry.z);
+            energySource.setDrains(energyDrains);
         }
 
-        // Push data to all machines. Consumers to generators, generators to consumers.
-        for (HexDevice entry : machinesHexoriumGenerator) {
-            TileHexoriumGenerator machine = (TileHexoriumGenerator) world.getTileEntity(entry.x, entry.y, entry.z);
-            machine.injectMachines(machinesHexoriumFurnace, machinesCrystalSeparator, machinesMatrixReconstructor, machinesPersonalTeleportationPad);
-        }
-        for (HexDevice entry : machinesHexoriumFurnace) {
-            TileHexoriumFurnace machine = (TileHexoriumFurnace) world.getTileEntity(entry.x, entry.y, entry.z);
-            machine.injectMachines(machinesHexoriumGenerator);
-        }
-        for (HexDevice entry : machinesCrystalSeparator) {
-            TileCrystalSeparator machine = (TileCrystalSeparator) world.getTileEntity(entry.x, entry.y, entry.z);
-            machine.injectMachines(machinesHexoriumGenerator);
-        }
-        for (HexDevice entry : machinesMatrixReconstructor) {
-            TileMatrixReconstructor machine = (TileMatrixReconstructor) world.getTileEntity(entry.x, entry.y, entry.z);
-            machine.injectMachines(machinesHexoriumGenerator);
-        }
-        for (HexDevice entry : machinesPersonalTeleportationPad) {
-            TilePersonalTeleportationPad machine = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
-            machine.injectMachines(machinesHexoriumGenerator);
+        // Notify about pushing to drains.
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("Pushing data to drains:");
+
+        // Go through all energyDrains ArrayList entries.
+        for (HexDevice entry : energyDrains) {
+            // Notify about every drain.
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+
+            ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) world.getTileEntity(entry.x, entry.y, entry.z);
+            energyDrain.setSources(energySources);
         }
     }
 
@@ -630,29 +584,19 @@ public class NetworkAnalyzer {
      */
     private void pushTeleports(World world) {
 
-        // Notify about pushing machines.
+        // Notify about pushing teleports.
         if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Done! Pushing data to teleports:");
+            System.out.println("Pushing data to teleports:");
 
-        // Prepare ArrayLists for different machine types.
-        ArrayList<HexDevice> teleportsPersonalTeleportationPad = new ArrayList<HexDevice>();
-
-        // Go through all machines ArrayList entries.
+        // Go through all teleports ArrayList entries.
         for (HexDevice entry : teleports) {
-            // Notify about every machine.
+            // Notify about every teleport.
             if (HexConfig.cfgGeneralNetworkDebug)
                 System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
-            // Add teleports to their ArrayList.
-            if (entry.block == HexBlocks.blockPersonalTeleportationPad) {
-                teleportsPersonalTeleportationPad.add(entry);
-            }
-        }
-
-        // Push data to all teleports.
-        for (HexDevice entry : teleportsPersonalTeleportationPad) {
             TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
-            teleport.injectTeleports(teleportsPersonalTeleportationPad);
+            if (teleport != null)
+                teleport.injectTeleports(teleports);
         }
     }
 }

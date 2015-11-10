@@ -28,7 +28,7 @@ import java.util.Random;
  * @version 0.7.0
  */
 
-public class BlockMatrixReconstructor extends HexBlockContainer {
+public class BlockMatrixReconstructor extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockMatrixReconstructor";
@@ -83,7 +83,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, direction);
+            analyzer.analyzeSourceDrain(world, x, y, z, direction);
         }
     }
 
@@ -124,7 +124,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, meta);
+            analyzer.analyzeSourceDrain(world, x, y, z, meta);
         }
     }
 

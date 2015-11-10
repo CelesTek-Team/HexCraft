@@ -2,6 +2,7 @@ package com.celestek.hexcraft.inventory;
 
 import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,35 +21,38 @@ import net.minecraft.item.crafting.FurnaceRecipes;
  */
 public class ContainerHexoriumFurnace extends Container {
 
-    // Prepare the Tile Entity.
-    private TileHexoriumFurnace tileEntity;
+    // Crafter IDs
+    private static final int GUI_ID_ENERGY_TOTAL_DONE_0 = 0;
+    private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
+    private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    // Prepare the variables to store GUI data.
-    private int lastEnergy;
-    private int lastEnergyIn;
+    private TileHexoriumFurnace tileHexoriumFurnace;
+
+    private int lastEnergyTotalDone;
+    private int lastEnergyDrained;
 
     /**
      * Constructor
      */
-    public ContainerHexoriumFurnace(InventoryPlayer player, TileHexoriumFurnace tileEntity){
+    public ContainerHexoriumFurnace(InventoryPlayer player, TileHexoriumFurnace tileHexoriumFurnace){
         // Save the Tile Entity.
-        this.tileEntity = tileEntity;
+        this.tileHexoriumFurnace = tileHexoriumFurnace;
 
         // Add the container slots.
-        addSlotToContainer(new Slot(tileEntity, 0, 48, 35));
-        addSlotToContainer(new SlotFurnace(player.player, tileEntity, 1, 116, 35));
+        this.addSlotToContainer(new Slot(tileHexoriumFurnace, 0, 48, 35));
+        addSlotToContainer(new SlotFurnace(player.player, tileHexoriumFurnace, 1, 116, 35));
 
         // Add inventory slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){
-                addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Add action bar slots.
         for(i = 0; i < 9; ++i){
-            addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
         }
     }
 
@@ -58,8 +62,14 @@ public class ContainerHexoriumFurnace extends Container {
     @Override
     public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
-        craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
-        craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
+
+        int energyTotalDone = tileHexoriumFurnace.getGuiEnergyTotalDone();
+
+        int[] mcEnergyTotalDone = HexUtils.intToMCInts(energyTotalDone);
+
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_0, mcEnergyTotalDone[0]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_1, mcEnergyTotalDone[1]);
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileHexoriumFurnace.getGuiEnergyDrained());
     }
 
     /**
@@ -69,20 +79,26 @@ public class ContainerHexoriumFurnace extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        // Loop through all crafters.
-        for (int i = 0; i < crafters.size(); ++i) {
+        for (int i = 0; i < crafters.size(); i++) {
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            // Compare if the value has changed, if it has, send the change.
-            if (lastEnergy != tileEntity.energyGui)
-                craft.sendProgressBarUpdate(this, 0, tileEntity.energyGui);
-            if (lastEnergyIn != tileEntity.energyInGui)
-                craft.sendProgressBarUpdate(this, 1, tileEntity.energyInGui);
+            if (lastEnergyTotalDone != tileHexoriumFurnace.getGuiEnergyTotalDone()) {
+                int energyTotalDone = tileHexoriumFurnace.getGuiEnergyTotalDone();
+
+                int[] mcEnergyTotalDone = HexUtils.intToMCInts(energyTotalDone);
+
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_0, mcEnergyTotalDone[0]);
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_1, mcEnergyTotalDone[1]);
+            }
+
+            if (lastEnergyDrained != tileHexoriumFurnace.getGuiEnergyDrained()) {
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileHexoriumFurnace.getGuiEnergyDrained());
+            }
         }
 
         // Save the new values as last value.
-        lastEnergy = tileEntity.energyGui;
-        lastEnergyIn = tileEntity.energyInGui;
+        lastEnergyTotalDone = tileHexoriumFurnace.getGuiEnergyTotalDone();
+        lastEnergyDrained = tileHexoriumFurnace.getGuiEnergyDrained();
     }
 
     /**
@@ -90,12 +106,24 @@ public class ContainerHexoriumFurnace extends Container {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int par1, int par2) {
-        // Save the client-side value depending on ID.
-        if(par1 == 0)
-            tileEntity.energyGui = par2;
-        if(par1 == 1)
-            tileEntity.energyInGui = par2;
+    public void updateProgressBar(int id, int value) {
+        int[] mcEnergyTotalDone = HexUtils.intToMCInts(tileHexoriumFurnace.getGuiEnergyTotalDone());
+
+        switch (id) {
+            case GUI_ID_ENERGY_TOTAL_DONE_0:
+                mcEnergyTotalDone[0] = value;
+                break;
+            case GUI_ID_ENERGY_TOTAL_DONE_1:
+                mcEnergyTotalDone[1] = value;
+                break;
+            case GUI_ID_ENERGY_DRAINED:
+                tileHexoriumFurnace.setGuiEnergyDrained(value);
+                break;
+        }
+
+        int energyTotalDone = HexUtils.joinMCIntsToInt(mcEnergyTotalDone);
+
+        tileHexoriumFurnace.setGuiEnergyTotalDone(energyTotalDone);
     }
 
     /**
@@ -103,7 +131,7 @@ public class ContainerHexoriumFurnace extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tileEntity.isUseableByPlayer(player);
+        return tileHexoriumFurnace.isUseableByPlayer(player);
     }
 
     /**

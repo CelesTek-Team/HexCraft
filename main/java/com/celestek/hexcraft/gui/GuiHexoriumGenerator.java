@@ -18,44 +18,46 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GuiHexoriumGenerator extends GuiContainer {
 
-    // Prepare a TileHexoriumGenerator object.
-    private TileHexoriumGenerator tileEntity;
+    // GUI Sizes
+    private static final int GUI_SIZE_X = 176;
+    private static final int GUI_SIZE_Y = 166;
+
+    private TileHexoriumGenerator tileHexoriumGenerator;
 
     /**
      * Constructor for GuiMatrixReconstructor.
      */
-    public GuiHexoriumGenerator(InventoryPlayer invPlayer, TileHexoriumGenerator tileEntity) {
-        super(new ContainerHexoriumGenerator(invPlayer, tileEntity));
+    public GuiHexoriumGenerator(InventoryPlayer invPlayer, TileHexoriumGenerator tileHexoriumGenerator) {
+        super(new ContainerHexoriumGenerator(invPlayer, tileHexoriumGenerator));
 
         // Save the Tile Entity.
-        this.tileEntity = tileEntity;
+        this.tileHexoriumGenerator = tileHexoriumGenerator;
     }
 
     /**
      * Draws strings of the GUI.
      */
     protected void drawGuiContainerForegroundLayer(int par1, int par2){
-        // Get the name string.
-        String name = tileEntity.hasCustomInventoryName() ? tileEntity.getInventoryName() : I18n.format(tileEntity.getInventoryName());
 
         // Check if the output energy of generator is smaller or equal to energyPerTick.
-        if (tileEntity.energyOutGui <= TileHexoriumGenerator.energyPerTick) {
+        if (tileHexoriumGenerator.getGuiEnergyDrained() <= tileHexoriumGenerator.getEnergyPerTick()) {
             // If yes, draw the output string normally.
-            String out = tileEntity.energyOutGui + " HEX/t";
-            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0x404040);
+            String out = tileHexoriumGenerator.getGuiEnergyDrained() + " HEX/t";
+            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, GUI_SIZE_Y - 94, 0x404040);
         }
         else {
             // If it is higher, draw the output string in red and capped to energyPerTick.
-            String out = TileHexoriumGenerator.energyPerTick + " HEX/t";
-            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, ySize - 94, 0xFF0000);
+            String out = tileHexoriumGenerator.getEnergyPerTick() + " HEX/t";
+            fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, GUI_SIZE_Y - 94, 0xFF0000);
         }
 
         // Draw the name string.
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
+        String name = I18n.format(tileHexoriumGenerator.getInventoryName());
+        fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
         // Draw the player inventory string.
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 4210752);
+        fontRendererObj.drawString(I18n.format("container.inventory"), 8, GUI_SIZE_Y - 94, 4210752);
         // Draw the info box string.
-        fontRendererObj.drawString("Out:", 111 - fontRendererObj.getStringWidth("Out:"), ySize - 94, 0x404040);
+        fontRendererObj.drawString("Out:", 111 - fontRendererObj.getStringWidth("Out:"), GUI_SIZE_Y - 94, 0x404040);
     }
 
     /**
@@ -66,14 +68,14 @@ public class GuiHexoriumGenerator extends GuiContainer {
         // Bind the texture of the GUI.
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiHexoriumGenerator.png"));
         // Prepare x and y values (top left corner).
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
+        int x = (width - GUI_SIZE_X) / 2;
+        int y = (height - GUI_SIZE_Y) / 2;
 
         // Draw the background of GUI.
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        drawTexturedModalRect(x, y, 0, 0, GUI_SIZE_X, GUI_SIZE_Y);
 
         // Draw the progress bar.
-        int i = tileEntity.getEnergyScaled(13);
+        int i = tileHexoriumGenerator.getEnergyScaled(13);
         if (i > -1)
             drawTexturedModalRect(x + 80, y + 25 + 12 - i, 176, 12 - i, 14, i + 2);
     }

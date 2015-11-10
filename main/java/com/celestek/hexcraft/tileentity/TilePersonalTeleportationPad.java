@@ -274,10 +274,10 @@ public class TilePersonalTeleportationPad extends TileEntity {
                                 if (generator != null)
                                     // Pull the maximum energy.
                                     if (energy + energyIn < energyTotal * 2) {
-                                        if (energyTotal * 2 - energy - energyIn < TileHexoriumGenerator.energyPerTick)
-                                            energyIn = energyIn + generator.pullEnergy((float) energyTotal * 2 - energy - energyIn);
+                                        if (energyTotal * 2 - energy - energyIn < generator.getEnergyPerTick())
+                                            energyIn = energyIn + generator.drainEnergy((float) energyTotal * 2 - energy - energyIn);
                                         else
-                                            energyIn = energyIn + generator.pullEnergy((float) TileHexoriumGenerator.energyPerTick);
+                                            energyIn = energyIn + generator.drainEnergy((float) generator.getEnergyPerTick());
                                     }
                             }
                         }
@@ -332,7 +332,7 @@ public class TilePersonalTeleportationPad extends TileEntity {
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (generator != null)
-                        if (generator.canProvideEnergy)
+                        if (generator.canDrainEnergy())
                             usableGenerators1++;
                 }
             }
@@ -357,7 +357,7 @@ public class TilePersonalTeleportationPad extends TileEntity {
                 if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
                     TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                     if (generator != null)
-                        if (generator.canProvideEnergy)
+                        if (generator.canDrainEnergy())
                             checkEnergy = true;
                 }
             }

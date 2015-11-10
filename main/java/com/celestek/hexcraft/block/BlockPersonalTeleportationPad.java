@@ -24,7 +24,7 @@ import net.minecraft.world.World;
  * @version 0.7.0
  */
 
-public class BlockPersonalTeleportationPad extends HexBlockContainer {
+public class BlockPersonalTeleportationPad extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockPersonalTeleportationPad";
@@ -78,7 +78,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer1 = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer1.analyzeMachine(world, x, y, z, direction);
+            analyzer1.analyzeSourceDrain(world, x, y, z, direction);
 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
@@ -125,7 +125,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, meta);
+            analyzer.analyzeSourceDrain(world, x, y, z, meta);
 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();

@@ -1,9 +1,11 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
+import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,7 +30,7 @@ import java.util.Random;
  * @version 0.7.0
  */
 
-public class BlockHexoriumFurnace extends HexBlockContainer {
+public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
     public static String UNLOCALISEDNAME = "blockHexoriumFurnace";
@@ -83,7 +85,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, direction);
+            analyzer.analyzeSourceDrain(world, x, y, z, direction);
         }
     }
 
@@ -124,7 +126,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachine(world, x, y, z, meta);
+            analyzer.analyzeSourceDrain(world, x, y, z, meta);
         }
     }
 
@@ -183,12 +185,10 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
      */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        // Get the block meta.
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
         // If the machine is active, make it emit light.
-        if (block == this && meta >= 4 && meta < 8)
-            return 8;
+        if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0,
+                HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_ACTIVE)
+            return 12;
         else
             return 0;
     }
@@ -223,124 +223,52 @@ public class BlockHexoriumFurnace extends HexBlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        // System.out.println("Sides requested!");
-        if (meta == 0) {
+        int state1 = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        int state2 = 0;
+        if (state1 == HexBlocks.MACHINE_STATE_ACTIVE)
+            state2 = 4;
+        int rotation = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+
+        if (rotation == 0) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[4];
-                case 2: return icon[10];
+                case 1: return icon[4 + state2];
+                case 2: return icon[10 + state1];
                 case 3: return icon[1];
                 case 4: return icon[13];
                 case 5: return icon[13];
                 case 6: return icon[14];
             }
-        } else if (meta == 1) {
+        }
+        else if (rotation == 1) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[5];
+                case 1: return icon[5 + state2];
                 case 2: return icon[13];
                 case 3: return icon[13];
                 case 4: return icon[1];
-                case 5: return icon[10];
+                case 5: return icon[10 + state1];
                 case 6: return icon[14];
             }
-        } else if (meta == 2) {
+        }
+        else if (rotation == 2) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[2];
+                case 1: return icon[2 + state2];
                 case 2: return icon[1];
-                case 3: return icon[10];
+                case 3: return icon[10 + state1];
                 case 4: return icon[13];
                 case 5: return icon[13];
                 case 6: return icon[14];
             }
-        } else if (meta == 3) {
+        }
+        else if (rotation == 3) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[3];
+                case 1: return icon[3 + state2];
                 case 2: return icon[13];
                 case 3: return icon[13];
-                case 4: return icon[10];
-                case 5: return icon[1];
-                case 6: return icon[14];
-            }
-        } else if (meta == 4) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[8];
-                case 2: return icon[11];
-                case 3: return icon[1];
-                case 4: return icon[13];
-                case 5: return icon[13];
-                case 6: return icon[14];
-            }
-        } else if (meta == 5) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[9];
-                case 2: return icon[13];
-                case 3: return icon[13];
-                case 4: return icon[1];
-                case 5: return icon[11];
-                case 6: return icon[14];
-            }
-        } else if (meta == 6) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[6];
-                case 2: return icon[1];
-                case 3: return icon[11];
-                case 4: return icon[13];
-                case 5: return icon[13];
-                case 6: return icon[14];
-            }
-        } else if (meta == 7) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[7];
-                case 2: return icon[13];
-                case 3: return icon[13];
-                case 4: return icon[11];
-                case 5: return icon[1];
-                case 6: return icon[14];
-            }
-        } else if (meta == 8) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[4];
-                case 2: return icon[12];
-                case 3: return icon[1];
-                case 4: return icon[13];
-                case 5: return icon[13];
-                case 6: return icon[14];
-            }
-        } else if (meta == 9) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[5];
-                case 2: return icon[13];
-                case 3: return icon[13];
-                case 4: return icon[1];
-                case 5: return icon[12];
-                case 6: return icon[14];
-            }
-        } else if (meta == 10) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[1];
-                case 3: return icon[12];
-                case 4: return icon[13];
-                case 5: return icon[13];
-                case 6: return icon[14];
-            }
-        } else if (meta == 11) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[3];
-                case 2: return icon[13];
-                case 3: return icon[13];
-                case 4: return icon[12];
+                case 4: return icon[10 + state1];
                 case 5: return icon[1];
                 case 6: return icon[14];
             }

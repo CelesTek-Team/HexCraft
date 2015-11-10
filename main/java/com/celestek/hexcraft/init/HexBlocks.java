@@ -2,6 +2,7 @@ package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -12,6 +13,17 @@ import net.minecraft.world.World;
  */
 
 public class HexBlocks {
+
+    // Meta Bits
+    public static final int META_MACHINE_ROT_0 = 0;
+    public static final int META_MACHINE_ROT_1 = 1;
+    public static final int META_MACHINE_STATUS_0 = 2;
+    public static final int META_MACHINE_STATUS_1 = 3;
+
+    // Machine States
+    public static final int MACHINE_STATE_READY = 0;
+    public static final int MACHINE_STATE_ACTIVE = 1;
+    public static final int MACHINE_STATE_DEAD = 2;
 
     /**
      * ADDING NEW BLOCKS
@@ -984,6 +996,22 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.UNLOCALISEDNAME + "51");
         blockPylonBase15 = new BlockPylonBase(BlockPylonBase.UNLOCALISEDNAME + "15", true);
         GameRegistry.registerBlock(blockPylonBase15, BlockPylonBase.UNLOCALISEDNAME + "15");
+    }
+
+    public static int getMachineState(World world, int x, int y, int z) {
+        return HexUtils.getMetaBitInt(
+                META_MACHINE_STATUS_0,
+                META_MACHINE_STATUS_1,
+                world, x, y, z);
+    }
+
+    public static void setMachineState(int state, World world, int x, int y, int z) {
+        HexUtils.setMetaBitInt(
+                state,
+                META_MACHINE_STATUS_0,
+                META_MACHINE_STATUS_1,
+                world, x, y, z,
+                HexUtils.META_NOTIFY_UPDATE);
     }
 
     public static void updateMachineState(int status, World world, int x, int y, int z) {
