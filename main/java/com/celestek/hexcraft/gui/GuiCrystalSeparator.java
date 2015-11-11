@@ -22,6 +22,10 @@ public class GuiCrystalSeparator extends GuiContainer {
     private static final int GUI_SIZE_X = 176;
     private static final int GUI_SIZE_Y = 166;
 
+    // GUI Strings
+    private static final String GUI_STRING_INVENTORY = "container.inventory";
+    private static final String GUI_STRING_IN = "hexcraft.container.in";
+
     private TileCrystalSeparator tileCrystalSeparator;
 
     /**
@@ -64,9 +68,9 @@ public class GuiCrystalSeparator extends GuiContainer {
         String name = I18n.format(tileCrystalSeparator.getInventoryName());
         fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
         // Draw the player container string.
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, GUI_SIZE_Y - 94, 0x404040);
+        fontRendererObj.drawString(I18n.format(GUI_STRING_INVENTORY), 8, GUI_SIZE_Y - 94, 0x404040);
         // Draw the info box string.
-        fontRendererObj.drawString("In:", 111 - fontRendererObj.getStringWidth("In:"), GUI_SIZE_Y - 94, 0x404040);
+        fontRendererObj.drawString(I18n.format(GUI_STRING_IN) + ":", 111 - fontRendererObj.getStringWidth(I18n.format(GUI_STRING_IN) + ":"), GUI_SIZE_Y - 94, 0x404040);
     }
 
     /**

@@ -7,6 +7,7 @@ import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
@@ -23,6 +24,13 @@ public class GuiTankValve extends GuiContainer {
     private static final int GUI_SIZE_X = 176;
     private static final int GUI_SIZE_Y = 90;
 
+    // GUI Strings
+    private static final String GUI_STRING_F = "hexcraft.container.f";
+    private static final String GUI_STRING_L = "hexcraft.container.l";
+    private static final String GUI_STRING_M = "hexcraft.container.m";
+    private static final String GUI_STRING_EMPTY = "hexcraft.container.empty";
+    private static final String GUI_STRING_TANK_NOT_FORMED = "hexcraft.container.tankNotFormed";
+
     private TileTankValve tileTankValve;
 
     public GuiTankValve(TileTankValve tileTankValve) {
@@ -34,26 +42,25 @@ public class GuiTankValve extends GuiContainer {
     @Override protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
 
-        String name = TileTankValve.MACHINE_NAME;
-
         // Draw the name
+        String name = I18n.format(TileTankValve.MACHINE_NAME);
         fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 44, 0x404040);
 
         if (tileTankValve.getGuiFluidIns() == 1) {
-            fontRendererObj.drawString("F: Empty", 61, 93, 0x404040);
-            fontRendererObj.drawString("S: 0 mB", 61, 102, 0x404040);
-            fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 61, 111, 0x404040);
+            fontRendererObj.drawString(I18n.format(GUI_STRING_F) + ": " + I18n.format(GUI_STRING_EMPTY), 61, 93, 0x404040);
+            fontRendererObj.drawString(I18n.format(GUI_STRING_L) + ": 0 mB", 61, 102, 0x404040);
+            fontRendererObj.drawString(I18n.format(GUI_STRING_M) + ": " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 61, 111, 0x404040);
         }
         else if (tileTankValve.getGuiFluidIns() == 2) {
                 Fluid fluid = FluidRegistry.getFluid(tileTankValve.getGuiFluidID());
                 if (fluid != null) {
                     fontRendererObj.drawString("F: " + fluid.getLocalizedName(null), 61, 93, 0x404040);
-                    fontRendererObj.drawString("S: " + HexUtils.formatFluids(tileTankValve.getGuiFluidLevel()), 61, 102, 0x404040);
+                    fontRendererObj.drawString("L: " + HexUtils.formatFluids(tileTankValve.getGuiFluidLevel()), 61, 102, 0x404040);
                     fontRendererObj.drawString("M: " + HexUtils.formatFluids(tileTankValve.getGuiTankCapacity()), 61, 111, 0x404040);
                 }
             }
         else
-            fontRendererObj.drawString("hexcraft.container.tankNotSetUp", 61, 93, 0xFF0000);
+            fontRendererObj.drawString(I18n.format(GUI_STRING_TANK_NOT_FORMED), 61, 93, 0xFF0000);
 
     }
 

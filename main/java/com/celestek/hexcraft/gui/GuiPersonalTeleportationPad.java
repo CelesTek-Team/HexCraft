@@ -22,6 +22,10 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
     private static final int GUI_SIZE_X = 176;
     private static final int GUI_SIZE_Y = 88;
 
+    // GUI Strings
+    private static final String GUI_STRING_CHARGE = "hexcraft.container.charge";
+    private static final String GUI_STRING_IN = "hexcraft.container.in";
+
     private TilePersonalTeleportationPad tilePersonalTeleportationPad;
 
     /**
@@ -48,7 +52,7 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
         fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 45, 0x404040);
 
         // Draw the charge string.
-        String charge = I18n.format("hexcraft.container.charge") + ": " + tilePersonalTeleportationPad.getEnergyScaled(100) + "%";
+        String charge = I18n.format(GUI_STRING_CHARGE) + ": " + tilePersonalTeleportationPad.getEnergyScaled(100) + "%";
         fontRendererObj.drawString(charge, 24, 90, 0x404040);
 
         // Draw the number strings.
@@ -56,7 +60,7 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
         fontRendererObj.drawString("2", 155 - fontRendererObj.getStringWidth("2"), 68, 0x404040);
 
         // Draw the info box string.
-        fontRendererObj.drawString("In:", 111 - fontRendererObj.getStringWidth("In:"), 205 - 94, 0x404040);
+        fontRendererObj.drawString(I18n.format(GUI_STRING_IN) + ":", 111 - fontRendererObj.getStringWidth(I18n.format(GUI_STRING_IN) + ":"), 205 - 94, 0x404040);
     }
 
     /**

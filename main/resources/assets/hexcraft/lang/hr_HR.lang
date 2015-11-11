@@ -368,6 +368,23 @@ item.itemMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
 
 
+hexcraft.container.hexoriumGenerator=Heksorijski Generator
+hexcraft.container.hexoriumFurnace=Heksorijska Peć
+hexcraft.container.crystalSeparator=Kristalni Razdvajač
+hexcraft.container.matrixReconstructor=Matrični Rekonstruktor
+hexcraft.container.personalTeleportationPad=Osobna Teleportacijska Ploča
+hexcraft.container.hexoriumTank=Heksorijski Tank
+
+hexcraft.container.in=Ulaz
+hexcraft.container.out=Izlaz
+hexcraft.container.charge=Naboj
+hexcraft.container.f=T
+hexcraft.container.l=R
+hexcraft.container.m=M
+hexcraft.container.empty=Prazno
+hexcraft.container.tankNotFormed=Tank nije stvoren.
+
+
 msg.pylonLinkCancel.txt=[Heksorijski Upravljač] Povezivanje stupova otkazano.
 msg.pylonLinkStart.txt=[Heksorijski Upravljač] Povezivanje stupa...
 msg.pylonLinkSuccess.txt=[Heksorijski Upravljač] Stupovi uspješno povezani.

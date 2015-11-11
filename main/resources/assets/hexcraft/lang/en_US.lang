@@ -368,6 +368,23 @@ item.itemMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 
 
+hexcraft.container.hexoriumGenerator=Hexorium Generator
+hexcraft.container.hexoriumFurnace=Hexorium Furnace
+hexcraft.container.crystalSeparator=Crystal Separator
+hexcraft.container.matrixReconstructor=Matrix Reconstructor
+hexcraft.container.personalTeleportationPad=Personal Teleportation Pad
+hexcraft.container.hexoriumTank=Hexorium Tank
+
+hexcraft.container.in=In
+hexcraft.container.out=Out
+hexcraft.container.charge=Charge
+hexcraft.container.f=F
+hexcraft.container.l=L
+hexcraft.container.m=M
+hexcraft.container.empty=Empty
+hexcraft.container.tankNotFormed=Tank not formed.
+
+
 msg.pylonLinkCancel.txt=[Hexorium Manipulator] Pylon linking canceled.
 msg.pylonLinkStart.txt=[Hexorium Manipulator] Linking Pylon...
 msg.pylonLinkSuccess.txt=[Hexorium Manipulator] Pylons successfully linked.
