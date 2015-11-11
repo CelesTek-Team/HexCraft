@@ -16,8 +16,8 @@ public class HexTileEntities {
     {
         GameRegistry.registerTileEntity(TileHexoriumGenerator.class, TileHexoriumGenerator.ID);
         GameRegistry.registerTileEntity(TileHexoriumFurnace.class, TileHexoriumFurnace.ID);
-        GameRegistry.registerTileEntity(TileCrystalSeparator.class, "tileCrystalSeparator");
-        GameRegistry.registerTileEntity(TileMatrixReconstructor.class, "tileMatrixReconstructor");
+        GameRegistry.registerTileEntity(TileCrystalSeparator.class, TileCrystalSeparator.ID);
+        GameRegistry.registerTileEntity(TileMatrixReconstructor.class, TileMatrixReconstructor.ID);
 
         if (HexConfig.cfgTeleportEnable)
             GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, "tilePersonalTeleportationPad");

@@ -898,10 +898,10 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumGenerator, BlockHexoriumGenerator.ID);
         blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.ID);
         GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.ID);
-        blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.UNLOCALISEDNAME);
-        blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.UNLOCALISEDNAME);
+        blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.ID);
+        GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.ID);
+        blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.ID);
+        GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.ID);
 
         if (HexConfig.cfgTeleportEnable) {
             blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);

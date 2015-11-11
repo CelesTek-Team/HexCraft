@@ -34,7 +34,7 @@ public class ContainerHexoriumGenerator extends Container {
     /**
      * Constructor
      */
-    public ContainerHexoriumGenerator(InventoryPlayer player, TileHexoriumGenerator tileHexoriumGenerator){
+    public ContainerHexoriumGenerator(InventoryPlayer player, TileHexoriumGenerator tileHexoriumGenerator) {
         // Save the Tile Entity.
         this.tileHexoriumGenerator = tileHexoriumGenerator;
 

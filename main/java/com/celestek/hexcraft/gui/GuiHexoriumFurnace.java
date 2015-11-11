@@ -27,11 +27,11 @@ public class GuiHexoriumFurnace extends GuiContainer {
     /**
      * Constructor for GuiMatrixReconstructor.
      */
-    public GuiHexoriumFurnace(InventoryPlayer invPlayer, TileHexoriumFurnace tileEntity) {
-        super(new ContainerHexoriumFurnace(invPlayer, tileEntity));
+    public GuiHexoriumFurnace(InventoryPlayer invPlayer, TileHexoriumFurnace tileHexoriumFurnace) {
+        super(new ContainerHexoriumFurnace(invPlayer, tileHexoriumFurnace));
 
         // Save the Tile Entity.
-        this.tileHexoriumFurnace = tileEntity;
+        this.tileHexoriumFurnace = tileHexoriumFurnace;
     }
 
     /**

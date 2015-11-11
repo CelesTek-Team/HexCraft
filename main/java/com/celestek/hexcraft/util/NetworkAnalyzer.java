@@ -139,7 +139,7 @@ public class NetworkAnalyzer {
                     // Check if this energy source has already been added to the energySources ArrayList.
                     if (!energySources.contains(new HexDevice(x, y, z, block))) {
                         // If it hasn't, get the block's rotation.
-                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_1, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
+                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
                         // Add the energy source to the ArrayList if the previous direction responds with the rotation of the energy source.
                         if ((rotation == 0 && direction == 2) || (rotation == 1 && direction == 5) || (rotation == 2 && direction == 3) || (rotation == 3 && direction == 4))
                             energySources.add(new HexDevice(x, y, z, block));
@@ -161,7 +161,7 @@ public class NetworkAnalyzer {
                     // Check if this energy drain has already been added to the energyDrains ArrayList.
                     if (!energyDrains.contains(new HexDevice(x, y, z, block))) {
                         // If it hasn't, get the block's rotation.
-                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_1, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
+                        int rotation = HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, world, x, y, z);
                         // Add the energy drain to the ArrayList if the previous direction responds with the rotation of the energy drain.
                         if ((rotation == 0 && direction == 2) || (rotation == 1 && direction == 5) || (rotation == 2 && direction == 3) || (rotation == 3 && direction == 4))
                             energyDrains.add(new HexDevice(x, y, z, block));

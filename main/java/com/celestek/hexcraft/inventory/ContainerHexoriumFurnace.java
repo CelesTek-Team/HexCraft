@@ -16,9 +16,9 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.6.2
-
+ * @version 0.7.0
  */
+
 public class ContainerHexoriumFurnace extends Container {
 
     // Crafter IDs
@@ -34,7 +34,7 @@ public class ContainerHexoriumFurnace extends Container {
     /**
      * Constructor
      */
-    public ContainerHexoriumFurnace(InventoryPlayer player, TileHexoriumFurnace tileHexoriumFurnace){
+    public ContainerHexoriumFurnace(InventoryPlayer player, TileHexoriumFurnace tileHexoriumFurnace) {
         // Save the Tile Entity.
         this.tileHexoriumFurnace = tileHexoriumFurnace;
 
@@ -60,7 +60,7 @@ public class ContainerHexoriumFurnace extends Container {
      * Register the progress bar updates.
      */
     @Override
-    public void addCraftingToCrafters(ICrafting craft){
+    public void addCraftingToCrafters(ICrafting craft) {
         super.addCraftingToCrafters(craft);
 
         int energyTotalDone = tileHexoriumFurnace.getGuiEnergyTotalDone();

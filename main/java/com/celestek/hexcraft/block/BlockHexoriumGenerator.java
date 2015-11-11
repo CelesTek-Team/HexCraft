@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.util.HexUtils;
@@ -96,10 +97,10 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
         ItemStack itemStack = player.getCurrentEquippedItem();
         if (itemStack != null) {
             if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
-                player.openGui(HexCraft.instance, 0, world, x, y, z);
+                player.openGui(HexCraft.instance, HexGui.GUI_ID_HEXORIUM_GENERATOR, world, x, y, z);
         }
         else
-            player.openGui(HexCraft.instance, 0, world, x, y, z);
+            player.openGui(HexCraft.instance, HexGui.GUI_ID_HEXORIUM_GENERATOR, world, x, y, z);
         return true;
     }
 
