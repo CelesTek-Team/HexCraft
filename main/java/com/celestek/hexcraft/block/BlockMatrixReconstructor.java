@@ -78,7 +78,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Machine placed, analyzing!");
+                System.out.println("[Matrix Reconstructor] (" + x + ", " + y + ", " + z + "): Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -114,7 +114,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
                 block instanceof BlockPylonBase) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable destroyed, analyzing!");
+                System.out.println("[Matrix Reconstructor] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -129,16 +129,16 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        TileMatrixReconstructor tileEntity = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
+        TileMatrixReconstructor tileMatrixReconstructor = (TileMatrixReconstructor) world.getTileEntity(x, y, z);
 
-        if (tileEntity != null) {
+        if (tileMatrixReconstructor != null) {
 
             // Stop the machine processing.
-            tileEntity.stopProcessing();
+            tileMatrixReconstructor.stopProcessing();
 
             // Drop items.
-            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                ItemStack itemstack = tileEntity.getStackInSlot(i);
+            for (int i = 0; i < tileMatrixReconstructor.getSizeInventory(); ++i) {
+                ItemStack itemstack = tileMatrixReconstructor.getStackInSlot(i);
 
                 if (itemstack != null) {
                     float f = random.nextFloat() * 0.6F + 0.1F;

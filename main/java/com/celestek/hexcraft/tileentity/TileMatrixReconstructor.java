@@ -26,7 +26,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
 
     public static final String ID = "tileMatrixReconstructor";
 
-    private static final String INVENTORY_NAME = "container.matrixReconstructor";
+    private static final String INVENTORY_NAME = "hexcraft.container.matrixReconstructor";
 
     // NBT Names
     private static final String NBT_ENERGY_SOURCES = "energy_sources";
@@ -82,8 +82,8 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
 
-        // Read the drains.
-        HexUtils.writeHexDevicesToNBT(tagCompound, NBT_ENERGY_SOURCES, energySources);
+        // Write the drains.
+        HexUtils.writeHexDevicesArrayToNBT(tagCompound, NBT_ENERGY_SOURCES, energySources);
 
         // Write the energy variables.
         tagCompound.setFloat(NBT_ENERGY_TOTAL_DONE, energyTotalDone);
@@ -97,7 +97,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
         tagCompound.setBoolean(NBT_IS_ACTIVE, isActive);
         tagCompound.setInteger(NBT_USABLE_SOURCES, usableSources);
 
-        // Write the inventory.
+        // Write the container.
         HexUtils.writeInventoryToNBT(tagCompound, inventory);
     }
 
@@ -109,7 +109,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
         super.readFromNBT(tagCompound);
 
         // Read the sources.
-        energySources = HexUtils.readHexDevicesFromNBT(tagCompound, NBT_ENERGY_SOURCES);
+        energySources = HexUtils.readHexDevicesArrayFromNBT(tagCompound, NBT_ENERGY_SOURCES);
 
         // Read the energy variables.
         energyTotalDone = tagCompound.getFloat(NBT_ENERGY_TOTAL_DONE);
@@ -123,7 +123,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
         isActive = tagCompound.getBoolean(NBT_IS_ACTIVE);
         usableSources = tagCompound.getInteger(NBT_USABLE_SOURCES);
 
-        // Read the inventory.
+        // Read the container.
         inventory = HexUtils.readInventoryFromNBT(tagCompound, getSizeInventory());
     }
 
@@ -184,7 +184,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     public void setSources(ArrayList<HexDevice> energySources) {
         this.energySources = energySources;
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("[Matrix Reconstructor] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Sources received.");
+            System.out.println("[Matrix Reconstructor] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Sources received. s: " + energySources.size());
         recheckSources();
     }
 
@@ -322,7 +322,46 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     /**** ISidedInventory Methods ****/
 
     /**
-     * Fired when opening the inventory.
+     * Return the item slots depending on side. Used for blocks like Hopper.
+     */
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        // Get the machine meta.
+        int meta = blockMetadata;
+
+        // Strip away the texture states from meta.
+        if (meta >= 4 && meta < 8)
+            meta -= 4;
+        else if (meta >= 8)
+            meta -= 8;
+
+        // Make side slot available only from front, and top from top.
+        if (side == 1)
+            return slotsTop;
+        else if (side == 2 && meta == 0)
+            return slotsSide;
+        else if (side == 3 && meta == 2)
+            return slotsSide;
+        else if (side == 4 && meta == 3)
+            return slotsSide;
+        else if (side == 5 && meta == 1)
+            return slotsSide;
+        else
+            return slotsBlank;
+    }
+
+    /**
+     * Check if item can be inserted.
+     */
+    @Override
+    public boolean canInsertItem(int slot, ItemStack itemstack, int par3) {
+        return isItemValidForSlot(slot, itemstack);
+    }
+
+    /**** IInventory Methods ****/
+
+    /**
+     * Fired when opening the container.
      */
     @Override
     public void openInventory() {
@@ -330,7 +369,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     }
 
     /**
-     * Fired when closing the inventory.
+     * Fired when closing the container.
      */
     @Override
     public void closeInventory() {
@@ -397,43 +436,6 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     }
 
     /**
-     * Return the item slots depending on side. Used for blocks like Hopper.
-     */
-    @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        // Get the machine meta.
-        int meta = blockMetadata;
-
-        // Strip away the texture states from meta.
-        if (meta >= 4 && meta < 8)
-            meta -= 4;
-        else if (meta >= 8)
-            meta -= 8;
-
-        // Make side slot available only from front, and top from top.
-        if (side == 1)
-            return slotsTop;
-        else if (side == 2 && meta == 0)
-            return slotsSide;
-        else if (side == 3 && meta == 2)
-            return slotsSide;
-        else if (side == 4 && meta == 3)
-            return slotsSide;
-        else if (side == 5 && meta == 1)
-            return slotsSide;
-        else
-            return slotsBlank;
-    }
-
-    /**
-     * Check if item can be inserted.
-     */
-    @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int par3) {
-        return isItemValidForSlot(slot, itemstack);
-    }
-
-    /**
      * Check if the item is valid for a certain slot.
      */
     @Override
@@ -477,10 +479,6 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
 
     public int getEnergyPerTick() {
         return this.energyPerTick;
-    }
-
-    public int getEnergyTotal() {
-        return (int) this.energyTotal;
     }
 
     public void setGuiEnergyTotalDone(int guiEnergyTotalDone) {

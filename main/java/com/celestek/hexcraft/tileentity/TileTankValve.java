@@ -22,7 +22,7 @@ public class TileTankValve extends TileFluidHandler {
 
     // NBT Names
     public static final String ID = "tileHexoriumValve";
-    public static final String MACHINE_NAME = "Hexorium Tank";
+    public static final String MACHINE_NAME = "hexcraft.container.tankValve";
     private static final String NBT_IS_SETUP = "is_setup";
     private static final String NBT_IS_MASTER = "is_master";
     private static final String NBT_TANK_CAPACITY = "tank_capacity";

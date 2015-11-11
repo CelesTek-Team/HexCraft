@@ -111,7 +111,7 @@ public class NetworkAnalyzer {
 
         // Console spam for debugging analysis.
         if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Analyzing Network: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+            System.out.println("[Network Analyzer] Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is not a pylon base.
         if (!(block instanceof BlockPylonBase)) {
@@ -157,7 +157,7 @@ public class NetworkAnalyzer {
                         teleports.add(new HexDevice(x, y, z, block));
                     return;
                 }
-                else {
+                else if (direction == 2 || direction == 3 || direction == 4 || direction == 5) {
                     // Check if this energy drain has already been added to the energyDrains ArrayList.
                     if (!energyDrains.contains(new HexDevice(x, y, z, block))) {
                         // If it hasn't, get the block's rotation.
@@ -212,7 +212,7 @@ public class NetworkAnalyzer {
 
         // Console spam for debugging analysis.
         if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+            System.out.println("[Network Analyzer] Pylonizing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is an Energy Pylon.
         if (block == HexBlocks.blockEnergyPylon) {
@@ -487,7 +487,7 @@ public class NetworkAnalyzer {
             analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
 
         if (energyDrains.size() == 0 || energySources.size() == 0)
-            add(world, x, y, z);
+            addMachine(world, x, y, z);
 
         // Push the results to all found machines.
         pushMachines(world);
@@ -508,6 +508,10 @@ public class NetworkAnalyzer {
             (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y - 1, z) != 0) ||
             (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y - 1, z) == 0)))
             analyze(world, x, y - 1, z, world.getBlock(x, y - 1, z), -1);
+
+
+        if (teleports.size() == 0)
+            addTeleport(world, x, y, z);
 
         // Push the results to all found machines.
         pushMachines(world);
@@ -553,29 +557,23 @@ public class NetworkAnalyzer {
     private void pushMachines(World world) {
 
         // Notify about pushing to sources.
-        if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Done! Pushing data to sources:");
+        if (HexConfig.cfgGeneralNetworkDebug) {
+            System.out.println("[Network Analyzer] Done!");
+            System.out.println("[Network Analyzer] Pushing data to sources...");
+        }
 
         // Go through all energySources ArrayList entries.
         for (HexDevice entry : energySources) {
-            // Notify about every source.
-            if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
-
             ITileHexEnergySource energySource = (ITileHexEnergySource) world.getTileEntity(entry.x, entry.y, entry.z);
             energySource.setDrains(energyDrains);
         }
 
         // Notify about pushing to drains.
         if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Pushing data to drains:");
+            System.out.println("[Network Analyzer] Pushing data to drains...");
 
         // Go through all energyDrains ArrayList entries.
         for (HexDevice entry : energyDrains) {
-            // Notify about every drain.
-            if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
-
             ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) world.getTileEntity(entry.x, entry.y, entry.z);
             energyDrain.setSources(energySources);
         }
@@ -589,17 +587,13 @@ public class NetworkAnalyzer {
 
         // Notify about pushing teleports.
         if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Pushing data to teleports:");
+            System.out.println("[Network Analyzer] Pushing data to teleports...");
 
         // Go through all teleports ArrayList entries.
         for (HexDevice entry : teleports) {
-            // Notify about every teleport.
-            if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
-
             TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
             if (teleport != null)
-                teleport.injectTeleports(teleports);
+                teleport.setTeleports(teleports);
         }
     }
 
@@ -610,11 +604,22 @@ public class NetworkAnalyzer {
      * @param y Y coordinate of the machine.
      * @param z Z coordinate of the machine.
      */
-    private void add(World world, int x, int y, int z) {
+    private void addMachine(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
         if (block instanceof IBlockHexEnergySource)
             energySources.add(new HexDevice(x, y, z, block));
         else if (block instanceof IBlockHexEnergyDrain)
             energyDrains.add(new HexDevice(x, y, z, block));
+    }
+
+    /**
+     * Called by teleport blocks to add themselves if the analyzing result contained no machines.
+     * @param world The world that the teleport is in.
+     * @param x X coordinate of the machine.
+     * @param y Y coordinate of the machine.
+     * @param z Z coordinate of the machine.
+     */
+    private void addTeleport(World world, int x, int y, int z) {
+        teleports.add(new HexDevice(x, y, z, world.getBlock(x, y, z)));
     }
 }

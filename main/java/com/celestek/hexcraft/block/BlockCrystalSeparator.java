@@ -78,7 +78,7 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Machine placed, analyzing!");
+                System.out.println("[Crystal Separator] (" + x + ", " + y + ", " + z + "): Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -114,7 +114,7 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
                 block instanceof BlockPylonBase) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable destroyed, analyzing!");
+                System.out.println("[Crystal Separator] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -129,16 +129,16 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        TileCrystalSeparator tileEntity = (TileCrystalSeparator) world.getTileEntity(x, y, z);
+        TileCrystalSeparator tileCrystalSeparator = (TileCrystalSeparator) world.getTileEntity(x, y, z);
 
-        if (tileEntity != null) {
+        if (tileCrystalSeparator != null) {
 
             // Stop the machine processing.
-            tileEntity.stopProcessing();
+            tileCrystalSeparator.stopProcessing();
 
             // Drop items.
-            for (int i = 0; i < tileEntity.getSizeInventory(); ++i) {
-                ItemStack itemstack = tileEntity.getStackInSlot(i);
+            for (int i = 0; i < tileCrystalSeparator.getSizeInventory(); ++i) {
+                ItemStack itemstack = tileCrystalSeparator.getStackInSlot(i);
 
                 if (itemstack != null) {
                     float f = random.nextFloat() * 0.6F + 0.1F;

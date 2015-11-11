@@ -5,18 +5,15 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.HexDevice;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
 
 import java.util.ArrayList;
 
@@ -25,122 +22,67 @@ import java.util.ArrayList;
  * @version 0.7.0
  */
 
-public class TilePersonalTeleportationPad extends TileEntity {
+public class TilePersonalTeleportationPad extends TileEntity implements ITileHexEnergyDrain {
 
-    // Set machine name.
-    private static String machineName = "Personal Teleportation Pad";
+    /**** Static Values ****/
 
-    // Prepare machine list.
-    private ArrayList<HexDevice> machinesHexoriumGenerator;
+    public static final String ID = "tilePersonalTeleportationPad";
 
-    // Prepare teleport list.
-    private ArrayList<HexDevice> teleportsPersonalTeleportationPad;
+    private static final String INVENTORY_NAME = "hexcraft.container.personalTeleportationPad";
 
-    // Prepare linked teleport.
-    private HexDevice linkedTeleport;
+    // NBT Names
+    private static final String NBT_ENERGY_SOURCES = "energy_sources";
 
-    // Define sides and slots.
-    private static final int[] slotsBlank = new int[] { 0 };
-    private ItemStack[] machineItemStacks = new ItemStack[1];
+    private static final String NBT_ENERGY_TOTAL_DONE = "energy_total_done";
+    private static final String NBT_ENERGY_DRAINED = "energy_drained";
+
+    private static final String NBT_GUI_ENERGY_TOTAL_DONE = "gui_energy_total_done";
+    private static final String NBT_GUI_ENERGY_DRAINED = "gui_energy_drained";
+
+    private static final String NBT_IS_ACTIVE = "is_active";
+    private static final String NBT_USABLE_SOURCES = "usable_sources";
+
+    private static final String NBT_TELEPORTS = "teleports";
+    private static final String NBT_LINKED_TELEPORT_EXISTS = "linked_teleport_exists";
+    private static final String NBT_LINKED_TELEPORT = "linked_teleport";
+    private static final String NBT_IS_TELEPORTING = "is_teleporting";
+    private static final String NBT_TELEPORT_COUNTER = "teleport_counter";
+
+    /**** Variables ****/
+
+    // Prepare sources list.
+    private ArrayList<HexDevice> energySources;
 
     // Prepare energy variables.
-    private static float energyTotal = HexConfig.cfgTeleportUsageCost;
-    private float energy;
-    private float energyIn;
+    private float energyTotal;
+    private float energyTotalDone;
+    private float energyDrained;
 
-    // Prepare GUI variables.
-    private static int energyTotalGui = (int) energyTotal / 128;
-    public int energyGui;
-    public int energyInGui;
+    // Prepare GUI energy variables.
+    private int guiEnergyTotalDone;
+    private int guiEnergyDrained;
 
     // Prepare state variables.
-    private boolean firstTick = false;
-    private boolean hasEnergy = false;
-    public boolean isActive = false;
-    private int usableGenerators = 0;
+    private boolean isActive;
+    private int usableSources;
 
-    // Prepare teleportation variables.
-    public boolean isTeleporting = false;
-    private static int teleportCountdown = 80;
-    private int teleportCounter = 0;
+    // Prepare teleport variables.
+    private ArrayList<HexDevice> teleports;
+    private HexDevice linkedTeleport;
+    private boolean isTeleporting;
+    private int teleportCountdown;
+    private int teleportCounter;
 
-    /**
-     * Retrieves the machine name.
-     */
-    public String getInventoryName() {
-        return machineName;
-    }
 
-    /**
-     * Confirms that the machine has custom name.
-     */
-    public boolean hasCustomInventoryName() {
-        return true;
-    }
+    /**** Common TileEntity Methods ****/
 
-    /**
-     * Check if the TIle Entity can be used by the player.
-     */
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
-    }
-
-    /**
-     * Reads the tags from NBT.
-     */
-    @Override
-    public void readFromNBT(NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
-
-        // Read the energy variables.
-        energy = tagCompound.getFloat("Energy");
-        energyIn = tagCompound.getFloat("EnergyIn");
-
-        // Read the GUI variables.
-        energyGui = tagCompound.getInteger("EnergyGui");
-
-        // Read the state variables.
-        isActive = tagCompound.getBoolean("IsActive");
-        hasEnergy = tagCompound.getBoolean("HasEnergy");
-        usableGenerators = tagCompound.getInteger("UsableGenerators");
-
-        // Prepare coordinate arrays.
-        int machinesX[];
-        int machinesY[];
-        int machinesZ[];
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("MachinesHexoriumGeneratorX");
-        machinesY = tagCompound.getIntArray("MachinesHexoriumGeneratorY");
-        machinesZ = tagCompound.getIntArray("MachinesHexoriumGeneratorZ");
-        // Prepare the ArrayList for machines.
-        machinesHexoriumGenerator = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            machinesHexoriumGenerator.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockHexoriumGenerator));
-
-        // Read the coordinate arrays.
-        machinesX = tagCompound.getIntArray("TeleportsPersonalTeleportationPadX");
-        machinesY = tagCompound.getIntArray("TeleportsPersonalTeleportationPadY");
-        machinesZ = tagCompound.getIntArray("TeleportsPersonalTeleportationPadZ");
-        // Prepare the ArrayList for teleports.
-        teleportsPersonalTeleportationPad = new ArrayList<HexDevice>();
-        // Build the machine list using the coordinate arrays.
-        for (int i = 0; i < machinesX.length; i++)
-            teleportsPersonalTeleportationPad.add(new HexDevice(machinesX[i], machinesY[i], machinesZ[i], HexBlocks.blockPersonalTeleportationPad));
-
-        // Read the link state.
-        boolean linkedTeleportExists = tagCompound.getBoolean("LinkedTeleportExists");
-        // Read the link coordinates.
-        int linkedTeleportX = tagCompound.getInteger("LinkedTeleportX");
-        int linkedTeleportY = tagCompound.getInteger("LinkedTeleportY");
-        int linkedTeleportZ = tagCompound.getInteger("LinkedTeleportZ");
-
-        // Create the linked teleport object.
-        if(linkedTeleportExists)
-            linkedTeleport = new HexDevice(linkedTeleportX, linkedTeleportY, linkedTeleportZ, HexBlocks.blockPersonalTeleportationPad);
-        else
-            linkedTeleport = null;
+    public TilePersonalTeleportationPad() {
+        this.energyTotal = HexConfig.cfgTeleportUsageCost;
+        this.isActive = false;
+        this.usableSources = 0;
+        this.isTeleporting = false;
+        this.teleportCountdown = 80;
+        this.teleportCounter = 0;
     }
 
     /**
@@ -150,96 +92,59 @@ public class TilePersonalTeleportationPad extends TileEntity {
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
 
-        // Write the energy variables.
-        tagCompound.setFloat("Energy", energy);
-        tagCompound.setFloat("EnergyIn", energyIn);
+        // Write the drains.
+        HexUtils.writeHexDevicesArrayToNBT(tagCompound, NBT_ENERGY_SOURCES, energySources);
 
-        // Write the GUI variables.
-        tagCompound.setInteger("EnergyGui", energyGui);
+        // Write the energy variables.
+        tagCompound.setFloat(NBT_ENERGY_TOTAL_DONE, energyTotalDone);
+        tagCompound.setFloat(NBT_ENERGY_DRAINED, energyDrained);
+
+        // Write the GUI energy variables.
+        tagCompound.setInteger(NBT_GUI_ENERGY_TOTAL_DONE, guiEnergyTotalDone);
+        tagCompound.setInteger(NBT_GUI_ENERGY_DRAINED, guiEnergyDrained);
 
         // Write the state variables.
-        tagCompound.setBoolean("IsActive", isActive);
-        tagCompound.setBoolean("HasEnergy", hasEnergy);
-        tagCompound.setInteger("UsableGenerators", usableGenerators);
+        tagCompound.setBoolean(NBT_IS_ACTIVE, isActive);
+        tagCompound.setInteger(NBT_USABLE_SOURCES, usableSources);
 
-        // Prepare coordinate arrays.
-        int machinesX[];
-        int machinesY[];
-        int machinesZ[];
+        // Write the teleport variables.
+        HexUtils.writeHexDevicesArrayToNBT(tagCompound, NBT_TELEPORTS, teleports);
+        HexUtils.writeHexDeviceToNBT(tagCompound, NBT_LINKED_TELEPORT, linkedTeleport);
+        tagCompound.setBoolean(NBT_LINKED_TELEPORT_EXISTS, linkedTeleport != null);
+        tagCompound.setBoolean(NBT_IS_TELEPORTING, isTeleporting);
+        tagCompound.setInteger(NBT_TELEPORT_COUNTER, teleportCounter);
+    }
 
-        // Check if machine list is not null.
-        if (machinesHexoriumGenerator != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[machinesHexoriumGenerator.size()];
-            machinesY = new int[machinesHexoriumGenerator.size()];
-            machinesZ = new int[machinesHexoriumGenerator.size()];
-            // Save the coordinates of machines to arrays.
-            int i = 0;
-            for (HexDevice entry : machinesHexoriumGenerator) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("MachinesHexoriumGeneratorX", machinesX);
-            tagCompound.setIntArray("MachinesHexoriumGeneratorY", machinesY);
-            tagCompound.setIntArray("MachinesHexoriumGeneratorZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else  {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("MachinesHexoriumGeneratorX", machinesX);
-            tagCompound.setIntArray("MachinesHexoriumGeneratorY", machinesY);
-            tagCompound.setIntArray("MachinesHexoriumGeneratorZ", machinesZ);
-        }
+    /**
+     * Reads the tags from NBT.
+     */
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
 
-        // Check if teleport list is not null.
-        if (teleportsPersonalTeleportationPad != null) {
-            // Initialize the coordinate arrays.
-            machinesX = new int[teleportsPersonalTeleportationPad.size()];
-            machinesY = new int[teleportsPersonalTeleportationPad.size()];
-            machinesZ = new int[teleportsPersonalTeleportationPad.size()];
-            // Save the coordinates of teleports to arrays.
-            int i = 0;
-            for (HexDevice entry : teleportsPersonalTeleportationPad) {
-                machinesX[i] = entry.x;
-                machinesY[i] = entry.y;
-                machinesZ[i] = entry.z;
-                i++;
-            }
-            // Write the coordinate arrays.
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadX", machinesX);
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadY", machinesY);
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadZ", machinesZ);
-        }
-        // If it is null, write the coordinate arrays as empty.
-        else  {
-            machinesX = new int[0];
-            machinesY = new int[0];
-            machinesZ = new int[0];
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadX", machinesX);
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadY", machinesY);
-            tagCompound.setIntArray("TeleportsPersonalTeleportationPadZ", machinesZ);
-        }
+        // Read the sources.
+        energySources = HexUtils.readHexDevicesArrayFromNBT(tagCompound, NBT_ENERGY_SOURCES);
 
-        // Check if the teleport is linked.
-        if (linkedTeleport != null) {
-            tagCompound.setBoolean("LinkedTeleportExists", true);
-            // If it is, save the coordinates normally.
-            tagCompound.setInteger("LinkedTeleportX", linkedTeleport.x);
-            tagCompound.setInteger("LinkedTeleportY", linkedTeleport.y);
-            tagCompound.setInteger("LinkedTeleportZ", linkedTeleport.z);
-        }
-        else {
-            tagCompound.setBoolean("LinkedTeleportExists", false);
-            // Otherwise, set coordinates to 0.
-            tagCompound.setInteger("LinkedTeleportX", 0);
-            tagCompound.setInteger("LinkedTeleportY", 0);
-            tagCompound.setInteger("LinkedTeleportZ", 0);
-        }
+        // Read the energy variables.
+        energyTotalDone = tagCompound.getFloat(NBT_ENERGY_TOTAL_DONE);
+        energyDrained = tagCompound.getFloat(NBT_ENERGY_DRAINED);
+
+        // Read the GUI energy variables.
+        guiEnergyTotalDone = tagCompound.getInteger(NBT_GUI_ENERGY_TOTAL_DONE);
+        guiEnergyDrained = tagCompound.getInteger(NBT_GUI_ENERGY_DRAINED);
+
+        // Read the state variables.
+        isActive = tagCompound.getBoolean(NBT_IS_ACTIVE);
+        usableSources = tagCompound.getInteger(NBT_USABLE_SOURCES);
+
+        // Read the teleport variables.
+        teleports = HexUtils.readHexDevicesArrayFromNBT(tagCompound, NBT_TELEPORTS);
+        if (tagCompound.getBoolean(NBT_LINKED_TELEPORT_EXISTS))
+            linkedTeleport = HexUtils.readHexDeviceFromNBT(tagCompound, NBT_TELEPORTS);
+        else
+            linkedTeleport = null;
+        isTeleporting = tagCompound.getBoolean(NBT_IS_TELEPORTING);
+        teleportCounter = tagCompound.getInteger(NBT_TELEPORT_COUNTER);
     }
 
     /**
@@ -249,192 +154,166 @@ public class TilePersonalTeleportationPad extends TileEntity {
     public void updateEntity() {
         // Confirm that this is server side.
         if (!worldObj.isRemote) {
-            // Reset the energy input variable.
-            energyIn = 0;
+            energyDrained = 0;
 
-            // Run an energy check on every tick. This will make the texture appear as READY.
-            if (!isTeleporting)
-                checkEnergy();
-            // If the teleport has energy, and there is still space for energy...
-            if (hasEnergy && energy < energyTotal * 2) {
-                // If the teleport was inactive...
-                if (!isActive) {
-                    // Attempt to start it.
-                    isActive = countGenerators();
-                }
+            // Check the situation in which the machine has available energy sources and items to process.
+            if (canDrainSource() && (energyTotalDone < energyTotal * 2)) {
+                // Attempt to start processing if it was inactive.
+                if (!isActive)
+                    isActive = usableSources > 0;
 
-                // If the teleport is active...
+                // Check if the machine is now in its active state.
                 if (isActive) {
-                    // Check if the generator list is not null.
-                    if (machinesHexoriumGenerator != null)
-                        // Pull energy from every generator.
-                        for (HexDevice entry : machinesHexoriumGenerator) {
-                            if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                                TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                                if (generator != null)
-                                    // Pull the maximum energy.
-                                    if (energy + energyIn < energyTotal * 2) {
-                                        if (energyTotal * 2 - energy - energyIn < generator.getEnergyPerTick())
-                                            energyIn = energyIn + generator.drainEnergy((float) energyTotal * 2 - energy - energyIn);
-                                        else
-                                            energyIn = energyIn + generator.drainEnergy((float) generator.getEnergyPerTick());
-                                    }
-                            }
-                        }
-
-                    // Increase the stored energy.
-                    energy = energy + energyIn;
+                    // Drain from all sources.
+                    drainFromSources();
+                    energyTotalDone = energyTotalDone + energyDrained;
                 }
-            } else
-                // If the machine has no energy and/or there are no items to process, stop the processing.
+            }
+            // If the machine has no energy and/or there are no items to process, stop the processing.
+            else
                 stopProcessing();
 
             // If the teleporter is charging the teleport...
             if (isTeleporting) {
-                // And if the countdown is reached...
                 if (teleportCounter >= teleportCountdown) {
                     // Perform the teleport.
                     teleport();
-                    // Deduct the energy used.
-                    energy = energy - energyTotal;
-                    if (energy < 0)
-                        energy = 0;
-                    // Reset variables
+                    energyTotalDone = energyTotalDone - energyTotal;
+                    if (energyTotalDone < 0)
+                        energyTotalDone = 0;
                     isTeleporting = false;
-                    if (energy > 0)
-                        HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-                    else {
-                        HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
-                        hasEnergy = false;
-                    }
+
+                    // If there is still energy left, set the state to READY, otherwise DEAD.
+                    if (energyTotalDone > 0)
+                        HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_READY, worldObj, xCoord, yCoord, zCoord);
+                    else
+                        HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
                 }
                 else
-                    // Increment counter.
                     teleportCounter++;
             }
-            // Divide the energy states with the energy per tick and save them to GUI variables. This will make sure they will fit in short int.
-            energyGui = (int) (energy / 128);
-            energyInGui = (Math.round(energyIn));
+
+            // Save the energy states to their GUI variables.
+            guiEnergyTotalDone = Math.round(energyTotalDone);
+            guiEnergyDrained = Math.round(energyDrained);
         }
     }
 
-    /**
-     * Called to count the generators.
-     * @return Boolean if any generators were found.
-     */
-    public boolean countGenerators() {
-        // Prepare a usable generator count.
-        int usableGenerators1 = 0;
-        // Check if the generator list is not null.
-        if(machinesHexoriumGenerator != null)
-            // Go through all generators and check how many of them can provide energy.
-            for (HexDevice entry : machinesHexoriumGenerator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (generator != null)
-                        if (generator.canDrainEnergy())
-                            usableGenerators1++;
-                }
-            }
-        // Save the usable generator count.
-        usableGenerators = usableGenerators1;
+    /**** ITileHexEnergyDrain Methods ****/
 
-        // Return true of there are any generators.
-        return usableGenerators != 0;
+    /**
+     * Saves the ArrayList of energy sources.
+     * @param energySources The ArrayList to save.
+     */
+    @Override
+    public void setSources(ArrayList<HexDevice> energySources) {
+        this.energySources = energySources;
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Sources received. s: " + energySources.size());
+        recheckSources();
     }
 
     /**
-     * Called to check if there is at least one generator with energy available.
+     * Called by sources to force drains to recheck them.
      */
-    private void checkEnergy() {
-        // Prepare a boolean for checking.
-        boolean checkEnergy = false;
+    @Override
+    public void recheckSources() {
+        scanSources();
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Recheck requested. s: " + usableSources);
+    }
 
-        // Check if the generator list is not null.
-        if (machinesHexoriumGenerator != null)
-            // Go through all generators and check if any of them can provide energy.
-            for (HexDevice entry : machinesHexoriumGenerator) {
-                if (worldObj.getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                    TileHexoriumGenerator generator = (TileHexoriumGenerator) worldObj.getTileEntity(entry.x, entry.y, entry.z);
-                    if (generator != null)
-                        if (generator.canDrainEnergy())
-                            checkEnergy = true;
+    /**** Custom Methods ****/
+
+    private void scanSources() {
+        boolean hasEnergy = canDrainSource();
+        usableSources = 0;
+
+        if(energySources != null)
+            // Parse the whole energySources ArrayList and call canDrainSource() on each of them.
+            for (HexDevice entry : energySources)
+                if (HexUtils.checkChunk(worldObj, entry.x, entry.z)) {
+                    ITileHexEnergySource energySource = (ITileHexEnergySource) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (energySource != null)
+                        if (energySource.canDrainEnergy())
+                            usableSources++;
                 }
-            }
 
-        if (energy > 0)
-            checkEnergy = true;
+        // Set the state to READY if the energy is now available, but wasn't previously.
+        if (canDrainSource() && !hasEnergy && !isTeleporting)
+            HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_READY, worldObj, xCoord, yCoord, zCoord);
 
-        // Check if the energy is now available, but wasn't previously.
-        if (checkEnergy && !hasEnergy)
-            // If yes, set the texture to READY.
-            HexBlocks.updateMachineState(0, worldObj, xCoord, yCoord, zCoord);
-        // Otherwise, check if the energy is now unavailable, but was previously.
-        else if (!checkEnergy && hasEnergy)
-            // If yes, set the texture to DEAD.
-            HexBlocks.updateMachineState(2, worldObj, xCoord, yCoord, zCoord);
+        // Otherwise, set the state to DEAD if the energy is now unavailable and there is no energy stored.
+        else if (!canDrainSource() && hasEnergy && energyTotalDone <= 0 && !isTeleporting)
+            HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
+    }
 
-        // Save the result.
-        hasEnergy = checkEnergy;
+    /**** Custom Methods ****/
+
+    /**
+     * Called to check if there are any usable sources available.
+     */
+    private void drainFromSources() {
+        if (energySources != null)
+            // Parse the whole energySources ArrayList and attempt to drain energy from every source.
+            for (HexDevice entry : energySources)
+                if (HexUtils.checkChunk(worldObj, entry.x, entry.z)) {
+                    ITileHexEnergySource energySource = (ITileHexEnergySource) worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (energySource != null)
+                        if (energySource.canDrainEnergy())
+                            if (energyTotalDone + energyDrained < energyTotal * 2) {
+                                if (energyTotal * 2 - energyTotalDone - energyDrained < energySource.getEnergyPerTick())
+                                    energyDrained = energyDrained + energySource.drainEnergy(energyTotal * 2 - energyTotalDone - energyDrained);
+                                else
+                                    energyDrained = energyDrained + energySource.drainEnergy(energySource.getEnergyPerTick());
+                            }
+                }
     }
 
     /**
-     * Called when the teleport should no longer be pulling energy.
+     * Called to check if there are any usable sources available.
+     * @return If there are any usable sources.
+     */
+    private boolean canDrainSource() {
+        return usableSources > 0;
+    }
+
+    /**
+     * Called when the machine should no longer be processing the item.
      */
     public void stopProcessing() {
-        // If the teleport is active...
-        if (isActive) {
-            // Make it inactive.
+        if (isActive)
             isActive = false;
-        }
-    }
-
-    /**
-     * Called by the NetworkAnalyzer class when exchanging data between machines.
-     * @param incomingMachines The ArrayList of machines recieved.
-     */
-    public void injectMachines(ArrayList<HexDevice> incomingMachines) {
-
-        // Check if the size of the incoming list is larger then 0.
-        if (incomingMachines.size() != 0)
-            // If it is, save it to the local list.
-            machinesHexoriumGenerator = incomingMachines;
-        else
-            // Otherwise, set the local list to null.
-            machinesHexoriumGenerator = null;
-
-        // Recount the generators.
-        countGenerators();
     }
 
     /**
      * Called by the NetworkAnalyzer class when exchanging data between teleports.
      * @param incomingTeleports The ArrayList of teleports received.
      */
-    public void injectTeleports(ArrayList<HexDevice> incomingTeleports) {
+    public void setTeleports(ArrayList<HexDevice> incomingTeleports) {
 
-        // Check if the size of the incoming list is larger then 0.
         if (incomingTeleports.size() != 0) {
-            // If it is, save it to the local list.
-            teleportsPersonalTeleportationPad = incomingTeleports;
+            teleports = incomingTeleports;
 
-            // If the teleport is already linked...
+            // If the teleport is already linked, analyze the incoming list and unlink if necessary.
             if (linkedTeleport != null) {
-                // Analyze the incoming list and unlink if necessary.
                 boolean checkLink = false;
-                for (HexDevice entry : teleportsPersonalTeleportationPad)
+                for (HexDevice entry : teleports)
                     if (entry.x == linkedTeleport.x && entry.y == linkedTeleport.y && entry.z == linkedTeleport.z)
                         checkLink = true;
-                if (!checkLink) {
-                    // System.out.println("Teleports unlinked!");
+                if (!checkLink)
                     linkedTeleport = null;
-                }
             }
         }
         else {
-            // Otherwise, set the local list to null.
-            teleportsPersonalTeleportationPad = null;
+            teleports = null;
             linkedTeleport = null;
+        }
+        if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug) {
+            if (teleports != null)
+                System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + teleports.size());
+            else
+                System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + 0);
         }
     }
 
@@ -442,17 +321,18 @@ public class TilePersonalTeleportationPad extends TileEntity {
      * Begins teleportation.
      */
     public void beginTeleport() {
-        // If the teleport is linked and has enough energy...
-        if (linkedTeleport != null && energy >= energyTotal) {
-            // Get the player and send the chat message.
+        // If the teleport is linked and has enough energy, get the player,
+        // send the chat message and activate the countdown.
+        if (linkedTeleport != null && energyTotalDone >= energyTotal) {
             EntityPlayer player = worldObj.getClosestPlayer(xCoord + 0.5, yCoord + 1, zCoord + 0.5, 4);
+
             if (player != null)
                 player.addChatMessage(new ChatComponentTranslation("msg.teleportProcess1.txt"));
-            // Activate teleportation countdown.
             isTeleporting = true;
             teleportCounter = 0;
+
             // Set the texture to ACTIVE.
-            HexBlocks.updateMachineState(1, worldObj, xCoord, yCoord, zCoord);
+            HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_ACTIVE, worldObj, xCoord, yCoord, zCoord);
         }
     }
 
@@ -460,22 +340,20 @@ public class TilePersonalTeleportationPad extends TileEntity {
      * Performs the teleportation.
      */
     private void teleport() {
-        // Get the player.
         EntityPlayer player = worldObj.getClosestPlayer(xCoord + 0.5, yCoord + 1, zCoord + 0.5, 1);
-        // If player exists and the teleport is linked...
+
         if (player != null && linkedTeleport != null)
-            // If the player is located on top of the teleport...
+
+            // Check if the player is located on top of the teleport.
             if (player.posX >= xCoord && player.posX <= xCoord + 1 &&
                     player.posY >= yCoord && player.posY <= yCoord + 1 &&
                     player.posZ >= zCoord && player.posZ <= zCoord + 1) {
-                // Send the chat message.
+
+                // Send the chat message and teleport the player, while hurting and confusing them.
                 player.addChatMessage(new ChatComponentTranslation("msg.teleportProcess2.txt"));
-                // Teleport the player.
                 player.setPositionAndUpdate(linkedTeleport.x + 0.5, linkedTeleport.y + 1, linkedTeleport.z + 0.5);
                 if (HexConfig.cfgTeleportShouldDamagePlayers) {
-                    // Apply confusion effect.
                     player.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 180, 100, false));
-                    // Hurt the player.
                     player.attackEntityFrom(HexDamage.teleport, HexConfig.cfgTeleportDamageAmount);
                 }
 
@@ -493,15 +371,13 @@ public class TilePersonalTeleportationPad extends TileEntity {
      * @return Boolean whether the teleports are on same network.
      */
     public boolean checkConnectivity(int x, int y, int z) {
-        // Check if it is null.
-        if (worldObj.getBlock(x, y, z) == HexBlocks.blockPersonalTeleportationPad) {
-            // If the teleport exists, return true.
-            if (teleportsPersonalTeleportationPad != null) {
-                for (HexDevice entry : teleportsPersonalTeleportationPad)
+        // Return true if the teleport exists in the list.
+        if (worldObj.getBlock(x, y, z) == HexBlocks.blockPersonalTeleportationPad)
+            if (teleports != null)
+                for (HexDevice entry : teleports)
                     if (entry.x == x && entry.y == y && entry.z == z)
                         return true;
-            }
-        }
+
         return false;
     }
 
@@ -525,17 +401,17 @@ public class TilePersonalTeleportationPad extends TileEntity {
      * @return Boolean whether the linking was successful.
      */
     public boolean linkTeleport(int x, int y, int z) {
-        // System.out.println("Linking! " + "(" + xCoord + ", " + yCoord + ", " + zCoord + ")");
-        // Get the target teleport.
         TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
-        // Make sure it is not null.
+
         if (tileEntity != null) {
+
             // If the teleport is already linked, unlink it.
             if (linkedTeleport != null) {
                 TilePersonalTeleportationPad old = (TilePersonalTeleportationPad) worldObj.getTileEntity(linkedTeleport.x, linkedTeleport.y, linkedTeleport.z);
                 if (old != null)
                     old.unlinkTeleport();
             }
+
             // Link the teleport with new target.
             linkedTeleport = new HexDevice(x, y, z, HexBlocks.blockPersonalTeleportationPad);
             return true;
@@ -547,9 +423,14 @@ public class TilePersonalTeleportationPad extends TileEntity {
      * Unlinks a teleport.
      */
     public void unlinkTeleport() {
-        // System.out.println("Unlinking! " + "(" + xCoord + ", " + yCoord + ", " + zCoord + ")");
-        // Unlink the teleport.
         linkedTeleport = null;
+    }
+
+    /**
+     * Check if the TIle Entity can be used by the player.
+     */
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
     }
 
     /**
@@ -558,6 +439,33 @@ public class TilePersonalTeleportationPad extends TileEntity {
      */
     @SideOnly(Side.CLIENT)
     public int getEnergyScaled(int length) {
-        return energyGui * length / energyTotalGui;
+        return guiEnergyTotalDone * length / (int) energyTotal;
+    }
+
+    /**** Getters and Setters ****/
+
+    /**** Getters and Setters ****/
+
+    /**
+     * Retrieves the machine name.
+     */
+    public String getInventoryName() {
+        return INVENTORY_NAME;
+    }
+
+    public void setGuiEnergyTotalDone(int guiEnergyTotalDone) {
+        this.guiEnergyTotalDone = guiEnergyTotalDone;
+    }
+
+    public int getGuiEnergyTotalDone() {
+        return this.guiEnergyTotalDone;
+    }
+
+    public void setGuiEnergyDrained(int guiEnergyDrained) {
+        this.guiEnergyDrained = guiEnergyDrained;
+    }
+
+    public int getGuiEnergyDrained() {
+        return this.guiEnergyDrained;
     }
 }

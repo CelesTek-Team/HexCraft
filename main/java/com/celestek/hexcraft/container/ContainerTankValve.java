@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;

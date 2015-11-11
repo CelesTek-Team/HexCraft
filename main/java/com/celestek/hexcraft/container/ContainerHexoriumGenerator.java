@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.util.HexUtils;
@@ -41,7 +41,7 @@ public class ContainerHexoriumGenerator extends Container {
         // Add the container slots.
         this.addSlotToContainer(new Slot(tileHexoriumGenerator, 0, 80, 42));
 
-        // Add inventory slots.
+        // Add container slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){

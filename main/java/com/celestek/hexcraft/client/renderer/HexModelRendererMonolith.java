@@ -100,7 +100,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     }
 
     /**
-     * Render the inventory block icon.
+     * Render the container block icon.
      */
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)

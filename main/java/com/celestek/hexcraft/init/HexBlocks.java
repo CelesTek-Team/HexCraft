@@ -904,8 +904,8 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.ID);
 
         if (HexConfig.cfgTeleportEnable) {
-            blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.UNLOCALISEDNAME);
-            GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.UNLOCALISEDNAME);
+            blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.ID);
+            GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.ID);
         }
 
         // Tank Valve

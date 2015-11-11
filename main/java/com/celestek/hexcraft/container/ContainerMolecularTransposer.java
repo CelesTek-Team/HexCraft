@@ -1,20 +1,12 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import ibxm.Player;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -43,7 +35,7 @@ public class ContainerMolecularTransposer extends Container {
         inventory = new InventoryMolecularTransposer(player, device);
         addSlotToContainer(new Slot(inventory, 0, 80, 36));
 
-        // Add inventory slots.
+        // Add container slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){

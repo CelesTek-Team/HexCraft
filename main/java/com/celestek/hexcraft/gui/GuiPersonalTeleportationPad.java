@@ -1,8 +1,7 @@
 package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.inventory.ContainerPersonalTeleportationPad;
-import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
+import com.celestek.hexcraft.container.ContainerPersonalTeleportationPad;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,35 +18,37 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GuiPersonalTeleportationPad extends GuiContainer {
 
-    // Prepare a TilePersonalTeleportationPad object.
-    private TilePersonalTeleportationPad tileEntity;
+    // GUI Sizes
+    private static final int GUI_SIZE_X = 176;
+    private static final int GUI_SIZE_Y = 88;
+
+    private TilePersonalTeleportationPad tilePersonalTeleportationPad;
 
     /**
      * Constructor for GuiPersonalTeleportationPad.
      */
-    public GuiPersonalTeleportationPad(InventoryPlayer invPlayer, TilePersonalTeleportationPad tileEntity) {
-        super(new ContainerPersonalTeleportationPad(invPlayer, tileEntity));
+    public GuiPersonalTeleportationPad(TilePersonalTeleportationPad tilePersonalTeleportationPad) {
+        super(new ContainerPersonalTeleportationPad(tilePersonalTeleportationPad));
 
         // Save the Tile Entity.
-        this.tileEntity = tileEntity;
+        this.tilePersonalTeleportationPad = tilePersonalTeleportationPad;
     }
 
     /**
      * Draws strings of the GUI.
      */
     protected void drawGuiContainerForegroundLayer(int par1, int par2){
-        // Get the name string.
-        String name = tileEntity.hasCustomInventoryName() ? tileEntity.getInventoryName() : I18n.format(tileEntity.getInventoryName());
 
         // Draw the input string.
-        String out = tileEntity.energyInGui + " HEX/t";
+        String out = tilePersonalTeleportationPad.getGuiEnergyDrained() + " HEX/t";
         fontRendererObj.drawString(out, 142 - fontRendererObj.getStringWidth(out) / 2, 205 - 94, 0x404040);
 
         // Draw the name string.
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 45, 0x404040);
+        String name = I18n.format(tilePersonalTeleportationPad.getInventoryName());
+        fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 45, 0x404040);
 
         // Draw the charge string.
-        String charge =  "Charge: " + tileEntity.getEnergyScaled(100) + "%";
+        String charge = I18n.format("hexcraft.container.charge") + ": " + tilePersonalTeleportationPad.getEnergyScaled(100) + "%";
         fontRendererObj.drawString(charge, 24, 90, 0x404040);
 
         // Draw the number strings.
@@ -66,14 +67,14 @@ public class GuiPersonalTeleportationPad extends GuiContainer {
         // Bind the texture of the GUI.
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiPersonalTeleportationPad.png"));
         // Prepare x and y values (top left corner).
-        int x = (width - 176) / 2;
-        int y = (height - 88) / 2;
+        int x = (width - GUI_SIZE_X) / 2;
+        int y = (height - GUI_SIZE_Y) / 2;
 
         // Draw the background of GUI.
-        drawTexturedModalRect(x, y, 0, 0, 176, 88);
+        drawTexturedModalRect(x, y, 0, 0, GUI_SIZE_X, GUI_SIZE_Y);
 
         // Draw the progress bar.
-        int i = tileEntity.getEnergyScaled(64);
+        int i = tilePersonalTeleportationPad.getEnergyScaled(64);
         // If the bar exceeds total length, trim it.
         if (i > 128)
             i = 128;

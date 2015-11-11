@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.inventory.ContainerMatrixReconstructor;
+import com.celestek.hexcraft.container.ContainerMatrixReconstructor;
 import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,7 +63,7 @@ public class GuiMatrixReconstructor extends GuiContainer {
         // Draw the name string.
         String name = I18n.format(tileMatrixReconstructor.getInventoryName());
         fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
-        // Draw the player inventory string.
+        // Draw the player container string.
         fontRendererObj.drawString(I18n.format("container.inventory"), 8, GUI_SIZE_Y - 94, 0x404040);
         // Draw the info box string.
         fontRendererObj.drawString("In:", 111 - fontRendererObj.getStringWidth("In:"), GUI_SIZE_Y - 94, 0x404040);

@@ -1,7 +1,7 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.init.HexProcessingCrystalSeparator;
-import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
+import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
+import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,14 +18,14 @@ import net.minecraft.item.ItemStack;
  * @version 0.7.0
  */
 
-public class ContainerCrystalSeparator extends Container {
+public class ContainerMatrixReconstructor extends Container {
 
     // Crafter IDs
     private static final int GUI_ID_ENERGY_TOTAL_DONE_0 = 0;
     private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
     private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    private TileCrystalSeparator tileCrystalSeparator;
+    private TileMatrixReconstructor tileMatrixReconstructor;
 
     private int lastEnergyTotalDone;
     private int lastEnergyDrained;
@@ -33,15 +33,15 @@ public class ContainerCrystalSeparator extends Container {
     /**
      * Constructor
      */
-    public ContainerCrystalSeparator(InventoryPlayer player, TileCrystalSeparator tileCrystalSeparator) {
+    public ContainerMatrixReconstructor(InventoryPlayer player, TileMatrixReconstructor tileMatrixReconstructor) {
         // Save the Tile Entity.
-        this.tileCrystalSeparator = tileCrystalSeparator;
+        this.tileMatrixReconstructor = tileMatrixReconstructor;
 
         // Add the container slots.
-        this.addSlotToContainer(new Slot(tileCrystalSeparator, 0, 48, 35));
-        addSlotToContainer(new SlotFurnace(player.player, tileCrystalSeparator, 1, 116, 35));
+        this.addSlotToContainer(new Slot(tileMatrixReconstructor, 0, 48, 35));
+        addSlotToContainer(new SlotFurnace(player.player, tileMatrixReconstructor, 1, 116, 35));
 
-        // Add inventory slots.
+        // Add container slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){
@@ -59,16 +59,16 @@ public class ContainerCrystalSeparator extends Container {
      * Register the progress bar updates.
      */
     @Override
-    public void addCraftingToCrafters(ICrafting craft) {
+    public void addCraftingToCrafters(ICrafting craft){
         super.addCraftingToCrafters(craft);
 
-        int energyTotalDone = tileCrystalSeparator.getGuiEnergyTotalDone();
+        int energyTotalDone = tileMatrixReconstructor.getGuiEnergyTotalDone();
 
         int[] mcEnergyTotalDone = HexUtils.intToMCInts(energyTotalDone);
 
         craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_0, mcEnergyTotalDone[0]);
         craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_1, mcEnergyTotalDone[1]);
-        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileCrystalSeparator.getGuiEnergyDrained());
+        craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileMatrixReconstructor.getGuiEnergyDrained());
     }
 
     /**
@@ -81,8 +81,8 @@ public class ContainerCrystalSeparator extends Container {
         for (int i = 0; i < crafters.size(); i++) {
             ICrafting craft = (ICrafting) crafters.get(i);
 
-            if (lastEnergyTotalDone != tileCrystalSeparator.getGuiEnergyTotalDone()) {
-                int energyTotalDone = tileCrystalSeparator.getGuiEnergyTotalDone();
+            if (lastEnergyTotalDone != tileMatrixReconstructor.getGuiEnergyTotalDone()) {
+                int energyTotalDone = tileMatrixReconstructor.getGuiEnergyTotalDone();
 
                 int[] mcEnergyTotalDone = HexUtils.intToMCInts(energyTotalDone);
 
@@ -90,14 +90,14 @@ public class ContainerCrystalSeparator extends Container {
                 craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_TOTAL_DONE_1, mcEnergyTotalDone[1]);
             }
 
-            if (lastEnergyDrained != tileCrystalSeparator.getGuiEnergyDrained()) {
-                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileCrystalSeparator.getGuiEnergyDrained());
+            if (lastEnergyDrained != tileMatrixReconstructor.getGuiEnergyDrained()) {
+                craft.sendProgressBarUpdate(this, GUI_ID_ENERGY_DRAINED, tileMatrixReconstructor.getGuiEnergyDrained());
             }
         }
 
         // Save the new values as last value.
-        lastEnergyTotalDone = tileCrystalSeparator.getGuiEnergyTotalDone();
-        lastEnergyDrained = tileCrystalSeparator.getGuiEnergyDrained();
+        lastEnergyTotalDone = tileMatrixReconstructor.getGuiEnergyTotalDone();
+        lastEnergyDrained = tileMatrixReconstructor.getGuiEnergyDrained();
     }
 
     /**
@@ -106,7 +106,7 @@ public class ContainerCrystalSeparator extends Container {
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int value) {
-        int[] mcEnergyTotalDone = HexUtils.intToMCInts(tileCrystalSeparator.getGuiEnergyTotalDone());
+        int[] mcEnergyTotalDone = HexUtils.intToMCInts(tileMatrixReconstructor.getGuiEnergyTotalDone());
 
         switch (id) {
             case GUI_ID_ENERGY_TOTAL_DONE_0:
@@ -116,13 +116,13 @@ public class ContainerCrystalSeparator extends Container {
                 mcEnergyTotalDone[1] = value;
                 break;
             case GUI_ID_ENERGY_DRAINED:
-                tileCrystalSeparator.setGuiEnergyDrained(value);
+                tileMatrixReconstructor.setGuiEnergyDrained(value);
                 break;
         }
 
         int energyTotalDone = HexUtils.joinMCIntsToInt(mcEnergyTotalDone);
 
-        tileCrystalSeparator.setGuiEnergyTotalDone(energyTotalDone);
+        tileMatrixReconstructor.setGuiEnergyTotalDone(energyTotalDone);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ContainerCrystalSeparator extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tileCrystalSeparator.isUseableByPlayer(player);
+        return tileMatrixReconstructor.isUseableByPlayer(player);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ContainerCrystalSeparator extends Container {
                 }
                 slot.onSlotChange(itemStack1, itemStack);
             } else if (par2 != 0) {
-                if (HexProcessingCrystalSeparator.processing().getProcessingResult(itemStack1) != null) {
+                if (HexProcessingMatrixReconstructor.processing().getProcessingResult(itemStack1) != null) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
                         return null;
                     }

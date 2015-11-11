@@ -5,30 +5,20 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.inventory.ContainerMolecularTransposer;
-import com.celestek.hexcraft.tileentity.TileEnergyPylon;
-import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.HexDamage;
-import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -70,9 +60,9 @@ public class ItemMolecularTransposer extends Item {
                 // Read the items.
                 ItemStack inventory = readNBT(stack);
 
-                // If there is something in inventory...
+                // If there is something in container...
                 if (inventory != null) {
-                    // And if the block in inventory is Energized Hexorium...
+                    // And if the block in container is Energized Hexorium...
                     if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
                         // Get the block.
                         Block block = world.getBlock(x, y, z);
@@ -546,9 +536,9 @@ public class ItemMolecularTransposer extends Item {
                     // Read the items.
                     ItemStack inventory = readNBT(itemstack);
 
-                    // If there is something in inventory...
+                    // If there is something in container...
                     if (inventory != null)
-                        // And if the block in inventory is Energized Hexorium...
+                        // And if the block in container is Energized Hexorium...
                         if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
 
                             // Check if the target can be attacked.
@@ -721,7 +711,7 @@ public class ItemMolecularTransposer extends Item {
     }
 
     /**
-     * Reads the inventory.
+     * Reads the container.
      */
     private ItemStack readNBT(ItemStack device) {
         ItemStack inventory;

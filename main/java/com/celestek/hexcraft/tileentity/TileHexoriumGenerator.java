@@ -30,7 +30,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
     public static final String ID = "tileHexoriumGenerator";
 
-    private static final String INVENTORY_NAME = "container.hexoriumGenerator";
+    private static final String INVENTORY_NAME = "hexcraft.container.hexoriumGenerator";
 
     // NBT Names
     private static final String NBT_ENERGY_DRAINS = "energy_drains";
@@ -82,7 +82,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         super.writeToNBT(tagCompound);
 
         // Write the drains.
-        HexUtils.writeHexDevicesToNBT(tagCompound, NBT_ENERGY_DRAINS, energyDrains);
+        HexUtils.writeHexDevicesArrayToNBT(tagCompound, NBT_ENERGY_DRAINS, energyDrains);
 
         // Write the energy variables.
         tagCompound.setFloat(NBT_ENERGY_TOTAL, energyTotal);
@@ -94,7 +94,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         tagCompound.setInteger(NBT_GUI_ENERGY_TOTAL_LEFT, guiEnergyTotalLeft);
         tagCompound.setInteger(NBT_GUI_ENERGY_DRAINED, guiEnergyDrained);
 
-        // Write the inventory.
+        // Write the container.
         HexUtils.writeInventoryToNBT(tagCompound, inventory);
     }
 
@@ -106,7 +106,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         super.readFromNBT(tagCompound);
 
         // Read the drains.
-        energyDrains = HexUtils.readHexDevicesFromNBT(tagCompound, NBT_ENERGY_DRAINS);
+        energyDrains = HexUtils.readHexDevicesArrayFromNBT(tagCompound, NBT_ENERGY_DRAINS);
 
         // Read the energy variables.
         energyTotal = tagCompound.getFloat(NBT_ENERGY_TOTAL);
@@ -118,7 +118,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         guiEnergyTotalLeft = tagCompound.getInteger(NBT_GUI_ENERGY_TOTAL_LEFT);
         guiEnergyDrained = tagCompound.getInteger(NBT_GUI_ENERGY_DRAINED);
 
-        // Read the inventory.
+        // Read the container.
         inventory = HexUtils.readInventoryFromNBT(tagCompound, getSizeInventory());
     }
 
@@ -190,7 +190,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     public void setDrains(ArrayList<HexDevice> energyDrains) {
         this.energyDrains = energyDrains;
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received.");
+            System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received. d: " + energyDrains.size());
     }
 
     /**
@@ -336,7 +336,44 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     /**** ISidedInventory Methods ****/
 
     /**
-     * Fired when opening the inventory.
+     * Return the item slots depending on side. Used for blocks like Hopper.
+     */
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        // Get the machine meta.
+        int meta = blockMetadata;
+
+        // Strip away the texture states from meta.
+        if (meta >= 4 && meta < 8)
+            meta -= 4;
+        else if (meta >= 8)
+            meta -= 8;
+
+        // Make side slot available only from front.
+        if (side == 2 && meta == 0)
+            return slotsSide;
+        else if (side == 3 && meta == 2)
+            return slotsSide;
+        else if (side == 4 && meta == 3)
+            return slotsSide;
+        else if (side == 5 && meta == 1)
+            return slotsSide;
+        else
+            return slotsBlank;
+    }
+
+    /**
+     * Check if item can be inserted.
+     */
+    @Override
+    public boolean canInsertItem(int slot, ItemStack itemstack, int par3) {
+        return isItemValidForSlot(slot, itemstack);
+    }
+
+    /**** IInventory Methods ****/
+
+    /**
+     * Fired when opening the container.
      */
     @Override
     public void openInventory() {
@@ -344,7 +381,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     }
 
     /**
-     * Fired when closing the inventory.
+     * Fired when closing the container.
      */
     @Override
     public void closeInventory() {
@@ -408,41 +445,6 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     @Override
     public int getInventoryStackLimit() {
         return 64;
-    }
-
-    /**
-     * Return the item slots depending on side. Used for blocks like Hopper.
-     */
-    @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        // Get the machine meta.
-        int meta = blockMetadata;
-
-        // Strip away the texture states from meta.
-        if (meta >= 4 && meta < 8)
-            meta -= 4;
-        else if (meta >= 8)
-            meta -= 8;
-
-        // Make side slot available only from front.
-        if (side == 2 && meta == 0)
-            return slotsSide;
-        else if (side == 3 && meta == 2)
-            return slotsSide;
-        else if (side == 4 && meta == 3)
-            return slotsSide;
-        else if (side == 5 && meta == 1)
-            return slotsSide;
-        else
-            return slotsBlank;
-    }
-
-    /**
-     * Check if item can be inserted.
-     */
-    @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int par3) {
-        return isItemValidForSlot(slot, itemstack);
     }
 
     /**

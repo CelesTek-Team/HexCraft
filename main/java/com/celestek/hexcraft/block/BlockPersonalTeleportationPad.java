@@ -1,9 +1,12 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,7 +30,7 @@ import net.minecraft.world.World;
 public class BlockPersonalTeleportationPad extends HexBlockContainer implements IBlockHexEnergyDrain {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockPersonalTeleportationPad";
+    public static final String ID = "blockPersonalTeleportationPad";
 
     /**
      * Constructor for the block.
@@ -51,9 +54,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
      * Returns a new instance of a block's TIle Entity class. Called on placing the block.
      */
     @Override
-    public TileEntity createNewTileEntity(World world, int par2)
-    {
-        // Create the new TIle Entity.
+    public TileEntity createNewTileEntity(World world, int par2) {
         return new TilePersonalTeleportationPad();
     }
 
@@ -62,17 +63,17 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        // Get the direction of the block.
+        // Get the direction of the block and set the meta.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
-        // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction + 8, 2);
+        int meta = HexUtils.setBitInt(0, direction, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+        meta = HexUtils.setBitInt(meta, HexBlocks.MACHINE_STATE_DEAD, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
         // Check if the code is executed on the server.
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Teleport placed, analyzing!");
+                System.out.println("[Personal Teleportation Pad] (" + x + ", " + y + ", " + z + "): Teleport placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -97,11 +98,11 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         if (itemStack != null) {
             if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
                 // Open the GUI.
-                player.openGui(HexCraft.instance, 4, world, x, y, z);
+                player.openGui(HexCraft.instance, HexGui.GUI_ID_PERSONAL_TELEPORTATION_PAD, world, x, y, z);
         }
         else
             // Open the GUI.
-            player.openGui(HexCraft.instance, 4, world, x, y, z);
+            player.openGui(HexCraft.instance, HexGui.GUI_ID_PERSONAL_TELEPORTATION_PAD, world, x, y, z);
         return true;
     }
 
@@ -115,17 +116,14 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase) {
 
-            // Prepare the block meta.
-            int meta = world.getBlockMetadata(x, y, z);
-
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable destroyed, analyzing!");
+                System.out.println("[Personal Teleportation Pad] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             // Call the analysis in the direction the machine is rotated.
-            analyzer.analyzeMachines(world, x, y, z, meta);
+            analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
 
             // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
@@ -133,13 +131,12 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
             analyzer2.analyzeTeleport(world, x, y, z);
         }
 
-        if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-            int meta = world.getBlockMetadata(x, y, z);
-            if (meta < 4) {
-                TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
-                tileEntity.beginTeleport();
+        if (world.isBlockIndirectlyGettingPowered(x, y, z))
+            if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_READY) {
+                TilePersonalTeleportationPad tilePersonalTeleportationPad = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
+                if (tilePersonalTeleportationPad != null)
+                    tilePersonalTeleportationPad.beginTeleport();
             }
-        }
     }
 
     /**
@@ -147,14 +144,12 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        // Get the Tile Entity.
-        TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
+        TilePersonalTeleportationPad tilePersonalTeleportationPad = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
 
-        // Check if it is not null.
-        if (tileEntity != null) {
+        if (tilePersonalTeleportationPad != null) {
 
             // Stop the machine processing.
-            tileEntity.stopProcessing();
+            tilePersonalTeleportationPad.stopProcessing();
 
             world.func_147453_f(x, y, z, block);
         }
@@ -166,12 +161,10 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
      */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        // Get the block meta.
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
         // If the machine is active, make it emit light.
-        if (block == this && meta >= 4 && meta < 8)
-            return 8;
+        if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0,
+                HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_ACTIVE)
+            return 12;
         else
             return 0;
     }
@@ -190,7 +183,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         icon = new IIcon[7];
         // Load the outer textures.
         for (int i = 0; i < 6; i++)
-            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i + 1));
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
         // Load the inner texture
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
@@ -201,11 +194,15 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        // System.out.println("Sides requested!");
-        if (meta == 0) {
+        int state1 = 0;
+        if(HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1) != HexBlocks.MACHINE_STATE_DEAD)
+            state1 = 1;
+        int rotation = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+
+        if (rotation == 0) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[2];
+                case 1: return icon[1 + state1];
                 case 2: return icon[4];
                 case 3: return icon[3];
                 case 4: return icon[4];
@@ -213,10 +210,11 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
                 case 6: return icon[6];
                 case 7: return icon[5];
             }
-        } else if (meta == 1) {
+        }
+        else if (rotation == 1) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[2];
+                case 1: return icon[1 + state1];
                 case 2: return icon[4];
                 case 3: return icon[4];
                 case 4: return icon[3];
@@ -224,10 +222,11 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
                 case 6: return icon[6];
                 case 7: return icon[5];
             }
-        } else if (meta == 2) {
+        }
+        else if (rotation == 2) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[2];
+                case 1: return icon[1 + state1];
                 case 2: return icon[3];
                 case 3: return icon[4];
                 case 4: return icon[4];
@@ -235,98 +234,11 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
                 case 6: return icon[6];
                 case 7: return icon[5];
             }
-        } else if (meta == 3) {
+        }
+        else if (rotation == 3) {
             switch (side) {
                 case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[4];
-                case 3: return icon[4];
-                case 4: return icon[4];
-                case 5: return icon[3];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 4) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[4];
-                case 3: return icon[3];
-                case 4: return icon[4];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 5) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[4];
-                case 3: return icon[4];
-                case 4: return icon[3];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 6) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[3];
-                case 3: return icon[4];
-                case 4: return icon[4];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 7) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[2];
-                case 2: return icon[4];
-                case 3: return icon[4];
-                case 4: return icon[4];
-                case 5: return icon[3];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 8) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[1];
-                case 2: return icon[4];
-                case 3: return icon[3];
-                case 4: return icon[4];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 9) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[1];
-                case 2: return icon[4];
-                case 3: return icon[4];
-                case 4: return icon[3];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 10) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[1];
-                case 2: return icon[3];
-                case 3: return icon[4];
-                case 4: return icon[4];
-                case 5: return icon[4];
-                case 6: return icon[6];
-                case 7: return icon[5];
-            }
-        } else if (meta == 11) {
-            switch (side) {
-                case 0: return icon[0];
-                case 1: return icon[1];
+                case 1: return icon[1 + state1];
                 case 2: return icon[4];
                 case 3: return icon[4];
                 case 4: return icon[4];

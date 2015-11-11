@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.inventory.ContainerTankValve;
+import com.celestek.hexcraft.container.ContainerTankValve;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -53,7 +53,7 @@ public class GuiTankValve extends GuiContainer {
                 }
             }
         else
-            fontRendererObj.drawString("Tank not set up.", 61, 93, 0xFF0000);
+            fontRendererObj.drawString("hexcraft.container.tankNotSetUp", 61, 93, 0xFF0000);
 
     }
 

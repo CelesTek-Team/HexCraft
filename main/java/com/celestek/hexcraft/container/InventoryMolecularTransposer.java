@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import net.minecraft.block.Block;
@@ -29,7 +29,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Returns the number of slots in the inventory.
+     * Returns the number of slots in the container.
      */
     @Override
     public int getSizeInventory()
@@ -47,7 +47,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
+     * Removes from an container slot (first arg) up to a specified number (second arg) of items and returns them in a
      * new stack.
      */
     @Override
@@ -106,7 +106,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     * Sets the given item stack to the specified slot in the container (can be crafting or armor sections).
      */
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack)
@@ -120,7 +120,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Returns the name of the inventory
+     * Returns the name of the container
      */
     @Override
     public String getInventoryName()
@@ -129,7 +129,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Returns if the inventory is named
+     * Returns if the container is named
      */
     @Override
     public boolean hasCustomInventoryName()
@@ -138,7 +138,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot.
+     * Returns the maximum stack size for a container slot.
      */
     @Override
     public int getInventoryStackLimit()
@@ -182,7 +182,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Writes the inventory.
+     * Writes the container.
      */
     private void writeNBT() {
         // Write the items.
@@ -197,7 +197,7 @@ public class InventoryMolecularTransposer implements IInventory {
     }
 
     /**
-     * Reads the inventory.
+     * Reads the container.
      */
     private void readNBT() {
         this.inventory = new ItemStack[getSizeInventory()];

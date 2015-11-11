@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

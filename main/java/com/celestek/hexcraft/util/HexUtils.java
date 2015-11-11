@@ -256,7 +256,7 @@ public class HexUtils {
      * @param name Name to use for writing to NBT.
      * @param devices The ArrayList of HexDevice objects.
      */
-    public static void writeHexDevicesToNBT(NBTTagCompound tagCompound, String name, ArrayList<HexDevice> devices) {
+    public static void writeHexDevicesArrayToNBT(NBTTagCompound tagCompound, String name, ArrayList<HexDevice> devices) {
         int devicesX[];
         int devicesY[];
         int devicesZ[];
@@ -293,7 +293,7 @@ public class HexUtils {
      * @param name Name to use for reading from NBT.
      * @return The ArrayList of HexDevice objects.
      */
-    public static ArrayList<HexDevice> readHexDevicesFromNBT(NBTTagCompound tagCompound, String name) {
+    public static ArrayList<HexDevice> readHexDevicesArrayFromNBT(NBTTagCompound tagCompound, String name) {
         ArrayList<HexDevice> devices = new ArrayList<HexDevice>();
         int devicesX[];
         int devicesY[];
@@ -311,9 +311,41 @@ public class HexUtils {
     }
 
     /**
-     * Writes an inventory to NBT.
+     * Writes a HexDevice object to NBT.
      * @param tagCompound NBTTagCompound to write to.
-     * @param inventory The inventory to write to NBT.
+     * @param name Name to use for writing to NBT.
+     * @param device The HexDevice object.
+     */
+    public static void writeHexDeviceToNBT(NBTTagCompound tagCompound, String name, HexDevice device) {
+        if (device != null) {
+            tagCompound.setInteger(name + "_x", device.x);
+            tagCompound.setInteger(name + "_y", device.y);
+            tagCompound.setInteger(name + "_z", device.z);
+        }
+        else {
+            tagCompound.setInteger(name + "_x", 0);
+            tagCompound.setInteger(name + "_y", 0);
+            tagCompound.setInteger(name + "_z", 0);
+        }
+    }
+
+    /**
+     * Reads a HexDevice object from NBT.
+     * @param tagCompound NBTTagCompound to read from.
+     * @param name Name to use for reading from NBT.
+     * @return The HexDevice object.
+     */
+    public static HexDevice readHexDeviceFromNBT(NBTTagCompound tagCompound, String name) {
+        return new HexDevice(
+                tagCompound.getInteger(name + "_x"),
+                tagCompound.getInteger(name + "_y"),
+                tagCompound.getInteger(name + "_z"), null);
+    }
+
+    /**
+     * Writes an container to NBT.
+     * @param tagCompound NBTTagCompound to write to.
+     * @param inventory The container to write to NBT.
      */
     public static void writeInventoryToNBT(NBTTagCompound tagCompound, ItemStack[] inventory) {
         NBTTagList tagsItems = new NBTTagList();
@@ -330,9 +362,9 @@ public class HexUtils {
     }
 
     /**
-     * Reads an inventory from NBT.
+     * Reads an container from NBT.
      * @param tagCompound NBTTagCompound to read from.
-     * @param invSize Size of the inventory.
+     * @param invSize Size of the container.
      * @return The ItemStack array.
      */
     public static ItemStack[] readInventoryFromNBT(NBTTagCompound tagCompound, int invSize) {

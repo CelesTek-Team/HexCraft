@@ -78,7 +78,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Machine placed, analyzing!");
+                System.out.println("[Hexorium Generator] (" + x + ", " + y + ", " + z + "): Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.
@@ -114,7 +114,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
                 block instanceof BlockPylonBase) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable destroyed, analyzing!");
+                System.out.println("[Hexorium Generator] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             // Prepare the network analyzer.

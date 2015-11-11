@@ -20,7 +20,7 @@ public class HexTileEntities {
         GameRegistry.registerTileEntity(TileMatrixReconstructor.class, TileMatrixReconstructor.ID);
 
         if (HexConfig.cfgTeleportEnable)
-            GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, "tilePersonalTeleportationPad");
+            GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, TilePersonalTeleportationPad.ID);
 
         GameRegistry.registerTileEntity(TileEnergyPylon.class, "tileEnergyPylon");
 

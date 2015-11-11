@@ -1,12 +1,10 @@
 package com.celestek.hexcraft.gui;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.inventory.ContainerMolecularTransposer;
-import com.celestek.hexcraft.inventory.InventoryMolecularTransposer;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.container.ContainerMolecularTransposer;
+import com.celestek.hexcraft.container.InventoryMolecularTransposer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ibxm.Player;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +42,7 @@ public class GuiMolecularTransposer extends GuiContainer {
 
         // Draw the name string.
         fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
-        // Draw the player inventory string.
+        // Draw the player container string.
         fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 4210752);
     }
 

@@ -1,7 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.gui.*;
-import com.celestek.hexcraft.inventory.*;
+import com.celestek.hexcraft.container.*;
 import com.celestek.hexcraft.tileentity.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,7 +49,7 @@ public class HexGui implements IGuiHandler {
         }
         else if(ID == GUI_ID_PERSONAL_TELEPORTATION_PAD) {
             TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
-            return new ContainerPersonalTeleportationPad(player.inventory, tileEntity);
+            return new ContainerPersonalTeleportationPad(tileEntity);
         }
         else if(ID == GUI_ID_MOLECULAR_TRANSPOSER) {
             ItemStack itemStack = player.getCurrentEquippedItem();
@@ -86,7 +86,7 @@ public class HexGui implements IGuiHandler {
         }
         else if(ID == GUI_ID_PERSONAL_TELEPORTATION_PAD) {
             TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
-            return new GuiPersonalTeleportationPad(player.inventory, tileEntity);
+            return new GuiPersonalTeleportationPad(tileEntity);
         }
         else if(ID == GUI_ID_MOLECULAR_TRANSPOSER) {
             ItemStack itemStack = player.getCurrentEquippedItem();

@@ -1,6 +1,5 @@
-package com.celestek.hexcraft.inventory;
+package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
 import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -42,7 +41,7 @@ public class ContainerHexoriumFurnace extends Container {
         this.addSlotToContainer(new Slot(tileHexoriumFurnace, 0, 48, 35));
         addSlotToContainer(new SlotFurnace(player.player, tileHexoriumFurnace, 1, 116, 35));
 
-        // Add inventory slots.
+        // Add container slots.
         int i;
         for(i = 0; i < 3; ++i){
             for(int j = 0; j < 9; ++j){
