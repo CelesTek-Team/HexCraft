@@ -61,6 +61,33 @@ public class HexUtils {
     }
 
     /**
+     * Sets the orientation of block.
+     * @param b0 First bit of orientation.
+     * @param b1 Second bit of orientation.
+     * @param b2 Third bit of orientation.
+     * @param direction Direction of rotation, true for upwards, false for downwards.
+     * @param notify Notify parameter to use.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     */
+    public static void orientBlock(int b0, int b1, int b2, boolean direction, int notify, World world, int x, int y, int z) {
+        int ori = getMetaBitTriInt(b0, b1, b2, world, x, y, z);
+        if (direction) {
+            ori++;
+            if (ori > 5)
+                ori = 0;
+        }
+        else {
+            ori--;
+            if (ori < 0)
+                ori = 5;
+        }
+        setMetaBitTriInt(b0, b1, b2, ori, notify, world, x, y, z);
+    }
+
+    /**
      * Returns n-th bit from an integer
      * @param b0 which bit
      * @param number The integer in question
