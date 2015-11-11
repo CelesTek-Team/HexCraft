@@ -1,10 +1,12 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.block.BlockEnergyPylon;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.util.HexPylon;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -416,101 +418,116 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      */
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        // Fetch block data.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(
+                BlockEnergyPylon.META_ORIENTATION_0,
+                BlockEnergyPylon.META_ORIENTATION_1,
+                BlockEnergyPylon.META_ORIENTATION_2, 
+                world, x, y, z);
+        boolean state = !HexUtils.getMetaBit(BlockEnergyPylon.META_STATE, world, x, y, z);
+        
         float r = HexColors.colorWhiteR;
         float g = HexColors.colorWhiteG;
         float b = HexColors.colorWhiteB;
         IIcon c = block.getIcon(6, 0);
 
-        int metaFull = meta;
-        // Strip away the meta.
-        if (meta >= 6)
-            meta = meta - 6;
-
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(x, y, z);
-
-        // Get the pylon Tile Entity.
-        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        
         // Check if there is a monolith inserted.
-        boolean renderMonolith = false;
-        if (tileEntity != null)
-            if (tileEntity.monolith > 0)
-                renderMonolith = true;
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        int monolith = 0;
+        if (tileEnergyPylon != null)
+            monolith = tileEnergyPylon.getMonolith();
 
         // If there is a monolith, set the according color.
-        if (renderMonolith) {
-            if (tileEntity.monolith == 1) {
+        if (monolith != 0) {
+            if (monolith == 1) {
                 r = HexColors.colorRedR;
                 g = HexColors.colorRedG;
                 b = HexColors.colorRedB;
-            } else if (tileEntity.monolith == 2) {
+            }
+            else if (monolith == 2) {
                 r = HexColors.colorOrangeR;
                 g = HexColors.colorOrangeG;
                 b = HexColors.colorOrangeB;
-            } else if (tileEntity.monolith == 3) {
+            }
+            else if (monolith == 3) {
                 r = HexColors.colorYellowR;
                 g = HexColors.colorYellowG;
                 b = HexColors.colorYellowB;
-            } else if (tileEntity.monolith == 4) {
+            }
+            else if (monolith == 4) {
                 r = HexColors.colorLimeR;
                 g = HexColors.colorLimeG;
                 b = HexColors.colorLimeB;
-            } else if (tileEntity.monolith == 5) {
+            }
+            else if (monolith == 5) {
                 r = HexColors.colorGreenR;
                 g = HexColors.colorGreenG;
                 b = HexColors.colorGreenB;
-            } else if (tileEntity.monolith == 6) {
+            }
+            else if (monolith == 6) {
                 r = HexColors.colorTurquoiseR;
                 g = HexColors.colorTurquoiseG;
                 b = HexColors.colorTurquoiseB;
-            } else if (tileEntity.monolith == 7) {
+            }
+            else if (monolith == 7) {
                 r = HexColors.colorCyanR;
                 g = HexColors.colorCyanG;
                 b = HexColors.colorCyanB;
-            } else if (tileEntity.monolith == 8) {
+            }
+            else if (monolith == 8) {
                 r = HexColors.colorSkyBlueR;
                 g = HexColors.colorSkyBlueG;
                 b = HexColors.colorSkyBlueB;
-            } else if (tileEntity.monolith == 9) {
+            }
+            else if (monolith == 9) {
                 r = HexColors.colorBlueR;
                 g = HexColors.colorBlueG;
                 b = HexColors.colorBlueB;
-            } else if (tileEntity.monolith == 10) {
+            }
+            else if (monolith == 10) {
                 r = HexColors.colorPurpleR;
                 g = HexColors.colorPurpleG;
                 b = HexColors.colorPurpleB;
-            } else if (tileEntity.monolith == 11) {
+            }
+            else if (monolith == 11) {
                 r = HexColors.colorMagentaR;
                 g = HexColors.colorMagentaG;
                 b = HexColors.colorMagentaB;
-            } else if (tileEntity.monolith == 12) {
+            }
+            else if (monolith == 12) {
                 r = HexColors.colorPinkR;
                 g = HexColors.colorPinkG;
                 b = HexColors.colorPinkB;
-            } else if (tileEntity.monolith == 13) {
+            }
+            else if (monolith == 13) {
                 r = HexColors.colorWhiteR;
                 g = HexColors.colorWhiteG;
                 b = HexColors.colorWhiteB;
-            } else if (tileEntity.monolith == 14) {
+            }
+            else if (monolith == 14) {
                 r = HexColors.colorLightGrayR;
                 g = HexColors.colorLightGrayG;
                 b = HexColors.colorLightGrayB;
-            } else if (tileEntity.monolith == 15) {
+            }
+            else if (monolith == 15) {
                 r = HexColors.colorGrayR;
                 g = HexColors.colorGrayG;
                 b = HexColors.colorGrayB;
-            } else if (tileEntity.monolith == 16) {
+            }
+            else if (monolith == 16) {
                 r = HexColors.colorDarkGrayR;
                 g = HexColors.colorDarkGrayG;
                 b = HexColors.colorDarkGrayB;
-            } else if (tileEntity.monolith == 17) {
+            }
+            else if (monolith == 17) {
                 r = HexColors.colorBlackR;
                 g = HexColors.colorBlackG;
                 b = HexColors.colorBlackB;
-            } else if (tileEntity.monolith == 18) {
+            }
+            else if (monolith == 18) {
                 // If it's rainbow, set a different texture.
                 c = block.getIcon(7, 0);
             }
@@ -520,11 +537,11 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         if(HexClientProxy.renderPass[renderBlockID] == 1) {
 
             // If there is a monolith...
-            if (renderMonolith) {
+            if (monolith != 0) {
                 /* Monolith */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
-                if (metaFull < 6)
+                if (state)
                     tessellator.setColorRGBA_F(r, g, b, opacity);
                 else
                     tessellator.setColorRGBA_F(r * darkMonolith, g * darkMonolith, b * darkMonolith, opacity);
@@ -536,7 +553,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 double V = c.getInterpolatedV(VMonoSide);
 
                 // Render the monolith. Use the block meta to rotate the model.
-                if (meta == 0) {
+                if (orientation == 0) {
                     // Top Face
                     tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
                     tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
@@ -578,7 +595,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xMonoF, 1 - yMonoBot, zMonoF, U, V); // F'
                     tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, u, v); // A
-                } else if (meta == 1) {
+                } else if (orientation == 1) {
                     // Top Face
                     tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
                     tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
@@ -620,7 +637,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, U, V); // F'
                     tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, u, V); // A'
-                } else if (meta == 2) {
+                } else if (orientation == 2) {
                     // Top Face
                     tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
                     tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
@@ -662,7 +679,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoBot, U, V); // F'
                     tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, U, v); // F
                     tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, u, v); // A
-                } else if (meta == 3) {
+                } else if (orientation == 3) {
                     // Top Face
                     tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
                     tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
@@ -704,7 +721,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, U, v); // F
                     tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoBot, U, V); // F'
                     tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoBot, u, V); // A'
-                } else if (meta == 4) {
+                } else if (orientation == 4) {
                     // Top Face
                     tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
                     tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
@@ -746,7 +763,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, U, v); // F
                     tessellator.addVertexWithUV(1 - yMonoBot, xMonoF, zMonoF, U, V); // F'
                     tessellator.addVertexWithUV(1 - yMonoBot, xMonoA, zMonoA, u, V); // A'
-                } else if (meta == 5) {
+                } else if (orientation == 5) {
                     // Top Face
                     tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
                     tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
@@ -801,17 +818,17 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         // If this is the first (opaque) render pass...
         else {
             // If there is a monolith...
-            if (renderMonolith) {
+            if (monolith != 0) {
                 /* Ball */
                 // Set up brightness and color.
                 tessellator.setBrightness(brightness);
-                if (metaFull < 6)
+                if (state)
                     tessellator.setColorOpaque_F(r, g, b);
                 else
                     tessellator.setColorOpaque_F(r * darkMonolith, g * darkMonolith, b * darkMonolith);
 
                 // Render the ball. Use the block meta to rotate the model.
-                if (meta == 0) {
+                if (orientation == 0) {
                     // Top Face
                     tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(xBallD2, 1 - yBallTop, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -895,7 +912,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(xBallE2, 1 - yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(xBallF2, 1 - yBallBot, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
-                } else if (meta == 1) {
+                } else if (orientation == 1) {
                     // Top Face
                     tessellator.addVertexWithUV(xBallB2, yBallTop, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(xBallC2, yBallTop, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -979,7 +996,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xBallE2, yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (meta == 2) {
+                } else if (orientation == 2) {
                     // Top Face
                     tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -1063,7 +1080,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallBot, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
-                } else if (meta == 3) {
+                } else if (orientation == 3) {
                     // Top Face
                     tessellator.addVertexWithUV(zBallB2, xBallB2, yBallTop, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(zBallC2, xBallC2, yBallTop, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -1147,7 +1164,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zBallE2, xBallE2, yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (meta == 4) {
+                } else if (orientation == 4) {
                     // Top Face
                     tessellator.addVertexWithUV(1 - yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(1 - yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -1231,7 +1248,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1 - yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (meta == 5) {
+                } else if (orientation == 5) {
                     // Top Face
                     tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -1327,7 +1344,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
             c = block.getIcon(0, 0);
 
             // Render the base. Use the block meta to rotate the model.
-            if (meta == 0) {
+            if (orientation == 0) {
                 // Base Faces
                 tessellator.addVertexWithUV(xPlatMin, 1-yMonoBot, zPlatMax, c.getInterpolatedU(uBaseA4), c.getInterpolatedV(vBaseA4)); // A'
                 tessellator.addVertexWithUV(xPlatMax, 1-yMonoBot, zPlatMax, c.getInterpolatedU(uBaseA3), c.getInterpolatedV(vBaseA3)); // B'
@@ -1423,7 +1440,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xPlatMax, 1-yMonoBot, zPlatMax, U, v); // B'
                 tessellator.addVertexWithUV(xPlatMin, 1-yMonoBot, zPlatMax, u, v); // A'
             }
-            else if (meta == 1) {
+            else if (orientation == 1) {
                 // Base Faces
                 tessellator.addVertexWithUV(xBaseMin, yBaseBot, zBaseMax, c.getInterpolatedU(uBaseA1), c.getInterpolatedV(vBaseA1)); // A
                 tessellator.addVertexWithUV(xBaseMax, yBaseBot, zBaseMax, c.getInterpolatedU(uBaseA2), c.getInterpolatedV(vBaseA2)); // B
@@ -1519,7 +1536,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(xPlatMax, yMonoBot, zPlatMin, U, V); // C'
                 tessellator.addVertexWithUV(xPlatMin, yMonoBot, zPlatMin, u, V); // D'
             }
-            else if (meta == 2) {
+            else if (orientation == 2) {
                 // Base Faces
                 tessellator.addVertexWithUV(zPlatMax, xPlatMin, 1-yMonoBot, c.getInterpolatedU(uBaseB4), c.getInterpolatedV(vBaseB4)); // A'
                 tessellator.addVertexWithUV(zPlatMax, xPlatMax, 1-yMonoBot, c.getInterpolatedU(uBaseB3), c.getInterpolatedV(vBaseB3)); // B'
@@ -1615,7 +1632,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(zPlatMax, xPlatMax, 1-yMonoBot, U, v); // B'
                 tessellator.addVertexWithUV(zPlatMax, xPlatMin, 1-yMonoBot, u, v); // A'
             }
-            else if (meta == 3) {
+            else if (orientation == 3) {
                 // Base Faces
                 tessellator.addVertexWithUV(zBaseMax, xBaseMin, yBaseBot, c.getInterpolatedU(uBaseB1), c.getInterpolatedV(vBaseB1)); // A
                 tessellator.addVertexWithUV(zBaseMax, xBaseMax, yBaseBot, c.getInterpolatedU(uBaseB2), c.getInterpolatedV(vBaseB2)); // B
@@ -1711,7 +1728,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(zPlatMin, xPlatMax, yMonoBot, U, V); // C'
                 tessellator.addVertexWithUV(zPlatMin, xPlatMin, yMonoBot, u, V); // D'
             }
-            else if (meta == 4) {
+            else if (orientation == 4) {
                 // Base Faces
                 tessellator.addVertexWithUV(1-yBaseBot, xBaseMin, zBaseMax, c.getInterpolatedU(uBaseA1), c.getInterpolatedV(vBaseA1)); // A
                 tessellator.addVertexWithUV(1-yBaseBot, xBaseMax, zBaseMax, c.getInterpolatedU(uBaseA2), c.getInterpolatedV(vBaseA2)); // B
@@ -1807,7 +1824,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1-yMonoBot, xPlatMax, zPlatMin, U, V); // C'
                 tessellator.addVertexWithUV(1-yMonoBot, xPlatMin, zPlatMin, u, V); // D'
             }
-            else if (meta == 5) {
+            else if (orientation == 5) {
                 // Base Faces
                 tessellator.addVertexWithUV(yMonoBot, xPlatMin, zPlatMax, c.getInterpolatedU(uBaseA4), c.getInterpolatedV(vBaseA4)); // A'
                 tessellator.addVertexWithUV(yMonoBot, xPlatMax, zPlatMax, c.getInterpolatedU(uBaseA3), c.getInterpolatedV(vBaseA3)); // B'
@@ -1905,11 +1922,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
             }
 
             // If there is a monolith...
-            if (renderMonolith && metaFull < 6) {
-                /* Beams */
+            if (monolith != 0 && state) {
 
-                // Check if the pylon list is not null.
-                if (tileEntity.pylons != null) {
+                /* Beams */
+                if (tileEnergyPylon.getPylons() != null) {
                     // Prepare the icon variables.
                     double u;
                     double U;
@@ -1920,16 +1936,16 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.setBrightness(brightness);
 
                     // Go through each pylon entry.
-                    for (HexPylon entry : tileEntity.pylons) {
-                        if (tileEntity.getWorldObj().getChunkProvider().chunkExists(entry.x >> 4, entry.z >> 4)) {
-                            TileEnergyPylon pylon = (TileEnergyPylon) tileEntity.getWorldObj().getTileEntity(entry.x, entry.y, entry.z);
-                            if (pylon != null) {
-                                int tMono = pylon.monolith;
+                    for (HexPylon entry : tileEnergyPylon.getPylons()) {
+                        if (HexUtils.checkChunk(tileEnergyPylon.getWorldObj(), entry.x, entry.z)) {
+                            TileEnergyPylon tileEnergyPylonEntry = (TileEnergyPylon) tileEnergyPylon.getWorldObj().getTileEntity(entry.x, entry.y, entry.z);
+                            if (tileEnergyPylonEntry != null) {
+                                int monolithEntry = tileEnergyPylonEntry.getMonolith();
                                 // Check if the target pylon is ON.
-                                if (pylon.getBlockMetadata() < 6) {
+                                if (tileEnergyPylonEntry.getBlockMetadata() < 6) {
                                     // System.out.println("Pylon at (" + x + ", " + y + ", " + z + ") rendering link to (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
                                     // Check if both of the pylons are rainbow.
-                                    if (tileEntity.monolith == 18 && tMono == 18) {
+                                    if (monolith == 18 && monolithEntry == 18) {
                                         // If they are, set the rainbow texture.
                                         tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
                                         c = block.getIcon(11, 0);
@@ -1937,76 +1953,93 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                         U = c.getMaxU();
                                         v = c.getMinV();
                                         V = c.getMaxV();
-                                    } else if (tileEntity.monolith == 18 && tMono != 18) {
+                                    }
+                                    else if (monolith == 18) {
                                         // If this is rainbow and target is not, use target color.
                                         float tr = HexColors.colorWhiteR;
                                         float tg = HexColors.colorWhiteG;
                                         float tb = HexColors.colorWhiteB;
-                                        if (tMono == 1) {
+                                        if (monolithEntry == 1) {
                                             tr = HexColors.colorRedR;
                                             tg = HexColors.colorRedG;
                                             tb = HexColors.colorRedB;
-                                        } else if (tMono == 2) {
+                                        }
+                                        else if (monolithEntry == 2) {
                                             tr = HexColors.colorOrangeR;
                                             tg = HexColors.colorOrangeG;
                                             tb = HexColors.colorOrangeB;
-                                        } else if (tMono == 3) {
+                                        }
+                                        else if (monolithEntry == 3) {
                                             tr = HexColors.colorYellowR;
                                             tg = HexColors.colorYellowG;
                                             tb = HexColors.colorYellowB;
-                                        } else if (tMono == 4) {
+                                        }
+                                        else if (monolithEntry == 4) {
                                             tr = HexColors.colorLimeR;
                                             tg = HexColors.colorLimeG;
                                             tb = HexColors.colorLimeB;
-                                        } else if (tMono == 5) {
+                                        }
+                                        else if (monolithEntry == 5) {
                                             tr = HexColors.colorGreenR;
                                             tg = HexColors.colorGreenG;
                                             tb = HexColors.colorGreenB;
-                                        } else if (tMono == 6) {
+                                        }
+                                        else if (monolithEntry == 6) {
                                             tr = HexColors.colorTurquoiseR;
                                             tg = HexColors.colorTurquoiseG;
                                             tb = HexColors.colorTurquoiseB;
-                                        } else if (tMono == 7) {
+                                        }
+                                        else if (monolithEntry == 7) {
                                             tr = HexColors.colorCyanR;
                                             tg = HexColors.colorCyanG;
                                             tb = HexColors.colorCyanB;
-                                        } else if (tMono == 8) {
+                                        }
+                                        else if (monolithEntry == 8) {
                                             tr = HexColors.colorSkyBlueR;
                                             tg = HexColors.colorSkyBlueG;
                                             tb = HexColors.colorSkyBlueB;
-                                        } else if (tMono == 9) {
+                                        }
+                                        else if (monolithEntry == 9) {
                                             tr = HexColors.colorBlueR;
                                             tg = HexColors.colorBlueG;
                                             tb = HexColors.colorBlueB;
-                                        } else if (tMono == 10) {
+                                        }
+                                        else if (monolithEntry == 10) {
                                             tr = HexColors.colorPurpleR;
                                             tg = HexColors.colorPurpleG;
                                             tb = HexColors.colorPurpleB;
-                                        } else if (tMono == 11) {
+                                        }
+                                        else if (monolithEntry == 11) {
                                             tr = HexColors.colorMagentaR;
                                             tg = HexColors.colorMagentaG;
                                             tb = HexColors.colorMagentaB;
-                                        } else if (tMono == 12) {
+                                        }
+                                        else if (monolithEntry == 12) {
                                             tr = HexColors.colorPinkR;
                                             tg = HexColors.colorPinkG;
                                             tb = HexColors.colorPinkB;
-                                        } else if (tMono == 13) {
+                                        }
+                                        else if (monolithEntry == 13) {
                                             tr = HexColors.colorWhiteR;
                                             tg = HexColors.colorWhiteG;
                                             tb = HexColors.colorWhiteB;
-                                        } else if (tMono == 14) {
+                                        }
+                                        else if (monolithEntry == 14) {
                                             tr = HexColors.colorLightGrayR;
                                             tg = HexColors.colorLightGrayG;
                                             tb = HexColors.colorLightGrayB;
-                                        } else if (tMono == 15) {
+                                        }
+                                        else if (monolithEntry == 15) {
                                             tr = HexColors.colorGrayR;
                                             tg = HexColors.colorGrayG;
                                             tb = HexColors.colorGrayB;
-                                        } else if (tMono == 16) {
+                                        }
+                                        else if (monolithEntry == 16) {
                                             tr = HexColors.colorDarkGrayR;
                                             tg = HexColors.colorDarkGrayG;
                                             tb = HexColors.colorDarkGrayB;
-                                        } else if (tMono == 17) {
+                                        }
+                                        else if (monolithEntry == 17) {
                                             tr = HexColors.colorBlackR;
                                             tg = HexColors.colorBlackG;
                                             tb = HexColors.colorBlackB;
@@ -2017,7 +2050,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                                         U = c.getMaxU();
                                         v = c.getMinV();
                                         V = c.getMaxV();
-                                    } else {
+                                    }
+                                    else {
                                         // Otherwise, set the color normally.
                                         tessellator.setColorOpaque_F(r, g, b);
                                         c = block.getIcon(10, 0);
@@ -2050,7 +2084,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
                                         vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
                                         vec5 = centerVector(vec5);
-                                    } else {
+                                    }
+                                    else {
                                         // Create helper vector.
                                         Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
                                         vec1.rotateAroundY((float) -Math.PI / 2);

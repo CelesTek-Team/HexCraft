@@ -80,7 +80,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         int meta;
         if (block == HexBlocks.blockTankValve)
-            meta = HexUtils.setBit(0, BlockTankValve.META_ROTATION, true);
+            meta = HexUtils.setBit(BlockTankValve.META_ROTATION, true, 0);
         else
             meta = 2;
 

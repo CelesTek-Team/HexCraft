@@ -80,8 +80,8 @@ public class ItemHexoriumManipulator extends Item {
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    HexUtils.rotateBlock(true, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1,
-                            world, x, y, z, HexUtils.META_NOTIFY_UPDATE);
+                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, true,
+                            HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
                         System.out.println("Teleport rotated, analyzing!");
@@ -155,7 +155,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
                 else if (block == HexBlocks.blockTankValve) {
                     if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
-                        HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, world, x, y, z, 3);
+                        HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, 3, world, x, y, z);
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
                 }
@@ -208,7 +208,9 @@ public class ItemHexoriumManipulator extends Item {
                                     if (pylonA != null && pylonB != null) {
 
                                         // Check if the color combinations are okay.
-                                        if ((pylonA.monolith != 0 && pylonB.monolith != 0) && (pylonA.monolith == 18 || pylonB.monolith == 18 || pylonA.monolith == pylonB.monolith)) {
+                                        int monolithA = pylonA.getMonolith();
+                                        int monolithB = pylonB.getMonolith();
+                                        if ((monolithA != 0 && monolithB != 0) && (monolithA == 18 || monolithB == 18 || monolithA == monolithB)) {
 
                                             // Try to add pylons.
                                             if (pylonA.addPylon(tx, ty, tz, false) && pylonB.addPylon(x, y, z, true)) {
@@ -333,8 +335,8 @@ public class ItemHexoriumManipulator extends Item {
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    HexUtils.rotateBlock(true, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1,
-                            world, x, y, z, HexUtils.META_NOTIFY_UPDATE);
+                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, true,
+                            HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
                         System.out.println("Machine rotated, analyzing!");

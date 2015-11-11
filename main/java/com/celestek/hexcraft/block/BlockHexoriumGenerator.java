@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockHexEnergySource {
 
-    // Set default block name.
+    // Block ID
     public static final String ID = "blockHexoriumGenerator";
 
     private final Random random = new Random();
@@ -71,8 +71,8 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
         // Get the direction of the block and set the meta.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        int meta = HexUtils.setBitInt(0, direction, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
-        meta = HexUtils.setBitInt(meta, HexBlocks.MACHINE_STATE_DEAD, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        int meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, direction, 0);
+        meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, HexBlocks.MACHINE_STATE_DEAD, meta);
         world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
         if(!world.isRemote) {
@@ -81,9 +81,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
                 System.out.println("[Hexorium Generator] (" + x + ", " + y + ", " + z + "): Machine placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis in the direction the machine is rotated.
             analyzer.analyzeMachines(world, x, y, z, direction);
         }
     }
@@ -117,9 +115,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
                 System.out.println("[Hexorium Generator] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis in the direction the machine is rotated.
             analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
         }
     }
@@ -175,7 +171,7 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         // If the machine is active, make it emit light.
-        if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0,
+        if (HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0,
                 HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_ACTIVE)
             return 12;
         else
@@ -212,11 +208,11 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        int state1 = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        int state1 = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, meta);
         int state2 = 0;
         if (state1 == HexBlocks.MACHINE_STATE_ACTIVE)
             state2 = 4;
-        int rotation = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+        int rotation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, meta);
 
         if (rotation == 0) {
             switch (side) {

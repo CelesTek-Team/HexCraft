@@ -957,8 +957,8 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumCableRainbow, BlockHexoriumCable.UNLOCALISEDNAME + "Rainbow");
         
         // Energy Pylon
-        blockEnergyPylon = new BlockEnergyPylon(BlockEnergyPylon.UNLOCALISEDNAME);
-        GameRegistry.registerBlock(blockEnergyPylon, BlockEnergyPylon.UNLOCALISEDNAME);
+        blockEnergyPylon = new BlockEnergyPylon(BlockEnergyPylon.ID);
+        GameRegistry.registerBlock(blockEnergyPylon, BlockEnergyPylon.ID);
 
         // Hexorium Switch
         blockHexoriumSwitchRedGreen = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedGreen");
@@ -999,37 +999,16 @@ public class HexBlocks {
     }
 
     public static int getMachineState(World world, int x, int y, int z) {
-        return HexUtils.getMetaBitInt(
+        return HexUtils.getMetaBitBiInt(
                 META_MACHINE_STATUS_0,
                 META_MACHINE_STATUS_1,
                 world, x, y, z);
     }
 
     public static void setMachineState(int state, World world, int x, int y, int z) {
-        HexUtils.setMetaBitInt(
-                state,
+        HexUtils.setMetaBitBiInt(
                 META_MACHINE_STATUS_0,
                 META_MACHINE_STATUS_1,
-                world, x, y, z,
-                HexUtils.META_NOTIFY_UPDATE);
-    }
-
-    public static void updateMachineState(int status, World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-
-        if (status == 1 && meta < 4)
-            meta = meta + 4;
-        else if (status == 1 && meta >= 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 4 && meta < 8)
-            meta = meta - 4;
-        else if (status == 0 && meta >= 8)
-            meta = meta - 8;
-        else if (status == 2 && meta < 4)
-            meta = meta + 8;
-        else if (status == 2 && meta >= 4 && meta < 8)
-            meta = meta + 4;
-
-        world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                state, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
     }
 }

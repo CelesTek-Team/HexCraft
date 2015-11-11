@@ -1,6 +1,5 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.init.HexBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -37,18 +36,18 @@ public class HexUtils {
 
     /**
      * Sets the rotation of block.
-     * @param dir Direction of rotation, true for upwards, false for downwards.
-     * @param n1 First bit of rotation.
-     * @param n2 Second bit of rotation.
+     * @param b0 First bit of rotation.
+     * @param b1 Second bit of rotation.
+     * @param direction Direction of rotation, true for upwards, false for downwards.
+     * @param notify Notify parameter to use.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
-     * @param notify Notify parameter to use.
      */
-    public static void rotateBlock(boolean dir, int n1, int n2, World world, int x, int y, int z, int notify) {
-        int rot = getMetaBitInt(n1, n2, world, x, y, z);
-        if (dir) {
+    public static void rotateBlock(int b0, int b1, boolean direction, int notify, World world, int x, int y, int z) {
+        int rot = getMetaBitBiInt(b0, b1, world, x, y, z);
+        if (direction) {
             rot++;
             if (rot > 3)
                 rot = 0;
@@ -58,140 +57,227 @@ public class HexUtils {
             if (rot < 0)
                 rot = 3;
         }
-        setMetaBitInt(rot, n1, n2, world, x, y, z, notify);
+        setMetaBitBiInt(b0, b1, rot, notify, world, x, y, z);
     }
 
     /**
      * Returns n-th bit from an integer
-     * @param num The integer in question
-     * @param n which bit
+     * @param b0 which bit
+     * @param number The integer in question
      * @return Returns the bit
      */
-    public static boolean getBit(int num, int n) {
-        return ((num >> n) & 1) == 1;
+    public static boolean getBit(int b0, int number) {
+        return ((number >> b0) & 1) == 1;
     }
 
     /**
      * Returns n-th bit from block meta.
-     * @param n Which bit of meta.
+     * @param b0 Which bit of meta.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
      * @return Returns the bool of bit.
      */
-    public static boolean getMetaBit(int n, World world, int x, int y, int z) {
-        return getBit(world.getBlockMetadata(x, y, z), n);
+    public static boolean getMetaBit(int b0, World world, int x, int y, int z) {
+        return getBit(b0, world.getBlockMetadata(x, y, z));
+    }
+
+    /**
+     * Returns n-th bit from block meta.
+     * @param b0 Which bit of meta.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @return Returns the bool of bit.
+     */
+    public static boolean getMetaBit(int b0, IBlockAccess world, int x, int y, int z) {
+        return getBit(b0, world.getBlockMetadata(x, y, z));
     }
 
     /**
      * Returns the int extracted from bits.
-     * @param num Number to process.
-     * @param n1 First bit.
-     * @param n2 Second bit.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param number Number to process.
      * @return Returns 0-3 int.
      */
-    public static int getBitInt(int num, int n1, int n2) {
-        return (getBit(num, n1) ? 1 : 0) + (getBit(num, n2) ? 2 : 0);
+    public static int getBitBiInt(int b0, int b1, int number) {
+        return (getBit(b0, number) ? 1 : 0) + (getBit(b1, number) ? 2 : 0);
     }
 
     /**
      * Returns the int extracted from meta.
-     * @param n1 First bit.
-     * @param n2 Second bit.
+     * @param b0 First bit.
+     * @param b1 Second bit.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
      * @return Returns 0-3 int.
      */
-    public static int getMetaBitInt(int n1, int n2, World world, int x, int y, int z) {
-        return getBitInt(world.getBlockMetadata(x, y, z), n1, n2);
+    public static int getMetaBitBiInt(int b0, int b1, World world, int x, int y, int z) {
+        return getBitBiInt(b0, b1, world.getBlockMetadata(x, y, z));
     }
 
     /**
      * Returns the int extracted from meta.
-     * @param n1 First bit.
-     * @param n2 Second bit.
+     * @param b0 First bit.
+     * @param b1 Second bit.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
      * @return Returns 0-3 int.
      */
-    public static int getMetaBitInt(int n1, int n2, IBlockAccess world, int x, int y, int z) {
-        return getBitInt(world.getBlockMetadata(x, y, z), n1, n2);
+    public static int getMetaBitBiInt(int b0, int b1, IBlockAccess world, int x, int y, int z) {
+        return getBitBiInt(b0, b1, world.getBlockMetadata(x, y, z));
+    }
+
+    /**
+     * Returns the int extracted from bits.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param b2 Third bit.
+     * @param number Number to process.
+     * @return Returns 0-7 int.
+     */
+    public static int getBitTriInt(int b0, int b1, int b2, int number) {
+        return (getBit(b0, number) ? 1 : 0) + (getBit(b1, number) ? 2 : 0) + (getBit(b2, number) ? 4 : 0);
+    }
+
+    /**
+     * Returns the int extracted from meta.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param b2 Third bit.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @return Returns 0-7 int.
+     */
+    public static int getMetaBitTriInt(int b0, int b1, int b2, World world, int x, int y, int z) {
+        return getBitTriInt(b0, b1, b2, world.getBlockMetadata(x, y, z));
+    }
+
+    /**
+     * Returns the int extracted from meta.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param b2 Third bit.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     * @return Returns 0-7 int.
+     */
+    public static int getMetaBitTriInt(int b0, int b1, int b2, IBlockAccess world, int x, int y, int z) {
+        return getBitTriInt(b0, b1, b2, world.getBlockMetadata(x, y, z));
     }
 
     /**
      * Sets n-th bit for the given integer
-     * @param num The integer to set the bit for
-     * @param n Which bit, LSB is 0
-     * @param val What to set it to
+     * @param b0 Which bit, LSB is 0
+     * @param value What to set it to
+     * @param original The integer to set the bit for
      * @return Int with the n-th bit set
      */
-    public static int setBit(int num, int n, boolean val) {
-        if (getBit(num, n) != val) {
-            int mask = (1 << n);
-            return num^mask;
+    public static int setBit(int b0, boolean value, int original) {
+        if (getBit(b0, original) != value) {
+            int mask = (1 << b0);
+            return original^mask;
         }
-        return num;
+        return original;
     }
 
     /**
      * Sets n-th bit for meta of a block.
-     * @param n Which bit of meta.
-     * @param val Bool to set the bit to.
+     * @param b0 Which bit of meta.
+     * @param value Bool to set the bit to.
+     * @param notify Notify parameter to use.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
-     * @param notify Notify parameter to use.
      */
-    public static void setMetaBit(int n, boolean val, World world, int x, int y, int z, int notify) {
-        world.setBlockMetadataWithNotify(x, y, z, setBit(world.getBlockMetadata(x, y, z), n, val), notify);
+    public static void setMetaBit(int b0, boolean value, int notify, World world, int x, int y, int z) {
+        world.setBlockMetadataWithNotify(x, y, z, setBit(b0, value, world.getBlockMetadata(x, y, z)), notify);
     }
 
     /**
      * Sets an int into another int.
-     * @param orig Original int to modify.
-     * @param num 0-3 int.
-     * @param n1 First bit.
-     * @param n2 Second bit.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param value 0-3 int.
+     * @param original Original int to modify.
      * @return Modified int.
      */
-    public static int setBitInt(int orig, int num, int n1, int n2) {
-        orig = setBit(orig, n1, getBit(num, 0));
-        orig = setBit(orig, n2, getBit(num, 1));
-        return orig;
+    public static int setBitBiInt(int b0, int b1, int value, int original) {
+        original = setBit(b0, getBit(0, value), original);
+        original = setBit(b1, getBit(1, value), original);
+        return original;
     }
 
     /**
      * Sets the int into meta.
-     * @param num 0-3 int.
-     * @param n1 First bit.
-     * @param n2 Second bit.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param value 0-3 int.
+     * @param notify Notify parameter to use.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
-     * @param notify Notify parameter to use.
      */
-    public static void setMetaBitInt(int num, int n1, int n2, World world, int x, int y, int z, int notify) {
-        world.setBlockMetadataWithNotify(x, y, z, setBitInt(world.getBlockMetadata(x, y, z), num, n1, n2), notify);
+    public static void setMetaBitBiInt(int b0, int b1, int value, int notify, World world, int x, int y, int z) {
+        world.setBlockMetadataWithNotify(x, y, z, setBitBiInt(b0, b1, value, world.getBlockMetadata(x, y, z)), notify);
+    }
+
+    /**
+     * Sets an int into another int.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param b2 Third bit.
+     * @param value 0-7 int.
+     * @param original Original int to modify.
+     * @return Modified int.
+     */
+    public static int setBitTriInt(int b0, int b1, int b2, int value, int original) {
+        original = setBit(b0, getBit(0, value), original);
+        original = setBit(b1, getBit(1, value), original);
+        original = setBit(b2, getBit(2, value), original);
+        return original;
+    }
+
+    /**
+     * Sets the int into meta.
+     * @param b0 First bit.
+     * @param b1 Second bit.
+     * @param b2 Third bit.
+     * @param value 0-7 int.
+     * @param notify Notify parameter to use.
+     * @param world World of the block.
+     * @param x X coordinate of block.
+     * @param y Y coordinate of block.
+     * @param z Z coordinate of block.
+     */
+    public static void setMetaBitTriInt(int b0, int b1, int b2, int value, int notify, World world, int x, int y, int z) {
+        world.setBlockMetadataWithNotify(x, y, z, setBitTriInt(b0, b1, b2, value, world.getBlockMetadata(x, y, z)), notify);
     }
 
     /**
      * Flips n-th bit for meta of a block.
-     * @param n Which bit of meta.
+     * @param b0 Which bit of meta.
+     * @param notify Notify parameter to use.
      * @param world World of the block.
      * @param x X coordinate of block.
      * @param y Y coordinate of block.
      * @param z Z coordinate of block.
-     * @param notify Notify parameter to use.
      */
-    public static void flipMetaBit(int n, World world, int x, int y, int z, int notify) {
-        world.setBlockMetadataWithNotify(x, y, z, setBit(world.getBlockMetadata(x, y, z), n, !getMetaBit(n, world, x, y, z)), notify);
+    public static void flipMetaBit(int b0, int notify, World world, int x, int y, int z) {
+        world.setBlockMetadataWithNotify(x, y, z, setBit(b0, !getMetaBit(b0, world, x, y, z), world.getBlockMetadata(x, y, z)), notify);
     }
 
     /**
@@ -340,6 +426,73 @@ public class HexUtils {
                 tagCompound.getInteger(name + "_x"),
                 tagCompound.getInteger(name + "_y"),
                 tagCompound.getInteger(name + "_z"), null);
+    }
+
+    /**
+     * Writes an ArrayList of HexPylon objects to NBT.
+     * @param tagCompound NBTTagCompound to write to.
+     * @param name Name to use for writing to NBT.
+     * @param pylons The ArrayList of HexPylon objects.
+     */
+    public static void writeHexPylonsArrayToNBT(NBTTagCompound tagCompound, String name, ArrayList<HexPylon> pylons) {
+        int pylonsX[];
+        int pylonsY[];
+        int pylonsZ[];
+        int pylonsMaster[];
+
+        if (pylons != null) {
+            // Initialize the coordinate arrays.
+            pylonsX = new int[pylons.size()];
+            pylonsY = new int[pylons.size()];
+            pylonsZ = new int[pylons.size()];
+            pylonsMaster = new int[pylons.size()];
+            // Save the coordinates of devices to arrays.
+            int i = 0;
+            for (HexPylon entry : pylons) {
+                pylonsX[i] = entry.x;
+                pylonsY[i] = entry.y;
+                pylonsZ[i] = entry.z;
+                pylonsMaster[i] = entry.getMasterAsInt();
+                i++;
+            }
+        }
+        // If it is null, write the coordinate arrays as empty.
+        else {
+            pylonsX = new int[0];
+            pylonsY = new int[0];
+            pylonsZ = new int[0];
+            pylonsMaster = new int[0];
+        }
+        // Write the coordinate arrays.
+        tagCompound.setIntArray(name + "_x", pylonsX);
+        tagCompound.setIntArray(name + "_y", pylonsY);
+        tagCompound.setIntArray(name + "_z", pylonsZ);
+        tagCompound.setIntArray(name + "_master", pylonsMaster);
+    }
+
+    /**
+     * Reads an ArrayList of HexPylon objects from NBT.
+     * @param tagCompound NBTTagCompound to read from.
+     * @param name Name to use for reading from NBT.
+     * @return The ArrayList of HexPylon objects.
+     */
+    public static ArrayList<HexPylon> readHexPylonsArrayFromNBT(NBTTagCompound tagCompound, String name) {
+        ArrayList<HexPylon> pylons = new ArrayList<HexPylon>();
+        int pylonsX[];
+        int pylonsY[];
+        int pylonsZ[];
+        int pylonsMaster[];
+
+        // Read the coordinate arrays.
+        pylonsX = tagCompound.getIntArray(name + "_x");
+        pylonsY = tagCompound.getIntArray(name + "_y");
+        pylonsZ = tagCompound.getIntArray(name + "_z");
+        pylonsMaster = tagCompound.getIntArray(name + "_master");
+        // Build the device list using the coordinate arrays. Use null for block.
+        for (int i = 0; i < pylonsX.length; i++)
+            pylons.add(new HexPylon(pylonsX[i], pylonsY[i], pylonsZ[i], pylonsMaster[i]));
+
+        return pylons;
     }
 
     /**

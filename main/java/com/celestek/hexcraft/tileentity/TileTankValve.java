@@ -189,7 +189,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     private void setIsPart(int x, int y, int z, Dimension dimension, boolean isPart) {
 
-        HexUtils.setMetaBit(BlockTankValve.META_IS_PART, isPart, worldObj, x, y, z, HexUtils.META_NOTIFY_UPDATE);
+        HexUtils.setMetaBit(BlockTankValve.META_IS_PART, isPart, HexUtils.META_NOTIFY_UPDATE, worldObj, x, y, z);
 
         if (worldObj.getBlock(x, y, z) == HexBlocks.blockTankValve) {
             TileTankValve tileTankValve = (TileTankValve) worldObj.getTileEntity(x, y, z);
@@ -873,8 +873,8 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public int fill(ForgeDirection from, FluidStack fluidStack, boolean doFill) {
         if (isSetup
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
             int fill = getMasterTank().fill(fluidStack, doFill);
             if (doFill) {
@@ -897,8 +897,8 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         if (isSetup
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
             FluidTank fTank = getMasterTank();
             FluidStack fluidStack = fTank.getFluid();
@@ -925,8 +925,8 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         if (isSetup
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
             FluidTank fTank = getMasterTank();
             FluidStack fluidStack = fTank.getFluid();
@@ -950,8 +950,8 @@ public class TileTankValve extends TileFluidHandler {
      */
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return isSetup && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)) ||
-                ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)));
+        return isSetup && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())) ||
+                ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())));
     }
 
     /**
@@ -964,8 +964,8 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
         if (isSetup
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
             FluidTank fTank = getMasterTank();
             FluidStack fluidStack = fTank.getFluid();
@@ -988,8 +988,8 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         if (isSetup
-            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION))
-            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(getBlockMetadata(), BlockTankValve.META_ROTATION)))) {
+            && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
+            || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
             FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
             fluidTankInfos[0] = new FluidTankInfo(getMasterTank());

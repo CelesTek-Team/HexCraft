@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 public class BlockPersonalTeleportationPad extends HexBlockContainer implements IBlockHexEnergyDrain {
 
-    // Set default block name.
+    // Block ID
     public static final String ID = "blockPersonalTeleportationPad";
 
     /**
@@ -65,8 +65,8 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
         // Get the direction of the block and set the meta.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        int meta = HexUtils.setBitInt(0, direction, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
-        meta = HexUtils.setBitInt(meta, HexBlocks.MACHINE_STATE_DEAD, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1);
+        int meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, direction, 0);
+        meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, HexBlocks.MACHINE_STATE_DEAD, meta);
         world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
         // Check if the code is executed on the server.
@@ -76,14 +76,10 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
                 System.out.println("[Personal Teleportation Pad] (" + x + ", " + y + ", " + z + "): Teleport placed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer1 = new NetworkAnalyzer();
-            // Call the analysis in the direction the machine is rotated.
             analyzer1.analyzeMachines(world, x, y, z, direction);
 
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
-            // Call the analysis below the teleportation pad.
             analyzer2.analyzeTeleport(world, x, y, z);
         }
     }
@@ -120,19 +116,15 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
                 System.out.println("[Personal Teleportation Pad] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis in the direction the machine is rotated.
             analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
 
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
-            // Call the analysis below the teleportation pad.
             analyzer2.analyzeTeleport(world, x, y, z);
         }
 
         if (world.isBlockIndirectlyGettingPowered(x, y, z))
-            if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_READY) {
+            if (HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_READY) {
                 TilePersonalTeleportationPad tilePersonalTeleportationPad = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
                 if (tilePersonalTeleportationPad != null)
                     tilePersonalTeleportationPad.beginTeleport();
@@ -162,7 +154,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         // If the machine is active, make it emit light.
-        if (HexUtils.getMetaBitInt(HexBlocks.META_MACHINE_STATUS_0,
+        if (HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0,
                 HexBlocks.META_MACHINE_STATUS_1, world, x, y, z) == HexBlocks.MACHINE_STATE_ACTIVE)
             return 12;
         else
@@ -195,9 +187,9 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         int state1 = 0;
-        if(HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1) != HexBlocks.MACHINE_STATE_DEAD)
+        if(HexUtils.getBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, meta) != HexBlocks.MACHINE_STATE_DEAD)
             state1 = 1;
-        int rotation = HexUtils.getBitInt(meta, HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1);
+        int rotation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, meta);
 
         if (rotation == 0) {
             switch (side) {

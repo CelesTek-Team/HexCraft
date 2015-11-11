@@ -70,7 +70,7 @@ public class BlockTankValve extends HexBlockContainer {
         // Get the direction of the block.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         // Set the block's meta data according to direction.
-        HexUtils.setMetaBit(META_ROTATION, !HexUtils.getBit(direction, 0), world, x, y, z, HexUtils.META_NOTIFY_UPDATE);
+        HexUtils.setMetaBit(META_ROTATION, !HexUtils.getBit(0, direction), HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
     }
 
     @Override
@@ -140,8 +140,8 @@ public class BlockTankValve extends HexBlockContainer {
     public IIcon getIcon(int side, int meta) {
         // Prepare variables.
         int formed = 0;
-        boolean rotation = HexUtils.getBit(meta, META_ROTATION);
-        if (HexUtils.getBit(meta, META_IS_PART))
+        boolean rotation = HexUtils.getBit(META_ROTATION, meta);
+        if (HexUtils.getBit(META_IS_PART, meta))
             formed = 1;
 
         // Retrieve icon based on side.

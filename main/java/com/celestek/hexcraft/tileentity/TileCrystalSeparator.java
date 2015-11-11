@@ -68,7 +68,7 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory,
     /**** Common TileEntity Methods ****/
 
     public TileCrystalSeparator() {
-        inventory = new ItemStack[3];
+        this.inventory = new ItemStack[3];
         this.energyTotal = 6400;
         this.energyPerTick = 32;
         this.isActive = false;

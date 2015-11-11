@@ -12,8 +12,7 @@ public class HexTileEntities {
     /**
      * Initializes the Tile Entities.
      */
-    public static void initializeTileEntities()
-    {
+    public static void initializeTileEntities() {
         GameRegistry.registerTileEntity(TileHexoriumGenerator.class, TileHexoriumGenerator.ID);
         GameRegistry.registerTileEntity(TileHexoriumFurnace.class, TileHexoriumFurnace.ID);
         GameRegistry.registerTileEntity(TileCrystalSeparator.class, TileCrystalSeparator.ID);
@@ -22,7 +21,7 @@ public class HexTileEntities {
         if (HexConfig.cfgTeleportEnable)
             GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, TilePersonalTeleportationPad.ID);
 
-        GameRegistry.registerTileEntity(TileEnergyPylon.class, "tileEnergyPylon");
+        GameRegistry.registerTileEntity(TileEnergyPylon.class, TileEnergyPylon.ID);
 
         if (HexConfig.cfgTankEnable) {
             GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);

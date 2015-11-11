@@ -7,6 +7,7 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.util.HexPylon;
+import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,8 +39,14 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 public class BlockEnergyPylon extends HexBlockContainer {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockEnergyPylon";
+    // Block ID
+    public static final String ID = "blockEnergyPylon";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
+    public static final int META_STATE = 3;
 
     private final Random random = new Random();
 
@@ -66,8 +73,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
      * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
      */
     @Override
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return false;
     }
 
@@ -76,7 +82,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public TileEntity createNewTileEntity(World world, int par2) {
-        // Create the new TIle Entity.
         return new TileEnergyPylon();
     }
 
@@ -85,30 +90,25 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
-        // Strip away extra meta.
-        if (meta >= 6)
-            meta = meta - 6;
-
-        // Return bounding box depending on meta.
-        if (meta == 0)
+        // Return bounding box depending on orientation.
+        if (orientation == 0)
             setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
-        else if (meta == 1)
+        else if (orientation == 1)
             setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMax);
-        else if (meta == 2)
+        else if (orientation == 2)
             setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot,
                     HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
-        else if (meta == 3)
+        else if (orientation == 3)
             setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
                     HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot);
-        else if (meta == 4)
+        else if (orientation == 4)
             setBlockBounds(1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                     1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
-        else if (meta == 5)
+        else if (orientation == 5)
             setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                     HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
     }
@@ -119,58 +119,53 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Get monolith.
-        TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
         boolean monolith = false;
-        if (pylon != null)
-            if (pylon.monolith != 0)
+        if (tileEnergyPylon != null)
+            if (tileEnergyPylon.getMonolith() != 0)
                 monolith = true;
-
-        // Strip away extra meta.
-        if (meta >= 6)
-            meta = meta - 6;
 
         // Return bounding box depending on meta and monolith.
         if (!monolith) {
-            if (meta == 0)
+            if (orientation == 0)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 1)
+            else if (orientation == 1)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 2)
+            else if (orientation == 2)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
-            else if (meta == 3)
+            else if (orientation == 3)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoBot);
-            else if (meta == 4)
+            else if (orientation == 4)
                 return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 5)
+            else if (orientation == 5)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
         }
         else {
-            if (meta == 0)
+            if (orientation == 0)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 1)
+            else if (orientation == 1)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 2)
+            else if (orientation == 2)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoTop,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
-            else if (meta == 3)
+            else if (orientation == 3)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoTop);
-            else if (meta == 4)
+            else if (orientation == 4)
                 return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
-            else if (meta == 5)
+            else if (orientation == 5)
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
         }
@@ -183,48 +178,43 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Get monolith.
-        TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
         boolean monolith = false;
-        if (pylon != null)
-            if (pylon.monolith != 0)
+        if (tileEnergyPylon != null)
+            if (tileEnergyPylon.getMonolith() != 0)
                 monolith = true;
-
-        // Strip away extra meta.
-        if (meta >= 6)
-            meta = meta - 6;
 
         // Return bounding box depending on meta and monolith.
         if (!monolith) {
-            if (meta == 0) {
+            if (orientation == 0) {
                 setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 1) {
+            } else if (orientation == 1) {
                 setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoBot, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 2) {
+            } else if (orientation == 2) {
                 setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoBot,
                         HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
-            } else if (meta == 3) {
+            } else if (orientation == 3) {
                 setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
                         HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoBot);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoBot);
-            } else if (meta == 4) {
+            } else if (orientation == 4) {
                 setBlockBounds(1 - HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                         1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 5) {
+            } else if (orientation == 5) {
                 setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.yMonoBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
@@ -232,32 +222,32 @@ public class BlockEnergyPylon extends HexBlockContainer {
             }
         }
         else {
-            if (meta == 0) {
+            if (orientation == 0) {
                 setBlockBounds(HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoTop, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + 1 - HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + 1 - HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 1) {
+            } else if (orientation == 1) {
                 setBlockBounds(HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoTop, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.xBaseMin, y + HexModelRendererPylon.yBaseBot, z + HexModelRendererPylon.zBaseMin,
                         x + HexModelRendererPylon.xBaseMax, y + HexModelRendererPylon.yMonoTop, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 2) {
+            } else if (orientation == 2) {
                 setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, 1 - HexModelRendererPylon.yMonoTop,
                         HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, 1 - HexModelRendererPylon.yBaseBot);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + 1 - HexModelRendererPylon.yMonoTop,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + 1 - HexModelRendererPylon.yBaseBot);
-            } else if (meta == 3) {
+            } else if (orientation == 3) {
                 setBlockBounds(HexModelRendererPylon.zBaseMin, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.yBaseBot,
                         HexModelRendererPylon.zBaseMax, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.yMonoTop);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.zBaseMin, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.yBaseBot,
                         x + HexModelRendererPylon.zBaseMax, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.yMonoTop);
-            } else if (meta == 4) {
+            } else if (orientation == 4) {
                 setBlockBounds(1 - HexModelRendererPylon.yMonoTop, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                         1 - HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + 1 - HexModelRendererPylon.yMonoTop, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
                         x + 1 - HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMax, z + HexModelRendererPylon.zBaseMax);
-            } else if (meta == 5) {
+            } else if (orientation == 5) {
                 setBlockBounds(HexModelRendererPylon.yBaseBot, HexModelRendererPylon.xBaseMin, HexModelRendererPylon.zBaseMin,
                         HexModelRendererPylon.yMonoTop, HexModelRendererPylon.xBaseMax, HexModelRendererPylon.zBaseMax);
                 return AxisAlignedBB.getBoundingBox(x + HexModelRendererPylon.yBaseBot, y + HexModelRendererPylon.xBaseMin, z + HexModelRendererPylon.zBaseMin,
@@ -272,11 +262,10 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        // Check if this is the server thread.
         if (!world.isRemote) {
-            // If it is, pass the player object to the Tile Entity to insert the monolith.
-            TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
-            return tileEntity.insertMonolith(player);
+            // Pass the player object to the Tile Entity to insert the monolith.
+            TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+            return tileEnergyPylon.insertMonolith(player);
         }
         else
             return true;
@@ -302,7 +291,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        // Check if the code is executed on the server.
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
@@ -321,7 +309,6 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-        // Prepare the orientation.
         int orientation = -1;
 
         // First check if the side it was placed on can accept it. If it can, place it there.
@@ -353,8 +340,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
                 orientation = 0;
         }
 
-        if(world.isBlockIndirectlyGettingPowered(x, y, z))
-            orientation = orientation + 6;
+        orientation = HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, orientation, 0);
+        orientation = HexUtils.setBit(META_STATE, world.isBlockIndirectlyGettingPowered(x, y, z), orientation);
 
         // Return the new orientation as meta.
         return orientation;
@@ -365,45 +352,40 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-
-        // Strip away extra meta.
-        if (meta >= 6)
-            meta = meta - 6;
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(meta == 0) {
+        if(orientation == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 1) {
+        else if(orientation == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 2) {
+        else if(orientation == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 3) {
+        else if(orientation == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 4) {
+        else if(orientation == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 5) {
+        else if(orientation == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -411,57 +393,47 @@ public class BlockEnergyPylon extends HexBlockContainer {
         }
 
         // Check if redstone was changed.
-        if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) < 6) {
-            // Turn OFF.
-            world.setBlockMetadataWithNotify(x, y, z, meta + 6, 2);
-            TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-            // Start analysis from all connected pylons.
-            if (pylon != null) {
-                if (pylon.pylons != null)
-                    for (HexPylon entry : pylon.pylons) {
-                        // Refresh pylon.
-                        world.markBlockForUpdate(entry.x, entry.y, entry.z);
+        if (world.isBlockIndirectlyGettingPowered(x, y, z) && !HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
+            
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("[Energy Pylon] (" + x + ", " + y + ", " + z + "): Pylon toggled, analyzing!");
 
-                        if (HexConfig.cfgGeneralNetworkDebug)
-                            System.out.println("Pylon toggled, analyzing!");
+            // Turn OFF.
+            HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+            // Start analysis from all connected pylons.
+            if (tileEnergyPylon != null) {
+                if (tileEnergyPylon.getPylons() != null)
+                    for (HexPylon entry : tileEnergyPylon.getPylons()) {
+                        world.markBlockForUpdate(entry.x, entry.y, entry.z);
 
                         /* DO ANALYSIS */
-                        // Prepare the network analyzer.
                         NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                        // Call the analysis.
-                        analyzer.analyzePylon(world, entry.x, entry.y, entry.z, HexBlocks.blockEnergyPylon);
+                        analyzer.analyzePylon(world, entry.x, entry.y, entry.z, this);
                     }
             }
 
-            if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Pylon toggled, analyzing!");
-
-            // Start analysis from this pylon.
-            // Prepare the network analyzer.
+            /* DO ANALYSIS */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
-            analyzer.analyzePylon(world, x, y, z, HexBlocks.blockEnergyPylon);
+            analyzer.analyzePylon(world, x, y, z, this);
 
-        } else if (!world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) >= 6) {
+        } 
+        else if (!world.isBlockIndirectlyGettingPowered(x, y, z) && HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
+            
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("[Energy Pylon] (" + x + ", " + y + ", " + z + "): Pylon toggled, analyzing!");
+            
             // Turn ON.
-            world.setBlockMetadataWithNotify(x, y, z, meta, 2);
-            TileEnergyPylon pylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-            // Refresh all connected pylons.
-            if (pylon != null) {
-                if (pylon.pylons != null)
-                    for (HexPylon entry : pylon.pylons) {
+            HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+            if (tileEnergyPylon != null)
+                if (tileEnergyPylon.getPylons() != null)
+                    for (HexPylon entry : tileEnergyPylon.getPylons())
                         world.markBlockForUpdate(entry.x, entry.y, entry.z);
-                    }
-            }
 
-            if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Pylon toggled, analyzing!");
-
-            // Start analysis from this pylon.
-            // Prepare the network analyzer.
+            /* DO ANALYSIS */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
-            analyzer.analyzePylon(world, x, y, z, HexBlocks.blockEnergyPylon);
+            analyzer.analyzePylon(world, x, y, z, this);
         }
     }
 
@@ -470,62 +442,57 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        // Prepare a drop list.
-        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-
-        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
-
-        // If the block wasn't destroyed using the Manipulator...
-        if(fortune != HexCraft.hexFortune) {
-            // Drop just the pylon.
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();        
+        // If the block wasn't destroyed using the Manipulator, drop it as a block.
+        if(fortune != HexCraft.hexFortune)
             drops.add(new ItemStack(this, 1));
-        }
-        else {
-            // Return the monolith (because of Manipulator).
-            if (tileEntity != null)
-            {
-                if(tileEntity.monolith == 1)
+        // Otherwise return the monolith. 
+        else
+            if (tileEnergyPylon != null) {
+                int monolith = tileEnergyPylon.getMonolith();
+                if(monolith == 1)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed, 1));
-                else if(tileEntity.monolith == 2)
+                else if(monolith == 2)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange, 1));
-                else if(tileEntity.monolith == 3)
+                else if(monolith == 3)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow, 1));
-                else if(tileEntity.monolith == 4)
+                else if(monolith == 4)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime, 1));
-                else if(tileEntity.monolith == 5)
+                else if(monolith == 5)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen, 1));
-                else if(tileEntity.monolith == 6)
+                else if(monolith == 6)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise, 1));
-                else if(tileEntity.monolith == 7)
+                else if(monolith == 7)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan, 1));
-                else if(tileEntity.monolith == 8)
+                else if(monolith == 8)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue, 1));
-                else if(tileEntity.monolith == 9)
+                else if(monolith == 9)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue, 1));
-                else if(tileEntity.monolith == 10)
+                else if(monolith == 10)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple, 1));
-                else if(tileEntity.monolith == 11)
+                else if(monolith == 11)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta, 1));
-                else if(tileEntity.monolith == 12)
+                else if(monolith == 12)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink, 1));
 
-                else if(tileEntity.monolith == 13)
+                else if(monolith == 13)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite, 1));
-                else if(tileEntity.monolith == 14)
+                else if(monolith == 14)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray, 1));
-                else if(tileEntity.monolith == 15)
+                else if(monolith == 15)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray, 1));
-                else if(tileEntity.monolith == 16)
+                else if(monolith == 16)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray, 1));
-                else if(tileEntity.monolith == 17)
+                else if(monolith == 17)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1));
 
-                else if(tileEntity.monolith == 18)
+                else if(monolith == 18)
                     drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow, 1));
 
-                tileEntity.ejectMonolith();
+                tileEnergyPylon.ejectMonolith();
             }
-        }
 
         // Return the created drop array.
         return drops;
@@ -536,65 +503,80 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        // Get the Tile Entity.
-        TileEnergyPylon tileEntity = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
 
-        // Check if it is not null.
-        if (tileEntity != null) {
-
+        if (tileEnergyPylon != null) {
             // Remove all pylons from the list.
-            tileEntity.clearPylons();
+            tileEnergyPylon.clearPylons();
 
-            // Set up drops.
             ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-
-            if (tileEntity.monolith == 1) {
+            int monolith = tileEnergyPylon.getMonolith();
+            if (monolith == 1) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            } else if (tileEntity.monolith == 2) {
+            }
+            else if (monolith == 2) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            } else if (tileEntity.monolith == 3) {
+            }
+            else if (monolith == 3) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            } else if (tileEntity.monolith == 4) {
+            }
+            else if (monolith == 4) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            } else if (tileEntity.monolith == 5) {
+            }
+            else if (monolith == 5) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            } else if (tileEntity.monolith == 6) {
+            }
+            else if (monolith == 6) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            } else if (tileEntity.monolith == 7) {
+            }
+            else if (monolith == 7) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            } else if (tileEntity.monolith == 8) {
+            }
+            else if (monolith == 8) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            } else if (tileEntity.monolith == 9) {
+            }
+            else if (monolith == 9) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            } else if (tileEntity.monolith == 10) {
+            }
+            else if (monolith == 10) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            } else if (tileEntity.monolith == 11) {
+            }
+            else if (monolith == 11) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            } else if (tileEntity.monolith == 12) {
+            }
+            else if (monolith == 12) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-            } else if (tileEntity.monolith == 13) {
+            }
+
+            else if (monolith == 13) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            } else if (tileEntity.monolith == 14) {
+            }
+            else if (monolith == 14) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            } else if (tileEntity.monolith == 15) {
+            }
+            else if (monolith == 15) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            } else if (tileEntity.monolith == 16) {
+            }
+            else if (monolith == 16) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            } else if (tileEntity.monolith == 17) {
+            }
+            else if (monolith == 17) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-            } else if (tileEntity.monolith == 18) {
+            }
+
+            else if (monolith == 18) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
@@ -645,12 +627,12 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Initialize the icons.
         icon = new IIcon[7];
         // Load the pylon base texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "A");
         // Load the monolith textures.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME);
         icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
         // Load additional textures.
-        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
         icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
         // Load the beam textures.
         icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
