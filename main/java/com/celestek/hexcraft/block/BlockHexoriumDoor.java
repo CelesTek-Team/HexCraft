@@ -31,8 +31,15 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockHexoriumDoor extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumDoor";
+    // Block ID
+    public static final String ID = "blockHexoriumDoor";
+
+    // Meta Bits
+    public static final int META_ROTATION_0 = 0;
+    public static final int META_ROTATION_1 = 1;
+    public static final int META_STATE = 2;
+    public static final int META_REINFORCED = 3; // Stored on both doors.
+    public static final int META_FLIPPED = 0; // Stored on upper door.
 
     /**
      * Constructor for the block.
@@ -392,19 +399,19 @@ public class BlockHexoriumDoor extends HexBlockModel {
         // Initialize the icons.
         icon = new IIcon[11];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "01");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "02");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "01");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "02");
         // Load the flipped outer textures.
         icon[2] = new IconFlipped(icon[0], true, false);
         icon[3] = new IconFlipped(icon[1], true, false);
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "03");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "03");
         // Load the outer reinforced textures.
-        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "04");
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "05");
+        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "04");
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "05");
         // Load the flipped outer reinforced textures.
         icon[7] = new IconFlipped(icon[5], true, false);
         icon[8] = new IconFlipped(icon[6], true, false);
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "06");
+        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "06");
         // Load the inner texture.
         if(this == HexBlocks.blockHexoriumDoorRainbow)
             icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");

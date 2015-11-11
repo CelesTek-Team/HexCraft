@@ -13,17 +13,17 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileTankRender extends TileEntity {
     
-    private static final String NBT_START_X = "ctek_tti_start_x";
-    private static final String NBT_START_Y = "ctek_tti_start_y";
-    private static final String NBT_START_Z = "ctek_tti_start_z";
+    private static final String NBT_START_X = "start_x";
+    private static final String NBT_START_Y = "start_y";
+    private static final String NBT_START_Z = "start_z";
 
-    private static final String NBT_END_X = "ctek_tti_end_x";
-    private static final String NBT_END_Y = "ctek_tti_end_y";
-    private static final String NBT_END_Z = "ctek_tti_end_z";
+    private static final String NBT_END_X = "end_x";
+    private static final String NBT_END_Y = "end_y";
+    private static final String NBT_END_Z = "end_z";
 
-    private static final String NBT_MAX_VOL = "ctek_tti_max_vol";
-    private static final String NBT_CURR_VOL = "ctek_tti_curr_vol";
-    private static final String NBT_FLUID_NAME = "ctek_tti_fluid_name";
+    private static final String NBT_MAX_VOL = "max_vol";
+    private static final String NBT_CURR_VOL = "curr_vol";
+    private static final String NBT_FLUID_NAME = "fluid_name";
 
     public int startX;
     public int startY;

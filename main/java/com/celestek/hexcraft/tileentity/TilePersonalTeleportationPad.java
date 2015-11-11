@@ -140,7 +140,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
         // Read the teleport variables.
         teleports = HexUtils.readHexDevicesArrayFromNBT(tagCompound, NBT_TELEPORTS);
         if (tagCompound.getBoolean(NBT_LINKED_TELEPORT_EXISTS))
-            linkedTeleport = HexUtils.readHexDeviceFromNBT(tagCompound, NBT_TELEPORTS);
+            linkedTeleport = HexUtils.readHexDeviceFromNBT(tagCompound, NBT_LINKED_TELEPORT);
         else
             linkedTeleport = null;
         isTeleporting = tagCompound.getBoolean(NBT_IS_TELEPORTING);

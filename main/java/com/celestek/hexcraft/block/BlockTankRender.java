@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockTankRender extends HexBlockContainer {
 
     // Block ID
-    public static String ID = "blockTankRender";
+    public static final String ID = "blockTankRender";
 
     /**
      * Constructor for the block.
