@@ -27,8 +27,8 @@ import java.util.List;
 
 public class BlockHexoriumCable extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumCable";
+    // Block ID
+    public static final String ID = "blockHexoriumCable";
 
     /**
      * Constructor for the block.
@@ -54,16 +54,13 @@ public class BlockHexoriumCable extends HexBlockModel {
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        // Check if the code is executed on the server.
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Cable placed, analyzing!");
+                System.out.println("[Hexorium Cable] (" + x + ", " + y + ", " + z + "): Cable placed, analyzing!");
 
             /* DO ANALYSIS */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
     }
@@ -73,23 +70,17 @@ public class BlockHexoriumCable extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-
         // Check if the changed block belongs to the energy system.
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase ||
-                block == HexBlocks.blockHexoriumGenerator ||
-                block == HexBlocks.blockHexoriumFurnace ||
-                block == HexBlocks.blockCrystalSeparator ||
-                block == HexBlocks.blockMatrixReconstructor ||
-                block == HexBlocks.blockPersonalTeleportationPad) {
+                block instanceof IBlockHexEnergySource ||
+                block instanceof IBlockHexEnergyDrain) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable or machine destroyed, analyzing!");
+                System.out.println("[Hexorium Cable] (" + x + ", " + y + ", " + z + "): Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
     }
@@ -98,8 +89,7 @@ public class BlockHexoriumCable extends HexBlockModel {
      * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         // Process the sides.
         boolean sides[] = HexModelRendererCable.processCableSides(world, x, y, z, this);
 
@@ -134,8 +124,7 @@ public class BlockHexoriumCable extends HexBlockModel {
      * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
      */
     @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
-    {
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
     }
@@ -153,7 +142,7 @@ public class BlockHexoriumCable extends HexBlockModel {
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the monolith texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockHexoriumCableRainbow)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");

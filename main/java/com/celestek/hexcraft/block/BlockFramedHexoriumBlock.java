@@ -33,8 +33,12 @@ public class BlockFramedHexoriumBlock extends HexBlockMT {
         this.setBlockName(blockName);
         this.setCreativeTab(HexCraft.tabDecorative);
 
-        this.setHarvestLevel("pickaxe", 2, 0);
-        this.setHarvestLevel("pickaxe", 3, 1);
+        // Assign harvest levels to all metas.
+        for (int i = 0; i < 16; i++)
+            if (HexUtils.getBit(HexBlocks.META_DECORATIVE_REINFORCED, i))
+                this.setHarvestLevel("pickaxe", 3, i);
+            else
+                this.setHarvestLevel("pickaxe", 2, i);
 
         this.setStepSound(Block.soundTypeMetal);
     }

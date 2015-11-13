@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -53,11 +54,11 @@ public class BlockHexoriumDoor extends HexBlockModel {
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
-        for (int i = 0; i < 8; i++)
-            this.setHarvestLevel("pickaxe", 2, i);
-
-        for (int i = 8; i < 16; i++)
-            this.setHarvestLevel("pickaxe", 3, i);
+        for (int i = 0; i < 16; i++)
+            if (HexUtils.getBit(META_REINFORCED, i))
+                this.setHarvestLevel("pickaxe", 3, i);
+            else
+                this.setHarvestLevel("pickaxe", 2, i);
 
         this.setStepSound(Block.soundTypeMetal);
         this.setLightOpacity(0);
@@ -68,10 +69,9 @@ public class BlockHexoriumDoor extends HexBlockModel {
      */
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        // If this is a normal block, return normal hardness.
-        if (world.getBlockMetadata(x, y, z) < 8)
+        // If this is a normal block, return normal hardness. Otherwise, return obsidian hardness.
+        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z))
             return 1.5F;
-            // If this is a reinforced block, return obsidian hardness.
         else
             return 50F;
     }
@@ -81,10 +81,9 @@ public class BlockHexoriumDoor extends HexBlockModel {
      */
     @Override
     public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-        // If this is a normal block, return normal resistance.
-        if (world.getBlockMetadata(x, y, z) < 8)
+        // If this is a normal block, return normal resistance. Otherwise, return obsidian resistance.
+        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z))
             return 30F / 5F;
-            // If this is a reinforced block, return obsidian resistance.
         else
             return 6000F / 5F;
     }
@@ -95,17 +94,11 @@ public class BlockHexoriumDoor extends HexBlockModel {
     public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z) {
         // Check meta and return true if the door is open.
         if (world.getBlock(x, y + 1, z) == this) {
-            int meta = world.getBlockMetadata(x, y, z);
-            if (meta > 7)
-                meta = meta - 8;
-            if (meta > 3)
+            if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
                 return true;
         }
         else if (world.getBlock(x, y - 1, z) == this) {
-            int meta = world.getBlockMetadata(x, y - 1, z);
-            if (meta > 7)
-                meta = meta - 8;
-            if (meta > 3)
+            if (HexUtils.getMetaBit(META_STATE, world, x, y - 1, z))
                 return true;
         }
         return false;
@@ -127,43 +120,42 @@ public class BlockHexoriumDoor extends HexBlockModel {
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
         // Calculate door orientation.
-        int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        int rotation = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         // Set the upper door.
-        if (world.isAirBlock(x, y + 1, z)) {
+        if (world.isAirBlock(x, y + 1, z))
             world.setBlock(x, y + 1, z, this);
-        }
 
         // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction, 3);
+        HexUtils.setMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, rotation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
         // Set make the door flipped if it should be double-doors.
-        if (direction == 0) {
+        if (rotation == 0) {
             if (world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor) {
-                int meta = world.getBlockMetadata(x + 1, y, z);
-                if (meta == 0 || meta == 4 || meta == 8 || meta == 12)
-                    world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
+                int rot = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x + 1, y, z);
+                if (rot == 0)
+                    HexUtils.setMetaBit(META_FLIPPED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y + 1, z);
             }
         }
-        else if (direction == 1) {
+        else if (rotation == 1) {
             if (world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor) {
-                int meta = world.getBlockMetadata(x, y, z + 1);
-                if (meta == 1 || meta == 5 || meta == 9 || meta == 13)
-                    world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
+                int rot = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z + 1);
+                if (rot == 1)
+                    HexUtils.setMetaBit(META_FLIPPED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y + 1, z);
             }
         }
-        else if (direction == 2) {
+        else if (rotation == 2) {
             if (world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor) {
-                int meta = world.getBlockMetadata(x - 1, y, z);
-                if (meta == 2 || meta == 6 || meta == 10 || meta == 14)
-                    world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
+                int rot = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x - 1, y, z);
+                if (rot == 2)
+                    HexUtils.setMetaBit(META_FLIPPED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y + 1, z);
             }
         }
-        else if (direction == 3) {
+        else if (rotation == 3) {
             if (world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor) {
-                int meta = world.getBlockMetadata(x, y, z - 1);
-                if (meta == 3 || meta == 7 || meta == 11 || meta == 15)
-                    world.setBlockMetadataWithNotify(x, y + 1, z, 1, 3);
+                int rot = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z - 1);
+                if (rot == 3)
+                    HexUtils.setMetaBit(META_FLIPPED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y + 1, z);
             }
         }
     }
@@ -187,36 +179,34 @@ public class BlockHexoriumDoor extends HexBlockModel {
         if ((powered || block.canProvidePower()) && block != this)
         {
             // Get the meta and normalize it.
-            int meta = 0;
+            boolean state = false;
             if (world.getBlock(x, y + 1, z) == this)
-                meta = world.getBlockMetadata(x, y, z);
+                state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
             else if (world.getBlock(x, y - 1, z) == this)
-                meta = world.getBlockMetadata(x, y - 1, z);
-            if (meta > 7)
-                meta = meta - 8;
+                state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
 
             // Open the door.
-            if (meta < 4 && powered) {
+            if (!state && powered) {
                 if (world.getBlock(x, y + 1, z) == this) {
-                    world.setBlockMetadataWithNotify(x, y, z, meta + 4, 3);
+                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
                 else if (world.getBlock(x, y - 1, z) == this) {
-                    world.setBlockMetadataWithNotify(x, y - 1, z, meta + 4, 3);
+                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
             }
             // Close the door.
-            else if (meta > 3 && !powered) {
+            else if (state && !powered) {
                 if (world.getBlock(x, y + 1, z) == this) {
-                    world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
+                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
                 else if (world.getBlock(x, y - 1, z) == this) {
-                    world.setBlockMetadataWithNotify(x, y - 1, z, meta - 4, 3);
+                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
@@ -228,8 +218,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
      * Returns the bounding box of the wired rectangular prism to render.
      */
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
@@ -238,8 +227,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
@@ -247,46 +235,44 @@ public class BlockHexoriumDoor extends HexBlockModel {
     /**
      * Updates the blocks bounds based on its current state.
      */
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         // Prepare the variables.
         float dThck = HexModelRendererDoor.dThck;
 
         // Prepare block meta and if the door is flipped, normalize meta.
-        int meta = 0;
-        boolean flippedDoor = false;
+        int rotation = 0;
+        boolean flipped = false;
+        boolean state = false;
         if (world.getBlock(x, y - 1, z) == this) {
-            meta = world.getBlockMetadata(x, y - 1, z);
-            if (world.getBlockMetadata(x, y, z) == 1 || world.getBlockMetadata(x, y, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
+            state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
+            flipped = HexUtils.getMetaBit(META_FLIPPED, world, x, y, z);
         }
         else if (world.getBlock(x, y + 1, z) == this) {
-            meta = world.getBlockMetadata(x, y, z);
-            if (world.getBlockMetadata(x, y + 1, z) == 1 || world.getBlockMetadata(x, y + 1, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
+            state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
+            flipped = HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z);
         }
-        if (meta > 7)
-            meta = meta - 8;
 
         // Set block bounds depending on parameters.
-        if (flippedDoor) {
-            if (meta == 0 || meta == 5)
+        if (flipped) {
+            if ((rotation == 0 && !state) || (rotation == 1 && state))
                 this.setBlockBounds(0, 0, 0, 1, 1, dThck);
-            else if (meta == 1 || meta == 6)
+            else if (rotation == 1 || (rotation == 2  && state))
                 this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 2 || meta == 7)
+            else if (rotation == 2 || (rotation == 3  && state))
                 this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else if (meta == 3 || meta == 4)
+            else if (rotation == 3 || rotation == 0)
                 this.setBlockBounds(0, 0, 0, dThck, 1, 1);
         }
         else {
-            if (meta == 0 || meta == 7)
+            if ((rotation == 0 && !state) || (rotation == 3 && state))
                 this.setBlockBounds(0, 0, 0, 1, 1, dThck);
-            else if (meta == 1 || meta == 4)
+            else if ((rotation == 1 && !state) || rotation == 0)
                 this.setBlockBounds(1 - dThck, 0, 0, 1, 1, 1);
-            else if (meta == 2 || meta == 5)
+            else if ((rotation == 2 && !state) || rotation == 1)
                 this.setBlockBounds(0, 0, 1 - dThck, 1, 1, 1);
-            else if (meta == 3 || meta == 6)
+            else if (rotation == 3 || rotation == 2)
                 this.setBlockBounds(0, 0, 0, dThck, 1, 1);
         }
     }
@@ -294,16 +280,8 @@ public class BlockHexoriumDoor extends HexBlockModel {
     /**
      * Called upon block activation (right click on the block.)
      */
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
-    {
-        // If this is client side...
-        if (world.isRemote)
-        {
-            // Simply return true.
-            return true;
-        }
-        else
-        {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
+        if (!world.isRemote) {
             // Prepare a variable if the door is in a usable state.
             boolean use = false;
             // If player has no item in hand.
@@ -311,15 +289,15 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 use = true;
             // If player has an item in hand.
             else {
-                // Don't use door if Hexorium Manipulator is present.
+                // Don't use door if Hexorium Reinforcer is present.
                 if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
                     // If the door is not upgraded, upgrade it.
-                    if (world.getBlockMetadata(x, y, z) < 8) {
-                        world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 8, 3);
+                    if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
+                        HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                         if (world.getBlock(x, y, z) == world.getBlock(x, y - 1, z))
-                            world.setBlockMetadataWithNotify(x, y - 1, z, world.getBlockMetadata(x, y - 1, z) + 8, 3);
+                            HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                         else if (world.getBlock(x, y, z) == world.getBlock(x, y + 1, z))
-                            world.setBlockMetadataWithNotify(x, y + 1, z, world.getBlockMetadata(x, y + 1, z) + 8, 3);
+                            HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y + 1, z);
 
                         // Grant player the achievement.
                         if (HexConfig.cfgGeneralUseAchievements)
@@ -330,7 +308,8 @@ public class BlockHexoriumDoor extends HexBlockModel {
                         if (stack.stackSize == 0)
                             stack = null;
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
-                    } else
+                    }
+                    else
                         use = true;
                 }
                 else
@@ -339,47 +318,27 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
             // Use door.
             if (use) {
-                // get block meta.
-                int meta;
-                if (world.getBlock(x, y - 1, z) == this)
-                    meta = world.getBlockMetadata(x, y - 1, z);
-                else
-                    meta = world.getBlockMetadata(x, y, z);
-
-                // Change meta on click.
-                if (meta < 8) {
-                    if (meta < 4)
-                        meta = meta + 4;
-                    else
-                        meta = meta - 4;
-                } else {
-                    if (meta < 12)
-                        meta = meta + 4;
-                    else
-                        meta = meta - 4;
-                }
-
                 // Set according block meta and play sound.
                 if (world.getBlock(x, y - 1, z) == this) {
-                    world.setBlockMetadataWithNotify(x, y - 1, z, meta, 3);
+                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y - 1, z, 0);
-                } else {
-                    world.setBlockMetadataWithNotify(x, y, z, meta, 3);
+                }
+                else {
+                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
             }
-
-            return true;
         }
+
+        return true;
     }
 
     /**
      * Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
      */
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int i) {
-        // Set the other door part to air.
         if (world.getBlock(x, y - 1, z) == this)
             world.setBlockToAir(x, y - 1, z);
         else if (world.getBlock(x, y + 1, z) == this)
@@ -440,17 +399,18 @@ public class BlockHexoriumDoor extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         // Get the meta and determine if door should be flipped.
-        int meta = 0;
-        boolean flippedDoor = false;
+        int rotation = 0;
+        boolean flipped = false;
+        boolean state = false;
         if (world.getBlock(x, y - 1, z) == this) {
-            meta = world.getBlockMetadata(x, y - 1, z);
-            if (world.getBlockMetadata(x, y, z) == 1 || world.getBlockMetadata(x, y, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
+            state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
+            flipped = HexUtils.getMetaBit(META_FLIPPED, world, x, y, z);
         }
         else if (world.getBlock(x, y + 1, z) == this) {
-            meta = world.getBlockMetadata(x, y, z);
-            if (world.getBlockMetadata(x, y + 1, z) == 1 || world.getBlockMetadata(x, y + 1, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
+            state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
+            flipped = HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z);
         }
 
         // Prepare texture parameters: rei - reinforced, flp - flipped, upp - upper door
@@ -459,17 +419,15 @@ public class BlockHexoriumDoor extends HexBlockModel {
         int upp = 0;
 
         // Calculate different parameters.
-        if (meta > 7) {
+        if (HexUtils.getMetaBit(META_REINFORCED, world, x, y, z))
             rei = 5;
-            meta = meta - 8;
-        }
-        if (flippedDoor && meta < 4)
+        if (flipped && !state)
             flp = 2;
         if (world.getBlock(x, y - 1, z) == this)
             upp = 1;
 
         // Return icons based on parameters, side and meta.
-        if (meta == 0 || meta == 5)
+        if ((rotation == 0 && !state) || (rotation == 1 && state))
             switch (side) {
                 case 0:
                     return icon[4 + rei];
@@ -484,7 +442,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 case 5:
                     return icon[4 + rei];
             }
-        else if (meta == 1 || meta == 6)
+        else if (rotation == 1 || (rotation == 2 && state))
             switch (side) {
                 case 0:
                     return icon[4 + rei];
@@ -499,7 +457,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 case 5:
                     return icon[1 + rei + flp - upp];
             }
-        else if (meta == 2 || meta == 7)
+        else if (rotation == 2 || (rotation == 3 && state))
             switch (side) {
                 case 0:
                     return icon[4 + rei];
@@ -514,7 +472,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 case 5:
                     return icon[4 + rei];
             }
-        else if (meta == 3 || meta == 4)
+        else if (rotation == 3 || rotation == 0)
             switch (side) {
                 case 0:
                     return icon[4 + rei];
