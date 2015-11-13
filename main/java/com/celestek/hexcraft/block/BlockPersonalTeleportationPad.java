@@ -65,7 +65,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
         // Get the direction of the block and set the meta.
         int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        int meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, direction, 0);
+        int meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, direction, 0);
         meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, HexBlocks.MACHINE_STATE_DEAD, meta);
         world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
@@ -189,7 +189,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         int state1 = 0;
         if(HexUtils.getBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, meta) != HexBlocks.MACHINE_STATE_DEAD)
             state1 = 1;
-        int rotation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, meta);
+        int rotation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, meta);
 
         if (rotation == 0) {
             switch (side) {

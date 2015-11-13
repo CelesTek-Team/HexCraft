@@ -31,7 +31,7 @@ public class BlockTankValve extends HexBlockContainer {
     public static final String ID = "blockTankValve";
 
     // Meta Bits
-    public static final int META_IS_PART = 1;
+    public static final int META_IS_PART = 1; // Stored on both the valve and all decorative blocks that are part of the tank.
     public static final int META_ROTATION = 2;
 
     /**

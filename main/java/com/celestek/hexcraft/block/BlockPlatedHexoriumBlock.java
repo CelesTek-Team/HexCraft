@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,8 +19,8 @@ import net.minecraft.world.World;
 
 public class BlockPlatedHexoriumBlock extends HexBlockMT {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockPlatedHexoriumBlock";
+    // Block ID
+    public static final String ID = "blockPlatedHexoriumBlock";
 
     /**
      * Constructor for the block.
@@ -42,12 +43,10 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT {
      * Returns the block hardness at a location. Args: world, x, y, z
      */
     @Override
-    public float getBlockHardness(World world, int x, int y, int z)
-    {
-        // If this is a normal block, return normal hardness.
-        if (world.getBlockMetadata(x, y, z) == 0)
+    public float getBlockHardness(World world, int x, int y, int z) {
+        // If this is a normal block, return normal hardness. Otherwise, return obsidian hardness.
+        if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z))
             return 1.5F;
-            // If this is a reinforced block, return obsidian hardness.
         else
             return 50F;
     }
@@ -57,10 +56,9 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT {
      */
     @Override
     public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-        // If this is a normal block, return normal resistance.
-        if (world.getBlockMetadata(x, y, z) == 0)
+        // If this is a normal block, return normal resistance. Otherwise, return obsidian resistance.
+        if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z))
             return 30F / 5F;
-            // If this is a reinforced block, return obsidian resistance.
         else
             return 6000F / 5F;
     }
@@ -78,9 +76,9 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT {
         // Initialize the icons.
         icon = new IIcon[3];
         // Load the outer normal texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the outer reinforced texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Reinforced");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
         // Load the inner texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockPlatedHexoriumBlockRainbow)
             icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
@@ -94,11 +92,13 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        // Retrieve icon based on side and meta.
-        if (side < 6 && meta == 0)
-            return icon[0];
-        else if (side < 6 && meta == 1)
-            return icon[1];
+        int rei = 0;
+        if (HexUtils.getBit(HexBlocks.META_DECORATIVE_REINFORCED, meta))
+            rei = 1;
+
+        // Retrieve icon based on side.
+        if (side < 6)
+            return icon[rei];
         else if (side == 6)
             return icon[2];
         else

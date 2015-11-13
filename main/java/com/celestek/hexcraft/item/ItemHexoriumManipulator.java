@@ -80,7 +80,7 @@ public class ItemHexoriumManipulator extends Item {
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, true,
+                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, true,
                             HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
@@ -335,7 +335,7 @@ public class ItemHexoriumManipulator extends Item {
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
-                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROT_0, HexBlocks.META_MACHINE_ROT_1, true,
+                    HexUtils.rotateBlock(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, true,
                             HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
