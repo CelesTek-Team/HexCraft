@@ -18,8 +18,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockGlowingHexoriumGlass extends HexBlockMT {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockGlowingHexoriumGlass";
+    // Block ID
+    public static final String ID = "blockGlowingHexoriumGlass";
 
     // Prepare an array of all possible situations.
     public static int[] textureRefByID = {
@@ -76,17 +76,17 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "A0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "A0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "A" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "A" + (i + 1));
         }
 
         // Load all the different inner icons.
         for(int i = 48; i < 96; i++) {
             if(i - 48 < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "B0" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B0" + (i - 47));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "B" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B" + (i - 47));
         }
     }
 
@@ -129,7 +129,8 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
             bitMatrix[5] = world.getBlock(x - 1, y, z + 1) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[6] = world.getBlock(x, y, z + 1) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[7] = world.getBlock(x + 1, y, z + 1) instanceof BlockGlowingHexoriumGlass;
-        } else if (side == 2 || side == 3) {
+        }
+        else if (side == 2 || side == 3) {
             bitMatrix[0] = world.getBlock(x + (side == 2 ? 1 : -1), y + 1, z) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[1] = world.getBlock(x, y + 1, z) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[2] = world.getBlock(x + (side == 3 ? 1 : -1), y + 1, z) instanceof BlockGlowingHexoriumGlass;
@@ -138,7 +139,8 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
             bitMatrix[5] = world.getBlock(x + (side == 2 ? 1 : -1), y - 1, z) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[6] = world.getBlock(x, y - 1, z) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[7] = world.getBlock(x + (side == 3 ? 1 : -1), y - 1, z) instanceof BlockGlowingHexoriumGlass;
-        } else if (side == 4 || side == 5) {
+        }
+        else if (side == 4 || side == 5) {
             bitMatrix[0] = world.getBlock(x, y + 1, z + (side == 5 ? 1 : -1)) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[1] = world.getBlock(x, y + 1, z) instanceof BlockGlowingHexoriumGlass;
             bitMatrix[2] = world.getBlock(x, y + 1, z + (side == 4 ? 1 : -1)) instanceof BlockGlowingHexoriumGlass;

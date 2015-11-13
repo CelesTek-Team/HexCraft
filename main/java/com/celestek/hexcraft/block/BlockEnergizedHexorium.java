@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 public class BlockEnergizedHexorium extends HexBlock {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockEnergizedHexorium";
+    // Block ID
+    public static final String ID = "blockEnergizedHexorium";
 
     /**
      * Constructor for the block.
@@ -46,8 +46,7 @@ public class BlockEnergizedHexorium extends HexBlock {
      * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
      */
     @Override
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return false;
     }
 
@@ -64,53 +63,70 @@ public class BlockEnergizedHexorium extends HexBlock {
             // Set the according crystal color combinations.
             if (this == HexBlocks.blockEnergizedHexoriumRed) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumLime) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumLime) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumPink) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumPink) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
