@@ -444,8 +444,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
     /**** Getters and Setters ****/
 
-    /**** Getters and Setters ****/
-
     /**
      * Retrieves the machine name.
      */

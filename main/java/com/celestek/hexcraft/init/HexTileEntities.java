@@ -25,7 +25,7 @@ public class HexTileEntities {
 
         if (HexConfig.cfgTankEnable) {
             GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);
-            GameRegistry.registerTileEntity(TileTankRender.class, "tileTankRender");
+            GameRegistry.registerTileEntity(TileTankRender.class, TileTankRender.ID);
         }
     }
 }

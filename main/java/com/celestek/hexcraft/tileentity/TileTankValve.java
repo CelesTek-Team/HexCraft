@@ -20,63 +20,81 @@ import net.minecraftforge.fluids.*;
 
 public class TileTankValve extends TileFluidHandler {
 
-    // NBT Names
-    public static final String ID = "tileHexoriumValve";
+    /**** Static Values ****/
+
+    public static final String ID = "tileTankValve";
+
     public static final String MACHINE_NAME = "hexcraft.container.hexoriumTank";
+
+    // NBT Names
+    private static final String NBT_TANK_CAPACITY = "tank_capacity";
+    private static final String NBT_FLUID_LEVEL = "fluid_level";
+    private static final String NBT_FLUID_NAME = "fluid_name";
+
     private static final String NBT_IS_SETUP = "is_setup";
     private static final String NBT_IS_MASTER = "is_master";
-    private static final String NBT_TANK_CAPACITY = "tank_capacity";
-    private static final String NBT_TANK_LEVEL = "tank_level";
-    private static final String NBT_TANK_NAME = "tank_name";
+
     private static final String NBT_MASTER_X = "master_x";
     private static final String NBT_MASTER_Y = "master_y";
     private static final String NBT_MASTER_Z = "master_z";
-    private static final String NBT_RENDER_X = "infoblock_x";
-    private static final String NBT_RENDER_Y = "infoblock_y";
-    private static final String NBT_RENDER_Z = "infoblock_z";
+
+    private static final String NBT_RENDER_X = "render_x";
+    private static final String NBT_RENDER_Y = "render_y";
+    private static final String NBT_RENDER_Z = "render_z";
+
+    /**** Variables ****/
 
     // Prepare dimension and tank.
     private Dimension structureDimension;
     private FluidTank fluidTank;
 
-    private boolean isSetup;
-    private boolean isMaster;
-
-    private int masterX;
-    private int masterY;
-    private int masterZ;
-
-    private int renderX;
-    private int renderY;
-    private int renderZ;
-
+    // Prepare fluid variables.
     private int tankCapacity;
     private int fluidLevel;
     private String fluidName;
 
+    // Prepare GUI fluid variables.
     private int guiTankCapacity;
     private int guiFluidLevel;
     private int guiFluidID;
     private int guiFluidIns;
 
+    // Prepare state variables.
+    private boolean isSetup;
+    private boolean isMaster;
+
+    // Prepare master coordinates.
+    private int masterX;
+    private int masterY;
+    private int masterZ;
+
+    // Prepare render coordinates.
+    private int renderX;
+    private int renderY;
+    private int renderZ;
+
+
+    /**** Common TileEntity Methods ****/
+
     public TileTankValve() {
-        this.tankCapacity = 0;
-        this.fluidLevel = 0;
-        this.fluidName = "";
         this.structureDimension = new Dimension();
+        this.fluidTank = new FluidTank(tankCapacity);
 
         this.isMaster = false;
         this.isSetup = false;
-        this.fluidTank = new FluidTank(tankCapacity);
 
-        this.masterX = xCoord;
-        this.masterY = yCoord;
-        this.masterZ = zCoord;
+        this.tankCapacity = 0;
+        this.fluidLevel = 0;
+        this.fluidName = "";
 
         this.guiTankCapacity = 0;
         this.guiFluidLevel = 0;
         this.guiFluidID = 0;
         this.guiFluidIns = 0;
+
+        this.masterX = xCoord;
+        this.masterY = yCoord;
+        this.masterZ = zCoord;
     }
 
     /**
@@ -85,22 +103,28 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
+
+        // Write the dimension.
         structureDimension.saveToNBT(nbtTagCompound);
 
+        // Write the fluid variables.
+        nbtTagCompound.setInteger(NBT_TANK_CAPACITY, tankCapacity);
+        nbtTagCompound.setInteger(NBT_FLUID_LEVEL, fluidLevel);
+        nbtTagCompound.setString(NBT_FLUID_NAME, fluidName);
+
+        // Write the state variables.
         nbtTagCompound.setBoolean(NBT_IS_MASTER, isMaster);
         nbtTagCompound.setBoolean(NBT_IS_SETUP, isSetup);
 
+        // Write the master coordinates.
         nbtTagCompound.setInteger(NBT_MASTER_X, masterX);
         nbtTagCompound.setInteger(NBT_MASTER_Y, masterY);
         nbtTagCompound.setInteger(NBT_MASTER_Z, masterZ);
 
+        // Write the render coordinates.
         nbtTagCompound.setInteger(NBT_RENDER_X, renderX);
         nbtTagCompound.setInteger(NBT_RENDER_Y, renderY);
         nbtTagCompound.setInteger(NBT_RENDER_Z, renderZ);
-
-        nbtTagCompound.setInteger(NBT_TANK_CAPACITY, tankCapacity);
-        nbtTagCompound.setInteger(NBT_TANK_LEVEL, fluidLevel);
-        nbtTagCompound.setString(NBT_TANK_NAME, fluidName);
     }
 
     /**
@@ -109,28 +133,37 @@ public class TileTankValve extends TileFluidHandler {
     @Override
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
+
+        // Read the dimension.
         structureDimension.loadFromNBT(nbtTagCompound);
 
-        isMaster = nbtTagCompound.getBoolean(NBT_IS_MASTER);
-        isSetup = nbtTagCompound.getBoolean(NBT_IS_SETUP);
-
-        masterX = nbtTagCompound.getInteger(NBT_MASTER_X);
-        masterY = nbtTagCompound.getInteger(NBT_MASTER_Y);
-        masterZ = nbtTagCompound.getInteger(NBT_MASTER_Z);
-
-        renderX = nbtTagCompound.getInteger(NBT_RENDER_X);
-        renderY = nbtTagCompound.getInteger(NBT_RENDER_Y);
-        renderZ = nbtTagCompound.getInteger(NBT_RENDER_Z);
-
+        // Read the fluid variables.
         tankCapacity = nbtTagCompound.getInteger(NBT_TANK_CAPACITY);
-        fluidLevel = nbtTagCompound.getInteger(NBT_TANK_LEVEL);
-        fluidName = nbtTagCompound.getString(NBT_TANK_NAME);
+        fluidLevel = nbtTagCompound.getInteger(NBT_FLUID_LEVEL);
+        fluidName = nbtTagCompound.getString(NBT_FLUID_NAME);
 
+        // Generate the tank out of fluid variables.
         fluidTank = new FluidTank(tankCapacity);
         Fluid fluid = FluidRegistry.getFluid(fluidName);
         if (fluid != null)
             fluidTank.setFluid(new FluidStack(fluid, fluidLevel));
+
+        // Read the state variables.
+        isMaster = nbtTagCompound.getBoolean(NBT_IS_MASTER);
+        isSetup = nbtTagCompound.getBoolean(NBT_IS_SETUP);
+
+        // Read the master coordinates.
+        masterX = nbtTagCompound.getInteger(NBT_MASTER_X);
+        masterY = nbtTagCompound.getInteger(NBT_MASTER_Y);
+        masterZ = nbtTagCompound.getInteger(NBT_MASTER_Z);
+
+        // Read the render coordinates.
+        renderX = nbtTagCompound.getInteger(NBT_RENDER_X);
+        renderY = nbtTagCompound.getInteger(NBT_RENDER_Y);
+        renderZ = nbtTagCompound.getInteger(NBT_RENDER_Z);
     }
+
+    /**** Custom Methods ****/
 
     /**
      * Checks if block at given coordinates is a valid MultiTank building block.
@@ -565,9 +598,9 @@ public class TileTankValve extends TileFluidHandler {
     private void updateRenderBlock(int x, int y, int z, int level, int capacity, String fluidName) {
         TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x, y, z);
         if (tileTankRender != null) {
-            tileTankRender.currVolume = level;
-            tileTankRender.maxVolume = capacity;
-            tileTankRender.fluidName = fluidName;
+            tileTankRender.setFluidLevel(level);
+            tileTankRender.setTankCapacity(capacity);
+            tileTankRender.setFluidName(fluidName);
         }
     }
 
@@ -607,15 +640,15 @@ public class TileTankValve extends TileFluidHandler {
         TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x,y,z);
 
         if (tileTankRender != null) {
-            tileTankRender.startX = coordRange.getStartX();
-            tileTankRender.startY = coordRange.getStartY();
-            tileTankRender.startZ = coordRange.getStartZ();
+            tileTankRender.setStartX(coordRange.getStartX());
+            tileTankRender.setStartY(coordRange.getStartY());
+            tileTankRender.setStartZ(coordRange.getStartZ());
 
-            tileTankRender.endX = coordRange.getEndX();
-            tileTankRender.endY = coordRange.getEndY();
-            tileTankRender.endZ = coordRange.getEndZ();
+            tileTankRender.setEndX(coordRange.getEndX());
+            tileTankRender.setEndY(coordRange.getEndY());
+            tileTankRender.setEndZ(coordRange.getEndZ());
 
-            tileTankRender.fluidName = "";
+            tileTankRender.setFluidName("");
         }
     }
 
@@ -828,39 +861,15 @@ public class TileTankValve extends TileFluidHandler {
     }
 
     /**
-     * @param isSetup Is the multi tank set up.
+     * Check if the TIle Entity can be used by the player.
      */
-    public void setSetup(boolean isSetup) {
-        this.isSetup = isSetup;
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player
+                .getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D)
+                <= 64.0D;
     }
 
-    /**
-     * @param isMaster Is the valve master.
-     */
-    public void setMaster(boolean isMaster) {
-        this.isMaster = isMaster;
-    }
-
-    /**
-     * @param masterX X coordinate of the master valve.
-     */
-    public void setMasterX(int masterX) {
-        this.masterX = masterX;
-    }
-
-    /**
-     * @param masterY Y coordinate of the master valve.
-     */
-    public void setMasterY(int masterY) {
-        this.masterY = masterY;
-    }
-
-    /**
-     * @param masterZ Z coordinate of the master valve.
-     */
-    public void setMasterZ(int masterZ) {
-        this.masterZ = masterZ;
-    }
+    /**** TileFluidHandler Methods ****/
 
     /**
      * Fills fluid into internal tanks, distribution is left entirely to the IFluidHandler.
@@ -1000,18 +1009,42 @@ public class TileTankValve extends TileFluidHandler {
         return null;
     }
 
+    /**** Getters and Setters ****/
+
     /**
-     * Check if the TIle Entity can be used by the player.
+     * @param isSetup Is the multi tank set up.
      */
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player
-            .getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D)
-            <= 64.0D;
+    public void setSetup(boolean isSetup) {
+        this.isSetup = isSetup;
     }
 
     /**
-     * GUI getters and setters.
+     * @param isMaster Is the valve master.
      */
+    public void setMaster(boolean isMaster) {
+        this.isMaster = isMaster;
+    }
+
+    /**
+     * @param masterX X coordinate of the master valve.
+     */
+    public void setMasterX(int masterX) {
+        this.masterX = masterX;
+    }
+
+    /**
+     * @param masterY Y coordinate of the master valve.
+     */
+    public void setMasterY(int masterY) {
+        this.masterY = masterY;
+    }
+
+    /**
+     * @param masterZ Z coordinate of the master valve.
+     */
+    public void setMasterZ(int masterZ) {
+        this.masterZ = masterZ;
+    }
 
     // Tank Capacity
     public int getTankCapacity() {

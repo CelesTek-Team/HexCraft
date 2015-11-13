@@ -107,19 +107,19 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
     {
         TileTankRender tileTankRender = (TileTankRender) world.getTileEntity(x, y, z);
         if (tileTankRender != null) {
-            int startX = tileTankRender.startX + 1;
-            int startY = tileTankRender.startY + 1;
-            int startZ = tileTankRender.startZ + 1;
+            int startX = tileTankRender.getStartX() + 1;
+            int startY = tileTankRender.getStartY() + 1;
+            int startZ = tileTankRender.getStartZ() + 1;
 
-            int endX = tileTankRender.endX;
-            int endY = tileTankRender.endY;
-            int endZ = tileTankRender.endZ;
+            int endX = tileTankRender.getEndX();
+            int endY = tileTankRender.getEndY();
+            int endZ = tileTankRender.getEndZ();
 
-            float currVolume = tileTankRender.currVolume;
-            float maxVolume = tileTankRender.maxVolume;
-            String fluidName = tileTankRender.fluidName;
+            float tankCapacity = tileTankRender.getTankCapacity();
+            float fluidLevel = tileTankRender.getFluidLevel();
+            String fluidName = tileTankRender.getFluidName();
 
-            float level = (endY - startY) * (currVolume / maxVolume);
+            float level = (endY - startY) * (fluidLevel / tankCapacity);
 
             Fluid fluid = FluidRegistry.getFluid(fluidName);
             if (fluid != null) {
