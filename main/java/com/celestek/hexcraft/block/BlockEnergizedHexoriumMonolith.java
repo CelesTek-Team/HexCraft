@@ -4,6 +4,7 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -25,8 +26,13 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockEnergizedHexoriumMonolith";
+    // Block ID
+    public static final String ID = "blockEnergizedHexoriumMonolith";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
 
     /**
      * Constructor for the block.
@@ -49,8 +55,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
      */
     @Override
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return false;
     }
 
@@ -105,6 +110,8 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
                 orientation = 0;
         }
 
+        orientation = HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, orientation, 0);
+
         // Return the new orientation as meta.
         return orientation;
     }
@@ -114,40 +121,40 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(meta == 0) {
+        if(orientation == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 1) {
+        else if(orientation == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 2) {
+        else if(orientation == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 3) {
+        else if(orientation == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 4) {
+        else if(orientation == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 5) {
+        else if(orientation == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -160,69 +167,85 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        // Prepare a drop list.
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
         // If the block wasn't destroyed using the Manipulator...
-        if(fortune != HexCraft.hexFortune) {
+        if (fortune != HexCraft.hexFortune) {
             // Set the according crystal color combinations.
             if (this == HexBlocks.blockEnergizedHexoriumMonolithRed) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithOrange) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithOrange) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithYellow) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithYellow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithLime) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithLime) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithGreen) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithGreen) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithTurquoise) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithTurquoise) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithCyan) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithCyan) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithSkyBlue) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithSkyBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlue) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlue) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithPurple) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithPurple) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithMagenta) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithMagenta) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithPink) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithPink) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithWhite) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithWhite) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithLightGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithLightGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithDarkGray) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithDarkGray) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlack) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithBlack) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
 
-            } else if (this == HexBlocks.blockEnergizedHexoriumMonolithRainbow) {
+            }
+            else if (this == HexBlocks.blockEnergizedHexoriumMonolithRainbow) {
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
                 drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
             }
         }
+        // Return the block (because of Manipulator).
         else
-            // Return the block (because of Manipulator).
             drops.add(new ItemStack(this, 1));
 
         // Return the created drop array.
@@ -235,11 +258,9 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
      */
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        // Get block meta data.
-        int meta = world.getBlockMetadata(x, y, z);
 
         // Return bounding box depending on meta.
-        switch (meta) {
+        switch (HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z)) {
             case 0:
                 return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
                         (double)x + HexModelRendererMonolith.xD, (double)y + 1 - HexModelRendererMonolith.yMin, (double)z + HexModelRendererMonolith.zB);
@@ -269,11 +290,9 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        // Get block meta data.
-        int meta = world.getBlockMetadata(x, y, z);
 
         // Return bounding box depending on meta.
-        switch (meta) {
+        switch (HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z)) {
             case 0: setBlockBounds(HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.zF,
                     HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.zB);
                 return AxisAlignedBB.getBoundingBox((double)x + HexModelRendererMonolith.xA, (double)y + 1 - HexModelRendererMonolith.yMax, (double)z + HexModelRendererMonolith.zF,
@@ -319,9 +338,9 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockEnergizedHexoriumMonolithRainbow)
-            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "Rainbow");
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Rainbow");
         else
-            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+            icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
     }
 
     /**

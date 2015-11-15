@@ -453,8 +453,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-        
-        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();        
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+
         // If the block wasn't destroyed using the Manipulator, drop it as a block.
         if(fortune != HexCraft.hexFortune)
             drops.add(new ItemStack(this, 1));
@@ -639,8 +639,8 @@ public class BlockEnergyPylon extends HexBlockContainer {
         // Load the pylon base texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "A");
         // Load the monolith textures.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME);
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.UNLOCALISEDNAME + "Rainbow");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.ID);
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.ID + "Rainbow");
         // Load additional textures.
         icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
         icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
