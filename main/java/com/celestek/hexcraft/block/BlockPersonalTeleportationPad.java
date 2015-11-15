@@ -77,7 +77,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             NetworkAnalyzer analyzer1 = new NetworkAnalyzer();
-            analyzer1.analyzeMachines(world, x, y, z, direction);
+            analyzer1.analyzeMachines(world, x, y, z, meta);
 
             NetworkAnalyzer analyzer2 = new NetworkAnalyzer();
             analyzer2.analyzeTeleport(world, x, y, z);

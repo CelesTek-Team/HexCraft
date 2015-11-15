@@ -82,7 +82,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeMachines(world, x, y, z, direction);
+            analyzer.analyzeMachines(world, x, y, z, meta);
         }
     }
 

@@ -82,7 +82,7 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzeMachines(world, x, y, z, direction);
+            analyzer.analyzeMachines(world, x, y, z, meta);
         }
     }
 

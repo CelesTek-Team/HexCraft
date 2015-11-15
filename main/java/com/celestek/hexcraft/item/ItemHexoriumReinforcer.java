@@ -3,7 +3,9 @@ package com.celestek.hexcraft.item;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,8 +19,8 @@ import net.minecraft.world.World;
 
 public class ItemHexoriumReinforcer extends Item {
 
-    // Set default item name.
-    public static String UNLOCALISEDNAME = "itemHexoriumReinforcer";
+    // Item ID
+    public static final String ID = "itemHexoriumReinforcer";
 
     /**
      * Constructor for the item.
@@ -43,17 +45,15 @@ public class ItemHexoriumReinforcer extends Item {
      */
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        // Get the block.
-        Block block = world.getBlock(x, y, z);
-
-        // Check if this is the server thread.
         if (!world.isRemote) {
+            Block block = world.getBlock(x, y, z);
+            // If the block is one of the reinforcable ones, reinforce it.
             if (block instanceof BlockEngineeredHexoriumBlock ||
                     block instanceof BlockFramedHexoriumBlock ||
                     block instanceof BlockPlatedHexoriumBlock ||
-                    block instanceof BlockConcentricHexoriumBlock) {
-                if (world.getBlockMetadata(x, y, z) == 0) {
-                    world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+                    block instanceof BlockConcentricHexoriumBlock)
+                if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z)) {
+                    HexUtils.setMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     // Grant player the achievement.
                     if (HexConfig.cfgGeneralUseAchievements)
@@ -64,8 +64,8 @@ public class ItemHexoriumReinforcer extends Item {
                         stack = null;
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
                 }
-            }
         }
+
         return false;
     }
 }

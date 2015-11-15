@@ -32,8 +32,8 @@ import net.minecraft.world.World;
 
 public class ItemHexoriumManipulator extends Item {
 
-    // Set default item name.
-    public static String UNLOCALISEDNAME = "itemHexoriumManipulator";
+    // Item ID
+    public static final String ID = "itemHexoriumManipulator";
 
     /**
      * Constructor for the item.
@@ -58,25 +58,25 @@ public class ItemHexoriumManipulator extends Item {
      */
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        // Check if this is the server thread.
         if (!world.isRemote) {
-            // Get the block.
             Block block = world.getBlock(x, y, z);
 
             // Fired if the player is sneaking.
             if (player.isSneaking()) {
+
                 // Dismantle Energized Hexorium and Energized Hexorium Monoliths.
                 if (block instanceof BlockEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                     world.setBlockToAir(x, y, z);
                 }
+
                 // Eject monolith from Energy Pylon.
                 else if (block == HexBlocks.blockEnergyPylon) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                 }
+
                 // Rotate teleport.
                 else if (block == HexBlocks.blockPersonalTeleportationPad) {
-                    // Get meta.
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
@@ -458,8 +458,8 @@ public class ItemHexoriumManipulator extends Item {
         icon = new IIcon[2];
 
         // Load all the different icons.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
     }
 
     /**

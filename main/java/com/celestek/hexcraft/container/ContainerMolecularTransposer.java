@@ -21,21 +21,21 @@ public class ContainerMolecularTransposer extends Container {
     /**
      * Constructor
      */
-    public ContainerMolecularTransposer(EntityPlayer player, InventoryPlayer playerInv, ItemStack device){
+    public ContainerMolecularTransposer(EntityPlayer player, InventoryPlayer playerInv, ItemStack device) {
         // Add the container slots.
         inventory = new InventoryMolecularTransposer(player, device);
         addSlotToContainer(new Slot(inventory, 0, 80, 36));
 
         // Add container slots.
         int i;
-        for(i = 0; i < 3; ++i){
-            for(int j = 0; j < 9; ++j){
+        for(i = 0; i < 3; ++i) {
+            for(int j = 0; j < 9; ++j) {
                 addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Add action bar slots.
-        for(i = 0; i < 9; ++i){
+        for(i = 0; i < 9; ++i) {
             if (playerInv.getStackInSlot(i) == playerInv.getCurrentItem())
                 addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
             else
