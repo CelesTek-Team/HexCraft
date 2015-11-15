@@ -26,8 +26,211 @@ import java.util.Random;
 
 public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
+    // Model constants.
+    public static final float yMonoBot = 0.125F;
+    public static final float yMonoTop = 0.875F;
+    
+    public static final float yBaseBot = 0F;
+
+    public static final float xBaseMin = 0F;
+    public static final float xBaseMax = 1F;
+
+    public static final float zBaseMin = 0F;
+    public static final float zBaseMax = 1F;
+    
+    private static final float beamRadius = 0.05F;
+
+    private static final float invOffset = 0.4F;
+
+    private static final float xMonoA = 0.1874F;
+    private static final float xMonoB = 0.3437F;
+    private static final float xMonoC = 0.6563F;
+    private static final float xMonoD = 0.8126F;
+    private static final float xMonoE = 0.6563F;
+    private static final float xMonoF = 0.3437F;
+
+    private static final float zMonoA = 0.5F;
+    private static final float zMonoB = 0.7707F;
+    private static final float zMonoC = 0.7707F;
+    private static final float zMonoD = 0.5F;
+    private static final float zMonoE = 0.2292F;
+    private static final float zMonoF = 0.2292F;
+
+    private static final float xPlatMin = 0.125F;
+    private static final float xPlatMax = 0.875F;
+
+    private static final float zPlatMin = 0.125F;
+    private static final float zPlatMax = 0.875F;
+
+    private static final float yRingTop = 0.25F;
+
+    private static final float xRingA = 0.125F;
+    private static final float xRingB = 0.3125F;
+    private static final float xRingC = 0.6875F;
+    private static final float xRingD = 0.875F;
+    private static final float xRingE = 0.6875F;
+    private static final float xRingF = 0.3125F;
+
+    private static final float zRingA = 0.5F;
+    private static final float zRingB = 0.8248F;
+    private static final float zRingC = 0.8248F;
+    private static final float zRingD = 0.5F;
+    private static final float zRingE = 0.1752F;
+    private static final float zRingF = 0.1752F;
+
+    private static final float uMonoTopA = 0.3F;
+    private static final float vMonoTopA = 4.5F;
+    private static final float uMonoTopB = 2.6F;
+    private static final float vMonoTopB = 0.25F;
+    private static final float uMonoTopC = 7.4F;
+    private static final float vMonoTopC = 0.25F;
+    private static final float uMonoTopD = 9.7F;
+    private static final float vMonoTopD = 4.5F;
+    private static final float uMonoTopE = 7.4F;
+    private static final float vMonoTopE = 8.75F;
+    private static final float uMonoTopF = 2.6F;
+    private static final float vMonoTopF = 8.75F;
+
+    private static final float uMonoSide = 11.25F;
+    private static final float UMonoSide = 15.75F;
+    private static final float vMonoSide = 0.25F;
+    private static final float VMonoSide = 11.75F;
+
+    private static final float uBaseTop = 2F;
+    private static final float vBaseTop = 2F;
+    private static final float UBaseTop = 14F;
+    private static final float VBaseTop = 14F;
+
+    private static final float uBaseA1 = 0F;
+    private static final float vBaseA1 = 0F;
+    private static final float uBaseA2 = 16F;
+    private static final float vBaseA2 = 0F;
+    private static final float uBaseA3 = 14F;
+    private static final float vBaseA3 = 3F;
+    private static final float uBaseA4 = 2F;
+    private static final float vBaseA4 = 3F;
+
+    private static final float uBaseB1 = 0F;
+    private static final float vBaseB1 = 3F;
+    private static final float uBaseB2 = 16F;
+    private static final float vBaseB2 = 3F;
+    private static final float uBaseB3 = 14F;
+    private static final float vBaseB3 = 6F;
+    private static final float uBaseB4 = 2F;
+    private static final float vBaseB4 = 6F;
+
+    private static final float uRingA1 = 0F;
+    private static final float vRingA1 = 6.5F;
+    private static final float uRingA2 = 6F;
+    private static final float vRingA2 = 6.5F;
+    private static final float uRingA3 = 5.5F;
+    private static final float vRingA3 = 9F;
+    private static final float uRingA4 = 0.5F;
+    private static final float vRingA4 = 9F;
+
+    private static final float uRingB1 = 8F;
+    private static final float vRingB1 = 6.5F;
+    private static final float uRingB2 = 14F;
+    private static final float vRingB2 = 6.5F;
+    private static final float uRingB3 = 13.5F;
+    private static final float vRingB3 = 9F;
+    private static final float uRingB4 = 8.5F;
+    private static final float vRingB4 = 9F;
+
+    private static final float uRingC1 = 0F;
+    private static final float vRingC1 = 11F;
+    private static final float uRingC2 = 6F;
+    private static final float vRingC2 = 11F;
+    private static final float uRingC3 = 5.5F;
+    private static final float vRingC3 = 13.5F;
+    private static final float uRingC4 = 0.5F;
+    private static final float vRingC4 = 13.5F;
+
+    private static final float uRingD1 = 0.5F;
+    private static final float vRingD1 = 9F;
+    private static final float uRingD2 = 5.5F;
+    private static final float vRingD2 = 9F;
+    private static final float uRingD3 = 5.5F;
+    private static final float vRingD3 = 11F;
+    private static final float uRingD4 = 0.5F;
+    private static final float vRingD4 = 11F;
+
+    private static final float uRingE1 = 8.5F;
+    private static final float vRingE1 = 9F;
+    private static final float uRingE2 = 13.5F;
+    private static final float vRingE2 = 9F;
+    private static final float uRingE3 = 13.5F;
+    private static final float vRingE3 = 11F;
+    private static final float uRingE4 = 8.5F;
+    private static final float vRingE4 = 11F;
+
+    private static final float uRingF1 = 0.5F;
+    private static final float vRingF1 = 13.5F;
+    private static final float uRingF2 = 5.5F;
+    private static final float vRingF2 = 13.5F;
+    private static final float uRingF3 = 5.5F;
+    private static final float vRingF3 = 15.5F;
+    private static final float uRingF4 = 0.5F;
+    private static final float vRingF4 = 15.5F;
+
+    private static final float yBallTop = 0.5975F;
+    private static final float yBallMid = 0.5F;
+    private static final float yBallBot = 0.4025F;
+
+    private static final float xBallA1 = 0.37F;
+    private static final float xBallB1 = 0.435F;
+    private static final float xBallC1 = 0.565F;
+    private static final float xBallD1 = 0.63F;
+    private static final float xBallE1 = 0.565F;
+    private static final float xBallF1 = 0.435F;
+
+    private static final float xBallA2 = 0.435F;
+    private static final float xBallB2 = 0.4675F;
+    private static final float xBallC2 = 0.5325F;
+    private static final float xBallD2 = 0.565F;
+    private static final float xBallE2 = 0.5325F;
+    private static final float xBallF2 = 0.4675F;
+
+    private static final float zBallA1 = 0.5F;
+    private static final float zBallB1 = 0.6126F;
+    private static final float zBallC1 = 0.6126F;
+    private static final float zBallD1 = 0.5F;
+    private static final float zBallE1 = 0.3874F;
+    private static final float zBallF1 = 0.3874F;
+
+    private static final float zBallA2 = 0.5F;
+    private static final float zBallB2 = 0.5563F;
+    private static final float zBallC2 = 0.5563F;
+    private static final float zBallD2 = 0.5F;
+    private static final float zBallE2 = 0.4437F;
+    private static final float zBallF2 = 0.4437F;
+
+    private static final float uBallA = 0F;
+    private static final float uBallB = 0.75F;
+    private static final float uBallC = 2.25F;
+    private static final float uBallD = 4F;
+    private static final float uBallE = 2.25F;
+    private static final float uBallF = 0.75F;
+
+    private static final float vBallA = 14F;
+    private static final float vBallB = 12.25F;
+    private static final float vBallC = 12.25F;
+    private static final float vBallD = 14F;
+    private static final float vBallE = 15.75F;
+    private static final float vBallF = 15.75F;
+
+    private static final float uBallG = 4F;
+    private static final float uBallH = 8F;
+    private static final float uBallI = 7F;
+    private static final float uBallJ = 5F;
+
+    private static final float vBallG = 12.25F;
+    private static final float vBallH = 12.25F;
+    private static final float vBallI = 15.75F;
+    private static final float vBallJ = 15.75F;
+
     // Brightness when pylon is OFF.
-    private static float darkMonolith = 0.25F;
+    private static final float darkMonolith = 0.25F;
 
     // Variables
     private int renderID;
@@ -35,225 +238,13 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private int brightness;
     private float opacity;
 
-    private final Random random = new Random();
-
-    // Model constants.
-    private static float beamRadius = 0.05F;
-
-    private static float invOffset = 0.4F;
-
-    public static float yMonoBot = 0.125F;
-    public static float yMonoTop = 0.875F;
-
-    private static float xMonoA = 0.1874F;
-    private static float xMonoB = 0.3437F;
-    private static float xMonoC = 0.6563F;
-    private static float xMonoD = 0.8126F;
-    private static float xMonoE = 0.6563F;
-    private static float xMonoF = 0.3437F;
-
-    private static float zMonoA = 0.5F;
-    private static float zMonoB = 0.7707F;
-    private static float zMonoC = 0.7707F;
-    private static float zMonoD = 0.5F;
-    private static float zMonoE = 0.2292F;
-    private static float zMonoF = 0.2292F;
-
-
-    public static float yBaseBot = 0F;
-
-    public static float xBaseMin = 0F;
-    public static float xBaseMax = 1F;
-    
-    public static float zBaseMin = 0F;
-    public static float zBaseMax = 1F;
-
-    private static float xPlatMin = 0.125F;
-    private static float xPlatMax = 0.875F;
-    
-    private static float zPlatMin = 0.125F;
-    private static float zPlatMax = 0.875F;
-
-
-    private static float yRingTop = 0.25F;
-
-    private static float xRingA = 0.125F;
-    private static float xRingB = 0.3125F;
-    private static float xRingC = 0.6875F;
-    private static float xRingD = 0.875F;
-    private static float xRingE = 0.6875F;
-    private static float xRingF = 0.3125F;
-
-    private static float zRingA = 0.5F;
-    private static float zRingB = 0.8248F;
-    private static float zRingC = 0.8248F;
-    private static float zRingD = 0.5F;
-    private static float zRingE = 0.1752F;
-    private static float zRingF = 0.1752F;
-    
-
-    private static float uMonoTopA = 0.3F;
-    private static float vMonoTopA = 4.5F;
-    private static float uMonoTopB = 2.6F;
-    private static float vMonoTopB = 0.25F;
-    private static float uMonoTopC = 7.4F;
-    private static float vMonoTopC = 0.25F;
-    private static float uMonoTopD = 9.7F;
-    private static float vMonoTopD = 4.5F;
-    private static float uMonoTopE = 7.4F;
-    private static float vMonoTopE = 8.75F;
-    private static float uMonoTopF = 2.6F;
-    private static float vMonoTopF = 8.75F;
-
-    private static float uMonoSide = 11.25F;
-    private static float UMonoSide = 15.75F;
-    private static float vMonoSide = 0.25F;
-    private static float VMonoSide = 11.75F;
-
-
-
-    private static float uBaseTop = 2F;
-    private static float vBaseTop = 2F;
-    private static float UBaseTop = 14F;
-    private static float VBaseTop = 14F;
-
-    private static float uBaseA1 = 0F;
-    private static float vBaseA1 = 0F;
-    private static float uBaseA2 = 16F;
-    private static float vBaseA2 = 0F;
-    private static float uBaseA3 = 14F;
-    private static float vBaseA3 = 3F;
-    private static float uBaseA4 = 2F;
-    private static float vBaseA4 = 3F;
-
-    private static float uBaseB1 = 0F;
-    private static float vBaseB1 = 3F;
-    private static float uBaseB2 = 16F;
-    private static float vBaseB2 = 3F;
-    private static float uBaseB3 = 14F;
-    private static float vBaseB3 = 6F;
-    private static float uBaseB4 = 2F;
-    private static float vBaseB4 = 6F;
-
-
-    private static float uRingA1 = 0F;
-    private static float vRingA1 = 6.5F;
-    private static float uRingA2 = 6F;
-    private static float vRingA2 = 6.5F;
-    private static float uRingA3 = 5.5F;
-    private static float vRingA3 = 9F;
-    private static float uRingA4 = 0.5F;
-    private static float vRingA4 = 9F;
-
-    private static float uRingB1 = 8F;
-    private static float vRingB1 = 6.5F;
-    private static float uRingB2 = 14F;
-    private static float vRingB2 = 6.5F;
-    private static float uRingB3 = 13.5F;
-    private static float vRingB3 = 9F;
-    private static float uRingB4 = 8.5F;
-    private static float vRingB4 = 9F;
-
-    private static float uRingC1 = 0F;
-    private static float vRingC1 = 11F;
-    private static float uRingC2 = 6F;
-    private static float vRingC2 = 11F;
-    private static float uRingC3 = 5.5F;
-    private static float vRingC3 = 13.5F;
-    private static float uRingC4 = 0.5F;
-    private static float vRingC4 = 13.5F;
-
-    private static float uRingD1 = 0.5F;
-    private static float vRingD1 = 9F;
-    private static float uRingD2 = 5.5F;
-    private static float vRingD2 = 9F;
-    private static float uRingD3 = 5.5F;
-    private static float vRingD3 = 11F;
-    private static float uRingD4 = 0.5F;
-    private static float vRingD4 = 11F;
-
-    private static float uRingE1 = 8.5F;
-    private static float vRingE1 = 9F;
-    private static float uRingE2 = 13.5F;
-    private static float vRingE2 = 9F;
-    private static float uRingE3 = 13.5F;
-    private static float vRingE3 = 11F;
-    private static float uRingE4 = 8.5F;
-    private static float vRingE4 = 11F;
-
-    private static float uRingF1 = 0.5F;
-    private static float vRingF1 = 13.5F;
-    private static float uRingF2 = 5.5F;
-    private static float vRingF2 = 13.5F;
-    private static float uRingF3 = 5.5F;
-    private static float vRingF3 = 15.5F;
-    private static float uRingF4 = 0.5F;
-    private static float vRingF4 = 15.5F;
-
-    private static float yBallTop = 0.5975F;
-    private static float yBallMid = 0.5F;
-    private static float yBallBot = 0.4025F;
-
-    private static float xBallA1 = 0.37F;
-    private static float xBallB1 = 0.435F;
-    private static float xBallC1 = 0.565F;
-    private static float xBallD1 = 0.63F;
-    private static float xBallE1 = 0.565F;
-    private static float xBallF1 = 0.435F;
-
-    private static float xBallA2 = 0.435F;
-    private static float xBallB2 = 0.4675F;
-    private static float xBallC2 = 0.5325F;
-    private static float xBallD2 = 0.565F;
-    private static float xBallE2 = 0.5325F;
-    private static float xBallF2 = 0.4675F;
-
-    private static float zBallA1 = 0.5F;
-    private static float zBallB1 = 0.6126F;
-    private static float zBallC1 = 0.6126F;
-    private static float zBallD1 = 0.5F;
-    private static float zBallE1 = 0.3874F;
-    private static float zBallF1 = 0.3874F;
-
-    private static float zBallA2 = 0.5F;
-    private static float zBallB2 = 0.5563F;
-    private static float zBallC2 = 0.5563F;
-    private static float zBallD2 = 0.5F;
-    private static float zBallE2 = 0.4437F;
-    private static float zBallF2 = 0.4437F;
-
-    private static float uBallA = 0F;
-    private static float uBallB = 0.75F;
-    private static float uBallC = 2.25F;
-    private static float uBallD = 4F;
-    private static float uBallE = 2.25F;
-    private static float uBallF = 0.75F;
-
-    private static float vBallA = 14F;
-    private static float vBallB = 12.25F;
-    private static float vBallC = 12.25F;
-    private static float vBallD = 14F;
-    private static float vBallE = 15.75F;
-    private static float vBallF = 15.75F;
-
-    private static float uBallG = 4F;
-    private static float uBallH = 8F;
-    private static float uBallI = 7F;
-    private static float uBallJ = 5F;
-
-    private static float vBallG = 12.25F;
-    private static float vBallH = 12.25F;
-    private static float vBallI = 15.75F;
-    private static float vBallJ = 15.75F;
-
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
      * @param brightness Intensity of the monolith glow.
      * @param opacity Opacity of the monolith.
      */
-    public HexModelRendererPylon(int renderID, int brightness, float opacity)
-    {
+    public HexModelRendererPylon(int renderID, int brightness, float opacity) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -275,8 +266,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -290,11 +280,11 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         // Start drawing.
         tessellator.startDrawingQuads();
 
-        // Set up brightness.
-        tessellator.setNormal(0F, 1F, 0F);
-
         // Prepare the icon.
         IIcon c = block.getIcon(0, 0);
+
+        // Set up brightness.
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Base Faces
         tessellator.addVertexWithUV(xBaseMin, invOffset+yBaseBot, zBaseMax, c.getInterpolatedU(uBaseA1), c.getInterpolatedV(vBaseA1)); // A
@@ -429,10 +419,6 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         float g = HexColors.colorWhiteG;
         float b = HexColors.colorWhiteB;
         IIcon c = block.getIcon(6, 0);
-
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.addTranslation(x, y, z);
         
         // Check if there is a monolith inserted.
         TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
@@ -533,290 +519,12 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
             }
         }
 
-        // Check if this is the second (transparent) render pass, if it is...
-        if(HexClientProxy.renderPass[renderBlockID] == 1) {
+        // Check if this is the first (opaque) render pass, if it is...
+        if(HexClientProxy.renderPass[renderBlockID] == 0) {
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.addTranslation(x, y, z);
 
-            // If there is a monolith...
-            if (monolith != 0) {
-                /* Monolith */
-                // Set up brightness and color.
-                tessellator.setBrightness(brightness);
-                if (state)
-                    tessellator.setColorRGBA_F(r, g, b, opacity);
-                else
-                    tessellator.setColorRGBA_F(r * darkMonolith, g * darkMonolith, b * darkMonolith, opacity);
-
-                // Prepare the icon.
-                double u = c.getInterpolatedU(uMonoSide);
-                double U = c.getInterpolatedU(UMonoSide);
-                double v = c.getInterpolatedV(vMonoSide);
-                double V = c.getInterpolatedV(VMonoSide);
-
-                // Render the monolith. Use the block meta to rotate the model.
-                if (orientation == 0) {
-                    // Top Face
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-
-                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoBot, zMonoF, u, V); // F'
-                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoBot, zMonoE, U, V); // E'
-                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, U, v); // E
-                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, u, v); // F
-
-                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoBot, zMonoE, u, V); // E'
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoBot, zMonoD, U, V); // D'
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, U, v); // D
-                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, u, v); // E
-
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoBot, zMonoD, u, V); // D'
-                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoBot, zMonoC, U, V); // C'
-                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, U, v); // C
-                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, u, v); // D
-
-                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoBot, zMonoC, u, V); // C'
-                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoBot, zMonoB, U, V); // B'
-                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, U, v); // B
-                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, u, v); // C
-
-                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoBot, zMonoB, u, V); // B'
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoBot, zMonoA, U, V); // A'
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, U, v); // A
-                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, u, v); // B
-
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoBot, zMonoA, u, V); // A'
-                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoBot, zMonoF, U, V); // F'
-                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, U, v); // F
-                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, u, v); // A
-                } else if (orientation == 1) {
-                    // Top Face
-                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, u, v); // F
-                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, U, v); // E
-                    tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, U, V); // E'
-                    tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, u, V); // F'
-
-                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, u, v); // E
-                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, U, v); // D
-                    tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, U, V); // D'
-                    tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, u, V); // E'
-
-                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, u, v); // D
-                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, U, v); // C
-                    tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, U, V); // C'
-                    tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, u, V); // D'
-
-                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, u, v); // C
-                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, U, v); // B
-                    tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, U, V); // B'
-                    tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, u, V); // C'
-
-                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, u, v); // B
-                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, U, v); // A
-                    tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, U, V); // A'
-                    tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, u, V); // B'
-
-                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, u, v); // A
-                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, U, v); // F
-                    tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, U, V); // F'
-                    tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, u, V); // A'
-                } else if (orientation == 2) {
-                    // Top Face
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoBot, u, V); // F'
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoBot, U, V); // E'
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, U, v); // E
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, u, v); // F
-
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoBot, u, V); // E'
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoBot, U, V); // D'
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, U, v); // D
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, u, v); // E
-
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoBot, u, V); // D'
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoBot, U, V); // C'
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, U, v); // C
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, u, v); // D
-
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoBot, u, V); // C'
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoBot, U, V); // B'
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, U, v); // B
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, u, v); // C
-
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoBot, u, V); // B'
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoBot, U, V); // A'
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, U, v); // A
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, u, v); // B
-
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoBot, u, V); // A'
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoBot, U, V); // F'
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, U, v); // F
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, u, v); // A
-                } else if (orientation == 3) {
-                    // Top Face
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, u, v); // F
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, U, v); // E
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoBot, U, V); // E'
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoBot, u, V); // F'
-
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, u, v); // E
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, U, v); // D
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoBot, U, V); // D'
-                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoBot, u, V); // E'
-
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, u, v); // D
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, U, v); // C
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoBot, U, V); // C'
-                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoBot, u, V); // D'
-
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, u, v); // C
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, U, v); // B
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoBot, U, V); // B'
-                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoBot, u, V); // C'
-
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, u, v); // B
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, U, v); // A
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoBot, U, V); // A'
-                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoBot, u, V); // B'
-
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, u, v); // A
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, U, v); // F
-                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoBot, U, V); // F'
-                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoBot, u, V); // A'
-                } else if (orientation == 4) {
-                    // Top Face
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, u, v); // F
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, U, v); // E
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoE, zMonoE, U, V); // E'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoF, zMonoF, u, V); // F'
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, u, v); // E
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, U, v); // D
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoD, zMonoD, U, V); // D'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoE, zMonoE, u, V); // E'
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, u, v); // D
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, U, v); // C
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoC, zMonoC, U, V); // C'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoD, zMonoD, u, V); // D'
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, u, v); // C
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, U, v); // B
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoB, zMonoB, U, V); // B'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoC, zMonoC, u, V); // C'
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, u, v); // B
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, U, v); // A
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoA, zMonoA, U, V); // A'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoB, zMonoB, u, V); // B'
-
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, u, v); // A
-                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, U, v); // F
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoF, zMonoF, U, V); // F'
-                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoA, zMonoA, u, V); // A'
-                } else if (orientation == 5) {
-                    // Top Face
-                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
-                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
-
-                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
-                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
-                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
-                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
-
-                    // Side Faces
-                    tessellator.addVertexWithUV(yMonoBot, xMonoF, zMonoF, u, V); // F'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoE, zMonoE, U, V); // E'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, U, v); // E
-                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, u, v); // F
-
-                    tessellator.addVertexWithUV(yMonoBot, xMonoE, zMonoE, u, V); // E'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoD, zMonoD, U, V); // D'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, U, v); // D
-                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, u, v); // E
-
-                    tessellator.addVertexWithUV(yMonoBot, xMonoD, zMonoD, u, V); // D'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoC, zMonoC, U, V); // C'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, U, v); // C
-                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, u, v); // D
-
-                    tessellator.addVertexWithUV(yMonoBot, xMonoC, zMonoC, u, V); // C'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoB, zMonoB, U, V); // B'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, U, v); // B
-                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, u, v); // C
-
-                    tessellator.addVertexWithUV(yMonoBot, xMonoB, zMonoB, u, V); // B'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoA, zMonoA, U, V); // A'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, U, v); // A
-                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, u, v); // B
-
-                    tessellator.addVertexWithUV(yMonoBot, xMonoA, zMonoA, u, V); // A'
-                    tessellator.addVertexWithUV(yMonoBot, xMonoF, zMonoF, U, V); // F'
-                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, U, v); // F
-                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, u, v); // A
-                }
-            }
-            else {
-                // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
-            }
-        }
-        // If this is the first (opaque) render pass...
-        else {
             // If there is a monolith...
             if (monolith != 0) {
                 /* Ball */
@@ -827,7 +535,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 else
                     tessellator.setColorOpaque_F(r * darkMonolith, g * darkMonolith, b * darkMonolith);
 
-                // Render the ball. Use the block meta to rotate the model.
+                // Render the ball.
                 if (orientation == 0) {
                     // Top Face
                     tessellator.addVertexWithUV(xBallA2, 1 - yBallTop, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
@@ -912,7 +620,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xBallD2, 1 - yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(xBallE2, 1 - yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(xBallF2, 1 - yBallBot, zBallF2, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
-                } else if (orientation == 1) {
+                }
+                else if (orientation == 1) {
                     // Top Face
                     tessellator.addVertexWithUV(xBallB2, yBallTop, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(xBallC2, yBallTop, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -985,7 +694,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xBallF1, yBallMid, zBallF1, c.getInterpolatedU(uBallH), c.getInterpolatedV(vBallH)); // F
                     tessellator.addVertexWithUV(xBallF2, yBallBot, zBallF2, c.getInterpolatedU(uBallI), c.getInterpolatedV(vBallI)); // F'
                     tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallJ), c.getInterpolatedV(vBallJ)); // A'
-                    
+
                     // Bottom Face
                     tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -996,7 +705,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xBallE2, yBallBot, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(xBallD2, yBallBot, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(xBallA2, yBallBot, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (orientation == 2) {
+                }
+                else if (orientation == 2) {
                     // Top Face
                     tessellator.addVertexWithUV(zBallA2, xBallA2, 1 - yBallTop, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallTop, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -1080,7 +790,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zBallD2, xBallD2, 1 - yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(zBallE2, xBallE2, 1 - yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(zBallF2, xBallF2, 1 - yBallBot, c.getInterpolatedU(uBallF), c.getInterpolatedV(vBallF)); // F
-                } else if (orientation == 3) {
+                }
+                else if (orientation == 3) {
                     // Top Face
                     tessellator.addVertexWithUV(zBallB2, xBallB2, yBallTop, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(zBallC2, xBallC2, yBallTop, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -1164,7 +875,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zBallE2, xBallE2, yBallBot, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(zBallD2, xBallD2, yBallBot, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(zBallA2, xBallA2, yBallBot, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (orientation == 4) {
+                }
+                else if (orientation == 4) {
                     // Top Face
                     tessellator.addVertexWithUV(1 - yBallTop, xBallB2, zBallB2, c.getInterpolatedU(uBallB), c.getInterpolatedV(vBallB)); // B
                     tessellator.addVertexWithUV(1 - yBallTop, xBallC2, zBallC2, c.getInterpolatedU(uBallC), c.getInterpolatedV(vBallC)); // C
@@ -1248,7 +960,8 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1 - yBallBot, xBallE2, zBallE2, c.getInterpolatedU(uBallE), c.getInterpolatedV(vBallE)); // E
                     tessellator.addVertexWithUV(1 - yBallBot, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
                     tessellator.addVertexWithUV(1 - yBallBot, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
-                } else if (orientation == 5) {
+                }
+                else if (orientation == 5) {
                     // Top Face
                     tessellator.addVertexWithUV(yBallTop, xBallA2, zBallA2, c.getInterpolatedU(uBallA), c.getInterpolatedV(vBallA)); // A
                     tessellator.addVertexWithUV(yBallTop, xBallD2, zBallD2, c.getInterpolatedU(uBallD), c.getInterpolatedV(vBallD)); // D
@@ -1336,14 +1049,14 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
             }
 
             /* Base */
+            // Prepare the icon.
+            c = block.getIcon(0, 0);
+
             // Set up brightness and color.
             tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorOpaque_F(1, 1, 1);
 
-            // Prepare the icon.
-            c = block.getIcon(0, 0);
-
-            // Render the base. Use the block meta to rotate the model.
+            // Render the base.
             if (orientation == 0) {
                 // Base Faces
                 tessellator.addVertexWithUV(xPlatMin, 1-yMonoBot, zPlatMax, c.getInterpolatedU(uBaseA4), c.getInterpolatedV(vBaseA4)); // A'
@@ -1923,7 +1636,6 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
             // If there is a monolith...
             if (monolith != 0 && state) {
-
                 /* Beams */
                 if (tileEnergyPylon.getPylons() != null) {
                     // Prepare the icon variables.
@@ -1937,218 +1649,503 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
 
                     // Go through each pylon entry.
                     for (HexPylon entry : tileEnergyPylon.getPylons()) {
+                        int monolithEntry = monolith;
                         if (HexUtils.checkChunk(tileEnergyPylon.getWorldObj(), entry.x, entry.z)) {
                             TileEnergyPylon tileEnergyPylonEntry = (TileEnergyPylon) tileEnergyPylon.getWorldObj().getTileEntity(entry.x, entry.y, entry.z);
-                            if (tileEnergyPylonEntry != null) {
-                                int monolithEntry = tileEnergyPylonEntry.getMonolith();
-                                // Check if the target pylon is ON.
-                                if (tileEnergyPylonEntry.getBlockMetadata() < 6) {
-                                    // System.out.println("Pylon at (" + x + ", " + y + ", " + z + ") rendering link to (" + entry.x + ", " + entry.y + ", " + entry.z + ")");
-                                    // Check if both of the pylons are rainbow.
-                                    if (monolith == 18 && monolithEntry == 18) {
-                                        // If they are, set the rainbow texture.
-                                        tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
-                                        c = block.getIcon(11, 0);
-                                        u = c.getMinU();
-                                        U = c.getMaxU();
-                                        v = c.getMinV();
-                                        V = c.getMaxV();
-                                    }
-                                    else if (monolith == 18) {
-                                        // If this is rainbow and target is not, use target color.
-                                        float tr = HexColors.colorWhiteR;
-                                        float tg = HexColors.colorWhiteG;
-                                        float tb = HexColors.colorWhiteB;
-                                        if (monolithEntry == 1) {
-                                            tr = HexColors.colorRedR;
-                                            tg = HexColors.colorRedG;
-                                            tb = HexColors.colorRedB;
-                                        }
-                                        else if (monolithEntry == 2) {
-                                            tr = HexColors.colorOrangeR;
-                                            tg = HexColors.colorOrangeG;
-                                            tb = HexColors.colorOrangeB;
-                                        }
-                                        else if (monolithEntry == 3) {
-                                            tr = HexColors.colorYellowR;
-                                            tg = HexColors.colorYellowG;
-                                            tb = HexColors.colorYellowB;
-                                        }
-                                        else if (monolithEntry == 4) {
-                                            tr = HexColors.colorLimeR;
-                                            tg = HexColors.colorLimeG;
-                                            tb = HexColors.colorLimeB;
-                                        }
-                                        else if (monolithEntry == 5) {
-                                            tr = HexColors.colorGreenR;
-                                            tg = HexColors.colorGreenG;
-                                            tb = HexColors.colorGreenB;
-                                        }
-                                        else if (monolithEntry == 6) {
-                                            tr = HexColors.colorTurquoiseR;
-                                            tg = HexColors.colorTurquoiseG;
-                                            tb = HexColors.colorTurquoiseB;
-                                        }
-                                        else if (monolithEntry == 7) {
-                                            tr = HexColors.colorCyanR;
-                                            tg = HexColors.colorCyanG;
-                                            tb = HexColors.colorCyanB;
-                                        }
-                                        else if (monolithEntry == 8) {
-                                            tr = HexColors.colorSkyBlueR;
-                                            tg = HexColors.colorSkyBlueG;
-                                            tb = HexColors.colorSkyBlueB;
-                                        }
-                                        else if (monolithEntry == 9) {
-                                            tr = HexColors.colorBlueR;
-                                            tg = HexColors.colorBlueG;
-                                            tb = HexColors.colorBlueB;
-                                        }
-                                        else if (monolithEntry == 10) {
-                                            tr = HexColors.colorPurpleR;
-                                            tg = HexColors.colorPurpleG;
-                                            tb = HexColors.colorPurpleB;
-                                        }
-                                        else if (monolithEntry == 11) {
-                                            tr = HexColors.colorMagentaR;
-                                            tg = HexColors.colorMagentaG;
-                                            tb = HexColors.colorMagentaB;
-                                        }
-                                        else if (monolithEntry == 12) {
-                                            tr = HexColors.colorPinkR;
-                                            tg = HexColors.colorPinkG;
-                                            tb = HexColors.colorPinkB;
-                                        }
-                                        else if (monolithEntry == 13) {
-                                            tr = HexColors.colorWhiteR;
-                                            tg = HexColors.colorWhiteG;
-                                            tb = HexColors.colorWhiteB;
-                                        }
-                                        else if (monolithEntry == 14) {
-                                            tr = HexColors.colorLightGrayR;
-                                            tg = HexColors.colorLightGrayG;
-                                            tb = HexColors.colorLightGrayB;
-                                        }
-                                        else if (monolithEntry == 15) {
-                                            tr = HexColors.colorGrayR;
-                                            tg = HexColors.colorGrayG;
-                                            tb = HexColors.colorGrayB;
-                                        }
-                                        else if (monolithEntry == 16) {
-                                            tr = HexColors.colorDarkGrayR;
-                                            tg = HexColors.colorDarkGrayG;
-                                            tb = HexColors.colorDarkGrayB;
-                                        }
-                                        else if (monolithEntry == 17) {
-                                            tr = HexColors.colorBlackR;
-                                            tg = HexColors.colorBlackG;
-                                            tb = HexColors.colorBlackB;
-                                        }
-                                        tessellator.setColorOpaque_F(tr, tg, tb);
-                                        c = block.getIcon(10, 0);
-                                        u = c.getMinU();
-                                        U = c.getMaxU();
-                                        v = c.getMinV();
-                                        V = c.getMaxV();
-                                    }
-                                    else {
-                                        // Otherwise, set the color normally.
-                                        tessellator.setColorOpaque_F(r, g, b);
-                                        c = block.getIcon(10, 0);
-                                        u = c.getMinU();
-                                        U = c.getMaxU();
-                                        v = c.getMinV();
-                                        V = c.getMaxV();
-                                    }
+                            if (tileEnergyPylonEntry != null)
+                                monolithEntry = tileEnergyPylonEntry.getMonolith();
+                        }
 
-                                    // Create the vector from pylon A to pylon B.
-                                    Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.x, entry.y, entry.z));
-
-                                    // Prepare additional vectors.
-                                    Vec3 vec2;
-                                    Vec3 vec3;
-                                    Vec3 vec4;
-                                    Vec3 vec5;
-
-                                    // If the pylons are exactly above each other...
-                                    if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
-                                        // Create start vectors.
-                                        vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
-                                        vec2 = centerVector(vec2);
-
-                                        vec3 = Vec3.createVectorHelper(0, 0, beamRadius); // B
-                                        vec3 = centerVector(vec3);
-
-                                        vec4 = Vec3.createVectorHelper(-beamRadius, 0, 0); // C
-                                        vec4 = centerVector(vec4);
-
-                                        vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
-                                        vec5 = centerVector(vec5);
-                                    }
-                                    else {
-                                        // Create helper vector.
-                                        Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
-                                        vec1.rotateAroundY((float) -Math.PI / 2);
-                                        vec1.yCoord = 0;
-
-                                        // Create start vectors.
-                                        vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
-                                        vec2 = vec2.normalize();
-                                        vec2 = scaleVector(vec2, beamRadius / 2);
-                                        vec2 = centerVector(vec2);
-
-                                        vec3 = vec1.crossProduct(vec0); // B
-                                        vec3 = vec3.normalize();
-                                        vec3 = scaleVector(vec3, beamRadius / 2);
-                                        vec3 = centerVector(vec3);
-
-                                        vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
-                                        vec4 = vec4.normalize();
-                                        vec4 = scaleVector(vec4, -beamRadius / 2);
-                                        vec4 = centerVector(vec4);
-
-                                        vec5 = vec1.crossProduct(vec0); // D
-                                        vec5 = vec5.normalize();
-                                        vec5 = scaleVector(vec5, -beamRadius / 2);
-                                        vec5 = centerVector(vec5);
-                                    }
-
-                                    // Create destination vectors.
-                                    Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
-                                    Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
-                                    Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
-                                    Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
-
-                                    // Draw the beam.
-                                    tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-                                    tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
-                                    tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
-                                    tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
-
-                                    tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
-                                    tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
-                                    tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
-                                    tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
-
-                                    tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
-                                    tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
-                                    tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
-                                    tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
-
-                                    tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
-                                    tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
-                                    tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
-                                    tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
-                                }
+                        // Check if the target pylon is ON.
+                        if (!HexUtils.getMetaBit(BlockEnergyPylon.META_STATE, world, entry.x, entry.y, entry.z)) {
+                            // Check if both of the pylons are rainbow.
+                            if (monolith == 18 && monolithEntry == 18) {
+                                // If they are, set the rainbow texture.
+                                tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                                c = block.getIcon(11, 0);
+                                u = c.getMinU();
+                                U = c.getMaxU();
+                                v = c.getMinV();
+                                V = c.getMaxV();
                             }
+                            else if (monolith == 18) {
+                                // If this is rainbow and target is not, use target color.
+                                float tr = HexColors.colorWhiteR;
+                                float tg = HexColors.colorWhiteG;
+                                float tb = HexColors.colorWhiteB;
+                                if (monolithEntry == 1) {
+                                    tr = HexColors.colorRedR;
+                                    tg = HexColors.colorRedG;
+                                    tb = HexColors.colorRedB;
+                                }
+                                else if (monolithEntry == 2) {
+                                    tr = HexColors.colorOrangeR;
+                                    tg = HexColors.colorOrangeG;
+                                    tb = HexColors.colorOrangeB;
+                                }
+                                else if (monolithEntry == 3) {
+                                    tr = HexColors.colorYellowR;
+                                    tg = HexColors.colorYellowG;
+                                    tb = HexColors.colorYellowB;
+                                }
+                                else if (monolithEntry == 4) {
+                                    tr = HexColors.colorLimeR;
+                                    tg = HexColors.colorLimeG;
+                                    tb = HexColors.colorLimeB;
+                                }
+                                else if (monolithEntry == 5) {
+                                    tr = HexColors.colorGreenR;
+                                    tg = HexColors.colorGreenG;
+                                    tb = HexColors.colorGreenB;
+                                }
+                                else if (monolithEntry == 6) {
+                                    tr = HexColors.colorTurquoiseR;
+                                    tg = HexColors.colorTurquoiseG;
+                                    tb = HexColors.colorTurquoiseB;
+                                }
+                                else if (monolithEntry == 7) {
+                                    tr = HexColors.colorCyanR;
+                                    tg = HexColors.colorCyanG;
+                                    tb = HexColors.colorCyanB;
+                                }
+                                else if (monolithEntry == 8) {
+                                    tr = HexColors.colorSkyBlueR;
+                                    tg = HexColors.colorSkyBlueG;
+                                    tb = HexColors.colorSkyBlueB;
+                                }
+                                else if (monolithEntry == 9) {
+                                    tr = HexColors.colorBlueR;
+                                    tg = HexColors.colorBlueG;
+                                    tb = HexColors.colorBlueB;
+                                }
+                                else if (monolithEntry == 10) {
+                                    tr = HexColors.colorPurpleR;
+                                    tg = HexColors.colorPurpleG;
+                                    tb = HexColors.colorPurpleB;
+                                }
+                                else if (monolithEntry == 11) {
+                                    tr = HexColors.colorMagentaR;
+                                    tg = HexColors.colorMagentaG;
+                                    tb = HexColors.colorMagentaB;
+                                }
+                                else if (monolithEntry == 12) {
+                                    tr = HexColors.colorPinkR;
+                                    tg = HexColors.colorPinkG;
+                                    tb = HexColors.colorPinkB;
+                                }
+                                else if (monolithEntry == 13) {
+                                    tr = HexColors.colorWhiteR;
+                                    tg = HexColors.colorWhiteG;
+                                    tb = HexColors.colorWhiteB;
+                                }
+                                else if (monolithEntry == 14) {
+                                    tr = HexColors.colorLightGrayR;
+                                    tg = HexColors.colorLightGrayG;
+                                    tb = HexColors.colorLightGrayB;
+                                }
+                                else if (monolithEntry == 15) {
+                                    tr = HexColors.colorGrayR;
+                                    tg = HexColors.colorGrayG;
+                                    tb = HexColors.colorGrayB;
+                                }
+                                else if (monolithEntry == 16) {
+                                    tr = HexColors.colorDarkGrayR;
+                                    tg = HexColors.colorDarkGrayG;
+                                    tb = HexColors.colorDarkGrayB;
+                                }
+                                else if (monolithEntry == 17) {
+                                    tr = HexColors.colorBlackR;
+                                    tg = HexColors.colorBlackG;
+                                    tb = HexColors.colorBlackB;
+                                }
+                                tessellator.setColorOpaque_F(tr, tg, tb);
+                                c = block.getIcon(10, 0);
+                                u = c.getMinU();
+                                U = c.getMaxU();
+                                v = c.getMinV();
+                                V = c.getMaxV();
+                            }
+                            else {
+                                // Otherwise, set the color normally.
+                                tessellator.setColorOpaque_F(r, g, b);
+                                c = block.getIcon(10, 0);
+                                u = c.getMinU();
+                                U = c.getMaxU();
+                                v = c.getMinV();
+                                V = c.getMaxV();
+                            }
+
+                            // Create the vector from pylon A to pylon B.
+                            Vec3 vec0 = Vec3.createVectorHelper(x, y, z).subtract(Vec3.createVectorHelper(entry.x, entry.y, entry.z));
+
+                            // Prepare additional vectors.
+                            Vec3 vec2;
+                            Vec3 vec3;
+                            Vec3 vec4;
+                            Vec3 vec5;
+
+                            // If the pylons are exactly above each other...
+                            if (vec0.xCoord == 0 && vec0.yCoord != 0 && vec0.zCoord == 0) {
+                                // Create start vectors.
+                                vec2 = Vec3.createVectorHelper(beamRadius, 0, 0); // A
+                                vec2 = centerVector(vec2);
+
+                                vec3 = Vec3.createVectorHelper(0, 0, beamRadius); // B
+                                vec3 = centerVector(vec3);
+
+                                vec4 = Vec3.createVectorHelper(-beamRadius, 0, 0); // C
+                                vec4 = centerVector(vec4);
+
+                                vec5 = Vec3.createVectorHelper(0, 0, -beamRadius); // D
+                                vec5 = centerVector(vec5);
+                            }
+                            else {
+                                // Create helper vector.
+                                Vec3 vec1 = Vec3.createVectorHelper(vec0.xCoord, vec0.yCoord, vec0.zCoord);
+                                vec1.rotateAroundY((float) -Math.PI / 2);
+                                vec1.yCoord = 0;
+
+                                // Create start vectors.
+                                vec2 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // A
+                                vec2 = vec2.normalize();
+                                vec2 = scaleVector(vec2, beamRadius / 2);
+                                vec2 = centerVector(vec2);
+
+                                vec3 = vec1.crossProduct(vec0); // B
+                                vec3 = vec3.normalize();
+                                vec3 = scaleVector(vec3, beamRadius / 2);
+                                vec3 = centerVector(vec3);
+
+                                vec4 = Vec3.createVectorHelper(vec1.xCoord, vec1.yCoord, vec1.zCoord); // C
+                                vec4 = vec4.normalize();
+                                vec4 = scaleVector(vec4, -beamRadius / 2);
+                                vec4 = centerVector(vec4);
+
+                                vec5 = vec1.crossProduct(vec0); // D
+                                vec5 = vec5.normalize();
+                                vec5 = scaleVector(vec5, -beamRadius / 2);
+                                vec5 = centerVector(vec5);
+                            }
+
+                            // Create destination vectors.
+                            Vec3 vec6 = vec2.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // A'
+                            Vec3 vec7 = vec3.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // B'
+                            Vec3 vec8 = vec4.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // C'
+                            Vec3 vec9 = vec5.addVector(vec0.xCoord, vec0.yCoord, vec0.zCoord); // D'
+
+                            // Draw the beam.
+                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
+                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+
+                            tessellator.addVertexWithUV(vec3.xCoord, vec3.yCoord, vec3.zCoord, u, V); // B
+                            tessellator.addVertexWithUV(vec7.xCoord, vec7.yCoord, vec7.zCoord, U, V); // B'
+                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+
+                            tessellator.addVertexWithUV(vec4.xCoord, vec4.yCoord, vec4.zCoord, u, v); // C
+                            tessellator.addVertexWithUV(vec8.xCoord, vec8.yCoord, vec8.zCoord, U, v); // C'
+                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+
+                            tessellator.addVertexWithUV(vec5.xCoord, vec5.yCoord, vec5.zCoord, u, V); // D
+                            tessellator.addVertexWithUV(vec9.xCoord, vec9.yCoord, vec9.zCoord, U, V); // D'
+                            tessellator.addVertexWithUV(vec6.xCoord, vec6.yCoord, vec6.zCoord, U, v); // A'
+                            tessellator.addVertexWithUV(vec2.xCoord, vec2.yCoord, vec2.zCoord, u, v); // A
                         }
                     }
                 }
             }
+
+            tessellator.addTranslation(-x, -y, -z);
+        }
+        // If this is the second (transparent) render pass...
+        else {
+            // If there is a monolith...
+            if (monolith != 0) {
+                /* Monolith */
+                // Prepare the Tessellator.
+                Tessellator tessellator = Tessellator.instance;
+                tessellator.addTranslation(x, y, z);
+
+                // Prepare the icon.
+                double u = c.getInterpolatedU(uMonoSide);
+                double U = c.getInterpolatedU(UMonoSide);
+                double v = c.getInterpolatedV(vMonoSide);
+                double V = c.getInterpolatedV(VMonoSide);
+
+                // Set up brightness and color.
+                tessellator.setBrightness(brightness);
+                if (state)
+                    tessellator.setColorRGBA_F(r, g, b, opacity);
+                else
+                    tessellator.setColorRGBA_F(r * darkMonolith, g * darkMonolith, b * darkMonolith, opacity);
+
+                // Render the monolith.
+                if (orientation == 0) {
+                    // Top Face
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+
+                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoBot, zMonoF, u, V); // F'
+                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoBot, zMonoE, U, V); // E'
+                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, U, v); // E
+                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, u, v); // F
+
+                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoBot, zMonoE, u, V); // E'
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoBot, zMonoD, U, V); // D'
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, U, v); // D
+                    tessellator.addVertexWithUV(xMonoE, 1 - yMonoTop, zMonoE, u, v); // E
+
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoBot, zMonoD, u, V); // D'
+                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoBot, zMonoC, U, V); // C'
+                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, U, v); // C
+                    tessellator.addVertexWithUV(xMonoD, 1 - yMonoTop, zMonoD, u, v); // D
+
+                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoBot, zMonoC, u, V); // C'
+                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoBot, zMonoB, U, V); // B'
+                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, U, v); // B
+                    tessellator.addVertexWithUV(xMonoC, 1 - yMonoTop, zMonoC, u, v); // C
+
+                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoBot, zMonoB, u, V); // B'
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoBot, zMonoA, U, V); // A'
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, U, v); // A
+                    tessellator.addVertexWithUV(xMonoB, 1 - yMonoTop, zMonoB, u, v); // B
+
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoBot, zMonoA, u, V); // A'
+                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoBot, zMonoF, U, V); // F'
+                    tessellator.addVertexWithUV(xMonoF, 1 - yMonoTop, zMonoF, U, v); // F
+                    tessellator.addVertexWithUV(xMonoA, 1 - yMonoTop, zMonoA, u, v); // A
+                }
+                else if (orientation == 1) {
+                    // Top Face
+                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, u, v); // F
+                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, U, v); // E
+                    tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, U, V); // E'
+                    tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, u, V); // F'
+
+                    tessellator.addVertexWithUV(xMonoE, yMonoTop, zMonoE, u, v); // E
+                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, U, v); // D
+                    tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, U, V); // D'
+                    tessellator.addVertexWithUV(xMonoE, yMonoBot, zMonoE, u, V); // E'
+
+                    tessellator.addVertexWithUV(xMonoD, yMonoTop, zMonoD, u, v); // D
+                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, U, v); // C
+                    tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, U, V); // C'
+                    tessellator.addVertexWithUV(xMonoD, yMonoBot, zMonoD, u, V); // D'
+
+                    tessellator.addVertexWithUV(xMonoC, yMonoTop, zMonoC, u, v); // C
+                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, U, v); // B
+                    tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, U, V); // B'
+                    tessellator.addVertexWithUV(xMonoC, yMonoBot, zMonoC, u, V); // C'
+
+                    tessellator.addVertexWithUV(xMonoB, yMonoTop, zMonoB, u, v); // B
+                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, U, v); // A
+                    tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, U, V); // A'
+                    tessellator.addVertexWithUV(xMonoB, yMonoBot, zMonoB, u, V); // B'
+
+                    tessellator.addVertexWithUV(xMonoA, yMonoTop, zMonoA, u, v); // A
+                    tessellator.addVertexWithUV(xMonoF, yMonoTop, zMonoF, U, v); // F
+                    tessellator.addVertexWithUV(xMonoF, yMonoBot, zMonoF, U, V); // F'
+                    tessellator.addVertexWithUV(xMonoA, yMonoBot, zMonoA, u, V); // A'
+                }
+                else if (orientation == 2) {
+                    // Top Face
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoBot, u, V); // F'
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoBot, U, V); // E'
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, U, v); // E
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, u, v); // F
+
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoBot, u, V); // E'
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoBot, U, V); // D'
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, U, v); // D
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, 1 - yMonoTop, u, v); // E
+
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoBot, u, V); // D'
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoBot, U, V); // C'
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, U, v); // C
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, 1 - yMonoTop, u, v); // D
+
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoBot, u, V); // C'
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoBot, U, V); // B'
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, U, v); // B
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, 1 - yMonoTop, u, v); // C
+
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoBot, u, V); // B'
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoBot, U, V); // A'
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, U, v); // A
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, 1 - yMonoTop, u, v); // B
+
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoBot, u, V); // A'
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoBot, U, V); // F'
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, 1 - yMonoTop, U, v); // F
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, 1 - yMonoTop, u, v); // A
+                }
+                else if (orientation == 3) {
+                    // Top Face
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, u, v); // F
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, U, v); // E
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoBot, U, V); // E'
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoBot, u, V); // F'
+
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoTop, u, v); // E
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, U, v); // D
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoBot, U, V); // D'
+                    tessellator.addVertexWithUV(zMonoE, xMonoE, yMonoBot, u, V); // E'
+
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoTop, u, v); // D
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, U, v); // C
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoBot, U, V); // C'
+                    tessellator.addVertexWithUV(zMonoD, xMonoD, yMonoBot, u, V); // D'
+
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoTop, u, v); // C
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, U, v); // B
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoBot, U, V); // B'
+                    tessellator.addVertexWithUV(zMonoC, xMonoC, yMonoBot, u, V); // C'
+
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoTop, u, v); // B
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, U, v); // A
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoBot, U, V); // A'
+                    tessellator.addVertexWithUV(zMonoB, xMonoB, yMonoBot, u, V); // B'
+
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoTop, u, v); // A
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoTop, U, v); // F
+                    tessellator.addVertexWithUV(zMonoF, xMonoF, yMonoBot, U, V); // F'
+                    tessellator.addVertexWithUV(zMonoA, xMonoA, yMonoBot, u, V); // A'
+                }
+                else if (orientation == 4) {
+                    // Top Face
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, u, v); // F
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, U, v); // E
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoE, zMonoE, U, V); // E'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoF, zMonoF, u, V); // F'
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoE, zMonoE, u, v); // E
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, U, v); // D
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoD, zMonoD, U, V); // D'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoE, zMonoE, u, V); // E'
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoD, zMonoD, u, v); // D
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, U, v); // C
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoC, zMonoC, U, V); // C'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoD, zMonoD, u, V); // D'
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoC, zMonoC, u, v); // C
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, U, v); // B
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoB, zMonoB, U, V); // B'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoC, zMonoC, u, V); // C'
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoB, zMonoB, u, v); // B
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, U, v); // A
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoA, zMonoA, U, V); // A'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoB, zMonoB, u, V); // B'
+
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoA, zMonoA, u, v); // A
+                    tessellator.addVertexWithUV(1 - yMonoTop, xMonoF, zMonoF, U, v); // F
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoF, zMonoF, U, V); // F'
+                    tessellator.addVertexWithUV(1 - yMonoBot, xMonoA, zMonoA, u, V); // A'
+                }
+                else if (orientation == 5) {
+                    // Top Face
+                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, c.getInterpolatedU(uMonoTopC), c.getInterpolatedV(vMonoTopC)); // C
+                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, c.getInterpolatedU(uMonoTopB), c.getInterpolatedV(vMonoTopB)); // B
+
+                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, c.getInterpolatedU(uMonoTopF), c.getInterpolatedV(vMonoTopF)); // F
+                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, c.getInterpolatedU(uMonoTopE), c.getInterpolatedV(vMonoTopE)); // E
+                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, c.getInterpolatedU(uMonoTopD), c.getInterpolatedV(vMonoTopD)); // D
+                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, c.getInterpolatedU(uMonoTopA), c.getInterpolatedV(vMonoTopA)); // A
+
+                    // Side Faces
+                    tessellator.addVertexWithUV(yMonoBot, xMonoF, zMonoF, u, V); // F'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoE, zMonoE, U, V); // E'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, U, v); // E
+                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, u, v); // F
+
+                    tessellator.addVertexWithUV(yMonoBot, xMonoE, zMonoE, u, V); // E'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoD, zMonoD, U, V); // D'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, U, v); // D
+                    tessellator.addVertexWithUV(yMonoTop, xMonoE, zMonoE, u, v); // E
+
+                    tessellator.addVertexWithUV(yMonoBot, xMonoD, zMonoD, u, V); // D'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoC, zMonoC, U, V); // C'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, U, v); // C
+                    tessellator.addVertexWithUV(yMonoTop, xMonoD, zMonoD, u, v); // D
+
+                    tessellator.addVertexWithUV(yMonoBot, xMonoC, zMonoC, u, V); // C'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoB, zMonoB, U, V); // B'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, U, v); // B
+                    tessellator.addVertexWithUV(yMonoTop, xMonoC, zMonoC, u, v); // C
+
+                    tessellator.addVertexWithUV(yMonoBot, xMonoB, zMonoB, u, V); // B'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoA, zMonoA, U, V); // A'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, U, v); // A
+                    tessellator.addVertexWithUV(yMonoTop, xMonoB, zMonoB, u, v); // B
+
+                    tessellator.addVertexWithUV(yMonoBot, xMonoA, zMonoA, u, V); // A'
+                    tessellator.addVertexWithUV(yMonoBot, xMonoF, zMonoF, U, V); // F'
+                    tessellator.addVertexWithUV(yMonoTop, xMonoF, zMonoF, U, v); // F
+                    tessellator.addVertexWithUV(yMonoTop, xMonoA, zMonoA, u, v); // A
+                }
+
+                tessellator.addTranslation(-x, -y, -z);
+            }
         }
 
-        // Finalize tessellator.
-        tessellator.addTranslation(-x, -y, -z);
         return true;
     }
 
@@ -2156,8 +2153,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -2165,8 +2161,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 
