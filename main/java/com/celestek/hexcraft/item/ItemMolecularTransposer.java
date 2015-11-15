@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.util.HexDamage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,8 +28,8 @@ import net.minecraft.world.World;
 
 public class ItemMolecularTransposer extends Item {
 
-    // Set default item name.
-    public static String UNLOCALISEDNAME = "itemMolecularTransposer";
+    // Item ID
+    public static final String ID = "itemMolecularTransposer";
 
     /**
      * Constructor for the item.
@@ -53,18 +54,13 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        // Check if this is the server thread.
         if (!world.isRemote) {
-            // Fired if the player is sneaking.
+            // Fired if the player is not sneaking.
             if (!player.isSneaking()) {
-                // Read the items.
                 ItemStack inventory = readNBT(stack);
-
-                // If there is something in container...
                 if (inventory != null) {
-                    // And if the block in container is Energized Hexorium...
+                    // If the block in container is Energized Hexorium...
                     if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
-                        // Get the block.
                         Block block = world.getBlock(x, y, z);
 
                         // If the block is one of the fecorative blocks...
@@ -493,13 +489,12 @@ public class ItemMolecularTransposer extends Item {
                                 inventory.writeToNBT(tagCompoundLoop);
                                 tagsItems.appendTag(tagCompoundLoop);
                             }
-                            stack.stackTagCompound.setTag("Items", tagsItems);
+                            stack.stackTagCompound.setTag("items", tagsItems);
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
                             // Grant player the achievement.
-                            if (HexConfig.cfgGeneralUseAchievements) {
+                            if (HexConfig.cfgGeneralUseAchievements)
                                 player.addStat(HexAchievements.achUseTransposer, 1);
-                            }
                         }
                     }
                 }
@@ -513,14 +508,12 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        // If this is server side...
-        if (!world.isRemote) {
-            // And if the player is sneaking...
-            if (player.isSneaking()) {
+        if (!world.isRemote)
+            // Fired if the player is sneaking.
+            if (player.isSneaking())
                 // Open the GUI.
-                player.openGui(HexCraft.instance, 5, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-            }
-        }
+                player.openGui(HexCraft.instance, HexGui.GUI_ID_MOLECULAR_TRANSPOSER, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+
         return stack;
     }
 
@@ -529,18 +522,13 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
-        // If this is server side...
-        if (!entity.worldObj.isRemote) {
-            if (HexConfig.cfgGeneralTransposerAttack) {
+        if (!entity.worldObj.isRemote)
+            if (HexConfig.cfgGeneralTransposerAttack)
                 if (!(entity instanceof EntityPlayer) || HexConfig.cfgGeneralTransposerAttackPlayers) {
-                    // Read the items.
                     ItemStack inventory = readNBT(itemstack);
-
-                    // If there is something in container...
                     if (inventory != null)
-                        // And if the block in container is Energized Hexorium...
-                        if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
-
+                        // If the block in container is Energized Hexorium...
+                        if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium)
                             // Check if the target can be attacked.
                             if (entity.canAttackWithItem()) {
                                 // If yes, deal damage.
@@ -558,20 +546,17 @@ public class ItemMolecularTransposer extends Item {
                                     inventory.writeToNBT(tagCompoundLoop);
                                     tagsItems.appendTag(tagCompoundLoop);
                                 }
-                                itemstack.stackTagCompound.setTag("Items", tagsItems);
+                                itemstack.stackTagCompound.setTag("items", tagsItems);
                                 player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
 
                                 // Grant player the achievement.
-                                if (HexConfig.cfgGeneralUseAchievements) {
+                                if (HexConfig.cfgGeneralUseAchievements)
                                     player.addStat(HexAchievements.achAttackTransposer, 1);
-                                }
 
                                 return true;
                             }
-                        }
                 }
-            }
-        }
+
         return false;
     }
 
@@ -580,9 +565,7 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean showDurabilityBar(ItemStack stack)
-    {
-        // Read the items.
+    public boolean showDurabilityBar(ItemStack stack) {
         ItemStack inventory = readNBT(stack);
 
         return (inventory != null);
@@ -593,9 +576,7 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public double getDurabilityForDisplay(ItemStack stack)
-    {
-        // Read the items.
+    public double getDurabilityForDisplay(ItemStack stack) {
         ItemStack inventory = readNBT(stack);
 
         // Calculate bar.
@@ -619,29 +600,29 @@ public class ItemMolecularTransposer extends Item {
         icon = new IIcon[19];
 
         // Load the empty icon.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID);
 
         // Load all the different color icons.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Red");
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Orange");
-        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Yellow");
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Lime");
-        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Green");
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Turquoise");
-        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Cyan");
-        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "SkyBlue");
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Blue");
-        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Purple");
-        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Magenta");
-        icon[12] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Pink");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Red");
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Orange");
+        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Yellow");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Lime");
+        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Green");
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Turquoise");
+        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Cyan");
+        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "SkyBlue");
+        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Blue");
+        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Purple");
+        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Magenta");
+        icon[12] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Pink");
 
-        icon[13] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "White");
-        icon[14] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "LightGray");
-        icon[15] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Gray");
-        icon[16] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "DarkGray");
-        icon[17] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Black");
+        icon[13] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "White");
+        icon[14] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "LightGray");
+        icon[15] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Gray");
+        icon[16] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "DarkGray");
+        icon[17] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Black");
 
-        icon[18] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "Rainbow");
+        icon[18] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Rainbow");
     }
 
     /**
@@ -649,8 +630,7 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-    {
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
         return getIconIndex(stack);
     }
 
@@ -659,9 +639,7 @@ public class ItemMolecularTransposer extends Item {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconIndex(ItemStack stack)
-    {
-        // Read the items.
+    public IIcon getIconIndex(ItemStack stack) {
         ItemStack inventory = readNBT(stack);
 
         // Get a different icon based on Energized Hexorium.
@@ -719,7 +697,7 @@ public class ItemMolecularTransposer extends Item {
         if (device.stackTagCompound == null)
             device.stackTagCompound = new NBTTagCompound();
 
-        NBTTagList tagsItems = device.stackTagCompound.getTagList("Items", 10);
+        NBTTagList tagsItems = device.stackTagCompound.getTagList("items", 10);
         NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(0);
         inventory = ItemStack.loadItemStackFromNBT(tagCompound1);
 

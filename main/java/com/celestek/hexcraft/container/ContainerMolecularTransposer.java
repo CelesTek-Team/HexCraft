@@ -15,22 +15,13 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerMolecularTransposer extends Container {
 
-    // Prepare the ItemStack.
-    private ItemStack device;
+    // Prepare the inventory.
     InventoryMolecularTransposer inventory;
-
-    // Prepare the variables to store GUI data.
-    private int lastEnergy;
-    private int lastEnergyTotal;
-    private int lastEnergyOut;
 
     /**
      * Constructor
      */
     public ContainerMolecularTransposer(EntityPlayer player, InventoryPlayer playerInv, ItemStack device){
-        // Save the ItemStack.
-        this.device = device;
-
         // Add the container slots.
         inventory = new InventoryMolecularTransposer(player, device);
         addSlotToContainer(new Slot(inventory, 0, 80, 36));
@@ -64,8 +55,7 @@ public class ContainerMolecularTransposer extends Container {
      * Called when the container is closed.
      */
     @Override
-    public void onContainerClosed(EntityPlayer player)
-    {
+    public void onContainerClosed(EntityPlayer player) {
         super.onContainerClosed(player);
 
         if (!player.worldObj.isRemote)
@@ -76,7 +66,7 @@ public class ContainerMolecularTransposer extends Container {
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int par2){
+    public ItemStack transferStackInSlot(EntityPlayer player, int par2) {
         ItemStack itemStack = null;
         Slot slot = (Slot) inventorySlots.get(par2);
 

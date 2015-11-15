@@ -375,6 +375,8 @@ hexcraft.container.matrixReconstructor=Matrix Reconstructor
 hexcraft.container.personalTeleportationPad=Personal Teleportation Pad
 hexcraft.container.hexoriumTank=Hexorium Tank
 
+hexcraft.container.molecularTransposer=Molecular Transposer
+
 hexcraft.container.in=In
 hexcraft.container.out=Out
 hexcraft.container.charge=Charge

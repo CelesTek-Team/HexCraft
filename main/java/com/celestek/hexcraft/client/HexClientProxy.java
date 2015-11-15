@@ -53,8 +53,7 @@ public class HexClientProxy extends HexCommonProxy {
     /**
      * Registers renderers for all block.
      */
-    public static void setCustomRenderers()
-    {
+    public static void setCustomRenderers() {
         // Prepare HexCraft's block ID counter.
         HexCraft.idCounter = 0;
 

@@ -375,6 +375,8 @@ hexcraft.container.matrixReconstructor=Matrični Rekonstruktor
 hexcraft.container.personalTeleportationPad=Osobna Teleportacijska Ploča
 hexcraft.container.hexoriumTank=Heksorijski Tank
 
+hexcraft.container.molecularTransposer=Molekulski Izmjenivač
+
 hexcraft.container.in=Ulaz
 hexcraft.container.out=Izlaz
 hexcraft.container.charge=Naboj

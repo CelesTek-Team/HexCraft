@@ -33,8 +33,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
      */
-    public HexMultiRendererTank(int renderID)
-    {
+    public HexMultiRendererTank(int renderID) {
         // Load the constructor parameters.
         this.renderID = renderID;
 
@@ -46,8 +45,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -103,8 +101,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         TileTankRender tileTankRender = (TileTankRender) world.getTileEntity(x, y, z);
         if (tileTankRender != null) {
             int startX = tileTankRender.getStartX() + 1;
@@ -287,8 +284,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -296,8 +292,7 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 }

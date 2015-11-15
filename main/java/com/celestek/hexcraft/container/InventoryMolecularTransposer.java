@@ -15,13 +15,13 @@ import net.minecraft.nbt.NBTTagList;
 
 public class InventoryMolecularTransposer implements IInventory {
 
+    private static final String INVENTORY_NAME = "hexcraft.container.molecularTransposer";
+
     private final ItemStack device;
     private final EntityPlayer player;
     private ItemStack[] inventory = new ItemStack[1];
-    public static String name = "Molecular Transposer";
 
-    public InventoryMolecularTransposer(EntityPlayer player, ItemStack device)
-    {
+    public InventoryMolecularTransposer(EntityPlayer player, ItemStack device) {
         this.player = player;
         this.device = device;
 
@@ -32,8 +32,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * Returns the number of slots in the container.
      */
     @Override
-    public int getSizeInventory()
-    {
+    public int getSizeInventory() {
         return this.inventory.length;
     }
 
@@ -41,8 +40,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * Returns the stack in slot i
      */
     @Override
-    public ItemStack getStackInSlot(int slot)
-    {
+    public ItemStack getStackInSlot(int slot) {
         return this.inventory[slot];
     }
 
@@ -51,42 +49,33 @@ public class InventoryMolecularTransposer implements IInventory {
      * new stack.
      */
     @Override
-    public ItemStack decrStackSize(int slot, int toDecr)
-    {
-        if (this.inventory[slot] != null)
-        {
+    public ItemStack decrStackSize(int slot, int toDecr) {
+        if (this.inventory[slot] != null) {
             ItemStack itemstack;
 
-            if (slot == 2)
-            {
+            if (slot == 2) {
                 itemstack = this.inventory[slot];
                 this.inventory[slot] = null;
 
                 return itemstack;
             }
-            else if (this.inventory[slot].stackSize <= toDecr)
-            {
+            else if (this.inventory[slot].stackSize <= toDecr) {
                 itemstack = this.inventory[slot];
                 this.inventory[slot] = null;
 
                 return itemstack;
             }
-            else
-            {
+            else {
                 itemstack = this.inventory[slot].splitStack(toDecr);
 
                 if (this.inventory[slot].stackSize == 0)
-                {
                     this.inventory[slot] = null;
-                }
 
                 return itemstack;
             }
         }
         else
-        {
             return null;
-        }
     }
 
     /**
@@ -94,8 +83,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * like when you close a workbench GUI.
      */
     @Override
-    public ItemStack getStackInSlotOnClosing(int slot)
-    {
+    public ItemStack getStackInSlotOnClosing(int slot) {
         if (inventory[0] != null)
             if (!(Block.getBlockFromItem(inventory[0].getItem()) instanceof BlockEnergizedHexorium)) {
                 player.dropPlayerItemWithRandomChoice(inventory[0], false);
@@ -109,40 +97,34 @@ public class InventoryMolecularTransposer implements IInventory {
      * Sets the given item stack to the specified slot in the container (can be crafting or armor sections).
      */
     @Override
-    public void setInventorySlotContents(int slot, ItemStack stack)
-    {
+    public void setInventorySlotContents(int slot, ItemStack stack) {
         this.inventory[slot] = stack;
 
         if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-        {
             stack.stackSize = this.getInventoryStackLimit();
-        }
     }
 
     /**
      * Returns the name of the container
      */
     @Override
-    public String getInventoryName()
-    {
-        return name;
+    public String getInventoryName() {
+        return INVENTORY_NAME;
     }
 
     /**
      * Returns if the container is named
      */
     @Override
-    public boolean hasCustomInventoryName()
-    {
-        return false;
+    public boolean hasCustomInventoryName() {
+        return true;
     }
 
     /**
      * Returns the maximum stack size for a container slot.
      */
     @Override
-    public int getInventoryStackLimit()
-    {
+    public int getInventoryStackLimit() {
         return 64;
     }
 
@@ -150,8 +132,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
-    {
+    public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
     }
 
@@ -167,8 +148,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
      */
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack stack)
-    {
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return Block.getBlockFromItem(stack.getItem()) instanceof BlockEnergizedHexorium;
     }
 
@@ -177,8 +157,7 @@ public class InventoryMolecularTransposer implements IInventory {
      * hasn't changed and skip it.
      */
     @Override
-    public void markDirty()
-    {
+    public void markDirty() {
     }
 
     /**
@@ -192,7 +171,7 @@ public class InventoryMolecularTransposer implements IInventory {
             inventory[0].writeToNBT(tagCompoundLoop);
             tagsItems.appendTag(tagCompoundLoop);
         }
-        device.stackTagCompound.setTag("Items", tagsItems);
+        device.stackTagCompound.setTag("items", tagsItems);
         player.inventory.setInventorySlotContents(player.inventory.currentItem, device);
     }
 
@@ -205,7 +184,7 @@ public class InventoryMolecularTransposer implements IInventory {
         if (device.stackTagCompound == null)
             device.stackTagCompound = new NBTTagCompound();
 
-        NBTTagList tagsItems = device.stackTagCompound.getTagList("Items", 10);
+        NBTTagList tagsItems = device.stackTagCompound.getTagList("items", 10);
         NBTTagCompound tagCompound1 = tagsItems.getCompoundTagAt(0);
         inventory[0] = ItemStack.loadItemStackFromNBT(tagCompound1);
     }

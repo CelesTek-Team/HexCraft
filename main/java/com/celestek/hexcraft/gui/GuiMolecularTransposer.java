@@ -20,8 +20,12 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GuiMolecularTransposer extends GuiContainer {
 
-    // Prepare the ItemStack.
-    private ItemStack device;
+    // GUI Sizes
+    private static final int GUI_SIZE_X = 176;
+    private static final int GUI_SIZE_Y = 166;
+
+    // Prepare the inventory.
+    InventoryMolecularTransposer inventory;
 
     /**
      * Constructor for GuiMolecularTransposer.
@@ -29,21 +33,18 @@ public class GuiMolecularTransposer extends GuiContainer {
     public GuiMolecularTransposer(EntityPlayer player, InventoryPlayer invPlayer, ItemStack device) {
         super(new ContainerMolecularTransposer(player, invPlayer, device));
 
-        // Save the ItemStack.
-        this.device = device;
+        inventory = new InventoryMolecularTransposer(player, device);
     }
 
     /**
      * Draws strings of the GUI.
      */
-    protected void drawGuiContainerForegroundLayer(int par1, int par2){
-        // Get the name string.
-        String name = InventoryMolecularTransposer.name;
-
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         // Draw the name string.
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
+        String name = I18n.format(inventory.getInventoryName());
+        fontRendererObj.drawString(name, GUI_SIZE_X / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
         // Draw the player container string.
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 94, 4210752);
+        fontRendererObj.drawString(I18n.format("container.inventory"), 8, GUI_SIZE_Y - 94, 4210752);
     }
 
     /**
@@ -54,10 +55,10 @@ public class GuiMolecularTransposer extends GuiContainer {
         // Bind the texture of the GUI.
         mc.getTextureManager().bindTexture(new ResourceLocation(HexCraft.MODID, "textures/gui/guiMolecularTransposer.png"));
         // Prepare x and y values (top left corner).
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
+        int x = (width - GUI_SIZE_X) / 2;
+        int y = (height - GUI_SIZE_Y) / 2;
 
         // Draw the background of GUI.
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        drawTexturedModalRect(x, y, 0, 0, GUI_SIZE_X, GUI_SIZE_Y);
     }
 }
