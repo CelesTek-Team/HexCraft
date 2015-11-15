@@ -180,8 +180,13 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
                 boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
 
-                if ((!state && powered) || (state && !powered)) {
-                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                if (!state && powered) {
+                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                    world.markBlockForUpdate(x, y + 1, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+                else if (state && !powered) {
+                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
@@ -190,8 +195,13 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 boolean state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
                 boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y - 1, z);
 
-                if ((!state && powered) || (state && !powered)) {
-                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
+                if (!state && powered) {
+                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
+                    world.markBlockForUpdate(x, y, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+                else if (state && !powered) {
+                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }

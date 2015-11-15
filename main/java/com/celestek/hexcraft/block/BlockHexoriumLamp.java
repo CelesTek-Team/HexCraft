@@ -4,6 +4,7 @@ import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,8 +22,11 @@ import net.minecraft.world.World;
 
 public class BlockHexoriumLamp extends HexBlock {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumLamp";
+    // Block ID
+    public static final String ID = "blockHexoriumLamp";
+
+    // Meta Bits
+    public static final int META_STATE = 0;
 
     /**
      * Constructor for the block.
@@ -63,7 +67,7 @@ public class BlockHexoriumLamp extends HexBlock {
      */
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlockMetadata(x, y, z) == 1)
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
             if (Loader.isModLoaded("coloredlightscore"))
                 if (this == HexBlocks.blockHexoriumLampRed)
                     return CLApi.makeRGBLightValue(HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB);
@@ -110,7 +114,7 @@ public class BlockHexoriumLamp extends HexBlock {
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the inner texture. Use special texture if it is a rainbow.
         if(this == HexBlocks.blockHexoriumLampRainbow)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
@@ -135,13 +139,14 @@ public class BlockHexoriumLamp extends HexBlock {
      * Processes the block meta to adjust light of the lamp.
      */
     private void processMeta(World world, int x, int y, int z) {
-        // If this is the server thread.
         if (!world.isRemote) {
+            boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
+            boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z);
             // Set meta according to power.
-            if (world.isBlockIndirectlyGettingPowered(x, y, z))
-                world.setBlockMetadataWithNotify(x, y, z, 1, 3);
-            else
-                world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+            if (!state && powered)
+                HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            else if (state && !powered)
+                HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
         }
     }
 }

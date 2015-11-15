@@ -238,14 +238,18 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
 
-            if (block instanceof BlockHexoriumLamp || block instanceof BlockHexoriumLampInv) {
-                if (meta == 0)
+            if (block instanceof BlockHexoriumLamp) {
+                if (HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
+                    tessellator.setColorOpaque_F(r, g, b);
+                else
                     tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-                else if (meta == 1)
+            }
+            else if (block instanceof BlockHexoriumLampInv) {
+                if (HexUtils.getMetaBit(BlockHexoriumLampInv.META_STATE, world, x, y, z))
+                    tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
+                else
                     tessellator.setColorOpaque_F(r, g, b);
             }
-            else
-                tessellator.setColorOpaque_F(r, g, b);
 
             // DOWN
             // Check if the block face should be visible. If yes draw it.
