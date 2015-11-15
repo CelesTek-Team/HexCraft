@@ -1,11 +1,8 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockHexoriumButton;
 import com.celestek.hexcraft.block.BlockHexoriumDoor;
-import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -15,7 +12,6 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -56,7 +52,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 

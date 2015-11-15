@@ -78,7 +78,8 @@ public class TankAnalyzer {
                 else
                     // If the block is already in the blocks ArrayList, exit recursion.
                     return;
-            } else
+            }
+            else
                 return;
         }
         // Check if the current block is a valve.
@@ -91,9 +92,11 @@ public class TankAnalyzer {
                 else
                     // If the valve is already in the valves ArrayList, exit recursion.
                     return;
-            } else
+            }
+            else
                 return;
-        } else
+        }
+        else
             // Exit recursion if the block is not a tank block or valve.
             return;
 
@@ -145,9 +148,8 @@ public class TankAnalyzer {
                 System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
             TileTankValve valve = (TileTankValve) world.getTileEntity(entry.x, entry.y, entry.z);
-            if (valve != null) {
+            if (valve != null)
                 valve.notificationStructureReset();
-            }
         }
     }
 }

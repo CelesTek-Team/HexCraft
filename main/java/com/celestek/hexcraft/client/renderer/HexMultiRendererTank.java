@@ -1,10 +1,6 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockHexoriumButton;
-import com.celestek.hexcraft.block.BlockHexoriumSwitch;
-import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileTankRender;
 import com.celestek.hexcraft.util.HexColors;
@@ -127,12 +123,12 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
                 boolean luminosity = fluid.getLuminosity() != 0;
                 if (luminosity) {
                     if (Loader.isModLoaded("coloredlightscore"))
-                        tessellator.setBrightness(HexColors.brightnessCL);
+                        tessellator.setBrightness(HexColors.BRIGHTNESS_CL);
                     else
-                        tessellator.setBrightness(HexColors.brightnessBright);
+                        tessellator.setBrightness(HexColors.BRIGHTNESS_BRIGHT);
                 }
 
-                tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                tessellator.setColorOpaque_F(HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B);
 
                 float exactY = startY - y + level;
                 int cutY = (int) Math.floor(exactY);

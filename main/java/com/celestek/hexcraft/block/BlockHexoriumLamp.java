@@ -70,31 +70,31 @@ public class BlockHexoriumLamp extends HexBlockMT {
         if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
             if (Loader.isModLoaded("coloredlightscore"))
                 if (this == HexBlocks.blockHexoriumLampRed)
-                    return CLApi.makeRGBLightValue(HexColors.colorRedR, HexColors.colorRedG, HexColors.colorRedB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_RED_R, HexColors.COLOR_RED_G, HexColors.COLOR_RED_B);
                 else if (this == HexBlocks.blockHexoriumLampOrange)
-                    return CLApi.makeRGBLightValue(HexColors.colorOrangeR, HexColors.colorOrangeG, HexColors.colorOrangeB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_ORANGE_R, HexColors.COLOR_ORANGE_G, HexColors.COLOR_ORANGE_B);
                 else if (this == HexBlocks.blockHexoriumLampYellow)
-                    return CLApi.makeRGBLightValue(HexColors.colorYellowR, HexColors.colorYellowG, HexColors.colorYellowB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_YELLOW_R, HexColors.COLOR_YELLOW_G, HexColors.COLOR_YELLOW_B);
                 else if (this == HexBlocks.blockHexoriumLampLime)
-                    return CLApi.makeRGBLightValue(HexColors.colorLimeR, HexColors.colorLimeG, HexColors.colorLimeB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_LIME_R, HexColors.COLOR_LIME_G, HexColors.COLOR_LIME_B);
                 else if (this == HexBlocks.blockHexoriumLampGreen)
-                    return CLApi.makeRGBLightValue(HexColors.colorGreenR, HexColors.colorGreenG, HexColors.colorGreenB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_GREEN_R, HexColors.COLOR_GREEN_G, HexColors.COLOR_GREEN_B);
                 else if (this == HexBlocks.blockHexoriumLampTurquoise)
-                    return CLApi.makeRGBLightValue(HexColors.colorTurquoiseR, HexColors.colorTurquoiseG, HexColors.colorTurquoiseB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_TORQUOISE_R, HexColors.COLOR_TORQUOISE_G, HexColors.COLOR_TORQUOISE_B);
                 else if (this == HexBlocks.blockHexoriumLampCyan)
-                    return CLApi.makeRGBLightValue(HexColors.colorCyanR, HexColors.colorCyanG, HexColors.colorCyanB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_CYAN_R, HexColors.COLOR_CYAN_G, HexColors.COLOR_CYAN_B);
                 else if (this == HexBlocks.blockHexoriumLampSkyBlue)
-                    return CLApi.makeRGBLightValue(HexColors.colorSkyBlueR, HexColors.colorSkyBlueG, HexColors.colorSkyBlueB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_SKY_BLUE_R, HexColors.COLOR_SKY_BLUE_G, HexColors.COLOR_SKY_BLUE_B);
                 else if (this == HexBlocks.blockHexoriumLampBlue)
-                    return CLApi.makeRGBLightValue(HexColors.colorBlueR, HexColors.colorBlueG, HexColors.colorBlueB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_BLUE_R, HexColors.COLOR_BLUE_G, HexColors.COLOR_BLUE_B);
                 else if (this == HexBlocks.blockHexoriumLampPurple)
-                    return CLApi.makeRGBLightValue(HexColors.colorPurpleR, HexColors.colorPurpleG, HexColors.colorPurpleB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_PURPLE_R, HexColors.COLOR_PURPLE_G, HexColors.COLOR_PURPLE_B);
                 else if (this == HexBlocks.blockHexoriumLampMagenta)
-                    return CLApi.makeRGBLightValue(HexColors.colorMagentaR, HexColors.colorMagentaG, HexColors.colorMagentaB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_MAGENTA_R, HexColors.COLOR_MAGENTA_G, HexColors.COLOR_MAGENTA_B);
                 else if (this == HexBlocks.blockHexoriumLampPink)
-                    return CLApi.makeRGBLightValue(HexColors.colorPinkR, HexColors.colorPinkG, HexColors.colorPinkB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_PINK_R, HexColors.COLOR_PINK_G, HexColors.COLOR_PINK_B);
                 else
-                    return CLApi.makeRGBLightValue(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                    return CLApi.makeRGBLightValue(HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B);
             else
                 return 15;
         else

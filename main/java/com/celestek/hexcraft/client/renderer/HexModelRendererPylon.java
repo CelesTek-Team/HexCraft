@@ -17,8 +17,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
-
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.7.0
@@ -252,7 +250,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -415,9 +413,9 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                 world, x, y, z);
         boolean state = !HexUtils.getMetaBit(BlockEnergyPylon.META_STATE, world, x, y, z);
         
-        float r = HexColors.colorWhiteR;
-        float g = HexColors.colorWhiteG;
-        float b = HexColors.colorWhiteB;
+        float r = HexColors.COLOR_WHITE_R;
+        float g = HexColors.COLOR_WHITE_G;
+        float b = HexColors.COLOR_WHITE_B;
         IIcon c = block.getIcon(6, 0);
         
         // Check if there is a monolith inserted.
@@ -429,89 +427,89 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         // If there is a monolith, set the according color.
         if (monolith != 0) {
             if (monolith == 1) {
-                r = HexColors.colorRedR;
-                g = HexColors.colorRedG;
-                b = HexColors.colorRedB;
+                r = HexColors.COLOR_RED_R;
+                g = HexColors.COLOR_RED_G;
+                b = HexColors.COLOR_RED_B;
             }
             else if (monolith == 2) {
-                r = HexColors.colorOrangeR;
-                g = HexColors.colorOrangeG;
-                b = HexColors.colorOrangeB;
+                r = HexColors.COLOR_ORANGE_R;
+                g = HexColors.COLOR_ORANGE_G;
+                b = HexColors.COLOR_ORANGE_B;
             }
             else if (monolith == 3) {
-                r = HexColors.colorYellowR;
-                g = HexColors.colorYellowG;
-                b = HexColors.colorYellowB;
+                r = HexColors.COLOR_YELLOW_R;
+                g = HexColors.COLOR_YELLOW_G;
+                b = HexColors.COLOR_YELLOW_B;
             }
             else if (monolith == 4) {
-                r = HexColors.colorLimeR;
-                g = HexColors.colorLimeG;
-                b = HexColors.colorLimeB;
+                r = HexColors.COLOR_LIME_R;
+                g = HexColors.COLOR_LIME_G;
+                b = HexColors.COLOR_LIME_B;
             }
             else if (monolith == 5) {
-                r = HexColors.colorGreenR;
-                g = HexColors.colorGreenG;
-                b = HexColors.colorGreenB;
+                r = HexColors.COLOR_GREEN_R;
+                g = HexColors.COLOR_GREEN_G;
+                b = HexColors.COLOR_GREEN_B;
             }
             else if (monolith == 6) {
-                r = HexColors.colorTurquoiseR;
-                g = HexColors.colorTurquoiseG;
-                b = HexColors.colorTurquoiseB;
+                r = HexColors.COLOR_TORQUOISE_R;
+                g = HexColors.COLOR_TORQUOISE_G;
+                b = HexColors.COLOR_TORQUOISE_B;
             }
             else if (monolith == 7) {
-                r = HexColors.colorCyanR;
-                g = HexColors.colorCyanG;
-                b = HexColors.colorCyanB;
+                r = HexColors.COLOR_CYAN_R;
+                g = HexColors.COLOR_CYAN_G;
+                b = HexColors.COLOR_CYAN_B;
             }
             else if (monolith == 8) {
-                r = HexColors.colorSkyBlueR;
-                g = HexColors.colorSkyBlueG;
-                b = HexColors.colorSkyBlueB;
+                r = HexColors.COLOR_SKY_BLUE_R;
+                g = HexColors.COLOR_SKY_BLUE_G;
+                b = HexColors.COLOR_SKY_BLUE_B;
             }
             else if (monolith == 9) {
-                r = HexColors.colorBlueR;
-                g = HexColors.colorBlueG;
-                b = HexColors.colorBlueB;
+                r = HexColors.COLOR_BLUE_R;
+                g = HexColors.COLOR_BLUE_G;
+                b = HexColors.COLOR_BLUE_B;
             }
             else if (monolith == 10) {
-                r = HexColors.colorPurpleR;
-                g = HexColors.colorPurpleG;
-                b = HexColors.colorPurpleB;
+                r = HexColors.COLOR_PURPLE_R;
+                g = HexColors.COLOR_PURPLE_G;
+                b = HexColors.COLOR_PURPLE_B;
             }
             else if (monolith == 11) {
-                r = HexColors.colorMagentaR;
-                g = HexColors.colorMagentaG;
-                b = HexColors.colorMagentaB;
+                r = HexColors.COLOR_MAGENTA_R;
+                g = HexColors.COLOR_MAGENTA_G;
+                b = HexColors.COLOR_MAGENTA_B;
             }
             else if (monolith == 12) {
-                r = HexColors.colorPinkR;
-                g = HexColors.colorPinkG;
-                b = HexColors.colorPinkB;
+                r = HexColors.COLOR_PINK_R;
+                g = HexColors.COLOR_PINK_G;
+                b = HexColors.COLOR_PINK_B;
             }
             else if (monolith == 13) {
-                r = HexColors.colorWhiteR;
-                g = HexColors.colorWhiteG;
-                b = HexColors.colorWhiteB;
+                r = HexColors.COLOR_WHITE_R;
+                g = HexColors.COLOR_WHITE_G;
+                b = HexColors.COLOR_WHITE_B;
             }
             else if (monolith == 14) {
-                r = HexColors.colorLightGrayR;
-                g = HexColors.colorLightGrayG;
-                b = HexColors.colorLightGrayB;
+                r = HexColors.COLOR_LIGHT_GRAY_R;
+                g = HexColors.COLOR_LIGHT_GRAY_G;
+                b = HexColors.COLOR_LIGHT_GRAY_B;
             }
             else if (monolith == 15) {
-                r = HexColors.colorGrayR;
-                g = HexColors.colorGrayG;
-                b = HexColors.colorGrayB;
+                r = HexColors.COLOR_GRAY_R;
+                g = HexColors.COLOR_GRAY_G;
+                b = HexColors.COLOR_GRAY_B;
             }
             else if (monolith == 16) {
-                r = HexColors.colorDarkGrayR;
-                g = HexColors.colorDarkGrayG;
-                b = HexColors.colorDarkGrayB;
+                r = HexColors.COLOR_DARK_GRAY_R;
+                g = HexColors.COLOR_DARK_GRAY_G;
+                b = HexColors.COLOR_DARK_GRAY_B;
             }
             else if (monolith == 17) {
-                r = HexColors.colorBlackR;
-                g = HexColors.colorBlackG;
-                b = HexColors.colorBlackB;
+                r = HexColors.COLOR_BLACK_R;
+                g = HexColors.COLOR_BLACK_G;
+                b = HexColors.COLOR_BLACK_B;
             }
             else if (monolith == 18) {
                 // If it's rainbow, set a different texture.
@@ -1661,7 +1659,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                             // Check if both of the pylons are rainbow.
                             if (monolith == 18 && monolithEntry == 18) {
                                 // If they are, set the rainbow texture.
-                                tessellator.setColorOpaque_F(HexColors.colorWhiteR, HexColors.colorWhiteG, HexColors.colorWhiteB);
+                                tessellator.setColorOpaque_F(HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B);
                                 c = block.getIcon(11, 0);
                                 u = c.getMinU();
                                 U = c.getMaxU();
@@ -1670,93 +1668,93 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
                             }
                             else if (monolith == 18) {
                                 // If this is rainbow and target is not, use target color.
-                                float tr = HexColors.colorWhiteR;
-                                float tg = HexColors.colorWhiteG;
-                                float tb = HexColors.colorWhiteB;
+                                float tr = HexColors.COLOR_WHITE_R;
+                                float tg = HexColors.COLOR_WHITE_G;
+                                float tb = HexColors.COLOR_WHITE_B;
                                 if (monolithEntry == 1) {
-                                    tr = HexColors.colorRedR;
-                                    tg = HexColors.colorRedG;
-                                    tb = HexColors.colorRedB;
+                                    tr = HexColors.COLOR_RED_R;
+                                    tg = HexColors.COLOR_RED_G;
+                                    tb = HexColors.COLOR_RED_B;
                                 }
                                 else if (monolithEntry == 2) {
-                                    tr = HexColors.colorOrangeR;
-                                    tg = HexColors.colorOrangeG;
-                                    tb = HexColors.colorOrangeB;
+                                    tr = HexColors.COLOR_ORANGE_R;
+                                    tg = HexColors.COLOR_ORANGE_G;
+                                    tb = HexColors.COLOR_ORANGE_B;
                                 }
                                 else if (monolithEntry == 3) {
-                                    tr = HexColors.colorYellowR;
-                                    tg = HexColors.colorYellowG;
-                                    tb = HexColors.colorYellowB;
+                                    tr = HexColors.COLOR_YELLOW_R;
+                                    tg = HexColors.COLOR_YELLOW_G;
+                                    tb = HexColors.COLOR_YELLOW_B;
                                 }
                                 else if (monolithEntry == 4) {
-                                    tr = HexColors.colorLimeR;
-                                    tg = HexColors.colorLimeG;
-                                    tb = HexColors.colorLimeB;
+                                    tr = HexColors.COLOR_LIME_R;
+                                    tg = HexColors.COLOR_LIME_G;
+                                    tb = HexColors.COLOR_LIME_B;
                                 }
                                 else if (monolithEntry == 5) {
-                                    tr = HexColors.colorGreenR;
-                                    tg = HexColors.colorGreenG;
-                                    tb = HexColors.colorGreenB;
+                                    tr = HexColors.COLOR_GREEN_R;
+                                    tg = HexColors.COLOR_GREEN_G;
+                                    tb = HexColors.COLOR_GREEN_B;
                                 }
                                 else if (monolithEntry == 6) {
-                                    tr = HexColors.colorTurquoiseR;
-                                    tg = HexColors.colorTurquoiseG;
-                                    tb = HexColors.colorTurquoiseB;
+                                    tr = HexColors.COLOR_TORQUOISE_R;
+                                    tg = HexColors.COLOR_TORQUOISE_G;
+                                    tb = HexColors.COLOR_TORQUOISE_B;
                                 }
                                 else if (monolithEntry == 7) {
-                                    tr = HexColors.colorCyanR;
-                                    tg = HexColors.colorCyanG;
-                                    tb = HexColors.colorCyanB;
+                                    tr = HexColors.COLOR_CYAN_R;
+                                    tg = HexColors.COLOR_CYAN_G;
+                                    tb = HexColors.COLOR_CYAN_B;
                                 }
                                 else if (monolithEntry == 8) {
-                                    tr = HexColors.colorSkyBlueR;
-                                    tg = HexColors.colorSkyBlueG;
-                                    tb = HexColors.colorSkyBlueB;
+                                    tr = HexColors.COLOR_SKY_BLUE_R;
+                                    tg = HexColors.COLOR_SKY_BLUE_G;
+                                    tb = HexColors.COLOR_SKY_BLUE_B;
                                 }
                                 else if (monolithEntry == 9) {
-                                    tr = HexColors.colorBlueR;
-                                    tg = HexColors.colorBlueG;
-                                    tb = HexColors.colorBlueB;
+                                    tr = HexColors.COLOR_BLUE_R;
+                                    tg = HexColors.COLOR_BLUE_G;
+                                    tb = HexColors.COLOR_BLUE_B;
                                 }
                                 else if (monolithEntry == 10) {
-                                    tr = HexColors.colorPurpleR;
-                                    tg = HexColors.colorPurpleG;
-                                    tb = HexColors.colorPurpleB;
+                                    tr = HexColors.COLOR_PURPLE_R;
+                                    tg = HexColors.COLOR_PURPLE_G;
+                                    tb = HexColors.COLOR_PURPLE_B;
                                 }
                                 else if (monolithEntry == 11) {
-                                    tr = HexColors.colorMagentaR;
-                                    tg = HexColors.colorMagentaG;
-                                    tb = HexColors.colorMagentaB;
+                                    tr = HexColors.COLOR_MAGENTA_R;
+                                    tg = HexColors.COLOR_MAGENTA_G;
+                                    tb = HexColors.COLOR_MAGENTA_B;
                                 }
                                 else if (monolithEntry == 12) {
-                                    tr = HexColors.colorPinkR;
-                                    tg = HexColors.colorPinkG;
-                                    tb = HexColors.colorPinkB;
+                                    tr = HexColors.COLOR_PINK_R;
+                                    tg = HexColors.COLOR_PINK_G;
+                                    tb = HexColors.COLOR_PINK_B;
                                 }
                                 else if (monolithEntry == 13) {
-                                    tr = HexColors.colorWhiteR;
-                                    tg = HexColors.colorWhiteG;
-                                    tb = HexColors.colorWhiteB;
+                                    tr = HexColors.COLOR_WHITE_R;
+                                    tg = HexColors.COLOR_WHITE_G;
+                                    tb = HexColors.COLOR_WHITE_B;
                                 }
                                 else if (monolithEntry == 14) {
-                                    tr = HexColors.colorLightGrayR;
-                                    tg = HexColors.colorLightGrayG;
-                                    tb = HexColors.colorLightGrayB;
+                                    tr = HexColors.COLOR_LIGHT_GRAY_R;
+                                    tg = HexColors.COLOR_LIGHT_GRAY_G;
+                                    tb = HexColors.COLOR_LIGHT_GRAY_B;
                                 }
                                 else if (monolithEntry == 15) {
-                                    tr = HexColors.colorGrayR;
-                                    tg = HexColors.colorGrayG;
-                                    tb = HexColors.colorGrayB;
+                                    tr = HexColors.COLOR_GRAY_R;
+                                    tg = HexColors.COLOR_GRAY_G;
+                                    tb = HexColors.COLOR_GRAY_B;
                                 }
                                 else if (monolithEntry == 16) {
-                                    tr = HexColors.colorDarkGrayR;
-                                    tg = HexColors.colorDarkGrayG;
-                                    tb = HexColors.colorDarkGrayB;
+                                    tr = HexColors.COLOR_DARK_GRAY_R;
+                                    tg = HexColors.COLOR_DARK_GRAY_G;
+                                    tb = HexColors.COLOR_DARK_GRAY_B;
                                 }
                                 else if (monolithEntry == 17) {
-                                    tr = HexColors.colorBlackR;
-                                    tg = HexColors.colorBlackG;
-                                    tb = HexColors.colorBlackB;
+                                    tr = HexColors.COLOR_BLACK_R;
+                                    tg = HexColors.COLOR_BLACK_G;
+                                    tb = HexColors.COLOR_BLACK_B;
                                 }
                                 tessellator.setColorOpaque_F(tr, tg, tb);
                                 c = block.getIcon(10, 0);

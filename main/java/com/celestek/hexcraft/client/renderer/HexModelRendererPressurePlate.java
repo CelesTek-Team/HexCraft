@@ -1,9 +1,7 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.BlockHexoriumButton;
 import com.celestek.hexcraft.block.BlockHexoriumPressurePlate;
-import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
@@ -51,7 +49,7 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -211,7 +209,7 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
                 push = pThck;
             }
             else {
-                darken = HexColors.darken;
+                darken = HexColors.MULTIPLIER_DARKEN;
                 push = pThck / 2;
             }
 

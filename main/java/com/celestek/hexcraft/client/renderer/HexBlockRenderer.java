@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import org.apache.commons.codec.binary.Hex;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -47,7 +46,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -82,7 +81,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         float darken;
         if (block instanceof BlockHexoriumLamp)
-            darken = HexColors.darken;
+            darken = HexColors.MULTIPLIER_DARKEN;
         else
             darken = 1.0F;
 
@@ -209,7 +208,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             float darken = 1.0F;
             if ((block instanceof BlockHexoriumLamp && !HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
                     || (block instanceof BlockHexoriumLampInv && HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z)))
-                darken = HexColors.darken;
+                darken = HexColors.MULTIPLIER_DARKEN;
             tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
 
             // DOWN

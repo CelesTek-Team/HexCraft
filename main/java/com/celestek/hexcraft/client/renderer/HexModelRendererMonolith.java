@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;
-import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -85,7 +84,7 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 

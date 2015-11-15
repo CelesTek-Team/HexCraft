@@ -50,7 +50,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.brightnessCL;
+            this.brightness = HexColors.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -245,12 +245,12 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 float darken1;
                 float darken2;
                 if (HexUtils.getMetaBit(BlockHexoriumSwitch.META_STATE, world, x, y, z)) {
-                    darken1 = HexColors.darken;
+                    darken1 = HexColors.MULTIPLIER_DARKEN;
                     darken2 = 1.0F;
                 }
                 else {
                     darken1 = 1.0F;
-                    darken2 = HexColors.darken;
+                    darken2 = HexColors.MULTIPLIER_DARKEN;
                 }
                 tessellator.setColorOpaque_F(darken1, 0, 0);
 
@@ -365,7 +365,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 float push;
                 float darken;
                 if (HexUtils.getMetaBit(BlockHexoriumButton.META_STATE, world, x, y, z)) {
-                    darken = HexColors.darken;
+                    darken = HexColors.MULTIPLIER_DARKEN;
                     push = sbPixl;
                 }
                 else {

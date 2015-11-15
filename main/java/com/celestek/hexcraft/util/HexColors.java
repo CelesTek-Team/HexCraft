@@ -9,86 +9,92 @@ public class HexColors {
 
     // Colors
 
-    public static float colorRedR = 1F;
-    public static float colorRedG = 0F;
-    public static float colorRedB = 0F;
+    public static final float COLOR_RED_R = 1F;
+    public static final float COLOR_RED_G = 0F;
+    public static final float COLOR_RED_B = 0F;
 
-    public static float colorOrangeR = 1F;
-    public static float colorOrangeG = 0.5F;
-    public static float colorOrangeB = 0F;
+    public static final float COLOR_ORANGE_R = 1F;
+    public static final float COLOR_ORANGE_G = 0.5F;
+    public static final float COLOR_ORANGE_B = 0F;
 
-    public static float colorYellowR = 1F;
-    public static float colorYellowG = 1F;
-    public static float colorYellowB = 0F;
+    public static final float COLOR_YELLOW_R = 1F;
+    public static final float COLOR_YELLOW_G = 1F;
+    public static final float COLOR_YELLOW_B = 0F;
 
-    public static float colorLimeR = 0.5F;
-    public static float colorLimeG = 1F;
-    public static float colorLimeB = 0F;
+    public static final float COLOR_LIME_R = 0.5F;
+    public static final float COLOR_LIME_G = 1F;
+    public static final float COLOR_LIME_B = 0F;
 
-    public static float colorGreenR = 0F;
-    public static float colorGreenG = 1F;
-    public static float colorGreenB = 0F;
+    public static final float COLOR_GREEN_R = 0F;
+    public static final float COLOR_GREEN_G = 1F;
+    public static final float COLOR_GREEN_B = 0F;
 
-    public static float colorTurquoiseR = 0F;
-    public static float colorTurquoiseG = 1F;
-    public static float colorTurquoiseB = 0.5F;
+    public static final float COLOR_TORQUOISE_R = 0F;
+    public static final float COLOR_TORQUOISE_G = 1F;
+    public static final float COLOR_TORQUOISE_B = 0.5F;
 
-    public static float colorCyanR = 0F;
-    public static float colorCyanG = 1F;
-    public static float colorCyanB = 1F;
+    public static final float COLOR_CYAN_R = 0F;
+    public static final float COLOR_CYAN_G = 1F;
+    public static final float COLOR_CYAN_B = 1F;
 
-    public static float colorSkyBlueR = 0F;
-    public static float colorSkyBlueG = 0.5F;
-    public static float colorSkyBlueB = 1F;
+    public static final float COLOR_SKY_BLUE_R = 0F;
+    public static final float COLOR_SKY_BLUE_G = 0.5F;
+    public static final float COLOR_SKY_BLUE_B = 1F;
 
-    public static float colorBlueR = 0F;
-    public static float colorBlueG = 0F;
-    public static float colorBlueB = 1F;
+    public static final float COLOR_BLUE_R = 0F;
+    public static final float COLOR_BLUE_G = 0F;
+    public static final float COLOR_BLUE_B = 1F;
 
-    public static float colorPurpleR = 0.5F;
-    public static float colorPurpleG = 0F;
-    public static float colorPurpleB = 1F;
+    public static final float COLOR_PURPLE_R = 0.5F;
+    public static final float COLOR_PURPLE_G = 0F;
+    public static final float COLOR_PURPLE_B = 1F;
 
-    public static float colorMagentaR = 1F;
-    public static float colorMagentaG = 0F;
-    public static float colorMagentaB = 1F;
+    public static final float COLOR_MAGENTA_R = 1F;
+    public static final float COLOR_MAGENTA_G = 0F;
+    public static final float COLOR_MAGENTA_B = 1F;
 
-    public static float colorPinkR = 1F;
-    public static float colorPinkG = 0F;
-    public static float colorPinkB = 0.5F;
+    public static final float COLOR_PINK_R = 1F;
+    public static final float COLOR_PINK_G = 0F;
+    public static final float COLOR_PINK_B = 0.5F;
 
     // Grayscale
 
-    public static float colorWhiteR = 1F;
-    public static float colorWhiteG = 1F;
-    public static float colorWhiteB = 1F;
+    public static final float COLOR_WHITE_R = 1F;
+    public static final float COLOR_WHITE_G = 1F;
+    public static final float COLOR_WHITE_B = 1F;
 
-    public static float colorLightGrayR = 0.75F;
-    public static float colorLightGrayG = 0.75F;
-    public static float colorLightGrayB = 0.75F;
+    public static final float COLOR_LIGHT_GRAY_R = 0.75F;
+    public static final float COLOR_LIGHT_GRAY_G = 0.75F;
+    public static final float COLOR_LIGHT_GRAY_B = 0.75F;
 
-    public static float colorGrayR = 0.5F;
-    public static float colorGrayG = 0.5F;
-    public static float colorGrayB = 0.5F;
+    public static final float COLOR_GRAY_R = 0.5F;
+    public static final float COLOR_GRAY_G = 0.5F;
+    public static final float COLOR_GRAY_B = 0.5F;
 
-    public static float colorDarkGrayR = 0.25F;
-    public static float colorDarkGrayG = 0.25F;
-    public static float colorDarkGrayB = 0.25F;
+    public static final float COLOR_DARK_GRAY_R = 0.25F;
+    public static final float COLOR_DARK_GRAY_G = 0.25F;
+    public static final float COLOR_DARK_GRAY_B = 0.25F;
 
-    public static float colorBlackR = 0.10F;
-    public static float colorBlackG = 0.10F;
-    public static float colorBlackB = 0.10F;
+    public static final float COLOR_BLACK_R = 0.10F;
+    public static final float COLOR_BLACK_G = 0.10F;
+    public static final float COLOR_BLACK_B = 0.10F;
+
+    // Rainbow
+
+    public static final float COLOR_RAINBOW_R = 1F;
+    public static final float COLOR_RAINBOW_G = 1F;
+    public static final float COLOR_RAINBOW_B = 1F;
 
     // Brightness
 
-    public static int brightnessBright = 0x00F000F0;
-    public static int brightnessCL = 0xFFFFF;
+    public static final int BRIGHTNESS_BRIGHT = 0x00F000F0;
+    public static final int BRIGHTNESS_CL = 0xFFFFF;
 
     // Opacity
 
-    public static float opacitySlight = 0.75F;
+    public static final float OPACITY_SLIGHT = 0.75F;
 
     // Multipliers
 
-    public static float darken = 0.15F;
+    public static final float MULTIPLIER_DARKEN = 0.15F;
 }
