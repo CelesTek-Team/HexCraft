@@ -1,8 +1,10 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.block.BlockHexoriumHatch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -19,6 +21,13 @@ import org.lwjgl.opengl.GL11;
 
 public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
 
+    // Model constants.
+    public static final float hThck = 0.1875F;
+
+    private static final float hEdge = 0.03125F;
+    private static final float hWidt = 0.125F;
+    private static final float hOffs = 0.001F;
+
     // Variables
     private int renderID;
     private int renderBlockID;
@@ -26,12 +35,6 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-
-    // Model constants.
-    public static float hThck = 0.1875F;
-    public static float hEdge = 0.03125F;
-    public static float hWidt = 0.125F;
-    public static float hOffs = 0.001F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -41,8 +44,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
      */
-    public HexModelRendererHatch(int renderID, int brightness, float r, float g, float b)
-    {
+    public HexModelRendererHatch(int renderID, int brightness, float r, float g, float b) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -66,8 +68,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -207,28 +208,26 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
-        // Get block metadata and normalize it.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
-
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        // Get block data.
+        int rotation = HexUtils.getMetaBitBiInt(BlockHexoriumHatch.META_ROTATION_0, BlockHexoriumHatch.META_ROTATION_1, world, x, y, z);
+        boolean state = HexUtils.getMetaBit(BlockHexoriumHatch.META_STATE, world, x, y, z);
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            // Additional tessellator preparation.
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
 
-            // Set up brightness, color and icon.
-            tessellator.setBrightness(brightness);
-            tessellator.setColorOpaque_F(r, g, b);
+            // Prepare the icon.
             IIcon c = block.getIcon(6, 0);
 
+            // Set up brightness and color.
+            tessellator.setBrightness(brightness);
+            tessellator.setColorOpaque_F(r, g, b);
+
             // Draw the inner glow.
-            if (meta == 0 || meta == 1 || meta == 2 || meta == 3) {
+            if ((rotation == 0 || rotation == 1 || rotation == 2 || rotation == 3) && !state) {
                 tessellator.addVertexWithUV(hEdge + hWidt, hThck - hOffs, 1 - hEdge, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 tessellator.addVertexWithUV(hEdge + hWidt, hThck - hOffs, hEdge, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(hEdge, hThck - hOffs, hEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(15.5));
@@ -269,7 +268,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hOffs, hEdge, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hOffs, hEdge + hWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
             }
-            else if (meta == 4) {
+            else if (rotation == 0) {
                 tessellator.addVertexWithUV(hEdge + hWidt, 1 - hEdge, 1 - hThck + hOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 tessellator.addVertexWithUV(hEdge + hWidt, hEdge, 1 - hThck + hOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(hEdge, hEdge, 1 - hThck + hOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(15.5));
@@ -310,7 +309,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hEdge, 1 - hOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hEdge + hWidt, 1 - hOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
             }
-            else if (meta == 5) {
+            else if (rotation == 1) {
                 tessellator.addVertexWithUV(hThck - hOffs, 1 - hEdge, hEdge + hWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 tessellator.addVertexWithUV(hThck - hOffs, hEdge, hEdge + hWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(hThck - hOffs, hEdge, hEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(15.5));
@@ -351,7 +350,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(hOffs, hEdge, 1 - hEdge - hWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(hOffs, hEdge + hWidt, 1 - hEdge - hWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
             }
-            else if (meta == 6) {
+            else if (rotation == 2) {
                 tessellator.addVertexWithUV(hEdge + hWidt, 1 - hEdge, hOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 tessellator.addVertexWithUV(hEdge + hWidt, hEdge, hOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(hEdge, hEdge, hOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(15.5));
@@ -392,7 +391,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hEdge, hThck - hOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(1 - hEdge - hWidt, hEdge + hWidt, hThck - hOffs, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
             }
-            else if (meta == 7) {
+            else if (rotation == 3) {
                 tessellator.addVertexWithUV(1 - hOffs, 1 - hEdge, hEdge + hWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0.5));
                 tessellator.addVertexWithUV(1 - hOffs, hEdge, hEdge + hWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                 tessellator.addVertexWithUV(1 - hOffs, hEdge, hEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(15.5));
@@ -436,24 +435,18 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
 
             tessellator.addTranslation(-x, -y, -z);
         }
+        // If this is the second (transparent) render pass...
         else {
-
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-
             // Adjust the rendering bounds.
-            if (meta == 0 || meta == 1 || meta == 2 || meta == 3)
+            if ((rotation == 0 || rotation == 1 || rotation == 2 || rotation == 3) && !state)
                 renderer.setRenderBounds(0, 0, 0, 1, hThck, 1);
-            else if (meta == 4)
+            else if (rotation == 0)
                 renderer.setRenderBounds(0, 0, 1 - hThck, 1, 1, 1);
-            else if (meta == 5)
+            else if (rotation == 1)
                 renderer.setRenderBounds(0, 0, 0, hThck, 1, 1);
-            else if (meta == 6)
+            else if (rotation == 2)
                 renderer.setRenderBounds(0, 0, 0, 1, 1, hThck);
-            else if (meta == 7)
+            else if (rotation == 3)
                 renderer.setRenderBounds(1 - hThck, 0, 0, 1, 1, 1);
 
             // Render the outer frame.
@@ -467,8 +460,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -476,8 +468,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 }
