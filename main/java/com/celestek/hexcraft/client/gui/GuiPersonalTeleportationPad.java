@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.gui;
+package com.celestek.hexcraft.client.gui;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.container.ContainerPersonalTeleportationPad;
@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 /**

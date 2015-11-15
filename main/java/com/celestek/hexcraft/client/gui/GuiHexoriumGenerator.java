@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.gui;
+package com.celestek.hexcraft.client.gui;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.container.ContainerHexoriumGenerator;

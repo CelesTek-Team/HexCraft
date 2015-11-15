@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.init;
 
-import com.celestek.hexcraft.gui.*;
+import com.celestek.hexcraft.client.gui.*;
 import com.celestek.hexcraft.container.*;
 import com.celestek.hexcraft.tileentity.*;
 import cpw.mods.fml.common.network.IGuiHandler;
