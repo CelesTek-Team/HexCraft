@@ -163,7 +163,6 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilter);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, magFilter);
 
-        // Finish drawing.
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
 
@@ -240,7 +239,6 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 tessellator.addVertexWithUV(1, 1, 1, u, v);
             }
 
-            // Finish drawing.
             tessellator.addTranslation(-x, -y, -z);
         }
         // If this is the second (transparent) render pass...
@@ -309,7 +307,6 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, U, V);
                 tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, u, V);
 
-                // Finish drawing.
                 tessellator.addTranslation(-x, -y, -z);
             }
         }

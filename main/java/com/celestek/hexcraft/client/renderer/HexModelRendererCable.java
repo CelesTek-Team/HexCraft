@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -21,6 +22,56 @@ import org.lwjgl.opengl.GL11;
 
 public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
 
+    // Model constants.
+    private static final float yMin = 0F;
+    private static final float yMid = 0.35F;
+    private static final float yMax = 1F;
+
+    private static final float xA = 0.4F;
+    private static final float xB = 0.45F;
+    private static final float xC = 0.55F;
+    private static final float xD = 0.6F;
+    private static final float xE = 0.55F;
+    private static final float xF = 0.45F;
+
+    private static final float zA = 0.5F;
+    private static final float zB = 0.5866F;
+    private static final float zC = 0.5866F;
+    private static final float zD = 0.5F;
+    private static final float zE = 0.4134F;
+    private static final float zF = 0.4134F;
+
+    private static final float topAu = 0F;
+    private static final float topAv = 1.3856F;
+    private static final float topBu = 0.8F;
+    private static final float topBv = 0F;
+    private static final float topCu = 2.8F;
+    private static final float topCv = 0F;
+    private static final float topDu = 3.6F;
+    private static final float topDv = 1.3856F;
+    private static final float topEu = 2.8F;
+    private static final float topEv = 2.7712F;
+    private static final float topFu = 0.8F;
+    private static final float topFv = 2.7712F;
+
+    public static final float cMin = 0.35F;
+    public static final float cMax = 0.65F;
+
+    private static final float sideu = 0F;
+    private static final float sideU = 2F;
+    private static final float sidev = 0F;
+    private static final float sideV = 16F;
+
+    private static final float miniu = 6F;
+    private static final float miniU = 8F;
+    private static final float miniv = 0F;
+    private static final float miniV = 5.5F;
+
+    private static final float cubeu = 6F;
+    private static final float cubeU = 11F;
+    private static final float cubev = 5.5F;
+    private static final float cubeV = 10.5F;
+
     // Variables
     private int renderID;
     private int renderBlockID;
@@ -28,58 +79,6 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-
-    // Model constants.
-    private float yMin = 0F;
-    private float yMid = 0.35F;
-    private float yMax = 1F;
-
-    private float xA = 0.4F;
-    private float xB = 0.45F;
-    private float xC = 0.55F;
-    private float xD = 0.6F;
-    private float xE = 0.55F;
-    private float xF = 0.45F;
-
-    private float zA = 0.5F;
-    private float zB = 0.5866F;
-    private float zC = 0.5866F;
-    private float zD = 0.5F;
-    private float zE = 0.4134F;
-    private float zF = 0.4134F;
-
-    private float topAu = 0F;
-    private float topAv = 1.3856F;
-    private float topBu = 0.8F;
-    private float topBv = 0F;
-    private float topCu = 2.8F;
-    private float topCv = 0F;
-    private float topDu = 3.6F;
-    private float topDv = 1.3856F;
-    private float topEu = 2.8F;
-    private float topEv = 2.7712F;
-    private float topFu = 0.8F;
-    private float topFv = 2.7712F;
-
-    public static float cMin = 0.35F;
-    public static float cMax = 0.65F;
-
-    private float sideu = 0F;
-    private float sideU = 2F;
-    private float sidev = 0F;
-    private float sideV = 16F;
-
-    private float miniu = 6F;
-    private float miniU = 8F;
-    private float miniv = 0F;
-    private float miniV = 5.5F;
-
-    private float cubeu = 6F;
-    private float cubeU = 11F;
-    private float cubev = 5.5F;
-    private float cubeV = 10.5F;
-
-    private float off = 0.01F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -89,8 +88,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * @param g Green component of the monolith color
      * @param b Blue component of the monolith color.
      */
-    public HexModelRendererCable(int renderID, int brightness, float r, float g, float b)
-    {
+    public HexModelRendererCable(int renderID, int brightness, float r, float g, float b) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -114,8 +112,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -126,14 +123,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
+        /* Inner part */
         // Start drawing.
         tessellator.startDrawingQuads();
-
-        /* Inner part */
-        // Set up brightness and color.
-        tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r, g, b);
-        tessellator.setNormal(0F, 1F, 0F);
 
         // Prepare the icon.
         IIcon c = block.getIcon(6, 0);
@@ -141,6 +133,11 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         double U = c.getInterpolatedU(sideU);
         double v = c.getInterpolatedV(sidev);
         double V = c.getInterpolatedV(sideV);
+
+        // Set up brightness and color.
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Top Face
         tessellator.addVertexWithUV(xB, yMax, zB, c.getInterpolatedU(topBu), c.getInterpolatedV(topBv)); // B
@@ -212,15 +209,15 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         // Prepare the Tessellator.
         tessellator.startDrawingQuads();
 
-        // Set up brightness.
-        tessellator.setNormal(0F, 1F, 0F);
-
         // Prepare the icon.
         c = block.getIcon(0, 0);
         u = c.getInterpolatedU(sideu);
         U = c.getInterpolatedU(sideU);
         v = c.getInterpolatedV(sidev);
         V = c.getInterpolatedV(sideV);
+
+        // Set up brightness.
+        tessellator.setNormal(0F, 1F, 0F);
 
         // Side Faces
         tessellator.addVertexWithUV(xF, yMax, zF, u, v); // F
@@ -270,6 +267,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilter);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, magFilter);
 
+        // Finish drawing.
         tessellator.addTranslation(0.5F, 0.5F, 0.5F);
     }
 
@@ -277,8 +275,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         boolean sides[] = processCableSides(world, x, y, z, world.getBlock(x, y, z));
         boolean straight = false;
 
@@ -296,13 +293,12 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
+            // Prepare the icon.
+            IIcon c = block.getIcon(6, 0);
 
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(r, g, b);
-
-            // Prepare the icon.
-            IIcon c = block.getIcon(6, 0);
 
             // Check if the cable is straight.
             if (straight) {
@@ -353,7 +349,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(xF, yMax, zF, U, v); // F
                     tessellator.addVertexWithUV(xF, yMin, zF, U, V); // F'
                     tessellator.addVertexWithUV(xA, yMin, zA, u, V); // A'
-                } else if (!sides[0] && !sides[1] && sides[2] && sides[3] && !sides[4] && !sides[5]) {
+                }
+                else if (!sides[0] && !sides[1] && sides[2] && sides[3] && !sides[4] && !sides[5]) {
                     // Side Faces
                     tessellator.addVertexWithUV(yMin, xF, zF, u, V); // F'
                     tessellator.addVertexWithUV(yMin, xE, zE, U, V); // E'
@@ -394,7 +391,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(yMin, xF, zF, U, V); // F'
                     tessellator.addVertexWithUV(yMax, xF, zF, U, v); // F
                     tessellator.addVertexWithUV(yMax, xA, zA, u, v); // A
-                } else if (!sides[0] && !sides[1] && !sides[2] && !sides[3] && sides[4] && sides[5]) {
+                }
+                else if (!sides[0] && !sides[1] && !sides[2] && !sides[3] && sides[4] && sides[5]) {
                     // Side Faces
                     tessellator.addVertexWithUV(zF, xF, yMax, u, v); // F
                     tessellator.addVertexWithUV(zE, xE, yMax, U, v); // E
@@ -437,7 +435,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zA, xA, yMin, u, V); // A'
                 }
             // If the cable is not straight...
-            } else {
+            }
+            else {
                 // Draw central cube.
                 double u = c.getInterpolatedU(cubeu);
                 double U = c.getInterpolatedU(cubeU);
@@ -747,12 +746,12 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         }
         // If this is the second (transparent) render pass...
         else {
+            // Prepare the icon.
+            IIcon c = block.getIcon(0, 0);
+
             // Set up brightness.
             tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorOpaque_F(1, 1, 1);
-
-            // Prepare the icon.
-            IIcon c = block.getIcon(0, 0);
 
             // Check if the cable is straight.
             if (straight) {
@@ -889,7 +888,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(zA, xA, yMin, u, V); // A'
                 }
             // If the cable is not straight...
-            } else {
+            }
+            else {
                 // Draw central cube.
                 double u = c.getInterpolatedU(cubeu);
                 double U = c.getInterpolatedU(cubeU);
@@ -1206,8 +1206,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -1215,8 +1214,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 
@@ -1224,11 +1222,15 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
      * Processes the block sides and returns them as an array.
      * @param block Block to process.
      */
-    public static boolean[] processCableSides(IBlockAccess world, int x, int y, int z, Block block)
-    {
+    public static boolean[] processCableSides(IBlockAccess world, int x, int y, int z, Block block) {
         // Prepare side and meta int arrays.
         boolean sides[] = new boolean[6];
-        int metas[] = new int[4];
+        int rotations[] = new int[4];
+        int macRo0 = HexBlocks.META_MACHINE_ROTATION_0;
+        int macRo1 = HexBlocks.META_MACHINE_ROTATION_1;
+        int pylOr0 = BlockPylonBase.META_ORIENTATION_0;
+        int pylOr1 = BlockPylonBase.META_ORIENTATION_1;
+        int pylOr2 = BlockPylonBase.META_ORIENTATION_2;
 
         // Look for machines.
         if (world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumGenerator ||
@@ -1236,82 +1238,78 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 world.getBlock(x - 1, y, z) == HexBlocks.blockCrystalSeparator ||
                 world.getBlock(x - 1, y, z) == HexBlocks.blockMatrixReconstructor ||
                 world.getBlock(x - 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
-            metas[0] = world.getBlockMetadata(x - 1, y, z);
+            rotations[0] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x - 1, y, z);
         else
-            metas[0] = -1;
+            rotations[0] = -1;
+
         if (world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockCrystalSeparator ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockMatrixReconstructor ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
-            metas[1] = world.getBlockMetadata(x + 1, y, z);
+            rotations[1] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x + 1, y, z);
         else
-            metas[1] = -1;
+            rotations[1] = -1;
+
         if (world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockCrystalSeparator ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockMatrixReconstructor ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockPersonalTeleportationPad)
-            metas[2] = world.getBlockMetadata(x, y, z - 1);
+            rotations[2] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x, y, z - 1);
         else
-            metas[2] = -1;
+            rotations[2] = -1;
+
         if (world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumGenerator ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumFurnace ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockCrystalSeparator ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockMatrixReconstructor ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockPersonalTeleportationPad)
-            metas[3] = world.getBlockMetadata(x, y, z + 1);
+            rotations[3] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x, y, z + 1);
         else
-            metas[3] = -1;
-
-        for(int i = 0; i < 4; i++) {
-            if (metas[i] >= 4 && metas[i] < 8)
-                metas[i] = metas[i] - 4;
-            else if (metas[i] >= 8)
-                metas[i] = metas[i] - 8;
-        }
+            rotations[3] = -1;
 
         // Count sides.
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y - 1, z) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x, y - 1, z) ||
                 world.getBlock(x, y - 1, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y - 1, z) != 1) ||
-                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y - 1, z) == 1))
+                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
+                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1))
             sides[0] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y + 1, z) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x, y + 1, z) ||
                 world.getBlock(x, y + 1, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y + 1, z) != 0) ||
-                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y + 1, z) == 0) ||
+                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
+                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
                 world.getBlock(x, y + 1, z) == HexBlocks.blockPersonalTeleportationPad)
             sides[1] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x - 1, y, z) ||
                 world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x - 1, y, z) != 5) ||
-                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x - 1, y, z) == 5) ||
-                metas[0] == 3)
+                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
+                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
+                rotations[0] == 3)
             sides[2] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x + 1, y, z) ||
                 world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x + 1, y, z) != 4) ||
-                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x + 1, y, z) == 4) ||
-                metas[1] == 1)
+                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
+                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
+                rotations[1] == 1)
             sides[3] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x, y, z - 1) ||
                 world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z - 1) != 3) ||
-                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z - 1) == 3) ||
-                metas[2] == 0)
+                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
+                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
+                rotations[2] == 0)
             sides[4] = true;
         if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable) ||
                 block == world.getBlock(x, y, z + 1) ||
                 world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && world.getBlockMetadata(x, y, z + 1) != 2) ||
-                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && world.getBlockMetadata(x, y, z + 1) == 2) ||
-                metas[3] == 2)
+                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
+                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
+                rotations[3] == 2)
             sides[5] = true;
 
         return sides;

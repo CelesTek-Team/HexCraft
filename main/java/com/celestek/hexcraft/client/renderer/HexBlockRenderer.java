@@ -348,7 +348,6 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1, 1, 1, u, v);
             }
 
-            // Finish drawing.
             tessellator.addTranslation(-x, -y, -z);
         }
         // If this is the second (transparent) render pass...
