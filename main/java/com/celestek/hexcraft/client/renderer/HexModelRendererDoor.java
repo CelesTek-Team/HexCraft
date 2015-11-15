@@ -2,10 +2,12 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumButton;
+import com.celestek.hexcraft.block.BlockHexoriumDoor;
 import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -23,6 +25,13 @@ import org.lwjgl.opengl.GL11;
 
 public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
 
+    // Model constants.
+    public static final float dThck = 0.1875F;
+
+    private static final float dEdge = 0.03125F;
+    private static final float dWidt = 0.125F;
+    private static final float dOffs = 0.001F;
+
     // Variables
     private int renderID;
     private int renderBlockID;
@@ -30,12 +39,6 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-
-    // Model constants.
-    public static float dThck = 0.1875F;
-    public static float dEdge = 0.03125F;
-    public static float dWidt = 0.125F;
-    public static float dOffs = 0.001F;
 
     /**
      * Constructor for custom monolith rendering.
@@ -45,8 +48,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
      */
-    public HexModelRendererDoor(int renderID, int brightness, float r, float g, float b)
-    {
+    public HexModelRendererDoor(int renderID, int brightness, float r, float g, float b) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -70,8 +72,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -303,44 +304,39 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
-        // Get block metadata and normalize it, also determine if door is flipped.
-        int meta = 0;
-        boolean flippedDoor = false;
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        // Get block data.
+        int rotation = 0;
+        boolean flipped = false;
+        boolean state = false;
+        boolean upperDoor = false;
         if (world.getBlock(x, y - 1, z) == block) {
-            meta = world.getBlockMetadata(x, y - 1, z);
-            if (world.getBlockMetadata(x, y, z) == 1 || world.getBlockMetadata(x, y, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(BlockHexoriumDoor.META_ROTATION_0, BlockHexoriumDoor.META_ROTATION_1, world, x, y - 1, z);
+            state = HexUtils.getMetaBit(BlockHexoriumDoor.META_STATE, world, x, y - 1, z);
+            flipped = HexUtils.getMetaBit(BlockHexoriumDoor.META_FLIPPED, world, x, y, z);
+            upperDoor = true;
         }
         else if (world.getBlock(x, y + 1, z) == block) {
-            meta = world.getBlockMetadata(x, y, z);
-            if (world.getBlockMetadata(x, y + 1, z) == 1 || world.getBlockMetadata(x, y + 1, z) == 9)
-                flippedDoor = true;
+            rotation = HexUtils.getMetaBitBiInt(BlockHexoriumDoor.META_ROTATION_0, BlockHexoriumDoor.META_ROTATION_1, world, x, y, z);
+            state = HexUtils.getMetaBit(BlockHexoriumDoor.META_STATE, world, x, y, z);
+            flipped = HexUtils.getMetaBit(BlockHexoriumDoor.META_FLIPPED, world, x, y + 1, z);
         }
-        if (meta > 7)
-            meta = meta - 8;
-
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            // Additional tessellator preparation.
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
 
-            // Set up brightness, color and icon.
-            tessellator.setBrightness(brightness);
-            tessellator.setColorOpaque_F(r, g, b);
+            // Prepare the icon.
             IIcon c = block.getIcon(10, 1);
 
-            // Determine if this is the upper door.
-            boolean upperDoor = false;
-            if (world.getBlock(x, y - 1, z) == block)
-                upperDoor = true;
+            // Set up brightness and color.
+            tessellator.setBrightness(brightness);
+            tessellator.setColorOpaque_F(r, g, b);
 
             // Draw the inner glow.
-            if (meta == 0 || (meta == 7 && !flippedDoor) || (meta == 5 && flippedDoor)) {
+            if ((rotation == 0 && !state) || (rotation == 3 && state && !flipped) || (rotation == 1 && state && flipped)) {
                 tessellator.addVertexWithUV(1 - dEdge, 1, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
                 tessellator.addVertexWithUV(1 - dEdge, 0, dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
                 tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
@@ -383,7 +379,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(15.5));
                     tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, dThck - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
                 }
-            } else if (meta == 2 || meta == 5 || meta == 7) {
+            } else if ((rotation == 2 && !state) || (rotation == 1 && state) || (rotation == 3 && state)) {
                 tessellator.addVertexWithUV(1 - dEdge, 1, 1 - dThck + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(0));
                 tessellator.addVertexWithUV(1 - dEdge, 0, 1 - dThck + dOffs, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
                 tessellator.addVertexWithUV(1 - dEdge - dWidt, 0, 1 - dThck + dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
@@ -427,7 +423,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(1 - dEdge - dWidt, dEdge + dWidt, 1 - dOffs, c.getInterpolatedU(2.5), c.getInterpolatedV(13.5));
                 }
             }
-            else if (meta == 3 || (meta == 6 && !flippedDoor) || (meta == 4 && flippedDoor)) {
+            else if (rotation == 3 || (rotation == 2 && !flipped) || (rotation == 0 && flipped)) {
                 tessellator.addVertexWithUV(dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
                 tessellator.addVertexWithUV(dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
                 tessellator.addVertexWithUV(dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
@@ -470,7 +466,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
                     tessellator.addVertexWithUV(dThck - dOffs, dEdge + dWidt, dEdge + dWidt, c.getInterpolatedU(13.5), c.getInterpolatedV(13.5));
                 }
             }
-            else if (meta == 1 || meta == 6 || meta == 4) {
+            else if (rotation == 1 || rotation == 2 || rotation == 0) {
                 tessellator.addVertexWithUV(1 - dThck + dOffs, 1, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(0));
                 tessellator.addVertexWithUV(1 - dThck + dOffs, 0, 1 - dEdge - dWidt, c.getInterpolatedU(2.5), c.getInterpolatedV(16));
                 tessellator.addVertexWithUV(1 - dThck + dOffs, 0, 1 - dEdge, c.getInterpolatedU(0.5), c.getInterpolatedV(16));
@@ -516,33 +512,27 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
 
             tessellator.addTranslation(-x, -y, -z);
         }
+        // If this is the second (transparent) render pass...
         else {
-
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-
             // Adjust the rendering bounds.
-            if (flippedDoor) {
-                if (meta == 0 || meta == 5)
+            if (flipped) {
+                if ((rotation == 0 && !state) || (rotation == 1 && state))
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
-                else if (meta == 1 || meta == 6)
+                else if (rotation == 1 || (rotation == 2  && state))
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta == 2 || meta == 7)
+                else if (rotation == 2 || (rotation == 3 && state))
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta == 3 || meta == 4)
+                else if (rotation == 3 || rotation == 0)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
             }
             else {
-                if (meta == 0 || meta == 7)
+                if ((rotation == 0 && !state) || (rotation == 3 && state))
                     renderer.setRenderBounds(0, 0, 0, 1, 1, dThck);
-                else if (meta == 1 || meta == 4)
+                else if ((rotation == 1 && !state) || rotation == 0)
                     renderer.setRenderBounds(1 - dThck, 0, 0, 1, 1, 1);
-                else if (meta == 2 || meta == 5)
+                else if ((rotation == 2 && !state) || rotation == 1)
                     renderer.setRenderBounds(0, 0, 1 - dThck, 1, 1, 1);
-                else if (meta == 3 || meta == 6)
+                else if (rotation == 3 || rotation == 2)
                     renderer.setRenderBounds(0, 0, 0, dThck, 1, 1);
             }
 
@@ -557,8 +547,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -566,8 +555,7 @@ public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 }

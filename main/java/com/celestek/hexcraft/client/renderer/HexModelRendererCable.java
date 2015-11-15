@@ -23,6 +23,9 @@ import org.lwjgl.opengl.GL11;
 public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
 
     // Model constants.
+    public static final float cMin = 0.35F;
+    public static final float cMax = 0.65F;
+
     private static final float yMin = 0F;
     private static final float yMid = 0.35F;
     private static final float yMax = 1F;
@@ -53,9 +56,6 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private static final float topEv = 2.7712F;
     private static final float topFu = 0.8F;
     private static final float topFv = 2.7712F;
-
-    public static final float cMin = 0.35F;
-    public static final float cMax = 0.65F;
 
     private static final float sideu = 0F;
     private static final float sideU = 2F;
