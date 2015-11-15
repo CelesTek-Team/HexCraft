@@ -175,38 +175,23 @@ public class BlockHexoriumDoor extends HexBlockModel {
         }
 
         // Calculate if the door is powered and toggle the door state if needed.
-        boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-        if ((powered || block.canProvidePower()) && block != this)
-        {
-            // Get the meta and normalize it.
-            boolean state = false;
-            if (world.getBlock(x, y + 1, z) == this)
-                state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
-            else if (world.getBlock(x, y - 1, z) == this)
-                state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
+        if (block.canProvidePower()) {
+            if (world.getBlock(x, y + 1, z) == this) {
+                boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
+                boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
 
-            // Open the door.
-            if (!state && powered) {
-                if (world.getBlock(x, y + 1, z) == this) {
-                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                if ((!state && powered) || (state && !powered)) {
+                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
-                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
-                }
-                else if (world.getBlock(x, y - 1, z) == this) {
-                    HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
-                    world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
             }
-            // Close the door.
-            else if (state && !powered) {
-                if (world.getBlock(x, y + 1, z) == this) {
-                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
-                    world.markBlockForUpdate(x, y + 1, z);
-                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
-                }
-                else if (world.getBlock(x, y - 1, z) == this) {
-                    HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
+            else if (world.getBlock(x, y - 1, z) == this) {
+                boolean state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
+                boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y - 1, z);
+
+                if ((!state && powered) || (state && !powered)) {
+                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
@@ -239,7 +224,6 @@ public class BlockHexoriumDoor extends HexBlockModel {
         // Prepare the variables.
         float dThck = HexModelRendererDoor.dThck;
 
-        // Prepare block meta and if the door is flipped, normalize meta.
         int rotation = 0;
         boolean flipped = false;
         boolean state = false;

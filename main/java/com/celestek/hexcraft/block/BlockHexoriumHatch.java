@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -30,8 +31,14 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 public class BlockHexoriumHatch extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumHatch";
+    // Block ID
+    public static final String ID = "blockHexoriumHatch";
+
+    // Meta Bits
+    public static final int META_ROTATION_0 = 0;
+    public static final int META_ROTATION_1 = 1;
+    public static final int META_STATE = 2;
+    public static final int META_REINFORCED = 3;
 
     /**
      * Constructor for the block.
@@ -45,11 +52,11 @@ public class BlockHexoriumHatch extends HexBlockModel {
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
-        for (int i = 0; i < 8; i++)
-            this.setHarvestLevel("pickaxe", 2, i);
-
-        for (int i = 8; i < 16; i++)
-            this.setHarvestLevel("pickaxe", 3, i);
+        for (int i = 0; i < 16; i++)
+            if (HexUtils.getBit(META_REINFORCED, i))
+                this.setHarvestLevel("pickaxe", 3, i);
+            else
+                this.setHarvestLevel("pickaxe", 2, i);
 
         this.setStepSound(Block.soundTypeMetal);
         this.setLightOpacity(0);
@@ -60,10 +67,9 @@ public class BlockHexoriumHatch extends HexBlockModel {
      */
     @Override
     public float getBlockHardness(World world, int x, int y, int z) {
-        // If this is a normal block, return normal hardness.
-        if (world.getBlockMetadata(x, y, z) < 8)
+        // If this is a normal block, return normal hardness. Otherwise, return obsidian hardness.
+        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z))
             return 1.5F;
-            // If this is a reinforced block, return obsidian hardness.
         else
             return 50F;
     }
@@ -73,10 +79,9 @@ public class BlockHexoriumHatch extends HexBlockModel {
      */
     @Override
     public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-        // If this is a normal block, return normal resistance.
-        if (world.getBlockMetadata(x, y, z) < 8)
+        // If this is a normal block, return normal resistance. Otherwise, return obsidian resistance.
+        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z))
             return 30F / 5F;
-            // If this is a reinforced block, return obsidian resistance.
         else
             return 6000F / 5F;
     }
@@ -87,11 +92,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z) {
         // Check meta and return true if the hatch is open.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
-
-        return meta > 3;
+        return HexUtils.getMetaBit(META_STATE, world, x, y, z);
     }
 
     /**
@@ -112,30 +113,33 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
         // Prepare the orientation.
-        int orientation = -1;
+        int rotation = -1;
 
         // First check if the side it was placed on can accept it. If it can, place it there.
         if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH))
-            orientation = 0;
+            rotation = 0;
         else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH))
-            orientation = 2;
+            rotation = 2;
         else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST))
-            orientation = 3;
+            rotation = 3;
         else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST))
-            orientation = 1;
+            rotation = 1;
         // If the side it was placed on cannot accept it, place it on closest possible other side.
         else {
             if (world.isSideSolid(x, y, z + 1, NORTH))
-                orientation = 0;
+                rotation = 0;
             else if (world.isSideSolid(x - 1, y, z, EAST))
-                orientation = 1;
+                rotation = 1;
             else if (world.isSideSolid(x, y, z - 1, SOUTH))
-                orientation = 2;
+                rotation = 2;
             else if (world.isSideSolid(x + 1, y, z, WEST))
-                orientation = 3;
+                rotation = 3;
         }
+
+        rotation = HexUtils.setBitBiInt(META_ROTATION_0, META_ROTATION_1, rotation, 0);
+
         // Return the new orientation as meta.
-        return orientation;
+        return rotation;
     }
 
     /**
@@ -143,37 +147,25 @@ public class BlockHexoriumHatch extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Get the meta and normalize it.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
-        int meta1;
-        if (meta > 3)
-            meta1 = meta - 4;
-        else
-            meta1 = meta;
+        int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
 
         // Check if the attached side is still solid.
-        if ((meta1 == 0 && !world.isSideSolid(x, y, z + 1, NORTH)) ||
-                (meta1 == 1 && !world.isSideSolid(x - 1, y, z, EAST)) ||
-                (meta1 == 2 && !world.isSideSolid(x, y, z - 1, SOUTH)) ||
-                (meta1 == 3 && !world.isSideSolid(x + 1, y, z, WEST))) {
+        if ((rotation == 0 && !world.isSideSolid(x, y, z + 1, NORTH)) ||
+                (rotation == 1 && !world.isSideSolid(x - 1, y, z, EAST)) ||
+                (rotation == 2 && !world.isSideSolid(x, y, z - 1, SOUTH)) ||
+                (rotation == 3 && !world.isSideSolid(x + 1, y, z, WEST))) {
             // If it isn't, drop it and set the block to air.
             this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
         }
 
         // Calculate if the hatch is powered and toggle the hatch state if needed.
-        if ((world.isBlockIndirectlyGettingPowered(x, y, z) || block.canProvidePower()) && block != this)
-        {
-            // Open the hatch.
-            if (meta < 4 && world.isBlockIndirectlyGettingPowered(x, y, z)) {
-                world.setBlockMetadataWithNotify(x, y, z, meta + 4, 3);
-                world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
-            }
-            // Close the hatch.
-            else if (meta > 3 && !world.isBlockIndirectlyGettingPowered(x, y, z)) {
-                world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
+        if (block.canProvidePower()) {
+            boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
+            boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z);
+
+            if ((!state && powered) || (state && !powered)) {
+                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                 world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
             }
         }
@@ -184,8 +176,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
@@ -195,8 +186,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
@@ -205,26 +195,24 @@ public class BlockHexoriumHatch extends HexBlockModel {
      * Updates the blocks bounds based on its current state.
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         // Prepare the variables.
         float hThck = HexModelRendererHatch.hThck;
 
         // Prepare block meta and normalize meta.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
+        int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
+        boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
 
         // Set block bounds depending on parameters.
-        if (meta == 0 || meta == 1 || meta == 2 || meta == 3)
+        if (!state)
             this.setBlockBounds(0, 0, 0, 1, hThck, 1);
-        else if (meta == 4)
+        else if (rotation == 0)
             this.setBlockBounds(0, 0, 1 - hThck, 1, 1, 1);
-        else if (meta == 5)
+        else if (rotation == 1)
             this.setBlockBounds(0, 0, 0, hThck, 1, 1);
-        else if (meta == 6)
+        else if (rotation == 2)
             this.setBlockBounds(0, 0, 0, 1, 1, hThck);
-        else if (meta == 7)
+        else if (rotation == 3)
             this.setBlockBounds(1 - hThck, 0, 0, 1, 1, 1);
     }
 
@@ -232,16 +220,8 @@ public class BlockHexoriumHatch extends HexBlockModel {
      * Called upon block activation (right click on the block.)
      */
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
-    {
-        // If this is client side...
-        if (world.isRemote)
-        {
-            // Simply return true.
-            return true;
-        }
-        else
-        {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
+        if (!world.isRemote) {
             // Prepare a variable if the hatch is in a usable state.
             boolean use = false;
             // If player has no item in hand.
@@ -249,11 +229,11 @@ public class BlockHexoriumHatch extends HexBlockModel {
                 use = true;
             // If player has an item in hand.
             else {
-                // Don't use hatch if Hexorium Manipulator is present.
+                // Don't use hatch if Hexorium Reinforcer is present.
                 if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
                     // If the hatch is not upgraded, upgrade it.
-                    if (world.getBlockMetadata(x, y, z) < 8) {
-                        world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 8, 3);
+                    if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
+                        HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                         // Grant player the achievement.
                         if (HexConfig.cfgGeneralUseAchievements)
@@ -264,7 +244,8 @@ public class BlockHexoriumHatch extends HexBlockModel {
                         if (stack.stackSize == 0)
                             stack = null;
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
-                    } else
+                    }
+                    else
                         use = true;
                 }
                 else
@@ -273,29 +254,13 @@ public class BlockHexoriumHatch extends HexBlockModel {
 
             // Use hatch.
             if (use) {
-                // get block meta.
-                int meta = world.getBlockMetadata(x, y, z);
-
-                // Change meta on click.
-                if (meta < 8) {
-                    if (meta < 4)
-                        meta = meta + 4;
-                    else
-                        meta = meta - 4;
-                } else {
-                    if (meta < 12)
-                        meta = meta + 4;
-                    else
-                        meta = meta - 4;
-                }
-
                 // Set according block meta and play sound.
-                world.setBlockMetadataWithNotify(x, y, z, meta, 3);
+                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                 world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
             }
-
-            return true;
         }
+
+        return true;
     }
 
     // Prepare the icons.
@@ -313,9 +278,9 @@ public class BlockHexoriumHatch extends HexBlockModel {
         // Load the outer textures.
         for (int i = 0; i < 11; i++) {
             if (i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i+1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i+1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + (i+1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i+1));
         }
         // Load the inner texture.
         if(this == HexBlocks.blockHexoriumHatchRainbow)
@@ -330,33 +295,33 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
+        boolean state = HexUtils.getBit(META_STATE, meta);
+        int rotation = HexUtils.getBitBiInt(META_ROTATION_0, META_ROTATION_1, meta);
+
         // Prepare texture parameters: rei - reinforced
         int rei = 0;
 
-        // Calculate different parameters.
-        if (meta > 7) {
+        if (HexUtils.getBit(META_REINFORCED, meta))
             rei = 5;
-            meta = meta - 8;
-        }
 
         // Return icons based on parameters, side and meta.
         if (side == 6)
             return icon[11];
         else if (side == 7)
             return icon[10];
-        else if (meta == 0 || meta == 1 || meta == 2 || meta == 3) {
+        else if (!state) {
             if (side < 2)
-                return icon[meta + rei];
+                return icon[rotation + rei];
             else
                 return icon[4 + rei];
         }
-        else if (meta == 4 || meta == 6) {
+        else if (rotation == 0 || rotation == 2) {
             if (side > 1 && side < 4)
                 return icon[rei];
             else
                 return icon[4 + rei];
         }
-        else if (meta == 5 || meta == 7) {
+        else if (rotation == 1 || rotation == 3) {
             if (side > 3)
                 return icon[rei];
             else
