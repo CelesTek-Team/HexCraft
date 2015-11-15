@@ -19,8 +19,7 @@ import net.minecraft.item.Item;
  */
 
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION)
-public class HexCraft
-{
+public class HexCraft {
     // Set default mod info.
     public static final String MODID = "hexcraft";
     public static final String MODNAME = "HEXCraft";
@@ -66,8 +65,7 @@ public class HexCraft
      * Handles preInit.
      */
     @EventHandler
-    public void preInit(FMLPreInitializationEvent e)
-    {
+    public void preInit(FMLPreInitializationEvent e) {
         proxy.preInit(e);
     }
 
@@ -75,8 +73,7 @@ public class HexCraft
      * Handles load.
      */
     @EventHandler
-    public void init(FMLInitializationEvent e)
-    {
+    public void init(FMLInitializationEvent e) {
         proxy.init(e);
     }
 
@@ -84,8 +81,7 @@ public class HexCraft
      * Handles postInit.
      */
     @EventHandler
-    public void postInit(FMLPostInitializationEvent e)
-    {
+    public void postInit(FMLPostInitializationEvent e) {
         proxy.postInit(e);
     }
 }

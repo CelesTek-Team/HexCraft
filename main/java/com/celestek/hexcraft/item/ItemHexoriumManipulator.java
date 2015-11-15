@@ -35,6 +35,17 @@ public class ItemHexoriumManipulator extends Item {
     // Item ID
     public static final String ID = "itemHexoriumManipulator";
 
+    // NBT Names
+    private static final String NBT_TELEPORT_LINKING = "teleport_linking";
+    private static final String NBT_TELEPORT_X = "teleport_x";
+    private static final String NBT_TELEPORT_Y = "teleport_y";
+    private static final String NBT_TELEPORT_Z = "teleport_z";
+
+    private static final String NBT_PYLON_LINKING = "pylon_linking";
+    private static final String NBT_PYLON_X = "pylon_x";
+    private static final String NBT_PYLON_Y = "pylon_y";
+    private static final String NBT_PYLON_Z = "pylon_z";
+
     /**
      * Constructor for the item.
      * @param itemName Unlocalized name for the item.
@@ -84,7 +95,7 @@ public class ItemHexoriumManipulator extends Item {
                             HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
-                        System.out.println("Teleport rotated, analyzing!");
+                        System.out.println("[Hexorium Manipulator]: Teleport rotated, analyzing!");
 
                     /* DO ANALYSIS */
                     // Prepare the network analyzers.
@@ -96,72 +107,80 @@ public class ItemHexoriumManipulator extends Item {
                     analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                     analyzerDown.analyzeTeleport(world, x, y, z);
                 }
+                
                 // Change Pressure Plate mode.
                 else if (block instanceof BlockHexoriumPressurePlate) {
-                    // Get block meta and normalize it.
-                    int meta = world.getBlockMetadata(x, y, z);
-                    int meta1;
-                    if (meta > 3)
-                        meta1 = meta - 4;
-                    else
-                        meta1 = meta;
 
                     // Change meta accordingly.
-                    if (meta1 < 3)
-                        world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-                    else
-                        world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
+                    HexUtils.rotateBlock(
+                            BlockHexoriumPressurePlate.META_SETTING_0, 
+                            BlockHexoriumPressurePlate.META_SETTING_1, 
+                            true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                    int setting = HexUtils.getMetaBitBiInt(
+                            BlockHexoriumPressurePlate.META_SETTING_0, 
+                            BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
 
                     // Print message about change.
-                    if (meta1 == 0)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange2.txt"));
-                    if (meta1 == 1)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange3.txt"));
-                    if (meta1 == 2)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
-                    if (meta1 == 3)
+                    if (setting == 0)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange1.txt"));
+                    if (setting == 1)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange2.txt"));
+                    if (setting == 2)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange3.txt"));
+                    if (setting == 3)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
                 }
+                
                 // Rotate Pylon Base away from player.
                 else if (block instanceof BlockPylonBase) {
                     // Rotate meta
-                    int direction;
+                    int orientation;
                     if (player.rotationPitch > 60.0F)
                         // If player is looking up.
-                        direction = 0;
+                        orientation = 0;
                     else if (player.rotationPitch < -60.0F)
                         // If player is looking down.
-                        direction = 1;
+                        orientation = 1;
                     else {
-                        direction = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        orientation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
                         // If player is looking towards NSWE.
-                        if (direction == 0)
-                            direction = 3;
-                        else if (direction == 1)
-                            direction = 4;
-                        else if (direction == 2)
-                            direction = 2;
-                        else if (direction == 3)
-                            direction = 5;
+                        if (orientation == 0)
+                            orientation = 3;
+                        else if (orientation == 1)
+                            orientation = 4;
+                        else if (orientation == 2)
+                            orientation = 2;
+                        else if (orientation == 3)
+                            orientation = 5;
                     }
 
-                    world.setBlockMetadataWithNotify(x, y, z, direction, 3);
+                    HexUtils.setMetaBitTriInt(
+                            BlockPylonBase.META_ORIENTATION_0,
+                            BlockPylonBase.META_ORIENTATION_1,
+                            BlockPylonBase.META_ORIENTATION_2,
+                            orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     analyzePylonBase(world, x, y, z);
                 }
+                
+                // Check if block is part of tank.
                 else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
                     if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
                         player.addChatMessage(new ChatComponentTranslation("msg.tankIsPart.txt"));
                 }
+
+                // Rotate Tank Valve.
                 else if (block == HexBlocks.blockTankValve) {
                     if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
-                        HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, 3, world, x, y, z);
+                        HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
                 }
             }
+            
             // Fired on normal use.
             else {
+
                 // Link Energy Pylons.
                 if (block == HexBlocks.blockEnergyPylon) {
                     // Create a new tag compound for the manipulator if it doesn't exist.
@@ -169,26 +188,26 @@ public class ItemHexoriumManipulator extends Item {
                         stack.stackTagCompound = new NBTTagCompound();
 
                     // Cancel linking.
-                    if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
-                        stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                    if (stack.stackTagCompound.getBoolean(NBT_TELEPORT_LINKING)) {
+                        stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
                     }
                     // If this is the first use, just save the pylon location.
-                    if (!stack.stackTagCompound.getBoolean("PylonLinking")) {
-                        stack.stackTagCompound.setInteger("PylonX", x);
-                        stack.stackTagCompound.setInteger("PylonY", y);
-                        stack.stackTagCompound.setInteger("PylonZ", z);
-                        stack.stackTagCompound.setBoolean("PylonLinking", true);
+                    if (!stack.stackTagCompound.getBoolean(NBT_PYLON_LINKING)) {
+                        stack.stackTagCompound.setInteger(NBT_PYLON_X, x);
+                        stack.stackTagCompound.setInteger(NBT_PYLON_Y, y);
+                        stack.stackTagCompound.setInteger(NBT_PYLON_Z, z);
+                        stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, true);
                         stack.setItemDamage(1);
                         player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkStart.txt"));
                     }
                     // If this is the second use, perform linking.
                     else {
                         // Retrieve previous pylon.
-                        int tx = stack.stackTagCompound.getInteger("PylonX");
-                        int ty = stack.stackTagCompound.getInteger("PylonY");
-                        int tz = stack.stackTagCompound.getInteger("PylonZ");
+                        int tx = stack.stackTagCompound.getInteger(NBT_PYLON_X);
+                        int ty = stack.stackTagCompound.getInteger(NBT_PYLON_Y);
+                        int tz = stack.stackTagCompound.getInteger(NBT_PYLON_Z);
 
                         if (!(tx == x && ty == y && tz == z)) {
                             // Determine length of the link.
@@ -225,41 +244,45 @@ public class ItemHexoriumManipulator extends Item {
                                                 }
 
                                                 if (HexConfig.cfgGeneralNetworkDebug)
-                                                    System.out.println("Pylons linked, analyzing!");
+                                                    System.out.println("[Hexorium Manipulator]: Pylons linked, analyzing!");
 
                                                 /* DO ANALYSIS */
                                                 // Prepare the network analyzer.
                                                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                                                 // Call the analysis.
                                                 analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
-                                            } else {
+                                            }
+                                            else {
                                                 // If the pylons were already added, unlink them.
                                                 pylonA.removePylon(tx, ty, tz);
                                                 pylonB.removePylon(x, y, z);
                                                 player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkBreak.txt"));
                                             }
                                             // Error messages for all situations.
-                                        } else
+                                        }
+                                        else
                                             player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail1.txt"));
-                                    } else
+                                    }
+                                    else
                                         player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail2.txt"));
-                                } else
+                                }
+                                else
                                     player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail3.txt"));
-                            } else
+                            }
+                            else
                                 player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkFail4.txt"));
 
-                            stack.stackTagCompound.setBoolean("PylonLinking", false);
+                            stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
                             stack.setItemDamage(0);
                         }
                         else {
                             player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
-                            stack.stackTagCompound.setBoolean("PylonLinking", false);
+                            stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
                             stack.setItemDamage(0);
                         }
                     }
-
-                    // System.out.println("Block: (" + x + ", " + y + ", " + z + "), Linking: " + stack.stackTagCompound.getBoolean("linking"));
                 }
+
                 // Link Teleports.
                 else if (block == HexBlocks.blockPersonalTeleportationPad) {
                     // Create a new tag compound for the manipulator if it doesn't exist.
@@ -267,27 +290,27 @@ public class ItemHexoriumManipulator extends Item {
                         stack.stackTagCompound = new NBTTagCompound();
 
                     // Cancel linking.
-                    if (stack.stackTagCompound.getBoolean("PylonLinking")) {
-                        stack.stackTagCompound.setBoolean("PylonLinking", false);
+                    if (stack.stackTagCompound.getBoolean(NBT_PYLON_LINKING)) {
+                        stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
                     }
 
                     // If this is the first use, just save the teleport location.
-                    if (!stack.stackTagCompound.getBoolean("TeleportLinking")) {
-                        stack.stackTagCompound.setInteger("TeleportX", x);
-                        stack.stackTagCompound.setInteger("TeleportY", y);
-                        stack.stackTagCompound.setInteger("TeleportZ", z);
-                        stack.stackTagCompound.setBoolean("TeleportLinking", true);
+                    if (!stack.stackTagCompound.getBoolean(NBT_TELEPORT_LINKING)) {
+                        stack.stackTagCompound.setInteger(NBT_TELEPORT_X, x);
+                        stack.stackTagCompound.setInteger(NBT_TELEPORT_Y, y);
+                        stack.stackTagCompound.setInteger(NBT_TELEPORT_Z, z);
+                        stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, true);
                         stack.setItemDamage(1);
                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkStart.txt"));
                     }
                     // If this is the second use, perform linking.
                     else {
                         // Retrieve previous teleport.
-                        int tx = stack.stackTagCompound.getInteger("TeleportX");
-                        int ty = stack.stackTagCompound.getInteger("TeleportY");
-                        int tz = stack.stackTagCompound.getInteger("TeleportZ");
+                        int tx = stack.stackTagCompound.getInteger(NBT_TELEPORT_X);
+                        int ty = stack.stackTagCompound.getInteger(NBT_TELEPORT_Y);
+                        int tz = stack.stackTagCompound.getInteger(NBT_TELEPORT_Z);
 
                         if (!(tx == x && ty == y && tz == z)) {
                             // Fetch tile entities of teleports.
@@ -308,24 +331,27 @@ public class ItemHexoriumManipulator extends Item {
                                     }
                                     else
                                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
-                                } else
+                                }
+                                else
                                     player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail2.txt"));
-                            } else {
+                            }
+                            else {
                                 player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkBreak.txt"));
                                 teleportA.unlinkTeleport();
                                 teleportB.unlinkTeleport();
                             }
 
-                            stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                            stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                             stack.setItemDamage(0);
                         }
                         else {
                             player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
-                            stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                            stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                             stack.setItemDamage(0);
                         }
                     }
                 }
+
                 // Rotate machines.
                 else if (block == HexBlocks.blockHexoriumGenerator ||
                         block == HexBlocks.blockHexoriumFurnace ||
@@ -339,7 +365,7 @@ public class ItemHexoriumManipulator extends Item {
                             HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (HexConfig.cfgGeneralNetworkDebug)
-                        System.out.println("Machine rotated, analyzing!");
+                        System.out.println("[Hexorium Manipulator]: Machine rotated, analyzing!");
 
                     /* DO ANALYSIS */
                     // Prepare the network analyzers.
@@ -349,51 +375,59 @@ public class ItemHexoriumManipulator extends Item {
                     analyzerOld.analyzeMachines(world, x, y, z, metaOld);
                     analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                 }
+
                 // Show Pressure Plate mode.
                 else if (block instanceof BlockHexoriumPressurePlate) {
                     // Get block meta and normalize it.
-                    int meta = world.getBlockMetadata(x, y, z);
-                    if (meta > 3)
-                        meta = meta - 4;
+                    int setting = HexUtils.getMetaBitBiInt(
+                            BlockHexoriumPressurePlate.META_SETTING_0,
+                            BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
 
                     // Print message about mode.
-                    if (meta == 0)
+                    if (setting == 0)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState1.txt"));
-                    if (meta == 1)
+                    if (setting == 1)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState2.txt"));
-                    if (meta == 2)
+                    if (setting == 2)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState3.txt"));
-                    if (meta == 3)
+                    if (setting == 3)
                         player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState4.txt"));
                     player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateSneak.txt"));
                 }
+
                 // Rotate Pylon Base.
                 else if (block instanceof BlockPylonBase) {
                     // Rotate meta
-                    int direction;
+                    int orientation;
                     if (player.rotationPitch > 60.0F)
                         // If player is looking up.
-                        direction = 1;
+                        orientation = 1;
                     else if (player.rotationPitch < -60.0F)
                         // If player is looking down.
-                        direction = 0;
+                        orientation = 0;
                     else {
-                        direction = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        orientation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
                         // If player is looking towards NSWE.
-                        if (direction == 0)
-                            direction = 2;
-                        else if (direction == 1)
-                            direction = 5;
-                        else if (direction == 2)
-                            direction = 3;
-                        else if (direction == 3)
-                            direction = 4;
+                        if (orientation == 0)
+                            orientation = 2;
+                        else if (orientation == 1)
+                            orientation = 5;
+                        else if (orientation == 2)
+                            orientation = 3;
+                        else if (orientation == 3)
+                            orientation = 4;
                     }
 
-                    world.setBlockMetadataWithNotify(x, y, z, direction, 3);
+                    HexUtils.setMetaBitTriInt(
+                            BlockPylonBase.META_ORIENTATION_0,
+                            BlockPylonBase.META_ORIENTATION_1,
+                            BlockPylonBase.META_ORIENTATION_2,
+                            orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     analyzePylonBase(world, x, y, z);
                 }
+
+                // Form Hexorium Tank.
                 else if (block == HexBlocks.blockTankValve) {
                     if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
                         TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
@@ -406,7 +440,8 @@ public class ItemHexoriumManipulator extends Item {
                                     if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTankEnable)
                                         player.addStat(HexAchievements.achFormHexoriumTank, 1);
                                 }
-                            } else
+                            }
+                            else
                                 player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail1.txt"));
                         }
                     }
@@ -415,6 +450,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
             }
         }
+
         return false;
     }
 
@@ -429,18 +465,19 @@ public class ItemHexoriumManipulator extends Item {
                 if (stack.stackTagCompound == null)
                     stack.stackTagCompound = new NBTTagCompound();
                 // Cancel all linking.
-                if (stack.stackTagCompound.getBoolean("TeleportLinking")) {
-                    stack.stackTagCompound.setBoolean("TeleportLinking", false);
+                if (stack.stackTagCompound.getBoolean(NBT_TELEPORT_LINKING)) {
+                    stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                     stack.setItemDamage(0);
                     player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
                 }
-                if (stack.stackTagCompound.getBoolean("PylonLinking")) {
-                    stack.stackTagCompound.setBoolean("PylonLinking", false);
+                if (stack.stackTagCompound.getBoolean(NBT_PYLON_LINKING)) {
+                    stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
                     stack.setItemDamage(0);
                     player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
                 }
             }
         }
+
         return stack;
     }
 
@@ -463,7 +500,7 @@ public class ItemHexoriumManipulator extends Item {
     }
 
     /**
-     * Gets an icon index based on an item's damage value
+     * Gets an icon index based on an item's damage value.
      */
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int damage) {
@@ -473,10 +510,13 @@ public class ItemHexoriumManipulator extends Item {
             return icon[1];
     }
 
+    /**
+     * Called to analyze blocks around a Pylon Base.
+     */
     private void analyzePylonBase(World world, int x, int y, int z) {
 
         if (HexConfig.cfgGeneralNetworkDebug)
-            System.out.println("Base rotated, analyzing!");
+            System.out.println("[Hexorium Manipulator]: Base rotated, analyzing!");
 
         /* DO ANALYSIS */
 

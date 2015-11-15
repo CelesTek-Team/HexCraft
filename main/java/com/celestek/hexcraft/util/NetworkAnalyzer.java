@@ -104,8 +104,7 @@ public class NetworkAnalyzer {
      * @param blockPrev The previous block.
      * @param direction The direction of the previous move.
      */
-    private void analyze(World world, int x, int y, int z, Block blockPrev, int direction)
-    {
+    private void analyze(World world, int x, int y, int z, Block blockPrev, int direction) {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
 
