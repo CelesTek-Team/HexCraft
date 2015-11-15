@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,8 +17,13 @@ import net.minecraft.world.World;
 
 public class BlockOfHexoriumCrystal extends HexBlock {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockOfHexoriumCrystal";
+    // Block ID
+    public static final String ID = "blockOfHexoriumCrystal";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
 
     // Used later for texture identification.
     private String blockName;
@@ -48,7 +54,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
      */
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-        return side;
+        return HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, side, 0);
     }
 
     /// Prepare the icons.
@@ -68,9 +74,9 @@ public class BlockOfHexoriumCrystal extends HexBlock {
         // Load the inner textures.
         for(int i = 1; i < 13; i++)
             if(i < 10)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + "0" + (i));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + blockName + "0" + (i));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + blockName + (i));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + blockName + (i));
     }
 
     /**
@@ -79,11 +85,12 @@ public class BlockOfHexoriumCrystal extends HexBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
+        int orientation = HexUtils.getBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, meta);
         // Return the icons based on meta (rotation) and side.
         if (side < 6)
             return icon[0];
         else {
-            if (meta == 0) {
+            if (orientation == 0) {
                 switch (side) {
                     case 6: return icon[1];
                     case 7: return icon[11];
@@ -92,7 +99,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
                     case 10: return icon[9];
                     case 11: return icon[9];
                 }
-            } else if (meta == 1) {
+            } else if (orientation == 1) {
                 switch (side) {
                     case 6: return icon[11];
                     case 7: return icon[1];
@@ -101,7 +108,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
                     case 10: return icon[7];
                     case 11: return icon[7];
                 }
-            } else if (meta == 2) {
+            } else if (orientation == 2) {
                 switch (side) {
                     case 6: return icon[7];
                     case 7: return icon[7];
@@ -110,7 +117,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
                     case 10: return icon[6];
                     case 11: return icon[4];
                 }
-            } else if (meta == 3) {
+            } else if (orientation == 3) {
                 switch (side) {
                     case 6: return icon[9];
                     case 7: return icon[9];
@@ -119,7 +126,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
                     case 10: return icon[4];
                     case 11: return icon[6];
                 }
-            } else if (meta == 4) {
+            } else if (orientation == 4) {
                 switch (side) {
                     case 6: return icon[10];
                     case 7: return icon[10];
@@ -128,7 +135,7 @@ public class BlockOfHexoriumCrystal extends HexBlock {
                     case 10: return icon[2];
                     case 11: return icon[12];
                 }
-            } else if (meta == 5) {
+            } else if (orientation == 5) {
                 switch (side) {
                     case 6: return icon[8];
                     case 7: return icon[8];

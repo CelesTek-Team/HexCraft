@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,8 +23,13 @@ import net.minecraft.world.World;
 
 public class BlockPylonBase extends Block {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockPylonBase";
+    // Block ID
+    public static final String ID = "blockPylonBase";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
 
     // Used for identifying the type of base.
     private boolean type;
@@ -74,19 +80,15 @@ public class BlockPylonBase extends Block {
         }
 
         // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction, 3);
+        HexUtils.setMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, direction, 0, world, x, y, z);
 
-
-        // Check if the code is executed on the server.
         if(!world.isRemote) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Base placed, analyzing!");
+                System.out.println("[Pylon Base] (" + x + ", " + y + ", " + z + "): Base placed, analyzing!");
 
             /* DO ANALYSIS */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
     }
@@ -100,19 +102,14 @@ public class BlockPylonBase extends Block {
         // Check if the changed block belongs to the energy system.
         if (block instanceof BlockHexoriumCable ||
                 block instanceof BlockPylonBase ||
-                block == HexBlocks.blockEnergyPylon ||
-                block == HexBlocks.blockHexoriumGenerator ||
-                block == HexBlocks.blockHexoriumFurnace ||
-                block == HexBlocks.blockCrystalSeparator ||
-                block == HexBlocks.blockMatrixReconstructor) {
+                block instanceof IBlockHexEnergySource ||
+                block instanceof IBlockHexEnergyDrain) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("Neighbour cable or machine destroyed, analyzing!");
+                System.out.println("[Pylon Base] (" + x + ", " + y + ", " + z + "): Neighbour cable or machine destroyed, analyzing!");
 
             /* DO ANALYSIS */
-            // Prepare the network analyzer.
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            // Call the analysis.
             analyzer.analyzeCable(world, x, y, z, this);
         }
     }
@@ -131,8 +128,8 @@ public class BlockPylonBase extends Block {
         icon = new IIcon[2];
 
         // Load all the different icons.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "A");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
     }
 
     /**
@@ -141,23 +138,12 @@ public class BlockPylonBase extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        int i0;
-        int i1;
-
-        // Set different icons depending on type of base.
-        if (!type) {
-            i0 = 1;
-            i1 = 0;
-        }
-        else {
-            i0 = 0;
-            i1 = 1;
-        }
+        int orientation = HexUtils.getBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, meta);
 
         // Return only one icon depending on orientation.
-        if (meta == side)
-            return icon[i0];
+        if (orientation == side)
+            return icon[type ? 0 : 1];
         else
-            return icon[i1];
+            return icon[type ? 1 : 0];
     }
 }

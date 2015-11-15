@@ -20,7 +20,7 @@ import net.minecraft.world.World;
  * @version 0.7.0
  */
 
-public class BlockHexoriumLampInv extends HexBlock {
+public class BlockHexoriumLampInv extends HexBlockMT {
 
     // Block ID
     public static final String ID = "blockHexoriumLampInv";

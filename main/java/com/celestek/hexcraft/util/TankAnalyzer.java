@@ -66,7 +66,7 @@ public class TankAnalyzer {
 
         // Console spam for debugging analysis.
         if (HexConfig.cfgTankVerboseDebug && HexConfig.cfgTankDebug)
-            System.out.println("Analyzing Tank: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
+            System.out.println("[Tank Analyzer] Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is usable to build a tank.
         if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
@@ -120,7 +120,7 @@ public class TankAnalyzer {
      * @param y     Y coordinate of the cable.
      * @param z     Z coordinate of the cable.
      */
-    public void analyzeCable(World world, int x, int y, int z) {
+    public void analyzeTank(World world, int x, int y, int z) {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, -1);
         // Push the results to all found valves.

@@ -28,7 +28,7 @@ public class HexBlockContainer extends BlockContainer {
     public HexBlockContainer(Material material) {
         super(material);
         // Save the current HexCraft block ID.
-        idBlock = HexCraft.idCounter;
+        this.idBlock = HexCraft.idCounter;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;

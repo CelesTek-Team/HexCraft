@@ -18,7 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class HexBlockModel extends Block {
 
     // HexCraft's ID for the block.
-    public int idBlock;
+    private int idBlock;
 
     /**
      * Constructor for the block.
@@ -27,7 +27,7 @@ public class HexBlockModel extends Block {
     public HexBlockModel(Material material) {
         super(material);
         // Save the current HexCraft block ID.
-        idBlock = HexCraft.idCounter;
+        this.idBlock = HexCraft.idCounter;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
@@ -124,14 +124,12 @@ public class HexBlockModel extends Block {
      * @return True if the block is a full cube
      */
     @Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-    {
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
         return false;
     }
 
     @Override
-    public boolean isNormalCube()
-    {
+    public boolean isNormalCube() {
         return false;
     }
 }

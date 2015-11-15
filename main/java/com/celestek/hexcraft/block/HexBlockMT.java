@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
 import net.minecraft.block.Block;
@@ -27,8 +28,13 @@ public class HexBlockMT extends HexBlock {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
                 && HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[Tank Block] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");
+
+            /* DO ANALYSIS */
             TankAnalyzer analyzer = new TankAnalyzer();
-            analyzer.analyzeCable(world, x, y, z);
+            analyzer.analyzeTank(world, x, y, z);
         }
     }
 }

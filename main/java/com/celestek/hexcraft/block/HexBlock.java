@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class HexBlock extends Block {
 
     // HEXCraft's ID for the block.
-    public int idBlock;
+    private int idBlock;
 
     /**
      * Constructor for the block.
@@ -28,7 +28,7 @@ public class HexBlock extends Block {
     public HexBlock(Material material) {
         super(material);
         // Save the current HexCraft block ID.
-        idBlock = HexCraft.idCounter;
+        this.idBlock = HexCraft.idCounter;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;

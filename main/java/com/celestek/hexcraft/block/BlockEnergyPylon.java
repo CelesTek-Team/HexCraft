@@ -643,7 +643,7 @@ public class BlockEnergyPylon extends HexBlockContainer {
         icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockEnergizedHexoriumMonolith.ID + "Rainbow");
         // Load additional textures.
         icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.UNLOCALISEDNAME + "B");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockPylonBase.ID + "B");
         // Load the beam textures.
         icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beam");
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + "beamRainbow");

@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
 public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
     // Brightness when lamp is OFF.
-    private static float darkLamp = 0.15F;
+    private static final float darkLamp = 0.15F;
 
     // Variables
     private int renderID;
@@ -41,8 +41,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * @param g Green component of the inner block layer color.
      * @param b Blue component of the inner block layer color.
      */
-    public HexBlockRenderer(int renderID, int brightness, float r, float g, float b)
-    {
+    public HexBlockRenderer(int renderID, int brightness, float r, float g, float b) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -66,9 +65,8 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        // Create the Tessellator and prepare OpenGL.
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        // Create the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 
@@ -84,27 +82,23 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         else
             meta = 2;
 
+        float darkCalc;
+        if (block instanceof BlockHexoriumLamp)
+            darkCalc = darkLamp;
+        else
+            darkCalc = 1.0F;
+
         // Start drawing inner layer of the block.
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         // If special faces should be drawn, use those textures instead.
         if(block instanceof BlockOfHexoriumCrystal)
@@ -115,12 +109,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 1));
@@ -130,12 +119,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 1));
@@ -145,12 +129,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 1));
@@ -160,12 +139,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        if (block instanceof BlockHexoriumLamp)
-            tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-        else if (block instanceof BlockHexoriumLampInv)
-            tessellator.setColorOpaque_F(r, g, b);
-        else
-            tessellator.setColorOpaque_F(r, g, b);
+        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 1));
@@ -216,15 +190,15 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         int meta = world.getBlockMetadata(x, y, z);
-
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.addTranslation(x, y, z);
+
             // Prepare the inner block texture.
             IIcon c = block.getIcon(6, 0);
             float u = c.getMinU();
@@ -232,26 +206,14 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             float U = c.getMaxU();
             float V = c.getMaxV();
 
-            // More tessellator preparation.
-            tessellator.addTranslation(x, y, z);
-
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
 
-            if (block instanceof BlockHexoriumLamp) {
-                if (HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
-                    tessellator.setColorOpaque_F(r, g, b);
-                else
-                    tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-            }
-            else if (block instanceof BlockHexoriumLampInv) {
-                if (HexUtils.getMetaBit(BlockHexoriumLampInv.META_STATE, world, x, y, z))
-                    tessellator.setColorOpaque_F(r * darkLamp, g * darkLamp, b * darkLamp);
-                else
-                    tessellator.setColorOpaque_F(r, g, b);
-            }
-            else
-                tessellator.setColorOpaque_F(r, g, b);
+            float darkCalc = 1.0F;
+            if ((block instanceof BlockHexoriumLamp && !HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
+                    || (block instanceof BlockHexoriumLampInv && HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z)))
+                darkCalc = darkLamp;
+            tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
 
             // DOWN
             // Check if the block face should be visible. If yes draw it.
@@ -386,20 +348,15 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                 tessellator.addVertexWithUV(1, 1, 0, U, v);
                 tessellator.addVertexWithUV(1, 1, 1, u, v);
             }
+
+            // Finish drawing.
             tessellator.addTranslation(-x, -y, -z);
         }
         // If this is the second (transparent) render pass...
         else {
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-
             // Draw the outer layer of the block.
             renderer.renderStandardBlock(block, x, y, z);
         }
-
         return true;
     }
 
@@ -407,8 +364,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -416,8 +372,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 }

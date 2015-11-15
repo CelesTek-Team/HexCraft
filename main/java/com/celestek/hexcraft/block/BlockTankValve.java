@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
@@ -98,8 +99,13 @@ public class BlockTankValve extends HexBlockContainer {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
                 && HexUtils.getMetaBit(META_IS_PART, world, x, y, z)) {
+
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[Tank Valve] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");
+
+            /* DO ANALYSIS */
             TankAnalyzer analyzer = new TankAnalyzer();
-            analyzer.analyzeCable(world, x, y, z);
+            analyzer.analyzeTank(world, x, y, z);
         }
     }
 

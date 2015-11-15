@@ -22,7 +22,7 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
     public static final String ID = "blockGlowingHexoriumGlass";
 
     // Prepare an array of all possible situations.
-    public static int[] textureRefByID = {
+    private static final int[] textureRefByID = {
              0,  0,  6,  6,  0,  0,  6,  6,  3,  3, 19, 15,  3,  3, 19, 15,
              1,  1, 18, 18,  1,  1, 13, 13,  2,  2, 23, 31,  2,  2, 27, 14,
              0,  0,  6,  6,  0,  0,  6,  6,  3,  3, 19, 15,  3,  3, 19, 15,

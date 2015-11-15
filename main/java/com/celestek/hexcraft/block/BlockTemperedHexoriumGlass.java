@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -22,10 +23,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockTemperedHexoriumGlass extends Block {
 
     // Set default block name.
-    public static String UNLOCALISEDNAME = "blockTemperedHexoriumGlass";
+    public static final String ID = "blockTemperedHexoriumGlass";
 
     // Prepare an array of all possible situations.
-    public static int[] textureRefByID = {
+    private static final int[] textureRefByID = {
              0,  0,  6,  6,  0,  0,  6,  6,  3,  3, 19, 15,  3,  3, 19, 15,
              1,  1, 18, 18,  1,  1, 13, 13,  2,  2, 23, 31,  2,  2, 27, 14,
              0,  0,  6,  6,  0,  0,  6,  6,  3,  3, 19, 15,  3,  3, 19, 15,
@@ -79,9 +80,9 @@ public class BlockTemperedHexoriumGlass extends Block {
         // Load all the different icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + "0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "/" + UNLOCALISEDNAME + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i + 1));
         }
     }
 
@@ -115,7 +116,8 @@ public class BlockTemperedHexoriumGlass extends Block {
             bitMatrix[5] = world.getBlock(x - 1, y, z + 1) == this;
             bitMatrix[6] = world.getBlock(x, y, z + 1) == this;
             bitMatrix[7] = world.getBlock(x + 1, y, z + 1) == this;
-        } else if (side == 2 || side == 3) {
+        }
+        else if (side == 2 || side == 3) {
             bitMatrix[0] = world.getBlock(x + (side == 2 ? 1 : -1), y + 1, z) == this;
             bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
             bitMatrix[2] = world.getBlock(x + (side == 3 ? 1 : -1), y + 1, z) == this;
@@ -124,7 +126,8 @@ public class BlockTemperedHexoriumGlass extends Block {
             bitMatrix[5] = world.getBlock(x + (side == 2 ? 1 : -1), y - 1, z) == this;
             bitMatrix[6] = world.getBlock(x, y - 1, z) == this;
             bitMatrix[7] = world.getBlock(x + (side == 3 ? 1 : -1), y - 1, z) == this;
-        } else if (side == 4 || side == 5) {
+        }
+        else if (side == 4 || side == 5) {
             bitMatrix[0] = world.getBlock(x, y + 1, z + (side == 5 ? 1 : -1)) == this;
             bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
             bitMatrix[2] = world.getBlock(x, y + 1, z + (side == 4 ? 1 : -1)) == this;
@@ -207,8 +210,13 @@ public class BlockTemperedHexoriumGlass extends Block {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
                 && HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+
+            if (HexConfig.cfgTankDebug)
+                System.out.println("[Tempered Hexorium Glass] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");
+
+            /* DO ANALYSIS */
             TankAnalyzer analyzer = new TankAnalyzer();
-            analyzer.analyzeCable(world, x, y, z);
+            analyzer.analyzeTank(world, x, y, z);
         }
     }
 }

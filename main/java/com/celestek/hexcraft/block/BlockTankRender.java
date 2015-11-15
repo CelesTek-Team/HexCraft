@@ -131,14 +131,12 @@ public class BlockTankRender extends HexBlockContainer {
      * @return True if the block is a full cube
      */
     @Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-    {
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
         return false;
     }
 
     @Override
-    public boolean isNormalCube()
-    {
+    public boolean isNormalCube() {
         return false;
     }
 
