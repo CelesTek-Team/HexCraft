@@ -1,7 +1,9 @@
 package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.block.HexBlock;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
@@ -19,9 +21,8 @@ import org.lwjgl.opengl.GL11;
 
 public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandler {
 
-    // Static valuse
-    private static float darkLamp = 0.15F;
-    private static float teleportOffset = 0.015625F;
+    // Static Values
+    private static final float teleportOffset = 0.015625F;
 
     // Variables
     private int renderID;
@@ -45,8 +46,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
      * @param tg Green component of the field color.
      * @param tb Blue component of the field color.
      */
-    public HexBlockTeleportationRenderer(int renderID, int brightness, float r, float g, float b, float tr, float tg, float tb)
-    {
+    public HexBlockTeleportationRenderer(int renderID, int brightness, float r, float g, float b, float tr, float tg, float tb) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -74,9 +74,8 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        // Create the Tessellator and prepare OpenGL.
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        // Create the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 
@@ -172,13 +171,13 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
-
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.addTranslation(x, y, z);
+
             // Prepare the inner block texture.
             IIcon c = block.getIcon(6, 0);
             float u = c.getMinU();
@@ -190,10 +189,9 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(r, g, b);
 
-            tessellator.addTranslation(x, y, z);
             // DOWN
             // Check if the block face should be visible. If yes draw it.
-            if(!world.getBlock(x, y-1, z).isOpaqueCube()) {
+            if(!world.getBlock(x, y - 1, z).isOpaqueCube()) {
                 tessellator.addVertexWithUV(0, 0, 1, u, V);
                 tessellator.addVertexWithUV(0, 0, 0, u, v);
                 tessellator.addVertexWithUV(1, 0, 0, U, v);
@@ -211,7 +209,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
             }
 
             // NORTH
-            if(!world.getBlock(x, y, z-1).isOpaqueCube()) {
+            if(!world.getBlock(x, y, z - 1).isOpaqueCube()) {
                 tessellator.addVertexWithUV(1, 0, 0, u, V);
                 tessellator.addVertexWithUV(0, 0, 0, U, V);
                 tessellator.addVertexWithUV(0, 1, 0, U, v);
@@ -219,7 +217,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
             }
 
             // SOUTH
-            if(!world.getBlock(x, y, z+1).isOpaqueCube()) {
+            if(!world.getBlock(x, y, z +1 ).isOpaqueCube()) {
                 tessellator.addVertexWithUV(0, 1, 1, u, v);
                 tessellator.addVertexWithUV(0, 0, 1, u, V);
                 tessellator.addVertexWithUV(1, 0, 1, U, V);
@@ -227,7 +225,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
             }
 
             // WEST
-            if(!world.getBlock(x-1, y, z).isOpaqueCube()) {
+            if(!world.getBlock(x - 1, y, z).isOpaqueCube()) {
                 tessellator.addVertexWithUV(0, 0, 0, u, V);
                 tessellator.addVertexWithUV(0, 0, 1, U, V);
                 tessellator.addVertexWithUV(0, 1, 1, U, v);
@@ -241,6 +239,8 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 tessellator.addVertexWithUV(1, 1, 0, U, v);
                 tessellator.addVertexWithUV(1, 1, 1, u, v);
             }
+
+            // Finish drawing.
             tessellator.addTranslation(-x, -y, -z);
         }
         // If this is the second (transparent) render pass...
@@ -248,10 +248,12 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
             // Draw the outer layer of the block.
             renderer.renderStandardBlock(block, x, y, z);
 
-            int meta = world.getBlockMetadata(x, y, z);
-
             // If the field is active...
-            if (meta >= 4 && meta < 8) {
+            if (HexBlocks.getMachineState(world, x, y, z) == HexBlocks.MACHINE_STATE_ACTIVE) {
+                // Prepare the Tessellator.
+                Tessellator tessellator = Tessellator.instance;
+                tessellator.addTranslation(x, y, z);
+
                 // Prepare the inner block texture.
                 IIcon c = block.getIcon(7, 0);
                 float u = c.getInterpolatedU(0);
@@ -263,7 +265,6 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 tessellator.setBrightness(brightness);
                 tessellator.setColorOpaque_F(tr, tg, tb);
 
-                tessellator.addTranslation(x, y, z);
                 // NORTH
                 tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, u, V);
                 tessellator.addVertexWithUV(0 + teleportOffset, 1, 0 + teleportOffset, U, V);
@@ -308,14 +309,8 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
                 tessellator.addVertexWithUV(1 - teleportOffset, 1, 0 + teleportOffset, U, V);
                 tessellator.addVertexWithUV(1 - teleportOffset, 1, 1 - teleportOffset, u, V);
 
+                // Finish drawing.
                 tessellator.addTranslation(-x, -y, -z);
-            }
-            else {
-                // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
-                tessellator.addVertex(0, 0, 0);
             }
         }
 

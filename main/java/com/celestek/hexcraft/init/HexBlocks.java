@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 /**
@@ -1000,6 +1001,13 @@ public class HexBlocks {
     }
 
     public static int getMachineState(World world, int x, int y, int z) {
+        return HexUtils.getMetaBitBiInt(
+                META_MACHINE_STATUS_0,
+                META_MACHINE_STATUS_1,
+                world, x, y, z);
+    }
+
+    public static int getMachineState(IBlockAccess world, int x, int y, int z) {
         return HexUtils.getMetaBitBiInt(
                 META_MACHINE_STATUS_0,
                 META_MACHINE_STATUS_1,

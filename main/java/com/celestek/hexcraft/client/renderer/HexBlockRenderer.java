@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
-    // Brightness when lamp is OFF.
+    // Static Values
     private static final float darkLamp = 0.15F;
 
     // Variables
@@ -208,7 +208,6 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
-
             float darkCalc = 1.0F;
             if ((block instanceof BlockHexoriumLamp && !HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
                     || (block instanceof BlockHexoriumLampInv && HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z)))
@@ -357,6 +356,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
             // Draw the outer layer of the block.
             renderer.renderStandardBlock(block, x, y, z);
         }
+
         return true;
     }
 
