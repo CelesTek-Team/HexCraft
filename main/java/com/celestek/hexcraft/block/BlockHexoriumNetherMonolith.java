@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
@@ -320,5 +321,28 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
             return icon[2];
         else
             return icon[0];
+    }
+
+    /**
+     * Makes the block render only on one pass.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean canRenderInPass(int pass) {
+        if (pass == 1) {
+            // Save the current rendering pass of the block to HexClientProxy.
+            HexClientProxy.renderPass[idBlock] = pass;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Makes the block render only on one pass.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getRenderBlockPass() {
+        return 1;
     }
 }

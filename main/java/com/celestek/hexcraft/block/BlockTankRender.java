@@ -141,7 +141,7 @@ public class BlockTankRender extends HexBlockContainer {
     }
 
     /**
-     * Makes the block render on both passes.
+     * Makes the block render only on one pass.
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -155,7 +155,7 @@ public class BlockTankRender extends HexBlockContainer {
     }
 
     /**
-     * Makes the block render on both passes.
+     * Makes the block render only on one pass.
      */
     @Override
     @SideOnly(Side.CLIENT)
