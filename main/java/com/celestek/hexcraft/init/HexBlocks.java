@@ -962,12 +962,12 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockEnergyPylon, BlockEnergyPylon.ID);
 
         // Hexorium Switch
-        blockHexoriumSwitchRedGreen = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedGreen");
-        GameRegistry.registerBlock(blockHexoriumSwitchRedGreen, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedGreen");
-        blockHexoriumSwitchRedBlue = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedBlue");
-        GameRegistry.registerBlock(blockHexoriumSwitchRedBlue, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedBlue");
-        blockHexoriumSwitchRedWhite = new BlockHexoriumSwitch(BlockHexoriumSwitch.UNLOCALISEDNAME + "RedWhite");
-        GameRegistry.registerBlock(blockHexoriumSwitchRedWhite, BlockHexoriumSwitch.UNLOCALISEDNAME + "RedWhite");
+        blockHexoriumSwitchRedGreen = new BlockHexoriumSwitch(BlockHexoriumSwitch.ID + "RedGreen");
+        GameRegistry.registerBlock(blockHexoriumSwitchRedGreen, BlockHexoriumSwitch.ID + "RedGreen");
+        blockHexoriumSwitchRedBlue = new BlockHexoriumSwitch(BlockHexoriumSwitch.ID + "RedBlue");
+        GameRegistry.registerBlock(blockHexoriumSwitchRedBlue, BlockHexoriumSwitch.ID + "RedBlue");
+        blockHexoriumSwitchRedWhite = new BlockHexoriumSwitch(BlockHexoriumSwitch.ID + "RedWhite");
+        GameRegistry.registerBlock(blockHexoriumSwitchRedWhite, BlockHexoriumSwitch.ID + "RedWhite");
 
         // Hexorium Button
         blockHexoriumButtonRed = new BlockHexoriumButton(BlockHexoriumButton.ID + "Red");

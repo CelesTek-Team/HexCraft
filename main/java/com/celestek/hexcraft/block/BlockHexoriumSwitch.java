@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -25,8 +26,14 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockHexoriumSwitch extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumSwitch";
+    // Block ID
+    public static final String ID = "blockHexoriumSwitch";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
+    public static final int META_STATE = 3;
 
     /**
      * Constructor for the block.
@@ -98,6 +105,8 @@ public class BlockHexoriumSwitch extends HexBlockModel {
                 orientation = 0;
         }
 
+        orientation = HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, orientation, 0);
+
         // Return the new orientation as meta.
         return orientation;
     }
@@ -107,26 +116,25 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        // Get the direction of the block.
         int direction;
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 0 || meta == 1) {
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+        if (orientation == 0 || orientation == 1) {
             direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             // If player is looking towards NSWE.
             if (direction == 0 || direction == 2)
-                direction = meta;
+                direction = orientation;
             else if (direction == 1 || direction == 3) {
-                if (meta == 0)
+                if (orientation == 0)
                     direction = 6;
                 else
                     direction = 7;
             }
         }
         else
-            direction = meta;
+            direction = orientation;
 
         // Set the block's meta data according to direction.
-        world.setBlockMetadataWithNotify(x, y, z, direction, 2);
+        HexUtils.setMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, direction, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
     }
 
     /**
@@ -134,42 +142,40 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, drop the switch.
-        if(meta == 0 || meta == 6) {
+        if(orientation == 0 || orientation == 6) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 1 || meta == 7) {
+        else if(orientation == 1 || orientation == 7) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 2) {
+        else if(orientation == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 3) {
+        else if(orientation == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 4) {
+        else if(orientation == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 5) {
+        else if(orientation == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -182,8 +188,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -191,8 +196,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * Updates the blocks bounds based on its current state.
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         // Prepare the variables.
         float sbBack = HexModelRendererSwitchButton.sbBack;
         float sbFron = HexModelRendererSwitchButton.sbFron;
@@ -200,24 +204,22 @@ public class BlockHexoriumSwitch extends HexBlockModel {
         float sbVert = HexModelRendererSwitchButton.sbVert;
 
         // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7)
-            meta = meta - 8;
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Set bounds based on meta.
-        if (meta == 1)
+        if (orientation == 1)
             this.setBlockBounds(sbHori, sbBack, sbVert, 1 - sbHori, sbFron, 1 - sbVert);
-        else if (meta == 7)
+        else if (orientation == 7)
             this.setBlockBounds(sbVert, sbBack, sbHori, 1 - sbVert, sbFron, 1 - sbHori);
-        else if (meta == 2)
+        else if (orientation == 2)
             this.setBlockBounds(sbHori, sbVert, 1 - sbFron, 1 - sbHori, 1 - sbVert, 1 - sbBack);
-        else if (meta == 3)
+        else if (orientation == 3)
             this.setBlockBounds(sbHori, sbVert, sbBack, 1 - sbHori, 1 - sbVert, sbFron);
-        else if (meta == 4)
+        else if (orientation == 4)
             this.setBlockBounds(1 - sbFron, sbVert, sbHori, 1 - sbBack, 1 - sbVert, 1 - sbHori);
-        else if (meta == 5)
+        else if (orientation == 5)
             this.setBlockBounds(sbBack, sbVert, sbHori, sbFron, 1 - sbVert, 1 - sbHori);
-        else if (meta == 6)
+        else if (orientation == 6)
             this.setBlockBounds(sbVert, 1 - sbFron, sbHori, 1 - sbVert, 1 - sbBack, 1 - sbHori);
         else
             this.setBlockBounds(sbHori, 1 - sbFron, sbVert, 1 - sbHori, 1 - sbBack, 1 - sbVert);
@@ -227,89 +229,53 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * Called upon block activation (right click on the block.)
      */
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d)
-    {
-        // If this is client side...
-        if (world.isRemote)
-        {
-            // Simply return true.
-            return true;
-        }
-        else
-        {
-            // Otherwise, get block meta.
-            int meta = world.getBlockMetadata(x, y, z);
-
-            // Change meta on click.
-            if (meta > 7)
-                world.setBlockMetadataWithNotify(x, y, z, meta - 8, 3);
-            else
-                world.setBlockMetadataWithNotify(x, y, z, meta + 8, 3);
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
+        if (!world.isRemote) {
+            HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
 
             // Play a sound effect.
-            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, meta > 7 ? 0.6F : 0.5F);
-
-            // Notify surrounding blocks of the change.
-            world.notifyBlocksOfNeighborChange(x, y, z, this);
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, HexUtils.getMetaBit(META_STATE, world, x, y, z) ? 0.6F : 0.5F);
 
             // Notify blocks around the strongly powered block.
-            if (meta > 7)
-                meta = meta - 8;
-            if(meta == 0 || meta == 6) {
+            int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+            if(orientation == 0 || orientation == 6)
                 world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
-            }
-            else if(meta == 1 || meta == 7) {
+            else if(orientation == 1 || orientation == 7)
                 world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-            }
-            else if(meta == 2) {
+            else if(orientation == 2)
                 world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
-            }
-            else if(meta == 3) {
+            else if(orientation == 3)
                 world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
-            }
-            else if(meta == 4) {
+            else if(orientation == 4)
                 world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
-            }
-            else if(meta == 5) {
+            else if(orientation == 5)
                 world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
-            }
-
-            return true;
         }
+
+        return true;
     }
 
     /**
      * Called upon breaking the block.
      */
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta)
-    {
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // If the switch was active...
-        if (meta > 7)
-        {
-            // Notify surrounding blocks of the change.
-            world.notifyBlocksOfNeighborChange(x, y, z, this);
-
+        if (HexUtils.getBit(META_STATE, meta)) {
             // Notify blocks around the strongly powered block.
-            meta = meta - 8;
-            if(meta == 0 || meta == 6) {
+            int orientation = HexUtils.getBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, meta);
+            if(orientation == 0 || orientation == 6)
                 world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
-            }
-            else if(meta == 1 || meta == 7) {
+            else if(orientation == 1 || orientation == 7)
                 world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-            }
-            else if(meta == 2) {
+            else if(orientation == 2)
                 world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
-            }
-            else if(meta == 3) {
+            else if(orientation == 3)
                 world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
-            }
-            else if(meta == 4) {
+            else if(orientation == 4)
                 world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
-            }
-            else if(meta == 5) {
+            else if(orientation == 5)
                 world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
-            }
         }
 
         super.breakBlock(world, x, y, z, block, meta);
@@ -319,10 +285,9 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * Checks if the block is providing weak power.
      */
     @Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta)
-    {
+    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta) {
         // Return 15 if switch is on.
-        if (world.getBlockMetadata(x, y, z) > 7)
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
             return 15;
         else
             return 0;
@@ -332,30 +297,25 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * Checks if the block is providing strong power.
      */
     @Override
-    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side)
-    {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
-
+    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
         /// Return 15 based on side and if switch is on.
-        if (meta > 7)
-        {
-            meta = meta - 8;
-            if (meta == 0 && side == 0)
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
+            int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+            if (orientation == 0 && side == 0)
                 return 15;
-            else if (meta == 6 && side == 0)
+            else if (orientation == 6 && side == 0)
                 return 15;
-            else if (meta == 1 && side == 1)
+            else if (orientation == 1 && side == 1)
                 return 15;
-            else if (meta == 7 && side == 1)
+            else if (orientation == 7 && side == 1)
                 return 15;
-            else if (meta == 2 && side == 2)
+            else if (orientation == 2 && side == 2)
                 return 15;
-            else if (meta == 3 && side == 3)
+            else if (orientation == 3 && side == 3)
                 return 15;
-            else if (meta == 4 && side == 4)
+            else if (orientation == 4 && side == 4)
                 return 15;
-            else if (meta == 5 && side == 5)
+            else if (orientation == 5 && side == 5)
                 return 15;
             else
                 return 0;
@@ -368,8 +328,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
      * Can this block provide power.
      */
     @Override
-    public boolean canProvidePower()
-    {
+    public boolean canProvidePower() {
         return true;
     }
 
@@ -386,7 +345,7 @@ public class BlockHexoriumSwitch extends HexBlockModel {
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the inner texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
