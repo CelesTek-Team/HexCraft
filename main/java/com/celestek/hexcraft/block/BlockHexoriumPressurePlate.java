@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPressurePlate;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,8 +29,13 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockHexoriumPressurePlate extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumPressurePlate";
+    // Block ID
+    public static final String ID = "blockHexoriumPressurePlate";
+
+    // Meta Bits
+    public static final int META_SETTING_0 = 0;
+    public static final int META_SETTING_1 = 1;
+    public static final int META_STATE = 2;
 
     /**
      * Constructor for the block.
@@ -55,7 +61,6 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      */
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-        // Check if block below is solid, if yes, it means it can be placed.
         return world.isSideSolid(x, y - 1, z, UP);
     }
 
@@ -84,8 +89,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * cleared to be reused)
      */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -93,14 +97,13 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Updates the blocks bounds based on its current state.
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         // Prepare the variables.
         float pThck = HexModelRendererPressurePlate.pThck;
         float pSide = HexModelRendererPressurePlate.pSide;
 
         // Set bounds based on meta.
-        if (world.getBlockMetadata(x, y, z) < 4)
+        if (!HexUtils.getMetaBit(META_STATE, world, x, y, z))
             this.setBlockBounds(pSide, 0, pSide, 1 - pSide, pThck, 1 - pSide);
         else
             this.setBlockBounds(pSide, 0, pSide, 1 - pSide, pThck / 2, 1 - pSide);
@@ -110,8 +113,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * How many world ticks before ticking.
      */
     @Override
-    public int tickRate(World world)
-    {
+    public int tickRate(World world) {
         // 1 second duration.
         return 20;
     }
@@ -120,23 +122,18 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Triggered whenever an entity collides with this block (enters into the block). Args: world, x, y, z, entity
      */
     @Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-    {
-        // If this is server side...
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (!world.isRemote) {
-            // Get the block meta.
-            int meta = world.getBlockMetadata(x, y, z);
             // Fetch if the pressure plate is to be activated and if it was in an inactive state.
-            if (processState(world, x, y, z) && meta < 4) {
-                // If yes, set the new meta.
-                world.setBlockMetadataWithNotify(x, y, z, meta + 4, 3);
+            if (processState(world, x, y, z) && !HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
+                HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
+
                 // Play a sound effect.
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.6F);
-                // Prepare to check again in 1 second.
+
+                // Schedule an update tick.
                 world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
-                // Notify surrounding blocks of the change.
-                world.notifyBlocksOfNeighborChange(x, y, z, this);
-                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
             }
         }
     }
@@ -145,23 +142,17 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Ticks the block if it's been scheduled
      */
     @Override
-    public void updateTick(World world, int x, int y, int z, Random random)
-    {
-        // If this is server side...
+    public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.isRemote) {
-            // Get the block meta.
-            int meta = world.getBlockMetadata(x, y, z);
-            // Fetch if the pressure plate is to be activated.
+            // Fetch if the pressure plate is to be deactivated.
             boolean active = processState(world, x, y, z);
             // If it shouldn't be active and if it was in an active state...
-            if (!active && meta > 3) {
-                // Set the new meta.
-                world.setBlockMetadataWithNotify(x, y, z, meta - 4, 3);
+            if (!active && HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
+                HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
+
                 // Play a sound effect.
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.5F);
-                // Notify surrounding blocks of the change.
-                world.notifyBlocksOfNeighborChange(x, y, z, this);
-                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
             }
             // Otherwise, check again in 1 second.
             else if (active) {
@@ -177,25 +168,21 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
         // Prepare variables.
         float pSide = HexModelRendererPressurePlate.pSide;
 
-        // Get the meta and normalize it.
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 3)
-            meta = meta - 4;
-
         // Prepare a list of entities.
         List list = null;
 
-        // Populate the list differently by meta.
-        if (meta == 0)
+        // Populate the list differently by setting.
+        int setting = HexUtils.getMetaBitBiInt(META_SETTING_0, META_SETTING_1, world, x, y, z);
+        if (setting == 0)
             // Populate with all entities.
             list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
-        else if (meta == 1)
+        else if (setting == 1)
             // Populate with all entities (extra handling done later).
             list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
-        else if (meta == 2)
+        else if (setting == 2)
             // Populate only with mobs.
             list = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
-        else if (meta == 3)
+        else if (setting == 3)
             // Populate only with players.
             list = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x + pSide, y, z + pSide, x + 1 - pSide, y + 0.25D, z + 1 - pSide));
 
@@ -205,11 +192,12 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
             while (iterator.hasNext()) {
                 Entity entity = (Entity)iterator.next();
                 // If the pressure plate should only detect entities like dropped items, handle it differently.
-                if (meta == 1) {
+                if (setting == 1) {
                     if (!(entity instanceof EntityLiving) && !(entity instanceof EntityPlayer) && !entity.doesEntityNotTriggerPressurePlate())
                         return true;
                 // Otherwise, continue normally.
-                } else if (!entity.doesEntityNotTriggerPressurePlate())
+                }
+                else if (!entity.doesEntityNotTriggerPressurePlate())
                     return true;
             }
         }
@@ -220,14 +208,11 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Called upon breaking the block.
      */
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta)
-    {
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         // If the pressure plate was active...
-        if (meta > 3) {
-            // Notify surrounding blocks of the change.
-            world.notifyBlocksOfNeighborChange(x, y, z, this);
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
+            // Notify blocks around the strongly powered block.
             world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-        }
 
         super.breakBlock(world, x, y, z, block, meta);
     }
@@ -236,10 +221,9 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Checks if the block is providing weak power.
      */
     @Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta)
-    {
+    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta) {
         // Return 15 if pressure plate is on.
-        if (world.getBlockMetadata(x, y, z) > 3)
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
             return 15;
         else
             return 0;
@@ -249,10 +233,9 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Checks if the block is providing strong power.
      */
     @Override
-    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side)
-    {
+    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
         // Return 15 below if pressure plate is on.
-        if (world.getBlockMetadata(x, y, z) > 3)
+        if (HexUtils.getMetaBit(META_STATE, world, x, y, z))
             if (side == 1)
                 return 15;
 
@@ -263,8 +246,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
      * Can this block provide power.
      */
     @Override
-    public boolean canProvidePower()
-    {
+    public boolean canProvidePower() {
         return true;
     }
 
@@ -281,7 +263,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the inner texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }

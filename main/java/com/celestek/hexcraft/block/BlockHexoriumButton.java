@@ -211,13 +211,10 @@ public class BlockHexoriumButton extends HexBlockModel {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote)
             if (!HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
-                int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
                 HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
 
-                // Play a sound effect.
-                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.6F);
-
                 // Notify blocks around the strongly powered block.
+                int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
                 if (orientation == 0)
                     world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
                 else if (orientation == 1)
@@ -230,6 +227,9 @@ public class BlockHexoriumButton extends HexBlockModel {
                     world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
                 else if (orientation == 5)
                     world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
+
+                // Play a sound effect.
+                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, 0.6F);
 
                 // Schedule an update tick.
                 world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
