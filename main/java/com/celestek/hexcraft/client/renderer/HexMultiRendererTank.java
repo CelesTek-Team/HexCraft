@@ -267,6 +267,14 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
 
                 tessellator.addTranslation(-x, -y, -z);
             }
+            else {
+                // Fix for PriorityQueue crash.
+                Tessellator tessellator = Tessellator.instance;
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
+                tessellator.addVertex(0, 0, 0);
+            }
         }
 
         // Render the test block.

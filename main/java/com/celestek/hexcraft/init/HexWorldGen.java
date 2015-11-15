@@ -124,28 +124,28 @@ public class HexWorldGen implements IWorldGenerator {
 
         // Other
         if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreOtherShouldGenerate) {
-            oreHexoriumOreRed = new HexGenOre(HexBlocks.blockHexoriumOreRed, Blocks.stone,
+            oreHexoriumOtherOreRed = new HexGenOre(HexBlocks.blockHexoriumOreRed, Blocks.stone,
                     HexConfig.cfgOtherOreRedCountMin, HexConfig.cfgOtherOreRedCountMax);
-            oreHexoriumOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone,
+            oreHexoriumOtherOreGreen = new HexGenOre(HexBlocks.blockHexoriumOreGreen, Blocks.stone,
                     HexConfig.cfgOtherOreGreenCountMin, HexConfig.cfgOtherOreGreenCountMax);
-            oreHexoriumOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone,
+            oreHexoriumOtherOreBlue = new HexGenOre(HexBlocks.blockHexoriumOreBlue, Blocks.stone,
                     HexConfig.cfgOtherOreBlueCountMin, HexConfig.cfgOtherOreBlueCountMax);
-            oreHexoriumOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone,
+            oreHexoriumOtherOreWhite = new HexGenOre(HexBlocks.blockHexoriumOreWhite, Blocks.stone,
                     HexConfig.cfgOtherOreWhiteCountMin, HexConfig.cfgOtherOreWhiteCountMax);
-            oreHexoriumOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone,
+            oreHexoriumOtherOreBlack = new HexGenOre(HexBlocks.blockHexoriumOreBlack, Blocks.stone,
                     HexConfig.cfgOtherOreBlackCountMin, HexConfig.cfgOtherOreBlackCountMax);
         }
 
         if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithOtherShouldGenerate) {
-            oreHexoriumMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone,
+            oreHexoriumOtherMonolithRed = new HexGenMonolith(HexBlocks.blockHexoriumMonolithRed, Blocks.stone,
                     HexConfig.cfgOtherMonolithRedHeightMin, HexConfig.cfgOtherMonolithRedHeightMax, HexConfig.cfgOtherMonolithRedChance);
-            oreHexoriumMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone,
+            oreHexoriumOtherMonolithGreen = new HexGenMonolith(HexBlocks.blockHexoriumMonolithGreen, Blocks.stone,
                     HexConfig.cfgOtherMonolithGreenHeightMin, HexConfig.cfgOtherMonolithGreenHeightMax, HexConfig.cfgOtherMonolithGreenChance);
-            oreHexoriumMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlue, Blocks.stone,
+            oreHexoriumOtherMonolithBlue = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlue, Blocks.stone,
                     HexConfig.cfgOtherMonolithBlueHeightMin, HexConfig.cfgOtherMonolithBlueHeightMax, HexConfig.cfgOtherMonolithBlueChance);
-            oreHexoriumMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumMonolithWhite, Blocks.stone,
+            oreHexoriumOtherMonolithWhite = new HexGenMonolith(HexBlocks.blockHexoriumMonolithWhite, Blocks.stone,
                     HexConfig.cfgOtherMonolithWhiteHeightMin, HexConfig.cfgOtherMonolithWhiteHeightMax, HexConfig.cfgOtherMonolithWhiteChance);
-            oreHexoriumMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlack, Blocks.stone,
+            oreHexoriumOtherMonolithBlack = new HexGenMonolith(HexBlocks.blockHexoriumMonolithBlack, Blocks.stone,
                     HexConfig.cfgOtherMonolithBlackHeightMin, HexConfig.cfgOtherMonolithBlackHeightMax, HexConfig.cfgOtherMonolithBlackChance);
         }
     }
@@ -228,28 +228,28 @@ public class HexWorldGen implements IWorldGenerator {
             // Other
             default:
                 if (HexConfig.cfgOreGeneralShouldGenerate && HexConfig.cfgOreOtherShouldGenerate) {
-                    runGenerator(oreHexoriumOreRed, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherOreRed, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherOreRedVeins, HexConfig.cfgOtherOreRedHeightMin, HexConfig.cfgOtherOreRedHeightMax);
-                    runGenerator(oreHexoriumOreGreen, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherOreGreen, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherOreGreenVeins, HexConfig.cfgOtherOreGreenHeightMin, HexConfig.cfgOtherOreGreenHeightMax);
-                    runGenerator(oreHexoriumOreBlue, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherOreBlue, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherOreBlueVeins, HexConfig.cfgOtherOreBlueHeightMin, HexConfig.cfgOtherOreBlueHeightMax);
-                    runGenerator(oreHexoriumOreWhite, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherOreWhite, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherOreWhiteVeins, HexConfig.cfgOtherOreWhiteHeightMin, HexConfig.cfgOtherOreWhiteHeightMax);
-                    runGenerator(oreHexoriumOreBlack, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherOreBlack, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherOreBlackVeins, HexConfig.cfgOtherOreBlackHeightMin, HexConfig.cfgOtherOreBlackHeightMax);
                 }
 
                 if (HexConfig.cfgMonolithGeneralShouldGenerate && HexConfig.cfgMonolithOtherShouldGenerate) {
-                    runGenerator(oreHexoriumMonolithRed, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherMonolithRed, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherMonolithRedCount, HexConfig.cfgOtherMonolithRedHeightMin, HexConfig.cfgOtherMonolithRedHeightMax);
-                    runGenerator(oreHexoriumMonolithGreen, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherMonolithGreen, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherMonolithGreenCount, HexConfig.cfgOtherMonolithGreenHeightMin, HexConfig.cfgOtherMonolithGreenHeightMax);
-                    runGenerator(oreHexoriumMonolithBlue, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherMonolithBlue, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherMonolithBlueCount, HexConfig.cfgOtherMonolithBlueHeightMin, HexConfig.cfgOtherMonolithBlueHeightMax);
-                    runGenerator(oreHexoriumMonolithWhite, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherMonolithWhite, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherMonolithWhiteCount, HexConfig.cfgOtherMonolithWhiteHeightMin, HexConfig.cfgOtherMonolithWhiteHeightMax);
-                    runGenerator(oreHexoriumMonolithBlack, world, random, chunkX, chunkZ,
+                    runGenerator(oreHexoriumOtherMonolithBlack, world, random, chunkX, chunkZ,
                             HexConfig.cfgOtherMonolithBlackCount, HexConfig.cfgOtherMonolithBlackHeightMin, HexConfig.cfgOtherMonolithBlackHeightMax);
                 }
                 break;

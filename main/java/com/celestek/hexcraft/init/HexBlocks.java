@@ -384,8 +384,7 @@ public class HexBlocks {
     /**
      * Initializes all block and adds them to GameRegistry.
      */
-    public static void initializeBlocks()
-    {
+    public static void initializeBlocks() {
         // Prepare HexCraft's block ID counter.
         HexCraft.idCounter = 0;
 

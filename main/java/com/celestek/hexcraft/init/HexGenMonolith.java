@@ -1,5 +1,8 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.block.BlockHexoriumMonolith;
+import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;
+import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -55,6 +58,31 @@ public class HexGenMonolith extends WorldGenerator {
         int side = random.nextInt(2);
         int skip = random.nextInt(101);
 
+        int metaDown = 0;
+        if (block instanceof BlockHexoriumMonolith)
+            metaDown = HexUtils.setBitTriInt(
+                    BlockHexoriumMonolith.META_ORIENTATION_0,
+                    BlockHexoriumMonolith.META_ORIENTATION_1,
+                    BlockHexoriumMonolith.META_ORIENTATION_2, 0, 0);
+        else if (block instanceof BlockHexoriumNetherMonolith)
+            metaDown = HexUtils.setBitTriInt(
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_0,
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_1,
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_2, 0, 0);
+
+        int metaUp = 0;
+        if (block instanceof BlockHexoriumMonolith)
+            metaUp = HexUtils.setBitTriInt(
+                    BlockHexoriumMonolith.META_ORIENTATION_0,
+                    BlockHexoriumMonolith.META_ORIENTATION_1,
+                    BlockHexoriumMonolith.META_ORIENTATION_2, 1, 0);
+        else if (block instanceof BlockHexoriumNetherMonolith)
+            metaUp = HexUtils.setBitTriInt(
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_0,
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_1,
+                    BlockHexoriumNetherMonolith.META_ORIENTATION_2, 1, 0);
+
+
         // Proceed only if the result is within the chance threshold.
         if (skip <= chance) {
             // If it should move downwards...
@@ -66,9 +94,10 @@ public class HexGenMonolith extends WorldGenerator {
                         if (world.blockExists(x, y, z)) {
                             if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
                                 // If yes, place monolith.
-                                world.setBlock(x, y, z, block, 0, 2);
+                                world.setBlock(x, y, z, block, metaDown, 2);
                                 break;
-                            } else
+                            }
+                            else
                                 // Otherwise, move downwards.
                                 y--;
                         }
@@ -79,9 +108,10 @@ public class HexGenMonolith extends WorldGenerator {
                         if (world.blockExists(x, y, z)) {
                             if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
                                 // If yes, place monolith.
-                                world.setBlock(x, y, z, block, 1, 2);
+                                world.setBlock(x, y, z, block, metaUp, 2);
                                 break;
-                            } else
+                            }
+                            else
                                 // Otherwise, move downwards.
                                 y--;
                         }
@@ -97,9 +127,10 @@ public class HexGenMonolith extends WorldGenerator {
                         if (world.blockExists(x, y, z)) {
                             if (world.isAirBlock(x, y, z) && world.getBlock(x, y + 1, z).isReplaceableOreGen(world, x, y, z, target)) {
                                 // If yes, place monolith.
-                                world.setBlock(x, y, z, block, 0, 2);
+                                world.setBlock(x, y, z, block, metaDown, 2);
                                 break;
-                            } else
+                            }
+                            else
                                 // Otherwise, move upwards.
                                 y++;
                         }
@@ -110,9 +141,10 @@ public class HexGenMonolith extends WorldGenerator {
                         if (world.blockExists(x, y, z)) {
                             if (world.isAirBlock(x, y, z) && world.getBlock(x, y - 1, z).isReplaceableOreGen(world, x, y, z, target)) {
                                 // If yes, place monolith.
-                                world.setBlock(x, y, z, block, 1, 2);
+                                world.setBlock(x, y, z, block, metaUp, 2);
                                 break;
-                            } else
+                            }
+                            else
                                 // Otherwise, move upwards.
                                 y++;
                         }

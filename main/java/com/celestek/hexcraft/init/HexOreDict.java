@@ -13,8 +13,7 @@ public class HexOreDict {
     /**
      * Adds all ores and monoliths to the OreDictionary.
      */
-    public static void registerOres()
-    {
+    public static void registerOres() {
         OreDictionary.registerOre("oreNetherHexoriumRed", new ItemStack(HexBlocks.blockHexoriumNetherOreRed));
         OreDictionary.registerOre("oreNetherHexoriumGreen", new ItemStack(HexBlocks.blockHexoriumNetherOreGreen));
         OreDictionary.registerOre("oreNetherHexoriumBlue", new ItemStack(HexBlocks.blockHexoriumNetherOreBlue));

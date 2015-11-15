@@ -22,14 +22,12 @@ public class HexCraftingHandler {
      * Fired when player crafts an item.
      */
     @SubscribeEvent
-    public void onPlayerCraftingEvent( PlayerEvent.ItemCraftedEvent event )
-    {
+    public void onPlayerCraftingEvent(PlayerEvent.ItemCraftedEvent event) {
         // If this is the player on server side...
         if (event.player instanceof EntityPlayerMP && event.crafting != null) {
-            // Cast the player.
             EntityPlayerMP playerMP = (EntityPlayerMP) event.player;
-            // Save the block from the item.
             Block block = Block.getBlockFromItem(event.crafting.getItem());
+
             // Prepare bools.
             boolean checkDecorations = false;
             boolean checkMachines = false;

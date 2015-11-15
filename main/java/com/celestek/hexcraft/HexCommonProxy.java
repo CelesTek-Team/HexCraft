@@ -17,8 +17,7 @@ public class HexCommonProxy {
     /**
      * Handles preInit.
      */
-    public void preInit(FMLPreInitializationEvent e)
-    {
+    public void preInit(FMLPreInitializationEvent e) {
         // Set up config.
         HexConfig.initializeConfig(e);
         // Set up all ingame blocks, items and recipes.
@@ -32,8 +31,7 @@ public class HexCommonProxy {
     /**
      * Handles init.
      */
-    public void init(FMLInitializationEvent e)
-    {
+    public void init(FMLInitializationEvent e) {
         GameRegistry.registerWorldGenerator(new HexWorldGen(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
         if (HexConfig.cfgGeneralUseAchievements)
@@ -43,8 +41,7 @@ public class HexCommonProxy {
     /**
      * Handles postInit.
      */
-    public void postInit(FMLPostInitializationEvent e)
-    {
+    public void postInit(FMLPostInitializationEvent e) {
 
     }
 }

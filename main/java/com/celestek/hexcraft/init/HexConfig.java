@@ -317,8 +317,7 @@ public class HexConfig {
     /**
      * Initializes all block and adds them to GameRegistry.
      */
-    public static void initializeConfig(FMLPreInitializationEvent event)
-    {
+    public static void initializeConfig(FMLPreInitializationEvent event) {
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         config.load();
 

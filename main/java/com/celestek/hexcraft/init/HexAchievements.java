@@ -99,8 +99,7 @@ public class HexAchievements {
     /**
      * Initializes all achievements.
      */
-    public static void initializeAchievements()
-    {
+    public static void initializeAchievements() {
         // Prepare default unlocalized string parts.
         String hex1 = "achievement.hexcraft.";
         String hex2 = "hexcraft.";

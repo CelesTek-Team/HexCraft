@@ -349,6 +349,13 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         }
         // If this is the second (transparent) render pass...
         else {
+            // Fix for PriorityQueue crash.
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.addVertex(0, 0, 0);
+            tessellator.addVertex(0, 0, 0);
+            tessellator.addVertex(0, 0, 0);
+            tessellator.addVertex(0, 0, 0);
+
             // Draw the outer layer of the block.
             renderer.renderStandardBlock(block, x, y, z);
         }

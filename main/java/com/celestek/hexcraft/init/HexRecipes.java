@@ -15,8 +15,7 @@ public class HexRecipes {
     /**
      * Initializes all recipes and adds them to GameRegistry.
      */
-    public static void initializeRecipes()
-    {
+    public static void initializeRecipes() {
         /* Stack init */
 
         // Vanilla Blocks

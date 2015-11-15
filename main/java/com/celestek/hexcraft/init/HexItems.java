@@ -58,8 +58,7 @@ public class HexItems {
     /**
      * Initializes all items and adds them to GameRegistry.
      */
-    public static void initializeItems()
-    {
+    public static void initializeItems() {
         // Raw Materials
         itemHexoriumCrystalRed = new HexItemComponent("itemHexoriumCrystalRed");
         GameRegistry.registerItem(itemHexoriumCrystalRed, "itemHexoriumCrystalRed");
@@ -129,11 +128,11 @@ public class HexItems {
         GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
         
         // Tools
-        itemHexoriumManipulator = new ItemHexoriumManipulator("itemHexoriumManipulator");
-        GameRegistry.registerItem(itemHexoriumManipulator, "itemHexoriumManipulator");
-        itemMolecularTransposer = new ItemMolecularTransposer("itemMolecularTransposer");
-        GameRegistry.registerItem(itemMolecularTransposer, "itemMolecularTransposer");
-        itemHexoriumReinforcer = new ItemHexoriumReinforcer("itemHexoriumReinforcer");
-        GameRegistry.registerItem(itemHexoriumReinforcer, "itemHexoriumReinforcer");
+        itemHexoriumManipulator = new ItemHexoriumManipulator(ItemHexoriumManipulator.ID);
+        GameRegistry.registerItem(itemHexoriumManipulator, ItemHexoriumManipulator.ID);
+        itemMolecularTransposer = new ItemMolecularTransposer(ItemMolecularTransposer.ID);
+        GameRegistry.registerItem(itemMolecularTransposer, ItemMolecularTransposer.ID);
+        itemHexoriumReinforcer = new ItemHexoriumReinforcer(ItemHexoriumReinforcer.ID);
+        GameRegistry.registerItem(itemHexoriumReinforcer, ItemHexoriumReinforcer.ID);
     }
 }

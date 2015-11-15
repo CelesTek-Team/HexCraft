@@ -63,8 +63,7 @@ public class HexGenOre extends WorldGenerator {
             world.setBlock(x, y, z, block, blockmeta, 2);
 
         // Loop the count of additional blocks.
-        for(int i = 0; i < genSize - 1; i++)
-        {
+        for(int i = 0; i < genSize - 1; i++) {
             // Create a random direction, then perform a move. If the new block is air, move 2 blocks backwards.
             int genDirection = random.nextInt(6);
             switch (genDirection) {
