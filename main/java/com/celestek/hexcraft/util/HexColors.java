@@ -87,4 +87,8 @@ public class HexColors {
     // Opacity
 
     public static float opacitySlight = 0.75F;
+
+    // Multipliers
+
+    public static float darken = 0.15F;
 }

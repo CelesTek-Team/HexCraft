@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import org.apache.commons.codec.binary.Hex;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -21,9 +22,6 @@ import org.lwjgl.opengl.GL11;
  */
 
 public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
-
-    // Static Values
-    private static final float darkLamp = 0.15F;
 
     // Variables
     private int renderID;
@@ -82,23 +80,23 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         else
             meta = 2;
 
-        float darkCalc;
+        float darken;
         if (block instanceof BlockHexoriumLamp)
-            darkCalc = darkLamp;
+            darken = HexColors.darken;
         else
-            darkCalc = 1.0F;
+            darken = 1.0F;
 
         // Start drawing inner layer of the block.
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         // If special faces should be drawn, use those textures instead.
         if(block instanceof BlockOfHexoriumCrystal)
@@ -109,7 +107,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(8, 1));
@@ -119,7 +117,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(9, 1));
@@ -129,7 +127,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(10, 1));
@@ -139,7 +137,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         if(block instanceof BlockOfHexoriumCrystal)
             renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(11, 1));
@@ -208,11 +206,11 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
-            float darkCalc = 1.0F;
+            float darken = 1.0F;
             if ((block instanceof BlockHexoriumLamp && !HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
                     || (block instanceof BlockHexoriumLampInv && HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z)))
-                darkCalc = darkLamp;
-            tessellator.setColorOpaque_F(r * darkCalc, g * darkCalc, b * darkCalc);
+                darken = HexColors.darken;
+            tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
 
             // DOWN
             // Check if the block face should be visible. If yes draw it.

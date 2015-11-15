@@ -63,7 +63,6 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
 
     // Variables
     private int renderID;
-    private int renderBlockID;
     private int brightness;
     private float opacity;
     private float r = 1F;
@@ -81,8 +80,6 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
      * @param b Blue component of the monolith color.
      */
     public HexModelRendererMonolith(int renderID, int brightness, float opacity, float r, float g, float b, boolean renderStone) {
-        // Save the current HexCraft block ID.
-        this.renderBlockID = HexCraft.idCounter;
 
         // Load the constructor parameters.
         this.renderID = renderID;

@@ -6,6 +6,7 @@ import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -22,29 +23,26 @@ import org.lwjgl.opengl.GL11;
 
 public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandler {
 
-    // Brightness when light is OFF.
-    private static float darkLight = 0.15F;
+    // Model constants.
+    public static final float sbBack = 0.0F;
+    public static final float sbFron = 0.125F;
+    public static final float sbHori = 0.375F;
+    public static final float sbVert = 0.375F;
+    public static final float sbPixl = 0.0625F;
+
+    private static final float sbOffs = 0.001F;
 
     // Variables
     private int renderID;
     private int renderBlockID;
     private int brightness;
 
-    // Model constants.
-    public static float sbBack = 0.0F;
-    public static float sbFron = 0.125F;
-    public static float sbHori = 0.375F;
-    public static float sbVert = 0.375F;
-    public static float sbPixl = 0.0625F;
-    public static float sbOffs = 0.001F;
-
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
      * @param brightness Intensity of the monolith glow.
      */
-    public HexModelRendererSwitchButton(int renderID, int brightness)
-    {
+    public HexModelRendererSwitchButton(int renderID, int brightness) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -64,8 +62,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
      * Render the container block icon.
      */
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -116,28 +113,40 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
         // Render glow.
         if (block instanceof BlockHexoriumSwitch) {
             tessellator.startDrawingQuads();
-            tessellator.setColorOpaque_F(1, 0, 0);
-            tessellator.setBrightness(brightness);
 
+            // Set up brightness and color.
+            tessellator.setBrightness(brightness);
+            tessellator.setColorOpaque_F(1, 0, 0);
             tessellator.setNormal(0.0F, 0.0F, 1.0F);
+
+            // Draw glow.
             tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
             tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
 
+            // Set up color.
             if (block == HexBlocks.blockHexoriumSwitchRedGreen)
                 tessellator.setColorOpaque_F(0, 1, 0);
             else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
                 tessellator.setColorOpaque_F(0, 0, 1);
             else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
                 tessellator.setColorOpaque_F(1, 1, 1);
+
+            // Draw glow.
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
+
             tessellator.draw();
-        } else if (block instanceof BlockHexoriumButton) {
+        }
+        else if (block instanceof BlockHexoriumButton) {
             tessellator.startDrawingQuads();
+
+            // Set up brightness and color.
+            tessellator.setBrightness(brightness);
+            tessellator.setNormal(0.0F, 0.0F, 1.0F);
             if (block == HexBlocks.blockHexoriumButtonRed)
                 tessellator.setColorOpaque_F(1, 0, 0);
             else if (block == HexBlocks.blockHexoriumButtonGreen)
@@ -146,12 +155,13 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 tessellator.setColorOpaque_F(0, 0, 1);
             else if (block == HexBlocks.blockHexoriumButtonWhite)
                 tessellator.setColorOpaque_F(1, 1, 1);
-            tessellator.setBrightness(brightness);
-            tessellator.setNormal(0.0F, 0.0F, 1.0F);
+
+            // Draw glow.
             tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
             tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
             tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
+
             tessellator.draw();
         }
 
@@ -166,56 +176,50 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
      * Renders the block in world.
      */
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
-        // Get block meta and normalize it.
-        int meta = world.getBlockMetadata(x, y, z);
-        int meta1;
-        if (meta > 7)
-            meta1 = meta - 8;
-        else
-            meta1 = meta;
-
-        // Prepare the Tessellator.
-        Tessellator tessellator = Tessellator.instance;
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        int orientation = 0;
+        if (block instanceof BlockHexoriumButton)
+            orientation = HexUtils.getMetaBitTriInt(
+                    BlockHexoriumButton.META_ORIENTATION_0,
+                    BlockHexoriumButton.META_ORIENTATION_1,
+                    BlockHexoriumButton.META_ORIENTATION_2, world, x, y, z);
+        else if (block instanceof BlockHexoriumSwitch)
+            orientation = HexUtils.getMetaBitTriInt(
+                    BlockHexoriumSwitch.META_ORIENTATION_0,
+                    BlockHexoriumSwitch.META_ORIENTATION_1,
+                    BlockHexoriumSwitch.META_ORIENTATION_2, world, x, y, z);
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            // If Tessellator doesn't do anything, it will crash, so make a dummy quad.
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-            tessellator.addVertex(0, 0, 0);
-
             // Adjust the rendering bounds.
-            if (block instanceof BlockHexoriumButton && meta > 7) {
-                if (meta1 == 1)
+            if (block instanceof BlockHexoriumButton && HexUtils.getMetaBit(BlockHexoriumButton.META_STATE, world, x, y, z)) {
+                if (orientation == 1)
                     renderer.setRenderBounds(sbHori, sbBack, sbVert, 1 - sbHori, sbPixl, 1 - sbVert);
-                else if (meta1 == 2)
+                else if (orientation == 2)
                     renderer.setRenderBounds(sbHori, sbVert, 1 - sbPixl, 1 - sbHori, 1 - sbVert, 1 - sbBack);
-                else if (meta1 == 3)
+                else if (orientation == 3)
                     renderer.setRenderBounds(sbHori, sbVert, sbBack, 1 - sbHori, 1 - sbVert, sbPixl);
-                else if (meta1 == 4)
+                else if (orientation == 4)
                     renderer.setRenderBounds(1 - sbPixl, sbVert, sbHori, 1 - sbBack, 1 - sbVert, 1 - sbHori);
-                else if (meta1 == 5)
+                else if (orientation == 5)
                     renderer.setRenderBounds(sbBack, sbVert, sbHori, sbPixl, 1 - sbVert, 1 - sbHori);
                 else
                     renderer.setRenderBounds(sbHori, 1 - sbPixl, sbVert, 1 - sbHori, 1 - sbBack, 1 - sbVert);
             }
             else {
-                if (meta1 == 1)
+                if (orientation == 1)
                     renderer.setRenderBounds(sbHori, sbBack, sbVert, 1 - sbHori, sbFron, 1 - sbVert);
-                else if (meta1 == 7)
+                else if (orientation == 7)
                     renderer.setRenderBounds(sbVert, sbBack, sbHori, 1 - sbVert, sbFron, 1 - sbHori);
-                else if (meta1 == 2)
+                else if (orientation == 2)
                     renderer.setRenderBounds(sbHori, sbVert, 1 - sbFron, 1 - sbHori, 1 - sbVert, 1 - sbBack);
-                else if (meta1 == 3)
+                else if (orientation == 3)
                     renderer.setRenderBounds(sbHori, sbVert, sbBack, 1 - sbHori, 1 - sbVert, sbFron);
-                else if (meta1 == 4)
+                else if (orientation == 4)
                     renderer.setRenderBounds(1 - sbFron, sbVert, sbHori, 1 - sbBack, 1 - sbVert, 1 - sbHori);
-                else if (meta1 == 5)
+                else if (orientation == 5)
                     renderer.setRenderBounds(sbBack, sbVert, sbHori, sbFron, 1 - sbVert, 1 - sbHori);
-                else if (meta1 == 6)
+                else if (orientation == 6)
                     renderer.setRenderBounds(sbVert, 1 - sbFron, sbHori, 1 - sbVert, 1 - sbBack, 1 - sbHori);
                 else
                     renderer.setRenderBounds(sbHori, 1 - sbFron, sbVert, 1 - sbHori, 1 - sbBack, 1 - sbVert);
@@ -224,112 +228,131 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
             // Render the outer frame.
             renderer.renderStandardBlock(block, x, y, z);
         }
+        // If this is the second (transparent) render pass...
         else {
-            // Additional tessellator preparation.
+            // Prepare the Tessellator.
+            Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
 
-            // Set up brightness and icon.
-            tessellator.setBrightness(brightness);
+            // Prepare the icon.
             IIcon c = block.getIcon(6, 0);
+
+            // Set up brightness.
+            tessellator.setBrightness(brightness);
 
             // Draw switch glow.
             if (block instanceof BlockHexoriumSwitch) {
-                if (meta > 7)
-                    tessellator.setColorOpaque_F(darkLight, 0, 0);
-                else
-                    tessellator.setColorOpaque_F(1, 0, 0);
+                float darken1;
+                float darken2;
+                if (HexUtils.getMetaBit(BlockHexoriumSwitch.META_STATE, world, x, y, z)) {
+                    darken1 = HexColors.darken;
+                    darken2 = 1.0F;
+                }
+                else {
+                    darken1 = 1.0F;
+                    darken2 = HexColors.darken;
+                }
+                tessellator.setColorOpaque_F(darken1, 0, 0);
 
-                if (meta1 == 1) {
+                if (orientation == 1) {
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                } else if (meta1 == 7) {
+                }
+                else if (orientation == 7) {
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
+                }
+                else if (orientation == 2) {
                     tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
+                }
+                else if (orientation == 3) {
                     tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
+                }
+                else if (orientation == 4) {
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
+                }
+                else if (orientation == 5) {
                     tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, 1 - sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 6) {
+                }
+                else if (orientation == 6) {
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, sbHori, c.getInterpolatedU(6), c.getInterpolatedV(7));
-                } else {
+                }
+                else {
                     tessellator.addVertexWithUV(sbHori, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(6), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                 }
 
-                float color;
-                if (meta > 7)
-                    color = 1;
-                else
-                    color = darkLight;
-
                 if (block == HexBlocks.blockHexoriumSwitchRedGreen)
-                    tessellator.setColorOpaque_F(0, color, 0);
+                    tessellator.setColorOpaque_F(0, darken2, 0);
                 else if (block == HexBlocks.blockHexoriumSwitchRedBlue)
-                    tessellator.setColorOpaque_F(0, 0, color);
+                    tessellator.setColorOpaque_F(0, 0, darken2);
                 else if (block == HexBlocks.blockHexoriumSwitchRedWhite)
-                    tessellator.setColorOpaque_F(color, color, color);
+                    tessellator.setColorOpaque_F(darken2, darken2, darken2);
 
-                if (meta1 == 1) {
+                if (orientation == 1) {
                     tessellator.addVertexWithUV(1 - sbHori, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbFron + sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbFron + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 7) {
+                }
+                else if (orientation == 7) {
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbVert + sbPixl, sbFron + sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, sbFron + sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
+                }
+                else if (orientation == 2) {
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori, sbVert + sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori, 1 - sbVert - sbPixl, 1 - sbFron - sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
+                }
+                else if (orientation == 3) {
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori, sbVert + sbPixl, sbFron + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori, 1 - sbVert - sbPixl, sbFron + sbOffs, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
+                }
+                else if (orientation == 4) {
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, sbVert + sbPixl, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbFron - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
+                }
+                else if (orientation == 5) {
                     tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbFron + sbOffs, sbVert + sbPixl, sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbFron + sbOffs, 1 - sbVert - sbPixl, sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
-                } else if (meta1 == 6) {
+                }
+                else if (orientation == 6) {
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, 1 - sbHori, c.getInterpolatedU(10), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbVert + sbPixl, 1 - sbFron - sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbVert - sbPixl, 1 - sbFron - sbOffs, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else {
+                }
+                else {
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbFron - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori, 1 - sbFron - sbOffs, sbVert + sbPixl, c.getInterpolatedU(10), c.getInterpolatedV(9));
@@ -340,52 +363,56 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
             else if (block instanceof BlockHexoriumButton) {
 
                 float push;
-                float color;
-                
-                if (meta > 7) {
-                    color = darkLight;
+                float darken;
+                if (HexUtils.getMetaBit(BlockHexoriumButton.META_STATE, world, x, y, z)) {
+                    darken = HexColors.darken;
                     push = sbPixl;
                 }
                 else {
-                    color = 1;
+                    darken = 1.0F;
                     push = sbFron;
                 }
 
                 if (block == HexBlocks.blockHexoriumButtonRed)
-                    tessellator.setColorOpaque_F(color, 0, 0);
+                    tessellator.setColorOpaque_F(darken, 0, 0);
                 else if (block == HexBlocks.blockHexoriumButtonGreen)
-                    tessellator.setColorOpaque_F(0, color, 0);
+                    tessellator.setColorOpaque_F(0, darken, 0);
                 else if (block == HexBlocks.blockHexoriumButtonBlue)
-                    tessellator.setColorOpaque_F(0, 0, color);
+                    tessellator.setColorOpaque_F(0, 0, darken);
                 else if (block == HexBlocks.blockHexoriumButtonWhite)
-                    tessellator.setColorOpaque_F(color, color, color);
+                    tessellator.setColorOpaque_F(darken, darken, darken);
 
-                if (meta1 == 1) {
+                if (orientation == 1) {
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, push + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, push + sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, push + sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, push + sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 2) {
+                }
+                else if (orientation == 2) {
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, 1 - push - sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, 1 - push - sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
-                } else if (meta1 == 3) {
+                }
+                else if (orientation == 3) {
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - sbVert - sbPixl, push + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori + sbPixl, sbVert + sbPixl, push + sbOffs, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, sbVert + sbPixl, push + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - sbVert - sbPixl, push + sbOffs, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 4) {
+                }
+                else if (orientation == 4) {
                     tessellator.addVertexWithUV(1 - push - sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(1 - push - sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - push - sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - push - sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else if (meta1 == 5) {
+                }
+                else if (orientation == 5) {
                     tessellator.addVertexWithUV(push + sbOffs, 1 - sbVert - sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(push + sbOffs, sbVert + sbPixl, 1 - sbHori - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(push + sbOffs, sbVert + sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(push + sbOffs, 1 - sbVert - sbPixl, sbHori + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(7));
-                } else {
+                }
+                else {
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - push - sbOffs, 1 - sbVert - sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(7));
                     tessellator.addVertexWithUV(sbHori + sbPixl, 1 - push - sbOffs, sbVert + sbPixl, c.getInterpolatedU(7), c.getInterpolatedV(9));
                     tessellator.addVertexWithUV(1 - sbHori - sbPixl, 1 - push - sbOffs, sbVert + sbPixl, c.getInterpolatedU(9), c.getInterpolatedV(9));
@@ -403,8 +430,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
      * Retrieves Minecraft's internal ID of a certain block.
      */
     @Override
-    public int getRenderId()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
@@ -412,8 +438,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
      * Makes the block render 3D in invenotry.
      */
     @Override
-    public boolean shouldRender3DInInventory(int i)
-    {
+    public boolean shouldRender3DInInventory(int i) {
         return true;
     }
 }
