@@ -250,6 +250,8 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                 else
                     tessellator.setColorOpaque_F(r, g, b);
             }
+            else
+                tessellator.setColorOpaque_F(r, g, b);
 
             // DOWN
             // Check if the block face should be visible. If yes draw it.

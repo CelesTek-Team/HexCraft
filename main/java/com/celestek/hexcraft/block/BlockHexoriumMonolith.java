@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -32,8 +33,13 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class BlockHexoriumMonolith extends HexBlockModel {
 
-    // Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumMonolith";
+    // Block ID
+    public static final String ID = "blockHexoriumMonolith";
+
+    // Meta Bits
+    public static final int META_ORIENTATION_0 = 0;
+    public static final int META_ORIENTATION_1 = 1;
+    public static final int META_ORIENTATION_2 = 2;
 
     // Used later for texture identification.
     private String blockName;
@@ -74,8 +80,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
     /**
      * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
      */
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return true;
     }
 
@@ -130,6 +135,8 @@ public class BlockHexoriumMonolith extends HexBlockModel {
                 orientation = 0;
         }
 
+        orientation = HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, orientation, 0);
+
         // Return the new orientation as meta.
         return orientation;
     }
@@ -139,40 +146,40 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // Prepare block meta.
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
-        if(meta == 0) {
+        if(orientation == 0) {
             if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 1) {
+        else if(orientation == 1) {
             if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 2) {
+        else if(orientation == 2) {
             if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 3) {
+        else if(orientation == 3) {
             if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 4) {
+        else if(orientation == 4) {
             if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
-        else if(meta == 5) {
+        else if(orientation == 5) {
             if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
@@ -189,13 +196,11 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         fortune = 0;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
-            // Prepare a list of all enchants.
             NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
-            // If the list is not empty...
+
             if (list != null)
-                // Go through all entries.
+                // Go through all entries and if Fortune (id 35) is found, set the level value.
                 for (int i = 0; i < list.tagCount(); i++)
-                    // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
         }
@@ -251,13 +256,10 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
-        // Get block meta data.
-        int meta = world.getBlockMetadata(x, y, z);
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 
         // Return bounding box depending on meta.
-        switch (meta) {
+        switch (HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z)) {
             case 0: setBlockBounds(HexModelRendererMonolith.xA, 1 - HexModelRendererMonolith.yMax, HexModelRendererMonolith.zF,
                     HexModelRendererMonolith.xD, 1 - HexModelRendererMonolith.yMin, HexModelRendererMonolith.zB); break;
             case 1: setBlockBounds(HexModelRendererMonolith.xA, HexModelRendererMonolith.yMin, HexModelRendererMonolith.zF,
@@ -278,8 +280,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
      * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
      */
     @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
-    {
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
     }
@@ -301,7 +302,7 @@ public class BlockHexoriumMonolith extends HexBlockModel {
         // Load the monolith texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
         // Load the stone texture.
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + UNLOCALISEDNAME + "B");
+        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
     }
 
     /**

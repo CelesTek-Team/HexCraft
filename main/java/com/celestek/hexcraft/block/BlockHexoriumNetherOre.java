@@ -25,8 +25,8 @@ import java.util.Random;
 
 public class BlockHexoriumNetherOre extends HexBlock {
 
-    /// Set default block name.
-    public static String UNLOCALISEDNAME = "blockHexoriumNetherOre";
+    // Block ID
+    public static final String ID = "blockHexoriumNetherOre";
 
     /// Used later for texture identification.
     private String blockName;
@@ -66,8 +66,7 @@ public class BlockHexoriumNetherOre extends HexBlock {
     /**
      * Return true if a player with Silk Touch can harvest this block directly, and not its normal drops.
      */
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return true;
     }
 
@@ -80,13 +79,11 @@ public class BlockHexoriumNetherOre extends HexBlock {
         fortune = 0;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
-            // Prepare a list of all enchants.
             NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
-            // If the list is not empty...
+
             if (list != null)
-                // Go through all entries.
+                // Go through all entries and if Fortune (id 35) is found, set the level value.
                 for (int i = 0; i < list.tagCount(); i++)
-                    // If Fortune (id 35) is found, set the level value.
                     if (list.getCompoundTagAt(i).getByte("id") == 35)
                         fortune = list.getCompoundTagAt(i).getByte("lvl");
         }
