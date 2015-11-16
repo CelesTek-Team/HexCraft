@@ -17,7 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import org.apache.commons.codec.binary.Hex;
 
 import java.util.ArrayList;
 import java.util.Iterator;
