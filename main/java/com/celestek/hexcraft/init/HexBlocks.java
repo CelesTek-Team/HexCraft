@@ -37,7 +37,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 265;
+    public static int countBlocks = 283;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -188,6 +188,28 @@ public class HexBlocks {
     public static Block blockConcentricHexoriumBlockBlack;
 
     public static Block blockConcentricHexoriumBlockRainbow;
+
+    // Hexorium Machine Casing
+    public static Block blockHexoriumMachineCasingRed;
+    public static Block blockHexoriumMachineCasingOrange;
+    public static Block blockHexoriumMachineCasingYellow;
+    public static Block blockHexoriumMachineCasingLime;
+    public static Block blockHexoriumMachineCasingGreen;
+    public static Block blockHexoriumMachineCasingTurquoise;
+    public static Block blockHexoriumMachineCasingCyan;
+    public static Block blockHexoriumMachineCasingSkyBlue;
+    public static Block blockHexoriumMachineCasingBlue;
+    public static Block blockHexoriumMachineCasingPurple;
+    public static Block blockHexoriumMachineCasingMagenta;
+    public static Block blockHexoriumMachineCasingPink;
+
+    public static Block blockHexoriumMachineCasingWhite;
+    public static Block blockHexoriumMachineCasingLightGray;
+    public static Block blockHexoriumMachineCasingGray;
+    public static Block blockHexoriumMachineCasingDarkGray;
+    public static Block blockHexoriumMachineCasingBlack;
+
+    public static Block blockHexoriumMachineCasingRainbow;
 
     // Glowing Hexorium Glass
     public static Block blockGlowingHexoriumGlassRed;
@@ -659,6 +681,46 @@ public class HexBlocks {
 
         blockConcentricHexoriumBlockRainbow = new BlockConcentricHexoriumBlock(BlockConcentricHexoriumBlock.ID + "Rainbow");
         GameRegistry.registerBlock(blockConcentricHexoriumBlockRainbow, BlockConcentricHexoriumBlock.ID + "Rainbow");
+
+        // Hexorium Machine Casing
+        blockHexoriumMachineCasingRed = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Red");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingRed, BlockHexoriumMachineCasing.ID + "Red");
+        blockHexoriumMachineCasingOrange = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Orange");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingOrange, BlockHexoriumMachineCasing.ID + "Orange");
+        blockHexoriumMachineCasingYellow = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Yellow");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingYellow, BlockHexoriumMachineCasing.ID + "Yellow");
+        blockHexoriumMachineCasingLime = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Lime");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingLime, BlockHexoriumMachineCasing.ID + "Lime");
+        blockHexoriumMachineCasingGreen = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Green");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingGreen, BlockHexoriumMachineCasing.ID + "Green");
+        blockHexoriumMachineCasingTurquoise = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Turquoise");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingTurquoise, BlockHexoriumMachineCasing.ID + "Turquoise");
+        blockHexoriumMachineCasingCyan = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Cyan");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingCyan, BlockHexoriumMachineCasing.ID + "Cyan");
+        blockHexoriumMachineCasingSkyBlue = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "SkyBlue");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingSkyBlue, BlockHexoriumMachineCasing.ID + "SkyBlue");
+        blockHexoriumMachineCasingBlue = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Blue");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingBlue, BlockHexoriumMachineCasing.ID + "Blue");
+        blockHexoriumMachineCasingPurple = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Purple");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingPurple, BlockHexoriumMachineCasing.ID + "Purple");
+        blockHexoriumMachineCasingMagenta = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Magenta");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingMagenta, BlockHexoriumMachineCasing.ID + "Magenta");
+        blockHexoriumMachineCasingPink = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Pink");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingPink, BlockHexoriumMachineCasing.ID + "Pink");
+
+        blockHexoriumMachineCasingWhite = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "White");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingWhite, BlockHexoriumMachineCasing.ID + "White");
+        blockHexoriumMachineCasingLightGray = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "LightGray");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingLightGray, BlockHexoriumMachineCasing.ID + "LightGray");
+        blockHexoriumMachineCasingGray = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Gray");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingGray, BlockHexoriumMachineCasing.ID + "Gray");
+        blockHexoriumMachineCasingDarkGray = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "DarkGray");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingDarkGray, BlockHexoriumMachineCasing.ID + "DarkGray");
+        blockHexoriumMachineCasingBlack = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Black");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingBlack, BlockHexoriumMachineCasing.ID + "Black");
+
+        blockHexoriumMachineCasingRainbow = new BlockHexoriumMachineCasing(BlockHexoriumMachineCasing.ID + "Rainbow");
+        GameRegistry.registerBlock(blockHexoriumMachineCasingRainbow, BlockHexoriumMachineCasing.ID + "Rainbow");
 
         // Glowing Hexorium Glass
         blockGlowingHexoriumGlassRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Red");

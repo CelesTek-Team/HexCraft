@@ -13,7 +13,7 @@ import net.minecraft.util.IIcon;
  * @version 0.7.0
  */
 
-public class BlockEnergyNodeCore extends HexBlock {
+public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
 
     // Block ID
     public static final String ID = "blockEnergyNodeCore";

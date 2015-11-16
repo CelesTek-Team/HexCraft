@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.1.0
- * @since 2015-11-10
+ * @version 0.7.0
  */
 public interface ITileHexEnergyDrain {
     /**

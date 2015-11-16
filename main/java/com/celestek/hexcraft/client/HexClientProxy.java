@@ -437,6 +437,64 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                 HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
 
+        // Hexorium Machine Casing
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RED_R, HexColors.COLOR_RED_G, HexColors.COLOR_RED_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_ORANGE_R, HexColors.COLOR_ORANGE_G, HexColors.COLOR_ORANGE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_YELLOW_R, HexColors.COLOR_YELLOW_G, HexColors.COLOR_YELLOW_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_LIME_R, HexColors.COLOR_LIME_G, HexColors.COLOR_LIME_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_GREEN_R, HexColors.COLOR_GREEN_G, HexColors.COLOR_GREEN_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_TORQUOISE_R, HexColors.COLOR_TORQUOISE_G, HexColors.COLOR_TORQUOISE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_CYAN_R, HexColors.COLOR_CYAN_G, HexColors.COLOR_CYAN_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_SKY_BLUE_R, HexColors.COLOR_SKY_BLUE_G, HexColors.COLOR_SKY_BLUE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_BLUE_R, HexColors.COLOR_BLUE_G, HexColors.COLOR_BLUE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_PURPLE_R, HexColors.COLOR_PURPLE_G, HexColors.COLOR_PURPLE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_MAGENTA_R, HexColors.COLOR_MAGENTA_G, HexColors.COLOR_MAGENTA_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_PINK_R, HexColors.COLOR_PINK_G, HexColors.COLOR_PINK_B));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_LIGHT_GRAY_R, HexColors.COLOR_LIGHT_GRAY_G, HexColors.COLOR_LIGHT_GRAY_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_GRAY_R, HexColors.COLOR_GRAY_G, HexColors.COLOR_GRAY_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_DARK_GRAY_R, HexColors.COLOR_DARK_GRAY_G, HexColors.COLOR_DARK_GRAY_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_BLACK_R, HexColors.COLOR_BLACK_G, HexColors.COLOR_BLACK_B));
+
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+
         // Glowing Hexorium Glass
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
