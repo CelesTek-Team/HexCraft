@@ -27,7 +27,7 @@ public class BlockAdvancedRainbowCore extends HexBlock {
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.tabMachines);
+        this.setCreativeTab(HexCraft.tabComponents);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);

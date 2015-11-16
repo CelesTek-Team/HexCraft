@@ -37,7 +37,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static int countBlocks = 261;
+    public static int countBlocks = 265;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -333,6 +333,12 @@ public class HexBlocks {
     // Hexiroum Valve
     public static Block blockTankValve;
     public static Block blockTankRender;
+    
+    // Energy Node
+    public static Block blockEnergyNodeCoreT1;
+    public static Block blockEnergyNodeCoreT2;
+    public static Block blockEnergyNodeCoreT3;
+    public static Block blockEnergyNodeCoreT4;
 
     // Cables
     public static Block blockHexoriumCableRed;
@@ -919,6 +925,16 @@ public class HexBlocks {
             blockTankRender = new BlockTankRender(BlockTankRender.ID);
             GameRegistry.registerBlock(blockTankRender, BlockTankRender.ID);
         }
+        
+        // Energy Node
+        blockEnergyNodeCoreT1 = new BlockEnergyNodeCore(BlockEnergyNodeCore.ID + "T1");
+        GameRegistry.registerBlock(blockEnergyNodeCoreT1, BlockEnergyNodeCore.ID + "T1");
+        blockEnergyNodeCoreT2 = new BlockEnergyNodeCore(BlockEnergyNodeCore.ID + "T2");
+        GameRegistry.registerBlock(blockEnergyNodeCoreT2, BlockEnergyNodeCore.ID + "T2");
+        blockEnergyNodeCoreT3 = new BlockEnergyNodeCore(BlockEnergyNodeCore.ID + "T3");
+        GameRegistry.registerBlock(blockEnergyNodeCoreT3, BlockEnergyNodeCore.ID + "T3");
+        blockEnergyNodeCoreT4 = new BlockEnergyNodeCore(BlockEnergyNodeCore.ID + "T4");
+        GameRegistry.registerBlock(blockEnergyNodeCoreT4, BlockEnergyNodeCore.ID + "T4");
 
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.ID + "Red");

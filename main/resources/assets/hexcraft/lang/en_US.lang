@@ -288,6 +288,11 @@ tile.blockPersonalTeleportationPad.name=Personal Teleportation Pad
 
 tile.blockTankValve.name=Tank Valve
 
+tile.blockEnergyNodeCoreT1.name=Energy Node Core (Tier 1)
+tile.blockEnergyNodeCoreT2.name=Energy Node Core (Tier 2)
+tile.blockEnergyNodeCoreT3.name=Energy Node Core (Tier 3)
+tile.blockEnergyNodeCoreT4.name=Energy Node Core (Tier 4)
+
 
 tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
 tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)

@@ -13,21 +13,30 @@ import net.minecraft.util.IIcon;
  * @version 0.7.0
  */
 
-public class BlockHexoriumMachineBlock extends HexBlock {
+public class BlockEnergyNodeCore extends HexBlock {
 
     // Block ID
-    public static final String ID = "blockHexoriumMachineBlock";
+    public static final String ID = "blockEnergyNodeCore";
+
+    // Meta Bits
+    public static final int META_IS_PART = 1;
+
+    /// Used later for texture identification.
+    private String blockName;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public BlockHexoriumMachineBlock(String blockName) {
+    public BlockEnergyNodeCore(String blockName) {
         super(Material.iron);
+
+        // Load the constructor parameters.
+        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);
-        this.setCreativeTab(HexCraft.tabComponents);
+        this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
         this.setHardness(5F);
@@ -47,12 +56,11 @@ public class BlockHexoriumMachineBlock extends HexBlock {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[3];
+        icon = new IIcon[2];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineBottom");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "machineSide");
-        // Load the inner texture
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName);
+        // Load the inner texture.
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
     }
 
     /**
@@ -62,11 +70,9 @@ public class BlockHexoriumMachineBlock extends HexBlock {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         // Retrieve icon based on side.
-        if (side == 0)
+        if (side < 6)
             return icon[0];
-        else if (side > 0 && side < 6)
-            return icon[1];
         else
-            return icon[2];
+            return icon[1];
     }
 }

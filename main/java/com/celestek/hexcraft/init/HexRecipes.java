@@ -26,6 +26,7 @@ public class HexRecipes {
         ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
         ItemStack stackRedstoneTorch_1 = new ItemStack(Blocks.redstone_torch, 1);
+        ItemStack stackRedstoneBlock_1 = new ItemStack(Blocks.redstone_block, 1);
         ItemStack stackChest_1 = new ItemStack(Blocks.chest, 1);
 
         // Vanilla Items
@@ -274,7 +275,14 @@ public class HexRecipes {
 
         ItemStack stackPersonalTeleportationPad_1 = new ItemStack(HexBlocks.blockPersonalTeleportationPad, 1);
 
+        // Tank Valve
         ItemStack stackTankValve_1 = new ItemStack(HexBlocks.blockTankValve, 1);
+
+        // Energy Node
+        ItemStack stackEnergyNodeCoreT1_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT1, 1);
+        ItemStack stackEnergyNodeCoreT2_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT2, 1);
+        ItemStack stackEnergyNodeCoreT3_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT3, 1);
+        ItemStack stackEnergyNodeCoreT4_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT4, 1);
 
         // Cables
         ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.blockHexoriumCableRed, 2);
@@ -1853,6 +1861,7 @@ public class HexRecipes {
                     'E', stackMaterialInteractionPlane_1, 'F', stackIronIngot_1);
         }
 
+        // Tank Valve
         if (HexConfig.cfgTankEnable) {
             GameRegistry.addRecipe(stackTankValve_1,
                     "ECE",
@@ -1861,6 +1870,28 @@ public class HexRecipes {
                     'A', stackHexoriumMachineBlock_1, 'B', stackDigitalSmartpipe_1, 'C', stackMachineControlPanel_1, 'D', stackRainbowCore_1,
                     'E', stackIronIngot_1);
         }
+
+        // Energy Node
+        GameRegistry.addRecipe(stackEnergyNodeCoreT1_1,
+                "RBR",
+                "BAB",
+                "RBR",
+                'R', stackRedstoneBlock_1, 'A', stackAdvancedRainbowCore_1, 'B', stackHexoriumProcessor_1);
+        GameRegistry.addRecipe(stackEnergyNodeCoreT2_1,
+                "RBR",
+                "BAB",
+                "RBR",
+                'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT1_1, 'B', stackIronIngot_1);
+        GameRegistry.addRecipe(stackEnergyNodeCoreT3_1,
+                "RBR",
+                "BAB",
+                "RBR",
+                'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT2_1, 'B', stackGoldIngot_1);
+        GameRegistry.addRecipe(stackEnergyNodeCoreT4_1,
+                "RBR",
+                "BAB",
+                "RBR",
+                'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT3_1, 'B', stackDiamond_1);
 
         // Cables
         // Red

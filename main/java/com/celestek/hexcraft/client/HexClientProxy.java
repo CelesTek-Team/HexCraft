@@ -813,6 +813,20 @@ public class HexClientProxy extends HexCommonProxy {
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexMultiRendererTank(renderID[HexCraft.idCounter]));
 
+        // Energy Node
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+
         // Cables
         renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],

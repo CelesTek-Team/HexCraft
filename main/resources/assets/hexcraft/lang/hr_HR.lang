@@ -288,6 +288,11 @@ tile.blockPersonalTeleportationPad.name=Osobna Teleportacijska Ploča
 
 tile.blockTankValve.name=Ventil Tanka
 
+tile.blockEnergyNodeCoreT1.name=Jezgra Energetskog Čvorišta (1. Razina)
+tile.blockEnergyNodeCoreT2.name=Jezgra Energetskog Čvorišta (2. Razina)
+tile.blockEnergyNodeCoreT3.name=Jezgra Energetskog Čvorišta (3. Razina)
+tile.blockEnergyNodeCoreT4.name=Jezgra Energetskog Čvorišta (4. Razina)
+
 
 tile.blockHexoriumCableRed.name=Heksorijski Kabel (Crveni)
 tile.blockHexoriumCableOrange.name=Heksorijski Kabel (Narančasti)
