@@ -445,7 +445,7 @@ msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
 msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
 msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
 
-msg.tankIsPart.txt=[Hexorium Manipulator] Block is part of a Hexorium Tank.
+msg.tankIsPart.txt=[Hexorium Manipulator] Block is part of a structure.
 msg.tankValveRotationFail.txt=[Hexorium Manipulator] Cannot rotate when tank is formed.
 msg.tankFormSuccess.txt=[Hexorium Manipulator] Hexorium Tank successfully formed.
 msg.tankFormFail1.txt=[Hexorium Manipulator] Forming failed. Structure is invalid.

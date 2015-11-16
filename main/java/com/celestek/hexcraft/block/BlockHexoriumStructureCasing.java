@@ -3,6 +3,8 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.EnergyNodeAnalyzer;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -10,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -57,6 +60,22 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
         this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        if ((block instanceof BlockHexoriumStructureCasing || block instanceof BlockEnergyNodeCore || block instanceof IBlockHexEnergyPort)
+                && HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+
+            if (HexConfig.cfgEnergyNodeDebug)
+                System.out.println("[Energy Node Block] (" + x + ", " + y + ", " + z + "): Neighbour Energy Node block destroyed, analyzing!");
+
+            /* DO ANALYSIS */
+            EnergyNodeAnalyzer analyzer = new EnergyNodeAnalyzer();
+            analyzer.analyzeEnergyNode(world, x, y, z);
+        }
+
+        super.onNeighborBlockChange(world, x, y, z, block);
     }
 
     // Prepare the icons.

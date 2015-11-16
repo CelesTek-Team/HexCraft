@@ -448,6 +448,18 @@ public class ItemHexoriumManipulator extends Item {
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail2.txt"));
                 }
+
+                // Form Energy Node.
+                else if (block instanceof IBlockHexEnergyPort) {
+                    if (!HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+                        if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
+                        else
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormFail1.txt"));
+                    }
+                    else
+                        player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormFail2.txt"));
+                }
             }
         }
 

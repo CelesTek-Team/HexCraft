@@ -14,7 +14,7 @@ import net.minecraft.util.IIcon;
  * @version 0.7.0
  */
 
-public class BlockEnergyNodePortEU extends HexBlock implements IBlockHexNode {
+public class BlockEnergyNodePortEU extends HexBlock implements IBlockHexNode, IBlockHexEnergyPort {
 
     // Block ID
     public static final String ID = "blockEnergyNodePortEU";

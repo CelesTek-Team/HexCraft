@@ -38,6 +38,11 @@ public class HexConfig {
     public static boolean cfgTankVerboseDebug = false;
     public static boolean cfgTankRenderDebug = false;
 
+    // General - Energy Node
+    public static String categoryEnergyNode = "General - Energy Node";
+    public static boolean cfgEnergyNodeDebug = false;
+    public static boolean cfgEnergyNodeVerboseDebug = false;
+
     // Monolith Generation
     public static String categoryMonolith = "Monolith Generation";
     public static boolean cfgMonolithGeneralShouldGenerate = true;
@@ -349,6 +354,10 @@ public class HexConfig {
         cfgTankDebug = config.getBoolean("Hexorium Tank debugging", categoryTank, cfgTankDebug, "If set to true, will output the Hexorium Tank debugging to console.");
         cfgTankVerboseDebug = config.getBoolean("Hexorium Tank debugging (verbose)", categoryTank, cfgTankVerboseDebug, "If set to true, will output extremely detailed Hexorium Tank debugging info. Hexorium Tank debugging needs to be enabled.");
         cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity is located.");
+
+        // General - Energy Node
+        cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.");
+        cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node debugging needs to be enabled.");
 
 
         // Monolith Generation
