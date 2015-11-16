@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -13,28 +14,17 @@ import net.minecraft.util.IIcon;
  * @version 0.7.0
  */
 
-public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
+public class BlockEnergyNodePortHEX extends HexBlock implements IBlockHexNode {
 
     // Block ID
-    public static final String ID = "blockEnergyNodeCore";
-
-    // Meta Bits
-    public static final int META_IS_PART = 1;
-    public static final int META_STATE_0 = 2; // These are set on the ports, rather than this block.
-    public static final int META_STATE_1 = 3; // These are set on the ports, rather than this block.
-
-    /// Used later for texture identification.
-    private String blockName;
+    public static final String ID = "blockEnergyNodePortHEX";
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public BlockEnergyNodeCore(String blockName) {
+    public BlockEnergyNodePortHEX(String blockName) {
         super(Material.iron);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
 
         // Set all block parameters.
         this.setBlockName(blockName);
@@ -58,11 +48,12 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[2];
+        icon = new IIcon[5];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName);
-        // Load the inner texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+        for (int i = 0; i < 4; i++)
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
+        // Load the inner texture
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
     }
 
     /**
@@ -71,10 +62,19 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        // Retrieve icon based on side.
-        if (side < 6)
-            return icon[0];
+        // Retrieve icon based on meta.
+        if (side < 6) {
+            if (HexUtils.getBit(BlockEnergyNodeCore.META_IS_PART, meta)) {
+                int state = HexUtils.getBitBiInt(BlockEnergyNodeCore.META_STATE_0, BlockEnergyNodeCore.META_STATE_1, meta);
+                if (state < 3)
+                    return icon[1 + state];
+                else
+                    return icon[1];
+            }
+            else
+                return icon[0];
+        }
         else
-            return icon[1];
+            return icon[4];
     }
 }
