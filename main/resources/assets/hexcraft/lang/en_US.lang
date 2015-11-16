@@ -146,6 +146,28 @@ tile.blockConcentricHexoriumBlockBlack.name=Concentric Hexorium Block (Black)
 tile.blockConcentricHexoriumBlockRainbow.name=Concentric Hexorium Block (Rainbow)
 
 
+tile.blockHexoriumStructureCasingRed.name=Hexorium Structure Casing (Red)
+tile.blockHexoriumStructureCasingOrange.name=Hexorium Structure Casing (Orange)
+tile.blockHexoriumStructureCasingYellow.name=Hexorium Structure Casing (Yellow)
+tile.blockHexoriumStructureCasingLime.name=Hexorium Structure Casing (Lime)
+tile.blockHexoriumStructureCasingGreen.name=Hexorium Structure Casing (Green)
+tile.blockHexoriumStructureCasingTurquoise.name=Hexorium Structure Casing (Turquoise)
+tile.blockHexoriumStructureCasingCyan.name=Hexorium Structure Casing (Cyan)
+tile.blockHexoriumStructureCasingSkyBlue.name=Hexorium Structure Casing (Sky Blue)
+tile.blockHexoriumStructureCasingBlue.name=Hexorium Structure Casing (Blue)
+tile.blockHexoriumStructureCasingPurple.name=Hexorium Structure Casing (Purple)
+tile.blockHexoriumStructureCasingMagenta.name=Hexorium Structure Casing (Magenta)
+tile.blockHexoriumStructureCasingPink.name=Hexorium Structure Casing (Pink)
+
+tile.blockHexoriumStructureCasingWhite.name=Hexorium Structure Casing (White)
+tile.blockHexoriumStructureCasingLightGray.name=Hexorium Structure Casing (Light Gray)
+tile.blockHexoriumStructureCasingGray.name=Hexorium Structure Casing (Gray)
+tile.blockHexoriumStructureCasingDarkGray.name=Hexorium Structure Casing (Dark Gray)
+tile.blockHexoriumStructureCasingBlack.name=Hexorium Structure Casing (Black)
+
+tile.blockHexoriumStructureCasingRainbow.name=Hexorium Structure Casing (Rainbow)
+
+
 tile.blockGlowingHexoriumGlassRed.name=Glowing Hexorium Glass (Red)
 tile.blockGlowingHexoriumGlassOrange.name=Glowing Hexorium Glass (Orange)
 tile.blockGlowingHexoriumGlassYellow.name=Glowing Hexorium Glass (Yellow)

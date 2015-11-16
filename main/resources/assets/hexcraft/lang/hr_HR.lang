@@ -146,6 +146,28 @@ tile.blockConcentricHexoriumBlockBlack.name=Koncentričan Heksorijski Blok (Crni
 tile.blockConcentricHexoriumBlockRainbow.name=Koncentričan Heksorijski Blok (Dugine Boje)
 
 
+tile.blockHexoriumStructureCasingRed.name=Heksorijsko Strukturno Kućište (Crveno)
+tile.blockHexoriumStructureCasingOrange.name=Heksorijsko Strukturno Kućište (Narančasto)
+tile.blockHexoriumStructureCasingYellow.name=Heksorijsko Strukturno Kućište (Žuto)
+tile.blockHexoriumStructureCasingLime.name=Heksorijsko Strukturno Kućište (Limeta)
+tile.blockHexoriumStructureCasingGreen.name=Heksorijsko Strukturno Kućište (Zeleno)
+tile.blockHexoriumStructureCasingTurquoise.name=Heksorijsko Strukturno Kućište (Tirkizno)
+tile.blockHexoriumStructureCasingCyan.name=Heksorijsko Strukturno Kućište (Cijan)
+tile.blockHexoriumStructureCasingSkyBlue.name=Heksorijsko Strukturno Kućište (Nebesko Plavo)
+tile.blockHexoriumStructureCasingBlue.name=Heksorijsko Strukturno Kućište (Plavo)
+tile.blockHexoriumStructureCasingPurple.name=Heksorijsko Strukturno Kućište (Ljubičasto)
+tile.blockHexoriumStructureCasingMagenta.name=Heksorijsko Strukturno Kućište (Purpurnocrveno)
+tile.blockHexoriumStructureCasingPink.name=Heksorijsko Strukturno Kućište (Ružičasto)
+
+tile.blockHexoriumStructureCasingWhite.name=Heksorijsko Strukturno Kućište (Bijelo)
+tile.blockHexoriumStructureCasingLightGray.name=Heksorijsko Strukturno Kućište (Svijetlo Sivo)
+tile.blockHexoriumStructureCasingGray.name=Heksorijsko Strukturno Kućište (Sivo)
+tile.blockHexoriumStructureCasingDarkGray.name=Heksorijsko Strukturno Kućište (Tamno Sivo)
+tile.blockHexoriumStructureCasingBlack.name=Heksorijsko Strukturno Kućište (Crno)
+
+tile.blockHexoriumStructureCasingRainbow.name=Heksorijsko Strukturno Kućište (Dugine Boje)
+
+
 tile.blockGlowingHexoriumGlassRed.name=Svijetleće Heksorijsko Staklo (Crveno)
 tile.blockGlowingHexoriumGlassOrange.name=Svijetleće Heksorijsko Staklo (Narančasto)
 tile.blockGlowingHexoriumGlassYellow.name=Svijetleće Heksorijsko Staklo (Žuto)

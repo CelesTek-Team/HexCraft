@@ -156,6 +156,28 @@ public class HexRecipes {
 
         ItemStack stackConcentricHexoriumBlockRainbow_1 = new ItemStack(HexBlocks.blockConcentricHexoriumBlockRainbow, 1);
 
+        // Hexorium Structure Casing
+        ItemStack stackHexoriumStructureCasingRed_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingRed, 1);
+        ItemStack stackHexoriumStructureCasingOrange_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingOrange, 1);
+        ItemStack stackHexoriumStructureCasingYellow_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingYellow, 1);
+        ItemStack stackHexoriumStructureCasingLime_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingLime, 1);
+        ItemStack stackHexoriumStructureCasingGreen_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingGreen, 1);
+        ItemStack stackHexoriumStructureCasingTurquoise_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingTurquoise, 1);
+        ItemStack stackHexoriumStructureCasingCyan_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingCyan, 1);
+        ItemStack stackHexoriumStructureCasingSkyBlue_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingSkyBlue, 1);
+        ItemStack stackHexoriumStructureCasingBlue_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingBlue, 1);
+        ItemStack stackHexoriumStructureCasingPurple_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingPurple, 1);
+        ItemStack stackHexoriumStructureCasingMagenta_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingMagenta, 1);
+        ItemStack stackHexoriumStructureCasingPink_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingPink, 1);
+
+        ItemStack stackHexoriumStructureCasingWhite_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingWhite, 1);
+        ItemStack stackHexoriumStructureCasingLightGray_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingLightGray, 1);
+        ItemStack stackHexoriumStructureCasingGray_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingGray, 1);
+        ItemStack stackHexoriumStructureCasingDarkGray_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingDarkGray, 1);
+        ItemStack stackHexoriumStructureCasingBlack_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingBlack, 1);
+
+        ItemStack stackHexoriumStructureCasingRainbow_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingRainbow, 1);
+
         // Glowing Hexorium Glass
         ItemStack stackGlowingHexoriumGlassRed_1 = new ItemStack(HexBlocks.blockGlowingHexoriumGlassRed, 1);
         ItemStack stackGlowingHexoriumGlassOrange_1 = new ItemStack(HexBlocks.blockGlowingHexoriumGlassOrange, 1);
@@ -1180,6 +1202,101 @@ public class HexRecipes {
                 "AHA",
                 "AAA",
                 'H', stackEnergizedHexoriumRainbow_1, 'A', stackStone_1);
+
+
+        // Hexorium Structure Casing
+        GameRegistry.addRecipe(stackHexoriumStructureCasingRed_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRed_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingOrange_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumOrange_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingYellow_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumYellow_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingLime_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLime_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingGreen_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGreen_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingTurquoise_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumTurquoise_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingCyan_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumCyan_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingSkyBlue_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingBlue_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlue_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingPurple_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPurple_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingMagenta_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumMagenta_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingPink_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPink_1, 'A', stackIronIngot_1);
+
+        GameRegistry.addRecipe(stackHexoriumStructureCasingWhite_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumWhite_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingLightGray_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLightGray_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingGray_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGray_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingDarkGray_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumDarkGray_1, 'A', stackIronIngot_1);
+        GameRegistry.addRecipe(stackHexoriumStructureCasingBlack_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlack_1, 'A', stackIronIngot_1);
+
+        GameRegistry.addRecipe(stackHexoriumStructureCasingRainbow_1,
+                "RAR",
+                "AHA",
+                "RAR",
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRainbow_1, 'A', stackIronIngot_1);
 
         // Glowing Hexorium Glass
         // Red
