@@ -277,6 +277,7 @@ tile.blockHexoriumHatchRainbow.name=Hexorium Hatch (Rainbow)
 
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
+tile.blockAdvancedRainbowCore.name=Advanced Rainbow Core
 
 tile.blockHexoriumGenerator.name=Hexorium Generator
 tile.blockHexoriumFurnace.name=Hexorium Furnace

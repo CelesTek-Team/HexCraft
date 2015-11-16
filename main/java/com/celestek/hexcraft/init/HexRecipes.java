@@ -265,6 +265,7 @@ public class HexRecipes {
 
         // Machines
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
+        ItemStack stackAdvancedRainbowCore_1 = new ItemStack(HexBlocks.blockAdvancedRainbowCore, 1);
 
         ItemStack stackHexoriumGenerator_1 = new ItemStack(HexBlocks.blockHexoriumGenerator, 1);
         ItemStack stackHexoriumFurnace_1 = new ItemStack(HexBlocks.blockHexoriumFurnace, 1);
@@ -1816,6 +1817,11 @@ public class HexRecipes {
                 "RAR",
                 "CBC",
                 'R', stackRedstone_1, 'A', stackEnergizedHexoriumWhite_1, 'B', stackSpatialProjector_1, 'C', stackIronIngot_1);
+        GameRegistry.addRecipe(stackAdvancedRainbowCore_1,
+                "BRB",
+                "RAR",
+                "BRB",
+                'R', stackRedstone_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackGoldIngot_1);
 
         GameRegistry.addRecipe(stackHexoriumGenerator_1,
                 "EBE",

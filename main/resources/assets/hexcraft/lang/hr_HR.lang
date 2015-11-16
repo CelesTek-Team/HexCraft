@@ -277,6 +277,7 @@ tile.blockHexoriumHatchRainbow.name=Heksorijski Poklopac (Dugine Boje)
 
 
 tile.blockHexoriumMachineBlock.name=Heksorijski Strojni Blok
+tile.blockAdvancedRainbowCore.name=Napredna Dugina Jezgra
 
 tile.blockHexoriumGenerator.name=Heksorijski Generator
 tile.blockHexoriumFurnace.name=Heksorijska Peć
