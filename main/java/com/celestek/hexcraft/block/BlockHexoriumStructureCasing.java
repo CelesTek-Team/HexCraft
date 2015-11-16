@@ -65,7 +65,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof BlockHexoriumStructureCasing || block instanceof BlockEnergyNodeCore || block instanceof IBlockHexEnergyPort)
-                && HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+                && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgEnergyNodeDebug)
                 System.out.println("[Energy Node Block] (" + x + ", " + y + ", " + z + "): Neighbour Energy Node block destroyed, analyzing!");

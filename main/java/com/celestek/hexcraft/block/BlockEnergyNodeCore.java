@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,7 +22,6 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
     public static final String ID = "blockEnergyNodeCore";
 
     // Meta Bits
-    public static final int META_IS_PART = 1;
     public static final int META_STATE_0 = 2; // These are set on the ports, rather than this block.
     public static final int META_STATE_1 = 3; // These are set on the ports, rather than this block.
 
@@ -100,7 +100,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                 for (int i = y - 1; i <= y + 1; i++)
                     for (int j = x - 1; j <= x + 1; j++)
                         for (int k = z - 1; k <= z + 1; k++)
-                            HexUtils.setMetaBit(META_IS_PART, true, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
+                            HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, true, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
                 return true;
             }
 
@@ -114,7 +114,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
         for (int i = y - 1; i <= y + 1; i++)
             for (int j = x - 1; j <= x + 1; j++)
                 for (int k = z - 1; k <= z + 1; k++)
-                    HexUtils.setMetaBit(META_IS_PART, false, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
+                    HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, false, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
     }
 
     /**
@@ -137,7 +137,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                             || (i == y && k == z && (j == x + 1 || j == x - 1))
                             || (k == z && j == x && i == y))) {
                         System.out.println("Checking edge block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(META_IS_PART, world, j, i, k))
+                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else
                             if (!(world.getBlock(j, i, k) == block))
@@ -146,7 +146,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                     // Situation when the block is center.
                     else if (k == z && j == x && i == y) {
                         System.out.println("Checking middle block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(META_IS_PART, world, j, i, k))
+                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else
                             if (!(world.getBlock(j, i, k) instanceof BlockEnergyNodeCore))
@@ -155,7 +155,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                     // Situations when the block is one of the center faces.
                     else {
                         System.out.println("Checking face block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(META_IS_PART, world, j, i, k))
+                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else
                             if (!(world.getBlock(j, i, k) instanceof IBlockHexEnergyPort || world.getBlock(j, i, k) == block))

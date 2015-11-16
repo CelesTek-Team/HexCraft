@@ -190,7 +190,7 @@ public class TileTankValve extends TileFluidHandler {
         }
 
         if (checkMeta)
-            return blockType && !HexUtils.getMetaBit(BlockTankValve.META_IS_PART, worldObj, x, y, z) && rotation;
+            return blockType && !HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, x, y, z) && rotation;
         else
             return blockType && rotation;
     }
@@ -222,7 +222,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     private void setIsPart(int x, int y, int z, Dimension dimension, boolean isPart) {
 
-        HexUtils.setMetaBit(BlockTankValve.META_IS_PART, isPart, HexUtils.META_NOTIFY_UPDATE, worldObj, x, y, z);
+        HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, isPart, HexUtils.META_NOTIFY_UPDATE, worldObj, x, y, z);
 
         if (worldObj.getBlock(x, y, z) == HexBlocks.blockTankValve) {
             TileTankValve tileTankValve = (TileTankValve) worldObj.getTileEntity(x, y, z);

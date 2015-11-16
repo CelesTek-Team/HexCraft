@@ -71,7 +71,7 @@ public class TankAnalyzer {
         // Check if the current block is usable to build a tank.
         if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
             // Check if the current block is part of a tank.
-            if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this block has already been added to the blocks ArrayList.
                 if (!blocks.contains(new HexDevice(x, y, z, block)))
                     blocks.add(new HexDevice(x, y, z, block));
@@ -85,7 +85,7 @@ public class TankAnalyzer {
         // Check if the current block is a valve.
         else if (block == HexBlocks.blockTankValve) {
             // Check if the current valve is part of a tank.
-            if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this valve has already been added to the valves ArrayList.
                 if (!valves.contains(new HexDevice(x, y, z, block)))
                     valves.add(new HexDevice(x, y, z, block));

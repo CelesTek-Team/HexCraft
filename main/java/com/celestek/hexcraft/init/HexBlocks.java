@@ -21,6 +21,7 @@ public class HexBlocks {
     public static final int META_MACHINE_STATUS_0 = 2;
     public static final int META_MACHINE_STATUS_1 = 3;
     public static final int META_DECORATIVE_REINFORCED = 0;
+    public static final int META_STRUCTURE_IS_PART = 1;
 
     // Machine States
     public static final int MACHINE_STATE_READY = 0;

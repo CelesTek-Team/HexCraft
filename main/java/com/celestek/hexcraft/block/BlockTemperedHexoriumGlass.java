@@ -209,7 +209,7 @@ public class BlockTemperedHexoriumGlass extends Block {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
-                && HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+                && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgTankDebug)
                 System.out.println("[Tempered Hexorium Glass] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");

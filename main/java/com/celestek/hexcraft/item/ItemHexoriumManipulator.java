@@ -163,15 +163,15 @@ public class ItemHexoriumManipulator extends Item {
                     analyzePylonBase(world, x, y, z);
                 }
                 
-                // Check if block is part of tank.
-                else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
-                    if (HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
-                        player.addChatMessage(new ChatComponentTranslation("msg.tankIsPart.txt"));
+                // Check if block is part of structure.
+                else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block instanceof BlockEnergyNodeCore) {
+                    if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
+                        player.addChatMessage(new ChatComponentTranslation("msg.structureIsPart.txt"));
                 }
 
                 // Rotate Tank Valve.
                 else if (block == HexBlocks.blockTankValve) {
-                    if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z))
+                    if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
                         HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
@@ -429,7 +429,7 @@ public class ItemHexoriumManipulator extends Item {
 
                 // Form Hexorium Tank.
                 else if (block == HexBlocks.blockTankValve) {
-                    if (!HexUtils.getMetaBit(BlockTankValve.META_IS_PART, world, x, y, z)) {
+                    if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                         TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
                         if (tileTankValve != null) {
                             if (tileTankValve.setupMultiTank(side)) {
@@ -451,7 +451,7 @@ public class ItemHexoriumManipulator extends Item {
 
                 // Form Energy Node.
                 else if (block instanceof IBlockHexEnergyPort) {
-                    if (!HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+                    if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                         if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
                             player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
                         else

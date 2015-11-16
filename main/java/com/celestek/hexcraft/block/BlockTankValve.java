@@ -32,7 +32,6 @@ public class BlockTankValve extends HexBlockContainer {
     public static final String ID = "blockTankValve";
 
     // Meta Bits
-    public static final int META_IS_PART = 1; // Stored on both the valve and all decorative blocks that are part of the tank.
     public static final int META_ROTATION = 2;
 
     /**
@@ -98,7 +97,7 @@ public class BlockTankValve extends HexBlockContainer {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block == HexBlocks.blockTankValve)
-                && HexUtils.getMetaBit(META_IS_PART, world, x, y, z)) {
+                && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgTankDebug)
                 System.out.println("[Tank Valve] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");
@@ -147,7 +146,7 @@ public class BlockTankValve extends HexBlockContainer {
         // Prepare variables.
         int formed = 0;
         boolean rotation = HexUtils.getBit(META_ROTATION, meta);
-        if (HexUtils.getBit(META_IS_PART, meta))
+        if (HexUtils.getBit(HexBlocks.META_STRUCTURE_IS_PART, meta))
             formed = 1;
 
         // Retrieve icon based on side.

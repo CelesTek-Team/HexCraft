@@ -70,7 +70,7 @@ public class EnergyNodeAnalyzer {
         // Check if the current block is usable to build an Energy Node.
         if (block instanceof BlockHexoriumStructureCasing || block instanceof IBlockHexEnergyPort) {
             // Check if the current block is part of an Energy Node.
-            if (HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this block has already been added to the blocks ArrayList.
                 if (!blocks.contains(new HexDevice(x, y, z, block)))
                     blocks.add(new HexDevice(x, y, z, block));
@@ -84,7 +84,7 @@ public class EnergyNodeAnalyzer {
         // Check if the current block is a core.
         else if (block instanceof BlockEnergyNodeCore) {
             // Check if the current core is part of an Energy Node.
-            if (HexUtils.getMetaBit(BlockEnergyNodeCore.META_IS_PART, world, x, y, z)) {
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this core has already been added to the cores ArrayList.
                 if (!cores.contains(new HexDevice(x, y, z, block)))
                     cores.add(new HexDevice(x, y, z, block));
