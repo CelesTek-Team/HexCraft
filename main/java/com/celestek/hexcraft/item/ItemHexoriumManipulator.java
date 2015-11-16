@@ -467,11 +467,11 @@ public class ItemHexoriumManipulator extends Item {
                                 }
                             }
                             else
-                                player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail1.txt"));
+                                player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
                         }
                     }
                     else
-                        player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail2.txt"));
+                        player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail.txt"));
                 }
 
                 // Form Energy Node.
@@ -480,10 +480,8 @@ public class ItemHexoriumManipulator extends Item {
                         if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
                             player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
                         else
-                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormFail1.txt"));
+                            player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
                     }
-                    else
-                        player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormFail2.txt"));
                 }
             }
         }

@@ -446,11 +446,16 @@ msg.pressurePlateChange3.txt=[Heksorijski Upravljač] Mod promijenjen na: Stvore
 msg.pressurePlateChange4.txt=[Heksorijski Upravljač] Mod promijenjen na: Igrači
 
 msg.structureIsPart.txt=[Heksorijski Upravljač] Blok je dio strukture.
+msg.structureFormFail.txt=[Hexorium Manipulator] Stvaranje neuspješno. Struktura je netočna.
 
 msg.tankValveRotationFail.txt=[Heksorijski Upravljač] Nemoguće rotirati dok je tank stvoren.
 msg.tankFormSuccess.txt=[Hexorium Manipulator] Heksorijski Tank uspješno stvoren.
-msg.tankFormFail1.txt=[Hexorium Manipulator] Stvaranje neuspješno. Struktura je netočna.
-msg.tankFormFail2.txt=[Hexorium Manipulator] Tank je već stvoren.
+msg.tankFormFail.txt=[Hexorium Manipulator] Tank je već stvoren.
+
+msg.energyNodeFormSuccess.txt=[Hexorium Manipulator] Energetski Čvor uspješno stvoren.
+msg.energyNodeMode1.txt=[Hexorium Manipulator] Mod promijenjen na: Ulaz
+msg.energyNodeMode2.txt=[Hexorium Manipulator] Mod promijenjen na: Izlaz
+msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
 
 
 achievement.hexcraft.achMineHexOre=Svijetleći Potencijal

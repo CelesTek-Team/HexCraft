@@ -398,11 +398,12 @@ msg.pressurePlateChange2.txt=[Manipulador de Hexorium] Modo cambiado a: Entidade
 msg.pressurePlateChange3.txt=[Manipulador de Hexorium] Modo cambiado a: Monstruos
 msg.pressurePlateChange4.txt=[Manipulador de Hexorium] Modo cambiado a: Jugadores
 
-msg.tankIsPart.txt=[Manipulador de Hexorium] El bloque es parte de un Tanque de Hexorium.
+msg.structureIsPart.txt=[Manipulador de Hexorium] El bloque es parte de un Tanque de Hexorium.
+msg.structureFormFail1.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
+
 msg.tankValveRotationFail.txt=[Manipulador de Hexorium] No se puede rotar cuando el Tanque esta formado.
 msg.tankFormSuccess.txt=[Manipulador de Hexorium] Tanque de Hexorium formado satisfactoriamente.
-msg.tankFormFail1.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
-msg.tankFormFail2.txt=[Manipulador de Hexorium] El Tanque ya se ha formado.
+msg.tankFormFail.txt=[Manipulador de Hexorium] El Tanque ya se ha formado.
 
 
 achievement.hexcraft.achMineHexOre=Un potencial brillante
