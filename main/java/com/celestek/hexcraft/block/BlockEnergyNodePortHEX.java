@@ -66,7 +66,7 @@ public class BlockEnergyNodePortHEX extends HexBlock implements IBlockHexNode, I
         // Retrieve icon based on meta.
         if (side < 6) {
             if (HexUtils.getBit(HexBlocks.META_STRUCTURE_IS_PART, meta)) {
-                int state = HexUtils.getBitBiInt(BlockEnergyNodeCore.META_STATE_0, BlockEnergyNodeCore.META_STATE_1, meta);
+                int state = HexUtils.getBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, meta);
                 if (state < 3)
                     return icon[1 + state];
                 else

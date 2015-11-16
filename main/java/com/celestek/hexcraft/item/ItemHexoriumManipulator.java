@@ -176,6 +176,31 @@ public class ItemHexoriumManipulator extends Item {
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankValveRotationFail.txt"));
                 }
+
+                // Change Energy Node Port modes.
+                else if (block instanceof IBlockHexEnergyPort) {
+                    int mode = HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z);
+
+                    if (block == HexBlocks.blockEnergyNodePortHEX) {
+                        if (mode < 2)
+                            mode++;
+                        else
+                            mode = 0;
+                    }
+                    else {
+                        if (mode < 1)
+                            mode++;
+                        else
+                            mode = 0;
+                    }
+                    switch (mode) {
+                        case 0: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode1.txt")); break;
+                        case 1: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode2.txt")); break;
+                        case 2: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode3.txt")); break;
+                    }
+
+                    HexUtils.setMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, mode, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                }
             }
             
             // Fired on normal use.

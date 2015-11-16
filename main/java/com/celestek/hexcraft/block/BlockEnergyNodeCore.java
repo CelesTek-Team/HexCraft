@@ -22,8 +22,8 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
     public static final String ID = "blockEnergyNodeCore";
 
     // Meta Bits
-    public static final int META_STATE_0 = 2; // These are set on the ports, rather than this block.
-    public static final int META_STATE_1 = 3; // These are set on the ports, rather than this block.
+    public static final int META_MODE_0 = 2; // These are set on the ports, rather than this block.
+    public static final int META_MODE_1 = 3; // These are set on the ports, rather than this block.
 
     /// Used later for texture identification.
     private String blockName;
