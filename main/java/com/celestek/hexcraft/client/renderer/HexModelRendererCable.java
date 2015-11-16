@@ -1270,46 +1270,63 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             rotations[3] = -1;
 
         // Count sides.
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y - 1, z) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x, y - 1, z) ||
-                world.getBlock(x, y - 1, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
-                (world.getBlock(x, y - 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1))
+        Block blockTemp = world.getBlock(x, y - 1, z);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y - 1, z)))
             sides[0] = true;
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y + 1, z) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x, y + 1, z) ||
-                world.getBlock(x, y + 1, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
-                (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
-                world.getBlock(x, y + 1, z) == HexBlocks.blockPersonalTeleportationPad)
+
+        blockTemp = world.getBlock(x, y + 1, z);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
+                blockTemp == HexBlocks.blockPersonalTeleportationPad ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y + 1, z)))
             sides[1] = true;
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x - 1, y, z) ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
-                (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
-                rotations[0] == 3)
+
+        blockTemp = world.getBlock(x - 1, y, z);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
+                rotations[0] == 3 ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x - 1, y, z)))
             sides[2] = true;
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x + 1, y, z) ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
-                (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
-                rotations[1] == 1)
+
+        blockTemp = world.getBlock(x + 1, y, z);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp== HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
+                rotations[1] == 1 ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x + 1, y, z)))
             sides[3] = true;
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x, y, z - 1) ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
-                (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
-                rotations[2] == 0)
+
+        blockTemp = world.getBlock(x, y, z - 1);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
+                rotations[2] == 0 ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z - 1)))
             sides[4] = true;
-        if ((block == HexBlocks.blockHexoriumCableRainbow && world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable) ||
-                block == world.getBlock(x, y, z + 1) ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumCableRainbow ||
-                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
-                (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
-                rotations[3] == 2)
+
+        blockTemp = world.getBlock(x, y, z + 1);
+        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+                block == blockTemp ||
+                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
+                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
+                rotations[3] == 2 ||
+                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z + 1)))
             sides[5] = true;
 
         return sides;
