@@ -22,6 +22,7 @@ public class NetworkAnalyzer {
 
     private ArrayList<HexDevice> energySources;
     private ArrayList<HexDevice> energyDrains;
+    private ArrayList<HexDevice> energyPorts;
 
     private ArrayList<HexDevice> teleports;
 
@@ -81,6 +82,19 @@ public class NetworkAnalyzer {
             }
         };
 
+        energyPorts = new ArrayList<HexDevice>() {
+            @Override
+            public boolean contains(Object o) {
+                HexDevice energyPort = (HexDevice) o;
+                for (HexDevice entry : this) {
+                    if ((entry.x == energyPort.x) && (entry.y == energyPort.y) && (entry.z == energyPort.z) && (entry.block == energyPort.block)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+
         teleports = new ArrayList<HexDevice>() {
             @Override
             public boolean contains(Object o) {
@@ -122,7 +136,11 @@ public class NetworkAnalyzer {
                     // 1) The previous cable's color was Rainbow.
                     // 2) The current block's color is Rainbow.
                     // 3) The current block's color is same as previous.
-                    if (blockPrev == HexBlocks.blockHexoriumCableRainbow || block == HexBlocks.blockHexoriumCableRainbow || blockPrev == block || blockPrev instanceof BlockPylonBase)
+                    if (blockPrev == HexBlocks.blockHexoriumCableRainbow
+                            || block == HexBlocks.blockHexoriumCableRainbow
+                            || blockPrev == block
+                            || blockPrev instanceof BlockPylonBase
+                            || blockPrev == HexBlocks.blockEnergyNodePortHEX)
                         // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
                         cables.add(new HexDevice(x, y, z, block));
                     else
@@ -132,6 +150,77 @@ public class NetworkAnalyzer {
                 else
                     // If the cable is already in the cables ArrayList, exit recursion.
                     return;
+            }
+            // Check if the current block is an Energy Node Core.
+            else if (block instanceof BlockEnergyNodeCore) {
+                // Check if this core has already been added to the cables ArrayList.
+                if (!cables.contains(new HexDevice(x, y, z, block)))
+                    // Add the core to the cables ArrayList.
+                    cables.add(new HexDevice(x, y, z, block));
+                else
+                    // If the core is already in the cables ArrayList, exit recursion.
+                    return;
+            }
+            // Check if the current block is an Energy Node Port.
+            else if (block instanceof IBlockHexEnergyPort) {
+                boolean addPort = false;
+                boolean nextPort = false;
+                // If this is a HEX port, formed and non-tunnel...
+                if (block == HexBlocks.blockEnergyNodePortHEX
+                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) != 2) {
+                    addPort = true;
+                    nextPort = true;
+                }
+                // If this is a HEX port, formed, accessed from core and tunnel...
+                else if (block == HexBlocks.blockEnergyNodePortHEX
+                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                        && blockPrev instanceof BlockEnergyNodeCore
+                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2)
+                    addPort = true;
+
+                // If this is a HEX port, formed, accessed outside of core and tunnel...
+                else if (block == HexBlocks.blockEnergyNodePortHEX
+                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                        && !(blockPrev instanceof BlockEnergyNodeCore)
+                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2)
+                    //TODO: Use the tunnel linking.
+                    return;
+
+                // If this is a non-HEX port, formed and accessed from core
+                else if (!(block == HexBlocks.blockEnergyNodePortHEX)
+                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                        && blockPrev instanceof BlockEnergyNodeCore)
+                    addPort = true;
+
+                if (addPort) {
+                    // Check if this energy port has already been added to the energyPorts ArrayList.
+                    if (!energyPorts.contains(new HexDevice(x, y, z, block))) {
+                        // If it hasn't, add it.
+                        energyPorts.add(new HexDevice(x, y, z, block));
+                        // Analyze the next block.
+                        if (nextPort) {
+                            if (direction == 0)
+                                analyze(world, x, y - 1, z, block, 0);
+                            if (direction == 1)
+                                analyze(world, x, y + 1, z, block, 1);
+                            if (direction == 2)
+                                analyze(world, x, y, z - 1, block, 2);
+                            if (direction == 3)
+                                analyze(world, x, y, z + 1, block, 3);
+                            if (direction == 4)
+                                analyze(world, x - 1, y, z, block, 4);
+                            if (direction == 5)
+                                analyze(world, x + 1, y, z, block, 5);
+                        }
+                        // Exit recursion.
+                        return;
+                    }
+                    else
+                        // If the energy port is already in the energySources ArrayList, exit recursion.
+                        return;
+                }
+
             }
             // Check if the current block is an energy source.
             else if (block instanceof IBlockHexEnergySource) {
@@ -506,8 +595,7 @@ public class NetworkAnalyzer {
             addMachine(world, x, y, z);
 
         // Push the results to all found machines.
-        pushMachines(world);
-        pushTeleports(world);
+        push(world);
     }
 
     /**
@@ -533,8 +621,7 @@ public class NetworkAnalyzer {
             addTeleport(world, x, y, z);
 
         // Push the results to all found machines.
-        pushMachines(world);
-        pushTeleports(world);
+        push(world);
     }
 
     /**
@@ -548,8 +635,7 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushMachines(world);
-        pushTeleports(world);
+        push(world);
     }
 
     /**
@@ -563,15 +649,14 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         pylonize(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        pushMachines(world);
-        pushTeleports(world);
+        push(world);
     }
 
     /**
      * Pushes the results of scanning to sources and drains.
      * @param world The world that the network is in.
      */
-    private void pushMachines(World world) {
+    private void push(World world) {
 
         // Notify about pushing to sources.
         if (HexConfig.cfgGeneralNetworkDebug) {
@@ -594,13 +679,17 @@ public class NetworkAnalyzer {
             ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) world.getTileEntity(entry.x, entry.y, entry.z);
             energyDrain.setSources(energySources);
         }
-    }
 
-    /**
-     * Pushes the results of scanning to teleports.
-     * @param world The world that the network is in.
-     */
-    private void pushTeleports(World world) {
+        // Notify about pushing to ports.
+        if (HexConfig.cfgGeneralNetworkDebug)
+            System.out.println("[Network Analyzer] Pushing data to ports...");
+
+        // Go through all energyPorts ArrayList entries.
+        for (HexDevice entry : energyPorts) {
+            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
+            //ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) world.getTileEntity(entry.x, entry.y, entry.z);
+            //energyDrain.setSources(energySources);
+        }
 
         // Notify about pushing teleports.
         if (HexConfig.cfgGeneralNetworkDebug)
