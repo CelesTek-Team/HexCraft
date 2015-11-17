@@ -27,5 +27,7 @@ public class HexTileEntities {
             GameRegistry.registerTileEntity(TileTankValve.class, TileTankValve.ID);
             GameRegistry.registerTileEntity(TileTankRender.class, TileTankRender.ID);
         }
+
+        GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
     }
 }

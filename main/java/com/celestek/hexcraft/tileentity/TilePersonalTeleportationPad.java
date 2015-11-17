@@ -288,30 +288,30 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
     /**
      * Called by the NetworkAnalyzer class when exchanging data between teleports.
-     * @param incomingTeleports The ArrayList of teleports received.
+     * @param teleports The ArrayList of teleports received.
      */
-    public void setTeleports(ArrayList<HexDevice> incomingTeleports) {
+    public void setTeleports(ArrayList<HexDevice> teleports) {
 
-        if (incomingTeleports.size() != 0) {
-            teleports = incomingTeleports;
+        if (teleports.size() != 0) {
+            this.teleports = teleports;
 
             // If the teleport is already linked, analyze the incoming list and unlink if necessary.
-            if (linkedTeleport != null) {
+            if (this.linkedTeleport != null) {
                 boolean checkLink = false;
-                for (HexDevice entry : teleports)
-                    if (entry.x == linkedTeleport.x && entry.y == linkedTeleport.y && entry.z == linkedTeleport.z)
+                for (HexDevice entry : this.teleports)
+                    if (entry.x == this.linkedTeleport.x && entry.y == this.linkedTeleport.y && entry.z == this.linkedTeleport.z)
                         checkLink = true;
                 if (!checkLink)
-                    linkedTeleport = null;
+                    unlinkTeleport();
             }
         }
         else {
-            teleports = null;
-            linkedTeleport = null;
+            this.teleports = null;
+            unlinkTeleport();
         }
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug) {
-            if (teleports != null)
-                System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + teleports.size());
+            if (this.teleports != null)
+                System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + this.teleports.size());
             else
                 System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + 0);
         }
@@ -372,11 +372,10 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
      */
     public boolean checkConnectivity(int x, int y, int z) {
         // Return true if the teleport exists in the list.
-        if (worldObj.getBlock(x, y, z) == HexBlocks.blockPersonalTeleportationPad)
-            if (teleports != null)
-                for (HexDevice entry : teleports)
-                    if (entry.x == x && entry.y == y && entry.z == z)
-                        return true;
+        if (teleports != null)
+            for (HexDevice entry : teleports)
+                if (entry.x == x && entry.y == y && entry.z == z)
+                    return true;
 
         return false;
     }
@@ -401,9 +400,9 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
      * @return Boolean whether the linking was successful.
      */
     public boolean linkTeleport(int x, int y, int z) {
-        TilePersonalTeleportationPad tileEntity = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
+        TilePersonalTeleportationPad tilePersonalTeleportationPad = (TilePersonalTeleportationPad) worldObj.getTileEntity(x, y, z);
 
-        if (tileEntity != null) {
+        if (tilePersonalTeleportationPad != null) {
 
             // If the teleport is already linked, unlink it.
             if (linkedTeleport != null) {

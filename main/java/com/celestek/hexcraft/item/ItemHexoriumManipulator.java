@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
@@ -19,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -45,6 +47,11 @@ public class ItemHexoriumManipulator extends Item {
     private static final String NBT_PYLON_X = "pylon_x";
     private static final String NBT_PYLON_Y = "pylon_y";
     private static final String NBT_PYLON_Z = "pylon_z";
+
+    private static final String NBT_PORT_LINKING = "port_linking";
+    private static final String NBT_PORT_X = "port_x";
+    private static final String NBT_PORT_Y = "port_y";
+    private static final String NBT_PORT_Z = "port_z";
 
     /**
      * Constructor for the item.
@@ -200,6 +207,40 @@ public class ItemHexoriumManipulator extends Item {
                     }
 
                     HexUtils.setMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, mode, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+
+                    if (block == HexBlocks.blockEnergyNodePortHEX) {
+
+                        int xc = x;
+                        int yc = y;
+                        int zc = z;
+                        int xp = x;
+                        int yp = y;
+                        int zp = z;
+
+                        // Locate the Energy Node Core.
+                        switch (side) {
+                            case 0: yc++; yp--; break;
+                            case 1: yc--; yp++; break;
+                            case 2: zc++; zp--; break;
+                            case 3: zc--; zp++; break;
+                            case 4: xc++; xp--; break;
+                            case 5: xc--; xp++; break;
+                        }
+
+                        if (HexConfig.cfgGeneralNetworkDebug)
+                            System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port mode changed, analyzing!");
+
+                        if (mode == 2) {
+                            NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
+                            analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
+                            NetworkAnalyzer analyzerPort = new NetworkAnalyzer();
+                            analyzerPort.analyzeCable(world, xp, yp, zp, world.getBlock(xp, yp, zp));
+                        }
+                        else {
+                            NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
+                            analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
+                        }
+                    }
                 }
             }
             
@@ -218,6 +259,12 @@ public class ItemHexoriumManipulator extends Item {
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
                     }
+                    if (stack.stackTagCompound.getBoolean(NBT_PORT_LINKING)) {
+                        stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, false);
+                        stack.setItemDamage(0);
+                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkCancel.txt"));
+                    }
+
                     // If this is the first use, just save the pylon location.
                     if (!stack.stackTagCompound.getBoolean(NBT_PYLON_LINKING)) {
                         stack.stackTagCompound.setInteger(NBT_PYLON_X, x);
@@ -243,13 +290,13 @@ public class ItemHexoriumManipulator extends Item {
 
                                 // Check if pylons are within reach.
                                 if (len <= HexConfig.cfgGeneralPylonRange) {
-
                                     // Fetch tile entities of pylons.
-                                    TileEnergyPylon pylonA = (TileEnergyPylon) world.getTileEntity(x, y, z);
-                                    TileEnergyPylon pylonB = (TileEnergyPylon) world.getTileEntity(tx, ty, tz);
+                                    TileEntity teA = world.getTileEntity(x, y, z);
+                                    TileEntity teB = world.getTileEntity(tx, ty, tz);
 
-                                    // Make sure they are not null.
-                                    if (pylonA != null && pylonB != null) {
+                                    if (teA instanceof TileEnergyPylon && teB instanceof TileEnergyPylon) {
+                                        TileEnergyPylon pylonA = (TileEnergyPylon) teA;
+                                        TileEnergyPylon pylonB = (TileEnergyPylon) teB;
 
                                         // Check if the color combinations are okay.
                                         int monolithA = pylonA.getMonolith();
@@ -271,7 +318,7 @@ public class ItemHexoriumManipulator extends Item {
                                                 if (HexConfig.cfgGeneralNetworkDebug)
                                                     System.out.println("[Hexorium Manipulator]: Pylons linked, analyzing!");
 
-                                                /* DO ANALYSIS */
+                                            /* DO ANALYSIS */
                                                 // Prepare the network analyzer.
                                                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                                                 // Call the analysis.
@@ -320,6 +367,11 @@ public class ItemHexoriumManipulator extends Item {
                         stack.setItemDamage(0);
                         player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
                     }
+                    if (stack.stackTagCompound.getBoolean(NBT_PORT_LINKING)) {
+                        stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, false);
+                        stack.setItemDamage(0);
+                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkCancel.txt"));
+                    }
 
                     // If this is the first use, just save the teleport location.
                     if (!stack.stackTagCompound.getBoolean(NBT_TELEPORT_LINKING)) {
@@ -339,32 +391,42 @@ public class ItemHexoriumManipulator extends Item {
 
                         if (!(tx == x && ty == y && tz == z)) {
                             // Fetch tile entities of teleports.
-                            TilePersonalTeleportationPad teleportA = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
-                            TilePersonalTeleportationPad teleportB = (TilePersonalTeleportationPad) world.getTileEntity(tx, ty, tz);
+                            TileEntity teA = world.getTileEntity(x, y, z);
+                            TileEntity teB = world.getTileEntity(tx, ty, tz);
 
-                            if (!(teleportA.checkLinked(tx, ty, tz) && teleportB.checkLinked(x, y, z))) {
-                                if (teleportA.checkConnectivity(tx, ty, tz) && teleportB.checkConnectivity(x, y, z)) {
-                                    if (teleportA.linkTeleport(tx, ty, tz) && teleportB.linkTeleport(x, y, z)) {
-                                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkSuccess.txt"));
+                            if (teA instanceof TilePersonalTeleportationPad && teB instanceof TilePersonalTeleportationPad) {
+                                TilePersonalTeleportationPad teleportA = (TilePersonalTeleportationPad) teA;
+                                TilePersonalTeleportationPad teleportB = (TilePersonalTeleportationPad) teB;
 
-                                        // Grant player the achievement.
-                                        if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
-                                            EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
-                                                player.addStat(HexAchievements.achLinkTeleport, 1);
+                                if (!(teleportA.checkLinked(tx, ty, tz) && teleportB.checkLinked(x, y, z))) {
+                                    if (teleportA.checkConnectivity(tx, ty, tz) && teleportB.checkConnectivity(x, y, z)) {
+                                        if (teleportA.linkTeleport(tx, ty, tz) && teleportB.linkTeleport(x, y, z)) {
+                                            player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkSuccess.txt"));
+
+                                            // Grant player the achievement.
+                                            if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                                EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                                if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
+                                                    player.addStat(HexAchievements.achLinkTeleport, 1);
+                                            }
+                                        }
+                                        else {
+                                            player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
+                                            teleportA.unlinkTeleport();
+                                            teleportB.unlinkTeleport();
                                         }
                                     }
                                     else
-                                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
+                                        player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail2.txt"));
                                 }
-                                else
-                                    player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail2.txt"));
+                                else {
+                                    player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkBreak.txt"));
+                                    teleportA.unlinkTeleport();
+                                    teleportB.unlinkTeleport();
+                                }
                             }
-                            else {
-                                player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkBreak.txt"));
-                                teleportA.unlinkTeleport();
-                                teleportB.unlinkTeleport();
-                            }
+                            else
+                                player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkFail1.txt"));
 
                             stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                             stack.setItemDamage(0);
@@ -374,6 +436,112 @@ public class ItemHexoriumManipulator extends Item {
                             stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
                             stack.setItemDamage(0);
                         }
+                    }
+                }
+
+                // Form Energy Node and Link Ports.
+                else if (block instanceof IBlockHexEnergyPort) {
+
+                    // Link Ports.
+                    if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
+                        // Create a new tag compound for the manipulator if it doesn't exist.
+                        if (stack.stackTagCompound == null)
+                            stack.stackTagCompound = new NBTTagCompound();
+
+                        // Cancel linking.
+                        if (stack.stackTagCompound.getBoolean(NBT_PYLON_LINKING)) {
+                            stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
+                            stack.setItemDamage(0);
+                            player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
+                        }
+                        if (stack.stackTagCompound.getBoolean(NBT_TELEPORT_LINKING)) {
+                            stack.stackTagCompound.setBoolean(NBT_TELEPORT_LINKING, false);
+                            stack.setItemDamage(0);
+                            player.addChatMessage(new ChatComponentTranslation("msg.teleportLinkCancel.txt"));
+                        }
+
+                        // If this is the first use, just save the teleport location.
+                        if (!stack.stackTagCompound.getBoolean(NBT_PORT_LINKING)) {
+                            stack.stackTagCompound.setInteger(NBT_PORT_X, x);
+                            stack.stackTagCompound.setInteger(NBT_PORT_Y, y);
+                            stack.stackTagCompound.setInteger(NBT_PORT_Z, z);
+                            stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, true);
+                            stack.setItemDamage(1);
+                            player.addChatMessage(new ChatComponentTranslation("msg.portLinkStart.txt"));
+                        }
+                        // If this is the second use, perform linking.
+                        else {
+                            // Retrieve previous teleport.
+                            int tx = stack.stackTagCompound.getInteger(NBT_PORT_X);
+                            int ty = stack.stackTagCompound.getInteger(NBT_PORT_Y);
+                            int tz = stack.stackTagCompound.getInteger(NBT_PORT_Z);
+
+                            if (!(tx == x && ty == y && tz == z)) {
+                                // Fetch tile entities of teleports.
+                                TileEntity teA = world.getTileEntity(x, y, z);
+                                TileEntity teB = world.getTileEntity(tx, ty, tz);
+
+                                if (teA instanceof ITileHexEnergyPort && teB instanceof ITileHexEnergyPort) {
+                                    ITileHexEnergyPort portA = (ITileHexEnergyPort) teA;
+                                    ITileHexEnergyPort portB = (ITileHexEnergyPort) teB;
+
+                                    if (world.getBlock(x, y, z) == world.getBlock(tx, ty, tz)) {
+                                        if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                                                || HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tx, ty, tz)) {
+                                            if (!(portA.checkPortLinked(tx, ty, tz) && portB.checkPortLinked(x, y, z))) {
+                                                if (portA.checkPortConnectivity(tx, ty, tz) && portB.checkPortConnectivity(x, y, z)) {
+                                                    if (portA.linkPort(tx, ty, tz) && portB.linkPort(x, y, z)) {
+                                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkSuccess.txt"));
+
+                                                        //TODO: Add achievement.
+                                                        if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                                            EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
+                                                                player.addStat(HexAchievements.achLinkTeleport, 1);
+                                                        }
+                                                    }
+                                                    else {
+                                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail1.txt"));
+                                                        portA.unlinkPort();
+                                                        portB.unlinkPort();
+                                                    }
+                                                }
+                                                else
+                                                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail2.txt"));
+                                            }
+                                            else {
+                                                player.addChatMessage(new ChatComponentTranslation("msg.portLinkBreak.txt"));
+                                                portA.unlinkPort();
+                                                portB.unlinkPort();
+                                            }
+                                        }
+                                        else
+                                            player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail3.txt"));
+                                    }
+                                    else
+                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail4.txt"));
+
+                                }
+                                else
+                                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail1.txt"));
+
+                                stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, false);
+                                stack.setItemDamage(0);
+                            }
+                            else {
+                                player.addChatMessage(new ChatComponentTranslation("msg.portLinkCancel.txt"));
+                                stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, false);
+                                stack.setItemDamage(0);
+                            }
+                        }
+                    }
+
+                    // Form Energy Node.
+                    else {
+                        if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
+                        else
+                            player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
                     }
                 }
 
@@ -473,16 +641,6 @@ public class ItemHexoriumManipulator extends Item {
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail.txt"));
                 }
-
-                // Form Energy Node.
-                else if (block instanceof IBlockHexEnergyPort) {
-                    if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
-                        if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
-                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
-                        else
-                            player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
-                    }
-                }
             }
         }
 
@@ -509,6 +667,11 @@ public class ItemHexoriumManipulator extends Item {
                     stack.stackTagCompound.setBoolean(NBT_PYLON_LINKING, false);
                     stack.setItemDamage(0);
                     player.addChatMessage(new ChatComponentTranslation("msg.pylonLinkCancel.txt"));
+                }
+                if (stack.stackTagCompound.getBoolean(NBT_PORT_LINKING)) {
+                    stack.stackTagCompound.setBoolean(NBT_PORT_LINKING, false);
+                    stack.setItemDamage(0);
+                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkCancel.txt"));
                 }
             }
         }

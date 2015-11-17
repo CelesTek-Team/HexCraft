@@ -3,8 +3,10 @@ package com.celestek.hexcraft.util;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -146,8 +148,9 @@ public class EnergyNodeAnalyzer {
             if (HexConfig.cfgEnergyNodeDebug)
                 System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
 
-            if(!BlockEnergyNodeCore.checkEnergyNode(false, world, entry.x, entry.y, entry.z))
+            if(!BlockEnergyNodeCore.checkEnergyNode(false, world, entry.x, entry.y, entry.z)) {
                 BlockEnergyNodeCore.resetEnergyNode(world, entry.x, entry.y, entry.z);
+            }
         }
     }
 }

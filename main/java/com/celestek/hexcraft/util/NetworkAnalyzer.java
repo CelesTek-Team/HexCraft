@@ -5,6 +5,7 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.*;
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -220,6 +221,9 @@ public class NetworkAnalyzer {
                         // If the energy port is already in the energySources ArrayList, exit recursion.
                         return;
                 }
+                else
+                    // If there was no usable port, exit recursion.
+                    return;
 
             }
             // Check if the current block is an energy source.
@@ -687,8 +691,11 @@ public class NetworkAnalyzer {
         // Go through all energyPorts ArrayList entries.
         for (HexDevice entry : energyPorts) {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
-            //ITileHexEnergyDrain energyDrain = (ITileHexEnergyDrain) world.getTileEntity(entry.x, entry.y, entry.z);
-            //energyDrain.setSources(energySources);
+            TileEntity tileEntity = world.getTileEntity(entry.x, entry.y, entry.z);
+            if (tileEntity instanceof ITileHexEnergyPort) {
+                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
+                port.setPorts(energyPorts);
+            }
         }
 
         // Notify about pushing teleports.
