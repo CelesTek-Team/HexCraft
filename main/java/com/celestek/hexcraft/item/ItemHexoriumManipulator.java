@@ -485,41 +485,37 @@ public class ItemHexoriumManipulator extends Item {
                                     ITileHexEnergyPort portA = (ITileHexEnergyPort) teA;
                                     ITileHexEnergyPort portB = (ITileHexEnergyPort) teB;
 
-                                    if (world.getBlock(x, y, z) == world.getBlock(tx, ty, tz)) {
-                                        if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
-                                                || HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tx, ty, tz)) {
-                                            if (!(portA.checkPortLinked(tx, ty, tz) && portB.checkPortLinked(x, y, z))) {
-                                                if (portA.checkPortConnectivity(tx, ty, tz) && portB.checkPortConnectivity(x, y, z)) {
-                                                    if (portA.linkPort(tx, ty, tz) && portB.linkPort(x, y, z)) {
-                                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkSuccess.txt"));
+                                    if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
+                                            || HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tx, ty, tz)) {
+                                        if (!(portA.checkPortLinked(tx, ty, tz) && portB.checkPortLinked(x, y, z))) {
+                                            if (portA.checkPortConnectivity(tx, ty, tz) && portB.checkPortConnectivity(x, y, z)) {
+                                                if (portA.linkPort(tx, ty, tz) && portB.linkPort(x, y, z)) {
+                                                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkSuccess.txt"));
 
-                                                        //TODO: Add achievement.
-                                                        if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
-                                                            EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                                                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
-                                                                player.addStat(HexAchievements.achLinkTeleport, 1);
-                                                        }
-                                                    }
-                                                    else {
-                                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail1.txt"));
-                                                        portA.unlinkPort();
-                                                        portB.unlinkPort();
+                                                    //TODO: Add achievement.
+                                                    if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                                        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
+                                                            player.addStat(HexAchievements.achLinkTeleport, 1);
                                                     }
                                                 }
-                                                else
-                                                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail2.txt"));
+                                                else {
+                                                    player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail1.txt"));
+                                                    portA.unlinkPort();
+                                                    portB.unlinkPort();
+                                                }
                                             }
-                                            else {
-                                                player.addChatMessage(new ChatComponentTranslation("msg.portLinkBreak.txt"));
-                                                portA.unlinkPort();
-                                                portB.unlinkPort();
-                                            }
+                                            else
+                                                player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail2.txt"));
                                         }
-                                        else
-                                            player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail3.txt"));
+                                        else {
+                                            player.addChatMessage(new ChatComponentTranslation("msg.portLinkBreak.txt"));
+                                            portA.unlinkPort();
+                                            portB.unlinkPort();
+                                        }
                                     }
                                     else
-                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail4.txt"));
+                                        player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail3.txt"));
 
                                 }
                                 else

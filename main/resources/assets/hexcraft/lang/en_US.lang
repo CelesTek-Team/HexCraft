@@ -438,7 +438,6 @@ msg.portLinkBreak.txt=[Hexorium Manipulator] Energy Ports already linked. Breaki
 msg.portLinkFail1.txt=[Hexorium Manipulator] Linking failed. Energy Port no longer exists.
 msg.portLinkFail2.txt=[Hexorium Manipulator] Linking failed. Energy Port unreachable.
 msg.portLinkFail3.txt=[Hexorium Manipulator] Linking failed. Energy Node is not formed.
-msg.portLinkFail4.txt=[Hexorium Manipulator] Linking failed. Energy Ports are not same type.
 
 msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
 msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!

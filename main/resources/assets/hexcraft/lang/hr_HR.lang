@@ -415,8 +415,8 @@ hexcraft.container.empty=Prazno
 hexcraft.container.tankNotFormed=Tank nije stvoren.
 
 
-msg.pylonLinkCancel.txt=[Heksorijski Upravljač] Povezivanje stupova otkazano.
-msg.pylonLinkStart.txt=[Heksorijski Upravljač] Povezivanje stupa...
+msg.pylonLinkCancel.txt=[Heksorijski Upravljač] Povezivanje Stupova otkazano.
+msg.pylonLinkStart.txt=[Heksorijski Upravljač] Povezivanje Stupa...
 msg.pylonLinkSuccess.txt=[Heksorijski Upravljač] Stupovi uspješno povezani.
 msg.pylonLinkBreak.txt=[Heksorijski Upravljač] Stupovi već povezani. Uništavanje veze.
 msg.pylonLinkFail1.txt=[Heksorijski Upravljač] Povezivanje neuspješno. Neodgovarajuća boja.
@@ -430,6 +430,14 @@ msg.teleportLinkSuccess.txt=[Heksorijski Upravljač] Teleporti uspješno povezan
 msg.teleportLinkBreak.txt=[Heksorijski Upravljač] Teleporti već povezani. Uništavanje veze.
 msg.teleportLinkFail1.txt=[Heksorijski Upravljač] Povezivanje neuspješno. Teleport više ne postoji.
 msg.teleportLinkFail2.txt=[Heksorijski Upravljač] Povezivanje neuspješno. Teleport nedostupan.
+
+msg.portLinkCancel.txt=[Hexorium Manipulator] Povezivanje Energetskih Priključaka otkazano.
+msg.portLinkStart.txt=[Hexorium Manipulator] Povezivanje Energetskog Priključka...
+msg.portLinkSuccess.txt=[Hexorium Manipulator] Energetski Priključci uspješno povezani.
+msg.portLinkBreak.txt=[Hexorium Manipulator] Energetski Priključci već povezani. Uništavanje veze.
+msg.portLinkFail1.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Priključak više ne postoji.
+msg.portLinkFail2.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Priključak nedostupan.
+msg.portLinkFail3.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Čvor nije stvoren.
 
 msg.teleportProcess1.txt=[Osobna Teleportacijska Ploča] Teleportacija za 4 sekunde...
 msg.teleportProcess2.txt=[Osobna Teleportacijska Ploča] Teleportacija!
