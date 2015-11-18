@@ -3,7 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.tileentity.TileEnergyNodePortHEX;
-import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
+import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -61,12 +61,12 @@ public class BlockEnergyNodePortHEX extends HexBlockContainer implements IBlockH
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
-        icon = new IIcon[5];
+        icon = new IIcon[6];
         // Load the outer textures.
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
             icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
         // Load the inner texture
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
+        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
     }
 
     /**
@@ -78,8 +78,8 @@ public class BlockEnergyNodePortHEX extends HexBlockContainer implements IBlockH
         // Retrieve icon based on meta.
         if (side < 6) {
             if (HexUtils.getBit(HexBlocks.META_STRUCTURE_IS_PART, meta)) {
-                int state = HexUtils.getBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, meta);
-                if (state < 3)
+                int state = HexUtils.getBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, meta);
+                if (state < 4)
                     return icon[1 + state];
                 else
                     return icon[1];
@@ -88,6 +88,6 @@ public class BlockEnergyNodePortHEX extends HexBlockContainer implements IBlockH
                 return icon[0];
         }
         else
-            return icon[4];
+            return icon[5];
     }
 }

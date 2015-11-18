@@ -9,6 +9,7 @@ import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.relauncher.Side;
@@ -186,27 +187,32 @@ public class ItemHexoriumManipulator extends Item {
 
                 // Change Energy Node Port modes.
                 else if (block instanceof IBlockHexEnergyPort) {
-                    int mode = HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z);
+                    int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z);
 
                     if (block == HexBlocks.blockEnergyNodePortHEX) {
-                        if (mode < 2)
+                        if (mode < HexEnergyNode.PORT_MODE_TUNNEL)
                             mode++;
                         else
-                            mode = 0;
+                            mode = HexEnergyNode.PORT_MODE_INPUT;
                     }
                     else {
-                        if (mode < 1)
+                        if (mode < HexEnergyNode.PORT_MODE_OUTPUT)
                             mode++;
                         else
-                            mode = 0;
+                            mode = HexEnergyNode.PORT_MODE_INPUT;
                     }
                     switch (mode) {
-                        case 0: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode1.txt")); break;
-                        case 1: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode2.txt")); break;
-                        case 2: player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode3.txt")); break;
+                        case HexEnergyNode.PORT_MODE_INPUT:
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode1.txt")); break;
+                        case HexEnergyNode.PORT_MODE_OUTPUT:
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode2.txt")); break;
+                        case HexEnergyNode.PORT_MODE_INTERFACE:
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode3.txt")); break;
+                        case HexEnergyNode.PORT_MODE_TUNNEL:
+                            player.addChatMessage(new ChatComponentTranslation("msg.energyNodeMode4.txt")); break;
                     }
 
-                    HexUtils.setMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, mode, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                    HexUtils.setMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, mode, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     if (block == HexBlocks.blockEnergyNodePortHEX) {
 
@@ -231,7 +237,7 @@ public class ItemHexoriumManipulator extends Item {
                             System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port mode changed, analyzing!");
 
                         /* DO ANALYSIS */
-                        if (mode == 2) {
+                        if (mode != HexEnergyNode.PORT_MODE_INTERFACE) {
                             NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
                             analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
                             NetworkAnalyzer analyzerPort = new NetworkAnalyzer();
@@ -520,22 +526,20 @@ public class ItemHexoriumManipulator extends Item {
                                                     if (HexConfig.cfgGeneralNetworkDebug)
                                                         System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port linked, analyzing!");
 
-                                                    /* DO ANALYSIS */
-                                                    if (HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2) {
+                                                    if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z)
+                                                            == HexEnergyNode.PORT_MODE_TUNNEL) {
+
+                                                        /* DO ANALYSIS */
                                                         NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
                                                         analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
                                                         NetworkAnalyzer analyzerPort = new NetworkAnalyzer();
                                                         analyzerPort.analyzeCable(world, xp, yp, zp, world.getBlock(xp, yp, zp));
                                                     }
-                                                    else {
-                                                        NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
-                                                        analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
-                                                    }
                                                 }
                                                 else {
                                                     player.addChatMessage(new ChatComponentTranslation("msg.portLinkFail1.txt"));
-                                                    portA.unlinkPort();
-                                                    portB.unlinkPort();
+                                                    portA.breakPortLink();
+                                                    portB.breakPortLink();
                                                 }
                                             }
                                             else
@@ -543,8 +547,8 @@ public class ItemHexoriumManipulator extends Item {
                                         }
                                         else {
                                             player.addChatMessage(new ChatComponentTranslation("msg.portLinkBreak.txt"));
-                                            portA.unlinkPort();
-                                            portB.unlinkPort();
+                                            portA.breakPortLink();
+                                            portB.breakPortLink();
                                         }
                                     }
                                     else
@@ -567,7 +571,7 @@ public class ItemHexoriumManipulator extends Item {
 
                     // Form Energy Node.
                     else {
-                        if (BlockEnergyNodeCore.setupEnergyNode(side, world, x, y, z))
+                        if (HexEnergyNode.setupEnergyNode(side, world, x, y, z))
                             player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
                         else
                             player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));

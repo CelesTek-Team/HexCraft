@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -66,7 +67,7 @@ public class BlockEnergyNodePortEU extends HexBlock implements IBlockHexNode, IB
         // Retrieve icon based on meta.
         if (side < 6) {
             if (HexUtils.getBit(HexBlocks.META_STRUCTURE_IS_PART, meta)) {
-                int state = HexUtils.getBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, meta);
+                int state = HexUtils.getBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, meta);
                 if (state < 2)
                     return icon[1 + state];
                 else

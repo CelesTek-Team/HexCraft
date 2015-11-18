@@ -463,7 +463,8 @@ msg.tankFormFail.txt=[Hexorium Manipulator] Tank je već stvoren.
 msg.energyNodeFormSuccess.txt=[Hexorium Manipulator] Energetski Čvor uspješno stvoren.
 msg.energyNodeMode1.txt=[Hexorium Manipulator] Mod promijenjen na: Ulaz
 msg.energyNodeMode2.txt=[Hexorium Manipulator] Mod promijenjen na: Izlaz
-msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
+msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Povezivanje
+msg.energyNodeMode4.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
 
 
 achievement.hexcraft.achMineHexOre=Svijetleći Potencijal

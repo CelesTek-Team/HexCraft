@@ -463,7 +463,8 @@ msg.tankFormFail.txt=[Hexorium Manipulator] Tank is already formed.
 msg.energyNodeFormSuccess.txt=[Hexorium Manipulator] Energy Node successfully formed.
 msg.energyNodeMode1.txt=[Hexorium Manipulator] Mode changed to: Input
 msg.energyNodeMode2.txt=[Hexorium Manipulator] Mode changed to: Output
-msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Tunnel
+msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
+msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
 
 
 achievement.hexcraft.achMineHexOre=A Glowing Potential

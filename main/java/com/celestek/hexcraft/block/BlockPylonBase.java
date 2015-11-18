@@ -100,10 +100,11 @@ public class BlockPylonBase extends Block {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 
         // Check if the changed block belongs to the energy system.
-        if (block instanceof BlockHexoriumCable ||
-                block instanceof BlockPylonBase ||
-                block instanceof IBlockHexEnergySource ||
-                block instanceof IBlockHexEnergyDrain) {
+        if (block instanceof BlockHexoriumCable
+                || block instanceof BlockPylonBase
+                || block instanceof IBlockHexEnergySource
+                || block instanceof IBlockHexEnergyDrain
+                || block instanceof BlockEnergyNodePortHEX) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
                 System.out.println("[Pylon Base] (" + x + ", " + y + ", " + z + "): Neighbour cable or machine destroyed, analyzing!");

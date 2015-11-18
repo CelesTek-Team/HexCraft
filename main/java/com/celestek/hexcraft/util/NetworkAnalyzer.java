@@ -143,6 +143,7 @@ public class NetworkAnalyzer {
 
         // Check if the current block is not a pylon base.
         if (!(block instanceof BlockPylonBase)) {
+
             // Check if the current block is a cable.
             if (block instanceof BlockHexoriumCable) {
                 // Check if this cable has already been added to the cables ArrayList.
@@ -166,6 +167,7 @@ public class NetworkAnalyzer {
                     // If the cable is already in the cables ArrayList, exit recursion.
                     return;
             }
+
             // Check if the current block is an Energy Node Core.
             else if (block instanceof BlockEnergyNodeCore) {
                 // Check if this core has already been added to the cables ArrayList.
@@ -176,41 +178,53 @@ public class NetworkAnalyzer {
                     // If the core is already in the cables ArrayList, exit recursion.
                     return;
             }
+
             // Check if the current block is an Energy Node Port.
             else if (block instanceof IBlockHexEnergyPort) {
+
+                // Get variables.
                 boolean addPort = false;
                 boolean nextPort = false;
-                // If this is a HEX port, formed and non-tunnel...
-                if (block == HexBlocks.blockEnergyNodePortHEX
-                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) != 2) {
+                boolean isPart = HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z);
+                boolean prevCore = blockPrev instanceof BlockEnergyNodeCore;
+                int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z);
+
+                // If this is a HEX port, formed and interface
+                if (block == HexBlocks.blockEnergyNodePortHEX && isPart
+                        && mode == HexEnergyNode.PORT_MODE_INTERFACE) {
                     addPort = true;
                     nextPort = true;
+                }
 
+                // If this is a HEX port, formed, accessed from core and input, output or tunnel
+                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && prevCore
+                        && (mode == HexEnergyNode.PORT_MODE_INPUT || mode == HexEnergyNode.PORT_MODE_OUTPUT || mode == HexEnergyNode.PORT_MODE_TUNNEL))
+                    addPort = true;
+
+                // If this is a non-HEX port, formed and accessed from core
+                else if (!(block == HexBlocks.blockEnergyNodePortHEX) && isPart && prevCore)
+                    addPort = true;
+
+                // If this is a HEX port, formed, accessed outside of core and input or output
+                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                        && (mode == HexEnergyNode.PORT_MODE_INPUT || mode == HexEnergyNode.PORT_MODE_OUTPUT)) {
                     if (!energyDrains.contains(new HexDevice(x, y, z, block)))
                         energyDrains.add(new HexDevice(x, y, z, block));
                     if (!energySources.contains(new HexDevice(x, y, z, block)))
                         energySources.add(new HexDevice(x, y, z, block));
+                    return;
                 }
-                // If this is a HEX port, formed, accessed from core and tunnel...
-                else if (block == HexBlocks.blockEnergyNodePortHEX
-                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
-                        && blockPrev instanceof BlockEnergyNodeCore
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2)
-                    addPort = true;
 
-                // If this is a HEX port, formed, accessed outside of core and tunnel...
-                else if (block == HexBlocks.blockEnergyNodePortHEX
-                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
-                        && !(blockPrev instanceof BlockEnergyNodeCore)
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2) {
+                // If this is a HEX port, formed, accessed outside of core and tunnel
+                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                        && mode == HexEnergyNode.PORT_MODE_TUNNEL) {
                     TileEnergyNodePortHEX tileEnergyNodePortHEX = (TileEnergyNodePortHEX) world.getTileEntity(x, y, z);
-
                     HexDevice tunnel = tileEnergyNodePortHEX.getTunnel();
                     if (tunnel != null)
                         if (block == HexBlocks.blockEnergyNodePortHEX
                                 && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tunnel.x, tunnel.y, tunnel.z)
-                                && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, tunnel.x, tunnel.y, tunnel.z) == 2) {
+                                && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, tunnel.x, tunnel.y, tunnel.z)
+                                == HexEnergyNode.PORT_MODE_TUNNEL)
                             // Check if this energy port has already been added to the energyPorts ArrayList.
                             if (!energyPortsTunnel.contains(new HexDevice(x, y, z, block))) {
                                 // If it hasn't, add it.
@@ -229,48 +243,36 @@ public class NetworkAnalyzer {
                                 else if (world.getBlock(tunnel.x, tunnel.y, tunnel.z - 1) instanceof BlockEnergyNodeCore)
                                     analyze(world, tunnel.x, tunnel.y, tunnel.z + 1, world.getBlock(tunnel.x, tunnel.y, tunnel.z + 1), -1);
                             }
-                        }
-
                     return;
                 }
-                // If this is a non-HEX port, formed and accessed from core
-                else if (!(block == HexBlocks.blockEnergyNodePortHEX)
-                        && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
-                        && blockPrev instanceof BlockEnergyNodeCore)
-                    addPort = true;
 
-                if (addPort) {
+                // Add port to the list.
+                if (addPort)
                     // Check if this energy port has already been added to the energyPorts ArrayList.
-                    if (!energyPorts.contains(new HexDevice(x, y, z, block))) {
+                    if (!energyPorts.contains(new HexDevice(x, y, z, block)))
                         // If it hasn't, add it.
                         energyPorts.add(new HexDevice(x, y, z, block));
-                        // Analyze the next block.
-                        if (nextPort) {
-                            if (direction == 0)
-                                analyze(world, x, y - 1, z, block, 0);
-                            if (direction == 1)
-                                analyze(world, x, y + 1, z, block, 1);
-                            if (direction == 2)
-                                analyze(world, x, y, z - 1, block, 2);
-                            if (direction == 3)
-                                analyze(world, x, y, z + 1, block, 3);
-                            if (direction == 4)
-                                analyze(world, x - 1, y, z, block, 4);
-                            if (direction == 5)
-                                analyze(world, x + 1, y, z, block, 5);
-                        }
-                        // Exit recursion.
-                        return;
-                    }
-                    else
-                        // If the energy port is already in the energySources ArrayList, exit recursion.
-                        return;
-                }
-                else
-                    // If there was no usable port, exit recursion.
-                    return;
 
+                // Analyze the next block.
+                if (nextPort) {
+                    if (direction == 0)
+                        analyze(world, x, y - 1, z, block, 0);
+                    if (direction == 1)
+                        analyze(world, x, y + 1, z, block, 1);
+                    if (direction == 2)
+                        analyze(world, x, y, z - 1, block, 2);
+                    if (direction == 3)
+                        analyze(world, x, y, z + 1, block, 3);
+                    if (direction == 4)
+                        analyze(world, x - 1, y, z, block, 4);
+                    if (direction == 5)
+                        analyze(world, x + 1, y, z, block, 5);
+                }
+
+                // Return when done with everything.
+                return;
             }
+
             // Check if the current block is an energy source.
             else if (block instanceof IBlockHexEnergySource) {
                 // Check if this energy source has already been added to the energySources ArrayList.
@@ -287,6 +289,7 @@ public class NetworkAnalyzer {
                     // If the energy source is already in the energySources ArrayList, exit recursion.
                     return;
             }
+
             // Check if the current block is an energy drain.
             else if (block instanceof IBlockHexEnergyDrain) {
                 if (block == HexBlocks.blockPersonalTeleportationPad && direction == 1) {
@@ -310,8 +313,9 @@ public class NetworkAnalyzer {
                         return;
                 }
             }
+
+            // Exit recursion if the block is not a cable, machine or port.
             else
-                // Exit recursion if the block is not a cable or a machine.
                 return;
 
             // Move in all 6 different directions, but avoid going backwards. Call this same function recursively for every direction.
@@ -735,7 +739,6 @@ public class NetworkAnalyzer {
 
         // Go through all energyPorts ArrayList entries.
         for (HexDevice entry : energyPorts) {
-            System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
             TileEntity tileEntity = world.getTileEntity(entry.x, entry.y, entry.z);
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort energyPort = (ITileHexEnergyPort) tileEntity;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 /**
- * A simple utilities class which holds methods commonly used throughout the project
+ * A collection of utility methods and values used throughout the mod.
  */
 public class HexUtils {
 

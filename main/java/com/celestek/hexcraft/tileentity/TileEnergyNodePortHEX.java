@@ -1,10 +1,13 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.BlockEnergyNodeCore;
+import com.celestek.hexcraft.block.IBlockHexEnergyPort;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
+import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
+import com.celestek.hexcraft.util.NetworkAnalyzer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -55,7 +58,12 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     // Prepare port variables.
     private HexDevice linkedPort;
     private int portTier;
-    private int portType;
+    private int portType;;
+
+    // Prepare the recheck variables.
+    private int recheckCountdown;
+    private int recheckCounter;
+    private boolean shouldRecheck;
 
 
     /**** Common TileEntity Methods ****/
@@ -68,7 +76,11 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
         this.hasEnergy = false;
 
         this.portTier = 0;
-        this.portType = BlockEnergyNodeCore.PORT_TYPE_HEX;
+        this.portType = HexEnergyNode.PORT_TYPE_HEX;
+
+        this.recheckCountdown = 10;
+        this.recheckCounter = 0;
+        this.shouldRecheck = false;
     }
 
     /**
@@ -134,40 +146,55 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
         if (!worldObj.isRemote) {
             if (linkedPort != null) {
                 // Situation in which the linked port is input, and this port is output.
-                if (HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, linkedPort.x, linkedPort.y, linkedPort.z) == 0
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == 1) {
+                if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, linkedPort.x, linkedPort.y, linkedPort.z) == HexEnergyNode.PORT_MODE_INPUT
+                        && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT) {
                     // Fill the port buffer until it is full.
                     if (energyBufferFilled < energyBufferTotal) {
                         ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
 
                         energyBufferFilled = energyBufferFilled + port.drainPortEnergy((energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier, true));
-                        System.out.println("Filled (out): " + energyBufferFilled);
                     }
 
                     // Check if states have changed and send a recheck if so.
                     if (energyBufferFilled > 0 && !hasEnergy) {
                         hasEnergy = true;
-                        sendRecheck();
+                        shouldRecheck = true;
                     }
                     else if (energyBufferFilled <= 0 && hasEnergy) {
-                        energyBufferFilled = 0;
                         hasEnergy = false;
-                        sendRecheck();
+                        shouldRecheck = true;
                     }
+
+                    // Recheck only on certain ticks.
+                    if (recheckCounter >= recheckCountdown) {
+                        if (shouldRecheck)
+                            sendRecheck();
+                        shouldRecheck = false;
+                        recheckCounter = 0;
+                    }
+                    else
+                        recheckCounter++;
+
+                    energyBufferDrained = 0;
                 }
                 // Situation in which the linked port is output, and this port is input.
-                else if (HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, linkedPort.x, linkedPort.y, linkedPort.z) == 1
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == 0) {
+                else if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, linkedPort.x, linkedPort.y, linkedPort.z) == HexEnergyNode.PORT_MODE_OUTPUT
+                        && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_INPUT) {
                     energyBufferDrained = 0;
                     // Check the situation in which the machine has available energy sources and items to process.
                     if (canDrainSource() && (energyBufferFilled < energyBufferTotal)) {
                         // Drain from all sources.
                         drainFromSources();
                         energyBufferFilled = energyBufferFilled + energyBufferDrained;
-                        System.out.println("Filled (in): " + energyBufferFilled);
                     }
+
+                    hasEnergy = false;
                 }
+                else
+                    hasEnergy = false;
             }
+            else
+                hasEnergy = false;
         }
     }
 
@@ -190,10 +217,9 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
      */
     @Override
     public boolean canDrainEnergy() {
-        return energyBufferFilled > 0
+        return hasEnergy
                 && linkedPort != null
-                && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == 1
-                && worldObj.getBlock(linkedPort.x, linkedPort.y, linkedPort.z) != HexBlocks.blockEnergyNodePortHEX;
+                && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT;
     }
 
     /**
@@ -236,11 +262,9 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
      */
     @Override
     public float getEnergyPerTick() {
-        if (linkedPort != null
-                && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == 1
-                && worldObj.getBlock(linkedPort.x, linkedPort.y, linkedPort.z) != HexBlocks.blockEnergyNodePortHEX) {
+        if (canDrainEnergy()) {
             ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
-            return BlockEnergyNodeCore.parseEnergyPerTick(portType, portTier) * port.getMultiplier(portType, portTier, false);
+            return HexEnergyNode.parseEnergyPerTick(portType, portTier) * port.getMultiplier(portType, portTier, false);
         }
         else
             return 0;
@@ -290,6 +314,9 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
 
     /**** Custom Methods ****/
 
+    /**
+     * Called to check if there are any usable sources available.
+     */
     private void scanSources() {
         usableSources = 0;
 
@@ -305,7 +332,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     }
 
     /**
-     * Called to check if there are any usable sources available.
+     * Called to drain from all sources.
      */
     private void drainFromSources() {
         if (energySources != null)
@@ -332,6 +359,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
         return usableSources > 0;
     }
 
+    /**** ITileHexEnergyPort Methods ****/
+
     /**
      * Saves the ArrayList of energy ports.
      * @param energyPorts The ArrayList to save.
@@ -348,13 +377,14 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
                 for (HexDevice entry : this.energyPorts)
                     if (entry.x == this.linkedPort.x && entry.y == this.linkedPort.y && entry.z == this.linkedPort.z)
                         checkLink = true;
-                if (!checkLink)
-                    unlinkPort();
+                if (!checkLink) {
+                    breakPortLink();
+                }
             }
         }
         else {
             this.energyPorts = null;
-            unlinkPort();
+            breakPortLink();
         }
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug) {
             if (this.energyPorts != null)
@@ -407,6 +437,14 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     }
 
     /**
+     * Checks if port has an active link.
+     * @return Boolean whether the port is linked.
+     */
+    public boolean isPortLinked() {
+        return linkedPort != null;
+    }
+
+    /**
      * Called when linking ports.
      * @param x X coordinate of the calling port.
      * @param y Y coordinate of the calling port.
@@ -422,8 +460,9 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
             // If the port is already linked, unlink it.
             if (linkedPort != null) {
                 ITileHexEnergyPort old = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
-                if (old != null)
-                    old.unlinkPort();
+                if (old != null) {
+                    old.breakPortLink();
+                }
             }
 
             // Link the port with new target.
@@ -434,7 +473,26 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     }
 
     /**
-     * Called when unlinking ports.
+     * Breaks a link between two ports.
+     */
+    public void breakPortLink() {
+        if (linkedPort != null) {
+            ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
+
+            unlinkPort();
+            if (port != null)
+                port.unlinkPort();
+
+            unlinkPortAnalyze();
+            if (port instanceof TileEnergyNodePortHEX) {
+                TileEnergyNodePortHEX tileEnergyNodePortHEX = (TileEnergyNodePortHEX) port;
+                tileEnergyNodePortHEX.unlinkPortAnalyze();
+            }
+        }
+    }
+
+    /**
+     * Called when unlinking ports to set the link to null.
      */
     @Override
     public void unlinkPort() {
@@ -457,10 +515,10 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
      */
     @Override
     public float getMultiplier(int typeOut, int tierOut, boolean inverse) {
-        float multiplier = BlockEnergyNodeCore.parseConversionMultiplier(portType, portTier, typeOut, tierOut);
+        float multiplier = HexEnergyNode.parseConversionMultiplier(portType, typeOut);
         if (inverse)
             multiplier = 1F / multiplier;
-        return multiplier * BlockEnergyNodeCore.parseEfficiencyMultiplier(portTier, tierOut);
+        return multiplier * HexEnergyNode.parseEfficiencyMultiplier(portTier, tierOut);
     }
 
     /**
@@ -473,19 +531,69 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
         if (amount < energyBufferFilled) {
             energyBufferFilled = energyBufferFilled - amount;
             if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
-                System.out.println("[Energy Node Port: HEX] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(f): " + amount + " f: " + energyBufferFilled);
+                System.out.println("[Energy Node Port: HEX] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port conversion requested. r: " + amount + " d(f): " + amount + " f: " + energyBufferFilled);
             return amount;
         }
         else {
             float partial = energyBufferFilled;
             energyBufferFilled = 0;
             if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
-                System.out.println("[Energy Node Port: HEX] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drain requested. r: " + amount + " d(p): " + partial + " f: " + energyBufferFilled);
+                System.out.println("[Energy Node Port: HEX] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port conversion requested. r: " + amount + " d(p): " + partial + " f: " + energyBufferFilled);
             return partial;
         }
     }
 
+    /**** Custom Methods ****/
+
+    /**
+     * Called to get the tunneled port.
+     */
     public HexDevice getTunnel() {
             return linkedPort;
+    }
+
+    /**
+     * Called when unlinking ports, this method is called after unlinkPort.
+     * Used to rescan the network.
+     */
+    public void unlinkPortAnalyze() {
+        if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_TUNNEL) {
+            // Locate the Energy Node Core.
+            int xc = xCoord;
+            int yc = yCoord;
+            int zc = zCoord;
+            int xp = xCoord;
+            int yp = yCoord;
+            int zp = zCoord;
+
+            int side = 0;
+            if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) instanceof BlockEnergyNodeCore)
+                side = 0;
+            else if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) instanceof BlockEnergyNodeCore)
+                side = 1;
+            else if (worldObj.getBlock(xCoord, yCoord, zCoord + 1) instanceof BlockEnergyNodeCore)
+                side = 2;
+            else if (worldObj.getBlock(xCoord, yCoord, zCoord - 1) instanceof BlockEnergyNodeCore)
+                side = 3;
+            else if (worldObj.getBlock(xCoord + 1, yCoord, zCoord) instanceof BlockEnergyNodeCore)
+                side = 4;
+            else if (worldObj.getBlock(xCoord - 1, yCoord, zCoord) instanceof BlockEnergyNodeCore)
+                side = 5;
+
+            switch (side) {
+                case 0: yc++; yp--; break;
+                case 1: yc--; yp++; break;
+                case 2: zc++; zp--; break;
+                case 3: zc--; zp++; break;
+                case 4: xc++; xp--; break;
+                case 5: xc--; xp++; break;
+            }
+
+            /* DO ANALYSIS */
+            NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
+            analyzerCore.analyzeCable(worldObj, xc, yc, zc, worldObj.getBlock(xc, yc, zc));
+            NetworkAnalyzer analyzerPort = new NetworkAnalyzer();
+            analyzerPort.analyzeCable(worldObj, xp, yp, zp, worldObj.getBlock(xp, yp, zp));
+        }
     }
 }

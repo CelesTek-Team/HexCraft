@@ -108,8 +108,9 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // Check if the changed block is a cable.
-        if (block instanceof BlockHexoriumCable ||
-                block instanceof BlockPylonBase) {
+        if (block instanceof BlockHexoriumCable
+                || block instanceof BlockPylonBase
+                || block instanceof BlockEnergyNodePortHEX) {
 
             if (HexConfig.cfgGeneralNetworkDebug)
                 System.out.println("[Hexorium Generator] (" + x + ", " + y + ", " + z + "): Neighbour cable destroyed, analyzing!");
