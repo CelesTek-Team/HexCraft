@@ -69,13 +69,9 @@ public class HexEnergyNode {
                     for (int j = x - 1; j <= x + 1; j++)
                         for (int k = z - 1; k <= z + 1; k++) {
                             HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, true, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
-                            Block block = world.getBlock(j, i, k);
-                            if (block instanceof IBlockHexEnergyPort) {
-                                TileEntity tileEntity = world.getTileEntity(j, i, k);
-                                if (tileEntity instanceof ITileHexEnergyPort) { //TODO: Clean this up.
-                                    ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                                    port.setPortTier(parseTier(world.getBlock(x, y, z)));
-                                }
+                            if (world.getBlock(j, i, k) instanceof IBlockHexEnergyPort) {
+                                ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(j, i, k);
+                                port.setPortTier(parseTier(world.getBlock(x, y, z)));
                             }
                         }
 
@@ -145,88 +141,69 @@ public class HexEnergyNode {
             System.out.println("[Energy Node] (" + x + ", " + y + ", " + z + "): Energy Node broken, analyzing!");
 
         /* DO ANALYSIS */
-        //TODO: Clean this up.
         Block block = world.getBlock(x, y - 1, z);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x, y - 1, z);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x, y - 2, z, world.getBlock(x, y - 2, z));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y - 1, z);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x, y - 2, z, world.getBlock(x, y - 2, z));
             }
         }
 
         block = world.getBlock(x, y + 1, z);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x, y + 1, z);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x, y + 2, z, world.getBlock(x, y + 2, z));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y + 1, z);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x, y + 2, z, world.getBlock(x, y + 2, z));
             }
         }
 
         block = world.getBlock(x - 1, y, z);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x - 1, y, z);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x - 2, y, z, world.getBlock(x - 2, y, z));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x - 1, y, z);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x - 2, y, z, world.getBlock(x - 2, y, z));
             }
         }
 
         block = world.getBlock(x + 1, y, z);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x + 1, y, z);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x + 2, y, z, world.getBlock(x + 2, y, z));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x + 1, y, z);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x + 2, y, z, world.getBlock(x + 2, y, z));
             }
         }
 
         block = world.getBlock(x, y, z - 1);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x, y, z - 1);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x, y, z - 2, world.getBlock(x, y, z - 2));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y, z - 1);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x, y, z - 2, world.getBlock(x, y, z - 2));
             }
         }
 
         block = world.getBlock(x, y, z + 1);
         if (block instanceof IBlockHexEnergyPort) {
-            TileEntity tileEntity = world.getTileEntity(x, y, z + 1);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(null);
-                port.emptyBuffer();
-                if (block == HexBlocks.blockEnergyNodePortHEX) {
-                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    analyzer.analyzeCable(world, x, y, z + 2, world.getBlock(x, y, z + 2));
-                }
+            ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y, z + 1);
+            port.setPorts(null);
+            port.emptyBuffer();
+            if (block == HexBlocks.blockEnergyNodePortHEX) {
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzeCable(world, x, y, z + 2, world.getBlock(x, y, z + 2));
             }
         }
     }

@@ -41,12 +41,6 @@ public interface ITileHexEnergyPort {
     boolean checkPortLinked(int x, int y, int z);
 
     /**
-     * Checks if port has an active link.
-     * @return Boolean whether the port is linked.
-     */
-    boolean isPortLinked();
-
-    /**
      * Called when linking ports.
      * @param x X coordinate of the calling port.
      * @param y Y coordinate of the calling port.

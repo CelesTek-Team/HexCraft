@@ -29,5 +29,6 @@ public class HexTileEntities {
         }
 
         GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
+        GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
     }
 }

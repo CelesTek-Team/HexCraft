@@ -1,8 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.BlockEnergyNodeCore;
-import com.celestek.hexcraft.block.IBlockHexEnergyPort;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexEnergyNode;
@@ -10,6 +8,7 @@ import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
 
     /**** Variables ****/
 
-    // Prepare sources list.
+    // Prepare lists.
     private ArrayList<HexDevice> energySources;
     private ArrayList<HexDevice> energyDrains;
     private ArrayList<HexDevice> energyPorts;
@@ -58,7 +57,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     // Prepare port variables.
     private HexDevice linkedPort;
     private int portTier;
-    private int portType;;
+    private int portType;
 
     // Prepare the recheck variables.
     private int recheckCountdown;
@@ -152,7 +151,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
                     if (energyBufferFilled < energyBufferTotal) {
                         ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
 
-                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy((energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier, true));
+                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy(energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier, false);
                     }
 
                     // Check if states have changed and send a recheck if so.
@@ -264,7 +263,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     public float getEnergyPerTick() {
         if (canDrainEnergy()) {
             ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
-            return HexEnergyNode.parseEnergyPerTick(portType, portTier) * port.getMultiplier(portType, portTier, false);
+            return HexEnergyNode.parseEnergyPerTick(portType, portTier) * port.getMultiplier(portType, portTier, true);
         }
         else
             return 0;
@@ -437,14 +436,6 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     }
 
     /**
-     * Checks if port has an active link.
-     * @return Boolean whether the port is linked.
-     */
-    public boolean isPortLinked() {
-        return linkedPort != null;
-    }
-
-    /**
      * Called when linking ports.
      * @param x X coordinate of the calling port.
      * @param y Y coordinate of the calling port.
@@ -516,6 +507,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     @Override
     public float getMultiplier(int typeOut, int tierOut, boolean inverse) {
         float multiplier = HexEnergyNode.parseConversionMultiplier(portType, typeOut);
+        System.out.println("tierIn: " + portTier + " tierOut: " + tierOut);
         if (inverse)
             multiplier = 1F / multiplier;
         return multiplier * HexEnergyNode.parseEfficiencyMultiplier(portTier, tierOut);

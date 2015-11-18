@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.tileentity.TileEnergyNodePortRF;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -9,14 +10,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  * @version 0.7.0
  */
 
-public class BlockEnergyNodePortRF extends HexBlock implements IBlockHexNode, IBlockHexEnergyPort {
+public class BlockEnergyNodePortRF extends HexBlockContainer implements IBlockHexNode, IBlockHexEnergyPort {
 
     // Block ID
     public static final String ID = "blockEnergyNodePortRF";
@@ -37,6 +40,14 @@ public class BlockEnergyNodePortRF extends HexBlock implements IBlockHexNode, IB
         this.setResistance(10F);
 
         this.setStepSound(Block.soundTypeMetal);
+    }
+
+    /**
+     * Returns a new instance of a block's TIle Entity class. Called on placing the block.
+     */
+    @Override
+    public TileEntity createNewTileEntity(World world, int par2) {
+        return new TileEnergyNodePortRF();
     }
 
     // Prepare the icons.

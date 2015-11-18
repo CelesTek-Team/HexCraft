@@ -5,7 +5,6 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.*;
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -739,11 +738,8 @@ public class NetworkAnalyzer {
 
         // Go through all energyPorts ArrayList entries.
         for (HexDevice entry : energyPorts) {
-            TileEntity tileEntity = world.getTileEntity(entry.x, entry.y, entry.z);
-            if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort energyPort = (ITileHexEnergyPort) tileEntity;
-                energyPort.setPorts(energyPorts);
-            }
+            ITileHexEnergyPort energyPort = (ITileHexEnergyPort) world.getTileEntity(entry.x, entry.y, entry.z);
+            energyPort.setPorts(energyPorts);
         }
 
         // Notify about pushing teleports.
@@ -753,8 +749,7 @@ public class NetworkAnalyzer {
         // Go through all teleports ArrayList entries.
         for (HexDevice entry : teleports) {
             TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
-            if (teleport != null)
-                teleport.setTeleports(teleports);
+            teleport.setTeleports(teleports);
         }
     }
 
