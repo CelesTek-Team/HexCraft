@@ -29,11 +29,17 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
     public static final int META_MODE_0 = 2; // These are set on the ports, rather than this block.
     public static final int META_MODE_1 = 3; // These are set on the ports, rather than this block.
 
+    // Port Energy Types
+    public static final int PORT_TYPE_HEX = 0;
+    public static final int PORT_TYPE_RF = 1;
+    public static final int PORT_TYPE_EU = 2;
+
     /// Used later for texture identification.
     private String blockName;
 
     /**
      * Constructor for the block.
+     *
      * @param blockName Unlocalized name for the block.
      */
     public BlockEnergyNodeCore(String blockName) {
@@ -91,12 +97,24 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
 
         // Locate the Energy Node Core.
         switch (side) {
-            case 0: y++; break;
-            case 1: y--; break;
-            case 2: z++; break;
-            case 3: z--; break;
-            case 4: x++; break;
-            case 5: x--; break;
+            case 0:
+                y++;
+                break;
+            case 1:
+                y--;
+                break;
+            case 2:
+                z++;
+                break;
+            case 3:
+                z--;
+                break;
+            case 4:
+                x++;
+                break;
+            case 5:
+                x--;
+                break;
         }
         if (world.getBlock(x, y, z) instanceof BlockEnergyNodeCore)
             // Check if the structure can be formed.
@@ -106,13 +124,11 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                         for (int k = z - 1; k <= z + 1; k++) {
                             HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, true, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
                             Block block = world.getBlock(j, i, k);
-                            if (block == HexBlocks.blockEnergyNodePortHEX
-                                    || block == HexBlocks.blockEnergyNodePortRF
-                                    || block == HexBlocks.blockEnergyNodePortEU) {
+                            if (block instanceof IBlockHexEnergyPort) {
                                 TileEntity tileEntity = world.getTileEntity(j, i, k);
                                 if (tileEntity instanceof ITileHexEnergyPort) { //TODO: Clean this up.
                                     ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                                    port.setCoreTier(world.getBlock(x, y, z));
+                                    port.setPortTier(parseTier(world.getBlock(x, y, z)));
                                 }
                             }
                         }
@@ -120,6 +136,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                 if (HexConfig.cfgGeneralNetworkDebug)
                     System.out.println("[Energy Node] (" + x + ", " + y + ", " + z + "): Energy Node formed, analyzing!");
 
+                /* DO ANALYSIS */
                 if (world.getBlock(x, y - 1, z) == HexBlocks.blockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x, y - 1, z) == 2) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
@@ -176,7 +193,8 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
 
         if (HexConfig.cfgGeneralNetworkDebug)
             System.out.println("[Energy Node] (" + x + ", " + y + ", " + z + "): Energy Node broken, analyzing!");
-        
+
+        /* DO ANALYSIS */
         //TODO: Clean this up.
         Block block = world.getBlock(x, y - 1, z);
         if (block instanceof IBlockHexEnergyPort) {
@@ -184,6 +202,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y - 2, z, world.getBlock(x, y - 2, z));
@@ -197,6 +216,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y + 2, z, world.getBlock(x, y + 2, z));
@@ -210,6 +230,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x - 2, y, z, world.getBlock(x - 2, y, z));
@@ -223,6 +244,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x + 2, y, z, world.getBlock(x + 2, y, z));
@@ -236,6 +258,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y, z - 2, world.getBlock(x, y, z - 2));
@@ -249,6 +272,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             if (tileEntity instanceof ITileHexEnergyPort) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
                 port.setPorts(null);
+                port.emptyBuffer();
                 if (block == HexBlocks.blockEnergyNodePortHEX) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y, z + 2, world.getBlock(x, y, z + 2));
@@ -279,30 +303,114 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
                         System.out.println("Checking edge block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
-                        else
-                            if (!(world.getBlock(j, i, k) == block))
-                                return false;
+                        else if (!(world.getBlock(j, i, k) == block))
+                            return false;
                     }
                     // Situation when the block is center.
                     else if (k == z && j == x && i == y) {
                         System.out.println("Checking middle block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
-                        else
-                            if (!(world.getBlock(j, i, k) instanceof BlockEnergyNodeCore))
-                                    return false;
+                        else if (!(world.getBlock(j, i, k) instanceof BlockEnergyNodeCore))
+                            return false;
                     }
                     // Situations when the block is one of the center faces.
                     else {
                         System.out.println("Checking face block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
-                        else
-                            if (!(world.getBlock(j, i, k) instanceof IBlockHexEnergyPort || world.getBlock(j, i, k) == block))
-                                    return false;
+                        else if (!(world.getBlock(j, i, k) instanceof IBlockHexEnergyPort || world.getBlock(j, i, k) == block))
+                            return false;
                     }
                 }
 
         return true;
+    }
+
+    /**
+     * Parses the core type and returns an int of the tier.
+     */
+    private static int parseTier(Block block) {
+        if(block == HexBlocks.blockEnergyNodeCoreT1)
+            return 0;
+        else if(block == HexBlocks.blockEnergyNodeCoreT2)
+            return 1;
+        else if(block == HexBlocks.blockEnergyNodeCoreT3)
+            return 2;
+        else if(block == HexBlocks.blockEnergyNodeCoreT4)
+            return 3;
+
+        return 0;
+    }
+
+    /**
+     * Parses the tier efficiency.
+     */
+    public static float parseEfficiency(int tier) {
+        if(tier == 0)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyTier1 / 100;
+        else if(tier == 1)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyTier2 / 100;
+        else if(tier == 2)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyTier3 / 100;
+        else if(tier == 3)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyTier4 / 100;
+
+        return 0;
+    }
+
+    /**
+     * Parses the energy per tick.
+     */
+    public static float parseEnergyPerTick(int type, int tier) {
+        if(type == PORT_TYPE_HEX)
+            return 0;
+        else if(type == PORT_TYPE_RF)
+            switch (tier) {
+                case 0: return 200;
+                case 1: return 800;
+                case 2: return 8000;
+                case 3: return 32000;
+            }
+        else if(type == PORT_TYPE_EU)
+            switch (tier) {
+                case 0: return 32;
+                case 1: return 128;
+                case 2: return 512;
+                case 3: return 2048;
+            }
+
+        return 0;
+    }
+
+    public static float parseConversionMultiplier(int typeIn, int tierIn, int typeOut, int tierOut) {
+        if (typeIn == typeOut)
+            return 1;
+        else {
+            if (typeIn == BlockEnergyNodeCore.PORT_TYPE_HEX) {
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_RF)
+                    return HexConfig.cfgEnergyConversionRatioHEXtoRF;
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_EU)
+                    return HexConfig.cfgEnergyConversionRatioHEXtoEU;
+            }
+            else if (typeIn == BlockEnergyNodeCore.PORT_TYPE_RF) {
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_HEX)
+                    return HexConfig.cfgEnergyConversionRatioRFtoHEX;
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_EU)
+                    return HexConfig.cfgEnergyConversionRatioRFtoEU;
+            }
+            else if (typeIn == BlockEnergyNodeCore.PORT_TYPE_EU) {
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_HEX)
+                    return HexConfig.cfgEnergyConversionRatioEUtoHEX;
+                if (typeOut == BlockEnergyNodeCore.PORT_TYPE_RF)
+                    return HexConfig.cfgEnergyConversionRatioEUtoRF;
+            }
+        }
+
+        return 0;
+    }
+
+    public static float parseEfficiencyMultiplier(int tierIn, int tierOut) {
+        return (BlockEnergyNodeCore.parseEfficiency(tierIn) + BlockEnergyNodeCore.parseEfficiency(tierOut)) / 2;
     }
 }

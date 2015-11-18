@@ -18,9 +18,9 @@ public interface ITileHexEnergyPort {
 
     /**
      * Called when setting up an Energy Node to set the tier.
-     * @param block The Energy Node Core.
+     * @param portTier Tier of the port.
      */
-    void setCoreTier(Block block);
+    void setPortTier(int portTier);
 
     /**
      * Checks if ports are connected via network.
@@ -55,12 +55,18 @@ public interface ITileHexEnergyPort {
     void unlinkPort();
 
     /**
+     * Called to empty the buffer.
+     */
+    void emptyBuffer();
+
+    /**
      * Called by output ports to determine the conversion multiplier.
      * @param typeOut The type of energy of output port.
      * @param tierOut The tier of core of output port.
+     * @param inverse Whether the conversion should be inverse (called by outputs).
      * @return The multiplier to use.
      */
-    float getConversionMultiplier(String typeOut, int tierOut);
+    float getMultiplier(int typeOut, int tierOut, boolean inverse);
 
     /**
      * Called by output ports to drain energy.

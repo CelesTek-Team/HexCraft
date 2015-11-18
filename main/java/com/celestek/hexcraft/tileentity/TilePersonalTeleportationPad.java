@@ -39,7 +39,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
     private static final String NBT_GUI_ENERGY_TOTAL_DONE = "gui_energy_total_done";
     private static final String NBT_GUI_ENERGY_DRAINED = "gui_energy_drained";
 
-    private static final String NBT_IS_ACTIVE = "is_active";
     private static final String NBT_USABLE_SOURCES = "usable_sources";
 
     private static final String NBT_TELEPORTS = "teleports";
@@ -63,7 +62,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
     private int guiEnergyDrained;
 
     // Prepare state variables.
-    private boolean isActive;
     private int usableSources;
 
     // Prepare teleport variables.
@@ -78,7 +76,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
     public TilePersonalTeleportationPad() {
         this.energyTotal = HexConfig.cfgTeleportUsageCost;
-        this.isActive = false;
         this.usableSources = 0;
         this.isTeleporting = false;
         this.teleportCountdown = 80;
@@ -104,7 +101,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
         tagCompound.setInteger(NBT_GUI_ENERGY_DRAINED, guiEnergyDrained);
 
         // Write the state variables.
-        tagCompound.setBoolean(NBT_IS_ACTIVE, isActive);
         tagCompound.setInteger(NBT_USABLE_SOURCES, usableSources);
 
         // Write the teleport variables.
@@ -134,7 +130,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
         guiEnergyDrained = tagCompound.getInteger(NBT_GUI_ENERGY_DRAINED);
 
         // Read the state variables.
-        isActive = tagCompound.getBoolean(NBT_IS_ACTIVE);
         usableSources = tagCompound.getInteger(NBT_USABLE_SOURCES);
 
         // Read the teleport variables.
@@ -158,20 +153,10 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
             // Check the situation in which the machine has available energy sources and items to process.
             if (canDrainSource() && (energyTotalDone < energyTotal * 2)) {
-                // Attempt to start processing if it was inactive.
-                if (!isActive)
-                    isActive = usableSources > 0;
-
-                // Check if the machine is now in its active state.
-                if (isActive) {
-                    // Drain from all sources.
-                    drainFromSources();
-                    energyTotalDone = energyTotalDone + energyDrained;
-                }
+                // Drain from all sources.
+                drainFromSources();
+                energyTotalDone = energyTotalDone + energyDrained;
             }
-            // If the machine has no energy and/or there are no items to process, stop the processing.
-            else
-                stopProcessing();
 
             // If the teleporter is charging the teleport...
             if (isTeleporting) {
@@ -225,6 +210,9 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
     /**** Custom Methods ****/
 
+    /**
+     * Called to check if there are any usable sources available.
+     */
     private void scanSources() {
         boolean hasEnergy = canDrainSource();
         usableSources = 0;
@@ -248,10 +236,8 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
             HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
     }
 
-    /**** Custom Methods ****/
-
     /**
-     * Called to check if there are any usable sources available.
+     * Called to drain from all sources.
      */
     private void drainFromSources() {
         if (energySources != null)
@@ -276,14 +262,6 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
      */
     private boolean canDrainSource() {
         return usableSources > 0;
-    }
-
-    /**
-     * Called when the machine should no longer be processing the item.
-     */
-    public void stopProcessing() {
-        if (isActive)
-            isActive = false;
     }
 
     /**

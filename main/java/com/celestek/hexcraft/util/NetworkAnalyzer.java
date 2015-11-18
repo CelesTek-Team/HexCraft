@@ -186,6 +186,11 @@ public class NetworkAnalyzer {
                         && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) != 2) {
                     addPort = true;
                     nextPort = true;
+
+                    if (!energyDrains.contains(new HexDevice(x, y, z, block)))
+                        energyDrains.add(new HexDevice(x, y, z, block));
+                    if (!energySources.contains(new HexDevice(x, y, z, block)))
+                        energySources.add(new HexDevice(x, y, z, block));
                 }
                 // If this is a HEX port, formed, accessed from core and tunnel...
                 else if (block == HexBlocks.blockEnergyNodePortHEX
@@ -733,8 +738,8 @@ public class NetworkAnalyzer {
             System.out.println(" > (" + entry.x + ", " + entry.y + ", " + entry.z + ") " + entry.block.getUnlocalizedName());
             TileEntity tileEntity = world.getTileEntity(entry.x, entry.y, entry.z);
             if (tileEntity instanceof ITileHexEnergyPort) {
-                ITileHexEnergyPort port = (ITileHexEnergyPort) tileEntity;
-                port.setPorts(energyPorts);
+                ITileHexEnergyPort energyPort = (ITileHexEnergyPort) tileEntity;
+                energyPort.setPorts(energyPorts);
             }
         }
 

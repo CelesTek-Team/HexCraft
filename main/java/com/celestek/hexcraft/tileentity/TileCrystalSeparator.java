@@ -198,6 +198,11 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory,
             System.out.println("[Crystal Separator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Recheck requested. s: " + usableSources);
     }
 
+    /**** Custom Methods ****/
+
+    /**
+     * Called to check if there are any usable sources available.
+     */
     private void scanSources() {
         boolean hasEnergy = canDrainSource();
         usableSources = 0;
@@ -221,10 +226,8 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory,
             HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
     }
 
-    /**** Custom Methods ****/
-
     /**
-     * Called to check if there are any usable sources available.
+     * Called to drain from all sources.
      */
     private void drainFromSources() {
         if (energySources != null)

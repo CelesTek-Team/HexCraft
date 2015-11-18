@@ -230,6 +230,7 @@ public class ItemHexoriumManipulator extends Item {
                         if (HexConfig.cfgGeneralNetworkDebug)
                             System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port mode changed, analyzing!");
 
+                        /* DO ANALYSIS */
                         if (mode == 2) {
                             NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
                             analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
@@ -519,6 +520,7 @@ public class ItemHexoriumManipulator extends Item {
                                                     if (HexConfig.cfgGeneralNetworkDebug)
                                                         System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port linked, analyzing!");
 
+                                                    /* DO ANALYSIS */
                                                     if (HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2) {
                                                         NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
                                                         analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
@@ -588,10 +590,8 @@ public class ItemHexoriumManipulator extends Item {
                         System.out.println("[Hexorium Manipulator]: Machine rotated, analyzing!");
 
                     /* DO ANALYSIS */
-                    // Prepare the network analyzers.
                     NetworkAnalyzer analyzerOld = new NetworkAnalyzer();
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                    // Call the analysis in original and new direction.
                     analyzerOld.analyzeMachines(world, x, y, z, metaOld);
                     analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                 }

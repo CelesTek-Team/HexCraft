@@ -43,6 +43,19 @@ public class HexConfig {
     public static boolean cfgEnergyNodeDebug = false;
     public static boolean cfgEnergyNodeVerboseDebug = false;
 
+    // General - Energy Conversion
+    public static String categoryEnergyConversion = "General - Energy Conversion";
+    public static int cfgEnergyConversionEfficiencyTier1 = 60;
+    public static int cfgEnergyConversionEfficiencyTier2 = 80;
+    public static int cfgEnergyConversionEfficiencyTier3 = 90;
+    public static int cfgEnergyConversionEfficiencyTier4 = 100;
+    public static float cfgEnergyConversionRatioHEXtoRF = 0.3125F;
+    public static float cfgEnergyConversionRatioHEXtoEU = 0.078125F;
+    public static float cfgEnergyConversionRatioRFtoHEX = 3.2F;
+    public static float cfgEnergyConversionRatioRFtoEU = 0.25F;
+    public static float cfgEnergyConversionRatioEUtoHEX = 12.8F;
+    public static float cfgEnergyConversionRatioEUtoRF = 4F;
+
     // Monolith Generation
     public static String categoryMonolith = "Monolith Generation";
     public static boolean cfgMonolithGeneralShouldGenerate = true;
@@ -358,6 +371,19 @@ public class HexConfig {
         // General - Energy Node
         cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.");
         cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node debugging needs to be enabled.");
+
+        // General - Energy Conversion
+        config.setCategoryComment(categoryEnergyConversion, "This configuration section deals with the efficiency (energy left after loss) and conversion ratios of the Energy Node.");
+        cfgEnergyConversionEfficiencyTier1 = config.getInt("Tier 1 efficiency:", categoryEnergyConversion, cfgEnergyConversionEfficiencyTier1, 0, 100, "");
+        cfgEnergyConversionEfficiencyTier2 = config.getInt("Tier 2 efficiency:", categoryEnergyConversion, cfgEnergyConversionEfficiencyTier2, 0, 100, "");
+        cfgEnergyConversionEfficiencyTier3 = config.getInt("Tier 3 efficiency:", categoryEnergyConversion, cfgEnergyConversionEfficiencyTier3, 0, 100, "");
+        cfgEnergyConversionEfficiencyTier4 = config.getInt("Tier 4 efficiency:", categoryEnergyConversion, cfgEnergyConversionEfficiencyTier4, 0, 100, "");
+        cfgEnergyConversionRatioHEXtoRF = config.getFloat("Conversion ratio: HEX -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoRF, 0, 128, "");
+        cfgEnergyConversionRatioHEXtoEU = config.getFloat("Conversion ratio: HEX -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoEU, 0, 128, "");
+        cfgEnergyConversionRatioRFtoHEX = config.getFloat("Conversion ratio: RF  -> HEX", categoryEnergyConversion, cfgEnergyConversionRatioRFtoHEX, 0, 128, "");
+        cfgEnergyConversionRatioRFtoEU = config.getFloat("Conversion ratio: RF  -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioRFtoEU, 0, 128, "");
+        cfgEnergyConversionRatioEUtoHEX = config.getFloat("Conversion ratio: EU  -> HEX", categoryEnergyConversion, cfgEnergyConversionRatioEUtoHEX, 0, 128, "");
+        cfgEnergyConversionRatioEUtoRF = config.getFloat("Conversion ratio: EU  -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioEUtoRF, 0, 128, "");
 
 
         // Monolith Generation

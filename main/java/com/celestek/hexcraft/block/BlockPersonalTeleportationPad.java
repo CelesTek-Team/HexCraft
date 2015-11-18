@@ -139,10 +139,6 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         TilePersonalTeleportationPad tilePersonalTeleportationPad = (TilePersonalTeleportationPad) world.getTileEntity(x, y, z);
 
         if (tilePersonalTeleportationPad != null) {
-
-            // Stop the machine processing.
-            tilePersonalTeleportationPad.stopProcessing();
-
             world.func_147453_f(x, y, z, block);
         }
         super.breakBlock(world, x, y, z, block, meta);
