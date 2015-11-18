@@ -439,7 +439,7 @@ public class ItemHexoriumManipulator extends Item {
                     }
                 }
 
-                // Form Energy Node and Link Ports.
+                // Link Ports and Form Energy Node.
                 else if (block instanceof IBlockHexEnergyPort) {
 
                     // Link Ports.
@@ -497,6 +497,37 @@ public class ItemHexoriumManipulator extends Item {
                                                         EntityPlayerMP playerMP = (EntityPlayerMP) player;
                                                         if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
                                                             player.addStat(HexAchievements.achLinkTeleport, 1);
+                                                    }
+
+                                                    int xc = x;
+                                                    int yc = y;
+                                                    int zc = z;
+                                                    int xp = x;
+                                                    int yp = y;
+                                                    int zp = z;
+
+                                                    // Locate the Energy Node Core.
+                                                    switch (side) {
+                                                        case 0: yc++; yp--; break;
+                                                        case 1: yc--; yp++; break;
+                                                        case 2: zc++; zp--; break;
+                                                        case 3: zc--; zp++; break;
+                                                        case 4: xc++; xp--; break;
+                                                        case 5: xc--; xp++; break;
+                                                    }
+
+                                                    if (HexConfig.cfgGeneralNetworkDebug)
+                                                        System.out.println("[Energy Node Port: HEX] (" + x + ", " + y + ", " + z + "): Port linked, analyzing!");
+
+                                                    if (HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2) {
+                                                        NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
+                                                        analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
+                                                        NetworkAnalyzer analyzerPort = new NetworkAnalyzer();
+                                                        analyzerPort.analyzeCable(world, xp, yp, zp, world.getBlock(xp, yp, zp));
+                                                    }
+                                                    else {
+                                                        NetworkAnalyzer analyzerCore = new NetworkAnalyzer();
+                                                        analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
                                                     }
                                                 }
                                                 else {

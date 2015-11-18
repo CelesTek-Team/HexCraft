@@ -302,4 +302,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     public float drainPortEnergy(float amount) {
         return 0;
     }
+
+    public HexDevice getTunnel() {
+            return linkedPort;
+    }
 }

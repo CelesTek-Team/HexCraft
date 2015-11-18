@@ -24,6 +24,7 @@ public class NetworkAnalyzer {
     private ArrayList<HexDevice> energySources;
     private ArrayList<HexDevice> energyDrains;
     private ArrayList<HexDevice> energyPorts;
+    private ArrayList<HexDevice> energyPortsTunnel;
 
     private ArrayList<HexDevice> teleports;
 
@@ -89,6 +90,19 @@ public class NetworkAnalyzer {
                 HexDevice energyPort = (HexDevice) o;
                 for (HexDevice entry : this) {
                     if ((entry.x == energyPort.x) && (entry.y == energyPort.y) && (entry.z == energyPort.z) && (entry.block == energyPort.block)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+
+        energyPortsTunnel = new ArrayList<HexDevice>() {
+            @Override
+            public boolean contains(Object o) {
+                HexDevice energyPortTunnel = (HexDevice) o;
+                for (HexDevice entry : this) {
+                    if ((entry.x == energyPortTunnel.x) && (entry.y == energyPortTunnel.y) && (entry.z == energyPortTunnel.z) && (entry.block == energyPortTunnel.block)) {
                         return true;
                     }
                 }
@@ -184,10 +198,36 @@ public class NetworkAnalyzer {
                 else if (block == HexBlocks.blockEnergyNodePortHEX
                         && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
                         && !(blockPrev instanceof BlockEnergyNodeCore)
-                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2)
-                    //TODO: Use the tunnel linking.
-                    return;
+                        && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, x, y, z) == 2) {
+                    TileEnergyNodePortHEX tileEnergyNodePortHEX = (TileEnergyNodePortHEX) world.getTileEntity(x, y, z);
 
+                    HexDevice tunnel = tileEnergyNodePortHEX.getTunnel();
+                    if (tunnel != null)
+                        if (block == HexBlocks.blockEnergyNodePortHEX
+                                && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tunnel.x, tunnel.y, tunnel.z)
+                                && HexUtils.getMetaBitBiInt(BlockEnergyNodeCore.META_MODE_0, BlockEnergyNodeCore.META_MODE_1, world, tunnel.x, tunnel.y, tunnel.z) == 2) {
+                            // Check if this energy port has already been added to the energyPorts ArrayList.
+                            if (!energyPortsTunnel.contains(new HexDevice(x, y, z, block))) {
+                                // If it hasn't, add it.
+                                energyPortsTunnel.add(new HexDevice(x, y, z, block));
+
+                                if (world.getBlock(tunnel.x, tunnel.y + 1, tunnel.z) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x, tunnel.y - 1, tunnel.z, world.getBlock(tunnel.x, tunnel.y - 1, tunnel.z), -1);
+                                else if (world.getBlock(tunnel.x, tunnel.y - 1, tunnel.z) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x, tunnel.y + 1, tunnel.z, world.getBlock(tunnel.x, tunnel.y + 1, tunnel.z), -1);
+                                else if (world.getBlock(tunnel.x + 1, tunnel.y, tunnel.z) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x - 1, tunnel.y, tunnel.z, world.getBlock(tunnel.x - 1, tunnel.y, tunnel.z), -1);
+                                else if (world.getBlock(tunnel.x - 1, tunnel.y, tunnel.z) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x + 1, tunnel.y, tunnel.z, world.getBlock(tunnel.x + 1, tunnel.y, tunnel.z), -1);
+                                else if (world.getBlock(tunnel.x, tunnel.y, tunnel.z + 1) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x, tunnel.y, tunnel.z - 1, world.getBlock(tunnel.x, tunnel.y, tunnel.z - 1), -1);
+                                else if (world.getBlock(tunnel.x, tunnel.y, tunnel.z - 1) instanceof BlockEnergyNodeCore)
+                                    analyze(world, tunnel.x, tunnel.y, tunnel.z + 1, world.getBlock(tunnel.x, tunnel.y, tunnel.z + 1), -1);
+                            }
+                        }
+
+                    return;
+                }
                 // If this is a non-HEX port, formed and accessed from core
                 else if (!(block == HexBlocks.blockEnergyNodePortHEX)
                         && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)
