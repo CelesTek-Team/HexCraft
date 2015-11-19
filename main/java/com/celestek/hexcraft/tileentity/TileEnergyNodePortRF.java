@@ -105,28 +105,35 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
         // Confirm that this is server side.
         if (!worldObj.isRemote) {
             if (linkedPort != null) {
+                markDirty();
                 // Situation in which the linked port is input, and this port is output.
                 if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, linkedPort.x, linkedPort.y, linkedPort.z) == HexEnergyNode.PORT_MODE_INPUT
                         && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT) {
                     if (energyBuffer.getMaxExtract() == 0) {
                         energyBuffer.setMaxExtract((int) HexEnergyNode.parseEnergyPerTick(portType, portTier));
                         energyBuffer.setMaxReceive(0);
+                        markDirty();
                     }
 
                     // Fill the port buffer until it is full.
                     if (energyBuffer.getEnergyStored() < energyBuffer.getMaxEnergyStored()) {
                         ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
-                        energyBuffer.setEnergyStored((int) Math.ceil(
+                        energyBuffer.setEnergyStored(Math.round(
                                 energyBuffer.getEnergyStored() + port.drainPortEnergy(energyBuffer.getMaxEnergyStored() - energyBuffer.getEnergyStored())
                                         * port.getMultiplier(portType, portTier, false)));
 
                     }
 
                     if (energyBuffer.getEnergyStored() > 0) {
-                        for (int i = 0; i < 6; i++){
-                            TileEntity tile = worldObj.getTileEntity(xCoord + ForgeDirection.getOrientation(i).offsetX, yCoord + ForgeDirection.getOrientation(i).offsetY, zCoord + ForgeDirection.getOrientation(i).offsetZ);
+                        for (int i = 0; i < 6; i++) {
+                            TileEntity tile = worldObj.getTileEntity(
+                                    xCoord + ForgeDirection.getOrientation(i).offsetX,
+                                    yCoord + ForgeDirection.getOrientation(i).offsetY,
+                                    zCoord + ForgeDirection.getOrientation(i).offsetZ);
                             if (tile instanceof IEnergyHandler && !(tile instanceof ITileHexEnergyPort)) {
-                                energyBuffer.extractEnergy(((IEnergyHandler)tile).receiveEnergy(ForgeDirection.getOrientation(i).getOpposite(), energyBuffer.extractEnergy(energyBuffer.getMaxExtract(), true), false), false);
+                                energyBuffer.extractEnergy(((IEnergyHandler)tile).receiveEnergy(
+                                        ForgeDirection.getOrientation(i).getOpposite(),
+                                        energyBuffer.extractEnergy(energyBuffer.getMaxExtract(), true), false), false);
                             }
                         }
                     }
@@ -137,6 +144,7 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
                     if (energyBuffer.getMaxReceive() == 0) {
                         energyBuffer.setMaxExtract(0);
                         energyBuffer.setMaxReceive((int) HexEnergyNode.parseEnergyPerTick(portType, portTier));
+                        markDirty();
                     }
                 }
             }
@@ -238,10 +246,12 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
         if (HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT) {
             energyBuffer.setMaxExtract((int) HexEnergyNode.parseEnergyPerTick(portType, this.portTier));
             energyBuffer.setMaxReceive(0);
+            markDirty();
         }
         else {
             energyBuffer.setMaxExtract(0);
             energyBuffer.setMaxReceive((int) HexEnergyNode.parseEnergyPerTick(portType, this.portTier));
+            markDirty();
         }
 
         if (HexConfig.cfgEnergyNodeDebug)
@@ -363,7 +373,7 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
     @Override
     public float drainPortEnergy(float amount) {
         if (amount < energyBuffer.getEnergyStored()) {
-            energyBuffer.setEnergyStored((int) Math.ceil(energyBuffer.getEnergyStored() - amount));
+            energyBuffer.setEnergyStored(Math.round(energyBuffer.getEnergyStored() - amount));
             if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
                 System.out.println("[Energy Node Port: RF] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port conversion requested. r: " + amount + " d(f): " + amount + " f: " + energyBuffer.getEnergyStored());
             return amount;
