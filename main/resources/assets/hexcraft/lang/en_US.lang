@@ -315,6 +315,10 @@ tile.blockEnergyNodeCoreT2.name=Energy Node Core (Tier 2)
 tile.blockEnergyNodeCoreT3.name=Energy Node Core (Tier 3)
 tile.blockEnergyNodeCoreT4.name=Energy Node Core (Tier 4)
 
+tile.blockEnergyNodePortHEX.name=Energy Node Port: HEX
+tile.blockEnergyNodePortRF.name=Energy Node Port: RF
+tile.blockEnergyNodePortEU.name=Energy Node Port: EU
+
 
 tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
 tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)
@@ -431,12 +435,12 @@ msg.teleportLinkBreak.txt=[Hexorium Manipulator] Teleports already linked. Break
 msg.teleportLinkFail1.txt=[Hexorium Manipulator] Linking failed. Teleport no longer exists.
 msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleport unreachable.
 
-msg.portLinkCancel.txt=[Hexorium Manipulator] Energy Port linking canceled.
-msg.portLinkStart.txt=[Hexorium Manipulator] Linking Energy Port...
-msg.portLinkSuccess.txt=[Hexorium Manipulator] Energy Ports successfully linked.
-msg.portLinkBreak.txt=[Hexorium Manipulator] Energy Ports already linked. Breaking link.
-msg.portLinkFail1.txt=[Hexorium Manipulator] Linking failed. Energy Port no longer exists.
-msg.portLinkFail2.txt=[Hexorium Manipulator] Linking failed. Energy Port unreachable.
+msg.portLinkCancel.txt=[Hexorium Manipulator] Port linking canceled.
+msg.portLinkStart.txt=[Hexorium Manipulator] Linking Port...
+msg.portLinkSuccess.txt=[Hexorium Manipulator] Ports successfully linked.
+msg.portLinkBreak.txt=[Hexorium Manipulator] Ports already linked. Breaking link.
+msg.portLinkFail1.txt=[Hexorium Manipulator] Linking failed. Port no longer exists.
+msg.portLinkFail2.txt=[Hexorium Manipulator] Linking failed. Port unreachable.
 msg.portLinkFail3.txt=[Hexorium Manipulator] Linking failed. Energy Node is not formed.
 
 msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...

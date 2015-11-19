@@ -315,6 +315,10 @@ tile.blockEnergyNodeCoreT2.name=Jezgra Energetskog Čvorišta (2. Razina)
 tile.blockEnergyNodeCoreT3.name=Jezgra Energetskog Čvorišta (3. Razina)
 tile.blockEnergyNodeCoreT4.name=Jezgra Energetskog Čvorišta (4. Razina)
 
+tile.blockEnergyNodePortHEX.name=Priključak Energetskog Čvorišta: HEX
+tile.blockEnergyNodePortRF.name=Priključak Energetskog Čvorišta: RF
+tile.blockEnergyNodePortEU.name=Priključak Energetskog Čvorišta: EU
+
 
 tile.blockHexoriumCableRed.name=Heksorijski Kabel (Crveni)
 tile.blockHexoriumCableOrange.name=Heksorijski Kabel (Narančasti)
@@ -431,12 +435,12 @@ msg.teleportLinkBreak.txt=[Heksorijski Upravljač] Teleporti već povezani. Uni�
 msg.teleportLinkFail1.txt=[Heksorijski Upravljač] Povezivanje neuspješno. Teleport više ne postoji.
 msg.teleportLinkFail2.txt=[Heksorijski Upravljač] Povezivanje neuspješno. Teleport nedostupan.
 
-msg.portLinkCancel.txt=[Hexorium Manipulator] Povezivanje Energetskih Priključaka otkazano.
-msg.portLinkStart.txt=[Hexorium Manipulator] Povezivanje Energetskog Priključka...
-msg.portLinkSuccess.txt=[Hexorium Manipulator] Energetski Priključci uspješno povezani.
-msg.portLinkBreak.txt=[Hexorium Manipulator] Energetski Priključci već povezani. Uništavanje veze.
-msg.portLinkFail1.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Priključak više ne postoji.
-msg.portLinkFail2.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Priključak nedostupan.
+msg.portLinkCancel.txt=[Hexorium Manipulator] Povezivanje Priključaka otkazano.
+msg.portLinkStart.txt=[Hexorium Manipulator] Povezivanje Priključka...
+msg.portLinkSuccess.txt=[Hexorium Manipulator] Priključci uspješno povezani.
+msg.portLinkBreak.txt=[Hexorium Manipulator] Priključci već povezani. Uništavanje veze.
+msg.portLinkFail1.txt=[Hexorium Manipulator] Povezivanje neuspješno. Priključak više ne postoji.
+msg.portLinkFail2.txt=[Hexorium Manipulator] Povezivanje neuspješno. Priključak nedostupan.
 msg.portLinkFail3.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski Čvor nije stvoren.
 
 msg.teleportProcess1.txt=[Osobna Teleportacijska Ploča] Teleportacija za 4 sekunde...

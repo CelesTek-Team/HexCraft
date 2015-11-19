@@ -507,7 +507,6 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     @Override
     public float getMultiplier(int typeOut, int tierOut, boolean inverse) {
         float multiplier = HexEnergyNode.parseConversionMultiplier(portType, typeOut);
-        System.out.println("tierIn: " + portTier + " tierOut: " + tierOut);
         if (inverse)
             multiplier = 1F / multiplier;
         return multiplier * HexEnergyNode.parseEfficiencyMultiplier(portTier, tierOut);
