@@ -7,11 +7,13 @@ import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
 
@@ -196,6 +198,34 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
         scanSources();
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
             System.out.println("[Matrix Reconstructor] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Recheck requested. s: " + usableSources);
+    }
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    @Override
+    public void displayInfoDrain(EntityPlayer player) {
+        player.addChatMessage(new ChatComponentTranslation(""));
+        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        // If player is not sneaking.
+        if (!player.isSneaking()) {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeDrain.txt")));
+            int mode = HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeMachineStatus" + (mode + 1) + ".txt")));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeEnergy.txt") + ": " + Math.round(energyTotalDone) + " HEX / " + Math.round(energyTotal) + " HEX"));
+        }
+        // If player is sneaking.
+        else {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedSources.txt") + ":"));
+            if (energySources != null && energySources.size() != 0)
+                for (HexDevice entry : energySources)
+                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
+            else
+                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+        }
     }
 
     /**** Custom Methods ****/

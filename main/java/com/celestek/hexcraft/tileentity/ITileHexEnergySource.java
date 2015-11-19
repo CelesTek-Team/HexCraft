@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.util.HexDevice;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 
@@ -33,4 +34,10 @@ public interface ITileHexEnergySource {
      * @return The amount of energy available per tick.
      */
     float getEnergyPerTick();
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    void displayInfoSource(EntityPlayer player);
 }

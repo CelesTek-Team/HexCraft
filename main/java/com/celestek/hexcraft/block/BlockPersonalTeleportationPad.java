@@ -92,7 +92,7 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
         // Check if the equipped item is not a Hexorium Manipulator.
         ItemStack itemStack = player.getCurrentEquippedItem();
         if (itemStack != null) {
-            if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
+            if (itemStack.getItem() != HexItems.itemHexoriumManipulator && itemStack.getItem() != HexItems.itemHexoriumProbe)
                 // Open the GUI.
                 player.openGui(HexCraft.instance, HexGui.GUI_ID_PERSONAL_TELEPORTATION_PAD, world, x, y, z);
         }

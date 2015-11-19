@@ -6,10 +6,12 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
@@ -1007,6 +1009,32 @@ public class TileTankValve extends TileFluidHandler {
         }
 
         return null;
+    }
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    public void displayInfoValve(EntityPlayer player) {
+        // If player is not sneaking.
+        if (!player.isSneaking()) {
+            player.addChatMessage(new ChatComponentTranslation(""));
+            player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeValve.txt")));
+            if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + I18n.format("hexcraft.container.tankNotFormed")));
+            else if(getMasterTank().getFluid() == null)
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + I18n.format("hexcraft.container.empty")
+                        + " " + HexUtils.formatFluids(0) + " / " + HexUtils.formatFluids(getMasterTank().getCapacity())));
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + getMasterTank().getFluid().getLocalizedName()
+                        + " " + HexUtils.formatFluids(getMasterTank().getFluidAmount()) + " / " + HexUtils.formatFluids(getMasterTank().getCapacity())));
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+        }
     }
 
     /**** Getters and Setters ****/

@@ -7,8 +7,11 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
@@ -384,6 +387,45 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
             if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
                 System.out.println("[Energy Node Port: RF] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port conversion requested. r: " + amount + " d(p): " + partial + " f: " + energyBuffer.getEnergyStored());
             return partial;
+        }
+    }
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    @Override
+    public void displayInfoPort(EntityPlayer player) {
+        player.addChatMessage(new ChatComponentTranslation(""));
+        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        // If player is not sneaking.
+        if (!player.isSneaking()) {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypePort.txt")));
+            int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeMode.txt") + ": " + I18n.format("msg.probePortMode" + (mode + 1) + ".txt")));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeEnergy.txt") + ": " + energyBuffer.getEnergyStored() + " RF / " + energyBuffer.getMaxEnergyStored() + " RF"));
+            if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+            if (linkedPort != null) {
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                player.addChatMessage(new ChatComponentTranslation("    (" + linkedPort.x + ", " + linkedPort.y + ", " + linkedPort.z + ") "
+                        + worldObj.getBlock(linkedPort.x, linkedPort.y, linkedPort.z).getLocalizedName()));
+            }
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeNo.txt")));
+        }
+        // If player is sneaking.
+        else {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedPorts.txt") + ":"));
+            if (energyPorts != null && energyPorts.size() != 0)
+                for (HexDevice entry : energyPorts)
+                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
+            else
+                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
         }
     }
 }

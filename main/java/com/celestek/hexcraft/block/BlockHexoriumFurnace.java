@@ -94,7 +94,7 @@ public class BlockHexoriumFurnace extends HexBlockContainer implements IBlockHex
         // Check if the equipped item is not a Hexorium Manipulator.
         ItemStack itemStack = player.getCurrentEquippedItem();
         if (itemStack != null) {
-            if (itemStack.getItem() != HexItems.itemHexoriumManipulator)
+            if (itemStack.getItem() != HexItems.itemHexoriumManipulator && itemStack.getItem() != HexItems.itemHexoriumProbe)
                 player.openGui(HexCraft.instance, HexGui.GUI_ID_HEXORIUM_FURNACE, world, x, y, z);
         }
         else

@@ -396,6 +396,7 @@ item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 item.itemDigitalSmartpipe.name=Digital Smartpipe
 
 item.itemHexoriumManipulator.name=Hexorium Manipulator
+item.itemHexoriumProbe.name=Hexorium Probe
 item.itemMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 
@@ -469,6 +470,42 @@ msg.energyNodeMode1.txt=[Hexorium Manipulator] Mode changed to: Input
 msg.energyNodeMode2.txt=[Hexorium Manipulator] Mode changed to: Output
 msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
+
+msg.probeName.txt=Name
+msg.probeType.txt=Type
+msg.probeMode.txt=Mode
+msg.probeEnergy.txt=Energy
+msg.probeFluid.txt=Fluid
+msg.probeStatus.txt=Status
+msg.probeFormed.txt=Formed
+msg.probeLinked.txt=Linked
+msg.probeInserted.txt=Inserted
+msg.probeColor.txt=Color
+
+msg.probeTypeSource.txt=Energy Source
+msg.probeTypeDrain.txt=Energy Drain
+msg.probeTypePort.txt=Energy Port
+msg.probeTypePylon.txt=Energy Pylon
+msg.probeTypeValve.txt=Tank Valve
+msg.probeTypeBlock.txt=Structure Block
+msg.probePortMode1.txt=Input
+msg.probePortMode2.txt=Output
+msg.probePortMode3.txt=Interface
+msg.probePortMode4.txt=Tunnel
+msg.probeMachineStatus1.txt=Ready
+msg.probeMachineStatus2.txt=Active
+msg.probeMachineStatus3.txt=Dead
+msg.probeYes.txt=Yes
+msg.probeNo.txt=No
+msg.probeOn.txt=On
+msg.probeOff.txt=Off
+msg.probeNone.txt=None
+
+msg.probeConnectedSources.txt=Connected Sources
+msg.probeConnectedDrains.txt=Connected Drains
+msg.probeConnectedPorts.txt=Connected Ports
+msg.probeConnectedTeleports.txt=Connected Teleports
+msg.probeConnectedPylons.txt=Connected Pylons
 
 
 achievement.hexcraft.achMineHexOre=A Glowing Potential

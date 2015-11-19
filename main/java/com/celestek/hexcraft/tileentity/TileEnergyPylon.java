@@ -3,10 +3,12 @@ package com.celestek.hexcraft.tileentity;
 import com.celestek.hexcraft.block.BlockEnergyPylon;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.HexPylon;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,6 +16,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -341,6 +344,38 @@ public class TileEnergyPylon extends TileEntity {
             return hit1 == null && hit2 == null && hit3 == null && hit4 == null;
         }
         return false;
+    }
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    public void displayInfoPylon(EntityPlayer player) {
+        player.addChatMessage(new ChatComponentTranslation(""));
+        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        // If player is not sneaking.
+        if (!player.isSneaking()) {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypePylon.txt")));
+            if(HexUtils.getMetaBit(BlockEnergyPylon.META_STATE, worldObj, xCoord, yCoord, zCoord))
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeOff.txt")));
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeOn.txt")));
+            if(pylons != null && pylons.size() != 0)
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeYes.txt")));
+            else
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeNo.txt")));
+        }
+        // If player is sneaking.
+        else {
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedPylons.txt") + ":"));
+            if (pylons != null && pylons.size() != 0)
+                for (HexPylon entry : pylons)
+                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
+            else
+                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+        }
     }
 
     /**** Getters and Setters ****/

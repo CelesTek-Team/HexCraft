@@ -2,6 +2,7 @@ package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.util.HexDevice;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 
@@ -79,4 +80,10 @@ public interface ITileHexEnergyPort {
      * @return The amount of energy actually drained.
      */
     float drainPortEnergy(float amount);
+
+    /**
+     * Called by Hexorium Probe to display tile entity info to chat.
+     * @param player Player to show the message to.
+     */
+    void displayInfoPort(EntityPlayer player);
 }

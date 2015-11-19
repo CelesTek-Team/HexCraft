@@ -78,7 +78,7 @@ public class BlockTankValve extends HexBlockContainer {
         ItemStack playerItem = player.getCurrentEquippedItem();
 
         if (playerItem != null) {
-            if (!(playerItem.getItem() == HexItems.itemHexoriumManipulator)) {
+            if (!(playerItem.getItem() == HexItems.itemHexoriumManipulator) && !(playerItem.getItem() == HexItems.itemHexoriumProbe)) {
                 if (FluidContainerRegistry.isContainer(playerItem)) {
                     TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x,y,z);
                     if (tileTankValve != null)

@@ -731,6 +731,7 @@ public class ItemHexoriumManipulator extends Item {
     /**
      * Gets an icon index based on an item's damage value.
      */
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int damage) {
         if (damage == 0)

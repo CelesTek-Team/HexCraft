@@ -5,7 +5,9 @@ import com.celestek.hexcraft.block.BlockHexoriumStructureCasing;
 import com.celestek.hexcraft.block.IBlockHexEnergyPort;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.tileentity.ITileHexEnergyDrain;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
+import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -147,6 +149,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y - 1, z);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y - 1, z);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x, y - 2, z, world.getBlock(x, y - 2, z));
             }
@@ -158,6 +164,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y + 1, z);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y + 1, z);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x, y + 2, z, world.getBlock(x, y + 2, z));
             }
@@ -169,6 +179,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x - 1, y, z);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x - 1, y, z);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x - 2, y, z, world.getBlock(x - 2, y, z));
             }
@@ -180,6 +194,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x + 1, y, z);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x + 1, y, z);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x + 2, y, z, world.getBlock(x + 2, y, z));
             }
@@ -191,6 +209,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y, z - 1);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y, z - 1);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x, y, z - 2, world.getBlock(x, y, z - 2));
             }
@@ -202,6 +224,10 @@ public class HexEnergyNode {
             port.setPorts(null);
             port.emptyBuffer();
             if (block == HexBlocks.blockEnergyNodePortHEX) {
+                ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y, z + 1);
+                source.setDrains(new ArrayList<HexDevice>());
+                ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y, z + 1);
+                drain.setSources(new ArrayList<HexDevice>());
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                 analyzer.analyzeCable(world, x, y, z + 2, world.getBlock(x, y, z + 2));
             }
