@@ -116,29 +116,6 @@ public class ItemHexoriumManipulator extends Item {
                     analyzerDown.analyzeTeleport(world, x, y, z);
                 }
                 
-                // Change Pressure Plate mode.
-                else if (block instanceof BlockHexoriumPressurePlate) {
-
-                    // Change meta accordingly.
-                    HexUtils.rotateBlock(
-                            BlockHexoriumPressurePlate.META_SETTING_0, 
-                            BlockHexoriumPressurePlate.META_SETTING_1, 
-                            true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
-                    int setting = HexUtils.getMetaBitBiInt(
-                            BlockHexoriumPressurePlate.META_SETTING_0, 
-                            BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
-
-                    // Print message about change.
-                    if (setting == 0)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange1.txt"));
-                    if (setting == 1)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange2.txt"));
-                    if (setting == 2)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange3.txt"));
-                    if (setting == 3)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
-                }
-                
                 // Rotate Pylon Base away from player.
                 else if (block instanceof BlockPylonBase) {
                     // Rotate meta
@@ -169,12 +146,6 @@ public class ItemHexoriumManipulator extends Item {
                             orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     analyzePylonBase(world, x, y, z);
-                }
-                
-                // Check if block is part of structure.
-                else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block instanceof BlockEnergyNodeCore) {
-                    if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
-                        player.addChatMessage(new ChatComponentTranslation("msg.structureIsPart.txt"));
                 }
 
                 // Rotate Tank Valve.
@@ -600,25 +571,6 @@ public class ItemHexoriumManipulator extends Item {
                     analyzer.analyzeMachines(world, x, y, z, world.getBlockMetadata(x, y, z));
                 }
 
-                // Show Pressure Plate mode.
-                else if (block instanceof BlockHexoriumPressurePlate) {
-                    // Get block meta and normalize it.
-                    int setting = HexUtils.getMetaBitBiInt(
-                            BlockHexoriumPressurePlate.META_SETTING_0,
-                            BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
-
-                    // Print message about mode.
-                    if (setting == 0)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState1.txt"));
-                    if (setting == 1)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState2.txt"));
-                    if (setting == 2)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState3.txt"));
-                    if (setting == 3)
-                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateState4.txt"));
-                    player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateSneak.txt"));
-                }
-
                 // Rotate Pylon Base.
                 else if (block instanceof BlockPylonBase) {
                     // Rotate meta
@@ -671,6 +623,29 @@ public class ItemHexoriumManipulator extends Item {
                     }
                     else
                         player.addChatMessage(new ChatComponentTranslation("msg.tankFormFail.txt"));
+                }
+
+                // Change Pressure Plate mode.
+                else if (block instanceof BlockHexoriumPressurePlate) {
+
+                    // Change meta accordingly.
+                    HexUtils.rotateBlock(
+                            BlockHexoriumPressurePlate.META_SETTING_0,
+                            BlockHexoriumPressurePlate.META_SETTING_1,
+                            true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                    int setting = HexUtils.getMetaBitBiInt(
+                            BlockHexoriumPressurePlate.META_SETTING_0,
+                            BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
+
+                    // Print message about change.
+                    if (setting == 0)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange1.txt"));
+                    if (setting == 1)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange2.txt"));
+                    if (setting == 2)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange3.txt"));
+                    if (setting == 3)
+                        player.addChatMessage(new ChatComponentTranslation("msg.pressurePlateChange4.txt"));
                 }
             }
         }

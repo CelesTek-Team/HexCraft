@@ -1021,6 +1021,7 @@ public class TileTankValve extends TileFluidHandler {
             player.addChatMessage(new ChatComponentTranslation(""));
             player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
             player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
+            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
             player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeValve.txt")));
             if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
                 player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + I18n.format("hexcraft.container.tankNotFormed")));

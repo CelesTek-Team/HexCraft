@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -92,6 +93,41 @@ public class ItemHexoriumProbe extends Item {
                 valve.displayInfoValve(player);
             }
 
+            // Display Pressure Plate info.
+            else if (block instanceof BlockHexoriumPressurePlate) {
+                player.addChatMessage(new ChatComponentTranslation(""));
+                player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + block.getLocalizedName()));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + x + ", " + y + ", " + z + ")"));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypePressure.txt")));
+                int mode = HexUtils.getMetaBitBiInt(BlockHexoriumPressurePlate.META_SETTING_0, BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeMode.txt") + ": " + I18n.format("msg.probePressureMode" + (mode + 1) + ".txt")));
+                if (HexUtils.getMetaBit(BlockHexoriumPressurePlate.META_STATE, world, x, y, z))
+                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probePressed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                else
+                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probePressed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+            }
+
+            // Display structure block info.
+            else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block instanceof BlockEnergyNodeCore) {
+                player.addChatMessage(new ChatComponentTranslation(""));
+                player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + block.getLocalizedName()));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + x + ", " + y + ", " + z + ")"));
+                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeBlock.txt")));
+                if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
+                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                else
+                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+            }
+
+            // Do a test analysis.
+            else if (block instanceof BlockHexoriumCable || block instanceof BlockPylonBase) {
+                if (player.isSneaking()) {
+                    NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                    analyzer.analyzeProbe(world, x, y, z, block, player);
+                }
+            }
         }
 
         return false;

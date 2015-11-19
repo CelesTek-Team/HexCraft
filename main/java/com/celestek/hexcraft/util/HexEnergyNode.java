@@ -9,11 +9,6 @@ import com.celestek.hexcraft.tileentity.ITileHexEnergyDrain;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -311,13 +306,13 @@ public class HexEnergyNode {
      */
     public static float parseEfficiency(int tier) {
         if(tier == 0)
-            return (float) HexConfig.cfgEnergyConversionEfficiencyTier1 / 100;
+            return (float) (100 - HexConfig.cfgEnergyConversionLossTier1) / 100;
         else if(tier == 1)
-            return (float) HexConfig.cfgEnergyConversionEfficiencyTier2 / 100;
+            return (float) (100 - HexConfig.cfgEnergyConversionLossTier2) / 100;
         else if(tier == 2)
-            return (float) HexConfig.cfgEnergyConversionEfficiencyTier3 / 100;
+            return (float) (100 - HexConfig.cfgEnergyConversionLossTier3) / 100;
         else if(tier == 3)
-            return (float) HexConfig.cfgEnergyConversionEfficiencyTier4 / 100;
+            return (float) (100 - HexConfig.cfgEnergyConversionLossTier4) / 100;
 
         return 0;
     }

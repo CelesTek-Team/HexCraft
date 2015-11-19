@@ -447,12 +447,6 @@ msg.portLinkFail3.txt=[Hexorium Manipulator] Linking failed. Energy Node is not 
 msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
 msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!
 
-msg.pressurePlateState1.txt=[Hexorium Manipulator] Current mode: Everything
-msg.pressurePlateState2.txt=[Hexorium Manipulator] Current mode: Entities
-msg.pressurePlateState3.txt=[Hexorium Manipulator] Current mode: Mobs
-msg.pressurePlateState4.txt=[Hexorium Manipulator] Current mode: Players
-msg.pressurePlateSneak.txt=Sneak to change.
-
 msg.pressurePlateChange1.txt=[Hexorium Manipulator] Mode changed to: Everything
 msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
 msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
@@ -472,10 +466,13 @@ msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
 
 msg.probeName.txt=Name
+msg.probeCoords.txt=Coords
 msg.probeType.txt=Type
 msg.probeMode.txt=Mode
 msg.probeEnergy.txt=Energy
+msg.probePressed.txt=Pressed
 msg.probeFluid.txt=Fluid
+msg.probeEfficiency.txt=Efficiency
 msg.probeStatus.txt=Status
 msg.probeFormed.txt=Formed
 msg.probeLinked.txt=Linked
@@ -487,11 +484,22 @@ msg.probeTypeDrain.txt=Energy Drain
 msg.probeTypePort.txt=Energy Port
 msg.probeTypePylon.txt=Energy Pylon
 msg.probeTypeValve.txt=Tank Valve
+msg.probeTypePressure.txt=Pressure Plate
 msg.probeTypeBlock.txt=Structure Block
 msg.probePortMode1.txt=Input
 msg.probePortMode2.txt=Output
 msg.probePortMode3.txt=Interface
 msg.probePortMode4.txt=Tunnel
+msg.probePressureMode1.txt=Everything
+msg.probePressureMode2.txt=Entities
+msg.probePressureMode3.txt=Mobs
+msg.probePressureMode4.txt=Players
+msg.probeEfficiencyLoss.txt=Loss
+msg.probeEfficiencyTier1.txt=Tier 1
+msg.probeEfficiencyTier2.txt=Tier 2
+msg.probeEfficiencyTier3.txt=Tier 3
+msg.probeEfficiencyTier4.txt=Tier 4
+msg.probeEfficiencyNotFormed.txt=Not Formed
 msg.probeMachineStatus1.txt=Ready
 msg.probeMachineStatus2.txt=Active
 msg.probeMachineStatus3.txt=Dead
@@ -506,6 +514,13 @@ msg.probeConnectedDrains.txt=Connected Drains
 msg.probeConnectedPorts.txt=Connected Ports
 msg.probeConnectedTeleports.txt=Connected Teleports
 msg.probeConnectedPylons.txt=Connected Pylons
+
+msg.probeAnalysisStart.txt=Starting Network Analysis...
+msg.probeAnalysisEnd.txt=Done! Machines found on this network section
+msg.probeAnalysisSources.txt=Sources
+msg.probeAnalysisDrains.txt=Drains
+msg.probeAnalysisPorts.txt=Ports
+msg.probeAnalysisTeleports.txt=Teleports
 
 
 achievement.hexcraft.achMineHexOre=A Glowing Potential

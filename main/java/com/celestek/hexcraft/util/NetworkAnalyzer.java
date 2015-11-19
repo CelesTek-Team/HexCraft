@@ -5,6 +5,9 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.*;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -188,8 +191,12 @@ public class NetworkAnalyzer {
                 boolean prevCore = blockPrev instanceof BlockEnergyNodeCore;
                 int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z);
 
+                // If this is a non-HEX port, formed and accessed from core
+                if (!(block == HexBlocks.blockEnergyNodePortHEX) && isPart && prevCore)
+                    addPort = true;
+
                 // If this is a HEX port, formed and interface
-                if (block == HexBlocks.blockEnergyNodePortHEX && isPart
+                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart
                         && mode == HexEnergyNode.PORT_MODE_INTERFACE) {
                     addPort = true;
                     nextPort = true;
@@ -200,15 +207,17 @@ public class NetworkAnalyzer {
                         && (mode == HexEnergyNode.PORT_MODE_INPUT || mode == HexEnergyNode.PORT_MODE_OUTPUT || mode == HexEnergyNode.PORT_MODE_TUNNEL))
                     addPort = true;
 
-                // If this is a non-HEX port, formed and accessed from core
-                else if (!(block == HexBlocks.blockEnergyNodePortHEX) && isPart && prevCore)
-                    addPort = true;
-
-                // If this is a HEX port, formed, accessed outside of core and input or output
+                // If this is a HEX port, formed, accessed outside of core and input
                 else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
-                        && (mode == HexEnergyNode.PORT_MODE_INPUT || mode == HexEnergyNode.PORT_MODE_OUTPUT)) {
+                        && mode == HexEnergyNode.PORT_MODE_INPUT) {
                     if (!energyDrains.contains(new HexDevice(x, y, z, block)))
                         energyDrains.add(new HexDevice(x, y, z, block));
+                    return;
+                }
+
+                // If this is a HEX port, formed, accessed outside of core and output
+                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                        && mode == HexEnergyNode.PORT_MODE_OUTPUT) {
                     if (!energySources.contains(new HexDevice(x, y, z, block)))
                         energySources.add(new HexDevice(x, y, z, block));
                     return;
@@ -647,7 +656,7 @@ public class NetworkAnalyzer {
             addMachine(world, x, y, z);
 
         // Push the results to all found machines.
-        push(world);
+        pushMachines(world);
     }
 
     /**
@@ -673,7 +682,7 @@ public class NetworkAnalyzer {
             addTeleport(world, x, y, z);
 
         // Push the results to all found machines.
-        push(world);
+        pushMachines(world);
     }
 
     /**
@@ -687,7 +696,7 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         analyze(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        push(world);
+        pushMachines(world);
     }
 
     /**
@@ -701,14 +710,14 @@ public class NetworkAnalyzer {
         // Call the analysis and wait for results.
         pylonize(world, x, y, z, block, -1);
         // Push the results to all found machines.
-        push(world);
+        pushMachines(world);
     }
 
     /**
-     * Pushes the results of scanning to sources and drains.
+     * Pushes the results of scanning to sources, drains, ports and teleports.
      * @param world The world that the network is in.
      */
-    private void push(World world) {
+    private void pushMachines(World world) {
 
         // Notify about pushing to sources.
         if (HexConfig.cfgGeneralNetworkDebug) {
@@ -751,6 +760,78 @@ public class NetworkAnalyzer {
             TilePersonalTeleportationPad teleport = (TilePersonalTeleportationPad) world.getTileEntity(entry.x, entry.y, entry.z);
             teleport.setTeleports(teleports);
         }
+    }
+
+    /**
+     * Begins the analysis when using a probe.
+     * @param world The world that the block to analyze is in.
+     * @param x X coordinate of the cable.
+     * @param y Y coordinate of the cable.
+     * @param z Z coordinate of the cable.
+     * @param player Player to display the results to.
+     */
+    public void analyzeProbe(World world, int x, int y, int z, Block block, EntityPlayer player) {
+        player.addChatMessage(new ChatComponentTranslation(""));
+        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeAnalysisStart.txt")));
+        // Call the analysis and wait for results.
+        analyze(world, x, y, z, block, -1);
+        // Push the results to all found machines.
+        pushProbe(player);
+    }
+
+    /**
+     * Pushes the results of scanning to chat.
+     * @param player Player to display the results to.
+     */
+    private void pushProbe(EntityPlayer player) {
+
+        // Notify about pushing to sources.
+        if (HexConfig.cfgGeneralNetworkDebug) {
+            System.out.println("[Network Analyzer] Done!");
+            System.out.println("[Network Analyzer] Pushing data to chat...");
+        }
+
+        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeAnalysisEnd.txt") + ":"));
+        // Go through all energySources ArrayList entries.
+        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisSources.txt") + ":"));
+        if (energySources != null && energySources.size() != 0)
+            for (HexDevice entry : energySources) {
+                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                        + entry.block.getLocalizedName()));
+            }
+        else
+            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+
+        // Go through all energyDrains ArrayList entries.
+        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisDrains.txt") + ":"));
+        if (energyDrains != null && energyDrains.size() != 0)
+            for (HexDevice entry : energyDrains) {
+                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                        + entry.block.getLocalizedName()));
+            }
+        else
+            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+
+        // Go through all energyPorts ArrayList entries.
+        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisPorts.txt") + ":"));
+        if (energyPorts != null && energyPorts.size() != 0)
+            for (HexDevice entry : energyPorts) {
+                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                        + entry.block.getLocalizedName()));
+            }
+        else
+            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+
+        // Go through all teleports ArrayList entries.
+        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisTeleports.txt") + ":"));
+        if (teleports != null && teleports.size() != 0)
+            for (HexDevice entry : teleports) {
+                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
+                        + entry.block.getLocalizedName()));
+            }
+        else
+            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
     }
 
     /**
