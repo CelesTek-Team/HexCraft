@@ -7,6 +7,7 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.util.HexDamage;
+import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -68,6 +69,7 @@ public class ItemMolecularTransposer extends Item {
                                 block instanceof BlockFramedHexoriumBlock ||
                                 block instanceof BlockPlatedHexoriumBlock ||
                                 block instanceof BlockConcentricHexoriumBlock ||
+                                block instanceof BlockHexoriumStructureCasing ||
                                 block instanceof BlockHexoriumLamp ||
                                 block instanceof BlockHexoriumLampInv) {
 
@@ -82,10 +84,12 @@ public class ItemMolecularTransposer extends Item {
                                 blockType = 2;
                             else if (block instanceof BlockConcentricHexoriumBlock)
                                 blockType = 3;
-                            else if (block instanceof BlockHexoriumLamp)
+                            else if (block instanceof BlockHexoriumStructureCasing)
                                 blockType = 4;
-                            else if (block instanceof BlockHexoriumLampInv)
+                            else if (block instanceof BlockHexoriumLamp)
                                 blockType = 5;
+                            else if (block instanceof BlockHexoriumLampInv)
+                                blockType = 6;
                             
                             // Drop Energized Hexorium.
                             // Red
@@ -93,6 +97,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockRed ||
                                     block == HexBlocks.blockPlatedHexoriumBlockRed ||
                                     block == HexBlocks.blockConcentricHexoriumBlockRed ||
+                                    block == HexBlocks.blockHexoriumStructureCasingRed ||
                                     block == HexBlocks.blockHexoriumLampRed ||
                                     block == HexBlocks.blockHexoriumLampInvRed) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -104,6 +109,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockOrange ||
                                     block == HexBlocks.blockPlatedHexoriumBlockOrange ||
                                     block == HexBlocks.blockConcentricHexoriumBlockOrange ||
+                                    block == HexBlocks.blockHexoriumStructureCasingOrange ||
                                     block == HexBlocks.blockHexoriumLampOrange ||
                                     block == HexBlocks.blockHexoriumLampInvOrange) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -115,6 +121,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockYellow ||
                                     block == HexBlocks.blockPlatedHexoriumBlockYellow ||
                                     block == HexBlocks.blockConcentricHexoriumBlockYellow ||
+                                    block == HexBlocks.blockHexoriumStructureCasingYellow ||
                                     block == HexBlocks.blockHexoriumLampYellow ||
                                     block == HexBlocks.blockHexoriumLampInvYellow) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -126,6 +133,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockLime ||
                                     block == HexBlocks.blockPlatedHexoriumBlockLime ||
                                     block == HexBlocks.blockConcentricHexoriumBlockLime ||
+                                    block == HexBlocks.blockHexoriumStructureCasingLime ||
                                     block == HexBlocks.blockHexoriumLampLime ||
                                     block == HexBlocks.blockHexoriumLampInvLime) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -137,6 +145,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockGreen ||
                                     block == HexBlocks.blockPlatedHexoriumBlockGreen ||
                                     block == HexBlocks.blockConcentricHexoriumBlockGreen ||
+                                    block == HexBlocks.blockHexoriumStructureCasingGreen ||
                                     block == HexBlocks.blockHexoriumLampGreen ||
                                     block == HexBlocks.blockHexoriumLampInvGreen) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -148,6 +157,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockTurquoise ||
                                     block == HexBlocks.blockPlatedHexoriumBlockTurquoise ||
                                     block == HexBlocks.blockConcentricHexoriumBlockTurquoise ||
+                                    block == HexBlocks.blockHexoriumStructureCasingTurquoise ||
                                     block == HexBlocks.blockHexoriumLampTurquoise ||
                                     block == HexBlocks.blockHexoriumLampInvTurquoise) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -159,6 +169,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockCyan ||
                                     block == HexBlocks.blockPlatedHexoriumBlockCyan ||
                                     block == HexBlocks.blockConcentricHexoriumBlockCyan ||
+                                    block == HexBlocks.blockHexoriumStructureCasingCyan ||
                                     block == HexBlocks.blockHexoriumLampCyan ||
                                     block == HexBlocks.blockHexoriumLampInvCyan) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -170,6 +181,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockSkyBlue ||
                                     block == HexBlocks.blockPlatedHexoriumBlockSkyBlue ||
                                     block == HexBlocks.blockConcentricHexoriumBlockSkyBlue ||
+                                    block == HexBlocks.blockHexoriumStructureCasingSkyBlue ||
                                     block == HexBlocks.blockHexoriumLampSkyBlue ||
                                     block == HexBlocks.blockHexoriumLampInvSkyBlue) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -181,6 +193,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockBlue ||
                                     block == HexBlocks.blockPlatedHexoriumBlockBlue ||
                                     block == HexBlocks.blockConcentricHexoriumBlockBlue ||
+                                    block == HexBlocks.blockHexoriumStructureCasingBlue ||
                                     block == HexBlocks.blockHexoriumLampBlue ||
                                     block == HexBlocks.blockHexoriumLampInvBlue) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -192,6 +205,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockPurple ||
                                     block == HexBlocks.blockPlatedHexoriumBlockPurple ||
                                     block == HexBlocks.blockConcentricHexoriumBlockPurple ||
+                                    block == HexBlocks.blockHexoriumStructureCasingPurple ||
                                     block == HexBlocks.blockHexoriumLampPurple ||
                                     block == HexBlocks.blockHexoriumLampInvPurple) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -203,6 +217,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockMagenta ||
                                     block == HexBlocks.blockPlatedHexoriumBlockMagenta ||
                                     block == HexBlocks.blockConcentricHexoriumBlockMagenta ||
+                                    block == HexBlocks.blockHexoriumStructureCasingMagenta ||
                                     block == HexBlocks.blockHexoriumLampMagenta ||
                                     block == HexBlocks.blockHexoriumLampInvMagenta) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -214,6 +229,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockPink ||
                                     block == HexBlocks.blockPlatedHexoriumBlockPink ||
                                     block == HexBlocks.blockConcentricHexoriumBlockPink ||
+                                    block == HexBlocks.blockHexoriumStructureCasingPink ||
                                     block == HexBlocks.blockHexoriumLampPink ||
                                     block == HexBlocks.blockHexoriumLampInvPink) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -226,6 +242,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockWhite ||
                                     block == HexBlocks.blockPlatedHexoriumBlockWhite ||
                                     block == HexBlocks.blockConcentricHexoriumBlockWhite ||
+                                    block == HexBlocks.blockHexoriumStructureCasingWhite ||
                                     block == HexBlocks.blockHexoriumLampWhite ||
                                     block == HexBlocks.blockHexoriumLampInvWhite) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -237,6 +254,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockLightGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockLightGray ||
                                     block == HexBlocks.blockConcentricHexoriumBlockLightGray ||
+                                    block == HexBlocks.blockHexoriumStructureCasingLightGray ||
                                     block == HexBlocks.blockHexoriumLampLightGray ||
                                     block == HexBlocks.blockHexoriumLampInvLightGray) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -248,6 +266,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockGray ||
                                     block == HexBlocks.blockConcentricHexoriumBlockGray ||
+                                    block == HexBlocks.blockHexoriumStructureCasingGray ||
                                     block == HexBlocks.blockHexoriumLampGray ||
                                     block == HexBlocks.blockHexoriumLampInvGray) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -259,6 +278,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockDarkGray ||
                                     block == HexBlocks.blockPlatedHexoriumBlockDarkGray ||
                                     block == HexBlocks.blockConcentricHexoriumBlockDarkGray ||
+                                    block == HexBlocks.blockHexoriumStructureCasingDarkGray ||
                                     block == HexBlocks.blockHexoriumLampDarkGray ||
                                     block == HexBlocks.blockHexoriumLampInvDarkGray) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -270,6 +290,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockBlack ||
                                     block == HexBlocks.blockPlatedHexoriumBlockBlack ||
                                     block == HexBlocks.blockConcentricHexoriumBlockBlack ||
+                                    block == HexBlocks.blockHexoriumStructureCasingBlack ||
                                     block == HexBlocks.blockHexoriumLampBlack ||
                                     block == HexBlocks.blockHexoriumLampInvBlack) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -282,6 +303,7 @@ public class ItemMolecularTransposer extends Item {
                                     block == HexBlocks.blockFramedHexoriumBlockRainbow ||
                                     block == HexBlocks.blockPlatedHexoriumBlockRainbow ||
                                     block == HexBlocks.blockConcentricHexoriumBlockRainbow ||
+                                    block == HexBlocks.blockHexoriumStructureCasingRainbow ||
                                     block == HexBlocks.blockHexoriumLampRainbow ||
                                     block == HexBlocks.blockHexoriumLampInvRainbow) {
                                 EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
@@ -298,8 +320,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockRed); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockRed); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockRed); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampRed); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRed); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingRed); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampRed); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRed); break;
                                 }
                             // Orange
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumOrange)
@@ -308,8 +331,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockOrange); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockOrange); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockOrange); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampOrange); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvOrange); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingOrange); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampOrange); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvOrange); break;
                                 }
                             // Yellow
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumYellow)
@@ -318,8 +342,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockYellow); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockYellow); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockYellow); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampYellow); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvYellow); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingYellow); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampYellow); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvYellow); break;
                                 }
                             // Lime
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumLime)
@@ -328,8 +353,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockLime); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockLime); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockLime); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLime); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLime); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingLime); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLime); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLime); break;
                                 }
                             // Green
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumGreen)
@@ -338,8 +364,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockGreen); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockGreen); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockGreen); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGreen); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGreen); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingGreen); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGreen); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGreen); break;
                                 }
                             // Turquoise
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumTurquoise)
@@ -348,8 +375,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockTurquoise); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockTurquoise); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockTurquoise); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampTurquoise); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvTurquoise); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingTurquoise); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampTurquoise); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvTurquoise); break;
                                 }
                             // Cyan
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumCyan)
@@ -358,8 +386,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockCyan); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockCyan); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockCyan); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampCyan); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvCyan); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingCyan); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampCyan); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvCyan); break;
                                 }
                             // Sky Blue
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumSkyBlue)
@@ -368,8 +397,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockSkyBlue); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockSkyBlue); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockSkyBlue); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampSkyBlue); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvSkyBlue); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingSkyBlue); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampSkyBlue); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvSkyBlue); break;
                                 }
                             // Blue
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumBlue)
@@ -378,8 +408,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockBlue); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockBlue); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockBlue); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampBlue); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlue); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingBlue); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampBlue); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlue); break;
                                 }
                             // Purple
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumPurple)
@@ -388,8 +419,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockPurple); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockPurple); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockPurple); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampPurple); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPurple); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingPurple); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampPurple); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPurple); break;
                                 }
                             // Magenta
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumMagenta)
@@ -398,8 +430,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockMagenta); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockMagenta); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockMagenta); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampMagenta); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvMagenta); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingMagenta); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampMagenta); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvMagenta); break;
                                 }
                             // Pink
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumPink)
@@ -408,8 +441,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockPink); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockPink); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockPink); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampPink); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPink); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingPink); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampPink); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvPink); break;
                                 }
 
                             // white
@@ -419,8 +453,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockWhite); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockWhite); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockWhite); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampWhite); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvWhite); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingWhite); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampWhite); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvWhite); break;
                                 }
                             // Light Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumLightGray)
@@ -429,8 +464,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockLightGray); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockLightGray); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockLightGray); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLightGray); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLightGray); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingLightGray); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampLightGray); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvLightGray); break;
                                 }
                             // Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumGray)
@@ -439,8 +475,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockGray); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockGray); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockGray); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGray); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGray); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingGray); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampGray); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvGray); break;
                                 }
                             // Dark Gray
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumDarkGray)
@@ -449,8 +486,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockDarkGray); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockDarkGray); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockDarkGray); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampDarkGray); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvDarkGray); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingDarkGray); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampDarkGray); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvDarkGray); break;
                                 }
                             // Black
                             else if (Block.getBlockFromItem(inventory.getItem()) == HexBlocks.blockEnergizedHexoriumBlack)
@@ -459,8 +497,9 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockBlack); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockBlack); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockBlack); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampBlack); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlack); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingBlack); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampBlack); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvBlack); break;
                                 }
 
                             // Rainbow
@@ -470,12 +509,13 @@ public class ItemMolecularTransposer extends Item {
                                     case 1: world.setBlock(x, y, z, HexBlocks.blockFramedHexoriumBlockRainbow); break;
                                     case 2: world.setBlock(x, y, z, HexBlocks.blockPlatedHexoriumBlockRainbow); break;
                                     case 3: world.setBlock(x, y, z, HexBlocks.blockConcentricHexoriumBlockRainbow); break;
-                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampRainbow); break;
-                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRainbow); break;
+                                    case 4: world.setBlock(x, y, z, HexBlocks.blockHexoriumStructureCasingRainbow); break;
+                                    case 5: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampRainbow); break;
+                                    case 6: world.setBlock(x, y, z, HexBlocks.blockHexoriumLampInvRainbow); break;
                                 }
 
                             // Set the block meta.
-                            world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+                            world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
 
                             // Decrement the count of Energized Hexorium.
                             inventory.stackSize--;
