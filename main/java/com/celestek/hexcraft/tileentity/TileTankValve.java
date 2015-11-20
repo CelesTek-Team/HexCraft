@@ -2,12 +2,14 @@ package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.HexBlockMT;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -1039,6 +1041,9 @@ public class TileTankValve extends TileFluidHandler {
                 player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
             else
                 player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+
+            if (HexConfig.cfgGeneralUseAchievements)
+                player.addStat(HexAchievements.achUseProbeMachine, 1);
         }
     }
 

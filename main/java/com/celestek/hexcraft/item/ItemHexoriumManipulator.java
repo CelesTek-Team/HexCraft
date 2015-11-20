@@ -470,11 +470,14 @@ public class ItemHexoriumManipulator extends Item {
                                                 if (portA.linkPort(tx, ty, tz) && portB.linkPort(x, y, z)) {
                                                     player.addChatMessage(new ChatComponentTranslation("msg.portLinkSuccess.txt"));
 
-                                                    //TODO: Add achievement.
                                                     if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
                                                         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgTeleportEnable)
-                                                            player.addStat(HexAchievements.achLinkTeleport, 1);
+                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                                            player.addStat(HexAchievements.achLinkEnergyNodePorts, 1);
+
+                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achFormEnergyNode)
+                                                                && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achLinkEnergyNodePorts))
+                                                            player.addStat(HexAchievements.achGroupEnergyNode, 1);
                                                     }
 
                                                     int xc = x;
@@ -542,8 +545,19 @@ public class ItemHexoriumManipulator extends Item {
 
                     // Form Energy Node.
                     else {
-                        if (HexEnergyNode.setupEnergyNode(side, world, x, y, z))
+                        if (HexEnergyNode.setupEnergyNode(side, world, x, y, z)) {
                             player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
+
+                            if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                                EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                                if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                    player.addStat(HexAchievements.achFormEnergyNode, 1);
+
+                                if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achFormEnergyNode)
+                                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achLinkEnergyNodePorts))
+                                    player.addStat(HexAchievements.achGroupEnergyNode, 1);
+                            }
+                        }
                         else
                             player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
                     }

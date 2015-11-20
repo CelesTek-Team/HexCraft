@@ -407,6 +407,7 @@ public class HexRecipes {
 
         // Tools
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
+        ItemStack stackHexoriumProbe_1 = new ItemStack(HexItems.itemHexoriumProbe, 1);
         ItemStack stackMolecularTransposer_1 = new ItemStack(HexItems.itemMolecularTransposer, 1);
         ItemStack stackHexoriumReinforcer_6 = new ItemStack(HexItems.itemHexoriumReinforcer, 6);
 
@@ -2786,10 +2787,15 @@ public class HexRecipes {
 
         // Tools
         GameRegistry.addRecipe(stackHexoriumManipulator_1,
-                "EAE",
-                "CBD",
-                " EF",
+                "AEF",
+                "EBC",
+                " DE",
                 'A', stackHexoriumCrystalBlack_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', stackIronIngot_1, 'F', stackStoneButton_1);
+        GameRegistry.addRecipe(stackHexoriumProbe_1,
+                "A  ",
+                " DB",
+                " CD",
+                'A', stackHexoriumCrystalWhite_1, 'B', stackMachineControlPanel_1, 'C', stackHexoriumCoprocessor_1, 'D', stackIronIngot_1);
         GameRegistry.addRecipe(stackMolecularTransposer_1,
                 "E  ",
                 " CB",

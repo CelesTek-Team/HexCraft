@@ -5,12 +5,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.Item;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
-
-import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -112,6 +106,10 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftConcentricBlock, 1);
                 checkDecorations = true;
             }
+            else if (block instanceof BlockHexoriumStructureCasing) {
+                event.player.addStat(HexAchievements.achCraftStructureCasing, 1);
+                checkDecorations = true;
+            }
             else if (block instanceof BlockHexoriumDoor) {
                 event.player.addStat(HexAchievements.achCraftDoor, 1);
                 checkDecorations = true;
@@ -139,6 +137,15 @@ public class HexCraftingHandler {
 
             else if (block == HexBlocks.blockHexoriumMachineBlock)
                 event.player.addStat(HexAchievements.achCraftMachineBlock, 1);
+
+            else if (block == HexBlocks.blockAdvancedRainbowCore)
+                event.player.addStat(HexAchievements.achCraftAdvancedRainbowCore, 1);
+
+            else if (block instanceof BlockEnergyNodeCore)
+                event.player.addStat(HexAchievements.achCraftEnergyNodeCore, 1);
+
+            else if (block instanceof IBlockHexEnergyPort)
+                event.player.addStat(HexAchievements.achCraftEnergyNodePort, 1);
 
             // T2 Machines
             else if (block == HexBlocks.blockHexoriumGenerator) {
@@ -168,7 +175,6 @@ public class HexCraftingHandler {
             else if (block == HexBlocks.blockEnergyPylon)
                 event.player.addStat(HexAchievements.achCraftPylon, 1);
 
-
             // Manipulator
             else if (event.crafting.getItem() == HexItems.itemHexoriumManipulator)
                 event.player.addStat(HexAchievements.achCraftManipulator, 1);
@@ -177,12 +183,17 @@ public class HexCraftingHandler {
             else if (event.crafting.getItem() == HexItems.itemMolecularTransposer)
                 event.player.addStat(HexAchievements.achCraftTransposer, 1);
 
+            // Probe
+            else if (event.crafting.getItem() == HexItems.itemHexoriumProbe)
+                event.player.addStat(HexAchievements.achCraftProbe, 1);
+
             // Decorative Special
             if (checkDecorations)
                 if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEngineeredBlock)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftFramedBlock)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftPlatedBlock)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftConcentricBlock)
+                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftStructureCasing)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftDoor)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftHatch)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftGlowingGlass)

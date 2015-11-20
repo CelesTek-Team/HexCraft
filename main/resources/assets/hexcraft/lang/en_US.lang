@@ -478,7 +478,6 @@ msg.probeStatus.txt=Status
 msg.probeFormed.txt=Formed
 msg.probeLinked.txt=Linked
 msg.probeInserted.txt=Inserted
-msg.probeColor.txt=Color
 
 msg.probeTypeSource.txt=Energy Source
 msg.probeTypeDrain.txt=Energy Drain
@@ -581,6 +580,8 @@ achievement.hexcraft.achCraftPlatedBlock=Armor Is Always Good
 achievement.hexcraft.achCraftPlatedBlock.desc=Craft a Plated Hexorium Block of any color.
 achievement.hexcraft.achCraftConcentricBlock=Psychedelic Blocks
 achievement.hexcraft.achCraftConcentricBlock.desc=Craft a Concentric Hexorium Block of any color.
+achievement.hexcraft.achCraftStructureCasing=Structures Should Be Solid
+achievement.hexcraft.achCraftStructureCasing.desc=Craft a Hexorium Structure Casing of any color.
 achievement.hexcraft.achCraftDoor=A Fancy See-through Door
 achievement.hexcraft.achCraftDoor.desc=Craft a Hexorium Door of any color.
 achievement.hexcraft.achCraftHatch=It's A Trap(door)!
@@ -631,6 +632,13 @@ achievement.hexcraft.achUseTransposer.desc=Use the Molecular Transposer to swap 
 achievement.hexcraft.achAttackTransposer=This Might Hurt A Little...
 achievement.hexcraft.achAttackTransposer.desc=Inject Energized Hexorium into a living creature using the Molecular Transposer.
 
+achievement.hexcraft.achCraftProbe=Not An Alien One
+achievement.hexcraft.achCraftProbe.desc=Craft a Hexorium Probe.
+achievement.hexcraft.achUseProbeMachine=Crystalline Information
+achievement.hexcraft.achUseProbeMachine.desc=Use the Hexorium Probe to read info about a Hexorium machine or block.
+achievement.hexcraft.achUseProbeNetwork=Understanding The HEX
+achievement.hexcraft.achUseProbeNetwork.desc=Use the Hexorium Probe to analyze a HEX Energy Network.
+
 achievement.hexcraft.achFormHexoriumTank=Tanks For The Memories
 achievement.hexcraft.achFormHexoriumTank.desc=Form a Hexorium Tank. Also requires achievement: Human-Hexorium Interface
 
@@ -641,6 +649,19 @@ achievement.hexcraft.achLinkPylon.desc=Link two Energy Pylons together. Also req
 
 achievement.hexcraft.achUseTeleport=Beam Me Up, Scotty!
 achievement.hexcraft.achUseTeleport.desc=Use a Personal Teleportation Pad to teleport to another.
+
+achievement.hexcraft.achCraftAdvancedRainbowCore=Expensive Decoration
+achievement.hexcraft.achCraftAdvancedRainbowCore.desc=Craft an Advanced Rainbow Core.
+achievement.hexcraft.achCraftEnergyNodeCore=Apex Of Technology
+achievement.hexcraft.achCraftEnergyNodeCore.desc=Craft an Energy Node Core of any tier.
+achievement.hexcraft.achCraftEnergyNodePort=There's A Port For That
+achievement.hexcraft.achCraftEnergyNodePort.desc=Craft an Energy Node Port of any energy type.
+achievement.hexcraft.achFormEnergyNode=It May Be Big, But It's Worth It
+achievement.hexcraft.achFormEnergyNode.desc=Form an Energy Node. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achLinkEnergyNodePorts=I Need Different Energy
+achievement.hexcraft.achLinkEnergyNodePorts.desc=Link two Energy Node Ports together. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achGroupEnergyNode=Convert All The Energies!
+achievement.hexcraft.achGroupEnergyNode.desc=Complete all of the Energy Node achievements.
 
 
 death.attack.hexTeleport=%1$s was decomposed during teleportation.

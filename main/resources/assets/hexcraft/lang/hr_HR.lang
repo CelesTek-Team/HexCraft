@@ -448,12 +448,6 @@ msg.portLinkFail3.txt=[Hexorium Manipulator] Povezivanje neuspješno. Energetski
 msg.teleportProcess1.txt=[Osobna Teleportacijska Ploča] Teleportacija za 4 sekunde...
 msg.teleportProcess2.txt=[Osobna Teleportacijska Ploča] Teleportacija!
 
-msg.pressurePlateState1.txt=[Heksorijski Upravljač] Trenutni mod: Sve
-msg.pressurePlateState2.txt=[Heksorijski Upravljač] Trenutni mod: Entiteti
-msg.pressurePlateState3.txt=[Heksorijski Upravljač] Trenutni mod: Stvorenja
-msg.pressurePlateState4.txt=[Heksorijski Upravljač] Trenutni mod: Igrači
-msg.pressurePlateSneak.txt=Sneak to change.
-
 msg.pressurePlateChange1.txt=[Heksorijski Upravljač] Mod promijenjen na: Sve
 msg.pressurePlateChange2.txt=[Heksorijski Upravljač] Mod promijenjen na: Entiteti
 msg.pressurePlateChange3.txt=[Heksorijski Upravljač] Mod promijenjen na: Stvorenja
@@ -469,8 +463,64 @@ msg.tankFormFail.txt=[Hexorium Manipulator] Tank je već stvoren.
 msg.energyNodeFormSuccess.txt=[Hexorium Manipulator] Energetski Čvor uspješno stvoren.
 msg.energyNodeMode1.txt=[Hexorium Manipulator] Mod promijenjen na: Ulaz
 msg.energyNodeMode2.txt=[Hexorium Manipulator] Mod promijenjen na: Izlaz
-msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Povezivanje
+msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Sučelje
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
+
+msg.probeName.txt=Naziv
+msg.probeCoords.txt=Koord
+msg.probeType.txt=Tip
+msg.probeMode.txt=Mod
+msg.probeEnergy.txt=Energija
+msg.probePressed.txt=Pritisnuto
+msg.probeFluid.txt=Tekućina
+msg.probeEfficiency.txt=Efikasnost
+msg.probeStatus.txt=Stanje
+msg.probeFormed.txt=Stvoreno
+msg.probeLinked.txt=Povezano
+msg.probeInserted.txt=Ubačeno
+
+msg.probeTypeSource.txt=Energetski Izvor
+msg.probeTypeDrain.txt=Energetsko Trošilo
+msg.probeTypePort.txt=Energetski Priključan
+msg.probeTypePylon.txt=Energetski Stup
+msg.probeTypeValve.txt=Ventil Tanka
+msg.probeTypePressure.txt=Nagazna Ploča
+msg.probeTypeBlock.txt=Blok Strukture
+msg.probePortMode1.txt=Ulaz
+msg.probePortMode2.txt=Izlaz
+msg.probePortMode3.txt=Sučelje
+msg.probePortMode4.txt=Tuneliranje
+msg.probePressureMode1.txt=Sve
+msg.probePressureMode2.txt=Entiteti
+msg.probePressureMode3.txt=Stvorenja
+msg.probePressureMode4.txt=Igrači
+msg.probeEfficiencyLoss.txt=Gubitak
+msg.probeEfficiencyTier1.txt=1. Razina
+msg.probeEfficiencyTier2.txt=2. Razina
+msg.probeEfficiencyTier3.txt=3. Razina
+msg.probeEfficiencyTier4.txt=4. Razina
+msg.probeEfficiencyNotFormed.txt=Nije Stvoreno
+msg.probeMachineStatus1.txt=Spremno
+msg.probeMachineStatus2.txt=Aktivno
+msg.probeMachineStatus3.txt=Mrtvo
+msg.probeYes.txt=Da
+msg.probeNo.txt=Ne
+msg.probeOn.txt=Upaljeno
+msg.probeOff.txt=Ugašeno
+msg.probeNone.txt=Ništa
+
+msg.probeConnectedSources.txt=Spojeni Izvori
+msg.probeConnectedDrains.txt=Spojena Trošila
+msg.probeConnectedPorts.txt=Spojeni Priključci
+msg.probeConnectedTeleports.txt=Spojeni Teleporti
+msg.probeConnectedPylons.txt=Spojeni Stupovi
+
+msg.probeAnalysisStart.txt=Početak Mrežne Analize...
+msg.probeAnalysisEnd.txt=Gotovo! Strojevi pronađeni na ovom mrežnom odjeljku
+msg.probeAnalysisSources.txt=Izvori
+msg.probeAnalysisDrains.txt=Trošila
+msg.probeAnalysisPorts.txt=Priključci
+msg.probeAnalysisTeleports.txt=Teleporti
 
 
 achievement.hexcraft.achMineHexOre=Svijetleći Potencijal
@@ -530,6 +580,8 @@ achievement.hexcraft.achCraftPlatedBlock=Oklop Je Uvijek Dobar
 achievement.hexcraft.achCraftPlatedBlock.desc=Napravi Popločen Heksorijski Blok bilo koje boje.
 achievement.hexcraft.achCraftConcentricBlock=Psihodelični Blokovi
 achievement.hexcraft.achCraftConcentricBlock.desc=Napravi Koncentričan Heksorijski Blok bilo koje boje.
+achievement.hexcraft.achCraftStructureCasing=Strukture Bi Trebale Biti Čvrste
+achievement.hexcraft.achCraftStructureCasing.desc=Napravi Heksorijsko Strukturno Kućište bilo koje boje.
 achievement.hexcraft.achCraftDoor=Elegantna Prozirna Vrata
 achievement.hexcraft.achCraftDoor.desc=Napravi Heksorijska Vrata bilo koje boje.
 achievement.hexcraft.achCraftHatch=Rupa U Podu
@@ -580,6 +632,13 @@ achievement.hexcraft.achUseTransposer.desc=Iskoristi Molekulski Izmjenivač kako
 achievement.hexcraft.achAttackTransposer=Ovo Će Možda Malo Boliti...
 achievement.hexcraft.achAttackTransposer.desc=Ubrizgaj Heksorij Napunjen Energijom u živo stvorenje koristeći Molekulski Izmjenivač.
 
+achievement.hexcraft.achCraftProbe=Nije Izvanzemaljska
+achievement.hexcraft.achCraftProbe.desc=Napravi Heksorijsku Sondu.
+achievement.hexcraft.achUseProbeMachine=Kristalne Informacije
+achievement.hexcraft.achUseProbeMachine.desc=Iskoristi Heksorijsku Sondu kako bi očitao podatke o Heksorijskom stroju ili bloku.
+achievement.hexcraft.achUseProbeNetwork=Razumijevanje HEX-a
+achievement.hexcraft.achUseProbeNetwork.desc=Iskoristi Heksorijsku Sondu kako bi analizirao HEX Energetsku Mrežu.
+
 achievement.hexcraft.achFormHexoriumTank=Zapremina Tekućine
 achievement.hexcraft.achFormHexoriumTank.desc=Stvori Heksorijski Tank. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
 
@@ -590,6 +649,19 @@ achievement.hexcraft.achLinkPylon.desc=Poveži dvija Energetska Stupa. Također 
 
 achievement.hexcraft.achUseTeleport=Teleportiraj Me, Scotty!
 achievement.hexcraft.achUseTeleport.desc=Iskoristi Osobnu Teleportacijsku Ploču kako bi se teleportirao na drugu.
+
+achievement.hexcraft.achCraftAdvancedRainbowCore=Skup Ukras
+achievement.hexcraft.achCraftAdvancedRainbowCore.desc=Napravi Naprednu Duginu Jezgru.
+achievement.hexcraft.achCraftEnergyNodeCore=Vrhunac Tehnologije
+achievement.hexcraft.achCraftEnergyNodeCore.desc=Napravi Jezgru Energetskog Čvorišta bilo koje razine.
+achievement.hexcraft.achCraftEnergyNodePort=Postoji Priključak Za To
+achievement.hexcraft.achCraftEnergyNodePort.desc=Napravi Priključak Energetskog Čvorišta bilo kojeg tipa energije.
+achievement.hexcraft.achFormEnergyNode=Možda Je Veliko, Ali Se Isplati
+achievement.hexcraft.achFormEnergyNode.desc=Stvori Energetsko Čvorište. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
+achievement.hexcraft.achLinkEnergyNodePorts=Treba Mi Druga Energija
+achievement.hexcraft.achLinkEnergyNodePorts.desc=Poveži dvija Priključka Energetskog Čvorišta. Također zahtjeva postignuće: Ljudski-Heksorijsko Sučelje
+achievement.hexcraft.achGroupEnergyNode=Pretvori Sve Energije!
+achievement.hexcraft.achGroupEnergyNode.desc=Riješi sva postignuća Energetskog Čvorišta.
 
 
 death.attack.hexTeleport=%1$s se raspao tijekom teleportacije.
