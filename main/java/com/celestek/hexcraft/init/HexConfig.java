@@ -40,8 +40,25 @@ public class HexConfig {
 
     // General - Energy Node
     public static String categoryEnergyNode = "General - Energy Node";
+    public static int cfgEnergyNodeBufferSize = 6400;
     public static boolean cfgEnergyNodeDebug = false;
     public static boolean cfgEnergyNodeVerboseDebug = false;
+
+    // General - Energy Transfer
+    public static String categoryEnergyTransfer = "General - Energy Transfer";
+    public static boolean cfgEnergyTransferCustomEU = false;
+    public static int cfgEnergyTransferTier1HEX = 64;
+    public static int cfgEnergyTransferTier2HEX = 256;
+    public static int cfgEnergyTransferTier3HEX = 1024;
+    public static int cfgEnergyTransferTier4HEX = 4096;
+    public static int cfgEnergyTransferTier1RF = 200;
+    public static int cfgEnergyTransferTier2RF = 800;
+    public static int cfgEnergyTransferTier3RF = 8000;
+    public static int cfgEnergyTransferTier4RF = 32000;
+    public static int cfgEnergyTransferTier1EU = 32;
+    public static int cfgEnergyTransferTier2EU = 128;
+    public static int cfgEnergyTransferTier3EU = 512;
+    public static int cfgEnergyTransferTier4EU = 2048;
 
     // General - Energy Conversion
     public static String categoryEnergyConversion = "General - Energy Conversion";
@@ -369,8 +386,25 @@ public class HexConfig {
         cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity is located.");
 
         // General - Energy Node
+        cfgEnergyNodeBufferSize = config.getInt("Size of port buffers", categoryEnergyNode, cfgEnergyNodeBufferSize, 0, 640000, "The amount of energy that every port buffer can hold.");
         cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.");
         cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node debugging needs to be enabled.");
+        
+        // General - Energy Conversion
+        config.setCategoryComment(categoryEnergyTransfer, "This configuration section deals with the energy tickrate of different ports. Note that the HEX settings will be ignored if HEX port is paired with a different port.");
+        cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the default LV, MV, HV and EV ones.");
+        cfgEnergyTransferTier1HEX = config.getInt("HEX/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1HEX, 0, 640000, "");
+        cfgEnergyTransferTier2HEX = config.getInt("HEX/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2HEX, 0, 640000, "");
+        cfgEnergyTransferTier3HEX = config.getInt("HEX/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3HEX, 0, 640000, "");
+        cfgEnergyTransferTier4HEX = config.getInt("HEX/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4HEX, 0, 640000, "");
+        cfgEnergyTransferTier1RF = config.getInt("RF/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1RF, 0, 640000, "");
+        cfgEnergyTransferTier2RF = config.getInt("RF/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2RF, 0, 640000, "");
+        cfgEnergyTransferTier3RF = config.getInt("RF/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3RF, 0, 640000, "");
+        cfgEnergyTransferTier4RF = config.getInt("RF/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4RF, 0, 640000, "");
+        cfgEnergyTransferTier1EU = config.getInt("EU/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1EU, 0, 640000, "");
+        cfgEnergyTransferTier2EU = config.getInt("EU/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2EU, 0, 640000, "");
+        cfgEnergyTransferTier3EU = config.getInt("EU/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3EU, 0, 640000, "");
+        cfgEnergyTransferTier4EU = config.getInt("EU/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 0, 640000, "");
 
         // General - Energy Conversion
         config.setCategoryComment(categoryEnergyConversion, "This configuration section deals with the loss and conversion ratios of the Energy Node.");

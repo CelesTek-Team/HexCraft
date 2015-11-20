@@ -77,8 +77,16 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
     /**** Common TileEntity Methods ****/
 
     public TilePersonalTeleportationPad() {
+
         this.energyTotal = HexConfig.cfgTeleportUsageCost;
+        this.energyTotalDone = 0;
+        this.energyDrained = 0;
+
+        this.guiEnergyTotalDone = 0;
+        this.guiEnergyDrained = 0;
+
         this.usableSources = 0;
+
         this.isTeleporting = false;
         this.teleportCountdown = 80;
         this.teleportCounter = 0;

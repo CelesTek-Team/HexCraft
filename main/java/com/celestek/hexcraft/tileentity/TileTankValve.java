@@ -82,9 +82,6 @@ public class TileTankValve extends TileFluidHandler {
         this.structureDimension = new Dimension();
         this.fluidTank = new FluidTank(tankCapacity);
 
-        this.isMaster = false;
-        this.isSetup = false;
-
         this.tankCapacity = 0;
         this.fluidLevel = 0;
         this.fluidName = "";
@@ -94,9 +91,16 @@ public class TileTankValve extends TileFluidHandler {
         this.guiFluidID = 0;
         this.guiFluidIns = 0;
 
+        this.isMaster = false;
+        this.isSetup = false;
+
         this.masterX = xCoord;
         this.masterY = yCoord;
         this.masterZ = zCoord;
+
+        this.renderX = 0;
+        this.renderY = 0;
+        this.renderZ = 0;
     }
 
     /**

@@ -8,6 +8,7 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyDrain;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
+import ic2.api.energy.EnergyNet;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
@@ -369,25 +370,29 @@ public class HexEnergyNode {
     public static float parseEnergyPerTick(int type, int tier) {
         if(type == PORT_TYPE_HEX)
             switch (tier) {
-                case 0: return 64;
-                case 1: return 256;
-                case 2: return 1024;
-                case 3: return 4096;
+                case 0: return HexConfig.cfgEnergyTransferTier1HEX;
+                case 1: return HexConfig.cfgEnergyTransferTier2HEX;
+                case 2: return HexConfig.cfgEnergyTransferTier3HEX;
+                case 3: return HexConfig.cfgEnergyTransferTier4HEX;
             }
         else if(type == PORT_TYPE_RF)
             switch (tier) {
-                case 0: return 200;
-                case 1: return 800;
-                case 2: return 8000;
-                case 3: return 32000;
+                case 0: return HexConfig.cfgEnergyTransferTier1RF;
+                case 1: return HexConfig.cfgEnergyTransferTier2RF;
+                case 2: return HexConfig.cfgEnergyTransferTier3RF;
+                case 3: return HexConfig.cfgEnergyTransferTier4RF;
             }
-        else if(type == PORT_TYPE_EU)
-            switch (tier) {
-                case 0: return 32;
-                case 1: return 128;
-                case 2: return 512;
-                case 3: return 2048;
-            }
+        else if(type == PORT_TYPE_EU) {
+            if (HexConfig.cfgEnergyTransferCustomEU)
+                return (float) EnergyNet.instance.getPowerFromTier(tier + 1);
+            else
+                switch (tier) {
+                    case 0: return HexConfig.cfgEnergyTransferTier1EU;
+                    case 1: return HexConfig.cfgEnergyTransferTier2EU;
+                    case 2: return HexConfig.cfgEnergyTransferTier3EU;
+                    case 3: return HexConfig.cfgEnergyTransferTier4EU;
+                }
+        }
 
         return 0;
     }

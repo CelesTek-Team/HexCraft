@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -73,7 +72,9 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
 
     public TileEnergyNodePortHEX() {
 
-        this.energyBufferTotal = 6400;
+        this.energyBufferTotal = HexConfig.cfgEnergyNodeBufferSize;
+        this.energyBufferFilled = 0;
+        this.energyBufferDrained = 0;
 
         this.usableSources = 0;
         this.hasEnergy = false;
@@ -155,7 +156,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
                     if (energyBufferFilled < energyBufferTotal) {
                         ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
 
-                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy(energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier);
+                        if (port != null)
+                            energyBufferFilled = energyBufferFilled + port.drainPortEnergy(energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier);
                     }
 
                     // Check if states have changed and send a recheck if so.

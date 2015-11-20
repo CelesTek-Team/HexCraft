@@ -70,11 +70,19 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
     /**** Common TileEntity Methods ****/
 
     public TileMatrixReconstructor() {
-        this.inventory = new ItemStack[3];
-        this.energyTotal = 25600;
+
         this.energyPerTick = 64;
+        this.energyTotal = 25600;
+        this.energyTotalDone = 0;
+        this.energyDrained = 0;
+
+        this.guiEnergyTotalDone = 0;
+        this.guiEnergyDrained = 0;
+
         this.isActive = false;
         this.usableSources = 0;
+
+        this.inventory = new ItemStack[3];
     }
 
     /**

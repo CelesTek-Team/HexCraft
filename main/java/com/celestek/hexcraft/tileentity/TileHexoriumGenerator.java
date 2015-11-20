@@ -72,8 +72,17 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     /**** Common TileEntity Methods ****/
 
     public TileHexoriumGenerator() {
-        this.inventory = new ItemStack[2];
+
         this.energyPerTick = 32;
+        this.energyTotal = 0;
+        this.energyTotalLeft = 0;
+        this.energyDrained = 0;
+
+        this.guiEnergyTotal = 0;
+        this.guiEnergyTotalLeft = 0;
+        this.guiEnergyDrained = 0;
+
+        this.inventory = new ItemStack[2];
     }
 
     /**

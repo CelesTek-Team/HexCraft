@@ -70,11 +70,19 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
     /**** Common TileEntity Methods ****/
 
     public TileHexoriumFurnace() {
-        this.inventory = new ItemStack[3];
-        this.energyTotal = 3200;
+
         this.energyPerTick = 32;
+        this.energyTotal = 3200;
+        this.energyTotalDone = 0;
+        this.energyDrained = 0;
+
+        this.guiEnergyTotalDone = 0;
+        this.guiEnergyDrained = 0;
+
         this.isActive = false;
         this.usableSources = 0;
+
+        this.inventory = new ItemStack[3];
     }
 
     /**

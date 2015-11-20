@@ -3,7 +3,6 @@ package com.celestek.hexcraft.tileentity;
 import com.celestek.hexcraft.block.BlockEnergyPylon;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.HexPylon;
@@ -55,6 +54,7 @@ public class TileEnergyPylon extends TileEntity {
 
     public TileEnergyPylon() {
         this.monolith = 0;
+
         this.tickCount = 0;
         this.firstTickClient = false;
     }
