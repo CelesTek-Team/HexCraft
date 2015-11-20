@@ -32,9 +32,10 @@ public class HexItems {
     public static Item itemHexoriumProcessor;
     public static Item itemHexoriumCoprocessor;
     public static Item itemMineralAnalyzer;
-    public static Item itemPylonEnergyConverter;
+    public static Item itemHexoriumEnergyConverter;
     public static Item itemEnergyInjector;
     public static Item itemMolecularRecoder;
+    public static Item itemHexoriumRFAdapter;
 
     // Components MP
     public static Item itemMachineControlPanel;
@@ -94,14 +95,16 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
         itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
         GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
-        itemPylonEnergyConverter = new HexItemComponent("itemPylonEnergyConverter");
-        GameRegistry.registerItem(itemPylonEnergyConverter, "itemPylonEnergyConverter");
+        itemHexoriumEnergyConverter = new HexItemComponent("itemHexoriumEnergyConverter");
+        GameRegistry.registerItem(itemHexoriumEnergyConverter, "itemHexoriumEnergyConverter");
         itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
         GameRegistry.registerItem(itemEnergyInjector, "itemEnergyInjector");
         if (HexConfig.cfgTeleportEnable) {
             itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
             GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
         }
+        itemHexoriumRFAdapter = new HexItemComponent("itemHexoriumRFAdapter");
+        GameRegistry.registerItem(itemHexoriumRFAdapter, "itemHexoriumRFAdapter");
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");

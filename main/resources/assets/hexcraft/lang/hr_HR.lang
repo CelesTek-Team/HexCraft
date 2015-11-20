@@ -381,9 +381,10 @@ item.itemRainbowCore.name=Dugina Jezgra
 item.itemHexoriumCoprocessor.name=Heksorijski Koprocesor
 item.itemHexoriumProcessor.name=Heksorijski Procesor
 item.itemMineralAnalyzer.name=Analizator Minerala
-item.itemPylonEnergyConverter.name=Stupni Pretvornik Energije
+item.itemHexoriumEnergyConverter.name=Heksorijski Pretvornik Energije
 item.itemEnergyInjector.name=Ubrizgavač Energije
 item.itemMolecularRecoder.name=Molekulski Pretvarač
+item.itemHexoriumRFAdapter.name=Heksorijski RF Adapter
 
 item.itemMachineControlPanel.name=Strojna Upravljačka Ploča
 item.itemMachineEnergyRouter.name=Strojni Usmjerivač Energije

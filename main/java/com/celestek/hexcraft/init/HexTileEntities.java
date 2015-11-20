@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.tileentity.*;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -30,6 +31,7 @@ public class HexTileEntities {
 
         GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
         GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
-        GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
+        if (Loader.isModLoaded("IC2"))
+            GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
     }
 }

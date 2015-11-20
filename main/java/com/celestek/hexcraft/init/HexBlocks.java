@@ -3,6 +3,7 @@ package com.celestek.hexcraft.init;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
@@ -1007,8 +1008,10 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockEnergyNodePortHEX, BlockEnergyNodePortHEX.ID);
         blockEnergyNodePortRF = new BlockEnergyNodePortRF(BlockEnergyNodePortRF.ID);
         GameRegistry.registerBlock(blockEnergyNodePortRF, BlockEnergyNodePortRF.ID);
-        blockEnergyNodePortEU = new BlockEnergyNodePortEU(BlockEnergyNodePortEU.ID);
-        GameRegistry.registerBlock(blockEnergyNodePortEU, BlockEnergyNodePortEU.ID);
+        if (Loader.isModLoaded("IC2")) {
+            blockEnergyNodePortEU = new BlockEnergyNodePortEU(BlockEnergyNodePortEU.ID);
+            GameRegistry.registerBlock(blockEnergyNodePortEU, BlockEnergyNodePortEU.ID);
+        }
 
         // Cables
         blockHexoriumCableRed = new BlockHexoriumCable(BlockHexoriumCable.ID + "Red");

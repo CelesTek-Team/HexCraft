@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.init;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -306,6 +308,10 @@ public class HexRecipes {
         ItemStack stackEnergyNodeCoreT3_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT3, 1);
         ItemStack stackEnergyNodeCoreT4_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT4, 1);
 
+        ItemStack stackEnergyNodePortHEX_1 = new ItemStack(HexBlocks.blockEnergyNodePortHEX, 1);
+        ItemStack stackEnergyNodePortRF_1 = new ItemStack(HexBlocks.blockEnergyNodePortRF, 1);
+        ItemStack stackEnergyNodePortEU_1 = new ItemStack(HexBlocks.blockEnergyNodePortEU, 1);
+
         // Cables
         ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.blockHexoriumCableRed, 2);
         ItemStack stackHexoriumCableOrange_2 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 2);
@@ -383,9 +389,10 @@ public class HexRecipes {
         ItemStack stackHexoriumCoprocessor_1 = new ItemStack(HexItems.itemHexoriumCoprocessor, 1);
         ItemStack stackHexoriumProcessor_1 = new ItemStack(HexItems.itemHexoriumProcessor, 1);
         ItemStack stackMineralAnalyzer_1 = new ItemStack(HexItems.itemMineralAnalyzer, 1);
-        ItemStack stackPylonEnergyConverter_1 = new ItemStack(HexItems.itemPylonEnergyConverter, 1);
+        ItemStack stackHexoriumEnergyConverter_1 = new ItemStack(HexItems.itemHexoriumEnergyConverter, 1);
         ItemStack stackEnergyInjector_1 = new ItemStack(HexItems.itemEnergyInjector, 1);
         ItemStack stackMolecularRecoder_1 = new ItemStack(HexItems.itemMolecularRecoder, 1);
+        ItemStack stackHexoriumRFAdapter_1 = new ItemStack(HexItems.itemHexoriumRFAdapter, 1);
 
         // Components MP
         ItemStack stackMachineControlPanel_1 = new ItemStack(HexItems.itemMachineControlPanel, 1);
@@ -2010,6 +2017,30 @@ public class HexRecipes {
                 "RBR",
                 'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT3_1, 'B', stackDiamond_1);
 
+        GameRegistry.addRecipe(stackEnergyNodePortHEX_1,
+                "EBE",
+                "DAR",
+                "ECE",
+                'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
+                'C', stackHexoriumEnergyConverter_1, 'D', stackHexoriumCableRainbow_1, 'E', stackIronIngot_1);
+        GameRegistry.addRecipe(stackEnergyNodePortRF_1,
+                "EBE",
+                "DAR",
+                "ECE",
+                'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
+                'C', stackHexoriumRFAdapter_1, 'D', stackGoldIngot_1, 'E', stackIronIngot_1);
+        if (Loader.isModLoaded("IC2")) {
+            ItemStack stackAdvancedCircuit_1 = IC2Items.getItem("advancedCircuit");
+            ItemStack stackInsulatedGoldCable_1 = IC2Items.getItem("insulatedGoldCableItem");
+            if (stackAdvancedCircuit_1 != null && stackInsulatedGoldCable_1 != null)
+            GameRegistry.addRecipe(stackEnergyNodePortEU_1,
+                    "EBE",
+                    "DAR",
+                    "ECE",
+                    'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
+                    'C', stackAdvancedCircuit_1, 'D', stackInsulatedGoldCable_1, 'E', stackIronIngot_1);
+        }
+
         // Cables
         // Red
         GameRegistry.addRecipe(stackHexoriumCableRed_2,
@@ -2491,13 +2522,13 @@ public class HexRecipes {
                 "DAD",
                 "ABA",
                 "DCD",
-                'A', stackHexoriumCableRainbow_1, 'B', stackPylonEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
+                'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
 
         GameRegistry.addRecipe(stackPylonBase15_1,
                 "DCD",
                 "CBC",
                 "DAD",
-                'A', stackHexoriumCableRainbow_1, 'B', stackPylonEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
+                'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumEnergyConverter_1, 'C', stackPylonSocket_1, 'D', stackIronIngot_1);
 
         // Hex Items
         // Components T1
@@ -2678,7 +2709,7 @@ public class HexRecipes {
                 " R ",
                 'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackHexoriumCrystalRed_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalBlue_1,
                 'E', stackDiamond_1, 'F', stackGoldIngot_1);
-        GameRegistry.addRecipe(stackPylonEnergyConverter_1,
+        GameRegistry.addRecipe(stackHexoriumEnergyConverter_1,
                 "EAE",
                 "CBD",
                 "AEA",
@@ -2696,6 +2727,11 @@ public class HexRecipes {
                     "DAD",
                     'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', stackIronIngot_1);
         }
+        GameRegistry.addRecipe(stackHexoriumRFAdapter_1,
+                "RBR",
+                "RAR",
+                "RBR",
+                'R', stackRedstone_1, 'A', stackRainbowCore_1, 'B', stackGoldIngot_1);
 
         // Components MP
         GameRegistry.addRecipe(stackMachineControlPanel_1,
