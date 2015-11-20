@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class ItemHexoriumManipulator extends Item {
 
     // Item ID
-    public static final String ID = "itemHexoriumManipulator";
+    public static final String ID = "toolHexoriumManipulator";
 
     // NBT Names
     private static final String NBT_TELEPORT_LINKING = "teleport_linking";

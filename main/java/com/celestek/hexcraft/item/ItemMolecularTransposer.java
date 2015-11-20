@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 public class ItemMolecularTransposer extends Item {
 
     // Item ID
-    public static final String ID = "itemMolecularTransposer";
+    public static final String ID = "toolMolecularTransposer";
 
     /**
      * Constructor for the item.
