@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -219,6 +220,12 @@ public class ItemHexoriumManipulator extends Item {
                             analyzerCore.analyzeCable(world, xc, yc, zc, world.getBlock(xc, yc, zc));
                         }
                     }
+                }
+
+                // Destroy Hexorium Tank render blocks.
+                else if (block == HexBlocks.blockTankRender) {
+                    world.setBlock(x, y, z, Blocks.air);
+                    player.addChatMessage(new ChatComponentTranslation("msg.renderRemoved.txt"));
                 }
             }
             

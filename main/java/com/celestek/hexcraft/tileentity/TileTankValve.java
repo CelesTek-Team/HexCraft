@@ -194,7 +194,7 @@ public class TileTankValve extends TileFluidHandler {
         if (block == HexBlocks.blockTankValve) {
             rotation = checkValveRotation(x, y, z, dimension);
             if (HexConfig.cfgTankDebug && HexConfig.cfgTankVerboseDebug)
-                System.out.println("Checking valve rotation: " + rotation);
+                System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Checking valve rotation: " + rotation);
         }
 
         if (checkMeta)
@@ -215,7 +215,7 @@ public class TileTankValve extends TileFluidHandler {
         boolean isClear = worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
 
         if (HexConfig.cfgTankDebug && HexConfig.cfgTankVerboseDebug)
-            System.out.println(String.format("Is block at %s, %s, %s clear: %s", x, y, z, isClear));
+            System.out.println(String.format("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Is block at %s, %s, %s clear: %s", x, y, z, isClear));
 
         return isClear;
     }
@@ -449,7 +449,7 @@ public class TileTankValve extends TileFluidHandler {
         toBottom = toBottom + 1;
 
         if (HexConfig.cfgTankDebug)
-            System.out.println("Valve elevation: " + toBottom);
+            System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Valve elevation: " + toBottom);
 
         return new Dimension(orientation, widthNegative, widthPositive, depth, toTop, toBottom);
     }
@@ -473,7 +473,7 @@ public class TileTankValve extends TileFluidHandler {
         int endZ = coordRange.getEndZ();
 
         if (HexConfig.cfgTankDebug)
-            System.out.println(String.format("Structure dimensions: SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
+            System.out.println(String.format("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Structure dimensions: SX: %s, SY: %s, SZ:  %s, EX: %s, EY: %s, EZ: %s\n",
                 startX, startY, startZ, endX, endY, endZ));
 
         boolean selfRotation = checkSelfValveRotation(xCoord, yCoord, zCoord, dimension);
@@ -481,7 +481,7 @@ public class TileTankValve extends TileFluidHandler {
         boolean goodSize = dimension.getWidth() > 2 && dimension.getHeight() > 2 && dimension.getDepth() > 2;
 
         if (HexConfig.cfgTankDebug)
-            System.out.println("Is the size okay: " + goodSize);
+            System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Is the size okay: " + goodSize);
 
         if (!goodSize)
             return false;
@@ -641,7 +641,7 @@ public class TileTankValve extends TileFluidHandler {
     private void spawnRenderBlock(int x, int y, int z, CoordRange coordRange) {
 
         if (HexConfig.cfgTankDebug)
-            System.out.print("Render spawned: " + x + ", " + y + ", " + z);
+            System.out.print("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Render spawned: " + x + ", " + y + ", " + z);
 
         worldObj.setBlock(x,y,z, HexBlocks.blockTankRender);
 
@@ -666,7 +666,7 @@ public class TileTankValve extends TileFluidHandler {
     private void destroyRenderBlock(int x, int y, int z) {
 
         if (HexConfig.cfgTankDebug)
-            System.out.print("Render destroyed: " + x + ", " + y + ", " + z);
+            System.out.print("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Render destroyed: " + x + ", " + y + ", " + z);
 
         worldObj.setBlock(x, y, z, Blocks.air);
     }
@@ -683,7 +683,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void printDebug() {
         if (HexConfig.cfgTankDebug)
-            System.out.println(String.format("Valve data:\nX:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s",
+            System.out.println(String.format("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Valve data:\nX:%s\nY:%s\nZ:%s\nisMaster:%s\nisSetup:%s\nMasterX:%s\nMasterY:%s\nMasterZ:%s",
                     xCoord, yCoord, zCoord, isMaster, isSetup, masterX, masterY, masterZ));
     }
 
@@ -759,16 +759,16 @@ public class TileTankValve extends TileFluidHandler {
         if (isSetup && isMaster) {
             if (checkStructure(structureDimension, false)) {
                 if (HexConfig.cfgTankDebug)
-                    System.out.println("Hexorium Tank structure: GOOD");
+                    System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Hexorium Tank structure: GOOD");
             }
             else {
                 if (HexConfig.cfgTankDebug)
-                    System.out.println("Hexorium Tank structure: BAD");
+                    System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Hexorium Tank structure: BAD");
 
                 resetStructure(structureDimension);
 
                 if (HexConfig.cfgTankDebug)
-                    System.out.println("Hexorium Tank structure has been reset.");
+                    System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Hexorium Tank structure has been reset.");
             }
         }
     }
@@ -779,12 +779,12 @@ public class TileTankValve extends TileFluidHandler {
     public void valveDestroyedStructureReset() {
         if (isSetup && isMaster) {
             if (HexConfig.cfgTankDebug)
-                System.out.println("Tank Valve destroyed!");
+                System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Tank Valve destroyed!");
 
             resetStructure(structureDimension);
 
             if (HexConfig.cfgTankDebug)
-                System.out.println("Hexorium Tank structure has been reset.");
+                System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Hexorium Tank structure has been reset.");
         }
     }
 

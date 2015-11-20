@@ -466,6 +466,8 @@ msg.energyNodeMode2.txt=[Hexorium Manipulator] Mode changed to: Output
 msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
 
+msg.renderRemoved.txt=[Hexorium Manipulator] Render Block removed.
+
 msg.probeName.txt=Name
 msg.probeCoords.txt=Coords
 msg.probeType.txt=Type
