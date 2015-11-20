@@ -396,9 +396,9 @@ item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 item.itemDigitalSmartpipe.name=Digital Smartpipe
 
-item.itemHexoriumManipulator.name=Hexorium Manipulator
-item.itemHexoriumProbe.name=Hexorium Probe
-item.itemMolecularTransposer.name=Molecular Transposer
+item.toolHexoriumManipulator.name=Hexorium Manipulator
+item.toolHexoriumProbe.name=Hexorium Probe
+item.toolMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 
 
@@ -467,6 +467,8 @@ msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
 
 msg.renderRemoved.txt=[Hexorium Manipulator] Render Block removed.
+
+msg.cannotSwap.txt=[Molecular Transposer] Cannot change colors when structure is formed.
 
 msg.probeName.txt=Name
 msg.probeCoords.txt=Coords

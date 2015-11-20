@@ -363,8 +363,8 @@ item.itemMaterialInteractionPlane.name=Plano de Interacción de Materiales
 item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
 item.itemDigitalSmartpipe.name=Tuberia Inteligente Digital
 
-item.itemHexoriumManipulator.name=Manipulador de Hexorium
-item.itemMolecularTransposer.name=Reemisor Molecular
+item.toolHexoriumManipulator.name=Manipulador de Hexorium
+item.toolMolecularTransposer.name=Reemisor Molecular
 item.itemHexoriumReinforcer.name=Reforzador de Hexorium
 
 
@@ -387,18 +387,11 @@ msg.teleportLinkFail2.txt=[Manipulador de Hexorium] Vinculación fallida. El Tel
 msg.teleportProcess1.txt=[Pedestal Personal de Teletransporte] Teletransportando en 4 segundos...
 msg.teleportProcess2.txt=[Pedestal Personal de Teletransporte] Teletransportando!
 
-msg.pressurePlateState1.txt=[Manipulador de Hexorium] Modo actual: Todo
-msg.pressurePlateState2.txt=[Manipulador de Hexorium] Modo actual: Entidades
-msg.pressurePlateState3.txt=[Manipulador de Hexorium] Modo actual: Monstruos
-msg.pressurePlateState4.txt=[Manipulador de Hexorium] Modo actual: Jugadores
-msg.pressurePlateSneak.txt=Usa Shift para cambiar.
-
 msg.pressurePlateChange1.txt=[Manipulador de Hexorium] Modo cambiado a: Todo
 msg.pressurePlateChange2.txt=[Manipulador de Hexorium] Modo cambiado a: Entidades
 msg.pressurePlateChange3.txt=[Manipulador de Hexorium] Modo cambiado a: Monstruos
 msg.pressurePlateChange4.txt=[Manipulador de Hexorium] Modo cambiado a: Jugadores
 
-msg.structureIsPart.txt=[Manipulador de Hexorium] El bloque es parte de un Tanque de Hexorium.
 msg.structureFormFail1.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
 
 msg.tankValveRotationFail.txt=[Manipulador de Hexorium] No se puede rotar cuando el Tanque esta formado.

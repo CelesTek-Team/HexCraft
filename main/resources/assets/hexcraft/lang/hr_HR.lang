@@ -396,9 +396,9 @@ item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
 item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
 item.itemDigitalSmartpipe.name=Digitalna Pametna Cijev
 
-item.itemHexoriumManipulator.name=Heksorijski Upravljač
-item.itemHexoriumProbe.name=Heksorijska Sonda
-item.itemMolecularTransposer.name=Molekulski Izmjenivač
+item.toolHexoriumManipulator.name=Heksorijski Upravljač
+item.toolHexoriumProbe.name=Heksorijska Sonda
+item.toolMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
 
 
@@ -467,6 +467,8 @@ msg.energyNodeMode3.txt=[Hexorium Manipulator] Mod promijenjen na: Sučelje
 msg.energyNodeMode4.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
 
 msg.renderRemoved.txt=[Hexorium Manipulator] Render Blok uklonjen.
+
+msg.cannotSwap.txt=[Molecular Transposer] Nije moguće mijenjati boje ako je struktura stvorena.
 
 msg.probeName.txt=Naziv
 msg.probeCoords.txt=Koord
