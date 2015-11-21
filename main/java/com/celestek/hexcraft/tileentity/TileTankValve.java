@@ -9,7 +9,6 @@ import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -273,6 +272,7 @@ public class TileTankValve extends TileFluidHandler {
     public void emptyTank() {
         tankCapacity = 0;
         fluidTank = new FluidTank(tankCapacity);
+        markDirty();
     }
 
     /**
@@ -576,6 +576,7 @@ public class TileTankValve extends TileFluidHandler {
                 }
 
         destroyRenderBlock(renderX, renderY, renderZ);
+        markDirty();
     }
 
     /**
@@ -750,6 +751,7 @@ public class TileTankValve extends TileFluidHandler {
         structureDimension.setToBottom(toBottom);
         structureDimension.setToTop(toTop);
         structureDimension.setHeight(toTop + toBottom);
+        markDirty();
     }
 
     /**
@@ -829,8 +831,10 @@ public class TileTankValve extends TileFluidHandler {
             updateValveStatus();
 
             printDebug();
+            markDirty();
             return true;
         }
+        markDirty();
         return false;
     }
 
@@ -871,7 +875,7 @@ public class TileTankValve extends TileFluidHandler {
     /**
      * Check if the TIle Entity can be used by the player.
      */
-    public boolean isUseableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player
                 .getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D)
                 <= 64.0D;
@@ -1008,7 +1012,7 @@ public class TileTankValve extends TileFluidHandler {
             && (((from == ForgeDirection.SOUTH || from == ForgeDirection.NORTH) && HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata()))
             || ((from == ForgeDirection.WEST || from == ForgeDirection.EAST) && !HexUtils.getBit(BlockTankValve.META_ROTATION, getBlockMetadata())))) {
 
-            FluidTankInfo[] fluidTankInfos = new FluidTankInfo[0];
+            FluidTankInfo[] fluidTankInfos = new FluidTankInfo[1];
             fluidTankInfos[0] = new FluidTankInfo(getMasterTank());
 
             return fluidTankInfos;
@@ -1024,23 +1028,24 @@ public class TileTankValve extends TileFluidHandler {
     public void displayInfoValve(EntityPlayer player) {
         // If player is not sneaking.
         if (!player.isSneaking()) {
-            player.addChatMessage(new ChatComponentTranslation(""));
-            player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeValve.txt")));
+            HexUtils.addChatProbeTitle(player);
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypeValve.txt"));
             if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + I18n.format("hexcraft.container.tankNotFormed")));
-            else if(getMasterTank().getFluid() == null)
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + I18n.format("hexcraft.container.empty")
-                        + " " + HexUtils.formatFluids(0) + " / " + HexUtils.formatFluids(getMasterTank().getCapacity())));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFluidNotFormed.txt"));
+            else if(getMasterTank().getFluid() == null || getMasterTank().getFluidAmount() == 0)
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFluidEmpty.txt",  HexUtils.formatFluids(0), HexUtils.formatFluids(getMasterTank().getCapacity())));
             else
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFluid.txt") + ": " + getMasterTank().getFluid().getLocalizedName()
-                        + " " + HexUtils.formatFluids(getMasterTank().getFluidAmount()) + " / " + HexUtils.formatFluids(getMasterTank().getCapacity())));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFluid.txt", getMasterTank().getFluid().getLocalizedName(),
+                        HexUtils.formatFluids(getMasterTank().getFluidAmount()), HexUtils.formatFluids(getMasterTank().getCapacity())));
+            if (isMaster)
+                player.addChatMessage(new ChatComponentTranslation("msg.probeMasterYes.txt"));
+            else
+                player.addChatMessage(new ChatComponentTranslation("msg.probeMasterNo.txt"));
             if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord))
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFormedYes.txt"));
             else
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFormedNo.txt"));
 
             if (HexConfig.cfgGeneralUseAchievements)
                 player.addStat(HexAchievements.achUseProbeMachine, 1);
@@ -1054,6 +1059,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void setSetup(boolean isSetup) {
         this.isSetup = isSetup;
+        markDirty();
     }
 
     /**
@@ -1061,6 +1067,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void setMaster(boolean isMaster) {
         this.isMaster = isMaster;
+        markDirty();
     }
 
     /**
@@ -1068,6 +1075,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void setMasterX(int masterX) {
         this.masterX = masterX;
+        markDirty();
     }
 
     /**
@@ -1075,6 +1083,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void setMasterY(int masterY) {
         this.masterY = masterY;
+        markDirty();
     }
 
     /**
@@ -1082,6 +1091,7 @@ public class TileTankValve extends TileFluidHandler {
      */
     public void setMasterZ(int masterZ) {
         this.masterZ = masterZ;
+        markDirty();
     }
 
     // Tank Capacity

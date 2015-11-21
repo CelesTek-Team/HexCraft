@@ -202,6 +202,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
         this.energyDrains = energyDrains;
         if (HexConfig.cfgGeneralMachineNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
             System.out.println("[Hexorium Generator] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Drains received. d: " + energyDrains.size());
+        markDirty();
     }
 
     /**
@@ -262,26 +263,19 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
      */
     @Override
     public void displayInfoSource(EntityPlayer player) {
-        player.addChatMessage(new ChatComponentTranslation(""));
-        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        HexUtils.addChatProbeTitle(player);
         // If player is not sneaking.
         if (!player.isSneaking()) {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeSource.txt")));
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypeSource.txt"));
             int mode = HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, worldObj, xCoord, yCoord, zCoord);
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeMachineStatus" + (mode + 1) + ".txt")));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeEnergy.txt") + ": " + Math.round(energyTotalLeft) + " HEX / " + Math.round(energyTotal) + " HEX"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeMachineStatus" + (mode + 1) + ".txt"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt", Math.round(energyTotalLeft), "HEX", Math.round(energyTotal), "HEX"));
         }
         // If player is sneaking.
         else {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedDrains.txt") + ":"));
-            if (energyDrains != null && energyDrains.size() != 0)
-                for (HexDevice entry : energyDrains)
-                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
-            else
-                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedDrains.txt"));
+            HexUtils.addChatProbeConnectedMachines(player, energyDrains, worldObj, xCoord, yCoord, zCoord);
         }
     }
 

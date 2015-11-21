@@ -126,7 +126,7 @@ public class ContainerTankValve extends Container {
     }
 
     @Override public boolean canInteractWith(EntityPlayer player) {
-        return tileTankValve.isUseableByPlayer(player);
+        return tileTankValve.isUsableByPlayer(player);
     }
 
 

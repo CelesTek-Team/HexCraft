@@ -214,26 +214,19 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
      */
     @Override
     public void displayInfoDrain(EntityPlayer player) {
-        player.addChatMessage(new ChatComponentTranslation(""));
-        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        HexUtils.addChatProbeTitle(player);
         // If player is not sneaking.
         if (!player.isSneaking()) {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeDrain.txt")));
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypeDrain.txt"));
             int mode = HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, worldObj, xCoord, yCoord, zCoord);
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeMachineStatus" + (mode + 1) + ".txt")));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeEnergy.txt") + ": " + Math.round(energyTotalDone) + " HEX / " + Math.round(energyTotal) + " HEX"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeMachineStatus" + (mode + 1) + ".txt"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt", Math.round(energyTotalDone), "HEX", Math.round(energyTotal), "HEX"));
         }
         // If player is sneaking.
         else {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedSources.txt") + ":"));
-            if (energySources != null && energySources.size() != 0)
-                for (HexDevice entry : energySources)
-                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
-            else
-                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedSources.txt"));
+            HexUtils.addChatProbeConnectedMachines(player, energySources, worldObj, xCoord, yCoord, zCoord);
         }
     }
 
@@ -263,6 +256,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
             // Otherwise, set the state to DEAD if the energy is now unavailable, but was previously.
         else if (!canDrainSource() && hasEnergy)
             HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
+        markDirty();
     }
 
     /**

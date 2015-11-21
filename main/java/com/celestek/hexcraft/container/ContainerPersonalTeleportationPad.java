@@ -1,18 +1,12 @@
 package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.tileentity.TileHexoriumFurnace;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -114,6 +108,6 @@ public class ContainerPersonalTeleportationPad extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tilePersonalTeleportationPad.isUseableByPlayer(player);
+        return tilePersonalTeleportationPad.isUsableByPlayer(player);
     }
 }

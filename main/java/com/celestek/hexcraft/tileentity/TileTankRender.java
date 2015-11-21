@@ -148,6 +148,7 @@ public class TileTankRender extends TileEntity {
             fluidNameOld = fluidName;
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
         }
     }
 
@@ -156,6 +157,7 @@ public class TileTankRender extends TileEntity {
     // Fluid Variables
     public void setTankCapacity(int tankCapacity) {
         this.tankCapacity = tankCapacity;
+        markDirty();
     }
     
     public int getTankCapacity() {
@@ -164,6 +166,7 @@ public class TileTankRender extends TileEntity {
 
     public void setFluidLevel(int fluidLevel) {
         this.fluidLevel = fluidLevel;
+        markDirty();
     }
 
     public int getFluidLevel() {
@@ -172,6 +175,7 @@ public class TileTankRender extends TileEntity {
 
     public void setFluidName(String fluidName) {
         this.fluidName = fluidName;
+        markDirty();
     }
 
     public String getFluidName() {
@@ -181,6 +185,7 @@ public class TileTankRender extends TileEntity {
     // Tank Start
     public void setStartX(int startX) {
         this.startX = startX;
+        markDirty();
     }
 
     public int getStartX() {
@@ -189,6 +194,7 @@ public class TileTankRender extends TileEntity {
 
     public void setStartY(int startY) {
         this.startY = startY;
+        markDirty();
     }
 
     public int getStartY() {
@@ -197,6 +203,7 @@ public class TileTankRender extends TileEntity {
 
     public void setStartZ(int startZ) {
         this.startZ = startZ;
+        markDirty();
     }
 
     public int getStartZ() {
@@ -206,6 +213,7 @@ public class TileTankRender extends TileEntity {
     // Tank End
     public void setEndX(int endX) {
         this.endX = endX;
+        markDirty();
     }
 
     public int getEndX() {
@@ -214,6 +222,7 @@ public class TileTankRender extends TileEntity {
 
     public void setEndY(int endY) {
         this.endY = endY;
+        markDirty();
     }
 
     public int getEndY() {
@@ -222,6 +231,7 @@ public class TileTankRender extends TileEntity {
 
     public void setEndZ(int endZ) {
         this.endZ = endZ;
+        markDirty();
     }
 
     public int getEndZ() {

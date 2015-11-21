@@ -124,11 +124,17 @@ public class TileEnergyPylon extends TileEntity {
         else {
             // If the list should be rebuilt, do it.
             if (firstTickClient) {
-                for (HexPylon entry : pylons)
+                for (HexPylon entry : pylons) {
                     worldObj.markBlockForUpdate(entry.x, entry.y, entry.z);
+                    TileEntity tileEntity = worldObj.getTileEntity(entry.x, entry.y, entry.z);
+                    if (tileEntity != null) {
+                        tileEntity.markDirty();
+                    }
+                }
 
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                markDirty();
                 firstTickClient = false;
             }
         }
@@ -197,11 +203,10 @@ public class TileEnergyPylon extends TileEntity {
 
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
+                markDirty();
                 return true;
             }
         }
-
         return false;
     }
 
@@ -217,6 +222,7 @@ public class TileEnergyPylon extends TileEntity {
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
         }
     }
 
@@ -245,10 +251,10 @@ public class TileEnergyPylon extends TileEntity {
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
 
             return true;
         }
-
         return false;
     }
 
@@ -275,6 +281,7 @@ public class TileEnergyPylon extends TileEntity {
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            markDirty();
         }
 
         if (HexConfig.cfgGeneralNetworkDebug)
@@ -297,6 +304,7 @@ public class TileEnergyPylon extends TileEntity {
                     tileEnergyPylon.removePylon(xCoord, yCoord, zCoord);
             }
             pylons = null;
+            markDirty();
         }
     }
 
@@ -351,31 +359,24 @@ public class TileEnergyPylon extends TileEntity {
      * @param player Player to show the message to.
      */
     public void displayInfoPylon(EntityPlayer player) {
-        player.addChatMessage(new ChatComponentTranslation(""));
-        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        HexUtils.addChatProbeTitle(player);
         // If player is not sneaking.
         if (!player.isSneaking()) {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypePylon.txt")));
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypePylon.txt"));
             if(HexUtils.getMetaBit(BlockEnergyPylon.META_STATE, worldObj, xCoord, yCoord, zCoord))
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeOff.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probePylonStatusOff.txt"));
             else
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeOn.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probePylonStatusOn.txt"));
             if(pylons != null && pylons.size() != 0)
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedYes.txt"));
             else
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeNo.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedNo.txt"));
         }
         // If player is sneaking.
         else {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedPylons.txt") + ":"));
-            if (pylons != null && pylons.size() != 0)
-                for (HexPylon entry : pylons)
-                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
-            else
-                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedPylons.txt"));
+            HexUtils.addChatProbeConnectedPylons(player, pylons, worldObj, xCoord, yCoord, zCoord);
         }
     }
 

@@ -1,8 +1,10 @@
 package com.celestek.hexcraft.util;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -561,5 +563,45 @@ public class HexUtils {
         }
 
         return inventory;
+    }
+
+    public static void addChatProbeTitle(EntityPlayer player) {
+        player.addChatMessage(new ChatComponentTranslation(""));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeTitle.txt"));
+    }
+
+    public static void addChatProbeGenericInfo(EntityPlayer player, World world, int x, int y, int z) {
+        player.addChatMessage(new ChatComponentTranslation("msg.probeName.txt", world.getBlock(x, y, z).getLocalizedName()));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeCoords.txt", x, y, z));
+    }
+
+    public static void addChatProbeConnectedMachines(EntityPlayer player, ArrayList<HexDevice> machines, World world, int x, int y, int z) {
+        if (machines != null && machines.size() != 0) {
+            if (!(machines.size() == 1 && machines.get(0).x == x && machines.get(0).y == y && machines.get(0).z == z)) {
+                for (HexDevice entry : machines)
+                    if (!(entry.x == x && entry.y == y && entry.z == z))
+                        player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedEntry.txt", entry.x, entry.y, entry.z,
+                                world.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
+            }
+            else
+                player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedNone.txt"));
+        }
+        else
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedNone.txt"));
+    }
+
+    public static void addChatProbeConnectedPylons(EntityPlayer player, ArrayList<HexPylon> pylons, World world, int x, int y, int z) {
+        if (pylons != null && pylons.size() != 0) {
+            if (!(pylons.size() == 1 && pylons.get(0).x == x && pylons.get(0).y == y && pylons.get(0).z == z)) {
+                for (HexPylon entry : pylons)
+                    if (!(entry.x == x && entry.y == y && entry.z == z))
+                        player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedEntry.txt", entry.x, entry.y, entry.z,
+                                world.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
+            }
+            else
+                player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedNone.txt"));
+        }
+        else
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedNone.txt"));
     }
 }

@@ -771,9 +771,8 @@ public class NetworkAnalyzer {
      * @param player Player to display the results to.
      */
     public void analyzeProbe(World world, int x, int y, int z, Block block, EntityPlayer player) {
-        player.addChatMessage(new ChatComponentTranslation(""));
-        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
-        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeAnalysisStart.txt")));
+        HexUtils.addChatProbeTitle(player);
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisStart.txt"));
         // Call the analysis and wait for results.
         analyze(world, x, y, z, block, -1);
         // Push the results to all found machines.
@@ -792,46 +791,30 @@ public class NetworkAnalyzer {
             System.out.println("[Network Analyzer] Pushing data to chat...");
         }
 
-        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeAnalysisEnd.txt") + ":"));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisEnd.txt"));
         // Go through all energySources ArrayList entries.
-        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisSources.txt") + ":"));
-        if (energySources != null && energySources.size() != 0)
-            for (HexDevice entry : energySources) {
-                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                        + entry.block.getLocalizedName()));
-            }
-        else
-            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisSources.txt"));
+        addChatProbeScanResults(player, energySources);
 
         // Go through all energyDrains ArrayList entries.
-        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisDrains.txt") + ":"));
-        if (energyDrains != null && energyDrains.size() != 0)
-            for (HexDevice entry : energyDrains) {
-                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                        + entry.block.getLocalizedName()));
-            }
-        else
-            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisDrains.txt"));
+        addChatProbeScanResults(player, energyDrains);
 
         // Go through all energyPorts ArrayList entries.
-        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisPorts.txt") + ":"));
-        if (energyPorts != null && energyPorts.size() != 0)
-            for (HexDevice entry : energyPorts) {
-                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                        + entry.block.getLocalizedName()));
-            }
-        else
-            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisPorts.txt"));
+        addChatProbeScanResults(player, energyPorts);
 
         // Go through all teleports ArrayList entries.
-        player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeAnalysisTeleports.txt") + ":"));
-        if (teleports != null && teleports.size() != 0)
-            for (HexDevice entry : teleports) {
-                player.addChatMessage(new ChatComponentTranslation("      (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                        + entry.block.getLocalizedName()));
-            }
+        player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisTeleports.txt"));
+        addChatProbeScanResults(player, teleports);
+    }
+
+    private static void addChatProbeScanResults(EntityPlayer player, ArrayList<HexDevice> machine) {
+        if (machine != null && machine.size() != 0)
+            for (HexDevice entry : machine)
+                player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisEntry.txt", entry.x, entry.y, entry.z, entry.block.getLocalizedName()));
         else
-            player.addChatMessage(new ChatComponentTranslation("      " + I18n.format("msg.probeNone.txt")));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeAnalysisNone.txt"));
     }
 
     /**

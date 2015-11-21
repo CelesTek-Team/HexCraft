@@ -224,41 +224,28 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
      */
     @Override
     public void displayInfoDrain(EntityPlayer player) {
-        player.addChatMessage(new ChatComponentTranslation(""));
-        player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
+        HexUtils.addChatProbeTitle(player);
         // If player is not sneaking.
         if (!player.isSneaking()) {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + worldObj.getBlock(xCoord, yCoord, zCoord).getLocalizedName()));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + xCoord + ", " + yCoord + ", " + zCoord + ")"));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeDrain.txt")));
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypeDrain.txt"));
             int mode = HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, worldObj, xCoord, yCoord, zCoord);
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeStatus.txt") + ": " + I18n.format("msg.probeMachineStatus" + (mode + 1) + ".txt")));
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeEnergy.txt") + ": " + Math.round(energyTotalDone) + " HEX / " + Math.round(energyTotal) + " HEX"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeMachineStatus" + (mode + 1) + ".txt"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt", Math.round(energyTotalDone), "HEX", Math.round(energyTotal), "HEX"));
             if (linkedTeleport != null) {
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeYes.txt")));
-                player.addChatMessage(new ChatComponentTranslation("    (" + linkedTeleport.x + ", " + linkedTeleport.y + ", " + linkedTeleport.z + ") "
-                        + worldObj.getBlock(linkedTeleport.x, linkedTeleport.y, linkedTeleport.z).getLocalizedName()));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedYes.txt"));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedEntry.txt", linkedTeleport.x, linkedTeleport.y, linkedTeleport.z,
+                        worldObj.getBlock(linkedTeleport.x, linkedTeleport.y, linkedTeleport.z).getLocalizedName()));
             }
             else
-                player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeLinked.txt") + ": " + I18n.format("msg.probeNo.txt")));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedNo.txt"));
         }
         // If player is sneaking.
         else {
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedSources.txt") + ":"));
-            if (energySources != null && energySources.size() != 0)
-                for (HexDevice entry : energySources)
-                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
-            else
-                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
-
-            player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeConnectedTeleports.txt") + ":"));
-            if (teleports != null && teleports.size() != 0)
-                for (HexDevice entry : teleports)
-                    player.addChatMessage(new ChatComponentTranslation("    (" + entry.x + ", " + entry.y + ", " + entry.z + ") "
-                            + worldObj.getBlock(entry.x, entry.y, entry.z).getLocalizedName()));
-            else
-                player.addChatMessage(new ChatComponentTranslation("    " + I18n.format("msg.probeNone.txt")));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedSources.txt"));
+            HexUtils.addChatProbeConnectedMachines(player, energySources, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedTeleports.txt"));
+            HexUtils.addChatProbeConnectedMachines(player, teleports, worldObj, xCoord, yCoord, zCoord);
         }
     }
 
@@ -288,6 +275,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
         // Otherwise, set the state to DEAD if the energy is now unavailable and there is no energy stored.
         else if (!canDrainSource() && hasEnergy && energyTotalDone <= 0 && !isTeleporting)
             HexBlocks.setMachineState(HexBlocks.MACHINE_STATE_DEAD, worldObj, xCoord, yCoord, zCoord);
+        markDirty();
     }
 
     /**
@@ -347,6 +335,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
             else
                 System.out.println("[Personal Teleportation Pad] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Teleports received. t: " + 0);
         }
+        markDirty();
     }
 
     /**
@@ -445,6 +434,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
             // Link the teleport with new target.
             linkedTeleport = new HexDevice(x, y, z, HexBlocks.blockPersonalTeleportationPad);
+            markDirty();
             return true;
         }
         return false;
@@ -455,12 +445,13 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
      */
     public void unlinkTeleport() {
         linkedTeleport = null;
+        markDirty();
     }
 
     /**
      * Check if the TIle Entity can be used by the player.
      */
-    public boolean isUseableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
     }
 

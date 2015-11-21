@@ -255,7 +255,8 @@ public class HexEnergyNode {
                             || (i == y && j == x && (k == z + 1 || k == z - 1))
                             || (i == y && k == z && (j == x + 1 || j == x - 1))
                             || (k == z && j == x && i == y))) {
-                        System.out.println("Checking edge block: " + j + ", " + i + ", " + k);
+                        if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
+                            System.out.println("Checking edge block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else if (!(world.getBlock(j, i, k) == block))
@@ -263,7 +264,8 @@ public class HexEnergyNode {
                     }
                     // Situation when the block is center.
                     else if (k == z && j == x && i == y) {
-                        System.out.println("Checking middle block: " + j + ", " + i + ", " + k);
+                        if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
+                            System.out.println("Checking middle block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else if (!(world.getBlock(j, i, k) instanceof BlockEnergyNodeCore))
@@ -271,7 +273,8 @@ public class HexEnergyNode {
                     }
                     // Situations when the block is one of the center faces.
                     else {
-                        System.out.println("Checking face block: " + j + ", " + i + ", " + k);
+                        if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
+                            System.out.println("Checking face block: " + j + ", " + i + ", " + k);
                         if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
                             return false;
                         else if (!(world.getBlock(j, i, k) instanceof IBlockHexEnergyPort || world.getBlock(j, i, k) == block))

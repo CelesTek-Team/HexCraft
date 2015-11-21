@@ -13,6 +13,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
@@ -98,17 +99,15 @@ public class ItemHexoriumProbe extends Item {
             // Display Pressure Plate info.
             else if (block instanceof BlockHexoriumPressurePlate) {
                 if (!player.isSneaking()) {
-                    player.addChatMessage(new ChatComponentTranslation(""));
-                    player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + block.getLocalizedName()));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + x + ", " + y + ", " + z + ")"));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypePressure.txt")));
+                    HexUtils.addChatProbeTitle(player);
+                    HexUtils.addChatProbeGenericInfo(player, world, x, y, z);
+                    player.addChatMessage(new ChatComponentTranslation("msg.probeTypePressure.txt"));
                     int mode = HexUtils.getMetaBitBiInt(BlockHexoriumPressurePlate.META_SETTING_0, BlockHexoriumPressurePlate.META_SETTING_1, world, x, y, z);
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeMode.txt") + ": " + I18n.format("msg.probePressureMode" + (mode + 1) + ".txt")));
+                    player.addChatMessage(new ChatComponentTranslation("msg.probePressureMode" + (mode + 1) + ".txt"));
                     if (HexUtils.getMetaBit(BlockHexoriumPressurePlate.META_STATE, world, x, y, z))
-                        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probePressed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                        player.addChatMessage(new ChatComponentTranslation("msg.probePressedYes.txt"));
                     else
-                        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probePressed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+                        player.addChatMessage(new ChatComponentTranslation("msg.probePressedNo.txt"));
 
                     if (HexConfig.cfgGeneralUseAchievements)
                         player.addStat(HexAchievements.achUseProbeMachine, 1);
@@ -118,15 +117,14 @@ public class ItemHexoriumProbe extends Item {
             // Display structure block info.
             else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block instanceof BlockEnergyNodeCore) {
                 if (!player.isSneaking()) {
-                    player.addChatMessage(new ChatComponentTranslation(""));
-                    player.addChatMessage(new ChatComponentTranslation("[" + I18n.format("item.itemHexoriumProbe.name") + "]"));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeName.txt") + ": " + block.getLocalizedName()));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeCoords.txt") + ": (" + x + ", " + y + ", " + z + ")"));
-                    player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeType.txt") + ": " + I18n.format("msg.probeTypeBlock.txt")));
+                    HexUtils.addChatProbeTitle(player);
+                    HexUtils.addChatProbeGenericInfo(player, world, x, y, z);
+                    player.addChatMessage(new ChatComponentTranslation("msg.probeCoords.txt", x, y, z));
+                    player.addChatMessage(new ChatComponentTranslation("msg.probeTypeBlock.txt"));
                     if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
-                        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeYes.txt")));
+                        player.addChatMessage(new ChatComponentTranslation("msg.probeFormedYes.txt"));
                     else
-                        player.addChatMessage(new ChatComponentTranslation("  " + I18n.format("msg.probeFormed.txt") + ": " + I18n.format("msg.probeNo.txt")));
+                        player.addChatMessage(new ChatComponentTranslation("msg.probeFormedNo.txt"));
 
                     if (HexConfig.cfgGeneralUseAchievements)
                         player.addStat(HexAchievements.achUseProbeMachine, 1);
