@@ -10,7 +10,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 public class HexServerProxy extends HexCommonProxy {

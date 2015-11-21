@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 /**

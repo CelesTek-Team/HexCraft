@@ -460,6 +460,11 @@ msg.tankValveRotationFail.txt=[Manipulador de Hexorium] No se puede rotar cuando
 msg.tankFormSuccess.txt=[Manipulador de Hexorium] Tanque de Hexorium formado satisfactoriamente.
 msg.tankFormFail.txt=[Manipulador de Hexorium] El Tanque ya se ha formado.
 
+msg.energyNodeFormSuccess.txt=[Manipulador de Hexorium] Energy Node successfully formed.
+msg.energyNodeMode1.txt=[Manipulador de Hexorium] Modo cambiado a: Entrada
+msg.energyNodeMode2.txt=[Manipulador de Hexorium] Modo cambiado a: Salida
+msg.energyNodeMode3.txt=[Manipulador de Hexorium] Modo cambiado a: Interfaz
+msg.energyNodeMode4.txt=[Manipulador de Hexorium] Modo cambiado a: Tunel
 
 msg.renderRemoved.txt=[Manipulador de Hexorium] Bloque renderizado eliminado.
 
@@ -586,6 +591,8 @@ achievement.hexcraft.achCraftPlatedBlock=Los refuerzos siempre vienen bien
 achievement.hexcraft.achCraftPlatedBlock.desc=Fabrica un Bloque Chapado de Hexorium de cualquier color.
 achievement.hexcraft.achCraftConcentricBlock=Bloques sicodélicos
 achievement.hexcraft.achCraftConcentricBlock.desc=Fabrica un Bloque Concentrico de Hexorium de cualquier color.
+achievement.hexcraft.achCraftStructureCasing=Las estructuras deben ser solidas.
+achievement.hexcraft.achCraftStructureCasing.desc=Fabrica una Cubierta de Estructura de Hexorium de cualquier color.
 achievement.hexcraft.achCraftDoor=Una vista clara a través de la puerta
 achievement.hexcraft.achCraftDoor.desc=Fabrica una Puerta de Hexorium de cualquier color.
 achievement.hexcraft.achCraftHatch=It's A Trap(door)!

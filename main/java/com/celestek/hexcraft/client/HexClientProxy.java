@@ -12,7 +12,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 public class HexClientProxy extends HexCommonProxy {

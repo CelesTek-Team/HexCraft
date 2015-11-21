@@ -15,7 +15,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 public class GuiTankValve extends GuiContainer {

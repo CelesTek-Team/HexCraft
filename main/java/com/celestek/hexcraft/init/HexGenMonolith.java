@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 public class HexGenMonolith extends WorldGenerator {

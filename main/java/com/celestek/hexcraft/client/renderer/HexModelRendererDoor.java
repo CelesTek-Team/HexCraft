@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.7.0
+ * @version 0.8.0
  */
 
 public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
