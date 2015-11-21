@@ -146,6 +146,28 @@ tile.blockConcentricHexoriumBlockBlack.name=Bloque Concentrico de Hexorium (Negr
 tile.blockConcentricHexoriumBlockRainbow.name=Bloque Concentrico de Hexorium (Multicolor)
 
 
+tile.blockHexoriumStructureCasingRed.name=Cubierta de Estructura de Hexorium (Rojo)
+tile.blockHexoriumStructureCasingOrange.name=Cubierta de Estructura de Hexorium (Naranja)
+tile.blockHexoriumStructureCasingYellow.name=Cubierta de Estructura de Hexorium (Amarillo)
+tile.blockHexoriumStructureCasingLime.name=Cubierta de Estructura de Hexorium (Lima)
+tile.blockHexoriumStructureCasingGreen.name=Cubierta de Estructura de Hexorium (Verde)
+tile.blockHexoriumStructureCasingTurquoise.name=Cubierta de Estructura de Hexorium (Turquesa)
+tile.blockHexoriumStructureCasingCyan.name=Cubierta de Estructura de Hexorium (Cian)
+tile.blockHexoriumStructureCasingSkyBlue.name=Cubierta de Estructura de Hexorium (Azul Cielo)
+tile.blockHexoriumStructureCasingBlue.name=Cubierta de Estructura de Hexorium (Azul)
+tile.blockHexoriumStructureCasingPurple.name=Cubierta de Estructura de Hexorium (Morado)
+tile.blockHexoriumStructureCasingMagenta.name=Cubierta de Estructura de Hexorium (Magenta)
+tile.blockHexoriumStructureCasingPink.name=Cubierta de Estructura de Hexorium (Rosa)
+
+tile.blockHexoriumStructureCasingWhite.name=Cubierta de Estructura de Hexorium (Blanco)
+tile.blockHexoriumStructureCasingLightGray.name=Cubierta de Estructura de Hexorium (Gris Claro)
+tile.blockHexoriumStructureCasingGray.name=Cubierta de Estructura de Hexorium (Gris)
+tile.blockHexoriumStructureCasingDarkGray.name=Cubierta de Estructura de Hexorium (Gris Oscuro)
+tile.blockHexoriumStructureCasingBlack.name=Cubierta de Estructura de Hexorium (Negro)
+
+tile.blockHexoriumStructureCasingRainbow.name=Cubierta de Estructura de Hexorium (Multicolor)
+
+
 tile.blockGlowingHexoriumGlassRed.name=Cristal Brillante de Hexorium (Rojo)
 tile.blockGlowingHexoriumGlassOrange.name=Cristal Brillante de Hexorium (Naranja)
 tile.blockGlowingHexoriumGlassYellow.name=Cristal Brillante de Hexorium (Amarillo)
@@ -277,6 +299,7 @@ tile.blockHexoriumHatchRainbow.name=Escotilla de Hexorium (Multicolor)
 
 
 tile.blockHexoriumMachineBlock.name=Bloque de Maquina de Hexorium
+tile.blockAdvancedRainbowCore.name=Nucleo Multicolor Avanzado
 
 tile.blockHexoriumGenerator.name=Generador de Hexorium
 tile.blockHexoriumFurnace.name=Horno de Hexorium
@@ -286,6 +309,15 @@ tile.blockMatrixReconstructor.name=Matriz Reconstructor
 tile.blockPersonalTeleportationPad.name=Pedestal Personal de Teletransporte
 
 tile.blockTankValve.name=Valvula
+
+tile.blockEnergyNodeCoreT1.name=Nucleo de Nodo de Energia (Nivel 1)
+tile.blockEnergyNodeCoreT2.name=Nucleo de Nodo de Energia (Nivel 2)
+tile.blockEnergyNodeCoreT3.name=Nucleo de Nodo de Energia (Nivel 3)
+tile.blockEnergyNodeCoreT4.name=Nucleo de Nodo de Energia (Nivel 4)
+
+tile.blockEnergyNodePortHEX.name=Puerto del Nodo de Energia: HEX
+tile.blockEnergyNodePortRF.name=Puerto del Nodo de Energia: RF
+tile.blockEnergyNodePortEU.name=Puerto del Nodo de Energia: EU
 
 
 tile.blockHexoriumCableRed.name=Cable de Hexorium (Rojo)
@@ -349,9 +381,10 @@ item.itemRainbowCore.name=Núcleo Multicolor
 item.itemHexoriumCoprocessor.name=Coprocesador de Hexorium
 item.itemHexoriumProcessor.name=Procesador de Hexorium
 item.itemMineralAnalyzer.name=Analizador de Minerales
-item.itemPylonEnergyConverter.name=Conversor de Energía de Pilón
+item.itemHexoriumEnergyConverter.name=Conversor de Energia de Hexorium
 item.itemEnergyInjector.name=Inyector de Energía
 item.itemMolecularRecoder.name=Recodificador Molecular
+item.itemHexoriumRFAdapter.name=Adaptador de Hexorium de RF
 
 item.itemMachineControlPanel.name=Panel de control
 item.itemMachineEnergyRouter.name=Enrutador de energía
@@ -364,8 +397,28 @@ item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
 item.itemDigitalSmartpipe.name=Tuberia Inteligente Digital
 
 item.toolHexoriumManipulator.name=Manipulador de Hexorium
+item.toolHexoriumProbe.name=Sonda de Hexorium
 item.toolMolecularTransposer.name=Reemisor Molecular
 item.itemHexoriumReinforcer.name=Reforzador de Hexorium
+
+
+hexcraft.container.hexoriumGenerator=Generador de Hexorium
+hexcraft.container.hexoriumFurnace=Horno de Hexorium
+hexcraft.container.crystalSeparator=Separador de Cristales
+hexcraft.container.matrixReconstructor=Matriz Reconstructor
+hexcraft.container.personalTeleportationPad=Pedestal Personal de Teletransporte
+hexcraft.container.hexoriumTank=Tanque de Hexorium
+
+hexcraft.container.molecularTransposer=Reemisor Molecular
+
+hexcraft.container.in=In
+hexcraft.container.out=Out
+hexcraft.container.charge=Carga
+hexcraft.container.f=F
+hexcraft.container.l=N
+hexcraft.container.m=M
+hexcraft.container.empty=Vacio
+hexcraft.container.tankNotFormed=El tanque no ha sido formado.
 
 
 msg.pylonLinkCancel.txt=[Manipulador de Hexorium] Vínculación de Pilones cancelada.
@@ -384,6 +437,14 @@ msg.teleportLinkBreak.txt=[Manipulador de Hexorium] El Teletransporte ya está v
 msg.teleportLinkFail1.txt=[Manipulador de Hexorium] Vinculación fallida. El Teletransporte ya no existe.
 msg.teleportLinkFail2.txt=[Manipulador de Hexorium] Vinculación fallida. El Teletransporte es inalcanzable.
 
+msg.portLinkCancel.txt=[Manipulador de Hexorium] Vinculación de puertos cancelada.
+msg.portLinkStart.txt=[Manipulador de Hexorium] Vinculando Puerto...
+msg.portLinkSuccess.txt=[Manipulador de Hexorium] Puertos vinculados satisfactoriamente.
+msg.portLinkBreak.txt=[Manipulador de Hexorium] Los puertos ya estan vinculados. Rompiendo el vinculo.
+msg.portLinkFail1.txt=[Manipulador de Hexorium] Vinculación fallida. El puerto ya no existe.
+msg.portLinkFail2.txt=[Manipulador de Hexorium] Vinculación fallida. Puerto inalcanzable.
+msg.portLinkFail3.txt=[Manipulador de Hexorium] Vinculación fallida. El Nodo de Energia no esta formado.
+
 msg.teleportProcess1.txt=[Pedestal Personal de Teletransporte] Teletransportando en 4 segundos...
 msg.teleportProcess2.txt=[Pedestal Personal de Teletransporte] Teletransportando!
 
@@ -392,11 +453,80 @@ msg.pressurePlateChange2.txt=[Manipulador de Hexorium] Modo cambiado a: Entidade
 msg.pressurePlateChange3.txt=[Manipulador de Hexorium] Modo cambiado a: Monstruos
 msg.pressurePlateChange4.txt=[Manipulador de Hexorium] Modo cambiado a: Jugadores
 
-msg.structureFormFail1.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
+msg.structureIsPart.txt=[Manipulador de Hexorium] El bloque es parte de una estructura.
+msg.structureFormFail.txt=[Manipulador de Hexorium] Formacion fallida. La estructura no es valida.
 
 msg.tankValveRotationFail.txt=[Manipulador de Hexorium] No se puede rotar cuando el Tanque esta formado.
 msg.tankFormSuccess.txt=[Manipulador de Hexorium] Tanque de Hexorium formado satisfactoriamente.
 msg.tankFormFail.txt=[Manipulador de Hexorium] El Tanque ya se ha formado.
+
+
+msg.renderRemoved.txt=[Manipulador de Hexorium] Bloque renderizado eliminado.
+
+msg.cannotSwap.txt=[Reemisor Molecular] No se pueden cambiar los colores cuando la estructura esta formada.
+
+
+msg.probeTitle.txt=[Sonda de Hexorium]
+msg.probeName.txt=  Nombre: %s
+msg.probeCoords.txt=  Coordenadas: (%d, %d, %d)
+
+msg.probeTipoSource.txt=  Tipo: Fuente de Energia
+msg.probeTipoDrain.txt=  Tipo: Suctor de Energia
+msg.probeTipoPort.txt=  Tipo: Puerto de Energia
+msg.probeTipoPylon.txt=  Tipo: Pilon de Energia
+msg.probeTipoValve.txt=  Tipo: Valvula
+msg.probeTipoPressure.txt=  Tipo: Placa de Presion
+msg.probeTipoBlock.txt=  Tipo: Bloque de Estructura
+
+msg.probeEnergy.txt=  Energia: %d %s / %d %s
+msg.probeFluid.txt=  Fluido: %s %s / %s
+msg.probeFluidEmpty.txt=  Fluido: Vacio %s / %s
+msg.probeFluidNotFormed.txt=  Fluido: El Tanque no ha sido formado.
+msg.probeEfficiency.txt=  Eficiencia: Nivel %d, %d Perdida, Out: %d %s/t
+msg.probeEfficiencyTier.txt=  Eficiencia: Nivel %d
+msg.probeEfficiencyNotFormed.txt=  Eficiencia: El Nodo de Energia no ha sido formado.
+
+msg.probePortModo1.txt=  Modo: Entrada
+msg.probePortModo2.txt=  Modo: Salida
+msg.probePortModo3.txt=  Modo: Interfaz
+msg.probePortModo4.txt=  Modo: Tunel
+msg.probePressureModo1.txt=  Modo: Todo
+msg.probePressureModo2.txt=  Modo: Entidades
+msg.probePressureModo3.txt=  Modo: Mobs
+msg.probePressureModo4.txt=  Modo: Jugadores
+msg.probeMachineEstado1.txt=  Estado: Listo
+msg.probeMachineEstado2.txt=  Estado: Activo
+msg.probeMachineEstado3.txt=  Estado: Muerto
+
+msg.probePylonEstadoOn.txt=  Estado: Encendido
+msg.probePylonEstadoOff.txt=  Estado: Apagado
+msg.probePressedYes.txt=  Presionado: Si
+msg.probePressedNo.txt=  Presionado: No
+msg.probeLinkedYes.txt=  Vinculado: Si
+msg.probeLinkedNo.txt=  Vinculado: No
+msg.probeFormedYes.txt=  Formado: Si
+msg.probeFormedNo.txt=  Formado: No
+msg.probeMasterYes.txt=  Maestro: Si
+msg.probeMasterNo.txt=  Maestro: No
+msg.probeInsertedYes.txt=  Insertado: Si
+msg.probeInsertedNo.txt=  Insertado: No
+
+msg.probeConnectedSources.txt=  Fuentes Conectadas
+msg.probeConnectedDrains.txt=  Suctores Conectados
+msg.probeConnectedPorts.txt=  Puertos Conectados
+msg.probeConnectedTeleports.txt=  Teletransportes Conectados
+msg.probeConnectedPylons.txt=  Pilones Conectados
+msg.probeConnectedEntry.txt=    (%d, %d, %d) %s
+msg.probeConnectedNone.txt=    Ninguno
+
+msg.probeAnalysisStart.txt=  Empezando Analisis de la Red...
+msg.probeAnalysisEnd.txt=  ¡Hecho! Maquinas encontradas en esta seccion de la red:
+msg.probeAnalysisSources.txt=    Fuentes:
+msg.probeAnalysisDrains.txt=    Suctores:
+msg.probeAnalysisPorts.txt=    Puertos:
+msg.probeAnalysisTeleports.txt=    Teletransportes:
+msg.probeAnalysisEntry.txt=      (%d, %d, %d) %s
+msg.probeAnalysisNone.txt=      Ninguno
 
 
 achievement.hexcraft.achMineHexOre=Un potencial brillante
@@ -506,6 +636,13 @@ achievement.hexcraft.achUseTransposer.desc=Usa el Reemisor Molecular para cambia
 achievement.hexcraft.achAttackTransposer=Esto puede doler un poco...
 achievement.hexcraft.achAttackTransposer.desc=Inyecta Hexorium Energizado en una criatura con el Reemisor Molecular.
 
+achievement.hexcraft.achCraftProbe=No el de Alien
+achievement.hexcraft.achCraftProbe.desc=Fabrica una Sonda de Hexorium.
+achievement.hexcraft.achUseProbeMachine=Informacion Cristalina
+achievement.hexcraft.achUseProbeMachine.desc=Usa la Sonda de Hexorium para leer informacion de una maquina o bloque.
+achievement.hexcraft.achUseProbeNetwork=Entendiendo El HEX
+achievement.hexcraft.achUseProbeNetwork.desc=Usa la Sonda de Hexorium para analizar una red de Hex.
+
 achievement.hexcraft.achFormHexoriumTank=Tanques para los recuerdos
 achievement.hexcraft.achFormHexoriumTank.desc=Forma un Tanque de Hexorium. Tambien requiere el logro: Interfaz Humano-Hexorium
 
@@ -516,6 +653,19 @@ achievement.hexcraft.achLinkPylon.desc=Vincula dos Pilones de Energía. Requiere
 
 achievement.hexcraft.achUseTeleport=Hasta el infinito y más allá!
 achievement.hexcraft.achUseTeleport.desc=Usa un Pedestal Personal de Teletransporte para ir a otro.
+
+achievement.hexcraft.achCraftAdvancedRainbowCore=Decoracion Lujosa
+achievement.hexcraft.achCraftAdvancedRainbowCore.desc=Fabrica un Nucleo Multicolor Avanzado.
+achievement.hexcraft.achCraftEnergyNodeCore=La cima de la tecnología
+achievement.hexcraft.achCraftEnergyNodeCore.desc=Fabrica un Nucleo de Nodo de Energia de cualquier nivel.
+achievement.hexcraft.achCraftEnergyNodePort=Hay un puerto para eso
+achievement.hexcraft.achCraftEnergyNodePort.desc=Fabrica un Puerto de Nodo de Energia de cualquier nivel.
+achievement.hexcraft.achFormEnergyNode=Puede ser grande, pero merece la pena
+achievement.hexcraft.achFormEnergyNode.desc=Forma un Nodo de Energia. Requiere el logro: Interfaz Humano-Hexorium
+achievement.hexcraft.achLinkEnergyNodePorts=Necesito una energia diferente
+achievement.hexcraft.achLinkEnergyNodePorts.desc=Vincula dos Puertos de Nodo de Energia. Requiere el logro: Interfaz Humano-Hexorium
+achievement.hexcraft.achGroupEnergyNode=¡Convierte todas las energias!
+achievement.hexcraft.achGroupEnergyNode.desc=Completa todos los logros de Nodos de Energia.
 
 
 death.attack.hexTeleport=%1$s se ha descompuesto durante el teletransporte.
