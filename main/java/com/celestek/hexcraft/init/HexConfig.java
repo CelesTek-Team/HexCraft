@@ -19,7 +19,6 @@ public class HexConfig {
     public static boolean cfgGeneralTransposerAttack = true;
     public static boolean cfgGeneralTransposerAttackPlayers = true;
     public static int cfgGeneralTransposerAttackDamage = 20;
-    public static boolean cfgGeneralConnectedTexturesDifferentColors = false;
 
     // General - Personal Teleportation Pad
     public static String categoryTeleport = "General - Personal Teleportation Pad";
@@ -367,7 +366,6 @@ public class HexConfig {
         cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.");
         cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all entities has to be enabled first.");
         cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.");
-        cfgGeneralConnectedTexturesDifferentColors = config.getBoolean("Connected textures connect different colors", Configuration.CATEGORY_GENERAL, cfgGeneralConnectedTexturesDifferentColors, "Makes the connected textures of different colors still connect together.");
 
 
         // General - Personal Teleportation Pad

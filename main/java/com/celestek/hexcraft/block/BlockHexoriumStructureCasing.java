@@ -132,69 +132,35 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
             boolean[] bitMatrix = new boolean[8];
 
             // Analyze neighbouring blocks and set bits.
-            if (HexConfig.cfgGeneralConnectedTexturesDifferentColors) {
-                if (side == 0 || side == 1) {
-                    bitMatrix[0] = world.getBlock(x - 1, y, z - 1) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[1] = world.getBlock(x, y, z - 1) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[2] = world.getBlock(x + 1, y, z - 1) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[3] = world.getBlock(x - 1, y, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[4] = world.getBlock(x + 1, y, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[5] = world.getBlock(x - 1, y, z + 1) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[6] = world.getBlock(x, y, z + 1) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[7] = world.getBlock(x + 1, y, z + 1) instanceof BlockHexoriumStructureCasing;
-                }
-                else if (side == 2 || side == 3) {
-                    bitMatrix[0] = world.getBlock(x + (side == 2 ? 1 : -1), y + 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[1] = world.getBlock(x, y + 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[2] = world.getBlock(x + (side == 3 ? 1 : -1), y + 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[3] = world.getBlock(x + (side == 2 ? 1 : -1), y, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[4] = world.getBlock(x + (side == 3 ? 1 : -1), y, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[5] = world.getBlock(x + (side == 2 ? 1 : -1), y - 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[6] = world.getBlock(x, y - 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[7] = world.getBlock(x + (side == 3 ? 1 : -1), y - 1, z) instanceof BlockHexoriumStructureCasing;
-                }
-                else if (side == 4 || side == 5) {
-                    bitMatrix[0] = world.getBlock(x, y + 1, z + (side == 5 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[1] = world.getBlock(x, y + 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[2] = world.getBlock(x, y + 1, z + (side == 4 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[3] = world.getBlock(x, y, z + (side == 5 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[4] = world.getBlock(x, y, z + (side == 4 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[5] = world.getBlock(x, y - 1, z + (side == 5 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[6] = world.getBlock(x, y - 1, z) instanceof BlockHexoriumStructureCasing;
-                    bitMatrix[7] = world.getBlock(x, y - 1, z + (side == 4 ? 1 : -1)) instanceof BlockHexoriumStructureCasing;
-                }
+            if (side == 0 || side == 1) {
+                bitMatrix[0] = world.getBlock(x - 1, y, z - 1) == this;
+                bitMatrix[1] = world.getBlock(x, y, z - 1) == this;
+                bitMatrix[2] = world.getBlock(x + 1, y, z - 1) == this;
+                bitMatrix[3] = world.getBlock(x - 1, y, z) == this;
+                bitMatrix[4] = world.getBlock(x + 1, y, z) == this;
+                bitMatrix[5] = world.getBlock(x - 1, y, z + 1) == this;
+                bitMatrix[6] = world.getBlock(x, y, z + 1) == this;
+                bitMatrix[7] = world.getBlock(x + 1, y, z + 1) == this;
             }
-            else {
-                if (side == 0 || side == 1) {
-                    bitMatrix[0] = world.getBlock(x - 1, y, z - 1) == this;
-                    bitMatrix[1] = world.getBlock(x, y, z - 1) == this;
-                    bitMatrix[2] = world.getBlock(x + 1, y, z - 1) == this;
-                    bitMatrix[3] = world.getBlock(x - 1, y, z) == this;
-                    bitMatrix[4] = world.getBlock(x + 1, y, z) == this;
-                    bitMatrix[5] = world.getBlock(x - 1, y, z + 1) == this;
-                    bitMatrix[6] = world.getBlock(x, y, z + 1) == this;
-                    bitMatrix[7] = world.getBlock(x + 1, y, z + 1) == this;
-                }
-                else if (side == 2 || side == 3) {
-                    bitMatrix[0] = world.getBlock(x + (side == 2 ? 1 : -1), y + 1, z) == this;
-                    bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
-                    bitMatrix[2] = world.getBlock(x + (side == 3 ? 1 : -1), y + 1, z) == this;
-                    bitMatrix[3] = world.getBlock(x + (side == 2 ? 1 : -1), y, z) == this;
-                    bitMatrix[4] = world.getBlock(x + (side == 3 ? 1 : -1), y, z) == this;
-                    bitMatrix[5] = world.getBlock(x + (side == 2 ? 1 : -1), y - 1, z) == this;
-                    bitMatrix[6] = world.getBlock(x, y - 1, z) == this;
-                    bitMatrix[7] = world.getBlock(x + (side == 3 ? 1 : -1), y - 1, z) == this;
-                }
-                else if (side == 4 || side == 5) {
-                    bitMatrix[0] = world.getBlock(x, y + 1, z + (side == 5 ? 1 : -1)) == this;
-                    bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
-                    bitMatrix[2] = world.getBlock(x, y + 1, z + (side == 4 ? 1 : -1)) == this;
-                    bitMatrix[3] = world.getBlock(x, y, z + (side == 5 ? 1 : -1)) == this;
-                    bitMatrix[4] = world.getBlock(x, y, z + (side == 4 ? 1 : -1)) == this;
-                    bitMatrix[5] = world.getBlock(x, y - 1, z + (side == 5 ? 1 : -1)) == this;
-                    bitMatrix[6] = world.getBlock(x, y - 1, z) == this;
-                    bitMatrix[7] = world.getBlock(x, y - 1, z + (side == 4 ? 1 : -1)) == this;
-                }
+            else if (side == 2 || side == 3) {
+                bitMatrix[0] = world.getBlock(x + (side == 2 ? 1 : -1), y + 1, z) == this;
+                bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
+                bitMatrix[2] = world.getBlock(x + (side == 3 ? 1 : -1), y + 1, z) == this;
+                bitMatrix[3] = world.getBlock(x + (side == 2 ? 1 : -1), y, z) == this;
+                bitMatrix[4] = world.getBlock(x + (side == 3 ? 1 : -1), y, z) == this;
+                bitMatrix[5] = world.getBlock(x + (side == 2 ? 1 : -1), y - 1, z) == this;
+                bitMatrix[6] = world.getBlock(x, y - 1, z) == this;
+                bitMatrix[7] = world.getBlock(x + (side == 3 ? 1 : -1), y - 1, z) == this;
+            }
+            else if (side == 4 || side == 5) {
+                bitMatrix[0] = world.getBlock(x, y + 1, z + (side == 5 ? 1 : -1)) == this;
+                bitMatrix[1] = world.getBlock(x, y + 1, z) == this;
+                bitMatrix[2] = world.getBlock(x, y + 1, z + (side == 4 ? 1 : -1)) == this;
+                bitMatrix[3] = world.getBlock(x, y, z + (side == 5 ? 1 : -1)) == this;
+                bitMatrix[4] = world.getBlock(x, y, z + (side == 4 ? 1 : -1)) == this;
+                bitMatrix[5] = world.getBlock(x, y - 1, z + (side == 5 ? 1 : -1)) == this;
+                bitMatrix[6] = world.getBlock(x, y - 1, z) == this;
+                bitMatrix[7] = world.getBlock(x, y - 1, z + (side == 4 ? 1 : -1)) == this;
             }
 
             // Convert the bit array to a dec number.
