@@ -103,8 +103,10 @@ public class HexItems {
             itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
             GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
         }
-        itemHexoriumRFAdapter = new HexItemComponent("itemHexoriumRFAdapter");
-        GameRegistry.registerItem(itemHexoriumRFAdapter, "itemHexoriumRFAdapter");
+        if (HexConfig.cfgEnergyNodeEnable) {
+            itemHexoriumRFAdapter = new HexItemComponent("itemHexoriumRFAdapter");
+            GameRegistry.registerItem(itemHexoriumRFAdapter, "itemHexoriumRFAdapter");
+        }
 
         // Components MP
         itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
@@ -125,8 +127,10 @@ public class HexItems {
             itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
             GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
         }
-        itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");
-        GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
+        if (HexConfig.cfgTankEnable) {
+            itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");
+            GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
+        }
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator(ItemHexoriumManipulator.ID);

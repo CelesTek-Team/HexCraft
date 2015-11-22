@@ -39,6 +39,7 @@ public class HexConfig {
 
     // General - Energy Node
     public static String categoryEnergyNode = "General - Energy Node";
+    public static boolean cfgEnergyNodeEnable = true;
     public static int cfgEnergyNodeBufferSize = 6400;
     public static boolean cfgEnergyNodeDebug = false;
     public static boolean cfgEnergyNodeVerboseDebug = false;
@@ -357,40 +358,44 @@ public class HexConfig {
         config.load();
 
         // General
-        config.setCategoryComment(Configuration.CATEGORY_GENERAL, "The configuration below deals with different machines and details of the mod.");
-        cfgGeneralNetworkDebug = config.getBoolean("HEX Energy Network debugging", Configuration.CATEGORY_GENERAL, cfgGeneralNetworkDebug, "If set to true, will output the HEX Energy Network connections between machines to console upon scanning.");
-        cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", Configuration.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network debugging needs to be enabled.");
-        cfgGeneralMachineNetworkDebug = config.getBoolean("HEX Energy Network debugging (machines)", Configuration.CATEGORY_GENERAL, cfgGeneralMachineNetworkDebug, "If set to true, will output details about machine communication. Will get very spammy while energy sources are being drained. HEX Energy Network debugging needs to be enabled.");
-        cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.");
-        cfgGeneralUseAchievements = config.getBoolean("Use achievements", Configuration.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.");
-        cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.");
-        cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all entities has to be enabled first.");
-        cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.");
+        config.setCategoryComment(Configuration.CATEGORY_GENERAL, "General configuration for different machines and details of the mod.");
+        cfgGeneralNetworkDebug = config.getBoolean("HEX Energy Network debugging", Configuration.CATEGORY_GENERAL, cfgGeneralNetworkDebug, "If set to true, will output the HEX Energy Network connections between machines to console\nupon scanning.\n");
+        cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", Configuration.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network\ndebugging needs to be enabled.\n");
+        cfgGeneralMachineNetworkDebug = config.getBoolean("HEX Energy Network debugging (machines)", Configuration.CATEGORY_GENERAL, cfgGeneralMachineNetworkDebug, "If set to true, will output details about machine communication. Will get very spammy while\nenergy sources are being drained. HEX Energy Network debugging needs to be enabled.\n");
+        cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.\n");
+        cfgGeneralUseAchievements = config.getBoolean("Use achievements", Configuration.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.\n");
+        cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.\n");
+        cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all\nentities has to be enabled first.\n");
+        cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.\n");
 
 
         // General - Personal Teleportation Pad
-        cfgTeleportEnable = config.getBoolean("Enable Personal Teleportation Pad", categoryTeleport, cfgTeleportEnable, "Enables the Personal Teleportation Pad block.");
-        cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.");
-        cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.");
-        cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.");
+        config.setCategoryComment(categoryTeleport, "Configuration for the Personal Teleportation Pad.");
+        cfgTeleportEnable = config.getBoolean("Enable Personal Teleportation Pad", categoryTeleport, cfgTeleportEnable, "Enables the Personal Teleportation Pad block.\n");
+        cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.\n");
+        cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.\n");
+        cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.\n");
 
         // General - Hexorium Tank
-        cfgTankEnable = config.getBoolean("Enable Hexorium Tank", categoryTank, cfgTankEnable, "Enables the Hexorium Tank multiblock structure.");
-        cfgTankMaxDimension = config.getInt("Hexorium Tank size limit", categoryTank, cfgTankMaxDimension, 3, 18, "The maximum outer size of the Hexorium Tank.");
-        cfgTankCapacityMultiplier = config.getInt("Hexorium Tank capacity multiplier", categoryTank, cfgTankCapacityMultiplier, 1, 256, "Number of buckets per internal block of the tank.");
-        cfgTankKeepFluid = config.getInt("Percentage of fluid to recover", categoryTank, cfgTankKeepFluid, 0, 100, "The percentage of fluid that will be recovered when the tank is broken and re-formed. Set to 0 to disable.");
-        cfgTankDebug = config.getBoolean("Hexorium Tank debugging", categoryTank, cfgTankDebug, "If set to true, will output the Hexorium Tank debugging to console.");
-        cfgTankVerboseDebug = config.getBoolean("Hexorium Tank debugging (verbose)", categoryTank, cfgTankVerboseDebug, "If set to true, will output extremely detailed Hexorium Tank debugging info. Hexorium Tank debugging needs to be enabled.");
-        cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity is located.");
+        config.setCategoryComment(categoryTank, "Configuration for the Hexorium Tank multiblock structure.");
+        cfgTankEnable = config.getBoolean("Enable Hexorium Tank", categoryTank, cfgTankEnable, "Enables the Hexorium Tank multiblock structure.\n");
+        cfgTankMaxDimension = config.getInt("Hexorium Tank size limit", categoryTank, cfgTankMaxDimension, 3, 18, "The maximum outer size of the Hexorium Tank.\n");
+        cfgTankCapacityMultiplier = config.getInt("Hexorium Tank capacity multiplier", categoryTank, cfgTankCapacityMultiplier, 1, 256, "Number of buckets per internal block of the tank.\n");
+        cfgTankKeepFluid = config.getInt("Percentage of fluid to recover", categoryTank, cfgTankKeepFluid, 0, 100, "The percentage of fluid that will be recovered when the tank is broken and re-formed. Set\nto 0 to disable.\n");
+        cfgTankDebug = config.getBoolean("Hexorium Tank debugging", categoryTank, cfgTankDebug, "If set to true, will output the Hexorium Tank debugging to console.\n");
+        cfgTankVerboseDebug = config.getBoolean("Hexorium Tank debugging (verbose)", categoryTank, cfgTankVerboseDebug, "If set to true, will output extremely detailed Hexorium Tank debugging info. Hexorium Tank\ndebugging needs to be enabled.\n");
+        cfgTankRenderDebug = config.getBoolean("Hexorium Tank debugging (rendering)", categoryTank, cfgTankRenderDebug, "If set to true, will show a small cube where the center of the tank rendering tile entity\nis located.\n");
 
         // General - Energy Node
-        cfgEnergyNodeBufferSize = config.getInt("Size of port buffers", categoryEnergyNode, cfgEnergyNodeBufferSize, 0, 640000, "The amount of energy that every port buffer can hold.");
-        cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.");
-        cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node debugging needs to be enabled.");
+        config.setCategoryComment(categoryEnergyNode, "Configuration for the Energy Node multiblock structure.");
+        cfgEnergyNodeEnable = config.getBoolean("Enable Energy Node", categoryEnergyNode, cfgEnergyNodeEnable, "Enables the Energy Node multiblock structure.\n");
+        cfgEnergyNodeBufferSize = config.getInt("Size of port buffers", categoryEnergyNode, cfgEnergyNodeBufferSize, 0, 640000, "The amount of energy that every port buffer can hold.\n");
+        cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.\n");
+        cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node\ndebugging needs to be enabled.\n");
         
         // General - Energy Conversion
-        config.setCategoryComment(categoryEnergyTransfer, "This configuration section deals with the energy tickrate of different ports. Note that the HEX settings will be ignored if HEX port is paired with a different port.");
-        cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the default LV, MV, HV and EV ones.");
+        config.setCategoryComment(categoryEnergyTransfer, "Configuration for the energy per tick rates of different tiers and ports.\nNote that the HEX setting are only applied when a HEX port is paired with a HEX port.");
+        cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the\ndefault LV, MV, HV and EV ones.\n");
         cfgEnergyTransferTier1HEX = config.getInt("HEX/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1HEX, 0, 640000, "");
         cfgEnergyTransferTier2HEX = config.getInt("HEX/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2HEX, 0, 640000, "");
         cfgEnergyTransferTier3HEX = config.getInt("HEX/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3HEX, 0, 640000, "");
@@ -405,7 +410,7 @@ public class HexConfig {
         cfgEnergyTransferTier4EU = config.getInt("EU/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 0, 640000, "");
 
         // General - Energy Conversion
-        config.setCategoryComment(categoryEnergyConversion, "This configuration section deals with the loss and conversion ratios of the Energy Node.");
+        config.setCategoryComment(categoryEnergyConversion, "Configuration for the loss and conversion ratios of the Energy Node.");
         cfgEnergyConversionLossTier1 = config.getInt("Tier 1 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier1, 0, 100, "");
         cfgEnergyConversionLossTier2 = config.getInt("Tier 2 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier2, 0, 100, "");
         cfgEnergyConversionLossTier3 = config.getInt("Tier 3 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier3, 0, 100, "");
@@ -419,11 +424,11 @@ public class HexConfig {
 
 
         // Monolith Generation
-        config.setCategoryComment(categoryMonolith, "The configuration below deals with monolith generation. The monolith gen can be completely disabled, or\nconfigured per dimension and monolith.");
-        cfgMonolithGeneralShouldGenerate = config.getBoolean("Generate monolith", categoryMonolith, cfgMonolithGeneralShouldGenerate, "If monolith generator should be working at all. Setting this to false disables ALL monolith generation. Ignores monolith and dimension-specific settings.");
-        cfgMonolithNetherShouldGenerate = config.getBoolean("Generate Nether monolith", categoryMonolith, cfgMonolithNetherShouldGenerate, "If monoliths should be generating in the Nether. Setting this to false disables ALL monolith generation in the Nether. Ignores monolith-specific settings.");
-        cfgMonolithOverworldShouldGenerate = config.getBoolean("Generate Overworld monolith", categoryMonolith, cfgMonolithOverworldShouldGenerate, "If monoliths should be generating in the Overworld. Setting this to false disables ALL monolith generation in the Overworld. Ignores monolith-specific settings.");
-        cfgMonolithOtherShouldGenerate = config.getBoolean("Generate Other monolith", categoryMonolith, cfgMonolithOtherShouldGenerate, "If monoliths should be generating in other dimensions. Setting this to false disables ALL monolith generation in other dimensions. Ignores monolith-specific settings.");
+        config.setCategoryComment(categoryMonolith, "Configuration for monolith generation. The monolith gen can be completely disabled, or\nconfigured per dimension and monolith.");
+        cfgMonolithGeneralShouldGenerate = config.getBoolean("Generate monolith", categoryMonolith, cfgMonolithGeneralShouldGenerate, "If monolith generator should be working at all. Setting this to false disables ALL monolith\ngeneration. Ignores monolith and dimension-specific settings.\n");
+        cfgMonolithNetherShouldGenerate = config.getBoolean("Generate Nether monolith", categoryMonolith, cfgMonolithNetherShouldGenerate, "If monoliths should be generating in the Nether. Setting this to false disables ALL monolith\ngeneration in the Nether. Ignores monolith-specific settings.\n");
+        cfgMonolithOverworldShouldGenerate = config.getBoolean("Generate Overworld monolith", categoryMonolith, cfgMonolithOverworldShouldGenerate, "If monoliths should be generating in the Overworld. Setting this to false disables ALL monolith\ngeneration in the Overworld. Ignores monolith-specific settings.\n");
+        cfgMonolithOtherShouldGenerate = config.getBoolean("Generate Other monolith", categoryMonolith, cfgMonolithOtherShouldGenerate, "If monoliths should be generating in other dimensions. Setting this to false disables ALL\nmonolith generation in other dimensions. Ignores monolith-specific settings.\n");
 
         // Monolith Generation - Nether
         // Monolith Generation - Nether Monolith Red
@@ -536,11 +541,11 @@ public class HexConfig {
         
         
         // Ore Generation
-        config.setCategoryComment(categoryOre, "The configuration below deals with ore generation. The ore gen can be completely disabled, or\nconfigured per dimension and ore.");
-        cfgOreGeneralShouldGenerate = config.getBoolean("Generate ores", categoryOre, cfgOreGeneralShouldGenerate, "If ore generator should be working at all. Setting this to false disables ALL ore generation. Ignores ore and dimension-specific settings.");
-        cfgOreNetherShouldGenerate = config.getBoolean("Generate Nether ores", categoryOre, cfgOreNetherShouldGenerate, "If ores should be generating in the Nether. Setting this to false disables ALL ore generation in the Nether. Ignores ore-specific settings.");
-        cfgOreOverworldShouldGenerate = config.getBoolean("Generate Overworld ores", categoryOre, cfgOreOverworldShouldGenerate, "If ores should be generating in the Overworld. Setting this to false disables ALL ore generation in the Overworld. Ignores ore-specific settings.");
-        cfgOreOtherShouldGenerate = config.getBoolean("Generate Other ores", categoryOre, cfgOreOtherShouldGenerate, "If ores should be generating in other dimensions. Setting this to false disables ALL ore generation in other dimensions. Ignores ore-specific settings.");
+        config.setCategoryComment(categoryOre, "Configuration for ore generation. The ore gen can be completely disabled, or\nconfigured per dimension and ore.");
+        cfgOreGeneralShouldGenerate = config.getBoolean("Generate ores", categoryOre, cfgOreGeneralShouldGenerate, "If ore generator should be working at all. Setting this to false disables ALL ore generation.\nIgnores ore and dimension-specific settings.\n");
+        cfgOreNetherShouldGenerate = config.getBoolean("Generate Nether ores", categoryOre, cfgOreNetherShouldGenerate, "If ores should be generating in the Nether. Setting this to false disables ALL ore generation\nin the Nether. Ignores ore-specific settings.\n");
+        cfgOreOverworldShouldGenerate = config.getBoolean("Generate Overworld ores", categoryOre, cfgOreOverworldShouldGenerate, "If ores should be generating in the Overworld. Setting this to false disables ALL ore generation\nin the Overworld. Ignores ore-specific settings.\n");
+        cfgOreOtherShouldGenerate = config.getBoolean("Generate Other ores", categoryOre, cfgOreOtherShouldGenerate, "If ores should be generating in other dimensions. Setting this to false disables ALL ore\ngeneration in other dimensions. Ignores ore-specific settings.\n");
 
         // Ore Generation - Nether
         // Ore Generation - Nether Ore Red

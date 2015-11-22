@@ -29,9 +29,11 @@ public class HexTileEntities {
             GameRegistry.registerTileEntity(TileTankRender.class, TileTankRender.ID);
         }
 
-        GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
-        GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
-        if (Loader.isModLoaded("IC2"))
-            GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
+        if (HexConfig.cfgEnergyNodeEnable) {
+            GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
+            GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
+            if (Loader.isModLoaded("IC2"))
+                GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
+        }
     }
 }

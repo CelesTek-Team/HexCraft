@@ -278,20 +278,24 @@ public class HexAchievements {
         }
 
         // Energy Node
-        achCraftAdvancedRainbowCore = new Achievement(hex1 + "achCraftAdvancedRainbowCore", hex2 + "achCraftAdvancedRainbowCore", 3, 2, HexBlocks.blockAdvancedRainbowCore, achCraftEnergizedRainbow).registerStat();
-        achList.add(achCraftAdvancedRainbowCore);
-        achCraftEnergyNodeCore = new Achievement(hex1 + "achCraftEnergyNodeCore", hex2 + "achCraftEnergyNodeCore", 5, 2, HexBlocks.blockEnergyNodeCoreT1, achCraftAdvancedRainbowCore).registerStat();
-        achList.add(achCraftEnergyNodeCore);
-        achCraftEnergyNodePort = new Achievement(hex1 + "achCraftEnergyNodePort", hex2 + "achCraftEnergyNodePort", 5, 3, HexBlocks.blockEnergyNodePortHEX, achCraftEnergizedRainbow).registerStat();
-        achList.add(achCraftEnergyNodePort);
-        achFormEnergyNode = new Achievement(hex1 + "achFormEnergyNode", hex2 + "achFormEnergyNode", 7, 2, HexItems.itemHexoriumManipulator, achCraftEnergyNodeCore).registerStat();
-        achList.add(achFormEnergyNode);
-        achLinkEnergyNodePorts = new Achievement(hex1 + "achLinkEnergyNodePorts", hex2 + "achLinkEnergyNodePorts", 7, 3, HexItems.itemHexoriumManipulator, achCraftEnergyNodePort).registerStat();
-        achList.add(achLinkEnergyNodePorts);
+        if (HexConfig.cfgEnergyNodeEnable) {
+            achCraftAdvancedRainbowCore = new Achievement(hex1 + "achCraftAdvancedRainbowCore", hex2 + "achCraftAdvancedRainbowCore", 3, 2, HexBlocks.blockAdvancedRainbowCore, achCraftEnergizedRainbow).registerStat();
+            achList.add(achCraftAdvancedRainbowCore);
+            achCraftEnergyNodeCore = new Achievement(hex1 + "achCraftEnergyNodeCore", hex2 + "achCraftEnergyNodeCore", 5, 2, HexBlocks.blockEnergyNodeCoreT1, achCraftAdvancedRainbowCore).registerStat();
+            achList.add(achCraftEnergyNodeCore);
+            achCraftEnergyNodePort = new Achievement(hex1 + "achCraftEnergyNodePort", hex2 + "achCraftEnergyNodePort", 5, 3, HexBlocks.blockEnergyNodePortHEX, achCraftEnergizedRainbow).registerStat();
+            achList.add(achCraftEnergyNodePort);
+            achFormEnergyNode = new Achievement(hex1 + "achFormEnergyNode", hex2 + "achFormEnergyNode", 7, 2, HexItems.itemHexoriumManipulator, achCraftEnergyNodeCore).registerStat();
+            achList.add(achFormEnergyNode);
+            achLinkEnergyNodePorts = new Achievement(hex1 + "achLinkEnergyNodePorts", hex2 + "achLinkEnergyNodePorts", 7, 3, HexItems.itemHexoriumManipulator, achCraftEnergyNodePort).registerStat();
+            achList.add(achLinkEnergyNodePorts);
+        }
 
         // Energy Node Special
-        achGroupEnergyNode = new Achievement(hex1 + "achGroupEnergyNode", hex2 + "achGroupEnergyNode", 7, 5, HexBlocks.blockEnergyNodeCoreT4, achFormEnergyNode).setSpecial().registerStat();
-        achList.add(achGroupEnergyNode);
+        if (HexConfig.cfgEnergyNodeEnable) {
+            achGroupEnergyNode = new Achievement(hex1 + "achGroupEnergyNode", hex2 + "achGroupEnergyNode", 7, 5, HexBlocks.blockEnergyNodeCoreT4, achFormEnergyNode).setSpecial().registerStat();
+            achList.add(achGroupEnergyNode);
+        }
 
         // Register the achievement page.
         AchievementPage.registerAchievementPage(new AchievementPage("HEXCraft", achList.toArray(new Achievement[achList.size()])));

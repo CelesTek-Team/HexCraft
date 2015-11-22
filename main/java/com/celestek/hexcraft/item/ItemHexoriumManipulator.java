@@ -479,11 +479,12 @@ public class ItemHexoriumManipulator extends Item {
 
                                                     if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
                                                         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                                        if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator) && HexConfig.cfgEnergyNodeEnable)
                                                             player.addStat(HexAchievements.achLinkEnergyNodePorts, 1);
 
                                                         if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achFormEnergyNode)
-                                                                && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achLinkEnergyNodePorts))
+                                                                && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achLinkEnergyNodePorts)
+                                                                && HexConfig.cfgEnergyNodeEnable)
                                                             player.addStat(HexAchievements.achGroupEnergyNode, 1);
                                                     }
 
