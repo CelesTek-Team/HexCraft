@@ -72,7 +72,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
 
     public TileEnergyNodePortHEX() {
 
-        this.energyBufferTotal = HexConfig.cfgEnergyNodeBufferSize;
+        this.energyBufferTotal = 0;
         this.energyBufferFilled = 0;
         this.energyBufferDrained = 0;
 
@@ -139,6 +139,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
         else
             linkedPort = null;
         portTier = tagCompound.getInteger(NBT_PORT_TIER);
+        energyBufferTotal = HexEnergyNode.parseEnergyPerTick(portType, portTier) * 2;
     }
 
     /**
@@ -427,6 +428,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     @Override
     public void setPortTier(int portTier) {
         this.portTier = portTier;
+        this.energyBufferTotal = HexEnergyNode.parseEnergyPerTick(this.portType, this.portTier) * 2;
+
         if (HexConfig.cfgEnergyNodeDebug)
             System.out.println("[Energy Node Port: HEX] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port tier set to: " + portTier);
         markDirty();
@@ -595,7 +598,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
             player.addChatMessage(new ChatComponentTranslation("msg.probeTypePort.txt"));
             int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord);
             player.addChatMessage(new ChatComponentTranslation("msg.probePortMode" + (mode + 1) + ".txt"));
-            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt",  Math.round(energyBufferFilled), "HEX", Math.round(energyBufferTotal), "HEX"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt",  Math.round(energyBufferFilled), "HEX",
+                    Math.round(energyBufferTotal), "HEX"));
 
             boolean isPart = HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord);
             if (isPart && linkedPort != null && mode == HexEnergyNode.PORT_MODE_INPUT) {
@@ -606,7 +610,8 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
             else if (isPart && linkedPort != null && mode == HexEnergyNode.PORT_MODE_OUTPUT) {
                 ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
                 player.addChatMessage(new ChatComponentTranslation("msg.probeEfficiency.txt", (portTier + 1),
-                        Math.round((1 - HexEnergyNode.parseEfficiencyMultiplier(portTier, port.getPortTier())) * 100), Math.round(getEnergyPerTick()), "HEX"));
+                        Math.round((1 - HexEnergyNode.parseEfficiencyMultiplier(portTier, port.getPortTier())) * 100),
+                        Math.round(getEnergyPerTick()), "HEX"));
             }
             else if (isPart)
                 player.addChatMessage(new ChatComponentTranslation("msg.probeEfficiencyTier.txt", (portTier + 1)));

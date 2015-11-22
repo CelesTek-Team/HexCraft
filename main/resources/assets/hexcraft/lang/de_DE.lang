@@ -483,11 +483,11 @@ msg.probeTypeValve.txt=  Typ: Tankventil
 msg.probeTypePressure.txt=  Typ: Druckplatte
 msg.probeTypeBlock.txt=  Typ: Konstruktions-Block
 
-msg.probeEnergy.txt=  Energie: %.1f %s / %.1f %s
+msg.probeEnergy.txt=  Energie: %d %s / %d %s
 msg.probeFluid.txt=  Flüssigkeit: %s %s / %s
 msg.probeFluidEmpty.txt=  Flüssigkeit: Leer %s / %s
 msg.probeFluidNotFormed.txt=  Flüssigkeit: Tank ist nicht formiert.
-msg.probeEfficiency.txt=  Effizienz: Stufe %d, %.1f%% Verlust, Ausgang: %.1f %s/t
+msg.probeEfficiency.txt=  Effizienz: Stufe %d, %d%% Verlust, Ausgang: %.1f %s/t
 msg.probeEfficiencyTier.txt=  Effizienz: Stufe %d
 msg.probeEfficiencyNotFormed.txt=  Effizienz: Energie Knoten ist nicht formiert.
 

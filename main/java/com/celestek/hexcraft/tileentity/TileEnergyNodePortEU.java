@@ -66,7 +66,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
 
     public TileEnergyNodePortEU() {
 
-        this.energyBufferTotal = HexConfig.cfgEnergyNodeBufferSize;
+        this.energyBufferTotal = 0;
         this.energyBufferFilled = 0;
 
         this.portTier = 0;
@@ -115,6 +115,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
         else
             linkedPort = null;
         portTier = tagCompound.getInteger(NBT_PORT_TIER);
+        energyBufferTotal = HexEnergyNode.parseEnergyPerTick(portType, portTier) * 2;
     }
 
     /**
@@ -140,7 +141,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
                 if (energyBufferFilled < energyBufferTotal) {
                     ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
                     if (port != null)
-                        energyBufferFilled = energyBufferFilled + Math.round(port.drainPortEnergy(energyBufferTotal - energyBufferFilled)) * port.getMultiplier(portType, portTier);
+                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy(energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier);
                 }
             }
             // Situation in which the linked port is output, and this port is input.
@@ -247,7 +248,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
      */
     @Override
     public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-        return linkedPort != null && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord)
+        return HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord)
                 && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT;
     }
 
@@ -302,7 +303,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
      */
     @Override
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-        return linkedPort != null && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord)
+        return HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord)
                 && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_INPUT;
     }
 
@@ -349,6 +350,12 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
     @Override
     public void setPortTier(int portTier) {
         this.portTier = portTier;
+        this.energyBufferTotal = HexEnergyNode.parseEnergyPerTick(this.portType, this.portTier) * 2;
+
+        switchedA = false;
+        switchedB = false;
+        MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 
         if (HexConfig.cfgEnergyNodeDebug)
             System.out.println("[Energy Node Port: EU] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Port tier set to: " + portTier);
@@ -517,7 +524,8 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
             player.addChatMessage(new ChatComponentTranslation("msg.probeTypePort.txt"));
             int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord);
             player.addChatMessage(new ChatComponentTranslation("msg.probePortMode" + (mode + 1) + ".txt"));
-            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt",  Math.round(energyBufferFilled), "EU", Math.round(energyBufferTotal), "EU"));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt",  Math.round(energyBufferFilled), "EU",
+                    Math.round(energyBufferTotal), "EU"));
 
             boolean isPart = HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord);
             if (isPart && linkedPort != null && mode == HexEnergyNode.PORT_MODE_INPUT) {

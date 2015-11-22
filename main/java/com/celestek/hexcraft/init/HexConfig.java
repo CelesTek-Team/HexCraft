@@ -40,7 +40,6 @@ public class HexConfig {
     // General - Energy Node
     public static String categoryEnergyNode = "General - Energy Node";
     public static boolean cfgEnergyNodeEnable = true;
-    public static int cfgEnergyNodeBufferSize = 6400;
     public static boolean cfgEnergyNodeDebug = false;
     public static boolean cfgEnergyNodeVerboseDebug = false;
 
@@ -389,7 +388,6 @@ public class HexConfig {
         // General - Energy Node
         config.setCategoryComment(categoryEnergyNode, "Configuration for the Energy Node multiblock structure.");
         cfgEnergyNodeEnable = config.getBoolean("Enable Energy Node", categoryEnergyNode, cfgEnergyNodeEnable, "Enables the Energy Node multiblock structure.\n");
-        cfgEnergyNodeBufferSize = config.getInt("Size of port buffers", categoryEnergyNode, cfgEnergyNodeBufferSize, 0, 640000, "The amount of energy that every port buffer can hold.\n");
         cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.\n");
         cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node\ndebugging needs to be enabled.\n");
         

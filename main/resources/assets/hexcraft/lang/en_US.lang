@@ -473,7 +473,7 @@ msg.cannotSwap.txt=[Molecular Transposer] Cannot change colors when structure is
 
 msg.probeTitle.txt=[Hexorium Probe]
 msg.probeName.txt=  Name: %s
-msg.probeCoords.txt=  Coords: (%d, %d, %d)
+msg.probeCoords.txt=  Coordinates: (%d, %d, %d)
 
 msg.probeTypeSource.txt=  Type: Energy Source
 msg.probeTypeDrain.txt=  Type: Energy Drain
@@ -487,7 +487,7 @@ msg.probeEnergy.txt=  Energy: %d %s / %d %s
 msg.probeFluid.txt=  Fluid: %s %s / %s
 msg.probeFluidEmpty.txt=  Fluid: Empty %s / %s
 msg.probeFluidNotFormed.txt=  Fluid: Tank not formed.
-msg.probeEfficiency.txt=  Efficiency: Tier %d, %d Loss, Out: %d %s/t
+msg.probeEfficiency.txt=  Efficiency: Tier %d, %d%% Loss, Out: %d %s/t
 msg.probeEfficiencyTier.txt=  Efficiency: Tier %d
 msg.probeEfficiencyNotFormed.txt=  Efficiency: Energy Node not formed.
 
