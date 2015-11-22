@@ -48,10 +48,11 @@ public class ItemHexoriumReinforcer extends Item {
         if (!world.isRemote) {
             Block block = world.getBlock(x, y, z);
             // If the block is one of the reinforcable ones, reinforce it.
-            if (block instanceof BlockEngineeredHexoriumBlock ||
-                    block instanceof BlockFramedHexoriumBlock ||
-                    block instanceof BlockPlatedHexoriumBlock ||
-                    block instanceof BlockConcentricHexoriumBlock)
+            if (block instanceof BlockEngineeredHexoriumBlock
+                    || block instanceof BlockFramedHexoriumBlock
+                    || block instanceof BlockPlatedHexoriumBlock
+                    || block instanceof BlockConcentricHexoriumBlock
+                    || block instanceof BlockHexoriumStructureCasing)
                 if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z)) {
                     HexUtils.setMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
