@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class TileEnergyPylon extends TileEntity {

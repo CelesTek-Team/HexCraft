@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPort, IEnergySource, IEnergySink {

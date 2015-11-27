@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class HexItemComponent extends Item {

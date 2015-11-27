@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class ItemHexoriumProbe extends Item {
@@ -119,7 +119,6 @@ public class ItemHexoriumProbe extends Item {
                 if (!player.isSneaking()) {
                     HexUtils.addChatProbeTitle(player);
                     HexUtils.addChatProbeGenericInfo(player, world, x, y, z);
-                    player.addChatMessage(new ChatComponentTranslation("msg.probeCoords.txt", x, y, z));
                     player.addChatMessage(new ChatComponentTranslation("msg.probeTypeBlock.txt"));
                     if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
                         player.addChatMessage(new ChatComponentTranslation("msg.probeFormedYes.txt"));

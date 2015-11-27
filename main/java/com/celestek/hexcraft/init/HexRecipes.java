@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class HexRecipes {

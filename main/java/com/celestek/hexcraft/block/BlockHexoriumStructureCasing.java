@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHexNode {

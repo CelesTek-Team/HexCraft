@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 @SideOnly(Side.CLIENT)

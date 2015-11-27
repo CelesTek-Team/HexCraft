@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class HexCraftingHandler {

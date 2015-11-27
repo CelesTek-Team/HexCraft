@@ -7,13 +7,14 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexColors;
 import com.celestek.hexcraft.init.HexBlocks;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.1
  */
 
 public class HexClientProxy extends HexCommonProxy {
@@ -898,9 +899,11 @@ public class HexClientProxy extends HexCommonProxy {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                     HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
-            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                    HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+            if (Loader.isModLoaded("IC2")) {
+                renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+                RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                        HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_RAINBOW_R, HexColors.COLOR_RAINBOW_G, HexColors.COLOR_RAINBOW_B));
+            }
         }
 
         // Cables
