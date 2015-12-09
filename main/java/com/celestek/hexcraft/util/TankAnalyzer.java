@@ -1,6 +1,5 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -69,7 +68,9 @@ public class TankAnalyzer {
             System.out.println("[Tank Analyzer] Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is usable to build a tank.
-        if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass) {
+        if (block instanceof HexBlockMT
+                || block == HexBlocks.blockTemperedHexoriumGlass
+                || block == HexBlocks.blockHexoriumCoatedStone) {
             // Check if the current block is part of a tank.
             if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this block has already been added to the blocks ArrayList.

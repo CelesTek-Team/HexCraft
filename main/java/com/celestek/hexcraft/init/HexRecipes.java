@@ -358,6 +358,7 @@ public class HexRecipes {
         // Regular Blocks
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
         ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
+        ItemStack stackHexoriumCoatedStone_4 = new ItemStack(HexBlocks.blockHexoriumCoatedStone, 4);
 
         ItemStack stackPylonBase51_1 = new ItemStack(HexBlocks.blockPylonBase51, 1);
         ItemStack stackPylonBase15_1 = new ItemStack(HexBlocks.blockPylonBase15, 1);
@@ -2520,6 +2521,22 @@ public class HexRecipes {
 
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);
+
+        GameRegistry.addRecipe(stackHexoriumCoatedStone_4,
+                "BBB",
+                "BAB",
+                "BBB",
+                'A', stackHexoriumCrystalRed_1, 'B', stackStone_1);
+        GameRegistry.addRecipe(stackHexoriumCoatedStone_4,
+                "BBB",
+                "BAB",
+                "BBB",
+                'A', stackHexoriumCrystalGreen_1, 'B', stackStone_1);
+        GameRegistry.addRecipe(stackHexoriumCoatedStone_4,
+                "BBB",
+                "BAB",
+                "BBB",
+                'A', stackHexoriumCrystalBlue_1, 'B', stackStone_1);
 
         GameRegistry.addRecipe(stackPylonBase51_1,
                 "DAD",

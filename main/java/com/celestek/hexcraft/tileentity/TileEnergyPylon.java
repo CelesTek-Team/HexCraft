@@ -203,6 +203,7 @@ public class TileEnergyPylon extends TileEntity {
 
                 // Prepare the block to update.
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.notifyBlockChange(xCoord, yCoord, zCoord, null);
                 markDirty();
                 return true;
             }
@@ -222,7 +223,15 @@ public class TileEnergyPylon extends TileEntity {
 
             // Prepare the block to update.
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            worldObj.notifyBlockChange(xCoord, yCoord, zCoord, null);
             markDirty();
+
+            if (HexConfig.cfgGeneralNetworkDebug)
+                System.out.println("[Energy Pylon] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Monolith ejected, analyzing!");
+
+            /* DO ANALYSIS */
+            NetworkAnalyzer analyzer = new NetworkAnalyzer();
+            analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.blockEnergyPylon);
         }
     }
 
@@ -326,6 +335,15 @@ public class TileEnergyPylon extends TileEntity {
                 TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) worldObj.getTileEntity(entry.x, entry.y, entry.z);
                 tileEnergyPylon.removePylon(xCoord, yCoord, zCoord);
                 removePylon(entry.x, entry.y, entry.z);
+            }
+
+            if (remove.size() != 0) {
+                if (HexConfig.cfgGeneralNetworkDebug)
+                    System.out.println("[Energy Pylon] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Link interrupted, analyzing!");
+
+                /* DO ANALYSIS */
+                NetworkAnalyzer analyzer = new NetworkAnalyzer();
+                analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.blockEnergyPylon);
             }
         }
     }

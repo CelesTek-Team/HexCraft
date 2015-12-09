@@ -9,11 +9,9 @@ import com.celestek.hexcraft.tileentity.*;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
@@ -115,7 +113,10 @@ public class ItemHexoriumProbe extends Item {
             }
 
             // Display structure block info.
-            else if (block instanceof HexBlockMT || block == HexBlocks.blockTemperedHexoriumGlass || block instanceof BlockEnergyNodeCore) {
+            else if (block instanceof HexBlockMT
+                    || block == HexBlocks.blockTemperedHexoriumGlass
+                    || block == HexBlocks.blockHexoriumCoatedStone
+                    || block instanceof BlockEnergyNodeCore) {
                 if (!player.isSneaking()) {
                     HexUtils.addChatProbeTitle(player);
                     HexUtils.addChatProbeGenericInfo(player, world, x, y, z);
