@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -621,7 +622,28 @@ public class BlockEnergyPylon extends HexBlockContainer {
             }
             world.func_147453_f(x, y, z, block);
         }
+
         super.breakBlock(world, x, y, z, block, meta);
+    }
+
+    /**
+     * If this returns true, then comparators facing away from this block will use the value from
+     * getComparatorInputOverride instead of the actual redstone signal strength.
+     */
+    public boolean hasComparatorInputOverride() {
+        return true;
+    }
+
+    /**
+     * If hasComparatorInputOverride returns true, the return value from this is used instead of the redstone signal
+     * strength when this block inputs to a comparator.
+     */
+    public int getComparatorInputOverride(World world, int x, int y, int z, int var) {
+        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+        if (tileEnergyPylon != null)
+            if (tileEnergyPylon.getMonolith() != 0)
+                return 15;
+        return 0;
     }
 
     // Prepare the icons.
