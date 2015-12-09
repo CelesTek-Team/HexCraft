@@ -361,6 +361,7 @@ tile.blockPylonBase51.name=5-na-1 Stupna Baza
 tile.blockPylonBase15.name=1-na-5 Stupna Baza
 
 tile.blockTemperedHexoriumGlass.name=Obrađeno Heksorijsko Staklo
+tile.blockHexoriumCoatedStone.name=Hexoriumom Obložen Kamen
 
 
 item.itemHexoriumCrystalRed.name=Crveni Heksorijski Kristal

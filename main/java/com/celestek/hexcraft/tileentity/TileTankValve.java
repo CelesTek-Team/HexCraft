@@ -7,7 +7,6 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -187,7 +186,8 @@ public class TileTankValve extends TileFluidHandler {
 
         boolean blockType = block instanceof HexBlockMT
                 || (block == HexBlocks.blockTankValve && allowValve)
-                || block == HexBlocks.blockTemperedHexoriumGlass;
+                || block == HexBlocks.blockTemperedHexoriumGlass
+                || block == HexBlocks.blockHexoriumCoatedStone;
         boolean rotation = true;
 
         if (block == HexBlocks.blockTankValve) {

@@ -361,6 +361,7 @@ tile.blockPylonBase51.name=5-to-1 Pylon Base
 tile.blockPylonBase15.name=1-to-5 Pylon Base
 
 tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass
+tile.blockHexoriumCoatedStone.name=Hexorium-Coated Stone
 
 
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal

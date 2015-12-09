@@ -60,7 +60,7 @@ public class BlockHexoriumOre extends HexBlock {
         this.setHardness(3F);
         this.setResistance(5F);
 
-        this.setStepSound(Block.soundTypeStone);
+        this.setStepSound(Block.soundTypePiston);
     }
 
     /**
