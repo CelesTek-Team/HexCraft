@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.1
+ * @version 0.8.2
  */
 
 public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.1
+ * @version 0.8.2
  */
 
 public class TankAnalyzer {
