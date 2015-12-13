@@ -123,11 +123,24 @@ public class BlockEnergyPylon extends HexBlockContainer {
         int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Get monolith.
-        TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-        boolean monolith = false;
-        if (tileEnergyPylon != null)
-            if (tileEnergyPylon.getMonolith() != 0)
-                monolith = true;
+		TileEnergyPylon tileEnergyPylon;
+		boolean monolith;
+		
+		try { //Cast exception protection
+		
+			tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
+			
+			if (tileEnergyPylon != null && tileEnergyPylon.getMonolith() != 0)
+					monolith = true;
+			else 
+					monolith = false;
+				
+		} catch (ClassCastException e) {
+			
+			monolith = false;
+			
+		}
+        
 
         // Return bounding box depending on meta and monolith.
         if (!monolith) {
