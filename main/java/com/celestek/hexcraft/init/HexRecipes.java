@@ -1662,6 +1662,100 @@ public class HexRecipes {
                 "DCD",
                 'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1, 'C', stackRedstone_1, 'D', stackGlowstoneDust_1);
 
+        // Hexorium Lamp (Swap)
+        GameRegistry.addRecipe(stackHexoriumLampRed_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvRed_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampOrange_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvOrange_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampYellow_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvYellow_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampLime_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvLime_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampGreen_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvGreen_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampTurquoise_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvTurquoise_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampCyan_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvCyan_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampSkyBlue_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvSkyBlue_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampBlue_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvBlue_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampPurple_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvPurple_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampMagenta_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvMagenta_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampPink_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvPink_1, 'B', stackRedstone_1);
+
+        GameRegistry.addRecipe(stackHexoriumLampWhite_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvWhite_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampLightGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvLightGray_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvGray_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampDarkGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvDarkGray_1, 'B', stackRedstone_1);
+        GameRegistry.addRecipe(stackHexoriumLampBlack_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvBlack_1, 'B', stackRedstone_1);
+
+        GameRegistry.addRecipe(stackHexoriumLampRainbow_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampInvRainbow_1, 'B', stackRedstone_1);
+
         // Inverted Hexorium Lamp
         GameRegistry.addRecipe(stackHexoriumLampInvRed_1,
                 "DAD",
@@ -1755,6 +1849,100 @@ public class HexRecipes {
                 "BHB",
                 "DCD",
                 'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', stackIronIngot_1, 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1);
+
+        // Inverted Hexorium Lamp (Swap)
+        GameRegistry.addRecipe(stackHexoriumLampInvRed_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampRed_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvOrange_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampOrange_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvYellow_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampYellow_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvLime_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampLime_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvGreen_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampGreen_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvTurquoise_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampTurquoise_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvCyan_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampCyan_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvSkyBlue_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampSkyBlue_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvBlue_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampBlue_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvPurple_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampPurple_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvMagenta_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampMagenta_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvPink_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampPink_1, 'B', stackRedstoneTorch_1);
+
+        GameRegistry.addRecipe(stackHexoriumLampInvWhite_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampWhite_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvLightGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampLightGray_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampGray_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvDarkGray_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampDarkGray_1, 'B', stackRedstoneTorch_1);
+        GameRegistry.addRecipe(stackHexoriumLampInvBlack_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampBlack_1, 'B', stackRedstoneTorch_1);
+
+        GameRegistry.addRecipe(stackHexoriumLampInvRainbow_1,
+                "   ",
+                " A ",
+                " B ",
+                'A', stackHexoriumLampRainbow_1, 'B', stackRedstoneTorch_1);
 
         // Hexorium Door
         GameRegistry.addRecipe(stackHexoriumDoorRed_1,
