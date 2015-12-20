@@ -1,6 +1,7 @@
 package com.celestek.hexcraft;
 
 import com.celestek.hexcraft.init.*;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -36,6 +37,9 @@ public class HexCommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
         if (HexConfig.cfgGeneralUseAchievements)
             HexAchievements.initializeAchievements();
+        if (Loader.isModLoaded("ForgeMultipart")) {
+            HexMultipart.initializeMicroblocks();
+        }
     }
 
     /**
