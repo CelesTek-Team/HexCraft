@@ -39,6 +39,9 @@ public class HexCommonProxy {
         if (Loader.isModLoaded("ForgeMultipart")) {
             HexMultipart.initializeMicroblocks();
         }
+        if (Loader.isModLoaded("chisel")) {
+            HexChisel.initializeChisel();
+        }
     }
 
     /**
