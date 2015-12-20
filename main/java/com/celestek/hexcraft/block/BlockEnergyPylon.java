@@ -120,27 +120,22 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 
         // Get monolith.
-		TileEnergyPylon tileEnergyPylon;
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		boolean monolith;
-		
-		try { //Cast exception protection
-		
-			tileEnergyPylon = (TileEnergyPylon) world.getTileEntity(x, y, z);
-			
-			if (tileEnergyPylon != null && tileEnergyPylon.getMonolith() != 0)
-					monolith = true;
-			else 
-					monolith = false;
-				
-		} catch (ClassCastException e) {
-			
-			monolith = false;
-			
+        int orientation;
+
+        // Check if the TileEntity is an Energy Pylon to prevent crashing.
+        if (tileEntity instanceof TileEnergyPylon) {
+			TileEnergyPylon tileEnergyPylon = (TileEnergyPylon) tileEntity;
+            monolith = tileEnergyPylon.getMonolith() != 0;
+            orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
 		}
-        
+        else {
+            monolith = false;
+            orientation = 1;
+        }
 
         // Return bounding box depending on meta and monolith.
         if (!monolith) {
