@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.0
+ * @version 0.8.2
  */
 
 public class BlockHexoriumCoatedStone extends Block {

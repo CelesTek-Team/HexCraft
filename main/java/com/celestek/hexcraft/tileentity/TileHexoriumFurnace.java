@@ -362,25 +362,19 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
      */
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        // Get the machine meta.
-        int meta = blockMetadata;
-
-        // Strip away the texture states from meta.
-        if (meta >= 4 && meta < 8)
-            meta -= 4;
-        else if (meta >= 8)
-            meta -= 8;
+        // Get the machine rotation.
+        int rotation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, blockMetadata);
 
         // Make side slot available only from front, and top from top.
         if (side == 1)
             return slotsTop;
-        else if (side == 2 && meta == 0)
+        else if (side == 2 && rotation == 0)
             return slotsSide;
-        else if (side == 3 && meta == 2)
+        else if (side == 3 && rotation == 2)
             return slotsSide;
-        else if (side == 4 && meta == 3)
+        else if (side == 4 && rotation == 3)
             return slotsSide;
-        else if (side == 5 && meta == 1)
+        else if (side == 5 && rotation == 1)
             return slotsSide;
         else
             return slotsBlank;
