@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexProcessingMatrixReconstructor {

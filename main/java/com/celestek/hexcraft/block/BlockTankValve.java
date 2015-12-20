@@ -23,7 +23,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class BlockTankValve extends HexBlockContainer {

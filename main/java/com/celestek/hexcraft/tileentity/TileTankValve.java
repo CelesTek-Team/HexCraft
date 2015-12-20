@@ -17,7 +17,6 @@ import net.minecraftforge.fluids.*;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class TileTankValve extends TileFluidHandler {

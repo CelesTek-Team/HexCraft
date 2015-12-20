@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class TileHexoriumGenerator extends TileEntity implements ISidedInventory, ITileHexEnergySource {

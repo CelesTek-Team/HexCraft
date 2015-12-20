@@ -5,7 +5,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexOreDict {

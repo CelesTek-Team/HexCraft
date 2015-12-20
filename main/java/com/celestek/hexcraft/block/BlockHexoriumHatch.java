@@ -26,7 +26,6 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class BlockHexoriumHatch extends HexBlockModel {

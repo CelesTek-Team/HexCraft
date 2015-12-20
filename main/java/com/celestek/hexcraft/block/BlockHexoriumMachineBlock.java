@@ -10,7 +10,6 @@ import net.minecraft.util.IIcon;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class BlockHexoriumMachineBlock extends HexBlock {

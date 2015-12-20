@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexTileEntities {

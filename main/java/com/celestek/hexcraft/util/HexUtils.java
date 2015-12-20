@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 /**

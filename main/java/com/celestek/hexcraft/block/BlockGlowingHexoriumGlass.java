@@ -14,7 +14,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class BlockGlowingHexoriumGlass extends HexBlockMT {

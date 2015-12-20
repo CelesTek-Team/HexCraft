@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexBlockMT extends HexBlock {

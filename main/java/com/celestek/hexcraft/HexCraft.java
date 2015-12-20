@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION, dependencies = "after:IC2")

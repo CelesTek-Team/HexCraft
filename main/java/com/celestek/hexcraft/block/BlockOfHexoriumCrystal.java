@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class BlockOfHexoriumCrystal extends HexBlock {

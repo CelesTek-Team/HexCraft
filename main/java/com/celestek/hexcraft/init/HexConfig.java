@@ -5,7 +5,6 @@ import net.minecraftforge.common.config.Configuration;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexConfig {

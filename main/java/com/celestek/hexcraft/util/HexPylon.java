@@ -2,7 +2,6 @@ package com.celestek.hexcraft.util;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
- * @version 0.8.2
  */
 
 public class HexPylon {
