@@ -139,8 +139,11 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
                 // Fill the port buffer until it is full.
                 if (energyBufferFilled < energyBufferTotal) {
                     ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
-                    if (port != null)
-                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy(energyBufferTotal - energyBufferFilled) * port.getMultiplier(portType, portTier);
+                    if (port != null) {
+                        float multi = port.getMultiplier(portType, portTier);
+                        float conv = HexEnergyNode.parseConversionMultiplier(port.getPortType(), portType);
+                        energyBufferFilled = energyBufferFilled + port.drainPortEnergy((energyBufferTotal - energyBufferFilled) / conv) * multi;
+                    }
                 }
             }
             // Situation in which the linked port is output, and this port is input.
