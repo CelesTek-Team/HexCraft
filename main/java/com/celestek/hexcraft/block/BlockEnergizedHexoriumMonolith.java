@@ -125,37 +125,37 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
 
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
         if(orientation == 0) {
-            if (!world.getBlock(x, y + 1, z).isSideSolid(world, x, y, z, DOWN)) {
+            if (!world.isSideSolid(x, y + 1, z, DOWN)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 1) {
-            if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
+            if (!world.isSideSolid(x, y - 1, z, UP)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 2) {
-            if (!world.getBlock(x, y, z + 1).isSideSolid(world, x, y, z, NORTH)) {
+            if (!world.isSideSolid(x, y, z + 1, NORTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 3) {
-            if (!world.getBlock(x, y, z - 1).isSideSolid(world, x, y, z, SOUTH)) {
+            if (!world.isSideSolid(x, y, z - 1, SOUTH)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 4) {
-            if (!world.getBlock(x + 1, y, z).isSideSolid(world, x, y, z, WEST)) {
+            if (!world.isSideSolid(x + 1, y, z, WEST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 5) {
-            if (!world.getBlock(x - 1, y, z).isSideSolid(world, x, y, z, EAST)) {
+            if (!world.isSideSolid(x - 1, y, z, EAST)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }

@@ -165,7 +165,7 @@ public class BlockHexoriumDoor extends HexBlockModel {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // Check if the block below is still solid and if the upper door still exists, or if the lower door still exists.
-        if (!((world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP) && world.getBlock(x, y + 1, z) == this) ||
+        if (!((world.isSideSolid(x, y - 1, z, UP) && world.getBlock(x, y + 1, z) == this) ||
                 (world.getBlock(x, y - 1, z) == this))) {
             // If it doesn't, and this is the lower door, drop it and set the block to air.
             if (world.getBlock(x, y + 1, z) == this)

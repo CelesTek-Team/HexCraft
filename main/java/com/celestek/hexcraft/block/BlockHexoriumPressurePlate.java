@@ -77,7 +77,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // If the block below is destroyed, drop it.
-        if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y, z, UP)) {
+        if (!world.isSideSolid(x, y - 1, z, UP)) {
             this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
         }
