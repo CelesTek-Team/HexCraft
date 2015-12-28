@@ -22,7 +22,7 @@ public class HexCraft {
     // Set default mod info.
     public static final String MODID = "hexcraft";
     public static final String MODNAME = "HEXCraft";
-    public static final String VERSION = "0.8.3";
+    public static final String VERSION = "0.8.4";
 
     // Set up the instance.
     @Mod.Instance(value = HexCraft.MODID)
