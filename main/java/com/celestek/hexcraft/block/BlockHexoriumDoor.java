@@ -178,6 +178,28 @@ public class BlockHexoriumDoor extends HexBlockModel {
             if (world.getBlock(x, y + 1, z) == this) {
                 boolean state = HexUtils.getMetaBit(META_STATE, world, x, y, z);
                 boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+                int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
+
+                if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y + 1, z);
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z - 1);
+                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y + 1, z);
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z + 1);
+                }
+                else {
+                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y + 1, z);
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z + 1);
+                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y + 1, z);
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z - 1);
+                }
 
                 if (!state && powered) {
                     HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
@@ -189,10 +211,70 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
                 }
+
+                // Toggle the flipped door.
+                if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
+                        world.markBlockForUpdate(x - 1, y + 1, z);
+                    }
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
+                        world.markBlockForUpdate(x, y + 1, z - 1);
+                    }
+                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
+                        world.markBlockForUpdate(x + 1, y + 1, z);
+                    }
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
+                        world.markBlockForUpdate(x, y + 1, z + 1);
+                    }
+                }
+                else {
+                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
+                        world.markBlockForUpdate(x + 1, y + 1, z);
+                    }
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
+                        world.markBlockForUpdate(x, y + 1, z + 1);
+                    }
+                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
+                        world.markBlockForUpdate(x - 1, y + 1, z);
+                    }
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
+                        world.markBlockForUpdate(x, y + 1, z - 1);
+                    }
+                }
             }
             else if (world.getBlock(x, y - 1, z) == this) {
                 boolean state = HexUtils.getMetaBit(META_STATE, world, x, y - 1, z);
                 boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y - 1, z);
+                int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
+
+                if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y - 1, z);
+                    else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z - 1);
+                    else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y - 1, z);
+                    else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1))
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z + 1);
+                }
+                else {
+                    if (rotation == 0 && world.getBlock(x + 1, y, z) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y - 1, z);
+                    else if (rotation == 1 && world.getBlock(x, y, z + 1) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z + 1);
+                    else if (rotation == 2 && world.getBlock(x - 1, y, z) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y - 1, z);
+                    else if (rotation == 3 && world.getBlock(x, y, z - 1) == this)
+                        powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z - 1);
+                }
 
                 if (!state && powered) {
                     HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
@@ -203,6 +285,45 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
+
+                // Toggle the flipped door.
+                if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
+                        world.markBlockForUpdate(x - 1, y, z);
+                    }
+                    else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
+                        world.markBlockForUpdate(x, y, z - 1);
+                    }
+                    else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
+                        world.markBlockForUpdate(x + 1, y, z);
+                    }
+                    else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
+                        world.markBlockForUpdate(x, y, z + 1);
+                    }
+                }
+                // Toggle the main door.
+                else {
+                    if (rotation == 0 && world.getBlock(x + 1, y, z) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
+                        world.markBlockForUpdate(x + 1, y, z);
+                    }
+                    else if (rotation == 1 && world.getBlock(x, y, z + 1) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
+                        world.markBlockForUpdate(x, y, z + 1);
+                    }
+                    else if (rotation == 2 && world.getBlock(x - 1, y, z) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
+                        world.markBlockForUpdate(x - 1, y, z);
+                    }
+                    else if (rotation == 3 && world.getBlock(x, y, z - 1) == this) {
+                        HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
+                        world.markBlockForUpdate(x, y, z - 1);
+                    }
                 }
             }
         }
@@ -316,11 +437,90 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z);
                     world.markBlockForUpdate(x, y, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y - 1, z, 0);
+
+                    int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
+                    // Toggle the flipped door.
+                    if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
+                        if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
+                            world.markBlockForUpdate(x - 1, y, z);
+                        }
+                        else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
+                            world.markBlockForUpdate(x, y, z - 1);
+                        }
+                        else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
+                            world.markBlockForUpdate(x + 1, y, z);
+                        }
+                        else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
+                            world.markBlockForUpdate(x, y, z + 1);
+                        }
+                    }
+                    // Toggle the main door.
+                    else {
+                        if (rotation == 0 && world.getBlock(x + 1, y, z) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
+                            world.markBlockForUpdate(x + 1, y, z);
+                        }
+                        else if (rotation == 1 && world.getBlock(x, y, z + 1) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
+                            world.markBlockForUpdate(x, y, z + 1);
+                        }
+                        else if (rotation == 2 && world.getBlock(x - 1, y, z) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
+                            world.markBlockForUpdate(x - 1, y, z);
+                        }
+                        else if (rotation == 3 && world.getBlock(x, y, z - 1) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
+                            world.markBlockForUpdate(x, y, z - 1);
+                        }
+                    }
                 }
                 else {
                     HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     world.markBlockForUpdate(x, y + 1, z);
                     world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+
+                    int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
+                    // Toggle the flipped door.
+                    if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
+                        if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
+                            world.markBlockForUpdate(x - 1, y + 1, z);
+                        }
+                        else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
+                            world.markBlockForUpdate(x, y + 1, z - 1);
+                        }
+                        else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
+                            world.markBlockForUpdate(x + 1, y + 1, z);
+                        }
+                        else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
+                            world.markBlockForUpdate(x, y + 1, z + 1);
+                        }
+                    }
+                    else {
+                        if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
+                            world.markBlockForUpdate(x + 1, y + 1, z);
+                        }
+                        else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
+                            world.markBlockForUpdate(x, y + 1, z + 1);
+                        }
+                        else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
+                            world.markBlockForUpdate(x - 1, y + 1, z);
+                        }
+                        else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this) {
+                            HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
+                            world.markBlockForUpdate(x, y + 1, z - 1);
+                        }
+                    }
                 }
             }
         }
