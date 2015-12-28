@@ -386,14 +386,14 @@ public class HexEnergyNode {
             }
         else if(type == PORT_TYPE_EU) {
             if (HexConfig.cfgEnergyTransferCustomEU)
-                return (float) EnergyNet.instance.getPowerFromTier(tier + 1);
-            else
                 switch (tier) {
                     case 0: return HexConfig.cfgEnergyTransferTier1EU;
                     case 1: return HexConfig.cfgEnergyTransferTier2EU;
                     case 2: return HexConfig.cfgEnergyTransferTier3EU;
                     case 3: return HexConfig.cfgEnergyTransferTier4EU;
                 }
+            else
+                return (float) EnergyNet.instance.getPowerFromTier(tier + 1);
         }
 
         return 0;
