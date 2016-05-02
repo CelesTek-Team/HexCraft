@@ -2790,6 +2790,32 @@ public class HexRecipes {
                 "BCB",
                 "CAC",
                 "BCB",
+                'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', Blocks.glass));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
+                "BCB",
+                "CAC",
+                "BCB",
+                'A', stackHexoriumCrystalGreen_1, 'B', "ingotIron", 'C', Blocks.glass));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
+                "BCB",
+                "CAC",
+                "BCB",
+                'A', stackHexoriumCrystalBlue_1, 'B', "ingotIron", 'C', Blocks.glass));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
+                "BCB",
+                "CAC",
+                "BCB",
+                'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron", 'C', Blocks.glass));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
+                "BCB",
+                "CAC",
+                "BCB",
+                'A', stackHexoriumCrystalBlack_1, 'B', "ingotIron", 'C', Blocks.glass));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
+                "BCB",
+                "CAC",
+                "BCB",
                 'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', "glass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
