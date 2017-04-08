@@ -1,0 +1,681 @@
+itemGroup.tabMaterials=HEXCraft: Materials
+itemGroup.tabComponents=HEXCraft: Components
+itemGroup.tabMachines=HEXCraft: Machines
+itemGroup.tabDecorative=HEXCraft: Decorative
+
+
+tile.blockHexoriumNetherOreRed.name=Red Hexorium Nether Ore
+tile.blockHexoriumNetherOreGreen.name=Green Hexorium Nether Ore
+tile.blockHexoriumNetherOreBlue.name=Blue Hexorium Nether Ore
+tile.blockHexoriumNetherOreWhite.name=White Hexorium Nether Ore
+tile.blockHexoriumNetherOreBlack.name=Black Hexorium Nether Ore
+
+tile.blockHexoriumOreRed.name=Red Hexorium Ore
+tile.blockHexoriumOreGreen.name=Green Hexorium Ore
+tile.blockHexoriumOreBlue.name=Blue Hexorium Ore
+tile.blockHexoriumOreWhite.name=White Hexorium Ore
+tile.blockHexoriumOreBlack.name=Black Hexorium Ore
+
+
+tile.blockHexoriumNetherMonolithRed.name=Red Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithGreen.name=Green Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithBlue.name=Blue Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithWhite.name=White Hexorium Nether Monolith
+tile.blockHexoriumNetherMonolithBlack.name=Black Hexorium Nether Monolith
+
+tile.blockHexoriumMonolithRed.name=Red Hexorium Monolith
+tile.blockHexoriumMonolithGreen.name=Green Hexorium Monolith
+tile.blockHexoriumMonolithBlue.name=Blue Hexorium Monolith
+tile.blockHexoriumMonolithWhite.name=White Hexorium Monolith
+tile.blockHexoriumMonolithBlack.name=Black Hexorium Monolith
+
+
+tile.blockOfHexoriumCrystalRed.name=Block of Red Hexorium Crystal
+tile.blockOfHexoriumCrystalGreen.name=Block of Green Hexorium Crystal
+tile.blockOfHexoriumCrystalBlue.name=Block of Blue Hexorium Crystal
+tile.blockOfHexoriumCrystalWhite.name=Block of White Hexorium Crystal
+tile.blockOfHexoriumCrystalBlack.name=Block of Black Hexorium Crystal
+
+
+tile.blockEnergizedHexoriumRed.name=Energized Hexorium (Red)
+tile.blockEnergizedHexoriumOrange.name=Energized Hexorium (Orange)
+tile.blockEnergizedHexoriumYellow.name=Energized Hexorium (Yellow)
+tile.blockEnergizedHexoriumLime.name=Energized Hexorium (Lime)
+tile.blockEnergizedHexoriumGreen.name=Energized Hexorium (Green)
+tile.blockEnergizedHexoriumTurquoise.name=Energized Hexorium (Turquoise)
+tile.blockEnergizedHexoriumCyan.name=Energized Hexorium (Cyan)
+tile.blockEnergizedHexoriumSkyBlue.name=Energized Hexorium (Sky Blue)
+tile.blockEnergizedHexoriumBlue.name=Energized Hexorium (Blue)
+tile.blockEnergizedHexoriumPurple.name=Energized Hexorium (Purple)
+tile.blockEnergizedHexoriumMagenta.name=Energized Hexorium (Magenta)
+tile.blockEnergizedHexoriumPink.name=Energized Hexorium (Pink)
+
+tile.blockEnergizedHexoriumWhite.name=Energized Hexorium (White)
+tile.blockEnergizedHexoriumLightGray.name=Energized Hexorium (Light Gray)
+tile.blockEnergizedHexoriumGray.name=Energized Hexorium (Gray)
+tile.blockEnergizedHexoriumDarkGray.name=Energized Hexorium (Dark Gray)
+tile.blockEnergizedHexoriumBlack.name=Energized Hexorium (Black)
+
+tile.blockEnergizedHexoriumRainbow.name=Energized Hexorium (Rainbow)
+
+
+tile.blockEngineeredHexoriumBlockRed.name=Engineered Hexorium Block (Red)
+tile.blockEngineeredHexoriumBlockOrange.name=Engineered Hexorium Block (Orange)
+tile.blockEngineeredHexoriumBlockYellow.name=Engineered Hexorium Block (Yellow)
+tile.blockEngineeredHexoriumBlockLime.name=Engineered Hexorium Block (Lime)
+tile.blockEngineeredHexoriumBlockGreen.name=Engineered Hexorium Block (Green)
+tile.blockEngineeredHexoriumBlockTurquoise.name=Engineered Hexorium Block (Turquoise)
+tile.blockEngineeredHexoriumBlockCyan.name=Engineered Hexorium Block (Cyan)
+tile.blockEngineeredHexoriumBlockSkyBlue.name=Engineered Hexorium Block (Sky Blue)
+tile.blockEngineeredHexoriumBlockBlue.name=Engineered Hexorium Block (Blue)
+tile.blockEngineeredHexoriumBlockPurple.name=Engineered Hexorium Block (Purple)
+tile.blockEngineeredHexoriumBlockMagenta.name=Engineered Hexorium Block (Magenta)
+tile.blockEngineeredHexoriumBlockPink.name=Engineered Hexorium Block (Pink)
+
+tile.blockEngineeredHexoriumBlockWhite.name=Engineered Hexorium Block (White)
+tile.blockEngineeredHexoriumBlockLightGray.name=Engineered Hexorium Block (Light Gray)
+tile.blockEngineeredHexoriumBlockGray.name=Engineered Hexorium Block (Gray)
+tile.blockEngineeredHexoriumBlockDarkGray.name=Engineered Hexorium Block (Dark Gray)
+tile.blockEngineeredHexoriumBlockBlack.name=Engineered Hexorium Block (Black)
+
+tile.blockEngineeredHexoriumBlockRainbow.name=Engineered Hexorium Block (Rainbow)
+
+
+tile.blockFramedHexoriumBlockRed.name=Framed Hexorium Block (Red)
+tile.blockFramedHexoriumBlockOrange.name=Framed Hexorium Block (Orange)
+tile.blockFramedHexoriumBlockYellow.name=Framed Hexorium Block (Yellow)
+tile.blockFramedHexoriumBlockLime.name=Framed Hexorium Block (Lime)
+tile.blockFramedHexoriumBlockGreen.name=Framed Hexorium Block (Green)
+tile.blockFramedHexoriumBlockTurquoise.name=Framed Hexorium Block (Turquoise)
+tile.blockFramedHexoriumBlockCyan.name=Framed Hexorium Block (Cyan)
+tile.blockFramedHexoriumBlockSkyBlue.name=Framed Hexorium Block (Sky Blue)
+tile.blockFramedHexoriumBlockBlue.name=Framed Hexorium Block (Blue)
+tile.blockFramedHexoriumBlockPurple.name=Framed Hexorium Block (Purple)
+tile.blockFramedHexoriumBlockMagenta.name=Framed Hexorium Block (Magenta)
+tile.blockFramedHexoriumBlockPink.name=Framed Hexorium Block (Pink)
+
+tile.blockFramedHexoriumBlockWhite.name=Framed Hexorium Block (White)
+tile.blockFramedHexoriumBlockLightGray.name=Framed Hexorium Block (Light Gray)
+tile.blockFramedHexoriumBlockGray.name=Framed Hexorium Block (Gray)
+tile.blockFramedHexoriumBlockDarkGray.name=Framed Hexorium Block (Dark Gray)
+tile.blockFramedHexoriumBlockBlack.name=Framed Hexorium Block (Black)
+
+tile.blockFramedHexoriumBlockRainbow.name=Framed Hexorium Block (Rainbow)
+
+
+tile.blockPlatedHexoriumBlockRed.name=Plated Hexorium Block (Red)
+tile.blockPlatedHexoriumBlockOrange.name=Plated Hexorium Block (Orange)
+tile.blockPlatedHexoriumBlockYellow.name=Plated Hexorium Block (Yellow)
+tile.blockPlatedHexoriumBlockLime.name=Plated Hexorium Block (Lime)
+tile.blockPlatedHexoriumBlockGreen.name=Plated Hexorium Block (Green)
+tile.blockPlatedHexoriumBlockTurquoise.name=Plated Hexorium Block (Turquoise)
+tile.blockPlatedHexoriumBlockCyan.name=Plated Hexorium Block (Cyan)
+tile.blockPlatedHexoriumBlockSkyBlue.name=Plated Hexorium Block (Sky Blue)
+tile.blockPlatedHexoriumBlockBlue.name=Plated Hexorium Block (Blue)
+tile.blockPlatedHexoriumBlockPurple.name=Plated Hexorium Block (Purple)
+tile.blockPlatedHexoriumBlockMagenta.name=Plated Hexorium Block (Magenta)
+tile.blockPlatedHexoriumBlockPink.name=Plated Hexorium Block (Pink)
+
+tile.blockPlatedHexoriumBlockWhite.name=Plated Hexorium Block (White)
+tile.blockPlatedHexoriumBlockLightGray.name=Plated Hexorium Block (Light Gray)
+tile.blockPlatedHexoriumBlockGray.name=Plated Hexorium Block (Gray)
+tile.blockPlatedHexoriumBlockDarkGray.name=Plated Hexorium Block (Dark Gray)
+tile.blockPlatedHexoriumBlockBlack.name=Plated Hexorium Block (Black)
+
+tile.blockPlatedHexoriumBlockRainbow.name=Plated Hexorium Block (Rainbow)
+
+
+tile.blockConcentricHexoriumBlockRed.name=Concentric Hexorium Block (Red)
+tile.blockConcentricHexoriumBlockOrange.name=Concentric Hexorium Block (Orange)
+tile.blockConcentricHexoriumBlockYellow.name=Concentric Hexorium Block (Yellow)
+tile.blockConcentricHexoriumBlockLime.name=Concentric Hexorium Block (Lime)
+tile.blockConcentricHexoriumBlockGreen.name=Concentric Hexorium Block (Green)
+tile.blockConcentricHexoriumBlockTurquoise.name=Concentric Hexorium Block (Turquoise)
+tile.blockConcentricHexoriumBlockCyan.name=Concentric Hexorium Block (Cyan)
+tile.blockConcentricHexoriumBlockSkyBlue.name=Concentric Hexorium Block (Sky Blue)
+tile.blockConcentricHexoriumBlockBlue.name=Concentric Hexorium Block (Blue)
+tile.blockConcentricHexoriumBlockPurple.name=Concentric Hexorium Block (Purple)
+tile.blockConcentricHexoriumBlockMagenta.name=Concentric Hexorium Block (Magenta)
+tile.blockConcentricHexoriumBlockPink.name=Concentric Hexorium Block (Pink)
+
+tile.blockConcentricHexoriumBlockWhite.name=Concentric Hexorium Block (White)
+tile.blockConcentricHexoriumBlockLightGray.name=Concentric Hexorium Block (Light Gray)
+tile.blockConcentricHexoriumBlockGray.name=Concentric Hexorium Block (Gray)
+tile.blockConcentricHexoriumBlockDarkGray.name=Concentric Hexorium Block (Dark Gray)
+tile.blockConcentricHexoriumBlockBlack.name=Concentric Hexorium Block (Black)
+
+tile.blockConcentricHexoriumBlockRainbow.name=Concentric Hexorium Block (Rainbow)
+
+
+tile.blockHexoriumStructureCasingRed.name=Hexorium Structure Casing (Red)
+tile.blockHexoriumStructureCasingOrange.name=Hexorium Structure Casing (Orange)
+tile.blockHexoriumStructureCasingYellow.name=Hexorium Structure Casing (Yellow)
+tile.blockHexoriumStructureCasingLime.name=Hexorium Structure Casing (Lime)
+tile.blockHexoriumStructureCasingGreen.name=Hexorium Structure Casing (Green)
+tile.blockHexoriumStructureCasingTurquoise.name=Hexorium Structure Casing (Turquoise)
+tile.blockHexoriumStructureCasingCyan.name=Hexorium Structure Casing (Cyan)
+tile.blockHexoriumStructureCasingSkyBlue.name=Hexorium Structure Casing (Sky Blue)
+tile.blockHexoriumStructureCasingBlue.name=Hexorium Structure Casing (Blue)
+tile.blockHexoriumStructureCasingPurple.name=Hexorium Structure Casing (Purple)
+tile.blockHexoriumStructureCasingMagenta.name=Hexorium Structure Casing (Magenta)
+tile.blockHexoriumStructureCasingPink.name=Hexorium Structure Casing (Pink)
+
+tile.blockHexoriumStructureCasingWhite.name=Hexorium Structure Casing (White)
+tile.blockHexoriumStructureCasingLightGray.name=Hexorium Structure Casing (Light Gray)
+tile.blockHexoriumStructureCasingGray.name=Hexorium Structure Casing (Gray)
+tile.blockHexoriumStructureCasingDarkGray.name=Hexorium Structure Casing (Dark Gray)
+tile.blockHexoriumStructureCasingBlack.name=Hexorium Structure Casing (Black)
+
+tile.blockHexoriumStructureCasingRainbow.name=Hexorium Structure Casing (Rainbow)
+
+
+tile.blockGlowingHexoriumGlassRed.name=Glowing Hexorium Glass (Red)
+tile.blockGlowingHexoriumGlassOrange.name=Glowing Hexorium Glass (Orange)
+tile.blockGlowingHexoriumGlassYellow.name=Glowing Hexorium Glass (Yellow)
+tile.blockGlowingHexoriumGlassLime.name=Glowing Hexorium Glass (Lime)
+tile.blockGlowingHexoriumGlassGreen.name=Glowing Hexorium Glass (Green)
+tile.blockGlowingHexoriumGlassTurquoise.name=Glowing Hexorium Glass (Turquoise)
+tile.blockGlowingHexoriumGlassCyan.name=Glowing Hexorium Glass (Cyan)
+tile.blockGlowingHexoriumGlassSkyBlue.name=Glowing Hexorium Glass (Sky Blue)
+tile.blockGlowingHexoriumGlassBlue.name=Glowing Hexorium Glass (Blue)
+tile.blockGlowingHexoriumGlassPurple.name=Glowing Hexorium Glass (Purple)
+tile.blockGlowingHexoriumGlassMagenta.name=Glowing Hexorium Glass (Magenta)
+tile.blockGlowingHexoriumGlassPink.name=Glowing Hexorium Glass (Pink)
+
+tile.blockGlowingHexoriumGlassWhite.name=Glowing Hexorium Glass (White)
+tile.blockGlowingHexoriumGlassLightGray.name=Glowing Hexorium Glass (Light Gray)
+tile.blockGlowingHexoriumGlassGray.name=Glowing Hexorium Glass (Gray)
+tile.blockGlowingHexoriumGlassDarkGray.name=Glowing Hexorium Glass (Dark Gray)
+tile.blockGlowingHexoriumGlassBlack.name=Glowing Hexorium Glass (Black)
+
+
+tile.blockEnergizedHexoriumMonolithRed.name=Energized Hexorium Monolith (Red)
+tile.blockEnergizedHexoriumMonolithOrange.name=Energized Hexorium Monolith (Orange)
+tile.blockEnergizedHexoriumMonolithYellow.name=Energized Hexorium Monolith (Yellow)
+tile.blockEnergizedHexoriumMonolithLime.name=Energized Hexorium Monolith (Lime)
+tile.blockEnergizedHexoriumMonolithGreen.name=Energized Hexorium Monolith (Green)
+tile.blockEnergizedHexoriumMonolithTurquoise.name=Energized Hexorium Monolith (Turquoise)
+tile.blockEnergizedHexoriumMonolithCyan.name=Energized Hexorium Monolith (Cyan)
+tile.blockEnergizedHexoriumMonolithSkyBlue.name=Energized Hexorium Monolith (Sky Blue)
+tile.blockEnergizedHexoriumMonolithBlue.name=Energized Hexorium Monolith (Blue)
+tile.blockEnergizedHexoriumMonolithPurple.name=Energized Hexorium Monolith (Purple)
+tile.blockEnergizedHexoriumMonolithMagenta.name=Energized Hexorium Monolith (Magenta)
+tile.blockEnergizedHexoriumMonolithPink.name=Energized Hexorium Monolith (Pink)
+
+tile.blockEnergizedHexoriumMonolithWhite.name=Energized Hexorium Monolith (White)
+tile.blockEnergizedHexoriumMonolithLightGray.name=Energized Hexorium Monolith (Light Gray)
+tile.blockEnergizedHexoriumMonolithGray.name=Energized Hexorium Monolith (Gray)
+tile.blockEnergizedHexoriumMonolithDarkGray.name=Energized Hexorium Monolith (Dark Gray)
+tile.blockEnergizedHexoriumMonolithBlack.name=Energized Hexorium Monolith (Black)
+
+tile.blockEnergizedHexoriumMonolithRainbow.name=Energized Hexorium Monolith (Rainbow)
+
+
+tile.blockHexoriumLampRed.name=Hexorium Lamp (Red)
+tile.blockHexoriumLampOrange.name=Hexorium Lamp (Orange)
+tile.blockHexoriumLampYellow.name=Hexorium Lamp (Yellow)
+tile.blockHexoriumLampLime.name=Hexorium Lamp (Lime)
+tile.blockHexoriumLampGreen.name=Hexorium Lamp (Green)
+tile.blockHexoriumLampTurquoise.name=Hexorium Lamp (Turquoise)
+tile.blockHexoriumLampCyan.name=Hexorium Lamp (Cyan)
+tile.blockHexoriumLampSkyBlue.name=Hexorium Lamp (Sky Blue)
+tile.blockHexoriumLampBlue.name=Hexorium Lamp (Blue)
+tile.blockHexoriumLampPurple.name=Hexorium Lamp (Purple)
+tile.blockHexoriumLampMagenta.name=Hexorium Lamp (Magenta)
+tile.blockHexoriumLampPink.name=Hexorium Lamp (Pink)
+
+tile.blockHexoriumLampWhite.name=Hexorium Lamp (White)
+tile.blockHexoriumLampLightGray.name=Hexorium Lamp (Light Gray)
+tile.blockHexoriumLampGray.name=Hexorium Lamp (Gray)
+tile.blockHexoriumLampDarkGray.name=Hexorium Lamp (Dark Gray)
+tile.blockHexoriumLampBlack.name=Hexorium Lamp (Black)
+
+tile.blockHexoriumLampRainbow.name=Hexorium Lamp (Rainbow)
+
+
+tile.blockHexoriumLampInvRed.name=Inverted Hexorium Lamp (Red)
+tile.blockHexoriumLampInvOrange.name=Inverted Hexorium Lamp (Orange)
+tile.blockHexoriumLampInvYellow.name=Inverted Hexorium Lamp (Yellow)
+tile.blockHexoriumLampInvLime.name=Inverted Hexorium Lamp (Lime)
+tile.blockHexoriumLampInvGreen.name=Inverted Hexorium Lamp (Green)
+tile.blockHexoriumLampInvTurquoise.name=Inverted Hexorium Lamp (Turquoise)
+tile.blockHexoriumLampInvCyan.name=Inverted Hexorium Lamp (Cyan)
+tile.blockHexoriumLampInvSkyBlue.name=Inverted Hexorium Lamp (Sky Blue)
+tile.blockHexoriumLampInvBlue.name=Inverted Hexorium Lamp (Blue)
+tile.blockHexoriumLampInvPurple.name=Inverted Hexorium Lamp (Purple)
+tile.blockHexoriumLampInvMagenta.name=Inverted Hexorium Lamp (Magenta)
+tile.blockHexoriumLampInvPink.name=Inverted Hexorium Lamp (Pink)
+
+tile.blockHexoriumLampInvWhite.name=Inverted Hexorium Lamp (White)
+tile.blockHexoriumLampInvLightGray.name=Inverted Hexorium Lamp (Light Gray)
+tile.blockHexoriumLampInvGray.name=Inverted Hexorium Lamp (Gray)
+tile.blockHexoriumLampInvDarkGray.name=Inverted Hexorium Lamp (Dark Gray)
+tile.blockHexoriumLampInvBlack.name=Inverted Hexorium Lamp (Black)
+
+tile.blockHexoriumLampInvRainbow.name=Inverted Hexorium Lamp (Rainbow)
+
+
+tile.blockHexoriumDoorRed.name=Hexorium Door (Red)
+tile.blockHexoriumDoorOrange.name=Hexorium Door (Orange)
+tile.blockHexoriumDoorYellow.name=Hexorium Door (Yellow)
+tile.blockHexoriumDoorLime.name=Hexorium Door (Lime)
+tile.blockHexoriumDoorGreen.name=Hexorium Door (Green)
+tile.blockHexoriumDoorTurquoise.name=Hexorium Door (Turquoise)
+tile.blockHexoriumDoorCyan.name=Hexorium Door (Cyan)
+tile.blockHexoriumDoorSkyBlue.name=Hexorium Door (Sky Blue)
+tile.blockHexoriumDoorBlue.name=Hexorium Door (Blue)
+tile.blockHexoriumDoorPurple.name=Hexorium Door (Purple)
+tile.blockHexoriumDoorMagenta.name=Hexorium Door (Magenta)
+tile.blockHexoriumDoorPink.name=Hexorium Door (Pink)
+
+tile.blockHexoriumDoorWhite.name=Hexorium Door (White)
+tile.blockHexoriumDoorLightGray.name=Hexorium Door (Light Gray)
+tile.blockHexoriumDoorGray.name=Hexorium Door (Gray)
+tile.blockHexoriumDoorDarkGray.name=Hexorium Door (Dark Gray)
+tile.blockHexoriumDoorBlack.name=Hexorium Door (Black)
+
+tile.blockHexoriumDoorRainbow.name=Hexorium Door (Rainbow)
+
+
+tile.blockHexoriumHatchRed.name=Hexorium Hatch (Red)
+tile.blockHexoriumHatchOrange.name=Hexorium Hatch (Orange)
+tile.blockHexoriumHatchYellow.name=Hexorium Hatch (Yellow)
+tile.blockHexoriumHatchLime.name=Hexorium Hatch (Lime)
+tile.blockHexoriumHatchGreen.name=Hexorium Hatch (Green)
+tile.blockHexoriumHatchTurquoise.name=Hexorium Hatch (Turquoise)
+tile.blockHexoriumHatchCyan.name=Hexorium Hatch (Cyan)
+tile.blockHexoriumHatchSkyBlue.name=Hexorium Hatch (Sky Blue)
+tile.blockHexoriumHatchBlue.name=Hexorium Hatch (Blue)
+tile.blockHexoriumHatchPurple.name=Hexorium Hatch (Purple)
+tile.blockHexoriumHatchMagenta.name=Hexorium Hatch (Magenta)
+tile.blockHexoriumHatchPink.name=Hexorium Hatch (Pink)
+
+tile.blockHexoriumHatchWhite.name=Hexorium Hatch (White)
+tile.blockHexoriumHatchLightGray.name=Hexorium Hatch (Light Gray)
+tile.blockHexoriumHatchGray.name=Hexorium Hatch (Gray)
+tile.blockHexoriumHatchDarkGray.name=Hexorium Hatch (Dark Gray)
+tile.blockHexoriumHatchBlack.name=Hexorium Hatch (Black)
+
+tile.blockHexoriumHatchRainbow.name=Hexorium Hatch (Rainbow)
+
+
+tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
+tile.blockAdvancedRainbowCore.name=Advanced Rainbow Core
+
+tile.blockHexoriumGenerator.name=Hexorium Generator
+tile.blockHexoriumFurnace.name=Hexorium Furnace
+tile.blockCrystalSeparator.name=Crystal Separator
+tile.blockMatrixReconstructor.name=Matrix Reconstructor
+
+tile.blockPersonalTeleportationPad.name=Personal Teleportation Pad
+
+tile.blockTankValve.name=Tank Valve
+
+tile.blockEnergyNodeCoreT1.name=Energy Node Core (Tier 1)
+tile.blockEnergyNodeCoreT2.name=Energy Node Core (Tier 2)
+tile.blockEnergyNodeCoreT3.name=Energy Node Core (Tier 3)
+tile.blockEnergyNodeCoreT4.name=Energy Node Core (Tier 4)
+
+tile.blockEnergyNodePortHEX.name=Energy Node Port: HEX
+tile.blockEnergyNodePortRF.name=Energy Node Port: RF
+tile.blockEnergyNodePortEU.name=Energy Node Port: EU
+
+
+tile.blockHexoriumCableRed.name=Hexorium Cable (Red)
+tile.blockHexoriumCableOrange.name=Hexorium Cable (Orange)
+tile.blockHexoriumCableYellow.name=Hexorium Cable (Yellow)
+tile.blockHexoriumCableLime.name=Hexorium Cable (Lime)
+tile.blockHexoriumCableGreen.name=Hexorium Cable (Green)
+tile.blockHexoriumCableTurquoise.name=Hexorium Cable (Turquoise)
+tile.blockHexoriumCableCyan.name=Hexorium Cable (Cyan)
+tile.blockHexoriumCableSkyBlue.name=Hexorium Cable (Sky Blue)
+tile.blockHexoriumCableBlue.name=Hexorium Cable (Blue)
+tile.blockHexoriumCablePurple.name=Hexorium Cable (Purple)
+tile.blockHexoriumCableMagenta.name=Hexorium Cable (Magenta)
+tile.blockHexoriumCablePink.name=Hexorium Cable (Pink)
+
+tile.blockHexoriumCableWhite.name=Hexorium Cable (White)
+tile.blockHexoriumCableLightGray.name=Hexorium Cable (Light Gray)
+tile.blockHexoriumCableGray.name=Hexorium Cable (Gray)
+tile.blockHexoriumCableDarkGray.name=Hexorium Cable (Dark Gray)
+tile.blockHexoriumCableBlack.name=Hexorium Cable (Black)
+
+tile.blockHexoriumCableRainbow.name=Hexorium Cable (Rainbow)
+
+tile.blockEnergyPylon.name=Energy Pylon
+
+tile.blockHexoriumSwitchRedGreen.name=Hexorium Switch (Red-Green)
+tile.blockHexoriumSwitchRedBlue.name=Hexorium Switch (Red-Blue)
+tile.blockHexoriumSwitchRedWhite.name=Hexorium Switch (Red-White)
+
+tile.blockHexoriumButtonRed.name=Hexorium Button (Red)
+tile.blockHexoriumButtonGreen.name=Hexorium Button (Green)
+tile.blockHexoriumButtonBlue.name=Hexorium Button (Blue)
+tile.blockHexoriumButtonWhite.name=Hexorium Button (White)
+
+tile.blockHexoriumPressurePlateRed.name=Hexorium Pressure Plate (Red)
+tile.blockHexoriumPressurePlateGreen.name=Hexorium Pressure Plate (Green)
+tile.blockHexoriumPressurePlateBlue.name=Hexorium Pressure Plate (Blue)
+tile.blockHexoriumPressurePlateWhite.name=Hexorium Pressure Plate (White)
+
+tile.blockPylonBase51.name=5-to-1 Pylon Base
+tile.blockPylonBase15.name=1-to-5 Pylon Base
+
+tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass
+tile.blockHexoriumCoatedStone.name=Hexorium-Coated Stone
+
+
+item.hexcraft:crystal.hexorium_red.name=Red Hexorium Crystal
+item.hexcraft:crystal.hexorium_green.name=Green Hexorium Crystal
+item.hexcraft:crystal.hexorium_blue.name=Blue Hexorium Crystal
+item.hexcraft:crystal.hexorium_white.name=White Hexorium Crystal
+item.hexcraft:crystal.hexorium_black.name=Black Hexorium Crystal
+
+item.itemRainbowEnergizedGlobule.name=Rainbow Energized Globule
+item.itemWhiteHexoriumWafer.name=White Hexorium Wafer
+item.itemBlackHexoriumWafer.name=Black Hexorium Wafer
+item.itemSpatialProjector.name=Spatial Projector
+item.itemOreActuator.name=Ore Actuator
+item.itemPylonSocket.name=Pylon Socket
+item.itemHexoriumGlassPackage.name=Hexorium-Glass Package
+
+item.itemRainbowCore.name=Rainbow Core
+item.itemHexoriumCoprocessor.name=Hexorium Coprocessor
+item.itemHexoriumProcessor.name=Hexorium Processor
+item.itemMineralAnalyzer.name=Mineral Analyzer
+item.itemHexoriumEnergyConverter.name=Hexorium Energy Converter
+item.itemEnergyInjector.name=Energy Injector
+item.itemMolecularRecoder.name=Molecular Recoder
+item.itemHexoriumRFAdapter.name=Hexorium RF Adapter
+
+item.itemMachineControlPanel.name=Machine Control Panel
+item.itemMachineEnergyRouter.name=Machine Energy Router
+item.itemHeatDissipator.name=Heat Dissipator
+item.itemHeatingArray.name=Heating Array
+item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
+item.itemMatrixAdjuster.name=Matrix Adjuster
+item.itemMaterialInteractionPlane.name=Material Interaction Plane
+item.itemTeleportationFieldProjector.name=Teleportation Field Projector
+item.itemDigitalSmartpipe.name=Digital Smartpipe
+
+item.toolHexoriumManipulator.name=Hexorium Manipulator
+item.toolHexoriumProbe.name=Hexorium Probe
+item.toolMolecularTransposer.name=Molecular Transposer
+item.itemHexoriumReinforcer.name=Hexorium Reinforcer
+
+
+hexcraft.container.hexoriumGenerator=Hexorium Generator
+hexcraft.container.hexoriumFurnace=Hexorium Furnace
+hexcraft.container.crystalSeparator=Crystal Separator
+hexcraft.container.matrixReconstructor=Matrix Reconstructor
+hexcraft.container.personalTeleportationPad=Personal Teleportation Pad
+hexcraft.container.hexoriumTank=Hexorium Tank
+
+hexcraft.container.molecularTransposer=Molecular Transposer
+
+hexcraft.container.in=In
+hexcraft.container.out=Out
+hexcraft.container.charge=Charge
+hexcraft.container.f=F
+hexcraft.container.l=L
+hexcraft.container.m=M
+hexcraft.container.empty=Empty
+hexcraft.container.tankNotFormed=Tank not formed.
+
+
+msg.pylonLinkCancel.txt=[Hexorium Manipulator] Pylon linking canceled.
+msg.pylonLinkStart.txt=[Hexorium Manipulator] Linking Pylon...
+msg.pylonLinkSuccess.txt=[Hexorium Manipulator] Pylons successfully linked.
+msg.pylonLinkBreak.txt=[Hexorium Manipulator] Pylons already linked. Breaking link.
+msg.pylonLinkFail1.txt=[Hexorium Manipulator] Linking failed. Incompatible color.
+msg.pylonLinkFail2.txt=[Hexorium Manipulator] Linking failed. Pylon no longer exists.
+msg.pylonLinkFail3.txt=[Hexorium Manipulator] Linking failed. Pylons too far.
+msg.pylonLinkFail4.txt=[Hexorium Manipulator] Linking failed. Beam path obstructed.
+
+msg.teleportLinkCancel.txt=[Hexorium Manipulator] Teleport linking canceled.
+msg.teleportLinkStart.txt=[Hexorium Manipulator] Linking Teleport...
+msg.teleportLinkSuccess.txt=[Hexorium Manipulator] Teleports successfully linked.
+msg.teleportLinkBreak.txt=[Hexorium Manipulator] Teleports already linked. Breaking link.
+msg.teleportLinkFail1.txt=[Hexorium Manipulator] Linking failed. Teleport no longer exists.
+msg.teleportLinkFail2.txt=[Hexorium Manipulator] Linking failed. Teleport unreachable.
+
+msg.portLinkCancel.txt=[Hexorium Manipulator] Port linking canceled.
+msg.portLinkStart.txt=[Hexorium Manipulator] Linking Port...
+msg.portLinkSuccess.txt=[Hexorium Manipulator] Ports successfully linked.
+msg.portLinkBreak.txt=[Hexorium Manipulator] Ports already linked. Breaking link.
+msg.portLinkFail1.txt=[Hexorium Manipulator] Linking failed. Port no longer exists.
+msg.portLinkFail2.txt=[Hexorium Manipulator] Linking failed. Port unreachable.
+msg.portLinkFail3.txt=[Hexorium Manipulator] Linking failed. Energy Node is not formed.
+
+msg.teleportProcess1.txt=[Personal Teleportation Pad] Teleporting in 4 seconds...
+msg.teleportProcess2.txt=[Personal Teleportation Pad] Teleporting!
+
+msg.pressurePlateChange1.txt=[Hexorium Manipulator] Mode changed to: Everything
+msg.pressurePlateChange2.txt=[Hexorium Manipulator] Mode changed to: Entities
+msg.pressurePlateChange3.txt=[Hexorium Manipulator] Mode changed to: Mobs
+msg.pressurePlateChange4.txt=[Hexorium Manipulator] Mode changed to: Players
+
+msg.structureIsPart.txt=[Hexorium Manipulator] Block is part of a structure.
+msg.structureFormFail.txt=[Hexorium Manipulator] Forming failed. Structure is invalid.
+
+msg.tankValveRotationFail.txt=[Hexorium Manipulator] Cannot rotate when tank is formed.
+msg.tankFormSuccess.txt=[Hexorium Manipulator] Hexorium Tank successfully formed.
+msg.tankFormFail.txt=[Hexorium Manipulator] Tank is already formed.
+
+msg.energyNodeFormSuccess.txt=[Hexorium Manipulator] Energy Node successfully formed.
+msg.energyNodeMode1.txt=[Hexorium Manipulator] Mode changed to: Input
+msg.energyNodeMode2.txt=[Hexorium Manipulator] Mode changed to: Output
+msg.energyNodeMode3.txt=[Hexorium Manipulator] Mode changed to: Interface
+msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
+
+msg.renderRemoved.txt=[Hexorium Manipulator] Render Block removed.
+
+msg.cannotSwap.txt=[Molecular Transposer] Cannot change colors when structure is formed.
+
+
+msg.probeTitle.txt=[Hexorium Probe]
+msg.probeName.txt=  Name: %s
+msg.probeCoords.txt=  Coordinates: (%d, %d, %d)
+
+msg.probeTypeSource.txt=  Type: Energy Source
+msg.probeTypeDrain.txt=  Type: Energy Drain
+msg.probeTypePort.txt=  Type: Energy Port
+msg.probeTypePylon.txt=  Type: Energy Pylon
+msg.probeTypeValve.txt=  Type: Tank Valve
+msg.probeTypePressure.txt=  Type: Pressure Plate
+msg.probeTypeBlock.txt=  Type: Structure Block
+
+msg.probeEnergy.txt=  Energy: %d %s / %d %s
+msg.probeFluid.txt=  Fluid: %s %s / %s
+msg.probeFluidEmpty.txt=  Fluid: Empty %s / %s
+msg.probeFluidNotFormed.txt=  Fluid: Tank not formed.
+msg.probeEfficiency.txt=  Efficiency: Tier %d, %d%% Loss, Out: %d %s/t
+msg.probeEfficiencyTier.txt=  Efficiency: Tier %d
+msg.probeEfficiencyNotFormed.txt=  Efficiency: Energy Node not formed.
+
+msg.probePortMode1.txt=  Mode: Input
+msg.probePortMode2.txt=  Mode: Output
+msg.probePortMode3.txt=  Mode: Interface
+msg.probePortMode4.txt=  Mode: Tunnel
+msg.probePressureMode1.txt=  Mode: Everything
+msg.probePressureMode2.txt=  Mode: Entities
+msg.probePressureMode3.txt=  Mode: Mobs
+msg.probePressureMode4.txt=  Mode: Players
+msg.probeMachineStatus1.txt=  Status: Ready
+msg.probeMachineStatus2.txt=  Status: Active
+msg.probeMachineStatus3.txt=  Status: Dead
+
+msg.probePylonStatusOn.txt=  Status: On
+msg.probePylonStatusOff.txt=  Status: Off
+msg.probePressedYes.txt=  Pressed: Yes
+msg.probePressedNo.txt=  Pressed: No
+msg.probeLinkedYes.txt=  Linked: Yes
+msg.probeLinkedNo.txt=  Linked: No
+msg.probeFormedYes.txt=  Formed: Yes
+msg.probeFormedNo.txt=  Formed: No
+msg.probeMasterYes.txt=  Master: Yes
+msg.probeMasterNo.txt=  Master: No
+msg.probeInsertedYes.txt=  Inserted: Yes
+msg.probeInsertedNo.txt=  Inserted: No
+
+msg.probeConnectedSources.txt=  Connected Sources
+msg.probeConnectedDrains.txt=  Connected Drains
+msg.probeConnectedPorts.txt=  Connected Ports
+msg.probeConnectedTeleports.txt=  Connected Teleports
+msg.probeConnectedPylons.txt=  Connected Pylons
+msg.probeConnectedEntry.txt=    (%d, %d, %d) %s
+msg.probeConnectedNone.txt=    None
+
+msg.probeAnalysisStart.txt=  Starting Network Analysis...
+msg.probeAnalysisEnd.txt=  Done! Machines found on this network section:
+msg.probeAnalysisSources.txt=    Sources:
+msg.probeAnalysisDrains.txt=    Drains:
+msg.probeAnalysisPorts.txt=    Ports:
+msg.probeAnalysisTeleports.txt=    Teleports:
+msg.probeAnalysisEntry.txt=      (%d, %d, %d) %s
+msg.probeAnalysisNone.txt=      None
+
+
+achievement.hexcraft.achMineHexOre=A Glowing Potential
+achievement.hexcraft.achMineHexOre.desc=Find and harvest Hexorium Ore of any color.
+achievement.hexcraft.achMineHexMonolith=A Rare Sight
+achievement.hexcraft.achMineHexMonolith.desc=Find and harvest a Hexorium Monolith of any color.
+
+achievement.hexcraft.achCraftEnergizedRed=Energetic Red
+achievement.hexcraft.achCraftEnergizedRed.desc=Craft Energized Hexorium (Red).
+achievement.hexcraft.achCraftEnergizedOrange=Energetic Orange
+achievement.hexcraft.achCraftEnergizedOrange.desc=Craft Energized Hexorium (Orange).
+achievement.hexcraft.achCraftEnergizedYellow=Energetic Yellow
+achievement.hexcraft.achCraftEnergizedYellow.desc=Craft Energized Hexorium (Yellow).
+achievement.hexcraft.achCraftEnergizedLime=Energetic Lime
+achievement.hexcraft.achCraftEnergizedLime.desc=Craft Energized Hexorium (Lime).
+achievement.hexcraft.achCraftEnergizedGreen=Energetic Green
+achievement.hexcraft.achCraftEnergizedGreen.desc=Craft Energized Hexorium (Green).
+achievement.hexcraft.achCraftEnergizedTurquoise=Energetic Turquoise
+achievement.hexcraft.achCraftEnergizedTurquoise.desc=Craft Energized Hexorium (Turquoise).
+achievement.hexcraft.achCraftEnergizedCyan=Energetic Cyan
+achievement.hexcraft.achCraftEnergizedCyan.desc=Craft Energized Hexorium (Cyan).
+achievement.hexcraft.achCraftEnergizedSkyBlue=Energetic Sky Blue
+achievement.hexcraft.achCraftEnergizedSkyBlue.desc=Craft Energized Hexorium (Sky Blue).
+achievement.hexcraft.achCraftEnergizedBlue=Energetic Blue
+achievement.hexcraft.achCraftEnergizedBlue.desc=Craft Energized Hexorium (Blue).
+achievement.hexcraft.achCraftEnergizedPurple=Energetic Purple
+achievement.hexcraft.achCraftEnergizedPurple.desc=Craft Energized Hexorium (Purple).
+achievement.hexcraft.achCraftEnergizedMagenta=Energetic Magenta
+achievement.hexcraft.achCraftEnergizedMagenta.desc=Craft Energized Hexorium (Magenta).
+achievement.hexcraft.achCraftEnergizedPink=Energetic Pink
+achievement.hexcraft.achCraftEnergizedPink.desc=Craft Energized Hexorium (Pink).
+
+achievement.hexcraft.achCraftEnergizedWhite=Energetic White
+achievement.hexcraft.achCraftEnergizedWhite.desc=Craft Energized Hexorium (White).
+achievement.hexcraft.achCraftEnergizedLightGray=Energetic Light Gray
+achievement.hexcraft.achCraftEnergizedLightGray.desc=Craft Energized Hexorium (Light Gray).
+achievement.hexcraft.achCraftEnergizedGray=Energetic Gray
+achievement.hexcraft.achCraftEnergizedGray.desc=Craft Energized Hexorium (Gray).
+achievement.hexcraft.achCraftEnergizedDarkGray=Energetic Dark Gray
+achievement.hexcraft.achCraftEnergizedDarkGray.desc=Craft Energized Hexorium (Dark Gray).
+achievement.hexcraft.achCraftEnergizedBlack=Energetic Black
+achievement.hexcraft.achCraftEnergizedBlack.desc=Craft Energized Hexorium (Black).
+
+achievement.hexcraft.achCraftEnergizedRainbow=Energetic Rainbow
+achievement.hexcraft.achCraftEnergizedRainbow.desc=Craft Energized Hexorium (Rainbow).
+
+achievement.hexcraft.achGroupColors=Rainbow Power
+achievement.hexcraft.achGroupColors.desc=Craft all of the colored Energized Hexorium.
+achievement.hexcraft.achGroupGrays=Five Shades Of Gray
+achievement.hexcraft.achGroupGrays.desc=Craft all of the black and white Energized Hexorium.
+
+achievement.hexcraft.achCraftEngineeredBlock=Engineering The Future
+achievement.hexcraft.achCraftEngineeredBlock.desc=Craft an Engineered Hexorium Block of any color.
+achievement.hexcraft.achCraftFramedBlock=Like A Picture Frame
+achievement.hexcraft.achCraftFramedBlock.desc=Craft a Framed Hexorium Block of any color.
+achievement.hexcraft.achCraftPlatedBlock=Armor Is Always Good
+achievement.hexcraft.achCraftPlatedBlock.desc=Craft a Plated Hexorium Block of any color.
+achievement.hexcraft.achCraftConcentricBlock=Psychedelic Blocks
+achievement.hexcraft.achCraftConcentricBlock.desc=Craft a Concentric Hexorium Block of any color.
+achievement.hexcraft.achCraftStructureCasing=Structures Should Be Solid
+achievement.hexcraft.achCraftStructureCasing.desc=Craft a Hexorium Structure Casing of any color.
+achievement.hexcraft.achCraftDoor=A Fancy See-through Door
+achievement.hexcraft.achCraftDoor.desc=Craft a Hexorium Door of any color.
+achievement.hexcraft.achCraftHatch=It's A Trap(door)!
+achievement.hexcraft.achCraftHatch.desc=Craft a Hexorium Hatch of any color.
+achievement.hexcraft.achCraftGlowingGlass=Glowy Glass!
+achievement.hexcraft.achCraftGlowingGlass.desc=Craft a piece of Glowing Hexorium Glass of any color.
+achievement.hexcraft.achCraftLamp=Let There Be Light!
+achievement.hexcraft.achCraftLamp.desc=Craft a Hexorium Lamp of any color.
+achievement.hexcraft.achCraftLampInv=Let There Be Dark!
+achievement.hexcraft.achCraftLampInv.desc=Craft an Inverted Hexorium Lamp of any color.
+
+achievement.hexcraft.achGroupDecorations=Decoration Adviser
+achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks.
+
+achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
+achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
+
+achievement.hexcraft.achCraftMachineBlock=Industrial Revolution
+achievement.hexcraft.achCraftMachineBlock.desc=Craft a Hexorium Machine Block.
+achievement.hexcraft.achCraftCable=Lossless Transport
+achievement.hexcraft.achCraftCable.desc=Craft a Hexorium Cable of any color.
+
+achievement.hexcraft.achCraftMachineGenerator=A Source Of Energy
+achievement.hexcraft.achCraftMachineGenerator.desc=Craft a Hexorium Generator.
+achievement.hexcraft.achCraftMachineFurnace=There Are Better Furnaces...
+achievement.hexcraft.achCraftMachineFurnace.desc=Craft a Hexorium Furnace.
+achievement.hexcraft.achCraftMachineSeparator=Swimming In Gems
+achievement.hexcraft.achCraftMachineSeparator.desc=Craft a Crystal Separator.
+achievement.hexcraft.achCraftMachineReconstructor=We Can Rebuild It!
+achievement.hexcraft.achCraftMachineReconstructor.desc=Craft a Matrix Reconstructor.
+achievement.hexcraft.achCraftMachineTankValve=HL3 Confirmed!
+achievement.hexcraft.achCraftMachineTankValve.desc=Craft a Tank Valve.
+achievement.hexcraft.achCraftMachineTeleport=Biological Material To Energy
+achievement.hexcraft.achCraftMachineTeleport.desc=Craft a Personal Teleportation Pad.
+achievement.hexcraft.achCraftPylon=You Must Construct Additional Pylons!
+achievement.hexcraft.achCraftPylon.desc=Craft an Energy Pylon.
+
+achievement.hexcraft.achGroupMachines=That Was Complicated...
+achievement.hexcraft.achGroupMachines.desc=Craft all of the different machines excluding Energy Pylons.
+
+achievement.hexcraft.achCraftManipulator=Human-Hexorium Interface
+achievement.hexcraft.achCraftManipulator.desc=Craft a Hexorium Manipulator.
+
+achievement.hexcraft.achCraftTransposer=Color Customizations
+achievement.hexcraft.achCraftTransposer.desc=Craft a Molecular Transposer.
+achievement.hexcraft.achUseTransposer=The Intended Use
+achievement.hexcraft.achUseTransposer.desc=Use the Molecular Transposer to swap the color of any decorative block.
+achievement.hexcraft.achAttackTransposer=This Might Hurt A Little...
+achievement.hexcraft.achAttackTransposer.desc=Inject Energized Hexorium into a living creature using the Molecular Transposer.
+
+achievement.hexcraft.achCraftProbe=Not An Alien One
+achievement.hexcraft.achCraftProbe.desc=Craft a Hexorium Probe.
+achievement.hexcraft.achUseProbeMachine=Crystalline Information
+achievement.hexcraft.achUseProbeMachine.desc=Use the Hexorium Probe to read info about a Hexorium machine or block.
+achievement.hexcraft.achUseProbeNetwork=Understanding The HEX
+achievement.hexcraft.achUseProbeNetwork.desc=Use the Hexorium Probe to analyze a HEX Energy Network.
+
+achievement.hexcraft.achFormHexoriumTank=Tanks For The Memories
+achievement.hexcraft.achFormHexoriumTank.desc=Form a Hexorium Tank. Also requires achievement: Human-Hexorium Interface
+
+achievement.hexcraft.achLinkTeleport=Linking It Up: Teleports
+achievement.hexcraft.achLinkTeleport.desc=Link two Personal Teleportation Pads together. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achLinkPylon=Linking It Up: Pylons
+achievement.hexcraft.achLinkPylon.desc=Link two Energy Pylons together. Also requires achievement: Human-Hexorium Interface
+
+achievement.hexcraft.achUseTeleport=Beam Me Up, Scotty!
+achievement.hexcraft.achUseTeleport.desc=Use a Personal Teleportation Pad to teleport to another.
+
+achievement.hexcraft.achCraftAdvancedRainbowCore=Expensive Decoration
+achievement.hexcraft.achCraftAdvancedRainbowCore.desc=Craft an Advanced Rainbow Core.
+achievement.hexcraft.achCraftEnergyNodeCore=Apex Of Technology
+achievement.hexcraft.achCraftEnergyNodeCore.desc=Craft an Energy Node Core of any tier.
+achievement.hexcraft.achCraftEnergyNodePort=There's A Port For That
+achievement.hexcraft.achCraftEnergyNodePort.desc=Craft an Energy Node Port of any energy type.
+achievement.hexcraft.achFormEnergyNode=It May Be Big, But It's Worth It
+achievement.hexcraft.achFormEnergyNode.desc=Form an Energy Node. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achLinkEnergyNodePorts=I Need Different Energy
+achievement.hexcraft.achLinkEnergyNodePorts.desc=Link two Energy Node Ports together. Also requires achievement: Human-Hexorium Interface
+achievement.hexcraft.achGroupEnergyNode=Convert All The Energies!
+achievement.hexcraft.achGroupEnergyNode.desc=Complete all of the Energy Node achievements.
+
+
+death.attack.hexTeleport=%1$s was decomposed during teleportation.
+death.attack.hexTransposer=%1$s was injected with Energized Hexorium.

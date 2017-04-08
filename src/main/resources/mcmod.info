@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hexcraft",
+  "name": "HEXCraft",
+  "description": "Technology and decoration mod inspired by XyCraft.",
+  "version": "0.1.0",
+  "mcversion": "1.10.2",
+  "url": "https://minecraft.curseforge.com/projects/hexcraft",
+  "updateUrl": "https://github.com/CelesTek-Team/HEXCraft-1.11.2/releases",
+  "authorList": ["CelesTek", "Thorinair", "CoffeePirate"],
+  "credits": "Developed by CelesTek, inspired by Soaryn's XyCraft.",
+  "logoFile": "assets/hexcraft/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
