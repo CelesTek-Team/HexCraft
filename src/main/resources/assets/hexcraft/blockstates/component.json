@@ -1,0 +1,36 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "hexcraft:item/generated"
+  },
+  "variants": {
+    "type": {
+      "rainbow_energized_globule": {"textures": {"layer0": "hexcraft:item/component/rainbow_energized_globule"}},
+      "white_hexorium_wafer"     : {"textures": {"layer0": "hexcraft:item/component/white_hexorium_wafer"     }},
+      "black_hexorium_wafer"     : {"textures": {"layer0": "hexcraft:item/component/black_hexorium_wafer"     }},
+      "spatial_projector"        : {"textures": {"layer0": "hexcraft:item/component/spatial_projector"        }},
+      "ore_actuator"             : {"textures": {"layer0": "hexcraft:item/component/ore_actuator"             }},
+      "pylon_socket"             : {"textures": {"layer0": "hexcraft:item/component/pylon_socket"             }},
+      "hexorium_glass_package"   : {"textures": {"layer0": "hexcraft:item/component/hexorium_glass_package"   }},
+
+      "rainbow_core"             : {"textures": {"layer0": "hexcraft:item/component/rainbow_core"             }},
+      "hexorium_processor"       : {"textures": {"layer0": "hexcraft:item/component/hexorium_processor"       }},
+      "hexorium_coprocessor"     : {"textures": {"layer0": "hexcraft:item/component/hexorium_coprocessor"     }},
+      "mineral_analyzer"         : {"textures": {"layer0": "hexcraft:item/component/mineral_analyzer"         }},
+      "hexorium_energy_converter": {"textures": {"layer0": "hexcraft:item/component/hexorium_energy_converter"}},
+      "energy_injector"          : {"textures": {"layer0": "hexcraft:item/component/energy_injector"          }},
+      "molecular_recoder"        : {"textures": {"layer0": "hexcraft:item/component/molecular_recoder"        }},
+      "hexorium_rf_adapter"      : {"textures": {"layer0": "hexcraft:item/component/hexorium_rf_adapter"      }},
+
+      "machine_control_panel"        : {"textures": {"layer0": "hexcraft:item/component/machine_control_panel"        }},
+      "machine_energy_router"        : {"textures": {"layer0": "hexcraft:item/component/machine_energy_router"        }},
+      "heat_dissipator"              : {"textures": {"layer0": "hexcraft:item/component/heat_dissipator"              }},
+      "heating_array"                : {"textures": {"layer0": "hexcraft:item/component/heating_array"                }},
+      "crystal_extraction_unit"      : {"textures": {"layer0": "hexcraft:item/component/crystal_extraction_unit"      }},
+      "matrix_adjuster"              : {"textures": {"layer0": "hexcraft:item/component/matrix_adjuster"              }},
+      "material_interaction_plane"   : {"textures": {"layer0": "hexcraft:item/component/material_interaction_plane"   }},
+      "teleportation_field_projector": {"textures": {"layer0": "hexcraft:item/component/teleportation_field_projector"}},
+      "digital_smartpipe"            : {"textures": {"layer0": "hexcraft:item/component/digital_smartpipe"            }}
+    }
+  }
+}

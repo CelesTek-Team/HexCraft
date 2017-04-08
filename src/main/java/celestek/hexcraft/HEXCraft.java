@@ -3,6 +3,7 @@ package celestek.hexcraft;
 import celestek.hexcraft.init.ModItems;
 import celestek.hexcraft.item.ItemCrystal;
 import celestek.hexcraft.proxy.CommonProxy;
+import celestek.hexcraft.tabs.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -25,49 +26,11 @@ public class HEXCraft {
     public static final String MODVERSION = "0.1.0";
 
     // Set up creative tabs.
-    public static CreativeTabs tabMaterials = new CreativeTabs("tabMaterials") {
-        @Override
-        @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            return ModItems.CRYSTAL;
-        }
-    };
-    public static CreativeTabs tabComponents = new CreativeTabs("tabComponents") {
-        @Override
-        @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            return ModItems.CRYSTAL;
-        }
-        @Override
-        @SideOnly(Side.CLIENT)
-        public int getIconItemDamage() {
-            return ItemCrystal.EnumType.HEXORIUM_GREEN.getMeta();
-        }
-    };
-    public static CreativeTabs tabMachines = new CreativeTabs("tabMachines") {
-        @Override
-        @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            return ModItems.CRYSTAL;
-        }
-        @Override
-        @SideOnly(Side.CLIENT)
-        public int getIconItemDamage() {
-            return ItemCrystal.EnumType.HEXORIUM_BLUE.getMeta();
-        }
-    };
-    public static CreativeTabs tabDecorative = new CreativeTabs("tabDecorative") {
-        @Override
-        @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            return ModItems.CRYSTAL;
-        }
-        @Override
-        @SideOnly(Side.CLIENT)
-        public int getIconItemDamage() {
-            return ItemCrystal.EnumType.HEXORIUM_WHITE.getMeta();
-        }
-    };
+    public static TabMaterials  tabMaterials  = new TabMaterials();
+    public static TabComponents tabComponents = new TabComponents();
+    public static TabMachines   tabMachines   = new TabMachines();
+    public static TabTools      tabTools      = new TabTools();
+    public static TabDecorative tabDecorative = new TabDecorative();
 
     @SidedProxy(clientSide = "celestek.hexcraft.proxy.ClientProxy", serverSide = "celestek.hexcraft.proxy.ServerProxy")
     public static CommonProxy proxy;

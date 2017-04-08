@@ -4,12 +4,12 @@
     "model": "hexcraft:item/generated"
   },
   "variants": {
-    "variant": {
-      "hexorium_red":   {"textures": { "layer0": "hexcraft:item/crystal/hexorium_red"   }},
-      "hexorium_green": {"textures": { "layer0": "hexcraft:item/crystal/hexorium_green" }},
-      "hexorium_blue":  {"textures": { "layer0": "hexcraft:item/crystal/hexorium_blue"  }},
-      "hexorium_white": {"textures": { "layer0": "hexcraft:item/crystal/hexorium_white" }},
-      "hexorium_black": {"textures": { "layer0": "hexcraft:item/crystal/hexorium_black" }}
+    "type": {
+      "hexorium_red"  : {"textures": {"layer0": "hexcraft:item/crystal/hexorium_red"  }},
+      "hexorium_green": {"textures": {"layer0": "hexcraft:item/crystal/hexorium_green"}},
+      "hexorium_blue" : {"textures": {"layer0": "hexcraft:item/crystal/hexorium_blue" }},
+      "hexorium_white": {"textures": {"layer0": "hexcraft:item/crystal/hexorium_white"}},
+      "hexorium_black": {"textures": {"layer0": "hexcraft:item/crystal/hexorium_black"}}
     }
   }
 }

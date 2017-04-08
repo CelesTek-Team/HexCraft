@@ -1,6 +1,7 @@
 itemGroup.tabMaterials=HEXCraft: Materijali
 itemGroup.tabComponents=HEXCraft: Dijelovi
 itemGroup.tabMachines=HEXCraft: Strojevi
+itemGroup.tabTools=HEXCraft: Alati
 itemGroup.tabDecorative=HEXCraft: Dekoracije
 
 
@@ -371,32 +372,32 @@ item.hexcraft:crystal.hexorium_blue.name=Plavi Heksorijski Kristal
 item.hexcraft:crystal.hexorium_white.name=Bijeli Heksorijski Kristal
 item.hexcraft:crystal.hexorium_black.name=Crni Heksorijski Kristal
 
-item.itemRainbowEnergizedGlobule.name=Dugina Kuglica Napunjena Energijom
-item.itemWhiteHexoriumWafer.name=Bijela Heksorijska Pločica
-item.itemBlackHexoriumWafer.name=Crna Heksorijska Pločica
-item.itemSpatialProjector.name=Prostorni Projektor
-item.itemOreActuator.name=Rudni Aktuator
-item.itemPylonSocket.name=Stupna Utičnica
-item.itemHexoriumGlassPackage.name=Paket Heksorij-Stakla
+item.hexcraft:component.rainbow_energized_globule.name=Dugina Kuglica Napunjena Energijom
+item.hexcraft:component.white_hexorium_wafer.name=Bijela Heksorijska Pločica
+item.hexcraft:component.black_hexorium_wafer.name=Crna Heksorijska Pločica
+item.hexcraft:component.spatial_projector.name=Prostorni Projektor
+item.hexcraft:component.ore_actuator.name=Rudni Aktuator
+item.hexcraft:component.pylon_socket.name=Stupna Utičnica
+item.hexcraft:component.hexorium_glass_package.name=Paket Heksorij-Stakla
 
-item.itemRainbowCore.name=Dugina Jezgra
-item.itemHexoriumCoprocessor.name=Heksorijski Koprocesor
-item.itemHexoriumProcessor.name=Heksorijski Procesor
-item.itemMineralAnalyzer.name=Analizator Minerala
-item.itemHexoriumEnergyConverter.name=Heksorijski Pretvornik Energije
-item.itemEnergyInjector.name=Ubrizgavač Energije
-item.itemMolecularRecoder.name=Molekulski Pretvarač
-item.itemHexoriumRFAdapter.name=Heksorijski RF Adapter
+item.hexcraft:component.rainbow_core.name=Dugina Jezgra
+item.hexcraft:component.hexorium_coprocessor.name=Heksorijski Koprocesor
+item.hexcraft:component.hexorium_processor.name=Heksorijski Procesor
+item.hexcraft:component.mineral_analyzer.name=Analizator Minerala
+item.hexcraft:component.hexorium_energy_converter.name=Heksorijski Pretvornik Energije
+item.hexcraft:component.energy_injector.name=Ubrizgavač Energije
+item.hexcraft:component.molecular_recoder.name=Molekulski Pretvarač
+item.hexcraft:component.hexorium_rf_adapter.name=Heksorijski RF Adapter
 
-item.itemMachineControlPanel.name=Strojna Upravljačka Ploča
-item.itemMachineEnergyRouter.name=Strojni Usmjerivač Energije
-item.itemHeatDissipator.name=Toplinski Raspršivač
-item.itemHeatingArray.name=Grijaći Niz
-item.itemCrystalExtractionUnit.name=Jedinica Za Ekstrakciju Kristala
-item.itemMatrixAdjuster.name=Ugođivać Matrice
-item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
-item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
-item.itemDigitalSmartpipe.name=Digitalna Pametna Cijev
+item.hexcraft:component.machine_control_panel.name=Strojna Upravljačka Ploča
+item.hexcraft:component.machine_energy_router.name=Strojni Usmjerivač Energije
+item.hexcraft:component.heat_dissipator.name=Toplinski Raspršivač
+item.hexcraft:component.heating_array.name=Grijaći Niz
+item.hexcraft:component.crystal_extraction_unit.name=Jedinica Za Ekstrakciju Kristala
+item.hexcraft:component.matrix_adjuster.name=Ugođivać Matrice
+item.hexcraft:component.material_interaction_plane.name=Ravnina Tvarne Interakcije
+item.hexcraft:component.teleportation_field_projector.name=Projektor Teleportacijskog Polja
+item.hexcraft:component.digital_smartpipe.name=Digitalna Pametna Cijev
 
 item.toolHexoriumManipulator.name=Heksorijski Upravljač
 item.toolHexoriumProbe.name=Heksorijska Sonda

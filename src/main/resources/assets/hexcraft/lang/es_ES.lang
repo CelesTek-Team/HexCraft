@@ -1,6 +1,7 @@
 itemGroup.tabMaterials=
 itemGroup.tabComponents=HEXCraft: Componentes
 itemGroup.tabMachines=HEXCraft: Máquinas
+itemGroup.tabTools=
 itemGroup.tabDecorative=HEXCraft: Decoración
 
 
@@ -371,32 +372,32 @@ item.hexcraft:crystal.hexorium_blue.name=Cristal Azul de Hexorium
 item.hexcraft:crystal.hexorium_white.name=Cristal Blanco de Hexorium
 item.hexcraft:crystal.hexorium_black.name=Cristal Negro de Hexorium
 
-item.itemRainbowEnergizedGlobule.name=Globulo Energizado Multicolor
-item.itemWhiteHexoriumWafer.name=Oblea de Hexorium Blanco
-item.itemBlackHexoriumWafer.name=Oblea de Hexorium Negro
-item.itemSpatialProjector.name=Proyector Espacial
-item.itemOreActuator.name=Actuador de Mineral
-item.itemPylonSocket.name=Enchufe de Pilón
-item.itemHexoriumGlassPackage.name=Paquete de Cristal de Hexorium
+item.hexcraft:component.rainbow_energized_globule.name=Globulo Energizado Multicolor
+item.hexcraft:component.white_hexorium_wafer.name=Oblea de Hexorium Blanco
+item.hexcraft:component.black_hexorium_wafer.name=Oblea de Hexorium Negro
+item.hexcraft:component.spatial_projector.name=Proyector Espacial
+item.hexcraft:component.ore_actuator.name=Actuador de Mineral
+item.hexcraft:component.pylon_socket.name=Enchufe de Pilón
+item.hexcraft:component.hexorium_glass_package.name=Paquete de Cristal de Hexorium
 
-item.itemRainbowCore.name=Núcleo Multicolor
-item.itemHexoriumCoprocessor.name=Coprocesador de Hexorium
-item.itemHexoriumProcessor.name=Procesador de Hexorium
-item.itemMineralAnalyzer.name=Analizador de Minerales
-item.itemHexoriumEnergyConverter.name=Conversor de Energia de Hexorium
-item.itemEnergyInjector.name=Inyector de Energía
-item.itemMolecularRecoder.name=Recodificador Molecular
-item.itemHexoriumRFAdapter.name=Adaptador de Hexorium de RF
+item.hexcraft:component.rainbow_core.name=Núcleo Multicolor
+item.hexcraft:component.hexorium_coprocessor.name=Coprocesador de Hexorium
+item.hexcraft:component.hexorium_processor.name=Procesador de Hexorium
+item.hexcraft:component.mineral_analyzer.name=Analizador de Minerales
+item.hexcraft:component.hexorium_energy_converter.name=Conversor de Energia de Hexorium
+item.hexcraft:component.energy_injector.name=Inyector de Energía
+item.hexcraft:component.molecular_recoder.name=Recodificador Molecular
+item.hexcraft:component.hexorium_rf_adapter.name=Adaptador de Hexorium de RF
 
-item.itemMachineControlPanel.name=Panel de control
-item.itemMachineEnergyRouter.name=Enrutador de energía
-item.itemHeatDissipator.name=Heat Disipador
-item.itemHeatingArray.name=Matriz de Calentamiento
-item.itemCrystalExtractionUnit.name=Unidad de Extracción de Cristales
-item.itemMatrixAdjuster.name=Configurador de Matriz
-item.itemMaterialInteractionPlane.name=Plano de Interacción de Materiales
-item.itemTeleportationFieldProjector.name=Proyector de Campo de Teletransporte
-item.itemDigitalSmartpipe.name=Tuberia Inteligente Digital
+item.hexcraft:component.machine_control_panel.name=Panel de control
+item.hexcraft:component.machine_energy_router.name=Enrutador de energía
+item.hexcraft:component.heat_dissipator.name=Heat Disipador
+item.hexcraft:component.heating_array.name=Matriz de Calentamiento
+item.hexcraft:component.crystal_extraction_unit.name=Unidad de Extracción de Cristales
+item.hexcraft:component.matrix_adjuster.name=Configurador de Matriz
+item.hexcraft:component.material_interaction_plane.name=Plano de Interacción de Materiales
+item.hexcraft:component.teleportation_field_projector.name=Proyector de Campo de Teletransporte
+item.hexcraft:component.digital_smartpipe.name=Tuberia Inteligente Digital
 
 item.toolHexoriumManipulator.name=Manipulador de Hexorium
 item.toolHexoriumProbe.name=Sonda de Hexorium

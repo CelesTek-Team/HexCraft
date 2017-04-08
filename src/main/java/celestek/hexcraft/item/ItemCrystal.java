@@ -17,19 +17,17 @@ import java.util.stream.Stream;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
-public class ItemCrystal extends ItemVariant {
+public class ItemCrystal extends ItemBase {
 
     public ItemCrystal() {
         super("crystal");
+        setHasSubtypes(true);
         setCreativeTab(HEXCraft.tabMaterials);
     }
 
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack) + "." + EnumType.byMetadata(stack.getMetadata()).getName();
-    }
-
     public enum EnumType implements IVariant {
+
+        // Raw Materials
         HEXORIUM_RED  (0, "hexorium_red"),
         HEXORIUM_GREEN(1, "hexorium_green"),
         HEXORIUM_BLUE (2, "hexorium_blue"),
@@ -63,5 +61,20 @@ public class ItemCrystal extends ItemVariant {
 
             return META_LOOKUP[meta];
         }
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName(stack) + "." + EnumType.byMetadata(stack.getMetadata()).getName();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        final List<ItemStack> items = Stream.of(EnumType.values())
+                .map(enumType -> new ItemStack(itemIn, 1, enumType.getMeta()))
+                .collect(Collectors.toList());
+
+        subItems.addAll(items);
     }
 }

@@ -1,6 +1,7 @@
 package celestek.hexcraft.init;
 
 import celestek.hexcraft.HEXCraft;
+import celestek.hexcraft.item.ItemComponent;
 import celestek.hexcraft.item.ItemCrystal;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -20,8 +21,12 @@ import java.util.Set;
 @SuppressWarnings("WeakerAccess")
 @GameRegistry.ObjectHolder(HEXCraft.MODID)
 public class ModItems {
+
     @GameRegistry.ObjectHolder("crystal")
-    public static final ItemCrystal CRYSTAL = new ItemCrystal();
+    public static final ItemCrystal CRYSTAL     = new ItemCrystal();
+
+    @GameRegistry.ObjectHolder("component")
+    public static final ItemComponent COMPONENT = new ItemComponent();
 
     private ModItems(){}
 
@@ -38,6 +43,7 @@ public class ModItems {
         public static void registerItems(RegistryEvent.Register<Item> event) {
             final Item[] items = {
                     CRYSTAL,
+                    COMPONENT,
             };
 
             final IForgeRegistry<Item> registry = event.getRegistry();

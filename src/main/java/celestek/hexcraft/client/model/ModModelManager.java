@@ -1,6 +1,7 @@
 package celestek.hexcraft.client.model;
 
 import celestek.hexcraft.init.ModItems;
+import celestek.hexcraft.item.ItemComponent;
 import celestek.hexcraft.item.ItemCrystal;
 import celestek.hexcraft.util.IVariant;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -41,7 +42,8 @@ public class ModModelManager {
      * Register this mod's {@link Item} models.
      */
     private void registerItemModels() {
-        registerVariantItemModels(ModItems.CRYSTAL, "variant", ItemCrystal.EnumType.values());
+        registerVariantItemModels(ModItems.CRYSTAL,   "type", ItemCrystal.EnumType.values());
+        registerVariantItemModels(ModItems.COMPONENT, "type", ItemComponent.EnumType.values());
     }
 
     /**
