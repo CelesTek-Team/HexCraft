@@ -11,11 +11,11 @@ tile.blockHexoriumNetherOreBlue.name=Mena de Infrahexorium Azul
 tile.blockHexoriumNetherOreWhite.name=Mena de Infrahexorium Blanco
 tile.blockHexoriumNetherOreBlack.name=Mena de Infrahexorium Negro
 
-tile.blockHexoriumOreRed.name=Mena de Hexorium Rojo
-tile.blockHexoriumOreGreen.name=Mena de Hexorium Verde
-tile.blockHexoriumOreBlue.name=Mena de Hexorium Azul
-tile.blockHexoriumOreWhite.name=Mena de Hexorium Blanco
-tile.blockHexoriumOreBlack.name=Mena de Hexorium Negro
+tile.hexcraft:ore.hexorium_red.name=Mena de Hexorium Rojo
+tile.hexcraft:ore.hexorium_green.name=Mena de Hexorium Verde
+tile.hexcraft:ore.hexorium_blue.name=Mena de Hexorium Azul
+tile.hexcraft:ore.hexorium_white.name=Mena de Hexorium Blanco
+tile.hexcraft:ore.hexorium_black.name=Mena de Hexorium Negro
 
 
 tile.blockHexoriumNetherMonolithRed.name=Monolito de Infrahexorium Rojo

@@ -11,11 +11,11 @@ tile.blockHexoriumNetherOreBlue.name=Blue Hexorium Nether Ore
 tile.blockHexoriumNetherOreWhite.name=White Hexorium Nether Ore
 tile.blockHexoriumNetherOreBlack.name=Black Hexorium Nether Ore
 
-tile.blockHexoriumOreRed.name=Red Hexorium Ore
-tile.blockHexoriumOreGreen.name=Green Hexorium Ore
-tile.blockHexoriumOreBlue.name=Blue Hexorium Ore
-tile.blockHexoriumOreWhite.name=White Hexorium Ore
-tile.blockHexoriumOreBlack.name=Black Hexorium Ore
+tile.hexcraft:ore.hexorium_red.name=Red Hexorium Ore
+tile.hexcraft:ore.hexorium_green.name=Green Hexorium Ore
+tile.hexcraft:ore.hexorium_blue.name=Blue Hexorium Ore
+tile.hexcraft:ore.hexorium_white.name=White Hexorium Ore
+tile.hexcraft:ore.hexorium_black.name=Black Hexorium Ore
 
 
 tile.blockHexoriumNetherMonolithRed.name=Red Hexorium Nether Monolith

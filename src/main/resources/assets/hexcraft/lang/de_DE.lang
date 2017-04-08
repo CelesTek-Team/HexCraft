@@ -11,11 +11,11 @@ tile.blockHexoriumNetherOreBlue.name=Blaues Hexorium Nether Erz
 tile.blockHexoriumNetherOreWhite.name=Weißes Hexorium Nether Erz
 tile.blockHexoriumNetherOreBlack.name=Schwarzes Hexorium Nether Erz
 
-tile.blockHexoriumOreRed.name=Rotes Hexorium Erz
-tile.blockHexoriumOreGreen.name=Grünes Hexorium Erz
-tile.blockHexoriumOreBlue.name=Blaues Hexorium Erz
-tile.blockHexoriumOreWhite.name=Weißes Hexorium Erz
-tile.blockHexoriumOreBlack.name=Schwarzes Hexorium Erz
+tile.hexcraft:ore.hexorium_red.name=Rotes Hexorium Erz
+tile.hexcraft:ore.hexorium_green.name=Grünes Hexorium Erz
+tile.hexcraft:ore.hexorium_blue.name=Blaues Hexorium Erz
+tile.hexcraft:ore.hexorium_white.name=Weißes Hexorium Erz
+tile.hexcraft:ore.hexorium_black.name=Schwarzes Hexorium Erz
 
 
 tile.blockHexoriumNetherMonolithRed.name=Roter Hexorium Nether Monolith

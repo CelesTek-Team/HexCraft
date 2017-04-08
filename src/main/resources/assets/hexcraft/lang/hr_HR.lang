@@ -11,11 +11,11 @@ tile.blockHexoriumNetherOreBlue.name=Plava Heksorijska Podzemna Ruda
 tile.blockHexoriumNetherOreWhite.name=Bijela Heksorijska Podzemna Ruda
 tile.blockHexoriumNetherOreBlack.name=Crna Heksorijska Podzemna Ruda
 
-tile.blockHexoriumOreRed.name=Crvena Heksorijska Ruda
-tile.blockHexoriumOreGreen.name=Zelena Heksorijska Ruda
-tile.blockHexoriumOreBlue.name=Plava Heksorijska Ruda
-tile.blockHexoriumOreWhite.name=Bijela Heksorijska Ruda
-tile.blockHexoriumOreBlack.name=Crna Heksorijska Ruda
+tile.hexcraft:ore.hexorium_red.name=Crvena Heksorijska Ruda
+tile.hexcraft:ore.hexorium_green.name=Zelena Heksorijska Ruda
+tile.hexcraft:ore.hexorium_blue.name=Plava Heksorijska Ruda
+tile.hexcraft:ore.hexorium_white.name=Bijela Heksorijska Ruda
+tile.hexcraft:ore.hexorium_black.name=Crna Heksorijska Ruda
 
 
 tile.blockHexoriumNetherMonolithRed.name=Crveni Heksorijski Podzemni Monolit

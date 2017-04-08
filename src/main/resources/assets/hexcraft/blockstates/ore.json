@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all"
+  },
+  "variants": {
+    "type": {
+      "hexorium_red"  : {"textures": {"all": "hexcraft:block/ore/hexorium_a_red"  }},
+      "hexorium_green": {"textures": {"all": "hexcraft:block/ore/hexorium_a_green"}},
+      "hexorium_blue" : {"textures": {"all": "hexcraft:block/ore/hexorium_a_blue" }},
+      "hexorium_white": {"textures": {"all": "hexcraft:block/ore/hexorium_a_white"}},
+      "hexorium_black": {"textures": {"all": "hexcraft:block/ore/hexorium_a_black"}}
+    }
+  }
+}
