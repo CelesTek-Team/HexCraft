@@ -148,6 +148,38 @@ public class ItemHexoriumManipulator extends Item {
                     analyzePylonBase(world, x, y, z);
                 }
 
+                // Rotate Sound Projector away from player.
+                else if (block instanceof BlockSoundProjector) {
+                    // Rotate meta
+                    int orientation;
+                    if (player.rotationPitch > 60.0F)
+                        // If player is looking up.
+                        orientation = 0;
+                    else if (player.rotationPitch < -60.0F)
+                        // If player is looking down.
+                        orientation = 1;
+                    else {
+                        orientation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        // If player is looking towards NSWE.
+                        if (orientation == 0)
+                            orientation = 3;
+                        else if (orientation == 1)
+                            orientation = 4;
+                        else if (orientation == 2)
+                            orientation = 2;
+                        else if (orientation == 3)
+                            orientation = 5;
+                    }
+
+                    HexUtils.setMetaBitTriInt(
+                            BlockSoundProjector.META_ORIENTATION_0,
+                            BlockSoundProjector.META_ORIENTATION_1,
+                            BlockSoundProjector.META_ORIENTATION_2,
+                            orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+
+                    analyzePylonBase(world, x, y, z);
+                }
+
                 // Rotate Tank Valve.
                 else if (block == HexBlocks.blockTankValve) {
                     if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
@@ -619,6 +651,38 @@ public class ItemHexoriumManipulator extends Item {
                             BlockPylonBase.META_ORIENTATION_0,
                             BlockPylonBase.META_ORIENTATION_1,
                             BlockPylonBase.META_ORIENTATION_2,
+                            orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+
+                    analyzePylonBase(world, x, y, z);
+                }
+
+                // Rotate Sound Projector.
+                else if (block instanceof BlockSoundProjector) {
+                    // Rotate meta
+                    int orientation;
+                    if (player.rotationPitch > 60.0F)
+                        // If player is looking up.
+                        orientation = 1;
+                    else if (player.rotationPitch < -60.0F)
+                        // If player is looking down.
+                        orientation = 0;
+                    else {
+                        orientation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+                        // If player is looking towards NSWE.
+                        if (orientation == 0)
+                            orientation = 2;
+                        else if (orientation == 1)
+                            orientation = 5;
+                        else if (orientation == 2)
+                            orientation = 3;
+                        else if (orientation == 3)
+                            orientation = 4;
+                    }
+
+                    HexUtils.setMetaBitTriInt(
+                            BlockSoundProjector.META_ORIENTATION_0,
+                            BlockSoundProjector.META_ORIENTATION_1,
+                            BlockSoundProjector.META_ORIENTATION_2,
                             orientation, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
                     analyzePylonBase(world, x, y, z);

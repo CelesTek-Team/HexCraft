@@ -21,6 +21,7 @@ public class HexGui implements IGuiHandler {
     public static final int GUI_ID_PERSONAL_TELEPORTATION_PAD = 4;
     public static final int GUI_ID_MOLECULAR_TRANSPOSER = 5;
     public static final int GUI_ID_TANK_VALVE = 6;
+    public static final int GUI_ID_SOUND_PROJECTOR = 7;
 
     public HexGui () {}
 
