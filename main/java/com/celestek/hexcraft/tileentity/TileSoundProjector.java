@@ -26,6 +26,11 @@ import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
 
+import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_0;
+import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_1;
+import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_2;
+
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -64,7 +69,7 @@ public class TileSoundProjector extends TileEntity {
 
         this.soundName = "power";
         this.soundRange = 16;
-        this.soundDistance = 0;
+        this.soundDistance = 16;
         this.soundLoop = true;
 
         this.powered = false;
@@ -137,9 +142,8 @@ public class TileSoundProjector extends TileEntity {
                 firstTickClient = false;
             }
             else {
-                if (powered && !sound.isPlaying() && soundLoop) {
-                    sound.playSound(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, soundName, getNormalizedRange(), true);
-                }
+                if (powered && !sound.isPlaying() && soundLoop)
+                    playSoundInDirection(true);
             }
         }
     }
@@ -152,14 +156,24 @@ public class TileSoundProjector extends TileEntity {
         super.invalidate();
     }
 
-    public void processSound() {
+    private void processSound() {
         if (worldObj.isRemote) {
-            if (powered) {
-                sound.playSound(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, soundName, getNormalizedRange(), false);
-            }
-            else {
+            if (powered)
+                playSoundInDirection(false);
+            else
                 sound.stopSound();
-            }
+        }
+    }
+
+    private void playSoundInDirection(boolean skipCheck) {
+        int orientation = HexUtils.getBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, blockMetadata);
+        switch (orientation) {
+            case 0: sound.playSound(xCoord + 0.5D, yCoord + 0.5D - soundDistance, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
+            case 1: sound.playSound(xCoord + 0.5D, yCoord + 0.5D + soundDistance, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
+            case 2: sound.playSound(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D - soundDistance, soundName, getNormalizedRange(), skipCheck); break;
+            case 3: sound.playSound(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D + soundDistance, soundName, getNormalizedRange(), skipCheck); break;
+            case 4: sound.playSound(xCoord + 0.5D - soundDistance, yCoord + 0.5D, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
+            case 5: sound.playSound(xCoord + 0.5D + soundDistance, yCoord + 0.5D, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
         }
     }
 
