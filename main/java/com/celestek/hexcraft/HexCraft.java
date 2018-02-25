@@ -2,6 +2,7 @@ package com.celestek.hexcraft;
 
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.network.ChannelHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -65,6 +66,7 @@ public class HexCraft {
      */
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+        ChannelHandler.init();
         proxy.preInit(e);
     }
 

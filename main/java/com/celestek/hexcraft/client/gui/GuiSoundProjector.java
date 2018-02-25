@@ -5,15 +5,18 @@ import com.celestek.hexcraft.container.ContainerSoundProjector;
 import com.celestek.hexcraft.container.ContainerTankValve;
 import com.celestek.hexcraft.tileentity.TileSoundProjector;
 import com.celestek.hexcraft.tileentity.TileTankValve;
+import com.celestek.hexcraft.util.HexNetworkHelper;
 import com.celestek.hexcraft.util.HexUtils;
 import net.java.games.input.Component;
 import net.java.games.input.Keyboard;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiControls;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
@@ -22,9 +25,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import java.awt.event.KeyEvent;
 
 import static com.celestek.hexcraft.tileentity.TileSoundProjector.*;
+import static sun.audio.AudioPlayer.player;
 
 /**
- * @author CoffeePirate     <celestek@openmailbox.org>
+ * @author Thorinair   <celestek@openmailbox.org>
  */
 
 public class GuiSoundProjector extends GuiContainer {
@@ -121,6 +125,7 @@ public class GuiSoundProjector extends GuiContainer {
         if (textSoundName.isFocused()) {
             textSoundName.textboxKeyTyped(c, key);
             tileSoundProjector.setSoundName(textSoundName.getText());
+            updateSoundProjector();
         }
         else if (textSoundRange.isFocused()) {
             if (!Character.isLetter(c))
@@ -188,6 +193,7 @@ public class GuiSoundProjector extends GuiContainer {
 
         textSoundRange.setText(Integer.toString(soundRange));
         tileSoundProjector.setSoundRange(soundRange);
+        updateSoundProjector();
     }
 
     private void processTextSoundDistance() {
@@ -203,5 +209,13 @@ public class GuiSoundProjector extends GuiContainer {
 
         textSoundDistance.setText(Integer.toString(soundDistance));
         tileSoundProjector.setSoundDistance(soundDistance);
+        updateSoundProjector();
+    }
+
+    private void updateSoundProjector() {
+        HexNetworkHelper.updateSoundProjector(
+                tileSoundProjector.xCoord, tileSoundProjector.yCoord, tileSoundProjector.zCoord,
+                tileSoundProjector.getSoundName(), tileSoundProjector.getSoundRange(), tileSoundProjector.getSoundDistance(), tileSoundProjector.getSoundLoop()
+        );
     }
 }
