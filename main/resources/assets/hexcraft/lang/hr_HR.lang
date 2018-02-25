@@ -360,6 +360,8 @@ tile.blockHexoriumPressurePlateWhite.name=Heksorijska Nagazna Ploča (Bijela)
 tile.blockPylonBase51.name=5-na-1 Stupna Baza
 tile.blockPylonBase15.name=1-na-5 Stupna Baza
 
+tile.blockSoundProjector.name=Projektor Zvuka
+
 tile.blockTemperedHexoriumGlass.name=Obrađeno Heksorijsko Staklo
 tile.blockHexoriumCoatedStone.name=Hexoriumom Obložen Kamen
 
@@ -409,6 +411,12 @@ hexcraft.container.crystalSeparator=Kristalni Razdvajač
 hexcraft.container.matrixReconstructor=Matrični Rekonstruktor
 hexcraft.container.personalTeleportationPad=Osobna Teleportacijska Ploča
 hexcraft.container.hexoriumTank=Heksorijski Tank
+hexcraft.container.soundProjector=Projektor Zvuka
+
+hexcraft.container.soundProjector.labelSoundName=Ime Zvuka
+hexcraft.container.soundProjector.labelSoundRange=Doseg
+hexcraft.container.soundProjector.labelSoundDistance=Udaljenost
+hexcraft.container.soundProjector.labelSoundLoop=Ponavljanje
 
 hexcraft.container.molecularTransposer=Molekulski Izmjenivač
 

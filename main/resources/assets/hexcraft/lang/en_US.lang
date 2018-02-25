@@ -360,6 +360,8 @@ tile.blockHexoriumPressurePlateWhite.name=Hexorium Pressure Plate (White)
 tile.blockPylonBase51.name=5-to-1 Pylon Base
 tile.blockPylonBase15.name=1-to-5 Pylon Base
 
+tile.blockSoundProjector.name=Sound Projector
+
 tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass
 tile.blockHexoriumCoatedStone.name=Hexorium-Coated Stone
 
@@ -409,6 +411,12 @@ hexcraft.container.crystalSeparator=Crystal Separator
 hexcraft.container.matrixReconstructor=Matrix Reconstructor
 hexcraft.container.personalTeleportationPad=Personal Teleportation Pad
 hexcraft.container.hexoriumTank=Hexorium Tank
+hexcraft.container.soundProjector=Sound Projector
+
+hexcraft.container.soundProjector.labelSoundName=Sound Name
+hexcraft.container.soundProjector.labelSoundRange=Range
+hexcraft.container.soundProjector.labelSoundDistance=Distance
+hexcraft.container.soundProjector.labelSoundLoop=Loop
 
 hexcraft.container.molecularTransposer=Molecular Transposer
 

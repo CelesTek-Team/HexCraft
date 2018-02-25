@@ -21,7 +21,6 @@ public class HexSound {
     public static final float DEFAULT_RANGE = 16F;
     public static final float MAX_RANGE = 256F;
 
-    @SuppressWarnings("fallthrough")
     public static PositionedSoundRecord playSound(double x, double y, double z, String name, float volume) {
         float range = DEFAULT_RANGE;
 

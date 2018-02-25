@@ -41,6 +41,8 @@ public class TileSoundProjector extends TileEntity {
 
     public static final String ID = "tileSoundProjector";
 
+    public static final String MACHINE_NAME = "hexcraft.container.soundProjector";
+
     // NBT Names
     private static final String NBT_SOUND_NAME = "sound_name";
     private static final String NBT_SOUND_RANGE = "sound_range";
@@ -225,5 +227,12 @@ public class TileSoundProjector extends TileEntity {
 
     public boolean getPowered() {
         return this.powered;
+    }
+
+    /**
+     * Check if the TIle Entity can be used by the player.
+     */
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64.0D;
     }
 }

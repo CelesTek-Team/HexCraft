@@ -59,6 +59,10 @@ public class HexGui implements IGuiHandler {
             TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
             return new ContainerTankValve(tileEntity);
         }
+        else if(ID == GUI_ID_SOUND_PROJECTOR) {
+            TileSoundProjector tileEntity = (TileSoundProjector) world.getTileEntity(x, y, z);
+            return new ContainerSoundProjector(tileEntity);
+        }
         return null;
     }
 
@@ -95,6 +99,10 @@ public class HexGui implements IGuiHandler {
         else if(ID == GUI_ID_TANK_VALVE) {
             TileTankValve tileEntity = (TileTankValve) world.getTileEntity(x, y, z);
             return new GuiTankValve(tileEntity);
+        }
+        else if(ID == GUI_ID_SOUND_PROJECTOR) {
+            TileSoundProjector tileEntity = (TileSoundProjector) world.getTileEntity(x, y, z);
+            return new GuiSoundProjector(tileEntity);
         }
         return null;
     }
