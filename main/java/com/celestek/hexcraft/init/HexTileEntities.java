@@ -34,5 +34,7 @@ public class HexTileEntities {
             if (Loader.isModLoaded("IC2"))
                 GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
         }
+
+        GameRegistry.registerTileEntity(TileSoundProjector.class, TileSoundProjector.ID);
     }
 }

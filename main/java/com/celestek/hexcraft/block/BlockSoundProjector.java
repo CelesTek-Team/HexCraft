@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.tileentity.TileSoundProjector;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,7 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 /**
- * @author CoffeePirate     <celestek@openmailbox.org>
+ * @author Thorinair   <celestek@openmailbox.org>
  */
 
 public class BlockSoundProjector extends HexBlockContainer {
@@ -53,13 +54,12 @@ public class BlockSoundProjector extends HexBlockContainer {
 
     /**
      * Returns a new instance of a block's TIle Entity class. Called on placing the block.
+     */
     @Override
     public TileEntity createTileEntity(World world, int metadata) {
         // Create the new TIle Entity.
-        // TODO: Add Tile Entity
-        //return new TileSoundProjector();
+        return new TileSoundProjector();
     }
-     */
 
     /**
      * Called when a block is placed by a player.
@@ -110,10 +110,11 @@ public class BlockSoundProjector extends HexBlockContainer {
             boolean state = HexUtils.getMetaBit(META_POWERED, world, x, y, z);
             boolean powered = world.isBlockIndirectlyGettingPowered(x, y, z);
             // Set meta according to power.
-            if (!state && powered)
-                HexUtils.setMetaBit(META_POWERED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
-            else if (state && !powered)
-                HexUtils.setMetaBit(META_POWERED, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            if ((!state && powered) || (state && !powered)) {
+                HexUtils.setMetaBit(META_POWERED, powered, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                TileSoundProjector tileSoundProjector = (TileSoundProjector) world.getTileEntity(x, y, z);
+                tileSoundProjector.setPowered(powered);
+            }
         }
     }
 
