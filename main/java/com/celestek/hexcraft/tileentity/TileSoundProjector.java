@@ -67,9 +67,9 @@ public class TileSoundProjector extends TileEntity {
 
     public TileSoundProjector() {
 
-        this.soundName = "power";
+        this.soundName = "";
         this.soundRange = 16;
-        this.soundDistance = 16;
+        this.soundDistance = 8;
         this.soundLoop = true;
 
         this.powered = false;

@@ -21,6 +21,7 @@ public class HexSound {
     public static final float DEFAULT_RANGE = 16F;
     public static final float MAX_RANGE = 256F;
 
+    @SuppressWarnings("fallthrough")
     public static PositionedSoundRecord playSound(double x, double y, double z, String name, float volume) {
         float range = DEFAULT_RANGE;
 
@@ -31,11 +32,13 @@ public class HexSound {
         Entity person = FMLClientHandler.instance().getClient().renderViewEntity;
 
         if (person != null && volume > 0 && person.getDistanceSq(x, y, z) < range * range) {
-                PositionedSoundRecord sound = new PositionedSoundRecord(
-                        new ResourceLocation(HexCraft.MODID + ":" + SOUND_PREFIX + "-" + name), volume, 1.0F, (float) x, (float) y, (float) z
-                );
+            ResourceLocation location = new ResourceLocation(HexCraft.MODID + ":" + SOUND_PREFIX + "-" + name);
+
+            if (Minecraft.getMinecraft().getSoundHandler().getSound(location) != null) {
+                PositionedSoundRecord sound = new PositionedSoundRecord( location, volume, 1.0F, (float) x, (float) y, (float) z);
                 Minecraft.getMinecraft().getSoundHandler().playSound(sound);
                 return sound;
+            }
         }
         return null;
     }
