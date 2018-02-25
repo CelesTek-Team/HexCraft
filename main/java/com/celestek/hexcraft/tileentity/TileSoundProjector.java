@@ -1,30 +1,14 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexSound;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentTranslation;
-
-import java.util.ArrayList;
 
 import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_0;
 import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_1;

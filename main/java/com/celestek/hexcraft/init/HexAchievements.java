@@ -65,6 +65,12 @@ public class HexAchievements {
     // Reinforcer
     public static Achievement achUseReinforcer;
 
+    // T1 Sound Machines
+    public static Achievement achCraftSoundEmissionModule;
+
+    // T2 Sound Machines
+    public static Achievement achCraftSoundProjector;
+
     // T1 Machines
     public static Achievement achCraftMachineBlock;
     public static Achievement achCraftCable;
@@ -205,6 +211,14 @@ public class HexAchievements {
         // Reinforcer
         achUseReinforcer = new Achievement(hex1 + "achUseReinforcer", hex2 + "achUseReinforcer", -3, -3, HexItems.itemHexoriumReinforcer, achMineHexOre).registerStat();
         achList.add(achUseReinforcer);
+
+        // T1 Sound Machines
+        achCraftSoundEmissionModule = new Achievement(hex1 + "achCraftSoundEmissionModule", hex2 + "achCraftSoundEmissionModule", -6, -1, HexItems.itemSoundEmissionModule, achMineHexOre).registerStat();
+        achList.add(achCraftSoundEmissionModule);
+
+        // T2 Sound Machines
+        achCraftSoundProjector = new Achievement(hex1 + "achCraftSoundProjector", hex2 + "achCraftSoundProjector", -6, 1, HexBlocks.blockSoundProjector, achCraftSoundEmissionModule).registerStat();
+        achList.add(achCraftSoundProjector);
 
         // T1 Machines
         achCraftMachineBlock = new Achievement(hex1 + "achCraftMachineBlock", hex2 + "achCraftMachineBlock", -4, 1, HexBlocks.blockHexoriumMachineBlock, achCraftEnergizedWhite).registerStat();

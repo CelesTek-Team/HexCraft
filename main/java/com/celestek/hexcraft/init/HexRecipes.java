@@ -358,6 +358,8 @@ public class HexRecipes {
         ItemStack stackPylonBase51_1 = new ItemStack(HexBlocks.blockPylonBase51, 1);
         ItemStack stackPylonBase15_1 = new ItemStack(HexBlocks.blockPylonBase15, 1);
 
+        ItemStack stackSoundProjector_1 = new ItemStack(HexBlocks.blockSoundProjector, 1);
+
         // Hex Items
         // Raw Materials
         ItemStack stackHexoriumCrystalRed_1 = new ItemStack(HexItems.itemHexoriumCrystalRed, 1);
@@ -400,6 +402,7 @@ public class HexRecipes {
         ItemStack stackMaterialInteractionPlane_1 = new ItemStack(HexItems.itemMaterialInteractionPlane, 1);
         ItemStack stackTeleportationFieldProjector_1 = new ItemStack(HexItems.itemTeleportationFieldProjector, 1);
         ItemStack stackDigitalSmartpipe_1 = new ItemStack(HexItems.itemDigitalSmartpipe, 1);
+        ItemStack stackSoundEmissionModule_1 = new ItemStack(HexItems.itemSoundEmissionModule, 1);
 
         // Tools
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
@@ -2646,6 +2649,12 @@ public class HexRecipes {
                 "DAD",
                 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumEnergyConverter_1, 'C', stackPylonSocket_1, 'D', "ingotIron"));
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackSoundProjector_1,
+                "DRD",
+                "ABC",
+                "DRD",
+                'R', stackRedstone_1, 'A', stackMachineControlPanel_1, 'B', stackRainbowEnergizedGlobule_1, 'C', stackSoundEmissionModule_1, 'D', "ingotIron"));
+
         // Hex Items
         // Components T1
         GameRegistry.addRecipe(stackRainbowEnergizedGlobule_1,
@@ -2936,6 +2945,12 @@ public class HexRecipes {
                     "BCR",
                     'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCoprocessor_1, 'D', "ingotIron"));
         }
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackSoundEmissionModule_1,
+                "AEB",
+                "RDR",
+                "FCF",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalWhite_1,
+                'E', stackRainbowEnergizedGlobule_1, 'F', "ingotIron"));
 
         // Tools
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumManipulator_1,

@@ -130,6 +130,14 @@ public class HexCraftingHandler {
                 checkDecorations = true;
             }
 
+            // T1 Sound Machines
+            else if (event.crafting.getItem() == HexItems.itemSoundEmissionModule)
+                event.player.addStat(HexAchievements.achCraftSoundEmissionModule, 1);
+
+            // T2 Sound Machines
+            else if (block instanceof BlockSoundProjector)
+                event.player.addStat(HexAchievements.achCraftSoundProjector, 1);
+
             // T1 Machines
             else if (block instanceof BlockHexoriumCable)
                 event.player.addStat(HexAchievements.achCraftCable, 1);

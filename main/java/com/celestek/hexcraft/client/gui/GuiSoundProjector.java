@@ -164,11 +164,6 @@ public class GuiSoundProjector extends GuiContainer {
         textSoundRange.mouseClicked(x, y, btn);
         textSoundDistance.mouseClicked(x, y, btn);
 
-        if (!textSoundRange.isFocused())
-            processTextSoundRange();
-        if (!textSoundRange.isFocused())
-            processTextSoundDistance();
-
         if (x > (width - GUI_SIZE_X) / 2 + 69 &&
             x < (width - GUI_SIZE_X) / 2 + 82 &&
             y > (height - GUI_SIZE_Y) / 2 + 69 &&
@@ -178,6 +173,11 @@ public class GuiSoundProjector extends GuiContainer {
             else
                 tileSoundProjector.setSoundLoop(true);
         }
+
+        if (!textSoundRange.isFocused())
+            processTextSoundRange();
+        if (!textSoundRange.isFocused())
+            processTextSoundDistance();
     }
 
     private void processTextSoundRange() {

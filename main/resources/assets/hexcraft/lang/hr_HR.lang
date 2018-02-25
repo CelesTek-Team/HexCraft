@@ -398,6 +398,7 @@ item.itemMatrixAdjuster.name=Ugođivać Matrice
 item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
 item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
 item.itemDigitalSmartpipe.name=Digitalna Pametna Cijev
+item.itemSoundEmissionModule.name=Modul Emisije Zvuka
 
 item.toolHexoriumManipulator.name=Heksorijski Upravljač
 item.toolHexoriumProbe.name=Heksorijska Sonda
@@ -416,7 +417,7 @@ hexcraft.container.soundProjector=Projektor Zvuka
 hexcraft.container.soundProjector.labelSoundName=Ime Zvuka
 hexcraft.container.soundProjector.labelSoundRange=Doseg
 hexcraft.container.soundProjector.labelSoundDistance=Udaljenost
-hexcraft.container.soundProjector.labelSoundLoop=Ponavljanje
+hexcraft.container.soundProjector.labelSoundLoop=Ponavljaj
 
 hexcraft.container.molecularTransposer=Molekulski Izmjenivač
 
@@ -618,6 +619,12 @@ achievement.hexcraft.achGroupDecorations.desc=Napravi sve dekorativne blokove.
 
 achievement.hexcraft.achUseReinforcer=Tvrdo Kao Obsidijan
 achievement.hexcraft.achUseReinforcer.desc=Pojačaj bilo koji ukrasni blok sa Heksorijskim Pojačavačem.
+
+achievement.hexcraft.achCraftSoundEmissionModule=Kristalna Rezonancija
+achievement.hexcraft.achCraftSoundEmissionModule.desc=Napravi Modul Emisije Zvuka.
+
+achievement.hexcraft.achCraftSoundProjector=Fantom Opere
+achievement.hexcraft.achCraftSoundProjector.desc=Napravi Projektor Zvuka.
 
 achievement.hexcraft.achCraftMachineBlock=Industrijska Revolucija
 achievement.hexcraft.achCraftMachineBlock.desc=Napravi Heksorijski Strojni Blok.

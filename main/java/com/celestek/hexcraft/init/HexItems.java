@@ -46,6 +46,7 @@ public class HexItems {
     public static Item itemMaterialInteractionPlane;
     public static Item itemTeleportationFieldProjector;
     public static Item itemDigitalSmartpipe;
+    public static Item itemSoundEmissionModule;
     
     // Tools
     public static Item itemHexoriumManipulator;
@@ -130,6 +131,8 @@ public class HexItems {
             itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");
             GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
         }
+        itemSoundEmissionModule = new HexItemComponent("itemSoundEmissionModule");
+        GameRegistry.registerItem(itemSoundEmissionModule, "itemSoundEmissionModule");
         
         // Tools
         itemHexoriumManipulator = new ItemHexoriumManipulator(ItemHexoriumManipulator.ID);

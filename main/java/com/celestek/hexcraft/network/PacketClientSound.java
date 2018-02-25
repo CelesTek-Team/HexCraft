@@ -70,6 +70,7 @@ public class PacketClientSound implements IMessage, IMessageHandler<PacketClient
             tileSoundProjector.setSoundRange(message.soundRange);
             tileSoundProjector.setSoundDistance(message.soundDistance);
             tileSoundProjector.setSoundLoop(message.soundLoop);
+            tileSoundProjector.getWorldObj().markBlockForUpdate(message.x, message.y, message.z);
         }
         return null;
     }

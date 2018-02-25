@@ -398,6 +398,7 @@ item.itemMatrixAdjuster.name=Matrix Adjuster
 item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
 item.itemDigitalSmartpipe.name=Digital Smartpipe
+item.itemSoundEmissionModule.name=Sound Emission Module
 
 item.toolHexoriumManipulator.name=Hexorium Manipulator
 item.toolHexoriumProbe.name=Hexorium Probe
@@ -618,6 +619,12 @@ achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks
 
 achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
 achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
+
+achievement.hexcraft.achCraftSoundEmissionModule=Crystalline Resonance
+achievement.hexcraft.achCraftSoundEmissionModule.desc=Craft a Sound Emission Module.
+
+achievement.hexcraft.achCraftSoundProjector=The Phantom of the Opera
+achievement.hexcraft.achCraftSoundProjector.desc=Craft a Sound Projector.
 
 achievement.hexcraft.achCraftMachineBlock=Industrial Revolution
 achievement.hexcraft.achCraftMachineBlock.desc=Craft a Hexorium Machine Block.
