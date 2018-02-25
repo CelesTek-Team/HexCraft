@@ -24,7 +24,6 @@ public class TileSound extends TileEntity {
 
     public void stopSound() {
         if (sound != null) {
-            System.out.println("Stopping sound!");
             HexSound.stopSound(sound);
             sound = null;
         }
@@ -32,7 +31,6 @@ public class TileSound extends TileEntity {
 
     public void playSound(double x, double y, double z, String soundName, float range, boolean skipCheck) {
         if (sound == null || skipCheck) {
-            System.out.println("Activating sound!");
             sound = HexSound.playSound(x, y, z, soundName, range);
         }
     }

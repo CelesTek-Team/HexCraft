@@ -40,6 +40,7 @@ public class TileSoundProjector extends TileEntity {
     private static final String NBT_SOUND_NAME = "sound_name";
     private static final String NBT_SOUND_RANGE = "sound_range";
     private static final String NBT_SOUND_DISTANCE = "sound_distance";
+    private static final String NBT_SOUND_LOOP = "sound_loop";
 
     private static final String NBT_POWERED = "powered";
 
@@ -49,6 +50,7 @@ public class TileSoundProjector extends TileEntity {
     private String soundName;
     private int soundRange;
     private int soundDistance;
+    private boolean soundLoop;
 
     private boolean powered;
 
@@ -63,6 +65,7 @@ public class TileSoundProjector extends TileEntity {
         this.soundName = "power";
         this.soundRange = 16;
         this.soundDistance = 0;
+        this.soundLoop = true;
 
         this.powered = false;
 
@@ -82,6 +85,7 @@ public class TileSoundProjector extends TileEntity {
         tagCompound.setString(NBT_SOUND_NAME, soundName);
         tagCompound.setInteger(NBT_SOUND_RANGE, soundRange);
         tagCompound.setInteger(NBT_SOUND_DISTANCE, soundDistance);
+        tagCompound.setBoolean(NBT_SOUND_LOOP, soundLoop);
 
         tagCompound.setBoolean(NBT_POWERED, powered);
     }
@@ -97,6 +101,7 @@ public class TileSoundProjector extends TileEntity {
         soundName = tagCompound.getString(NBT_SOUND_NAME);
         soundRange = tagCompound.getInteger(NBT_SOUND_RANGE);
         soundDistance = tagCompound.getInteger(NBT_SOUND_DISTANCE);
+        soundLoop = tagCompound.getBoolean(NBT_SOUND_LOOP);
 
         powered = tagCompound.getBoolean(NBT_POWERED);
     }
@@ -126,9 +131,16 @@ public class TileSoundProjector extends TileEntity {
      */
     @Override
     public void updateEntity() {
-        if (firstTickClient) {
-            processSound();
-            firstTickClient = false;
+        if (worldObj.isRemote) {
+            if (firstTickClient) {
+                processSound();
+                firstTickClient = false;
+            }
+            else {
+                if (powered && !sound.isPlaying() && soundLoop) {
+                    sound.playSound(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, soundName, getNormalizedRange(), true);
+                }
+            }
         }
     }
 
@@ -184,9 +196,16 @@ public class TileSoundProjector extends TileEntity {
         return this.soundDistance;
     }
 
+    public void getSoundLoop(boolean soundLoop) {
+        this.soundLoop = soundLoop;
+    }
+
+    public boolean getSoundLoop() {
+        return this.soundLoop;
+    }
+
     public void setPowered(boolean powered) {
         this.powered = powered;
-
         processSound();
     }
 
