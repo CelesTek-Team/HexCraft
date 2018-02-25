@@ -51,6 +51,11 @@ public class TileSoundProjector extends TileEntity {
 
     private static final String NBT_POWERED = "powered";
 
+    public static final int SOUND_RANGE_MIN = 0;
+    public static final int SOUND_RANGE_MAX = 128;
+    public static final int SOUND_DISTANCE_MIN = 0;
+    public static final int SOUND_DISTANCE_MAX = 128;
+
     /**** Variables ****/
 
     // Prepare variables.
@@ -129,7 +134,6 @@ public class TileSoundProjector extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.func_148857_g());
-        // Prime the updateEntity() for a list rebuild.
         firstTickClient = true;
     }
 
@@ -181,7 +185,7 @@ public class TileSoundProjector extends TileEntity {
 
     private float getNormalizedRange() {
         if (worldObj.isRemote) {
-            return Math.min(soundRange, HexSound.MAX_RANGE) / HexSound.DEFAULT_RANGE;
+            return Math.min(soundRange, SOUND_RANGE_MAX) / HexSound.DEFAULT_RANGE;
         }
         return soundRange / HexSound.DEFAULT_RANGE;
     }
@@ -212,7 +216,7 @@ public class TileSoundProjector extends TileEntity {
         return this.soundDistance;
     }
 
-    public void getSoundLoop(boolean soundLoop) {
+    public void setSoundLoop(boolean soundLoop) {
         this.soundLoop = soundLoop;
     }
 
