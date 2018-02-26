@@ -10,9 +10,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_0;
-import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_1;
-import static com.celestek.hexcraft.block.BlockSoundProjector.META_ORIENTATION_2;
+import static com.celestek.hexcraft.block.BlockSoundProjector.*;
 
 
 /**
@@ -156,7 +154,7 @@ public class TileSoundProjector extends TileEntity {
     }
 
     private void playSoundInDirection(boolean skipCheck) {
-        int orientation = HexUtils.getBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, blockMetadata);
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, worldObj, xCoord, yCoord, zCoord);
         switch (orientation) {
             case 0: sound.playSound(xCoord + 0.5D, yCoord + 0.5D - soundDistance, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
             case 1: sound.playSound(xCoord + 0.5D, yCoord + 0.5D + soundDistance, zCoord + 0.5D, soundName, getNormalizedRange(), skipCheck); break;
