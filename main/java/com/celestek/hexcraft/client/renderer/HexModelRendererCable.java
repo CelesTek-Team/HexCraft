@@ -1275,6 +1275,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 blockTemp == HexBlocks.blockHexoriumCableRainbow ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
+                blockTemp == HexBlocks.blockQuantumObserver ||
                 (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y - 1, z)))
             sides[0] = true;
 

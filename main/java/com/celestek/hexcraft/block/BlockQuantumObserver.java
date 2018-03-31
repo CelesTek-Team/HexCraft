@@ -6,8 +6,10 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.tileentity.TileQuantumObserver;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import com.celestek.hexcraft.util.ObserverAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -54,9 +56,7 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
      */
     @Override
     public TileEntity createNewTileEntity(World world, int par2) {
-        //TODO: Implement TE
-        //return new TileQuantumObserver();
-        return null;
+        return new TileQuantumObserver();
     }
 
     /**
@@ -64,7 +64,9 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
      */
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack) {
-        //TODO: Add area analysis
+        int meta = HexUtils.setBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, HexBlocks.MACHINE_STATE_DEAD, 0);
+        world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
+
         // Check if the code is executed on the server.
         if(!world.isRemote) {
             if (HexConfig.cfgGeneralNetworkDebug)
@@ -72,7 +74,13 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            //analyzer.analyzeMachines(world, x, y, z, 0);
+            analyzer.analyzeMachines(world, x, y, z, 0);
+
+            if (HexConfig.cfgObserverDebug)
+                System.out.println("[Quantum Observer] (" + x + ", " + y + ", " + z + "): Anchor analysis started!");
+
+            ObserverAnalyzer observerAnalyzer = new ObserverAnalyzer();
+            observerAnalyzer.analyzeObserver(world, x, y - 1, z);
         }
     }
 
@@ -86,11 +94,11 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
         if (itemStack != null) {
             if (itemStack.getItem() != HexItems.itemHexoriumManipulator && itemStack.getItem() != HexItems.itemHexoriumProbe)
                 // Open the GUI.
-                player.openGui(HexCraft.instance, HexGui.GUI_ID_PERSONAL_TELEPORTATION_PAD, world, x, y, z);
+                player.openGui(HexCraft.instance, HexGui.GUI_ID_QUANTUM_OBSERVER, world, x, y, z);
         }
         else
             // Open the GUI.
-            player.openGui(HexCraft.instance, HexGui.GUI_ID_PERSONAL_TELEPORTATION_PAD, world, x, y, z);
+            player.openGui(HexCraft.instance, HexGui.GUI_ID_QUANTUM_OBSERVER, world, x, y, z);
         return true;
     }
 
@@ -105,11 +113,18 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
                 || block instanceof BlockPylonBase
                 || block instanceof BlockEnergyNodePortHEX) {
             if (HexConfig.cfgGeneralNetworkDebug)
-                System.out.println("[Quantum Observer] (" + x + ", " + y + ", " + z + "): Quantum Observer placed, analyzing!");
+                System.out.println("[Quantum Observer] (" + x + ", " + y + ", " + z + "): Neighbour block changed, analyzing!");
 
             /* DO ANALYSIS, BASED ON ORIENTATION */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y, z, 0);
+        }
+        else if (block == HexBlocks.blockQuantumAnchor) {
+            if (HexConfig.cfgObserverDebug)
+                System.out.println("[Quantum Observer] (" + x + ", " + y + ", " + z + "): Neighbour anchor changed, analyzing!");
+
+            ObserverAnalyzer observerAnalyzer = new ObserverAnalyzer();
+            observerAnalyzer.analyzeObserver(world, x, y - 1, z);
         }
     }
 
@@ -118,15 +133,13 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
      */
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-        //TODO: Implement TE
-        /*
         TileQuantumObserver tileQuantumObserver = (TileQuantumObserver) world.getTileEntity(x, y, z);
 
         if (tileQuantumObserver != null) {
+            tileQuantumObserver.stopChunkLoading();
             world.func_147453_f(x, y, z, block);
         }
         super.breakBlock(world, x, y, z, block, meta);
-        */
     }
 
     /**

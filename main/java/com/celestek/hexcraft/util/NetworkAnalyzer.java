@@ -299,6 +299,15 @@ public class NetworkAnalyzer {
 
             // Check if the current block is an energy drain.
             else if (block instanceof IBlockHexEnergyDrain) {
+                if (block == HexBlocks.blockQuantumObserver && direction == 0) {
+                    // Check if this energy drain has already been added to the energyDrains ArrayList.
+                    if (!energyDrains.contains(new HexDevice(x, y, z, block))) {
+                        // Add the energy drain to the ArrayList.
+                        energyDrains.add(new HexDevice(x, y, z, block));
+                        // Exit recursion.
+                        return;
+                    }
+                }
                 if (block == HexBlocks.blockPersonalTeleportationPad && direction == 1) {
                     if (!teleports.contains(new HexDevice(x, y, z, block)))
                         teleports.add(new HexDevice(x, y, z, block));

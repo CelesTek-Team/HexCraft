@@ -415,6 +415,7 @@ hexcraft.container.hexoriumFurnace=Hexorium Furnace
 hexcraft.container.crystalSeparator=Crystal Separator
 hexcraft.container.matrixReconstructor=Matrix Reconstructor
 hexcraft.container.personalTeleportationPad=Personal Teleportation Pad
+hexcraft.container.quantumObserver=Quantum Observer
 hexcraft.container.hexoriumTank=Hexorium Tank
 hexcraft.container.soundProjector=Sound Projector
 
@@ -428,6 +429,8 @@ hexcraft.container.molecularTransposer=Molecular Transposer
 hexcraft.container.in=In
 hexcraft.container.out=Out
 hexcraft.container.charge=Charge
+hexcraft.container.chunk_area=Chunk Area
+hexcraft.container.energy_usage=Energy Usage
 hexcraft.container.f=F
 hexcraft.container.l=L
 hexcraft.container.m=M

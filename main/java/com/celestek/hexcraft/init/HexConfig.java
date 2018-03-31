@@ -29,6 +29,14 @@ public class HexConfig {
     // General - Quantum Observer
     public static String categoryObserver = "General - Quantum Observer";
     public static boolean cfgObserverEnable = true;
+    public static int cfgObserverSize1 = 4;
+    public static int cfgObserverSize2 = 32;
+    public static int cfgObserverSize3 = 96;
+    public static int cfgObserverSize4 = 192;
+    public static int cfgObserverSize5 = 320;
+    public static int cfgObserverSize6 = 480;
+    public static boolean cfgObserverDebug = false;
+    public static boolean cfgObserverVerboseDebug = false;
 
     // General - Hexorium Tank
     public static String categoryTank = "General - Hexorium Tank";
@@ -382,7 +390,14 @@ public class HexConfig {
         // General - Quantum Observer
         config.setCategoryComment(categoryObserver, "Configuration for the Quantum Observer (Chunk Loader).");
         cfgObserverEnable = config.getBoolean("Enable Quantum Observer", categoryObserver, cfgObserverEnable, "Enables the Quantum Observer and Quantum Anchor blocks.\n");
-
+        cfgObserverSize1 = config.getInt("1x1 chunk loading usage cost", categoryObserver, cfgObserverSize1, 1, 3840, "The HEX/t usage when loading 1x1 chunks.\n");
+        cfgObserverSize2 = config.getInt("3x3 chunk loading usage cost", categoryObserver, cfgObserverSize2, 1, 3840, "The HEX/t usage when loading 3x3 chunks.\n");
+        cfgObserverSize3 = config.getInt("5x5 chunk loading usage cost", categoryObserver, cfgObserverSize3, 1, 3840, "The HEX/t usage when loading 5x5 chunks.\n");
+        cfgObserverSize4 = config.getInt("7x7 chunk loading usage cost", categoryObserver, cfgObserverSize4, 1, 3840, "The HEX/t usage when loading 7x7 chunks.\n");
+        cfgObserverSize5 = config.getInt("9x9 chunk loading usage cost", categoryObserver, cfgObserverSize5, 1, 3840, "The HEX/t usage when loading 9x9 chunks.\n");
+        cfgObserverSize6 = config.getInt("11x11 chunk loading usage cost", categoryObserver, cfgObserverSize6, 1, 3840, "The HEX/t usage when loading 11x11 chunks.\n");
+        cfgObserverDebug = config.getBoolean("Quantum Observer debugging", categoryObserver, cfgObserverDebug, "If set to true, will output the Quantum Observer debugging to console.\n");
+        cfgObserverVerboseDebug = config.getBoolean("Quantum Observer debugging (verbose)", categoryObserver, cfgObserverVerboseDebug, "If set to true, will output extremely detailed Quantum Observer debugging info. Quantum Observer\ndebugging needs to be enabled.\n");
 
         // General - Hexorium Tank
         config.setCategoryComment(categoryTank, "Configuration for the Hexorium Tank multiblock structure.");

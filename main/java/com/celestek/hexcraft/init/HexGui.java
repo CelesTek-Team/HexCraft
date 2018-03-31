@@ -22,6 +22,7 @@ public class HexGui implements IGuiHandler {
     public static final int GUI_ID_MOLECULAR_TRANSPOSER = 5;
     public static final int GUI_ID_TANK_VALVE = 6;
     public static final int GUI_ID_SOUND_PROJECTOR = 7;
+    public static final int GUI_ID_QUANTUM_OBSERVER = 8;
 
     public HexGui () {}
 
@@ -63,6 +64,10 @@ public class HexGui implements IGuiHandler {
             TileSoundProjector tileEntity = (TileSoundProjector) world.getTileEntity(x, y, z);
             return new ContainerSoundProjector(tileEntity);
         }
+        else if(ID == GUI_ID_QUANTUM_OBSERVER) {
+            TileQuantumObserver tileEntity = (TileQuantumObserver) world.getTileEntity(x, y, z);
+            return new ContainerQuantumObserver(tileEntity);
+        }
         return null;
     }
 
@@ -103,6 +108,10 @@ public class HexGui implements IGuiHandler {
         else if(ID == GUI_ID_SOUND_PROJECTOR) {
             TileSoundProjector tileEntity = (TileSoundProjector) world.getTileEntity(x, y, z);
             return new GuiSoundProjector(tileEntity);
+        }
+        else if(ID == GUI_ID_QUANTUM_OBSERVER) {
+            TileQuantumObserver tileEntity = (TileQuantumObserver) world.getTileEntity(x, y, z);
+            return new GuiQuantumObserver(tileEntity);
         }
         return null;
     }

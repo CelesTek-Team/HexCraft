@@ -415,6 +415,7 @@ hexcraft.container.hexoriumFurnace=Heksorijska Peć
 hexcraft.container.crystalSeparator=Kristalni Razdvajač
 hexcraft.container.matrixReconstructor=Matrični Rekonstruktor
 hexcraft.container.personalTeleportationPad=Osobna Teleportacijska Ploča
+hexcraft.container.quantumObserver=Kvantni Promatrač
 hexcraft.container.hexoriumTank=Heksorijski Tank
 hexcraft.container.soundProjector=Projektor Zvuka
 
@@ -428,6 +429,8 @@ hexcraft.container.molecularTransposer=Molekulski Izmjenivač
 hexcraft.container.in=Ulaz
 hexcraft.container.out=Izlaz
 hexcraft.container.charge=Naboj
+hexcraft.container.chunk_area=Prostor komadića
+hexcraft.container.energy_usage=Potrošnja energije
 hexcraft.container.f=T
 hexcraft.container.l=R
 hexcraft.container.m=M

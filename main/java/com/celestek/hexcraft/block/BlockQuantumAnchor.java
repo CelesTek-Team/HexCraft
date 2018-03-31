@@ -1,7 +1,10 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
+import com.celestek.hexcraft.util.ObserverAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -42,8 +45,27 @@ public class BlockQuantumAnchor extends HexBlock {
      */
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-        //TODO: Implement area scanner.
+        // Check if the code is executed on the server.
+        if(!world.isRemote) {
+            if (HexConfig.cfgObserverDebug)
+                System.out.println("[Quantum Anchor] (" + x + ", " + y + ", " + z + "): Anchor analysis started!");
+
+            ObserverAnalyzer observerAnalyzer = new ObserverAnalyzer();
+            observerAnalyzer.analyzeObserver(world, x, y, z);
+        }
+
         return 0;
+    }
+
+    /**
+     * Called when a block near is changed.
+     */
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+        System.out.println("[Quantum Anchor] (" + x + ", " + y + ", " + z + "): Neighbour block changed, analyzing!");
+
+        ObserverAnalyzer observerAnalyzer = new ObserverAnalyzer();
+        observerAnalyzer.analyzeObserver(world, x, y, z);
     }
 
     /// Prepare the icons.

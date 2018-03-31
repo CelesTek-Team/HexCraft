@@ -21,6 +21,9 @@ public class HexTileEntities {
         if (HexConfig.cfgTeleportEnable)
             GameRegistry.registerTileEntity(TilePersonalTeleportationPad.class, TilePersonalTeleportationPad.ID);
 
+        if (HexConfig.cfgObserverEnable)
+            GameRegistry.registerTileEntity(TileQuantumObserver.class, TileQuantumObserver.ID);
+
         GameRegistry.registerTileEntity(TileEnergyPylon.class, TileEnergyPylon.ID);
 
         if (HexConfig.cfgTankEnable) {
