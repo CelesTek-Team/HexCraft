@@ -82,6 +82,7 @@ public class HexAchievements {
     public static Achievement achCraftMachineReconstructor;
     public static Achievement achCraftMachineTankValve;
     public static Achievement achCraftMachineTeleport;
+    public static Achievement achCraftMachineQuantumObserver;
     public static Achievement achCraftPylon;
 
     // Machines Special
@@ -227,14 +228,18 @@ public class HexAchievements {
         achList.add(achCraftCable);
 
         // T2 Machines
-        achCraftMachineGenerator = new Achievement(hex1 + "achCraftMachineGenerator", hex2 + "achCraftMachineGenerator", -9, 3, HexBlocks.blockHexoriumGenerator, achCraftMachineBlock).registerStat();
+        achCraftMachineGenerator = new Achievement(hex1 + "achCraftMachineGenerator", hex2 + "achCraftMachineGenerator", -10, 3, HexBlocks.blockHexoriumGenerator, achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineGenerator);
-        achCraftMachineFurnace = new Achievement(hex1 + "achCraftMachineFurnace", hex2 + "achCraftMachineFurnace", -8, 3, HexBlocks.blockHexoriumFurnace, achCraftMachineBlock).registerStat();
+        achCraftMachineFurnace = new Achievement(hex1 + "achCraftMachineFurnace", hex2 + "achCraftMachineFurnace", -9, 3, HexBlocks.blockHexoriumFurnace, achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineFurnace);
-        achCraftMachineSeparator = new Achievement(hex1 + "achCraftMachineSeparator", hex2 + "achCraftMachineSeparator", -7, 3, HexBlocks.blockCrystalSeparator, achCraftMachineBlock).registerStat();
+        achCraftMachineSeparator = new Achievement(hex1 + "achCraftMachineSeparator", hex2 + "achCraftMachineSeparator", -8, 3, HexBlocks.blockCrystalSeparator, achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineSeparator);
-        achCraftMachineReconstructor = new Achievement(hex1 + "achCraftMachineReconstructor", hex2 + "achCraftMachineReconstructor", -6, 3, HexBlocks.blockMatrixReconstructor,achCraftMachineBlock).registerStat();
+        achCraftMachineReconstructor = new Achievement(hex1 + "achCraftMachineReconstructor", hex2 + "achCraftMachineReconstructor", -7, 3, HexBlocks.blockMatrixReconstructor,achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineReconstructor);
+        if (HexConfig.cfgObserverEnable) {
+            achCraftMachineQuantumObserver = new Achievement(hex1 + "achCraftMachineQuantumObserver", hex2 + "achCraftMachineQuantumObserver", -6, 3, HexBlocks.blockQuantumObserver, achCraftMachineBlock).registerStat();
+            achList.add(achCraftMachineQuantumObserver);
+        }
         if (HexConfig.cfgTankEnable) {
             achCraftMachineTankValve = new Achievement(hex1 + "achCraftMachineTankValve", hex2 + "achCraftMachineTankValve", -5, 3, HexBlocks.blockTankValve, achCraftMachineBlock).registerStat();
             achList.add(achCraftMachineTankValve);
@@ -247,7 +252,7 @@ public class HexAchievements {
         achList.add(achCraftPylon);
 
         // Machines Special
-        achGroupMachines = new Achievement(hex1 + "achGroupMachines", hex2 + "achGroupMachines", -11, 3, HexItems.itemMachineControlPanel, achCraftMachineBlock).setSpecial().registerStat();
+        achGroupMachines = new Achievement(hex1 + "achGroupMachines", hex2 + "achGroupMachines", -12, 3, HexItems.itemMachineControlPanel, achCraftMachineBlock).setSpecial().registerStat();
         achList.add(achGroupMachines);
 
         // Manipulator

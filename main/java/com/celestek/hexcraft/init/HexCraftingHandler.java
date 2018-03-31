@@ -179,6 +179,10 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftMachineTeleport, 1);
                 checkMachines = true;
             }
+            else if (block == HexBlocks.blockQuantumObserver && HexConfig.cfgObserverEnable) {
+                event.player.addStat(HexAchievements.achCraftMachineQuantumObserver, 1);
+                checkMachines = true;
+            }
             else if (block == HexBlocks.blockEnergyPylon)
                 event.player.addStat(HexAchievements.achCraftPylon, 1);
 
@@ -227,7 +231,13 @@ public class HexCraftingHandler {
                     else
                         tankAch = true;
 
-                    if (teleportAch && tankAch)
+                    boolean observerAch;
+                    if (HexConfig.cfgObserverEnable)
+                        observerAch = playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineQuantumObserver);
+                    else
+                        observerAch = true;
+
+                    if (teleportAch && tankAch && observerAch)
                         event.player.addStat(HexAchievements.achGroupMachines, 1);
                 }
             }

@@ -247,9 +247,20 @@ public class TileQuantumObserver extends TileEntity implements ITileHexEnergyDra
         if (!player.isSneaking()) {
             HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
             player.addChatMessage(new ChatComponentTranslation("msg.probeTypeDrain.txt"));
+            String chunkArea = "";
+            switch (chunkSize) {
+                case 0: chunkArea = "N/A"; break;
+                case 1: chunkArea = "1x1"; break;
+                case 2: chunkArea = "3x3"; break;
+                case 3: chunkArea = "5x5"; break;
+                case 4: chunkArea = "7x7"; break;
+                case 5: chunkArea = "9x9"; break;
+                case 6: chunkArea = "11x11"; break;
+            }
+            player.addChatMessage(new ChatComponentTranslation("msg.probeChunkArea.txt", chunkArea));
+            player.addChatMessage(new ChatComponentTranslation("msg.probeEnergyUsage.txt", energyPerTick));
             int mode = HexUtils.getMetaBitBiInt(HexBlocks.META_MACHINE_STATUS_0, HexBlocks.META_MACHINE_STATUS_1, worldObj, xCoord, yCoord, zCoord);
             player.addChatMessage(new ChatComponentTranslation("msg.probeMachineStatus" + (mode + 1) + ".txt"));
-            //TODO: Add probe for chunk loading.
         }
         // If player is sneaking.
         else {

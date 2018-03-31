@@ -532,6 +532,8 @@ msg.probeMasterYes.txt=  Master: Yes
 msg.probeMasterNo.txt=  Master: No
 msg.probeInsertedYes.txt=  Inserted: Yes
 msg.probeInsertedNo.txt=  Inserted: No
+msg.probeChunkArea.txt=  Chunk Area: %s
+msg.probeEnergyUsage.txt=  Energy Usage: %d HEX/t
 
 msg.probeConnectedSources.txt=  Connected Sources
 msg.probeConnectedDrains.txt=  Connected Drains
@@ -650,6 +652,8 @@ achievement.hexcraft.achCraftMachineTankValve=HL3 Confirmed!
 achievement.hexcraft.achCraftMachineTankValve.desc=Craft a Tank Valve.
 achievement.hexcraft.achCraftMachineTeleport=Biological Material To Energy
 achievement.hexcraft.achCraftMachineTeleport.desc=Craft a Personal Teleportation Pad.
+achievement.hexcraft.achCraftMachineQuantumObserver=Schrödinger's Hexorium
+achievement.hexcraft.achCraftMachineQuantumObserver.desc=Craft a Quantum Observer.
 achievement.hexcraft.achCraftPylon=You Must Construct Additional Pylons!
 achievement.hexcraft.achCraftPylon.desc=Craft an Energy Pylon.
 
