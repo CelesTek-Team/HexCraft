@@ -26,6 +26,10 @@ public class HexConfig {
     public static int cfgTeleportDamageAmount = 4;
     public static int cfgTeleportUsageCost = 102400;
 
+    // General - Quantum Observer
+    public static String categoryObserver = "General - Quantum Observer";
+    public static boolean cfgObserverEnable = true;
+
     // General - Hexorium Tank
     public static String categoryTank = "General - Hexorium Tank";
     public static boolean cfgTankEnable = true;
@@ -373,6 +377,12 @@ public class HexConfig {
         cfgTeleportShouldDamagePlayers = config.getBoolean("Teleport should damage", categoryTeleport, cfgTeleportShouldDamagePlayers, "If the teleportation should damage players and apply the potion effect.\n");
         cfgTeleportDamageAmount = config.getInt("Teleport damage amount", categoryTeleport, cfgTeleportDamageAmount, 1, 20, "The amount of damage teleportation deals, 2 equals 1 heart.\n");
         cfgTeleportUsageCost = config.getInt("Teleport usage cost", categoryTeleport, cfgTeleportUsageCost, 1, 1628400, "The cost of a single teleport, 51200 equals one Coal.\n");
+
+
+        // General - Quantum Observer
+        config.setCategoryComment(categoryObserver, "Configuration for the Quantum Observer (Chunk Loader).");
+        cfgObserverEnable = config.getBoolean("Enable Quantum Observer", categoryObserver, cfgObserverEnable, "Enables the Quantum Observer and Quantum Anchor blocks.\n");
+
 
         // General - Hexorium Tank
         config.setCategoryComment(categoryTank, "Configuration for the Hexorium Tank multiblock structure.");

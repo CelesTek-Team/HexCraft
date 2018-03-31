@@ -45,6 +45,7 @@ public class HexItems {
     public static Item itemMatrixAdjuster;
     public static Item itemMaterialInteractionPlane;
     public static Item itemTeleportationFieldProjector;
+    public static Item itemObservationalEye;
     public static Item itemDigitalSmartpipe;
     public static Item itemSoundEmissionModule;
     
@@ -126,6 +127,10 @@ public class HexItems {
             GameRegistry.registerItem(itemMaterialInteractionPlane, "itemMaterialInteractionPlane");
             itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
             GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
+        }
+        if (HexConfig.cfgObserverEnable) {
+            itemObservationalEye = new HexItemComponent("itemObservationalEye");
+            GameRegistry.registerItem(itemObservationalEye, "itemObservationalEye");
         }
         if (HexConfig.cfgTankEnable) {
             itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");

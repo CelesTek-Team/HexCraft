@@ -28,11 +28,13 @@ public class HexRecipes {
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
         ItemStack stackRedstoneTorch_1 = new ItemStack(Blocks.redstone_torch, 1);
         ItemStack stackRedstoneBlock_1 = new ItemStack(Blocks.redstone_block, 1);
+        ItemStack stackIronBars_1 = new ItemStack(Blocks.iron_bars, 1);
 
         // Vanilla Items
         ItemStack stackRedstone_1 = new ItemStack(Items.redstone, 1);
         ItemStack stackGlowstoneDust_1 = new ItemStack(Items.glowstone_dust, 1);
         ItemStack stackIronPickaxe_1 = new ItemStack(Items.iron_pickaxe, 1);
+        ItemStack stackEnderEye_1 = new ItemStack(Items.ender_eye, 1);
 
 
         // Hex Blocks
@@ -294,6 +296,9 @@ public class HexRecipes {
 
         ItemStack stackPersonalTeleportationPad_1 = new ItemStack(HexBlocks.blockPersonalTeleportationPad, 1);
 
+        ItemStack stackQuantumObserver_1 = new ItemStack(HexBlocks.blockQuantumObserver, 1);
+        ItemStack stackQuantumAnchor_1 = new ItemStack(HexBlocks.blockQuantumAnchor, 1);
+
         // Tank Valve
         ItemStack stackTankValve_1 = new ItemStack(HexBlocks.blockTankValve, 1);
 
@@ -401,6 +406,7 @@ public class HexRecipes {
         ItemStack stackMatrixAdjuster_1 = new ItemStack(HexItems.itemMatrixAdjuster, 1);
         ItemStack stackMaterialInteractionPlane_1 = new ItemStack(HexItems.itemMaterialInteractionPlane, 1);
         ItemStack stackTeleportationFieldProjector_1 = new ItemStack(HexItems.itemTeleportationFieldProjector, 1);
+        ItemStack stackObservationalEye_1 = new ItemStack(HexItems.itemObservationalEye, 1);
         ItemStack stackDigitalSmartpipe_1 = new ItemStack(HexItems.itemDigitalSmartpipe, 1);
         ItemStack stackSoundEmissionModule_1 = new ItemStack(HexItems.itemSoundEmissionModule, 1);
 
@@ -409,6 +415,9 @@ public class HexRecipes {
         ItemStack stackHexoriumProbe_1 = new ItemStack(HexItems.itemHexoriumProbe, 1);
         ItemStack stackMolecularTransposer_1 = new ItemStack(HexItems.itemMolecularTransposer, 1);
         ItemStack stackHexoriumReinforcer_6 = new ItemStack(HexItems.itemHexoriumReinforcer, 6);
+
+        // Misc
+        ItemStack stackEnergizedHexoriumMonolithBlack_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1);
 
 
         /* Recipe init */
@@ -2083,6 +2092,20 @@ public class HexRecipes {
                     'E', stackMaterialInteractionPlane_1, 'F', "ingotIron"));
         }
 
+        if (HexConfig.cfgObserverEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackQuantumObserver_1,
+                    "CBF",
+                    "FAF",
+                    "EDE",
+                    'A', stackObservationalEye_1, 'B', stackMachineEnergyRouter_1, 'C', stackMachineControlPanel_1, 'D', stackEnergizedHexoriumBlack_1,
+                    'E', stackIronBars_1, 'F', "ingotIron"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackQuantumAnchor_1,
+                    "B B",
+                    "BAB",
+                    "B B",
+                    'A', stackEnergizedHexoriumBlack_1, 'B', stackIronBars_1));
+        }
+
         // Tank Valve
         if (HexConfig.cfgTankEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackTankValve_1,
@@ -2937,6 +2960,13 @@ public class HexRecipes {
                     "BCB",
                     "ERE",
                     'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', "gemDiamond", 'E', "ingotGold"));
+        }
+        if (HexConfig.cfgObserverEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackObservationalEye_1,
+                    " A ",
+                    " C ",
+                    " B ",
+                    'A', stackEnergizedHexoriumMonolithBlack_1, 'B', stackHexoriumProcessor_1, 'C', stackEnderEye_1));
         }
         if (HexConfig.cfgTankEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackDigitalSmartpipe_1,

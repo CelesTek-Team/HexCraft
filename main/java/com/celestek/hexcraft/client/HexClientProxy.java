@@ -868,6 +868,15 @@ public class HexClientProxy extends HexCommonProxy {
                     HexColors.COLOR_CYAN_R, HexColors.COLOR_CYAN_G, HexColors.COLOR_CYAN_B));
         }
 
+        if (HexConfig.cfgObserverEnable) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_BLACK_R, HexColors.COLOR_BLACK_G, HexColors.COLOR_BLACK_B));
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexColors.BRIGHTNESS_BRIGHT, HexColors.COLOR_BLACK_R, HexColors.COLOR_BLACK_G, HexColors.COLOR_BLACK_B));
+        }
+
         // Tank Valve
         if (HexConfig.cfgTankEnable) {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();

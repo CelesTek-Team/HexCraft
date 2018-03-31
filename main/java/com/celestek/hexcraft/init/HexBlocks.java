@@ -38,7 +38,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static final int countBlocks = 287;
+    public static final int countBlocks = 289;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -352,6 +352,9 @@ public class HexBlocks {
     public static Block blockMatrixReconstructor;
 
     public static Block blockPersonalTeleportationPad;
+
+    public static Block blockQuantumObserver;
+    public static Block blockQuantumAnchor;
 
     // Hexiroum Valve
     public static Block blockTankValve;
@@ -987,6 +990,14 @@ public class HexBlocks {
             blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.ID);
             GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.ID);
         }
+
+        if (HexConfig.cfgObserverEnable) {
+            blockQuantumObserver = new BlockQuantumObserver(BlockQuantumObserver.ID);
+            GameRegistry.registerBlock(blockQuantumObserver, BlockQuantumObserver.ID);
+            blockQuantumAnchor = new BlockQuantumAnchor(BlockQuantumAnchor.ID);
+            GameRegistry.registerBlock(blockQuantumAnchor, BlockQuantumAnchor.ID);
+        }
+
 
         // Tank Valve
         if (HexConfig.cfgTankEnable) {

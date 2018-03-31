@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.tileentity.TileSound;
 import com.celestek.hexcraft.tileentity.TileSoundProjector;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -116,6 +117,19 @@ public class BlockSoundProjector extends HexBlockContainer {
                 tileSoundProjector.setPowered(powered);
             }
         }
+    }
+
+    /**
+     * Called when the block is broken.
+     */
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+        TileSoundProjector tileSoundProjector = (TileSoundProjector) world.getTileEntity(x, y, z);
+
+        if (tileSoundProjector != null) {
+            world.func_147453_f(x, y, z, block);
+        }
+        super.breakBlock(world, x, y, z, block, meta);
     }
 
     // Prepare the icons.

@@ -308,6 +308,9 @@ tile.blockMatrixReconstructor.name=Matrix Reconstructor
 
 tile.blockPersonalTeleportationPad.name=Personal Teleportation Pad
 
+tile.blockQuantumObserver.name=Quantum Observer
+tile.blockQuantumAnchor.name=Quantum Anchor
+
 tile.blockTankValve.name=Tank Valve
 
 tile.blockEnergyNodeCoreT1.name=Energy Node Core (Tier 1)
@@ -397,6 +400,7 @@ item.itemCrystalExtractionUnit.name=Crystal Extraction Unit
 item.itemMatrixAdjuster.name=Matrix Adjuster
 item.itemMaterialInteractionPlane.name=Material Interaction Plane
 item.itemTeleportationFieldProjector.name=Teleportation Field Projector
+item.itemObservationalEye.name=Observational Eye
 item.itemDigitalSmartpipe.name=Digital Smartpipe
 item.itemSoundEmissionModule.name=Sound Emission Module
 

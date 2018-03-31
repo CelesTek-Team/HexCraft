@@ -624,32 +624,41 @@ public class NetworkAnalyzer {
      * @param meta Meta of the machine.
      */
     public void analyzeMachines(World world, int x, int y, int z, int meta) {
-        int orientation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, meta);
         int pylOr0 = BlockPylonBase.META_ORIENTATION_0;
         int pylOr1 = BlockPylonBase.META_ORIENTATION_1;
         int pylOr2 = BlockPylonBase.META_ORIENTATION_2;
 
-        // Proceed to side depending on orientation.
-        if (orientation == 0 &&
-                (world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable ||
-                        (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
-                        (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2)))
-            analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), -1);
-        else if (orientation == 1 &&
-                (world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable ||
-                        (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
-                        (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5)))
-            analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), -1);
-        else if (orientation == 2 &&
-                (world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable ||
-                        (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
-                        (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3)))
-            analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), -1);
-        else if (orientation == 3 &&
-                (world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable ||
-                        (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
-                        (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4)))
-            analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
+        if (world.getBlock(x, y, z) == HexBlocks.blockQuantumObserver) {
+            if (world.getBlock(x, y + 1, z) instanceof BlockHexoriumCable ||
+                            (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 2) ||
+                            (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 2))
+                analyze(world, x, y + 1, z, world.getBlock(x, y + 1, z), -1);
+        }
+        else {
+            int orientation = HexUtils.getBitBiInt(HexBlocks.META_MACHINE_ROTATION_0, HexBlocks.META_MACHINE_ROTATION_1, meta);
+
+            // Proceed to side depending on orientation.
+            if (orientation == 0 &&
+                    (world.getBlock(x, y, z + 1) instanceof BlockHexoriumCable ||
+                            (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
+                            (world.getBlock(x, y, z + 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2)))
+                analyze(world, x, y, z + 1, world.getBlock(x, y, z + 1), -1);
+            else if (orientation == 1 &&
+                    (world.getBlock(x - 1, y, z) instanceof BlockHexoriumCable ||
+                            (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
+                            (world.getBlock(x - 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5)))
+                analyze(world, x - 1, y, z, world.getBlock(x - 1, y, z), -1);
+            else if (orientation == 2 &&
+                    (world.getBlock(x, y, z - 1) instanceof BlockHexoriumCable ||
+                            (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
+                            (world.getBlock(x, y, z - 1) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3)))
+                analyze(world, x, y, z - 1, world.getBlock(x, y, z - 1), -1);
+            else if (orientation == 3 &&
+                    (world.getBlock(x + 1, y, z) instanceof BlockHexoriumCable ||
+                            (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
+                            (world.getBlock(x + 1, y, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4)))
+                analyze(world, x + 1, y, z, world.getBlock(x + 1, y, z), -1);
+        }
 
         if (energyDrains.size() == 0 || energySources.size() == 0)
             addMachine(world, x, y, z);

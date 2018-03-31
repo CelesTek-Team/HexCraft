@@ -308,6 +308,9 @@ tile.blockMatrixReconstructor.name=Matrični Rekonstruktor
 
 tile.blockPersonalTeleportationPad.name=Osobna Teleportacijska Ploča
 
+tile.blockQuantumObserver.name=Kvantni Promatrač
+tile.blockQuantumAnchor.name=Kvantno Sidro
+
 tile.blockTankValve.name=Ventil Tanka
 
 tile.blockEnergyNodeCoreT1.name=Jezgra Energetskog Čvorišta (1. Razina)
@@ -397,6 +400,7 @@ item.itemCrystalExtractionUnit.name=Jedinica Za Ekstrakciju Kristala
 item.itemMatrixAdjuster.name=Ugođivać Matrice
 item.itemMaterialInteractionPlane.name=Ravnina Tvarne Interakcije
 item.itemTeleportationFieldProjector.name=Projektor Teleportacijskog Polja
+item.itemObservationalEye.name=Promatrajuće Oko
 item.itemDigitalSmartpipe.name=Digitalna Pametna Cijev
 item.itemSoundEmissionModule.name=Modul Emisije Zvuka
 
