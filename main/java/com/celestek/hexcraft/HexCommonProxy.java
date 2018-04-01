@@ -1,13 +1,17 @@
 package com.celestek.hexcraft;
 
 import com.celestek.hexcraft.init.*;
+import com.celestek.hexcraft.util.ChunkManager;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -28,7 +32,8 @@ public class HexCommonProxy {
         HexRecipes.initializeRecipes();
         HexTileEntities.initializeTileEntities();
         // Set up chunk loading.
-        ForgeChunkManager.setForcedChunkLoadingCallback(HexCraft.instance, null);
+        this.increaseChunkCap();
+        ChunkManager.instance.register();
     }
 
     /**
@@ -52,5 +57,12 @@ public class HexCommonProxy {
      */
     public void postInit(FMLPostInitializationEvent e) {
 
+    }
+
+    private void increaseChunkCap() {
+        Configuration cfg = ForgeChunkManager.getConfig();
+        Property modTC = cfg.get(HexCraft.MODID, "maximumTicketCount", 1000);
+        Property modCPT = cfg.get(HexCraft.MODID, "maximumChunksPerTicket", 2000);
+        cfg.save();
     }
 }

@@ -722,7 +722,17 @@ public class BlockEnergyPylon extends HexBlockContainer {
      */
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return false;
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
+        if((orientation == 0 && side == UP) ||
+                (orientation == 1 && side == DOWN) ||
+                (orientation == 2 && side == SOUTH) ||
+                (orientation == 3 && side == NORTH) ||
+                (orientation == 4 && side == EAST) ||
+                (orientation == 5 && side == WEST))
+            return true;
+        else
+            return false;
     }
 
     /**

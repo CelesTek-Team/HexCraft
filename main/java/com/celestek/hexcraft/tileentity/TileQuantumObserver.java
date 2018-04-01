@@ -3,6 +3,7 @@ package com.celestek.hexcraft.tileentity;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.ChunkManager;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +15,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeChunkManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -350,34 +352,7 @@ public class TileQuantumObserver extends TileEntity implements ITileHexEnergyDra
             if (HexConfig.cfgObserverDebug)
                 System.out.println("[Quantum Observer] Chunks are now being loaded.");
 
-            if (ticket0 == null && ticket1 == null && ticket2 == null && ticket3 == null && ticket4 == null) {
-                ticket0 = ForgeChunkManager.requestTicket(HexCraft.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-                ticket1 = ForgeChunkManager.requestTicket(HexCraft.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-                ticket2 = ForgeChunkManager.requestTicket(HexCraft.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-                ticket3 = ForgeChunkManager.requestTicket(HexCraft.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-                ticket4 = ForgeChunkManager.requestTicket(HexCraft.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-
-                int k = 0;
-                if (ticket0 != null && ticket1 != null && ticket2 != null && ticket3 != null && ticket4 != null) {
-                    Chunk centerChunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
-                    for (int i = centerChunk.xPosition - (chunkSize - 1); i <= centerChunk.xPosition + (chunkSize - 1); i++) {
-                        for (int j = centerChunk.zPosition - (chunkSize - 1); j <= centerChunk.zPosition + (chunkSize - 1); j++) {
-                            if (k >= 0 && k < 25)
-                                ForgeChunkManager.forceChunk(ticket0, new ChunkCoordIntPair(i, j));
-                            else if (k >= 25 && k < 50)
-                                ForgeChunkManager.forceChunk(ticket1, new ChunkCoordIntPair(i, j));
-                            else if (k >= 50 && k < 75)
-                                ForgeChunkManager.forceChunk(ticket2, new ChunkCoordIntPair(i, j));
-                            else if (k >= 75 && k < 100)
-                                ForgeChunkManager.forceChunk(ticket3, new ChunkCoordIntPair(i, j));
-                            else if (k >= 100 && k < 125)
-                                ForgeChunkManager.forceChunk(ticket4, new ChunkCoordIntPair(i, j));
-
-                            k++;
-                        }
-                    }
-                }
-            }
+            ChunkManager.instance.loadChunks(this);
         }
     }
 
@@ -388,18 +363,11 @@ public class TileQuantumObserver extends TileEntity implements ITileHexEnergyDra
         if (HexConfig.cfgObserverDebug)
             System.out.println("[Quantum Observer] Chunks are no longer being loaded.");
 
-        if (ticket0 != null && ticket1 != null && ticket2 != null && ticket3 != null && ticket4 != null) {
-            ForgeChunkManager.releaseTicket(ticket0);
-            ForgeChunkManager.releaseTicket(ticket1);
-            ForgeChunkManager.releaseTicket(ticket2);
-            ForgeChunkManager.releaseTicket(ticket3);
-            ForgeChunkManager.releaseTicket(ticket4);
-            ticket0 = null;
-            ticket1 = null;
-            ticket2 = null;
-            ticket3 = null;
-            ticket4 = null;
-        }
+        ChunkManager.instance.unloadChunks(this);
+    }
+
+    public Collection<ChunkCoordIntPair> getChunksToLoad() {
+        return ChunkManager.getChunkSquare(xCoord, zCoord, chunkSize-1);
     }
 
     /**
