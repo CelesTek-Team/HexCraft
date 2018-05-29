@@ -21,7 +21,6 @@ public class HexRecipes {
         /* Stack init */
 
         // Vanilla Blocks
-        ItemStack stackStone_1 = new ItemStack(Blocks.stone, 1);
         ItemStack stackObsidian_1 = new ItemStack(Blocks.obsidian, 1);
         ItemStack stackStoneButton_1 = new ItemStack(Blocks.stone_button, 1);
         ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
@@ -313,27 +312,27 @@ public class HexRecipes {
         ItemStack stackEnergyNodePortEU_1 = new ItemStack(HexBlocks.blockEnergyNodePortEU, 1);
 
         // Cables
-        ItemStack stackHexoriumCableRed_2 = new ItemStack(HexBlocks.blockHexoriumCableRed, 2);
-        ItemStack stackHexoriumCableOrange_2 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 2);
-        ItemStack stackHexoriumCableYellow_2 = new ItemStack(HexBlocks.blockHexoriumCableYellow, 2);
-        ItemStack stackHexoriumCableLime_2 = new ItemStack(HexBlocks.blockHexoriumCableLime, 2);
-        ItemStack stackHexoriumCableGreen_2 = new ItemStack(HexBlocks.blockHexoriumCableGreen, 2);
-        ItemStack stackHexoriumCableTurquoise_2 = new ItemStack(HexBlocks.blockHexoriumCableTurquoise, 2);
-        ItemStack stackHexoriumCableCyan_2 = new ItemStack(HexBlocks.blockHexoriumCableCyan, 2);
-        ItemStack stackHexoriumCableSkyBlue_2 = new ItemStack(HexBlocks.blockHexoriumCableSkyBlue, 2);
-        ItemStack stackHexoriumCableBlue_2 = new ItemStack(HexBlocks.blockHexoriumCableBlue, 2);
-        ItemStack stackHexoriumCablePurple_2 = new ItemStack(HexBlocks.blockHexoriumCablePurple, 2);
-        ItemStack stackHexoriumCableMagenta_2 = new ItemStack(HexBlocks.blockHexoriumCableMagenta, 2);
-        ItemStack stackHexoriumCablePink_2 = new ItemStack(HexBlocks.blockHexoriumCablePink, 2);
+        ItemStack stackHexoriumCableRed_4 = new ItemStack(HexBlocks.blockHexoriumCableRed, 4);
+        ItemStack stackHexoriumCableOrange_4 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 4);
+        ItemStack stackHexoriumCableYellow_4 = new ItemStack(HexBlocks.blockHexoriumCableYellow, 4);
+        ItemStack stackHexoriumCableLime_4 = new ItemStack(HexBlocks.blockHexoriumCableLime, 4);
+        ItemStack stackHexoriumCableGreen_4 = new ItemStack(HexBlocks.blockHexoriumCableGreen, 4);
+        ItemStack stackHexoriumCableTurquoise_4 = new ItemStack(HexBlocks.blockHexoriumCableTurquoise, 4);
+        ItemStack stackHexoriumCableCyan_4 = new ItemStack(HexBlocks.blockHexoriumCableCyan, 4);
+        ItemStack stackHexoriumCableSkyBlue_4 = new ItemStack(HexBlocks.blockHexoriumCableSkyBlue, 4);
+        ItemStack stackHexoriumCableBlue_4 = new ItemStack(HexBlocks.blockHexoriumCableBlue, 4);
+        ItemStack stackHexoriumCablePurple_4 = new ItemStack(HexBlocks.blockHexoriumCablePurple, 4);
+        ItemStack stackHexoriumCableMagenta_4 = new ItemStack(HexBlocks.blockHexoriumCableMagenta, 4);
+        ItemStack stackHexoriumCablePink_4 = new ItemStack(HexBlocks.blockHexoriumCablePink, 4);
 
-        ItemStack stackHexoriumCableWhite_2 = new ItemStack(HexBlocks.blockHexoriumCableWhite, 2);
-        ItemStack stackHexoriumCableLightGray_2 = new ItemStack(HexBlocks.blockHexoriumCableLightGray, 2);
-        ItemStack stackHexoriumCableGray_2 = new ItemStack(HexBlocks.blockHexoriumCableGray, 2);
-        ItemStack stackHexoriumCableDarkGray_2 = new ItemStack(HexBlocks.blockHexoriumCableDarkGray, 2);
-        ItemStack stackHexoriumCableBlack_2 = new ItemStack(HexBlocks.blockHexoriumCableBlack, 2);
+        ItemStack stackHexoriumCableWhite_4 = new ItemStack(HexBlocks.blockHexoriumCableWhite, 4);
+        ItemStack stackHexoriumCableLightGray_4 = new ItemStack(HexBlocks.blockHexoriumCableLightGray, 4);
+        ItemStack stackHexoriumCableGray_4 = new ItemStack(HexBlocks.blockHexoriumCableGray, 4);
+        ItemStack stackHexoriumCableDarkGray_4 = new ItemStack(HexBlocks.blockHexoriumCableDarkGray, 4);
+        ItemStack stackHexoriumCableBlack_4 = new ItemStack(HexBlocks.blockHexoriumCableBlack, 4);
 
         ItemStack stackHexoriumCableRainbow_1 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 1);
-        ItemStack stackHexoriumCableRainbow_2 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 2);
+        ItemStack stackHexoriumCableRainbow_4 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 4);
 
         // Energy Pylon
         ItemStack stackEnergyPylon_1 = new ItemStack(HexBlocks.blockEnergyPylon, 1);
@@ -414,7 +413,7 @@ public class HexRecipes {
         ItemStack stackHexoriumManipulator_1 = new ItemStack(HexItems.itemHexoriumManipulator, 1);
         ItemStack stackHexoriumProbe_1 = new ItemStack(HexItems.itemHexoriumProbe, 1);
         ItemStack stackMolecularTransposer_1 = new ItemStack(HexItems.itemMolecularTransposer, 1);
-        ItemStack stackHexoriumReinforcer_6 = new ItemStack(HexItems.itemHexoriumReinforcer, 6);
+        ItemStack stackHexoriumReinforcer_12 = new ItemStack(HexItems.itemHexoriumReinforcer, 12);
 
         // Misc
         ItemStack stackEnergizedHexoriumMonolithBlack_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1);
@@ -845,94 +844,94 @@ public class HexRecipes {
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumRed_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockOrange_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumOrange_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockYellow_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumYellow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockLime_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumLime_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockGreen_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumGreen_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockTurquoise_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockCyan_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumCyan_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockSkyBlue_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockBlue_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockPurple_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumPurple_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockMagenta_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockPink_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumPink_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', "nuggetIron", 'B', "stone"));
         
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockWhite_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumWhite_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockLightGray_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockGray_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockDarkGray_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockBlack_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumBlack_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', "nuggetIron", 'B', "stone"));
         
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEngineeredHexoriumBlockRainbow_1,
                 "A",
                 "H",
                 "B",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
 
 
         // Framed Hexorium Block
@@ -940,153 +939,153 @@ public class HexRecipes {
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumRed_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockOrange_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumOrange_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockYellow_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumYellow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockLime_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumLime_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockGreen_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumGreen_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockTurquoise_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockCyan_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumCyan_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockSkyBlue_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockBlue_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockPurple_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumPurple_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockMagenta_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockPink_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumPink_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockWhite_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumWhite_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockLightGray_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockGray_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockDarkGray_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockBlack_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumBlack_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackFramedHexoriumBlockRainbow_1,
                 "  A",
                 " H ",
                 "B  ",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
 
 
         // Plated Hexorium Block
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockRed_1,
                 "BHA",
-                'H', stackEnergizedHexoriumRed_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockOrange_1,
                 "BHA",
-                'H', stackEnergizedHexoriumOrange_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockYellow_1,
                 "BHA",
-                'H', stackEnergizedHexoriumYellow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockLime_1,
                 "BHA",
-                'H', stackEnergizedHexoriumLime_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockGreen_1,
                 "BHA",
-                'H', stackEnergizedHexoriumGreen_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockTurquoise_1,
                 "BHA",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockCyan_1,
                 "BHA",
-                'H', stackEnergizedHexoriumCyan_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockSkyBlue_1,
                 "BHA",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockBlue_1,
                 "BHA",
-                'H', stackEnergizedHexoriumBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockPurple_1,
                 "BHA",
-                'H', stackEnergizedHexoriumPurple_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockMagenta_1,
                 "BHA",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockPink_1,
                 "BHA",
-                'H', stackEnergizedHexoriumPink_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockWhite_1,
                 "BHA",
-                'H', stackEnergizedHexoriumWhite_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockLightGray_1,
                 "BHA",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockGray_1,
                 "BHA",
-                'H', stackEnergizedHexoriumGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockDarkGray_1,
                 "BHA",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockBlack_1,
                 "BHA",
-                'H', stackEnergizedHexoriumBlack_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPlatedHexoriumBlockRainbow_1,
                 "BHA",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
 
 
         // Concentric Hexorium Block
@@ -1094,94 +1093,94 @@ public class HexRecipes {
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumRed_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockOrange_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumOrange_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockYellow_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumYellow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockLime_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumLime_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockGreen_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumGreen_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockTurquoise_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockCyan_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumCyan_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockSkyBlue_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockBlue_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockPurple_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumPurple_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockMagenta_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockPink_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumPink_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockWhite_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumWhite_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockLightGray_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockGray_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockDarkGray_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockBlack_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumBlack_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackConcentricHexoriumBlockRainbow_1,
                 "B  ",
                 " H ",
                 "  A",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
 
 
         // Hexorium Structure Casing
@@ -1189,94 +1188,94 @@ public class HexRecipes {
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRed_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRed_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingOrange_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumOrange_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumOrange_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingYellow_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumYellow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumYellow_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingLime_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLime_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLime_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingGreen_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGreen_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGreen_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingTurquoise_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumTurquoise_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumTurquoise_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingCyan_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumCyan_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumCyan_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingSkyBlue_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumSkyBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumSkyBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingBlue_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlue_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlue_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingPurple_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPurple_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPurple_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingMagenta_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumMagenta_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumMagenta_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingPink_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPink_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumPink_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingWhite_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumWhite_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumWhite_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingLightGray_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLightGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumLightGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingGray_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingDarkGray_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumDarkGray_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumDarkGray_1, 'A', "nuggetIron", 'B', "stone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingBlack_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlack_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumBlack_1, 'A', "nuggetIron", 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumStructureCasingRainbow_1,
                 " A ",
                 "RHR",
                 " B ",
-                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRainbow_1, 'A', "ingotIron", 'B', stackStone_1));
+                'R', stackRedstone_1, 'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
 
         // Glowing Hexorium Glass
         // Red
@@ -1545,94 +1544,94 @@ public class HexRecipes {
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumRed_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampOrange_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumOrange_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampYellow_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumYellow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampLime_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumLime_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampGreen_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumGreen_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampTurquoise_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampCyan_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumCyan_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampSkyBlue_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampBlue_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampPurple_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumPurple_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampMagenta_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampPink_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumPink_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampWhite_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumWhite_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampLightGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampDarkGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampBlack_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumBlack_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampRainbow_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstone_1, 'D', stackGlowstoneDust_1));
 
         // Hexorium Lamp (Swap)
         GameRegistry.addRecipe(stackHexoriumLampRed_1,
@@ -1715,94 +1714,94 @@ public class HexRecipes {
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumRed_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumRed_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvOrange_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumOrange_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumOrange_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvYellow_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumYellow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumYellow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvLime_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumLime_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumLime_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvGreen_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumGreen_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumGreen_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvTurquoise_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvCyan_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumCyan_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumCyan_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvSkyBlue_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvBlue_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumBlue_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvPurple_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumPurple_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumPurple_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvMagenta_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumMagenta_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumMagenta_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvPink_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumPink_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumPink_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvWhite_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumWhite_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumWhite_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvLightGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumLightGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumLightGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvDarkGray_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvBlack_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumBlack_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumBlack_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumLampInvRainbow_1,
                 "DAD",
                 "BHB",
                 "DCD",
-                'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "ingotIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
+                'H', stackEnergizedHexoriumRainbow_1, 'A', stackTemperedHexoriumGlass_1, 'B', "nuggetIron", 'C', stackRedstoneTorch_1, 'D', stackGlowstoneDust_1));
 
         // Inverted Hexorium Lamp (Swap)
         GameRegistry.addRecipe(stackHexoriumLampInvRed_1,
@@ -2166,404 +2165,404 @@ public class HexRecipes {
 
         // Cables
         // Red
-        GameRegistry.addRecipe(stackHexoriumCableRed_2,
+        GameRegistry.addRecipe(stackHexoriumCableRed_4,
                 " R ",
                 "AEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Orange
-        GameRegistry.addRecipe(stackHexoriumCableOrange_2,
+        GameRegistry.addRecipe(stackHexoriumCableOrange_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableOrange_2,
+        GameRegistry.addRecipe(stackHexoriumCableOrange_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableOrange_2,
+        GameRegistry.addRecipe(stackHexoriumCableOrange_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableOrange_2,
+        GameRegistry.addRecipe(stackHexoriumCableOrange_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Yellow
-        GameRegistry.addRecipe(stackHexoriumCableYellow_2,
+        GameRegistry.addRecipe(stackHexoriumCableYellow_4,
                 " R ",
                 "BEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableYellow_2,
+        GameRegistry.addRecipe(stackHexoriumCableYellow_4,
                 " R ",
                 "AEB",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Lime
-        GameRegistry.addRecipe(stackHexoriumCableLime_2,
+        GameRegistry.addRecipe(stackHexoriumCableLime_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLime_2,
+        GameRegistry.addRecipe(stackHexoriumCableLime_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLime_2,
+        GameRegistry.addRecipe(stackHexoriumCableLime_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLime_2,
+        GameRegistry.addRecipe(stackHexoriumCableLime_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Green
-        GameRegistry.addRecipe(stackHexoriumCableGreen_2,
+        GameRegistry.addRecipe(stackHexoriumCableGreen_4,
                 " R ",
                 "AEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Turquoise
-        GameRegistry.addRecipe(stackHexoriumCableTurquoise_2,
+        GameRegistry.addRecipe(stackHexoriumCableTurquoise_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableTurquoise_2,
+        GameRegistry.addRecipe(stackHexoriumCableTurquoise_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableTurquoise_2,
+        GameRegistry.addRecipe(stackHexoriumCableTurquoise_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableTurquoise_2,
+        GameRegistry.addRecipe(stackHexoriumCableTurquoise_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Cyan
-        GameRegistry.addRecipe(stackHexoriumCableCyan_2,
+        GameRegistry.addRecipe(stackHexoriumCableCyan_4,
                 " R ",
                 "BEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableCyan_2,
+        GameRegistry.addRecipe(stackHexoriumCableCyan_4,
                 " R ",
                 "AEB",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
 
         // SkyBlue
-        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_2,
+        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_2,
+        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_2,
+        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_2,
+        GameRegistry.addRecipe(stackHexoriumCableSkyBlue_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Blue
-        GameRegistry.addRecipe(stackHexoriumCableBlue_2,
+        GameRegistry.addRecipe(stackHexoriumCableBlue_4,
                 " R ",
                 "AEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Purple
-        GameRegistry.addRecipe(stackHexoriumCablePurple_2,
+        GameRegistry.addRecipe(stackHexoriumCablePurple_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePurple_2,
+        GameRegistry.addRecipe(stackHexoriumCablePurple_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePurple_2,
+        GameRegistry.addRecipe(stackHexoriumCablePurple_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePurple_2,
+        GameRegistry.addRecipe(stackHexoriumCablePurple_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Magenta
-        GameRegistry.addRecipe(stackHexoriumCableMagenta_2,
+        GameRegistry.addRecipe(stackHexoriumCableMagenta_4,
                 " R ",
                 "BEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableMagenta_2,
+        GameRegistry.addRecipe(stackHexoriumCableMagenta_4,
                 " R ",
                 "AEB",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalRed_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Pink
-        GameRegistry.addRecipe(stackHexoriumCablePink_2,
+        GameRegistry.addRecipe(stackHexoriumCablePink_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePink_2,
+        GameRegistry.addRecipe(stackHexoriumCablePink_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePink_2,
+        GameRegistry.addRecipe(stackHexoriumCablePink_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCablePink_2,
+        GameRegistry.addRecipe(stackHexoriumCablePink_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'E', stackTemperedHexoriumGlass_1);
 
         // White
-        GameRegistry.addRecipe(stackHexoriumCableWhite_2,
+        GameRegistry.addRecipe(stackHexoriumCableWhite_4,
                 " R ",
                 "AEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'E', stackTemperedHexoriumGlass_1);
 
         // LightGray
-        GameRegistry.addRecipe(stackHexoriumCableLightGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableLightGray_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLightGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableLightGray_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLightGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableLightGray_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableLightGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableLightGray_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Gray
-        GameRegistry.addRecipe(stackHexoriumCableGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableGray_4,
                 " R ",
                 "BEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableGray_4,
                 " R ",
                 "AEB",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
 
         // DarkGray
-        GameRegistry.addRecipe(stackHexoriumCableDarkGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableDarkGray_4,
                 " R ",
                 "BEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumCrystalWhite_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableDarkGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableDarkGray_4,
                 " R ",
                 "AEB",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumCrystalWhite_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableDarkGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableDarkGray_4,
                 " R ",
                 "AEA",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumCrystalWhite_1, 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableDarkGray_2,
+        GameRegistry.addRecipe(stackHexoriumCableDarkGray_4,
                 " R ",
                 "AEA",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumCrystalWhite_1, 'E', stackTemperedHexoriumGlass_1);
 
         // Black
-        GameRegistry.addRecipe(stackHexoriumCableBlack_2,
+        GameRegistry.addRecipe(stackHexoriumCableBlack_4,
                 " R ",
                 "AEA",
                 "AEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'E', stackTemperedHexoriumGlass_1);
         
         // Rainbow
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AEB",
                 "CED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AEB",
                 "DEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AEC",
                 "BED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AEC",
                 "DEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AED",
                 "BEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "AED",
                 "CEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BEA",
                 "CED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BEA",
                 "DEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BEC",
                 "AED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BEC",
                 "DEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BED",
                 "AEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "BED",
                 "CEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CEA",
                 "BED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CEA",
                 "DEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CEB",
                 "AED",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CEB",
                 "DEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CED",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "CED",
                 "BEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEA",
                 "BEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEA",
                 "CEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEB",
                 "AEC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEB",
                 "CEA",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEC",
                 "AEB",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCrystalBlue_1, 'D', stackHexoriumCrystalWhite_1,
                 'E', stackTemperedHexoriumGlass_1);
-        GameRegistry.addRecipe(stackHexoriumCableRainbow_2,
+        GameRegistry.addRecipe(stackHexoriumCableRainbow_4,
                 " R ",
                 "DEC",
                 "BEA",
@@ -2572,7 +2571,7 @@ public class HexRecipes {
 
         // Energy Pylon
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyPylon_1,
-                "C C",
+                "   ",
                 "RBR",
                 "CAC",
                 'R', stackRedstone_1, 'A', stackPylonSocket_1, 'B', stackEnergyInjector_1, 'C', "ingotIron"));
@@ -2581,84 +2580,84 @@ public class HexRecipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedGreen_1,
                 "ARB",
                 "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', "ingotIron", 'D', stackLever_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', "nuggetIron", 'D', stackLever_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedBlue_1,
                 "ARB",
                 "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', "ingotIron", 'D', stackLever_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', "nuggetIron", 'D', stackLever_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedWhite_1,
                 "ARB",
                 "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalWhite_1, 'C', "ingotIron", 'D', stackLever_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalWhite_1, 'C', "nuggetIron", 'D', stackLever_1));
 
         // Hexorium Button
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonRed_1,
                 " A ",
                 "BRB",
                 " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', stackStoneButton_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonGreen_1,
                 " A ",
                 "BRB",
                 " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "ingotIron", 'C', stackStoneButton_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonBlue_1,
                 " A ",
                 "BRB",
                 " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "ingotIron", 'C', stackStoneButton_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonWhite_1,
                 " A ",
                 "BRB",
                 " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron", 'C', stackStoneButton_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
 
         // Hexorium Pressure Plate
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateRed_1,
                 "ARA",
                 "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', stackHeavyWeightedPressurePlate_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateGreen_1,
                 "ARA",
                 "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "ingotIron", 'C', stackHeavyWeightedPressurePlate_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateBlue_1,
                 "ARA",
                 "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "ingotIron", 'C', stackHeavyWeightedPressurePlate_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateWhite_1,
                 "ARA",
                 "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron", 'C', stackHeavyWeightedPressurePlate_1));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
 
         // Regular Blocks
         GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);
 
-        GameRegistry.addRecipe(stackHexoriumCoatedStone_8,
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
                 "BBB",
                 "BAB",
                 "BBB",
-                'A', stackHexoriumCrystalRed_1, 'B', stackStone_1);
-        GameRegistry.addRecipe(stackHexoriumCoatedStone_8,
+                'A', stackHexoriumCrystalRed_1, 'B', "stone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
                 "BBB",
                 "BAB",
                 "BBB",
-                'A', stackHexoriumCrystalGreen_1, 'B', stackStone_1);
-        GameRegistry.addRecipe(stackHexoriumCoatedStone_8,
+                'A', stackHexoriumCrystalGreen_1, 'B', "stone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
                 "BBB",
                 "BAB",
                 "BBB",
-                'A', stackHexoriumCrystalBlue_1, 'B', stackStone_1);
-        GameRegistry.addRecipe(stackHexoriumCoatedStone_8,
+                'A', stackHexoriumCrystalBlue_1, 'B', "stone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
                 "BBB",
                 "BAB",
                 "BBB",
-                'A', stackHexoriumCrystalWhite_1, 'B', stackStone_1);
-        GameRegistry.addRecipe(stackHexoriumCoatedStone_8,
+                'A', stackHexoriumCrystalWhite_1, 'B', "stone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
                 "BBB",
                 "BAB",
                 "BBB",
-                'A', stackHexoriumCrystalBlack_1, 'B', stackStone_1);
+                'A', stackHexoriumCrystalBlack_1, 'B', "stone"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPylonBase51_1,
                 "DAD",
@@ -2807,85 +2806,59 @@ public class HexRecipes {
                 "BAB",
                 " B ",
                 " R ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackOreActuator_1,
                 "B  ",
                 "ABR",
                 "B  ",
-                'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPylonSocket_1,
                 "BAB",
                 "RRR",
-                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', "nuggetIron"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
                 "CAC",
                 "BCB",
-                'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', Blocks.glass));
+                'A', stackHexoriumCrystalRed_1, 'B', "nuggetIron", 'C', "glass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
                 "CAC",
                 "BCB",
-                'A', stackHexoriumCrystalGreen_1, 'B', "ingotIron", 'C', Blocks.glass));
+                'A', stackHexoriumCrystalGreen_1, 'B', "nuggetIron", 'C', "glass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
                 "CAC",
                 "BCB",
-                'A', stackHexoriumCrystalBlue_1, 'B', "ingotIron", 'C', Blocks.glass));
+                'A', stackHexoriumCrystalBlue_1, 'B', "nuggetIron", 'C', "glass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
                 "CAC",
                 "BCB",
-                'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron", 'C', Blocks.glass));
+                'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron", 'C', "glass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
                 "BCB",
                 "CAC",
                 "BCB",
-                'A', stackHexoriumCrystalBlack_1, 'B', "ingotIron", 'C', Blocks.glass));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', stackHexoriumCrystalRed_1, 'B', "ingotIron", 'C', "glass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', stackHexoriumCrystalGreen_1, 'B', "ingotIron", 'C', "glass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', stackHexoriumCrystalBlue_1, 'B', "ingotIron", 'C', "glass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron", 'C', "glass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumGlassPackage_1,
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', stackHexoriumCrystalBlack_1, 'B', "ingotIron", 'C', "glass"));
+                'A', stackHexoriumCrystalBlack_1, 'B', "nuggetIron", 'C', "glass"));
 
         // Components T2
         GameRegistry.addRecipe(new ShapedOreRecipe(stackRainbowCore_1,
                 " R ",
                 "BAB",
                 " R ",
-                'R', stackRedstone_1, 'A', stackRainbowEnergizedGlobule_1, 'B', "ingotGold"));
+                'R', stackRedstone_1, 'A', stackRainbowEnergizedGlobule_1, 'B', "nuggetGold"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoprocessor_1,
                 " R ",
                 "RAR",
-                " B ",
-                'R', stackRedstone_1, 'A', stackWhiteHexoriumWafer_1, 'B', "ingotIron"));
+                "BBB",
+                'R', stackRedstone_1, 'A', stackWhiteHexoriumWafer_1, 'B', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumProcessor_1,
                 " R ",
                 "RAR",
-                " B ",
-                'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', "ingotGold"));
+                "BBB",
+                'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', "nuggetGold"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackMineralAnalyzer_1,
                 "BCD",
                 "FEA",
@@ -2896,26 +2869,26 @@ public class HexRecipes {
                 "EAE",
                 "CBD",
                 "AEA",
-                'A', stackHexoriumCableRainbow_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', "ingotIron"));
+                'A', stackHexoriumCableRainbow_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyInjector_1,
                 "CDE",
                 "FBF",
                 " A ",
                 'A', stackHexoriumCableRainbow_1, 'B', stackSpatialProjector_1, 'C', stackHexoriumCrystalRed_1, 'D', stackHexoriumCrystalGreen_1, 'E', stackHexoriumCrystalBlue_1,
-                'F', "ingotGold"));
+                'F', "nuggetGold"));
         if (HexConfig.cfgTeleportEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackMolecularRecoder_1,
                     "DRD",
                     "CBC",
                     "DAD",
-                    'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', "ingotIron"));
+                    'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', "nuggetIron"));
         }
         if (HexConfig.cfgEnergyNodeEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumRFAdapter_1,
                     "RBR",
                     "RAR",
                     "RBR",
-                    'R', stackRedstone_1, 'A', stackRainbowCore_1, 'B', "ingotGold"));
+                    'R', stackRedstone_1, 'A', stackRainbowCore_1, 'B', "nuggetGold"));
         }
 
         // Components MP
@@ -2923,43 +2896,43 @@ public class HexRecipes {
                 "CB ",
                 "CAR",
                 "CB ",
-                'R', stackRedstone_1, 'A', stackHexoriumProcessor_1, 'B', "ingotGold", 'C', stackStoneButton_1));
+                'R', stackRedstone_1, 'A', stackHexoriumProcessor_1, 'B', "nuggetGold", 'C', stackStoneButton_1));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackMachineEnergyRouter_1,
                 "DB",
                 "AR",
                 "DC",
-                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumCoprocessor_1, 'C', "ingotGold", 'D', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumCoprocessor_1, 'C', "nuggetGold", 'D', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHeatDissipator_1,
-                "BR",
-                "BA",
-                "BR",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron"));
+                "BBR",
+                "BBA",
+                "BBR",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHeatingArray_1,
                 "RRB",
                 "RAB",
                 "RRB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackCrystalExtractionUnit_1,
                 " BD",
                 "CAD",
                 " RD",
-                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackMineralAnalyzer_1, 'C', stackOreActuator_1, 'D', "ingotIron"));
+                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackMineralAnalyzer_1, 'C', stackOreActuator_1, 'D', "nuggetIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackMatrixAdjuster_1,
                 " ED",
                 "CBA",
                 " RD",
-                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackRainbowCore_1, 'C', stackSpatialProjector_1, 'D', "ingotIron", 'E', "gemDiamond"));
+                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackRainbowCore_1, 'C', stackSpatialProjector_1, 'D', "nuggetIron", 'E', "gemDiamond"));
         if (HexConfig.cfgTeleportEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackMaterialInteractionPlane_1,
                     "AAA",
                     "ARA",
                     "CBC",
-                    'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumProcessor_1, 'C', "ingotGold"));
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', stackHexoriumProcessor_1, 'C', "nuggetGold"));
             GameRegistry.addRecipe(new ShapedOreRecipe(stackTeleportationFieldProjector_1,
                     "ADA",
                     "BCB",
                     "ERE",
-                    'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', "gemDiamond", 'E', "ingotGold"));
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', stackHexoriumCoprocessor_1, 'C', stackSpatialProjector_1, 'D', "gemDiamond", 'E', "nuggetGold"));
         }
         if (HexConfig.cfgObserverEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackObservationalEye_1,
@@ -2973,14 +2946,14 @@ public class HexRecipes {
                     "ARR",
                     " DD",
                     "BCR",
-                    'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCoprocessor_1, 'D', "ingotIron"));
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', stackHexoriumCoprocessor_1, 'D', "nuggetIron"));
         }
         GameRegistry.addRecipe(new ShapedOreRecipe(stackSoundEmissionModule_1,
                 "AEB",
                 "RDR",
                 "FCF",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalWhite_1,
-                'E', stackRainbowEnergizedGlobule_1, 'F', "ingotIron"));
+                'E', stackRainbowEnergizedGlobule_1, 'F', "nuggetIron"));
 
         // Tools
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumManipulator_1,
@@ -2998,7 +2971,7 @@ public class HexRecipes {
                 " CB",
                 " DA",
                 'A', stackHexoriumManipulator_1, 'B', stackMachineControlPanel_1, 'C', stackSpatialProjector_1, 'D', "chestWood", 'E', "ingotIron"));
-        GameRegistry.addRecipe(stackHexoriumReinforcer_6,
+        GameRegistry.addRecipe(stackHexoriumReinforcer_12,
                 " A ",
                 "BBB",
                 "BBB",
