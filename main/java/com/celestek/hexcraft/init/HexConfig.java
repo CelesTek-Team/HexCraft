@@ -38,6 +38,11 @@ public class HexConfig {
     public static boolean cfgObserverDebug = false;
     public static boolean cfgObserverVerboseDebug = false;
 
+    // General - Crystal Separator
+    public static String categorySeparator = "General - Crystal Separator";
+    public static int cfgSeparatorMultiNonHexcraft = 4;
+    public static int cfgSeparatorMultiChromatiCraft = 24;
+
     // General - Hexorium Tank
     public static String categoryTank = "General - Hexorium Tank";
     public static boolean cfgTankEnable = true;
@@ -398,6 +403,11 @@ public class HexConfig {
         cfgObserverSize6 = config.getInt("11x11 chunk loading usage cost", categoryObserver, cfgObserverSize6, 1, 3840, "The HEX/t usage when loading 11x11 chunks.\n");
         cfgObserverDebug = config.getBoolean("Quantum Observer debugging", categoryObserver, cfgObserverDebug, "If set to true, will output the Quantum Observer debugging to console.\n");
         cfgObserverVerboseDebug = config.getBoolean("Quantum Observer debugging (verbose)", categoryObserver, cfgObserverVerboseDebug, "If set to true, will output extremely detailed Quantum Observer debugging info. Quantum Observer\ndebugging needs to be enabled.\n");
+
+        // General - Crystal Separator
+        config.setCategoryComment(categorySeparator, "Configuration for the Crystal Separator.");
+        cfgSeparatorMultiNonHexcraft = config.getInt("Non-Hexcraft multiplier", categorySeparator, cfgSeparatorMultiNonHexcraft, 1, 64, "The number of crystals gained when processing ores from other mods and vanilla.\n");
+        cfgSeparatorMultiChromatiCraft = config.getInt("Chromaticraft multiplier", categorySeparator, cfgSeparatorMultiChromatiCraft, 1, 64, "The number of ChromatiCraft Crystal Shards gained when processing one whole Cave Crystal.\n");
 
         // General - Hexorium Tank
         config.setCategoryComment(categoryTank, "Configuration for the Hexorium Tank multiblock structure.");
