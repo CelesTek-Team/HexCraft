@@ -129,6 +129,13 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftLampInv, 1);
                 checkDecorations = true;
             }
+            else if (block == HexBlocks.blockHexoriumCoatedStone) {
+                event.player.addStat(HexAchievements.achCraftHexoriumCoatedStone, 1);
+            }
+            else if (block instanceof BlockGlowingHexoriumCoatedStone) {
+                event.player.addStat(HexAchievements.achCraftGlowingHexoriumCoatedStone, 1);
+
+            }
 
             // T1 Sound Machines
             else if (event.crafting.getItem() == HexItems.itemSoundEmissionModule)

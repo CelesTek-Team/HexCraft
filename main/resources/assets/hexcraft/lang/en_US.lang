@@ -168,6 +168,28 @@ tile.blockHexoriumStructureCasingBlack.name=Hexorium Structure Casing (Black)
 tile.blockHexoriumStructureCasingRainbow.name=Hexorium Structure Casing (Rainbow)
 
 
+tile.blockGlowingHexoriumCoatedStoneRed.name=Glowing Hexorium-Coated Stone (Red)
+tile.blockGlowingHexoriumCoatedStoneOrange.name=Glowing Hexorium-Coated Stone (Orange)
+tile.blockGlowingHexoriumCoatedStoneYellow.name=Glowing Hexorium-Coated Stone (Yellow)
+tile.blockGlowingHexoriumCoatedStoneLime.name=Glowing Hexorium-Coated Stone (Lime)
+tile.blockGlowingHexoriumCoatedStoneGreen.name=Glowing Hexorium-Coated Stone (Green)
+tile.blockGlowingHexoriumCoatedStoneTurquoise.name=Glowing Hexorium-Coated Stone (Turquoise)
+tile.blockGlowingHexoriumCoatedStoneCyan.name=Glowing Hexorium-Coated Stone (Cyan)
+tile.blockGlowingHexoriumCoatedStoneSkyBlue.name=Glowing Hexorium-Coated Stone (Sky Blue)
+tile.blockGlowingHexoriumCoatedStoneBlue.name=Glowing Hexorium-Coated Stone (Blue)
+tile.blockGlowingHexoriumCoatedStonePurple.name=Glowing Hexorium-Coated Stone (Purple)
+tile.blockGlowingHexoriumCoatedStoneMagenta.name=Glowing Hexorium-Coated Stone (Magenta)
+tile.blockGlowingHexoriumCoatedStonePink.name=Glowing Hexorium-Coated Stone (Pink)
+
+tile.blockGlowingHexoriumCoatedStoneWhite.name=Glowing Hexorium-Coated Stone (White)
+tile.blockGlowingHexoriumCoatedStoneLightGray.name=Glowing Hexorium-Coated Stone (Light Gray)
+tile.blockGlowingHexoriumCoatedStoneGray.name=Glowing Hexorium-Coated Stone (Gray)
+tile.blockGlowingHexoriumCoatedStoneDarkGray.name=Glowing Hexorium-Coated Stone (Dark Gray)
+tile.blockGlowingHexoriumCoatedStoneBlack.name=Glowing Hexorium-Coated Stone (Black)
+
+tile.blockGlowingHexoriumCoatedStoneRainbow.name=Glowing Hexorium-Coated Stone (Rainbow)
+
+
 tile.blockGlowingHexoriumGlassRed.name=Glowing Hexorium Glass (Red)
 tile.blockGlowingHexoriumGlassOrange.name=Glowing Hexorium Glass (Orange)
 tile.blockGlowingHexoriumGlassYellow.name=Glowing Hexorium Glass (Yellow)
@@ -628,6 +650,11 @@ achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks
 
 achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
 achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
+
+achievement.hexcraft.achCraftHexoriumCoatedStone=Big Blank Block
+achievement.hexcraft.achCraftHexoriumCoatedStone.desc=Craft a Hexorium-Coated Stone.
+achievement.hexcraft.achCraftGlowingHexoriumCoatedStone=Big Glowing Block
+achievement.hexcraft.achCraftGlowingHexoriumCoatedStone.desc=Craft a Glowing Hexorium-Coated Stone of any color.
 
 achievement.hexcraft.achCraftSoundEmissionModule=Crystalline Resonance
 achievement.hexcraft.achCraftSoundEmissionModule.desc=Craft a Sound Emission Module.

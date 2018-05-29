@@ -38,7 +38,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static final int countBlocks = 289;
+    public static final int countBlocks = 307;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -211,6 +211,28 @@ public class HexBlocks {
     public static Block blockHexoriumStructureCasingBlack;
 
     public static Block blockHexoriumStructureCasingRainbow;
+
+    // Glowing Hexorium-Coated Stone
+    public static Block blockGlowingHexoriumCoatedStoneRed;
+    public static Block blockGlowingHexoriumCoatedStoneOrange;
+    public static Block blockGlowingHexoriumCoatedStoneYellow;
+    public static Block blockGlowingHexoriumCoatedStoneLime;
+    public static Block blockGlowingHexoriumCoatedStoneGreen;
+    public static Block blockGlowingHexoriumCoatedStoneTurquoise;
+    public static Block blockGlowingHexoriumCoatedStoneCyan;
+    public static Block blockGlowingHexoriumCoatedStoneSkyBlue;
+    public static Block blockGlowingHexoriumCoatedStoneBlue;
+    public static Block blockGlowingHexoriumCoatedStonePurple;
+    public static Block blockGlowingHexoriumCoatedStoneMagenta;
+    public static Block blockGlowingHexoriumCoatedStonePink;
+
+    public static Block blockGlowingHexoriumCoatedStoneWhite;
+    public static Block blockGlowingHexoriumCoatedStoneLightGray;
+    public static Block blockGlowingHexoriumCoatedStoneGray;
+    public static Block blockGlowingHexoriumCoatedStoneDarkGray;
+    public static Block blockGlowingHexoriumCoatedStoneBlack;
+
+    public static Block blockGlowingHexoriumCoatedStoneRainbow;
 
     // Glowing Hexorium Glass
     public static Block blockGlowingHexoriumGlassRed;
@@ -732,6 +754,46 @@ public class HexBlocks {
 
         blockHexoriumStructureCasingRainbow = new BlockHexoriumStructureCasing(BlockHexoriumStructureCasing.ID + "Rainbow");
         GameRegistry.registerBlock(blockHexoriumStructureCasingRainbow, BlockHexoriumStructureCasing.ID + "Rainbow");
+
+        // Glowing Hexorium-Coated Stone
+        blockGlowingHexoriumCoatedStoneRed = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Red");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRed, BlockGlowingHexoriumCoatedStone.ID + "Red");
+        blockGlowingHexoriumCoatedStoneOrange = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Orange");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneOrange, BlockGlowingHexoriumCoatedStone.ID + "Orange");
+        blockGlowingHexoriumCoatedStoneYellow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Yellow");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneYellow, BlockGlowingHexoriumCoatedStone.ID + "Yellow");
+        blockGlowingHexoriumCoatedStoneLime = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Lime");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLime, BlockGlowingHexoriumCoatedStone.ID + "Lime");
+        blockGlowingHexoriumCoatedStoneGreen = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Green");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGreen, BlockGlowingHexoriumCoatedStone.ID + "Green");
+        blockGlowingHexoriumCoatedStoneTurquoise = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Turquoise");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneTurquoise, BlockGlowingHexoriumCoatedStone.ID + "Turquoise");
+        blockGlowingHexoriumCoatedStoneCyan = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Cyan");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneCyan, BlockGlowingHexoriumCoatedStone.ID + "Cyan");
+        blockGlowingHexoriumCoatedStoneSkyBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "SkyBlue");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneSkyBlue, BlockGlowingHexoriumCoatedStone.ID + "SkyBlue");
+        blockGlowingHexoriumCoatedStoneBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Blue");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlue, BlockGlowingHexoriumCoatedStone.ID + "Blue");
+        blockGlowingHexoriumCoatedStonePurple = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Purple");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePurple, BlockGlowingHexoriumCoatedStone.ID + "Purple");
+        blockGlowingHexoriumCoatedStoneMagenta = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Magenta");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneMagenta, BlockGlowingHexoriumCoatedStone.ID + "Magenta");
+        blockGlowingHexoriumCoatedStonePink = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Pink");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePink, BlockGlowingHexoriumCoatedStone.ID + "Pink");
+
+        blockGlowingHexoriumCoatedStoneWhite = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "White");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhite, BlockGlowingHexoriumCoatedStone.ID + "White");
+        blockGlowingHexoriumCoatedStoneLightGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "LightGray");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLightGray, BlockGlowingHexoriumCoatedStone.ID + "LightGray");
+        blockGlowingHexoriumCoatedStoneGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Gray");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGray, BlockGlowingHexoriumCoatedStone.ID + "Gray");
+        blockGlowingHexoriumCoatedStoneDarkGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "DarkGray");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneDarkGray, BlockGlowingHexoriumCoatedStone.ID + "DarkGray");
+        blockGlowingHexoriumCoatedStoneBlack = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Black");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlack, BlockGlowingHexoriumCoatedStone.ID + "Black");
+
+        blockGlowingHexoriumCoatedStoneRainbow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Rainbow");
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRainbow, BlockGlowingHexoriumCoatedStone.ID + "Rainbow");
 
         // Glowing Hexorium Glass
         blockGlowingHexoriumGlassRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Red");

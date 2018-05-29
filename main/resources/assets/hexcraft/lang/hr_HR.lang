@@ -168,6 +168,28 @@ tile.blockHexoriumStructureCasingBlack.name=Heksorijsko Strukturno Kućište (Cr
 tile.blockHexoriumStructureCasingRainbow.name=Heksorijsko Strukturno Kućište (Dugine Boje)
 
 
+tile.blockGlowingHexoriumCoatedStoneRed.name=Svijetleći Hexoriumom Obložen Kamen (Crveno)
+tile.blockGlowingHexoriumCoatedStoneOrange.name=Svijetleći Hexoriumom Obložen Kamen (Narančasto)
+tile.blockGlowingHexoriumCoatedStoneYellow.name=Svijetleći Hexoriumom Obložen Kamen (Žuto)
+tile.blockGlowingHexoriumCoatedStoneLime.name=Svijetleći Hexoriumom Obložen Kamen (Limeta)
+tile.blockGlowingHexoriumCoatedStoneGreen.name=Svijetleći Hexoriumom Obložen Kamen (Zeleno)
+tile.blockGlowingHexoriumCoatedStoneTurquoise.name=Svijetleći Hexoriumom Obložen Kamen (Tirkizno)
+tile.blockGlowingHexoriumCoatedStoneCyan.name=Svijetleći Hexoriumom Obložen Kamen (Cijan)
+tile.blockGlowingHexoriumCoatedStoneSkyBlue.name=Svijetleći Hexoriumom Obložen Kamen (Nebesko Plavo)
+tile.blockGlowingHexoriumCoatedStoneBlue.name=Svijetleći Hexoriumom Obložen Kamen (Plavo)
+tile.blockGlowingHexoriumCoatedStonePurple.name=Svijetleći Hexoriumom Obložen Kamen (Ljubičasto)
+tile.blockGlowingHexoriumCoatedStoneMagenta.name=Svijetleći Hexoriumom Obložen Kamen (Purpurnocrveno)
+tile.blockGlowingHexoriumCoatedStonePink.name=Svijetleći Hexoriumom Obložen Kamen (Ružičasto)
+
+tile.blockGlowingHexoriumCoatedStoneWhite.name=Svijetleći Hexoriumom Obložen Kamen (Bijelo)
+tile.blockGlowingHexoriumCoatedStoneLightGray.name=Svijetleći Hexoriumom Obložen Kamen (Svijetlo Sivo)
+tile.blockGlowingHexoriumCoatedStoneGray.name=Svijetleći Hexoriumom Obložen Kamen (Sivo)
+tile.blockGlowingHexoriumCoatedStoneDarkGray.name=Svijetleći Hexoriumom Obložen Kamen (Tamno Sivo)
+tile.blockGlowingHexoriumCoatedStoneBlack.name=Svijetleći Hexoriumom Obložen Kamen (Crno)
+
+tile.blockGlowingHexoriumCoatedStoneRainbow.name=Svijetleći Hexoriumom Obložen Kamen (Dugine Boje)
+
+
 tile.blockGlowingHexoriumGlassRed.name=Svijetleće Heksorijsko Staklo (Crveno)
 tile.blockGlowingHexoriumGlassOrange.name=Svijetleće Heksorijsko Staklo (Narančasto)
 tile.blockGlowingHexoriumGlassYellow.name=Svijetleće Heksorijsko Staklo (Žuto)
@@ -628,6 +650,11 @@ achievement.hexcraft.achGroupDecorations.desc=Napravi sve dekorativne blokove.
 
 achievement.hexcraft.achUseReinforcer=Tvrdo Kao Obsidijan
 achievement.hexcraft.achUseReinforcer.desc=Pojačaj bilo koji ukrasni blok sa Heksorijskim Pojačavačem.
+
+achievement.hexcraft.achCraftHexoriumCoatedStone=Veliki Prazni Blok
+achievement.hexcraft.achCraftHexoriumCoatedStone.desc=Napravi Hexoriumom Obložen Kamen.
+achievement.hexcraft.achCraftGlowingHexoriumCoatedStone=Veliki Svijetleći Blok
+achievement.hexcraft.achCraftGlowingHexoriumCoatedStone.desc=Napravi Svijetleći Hexoriumom Obložen Kamen bilo koje boje.
 
 achievement.hexcraft.achCraftSoundEmissionModule=Kristalna Rezonancija
 achievement.hexcraft.achCraftSoundEmissionModule.desc=Napravi Modul Emisije Zvuka.

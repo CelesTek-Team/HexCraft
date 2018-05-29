@@ -176,6 +176,49 @@ public class HexRecipes {
 
         ItemStack stackHexoriumStructureCasingRainbow_1 = new ItemStack(HexBlocks.blockHexoriumStructureCasingRainbow, 1);
 
+        // Glowing Hexorium-Coated Stone
+        ItemStack stackGlowingHexoriumCoatedStoneRed_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneRed, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneOrange_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneOrange, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneYellow_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneYellow, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneLime_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneLime, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneGreen_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneGreen, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneTurquoise_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneTurquoise, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneCyan_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneCyan, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneSkyBlue_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneSkyBlue, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneBlue_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneBlue, 8);
+        ItemStack stackGlowingHexoriumCoatedStonePurple_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStonePurple, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneMagenta_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneMagenta, 8);
+        ItemStack stackGlowingHexoriumCoatedStonePink_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStonePink, 8);
+
+        ItemStack stackGlowingHexoriumCoatedStoneWhite_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneWhite, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneLightGray_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneLightGray, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneGray_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneGray, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneDarkGray_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneDarkGray, 8);
+        ItemStack stackGlowingHexoriumCoatedStoneBlack_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneBlack, 8);
+
+        ItemStack stackGlowingHexoriumCoatedStoneRainbow_8 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneRainbow, 8);
+
+        ItemStack stackGlowingHexoriumCoatedStoneRed_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneRed, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneOrange_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneOrange, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneYellow_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneYellow, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneLime_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneLime, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneGreen_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneGreen, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneTurquoise_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneTurquoise, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneCyan_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneCyan, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneSkyBlue_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneSkyBlue, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneBlue_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneBlue, 1);
+        ItemStack stackGlowingHexoriumCoatedStonePurple_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStonePurple, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneMagenta_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneMagenta, 1);
+        ItemStack stackGlowingHexoriumCoatedStonePink_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStonePink, 1);
+
+        ItemStack stackGlowingHexoriumCoatedStoneWhite_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneWhite, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneLightGray_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneLightGray, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneGray_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneGray, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneDarkGray_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneDarkGray, 1);
+        ItemStack stackGlowingHexoriumCoatedStoneBlack_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneBlack, 1);
+
+        ItemStack stackGlowingHexoriumCoatedStoneRainbow_1 = new ItemStack(HexBlocks.blockGlowingHexoriumCoatedStoneRainbow, 1);
+
         // Glowing Hexorium Glass
         ItemStack stackGlowingHexoriumGlassRed_1 = new ItemStack(HexBlocks.blockGlowingHexoriumGlassRed, 1);
         ItemStack stackGlowingHexoriumGlassOrange_1 = new ItemStack(HexBlocks.blockGlowingHexoriumGlassOrange, 1);
@@ -358,6 +401,7 @@ public class HexRecipes {
         ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
         ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
         ItemStack stackHexoriumCoatedStone_8 = new ItemStack(HexBlocks.blockHexoriumCoatedStone, 8);
+        ItemStack stackHexoriumCoatedStone_1 = new ItemStack(HexBlocks.blockHexoriumCoatedStone, 1);
 
         ItemStack stackPylonBase51_1 = new ItemStack(HexBlocks.blockPylonBase51, 1);
         ItemStack stackPylonBase15_1 = new ItemStack(HexBlocks.blockPylonBase15, 1);
@@ -1276,6 +1320,266 @@ public class HexRecipes {
                 "RHR",
                 " B ",
                 'R', stackRedstone_1, 'H', stackEnergizedHexoriumRainbow_1, 'A', "nuggetIron", 'B', "stone"));
+
+
+        // Glowing Hexorium-Coated Stone
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneRed_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumRed_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneOrange_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumOrange_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneYellow_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumYellow_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneLime_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumLime_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneGreen_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumGreen_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneTurquoise_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumTurquoise_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneCyan_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumCyan_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneSkyBlue_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumSkyBlue_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneBlue_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumBlue_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStonePurple_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumPurple_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneMagenta_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumMagenta_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStonePink_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumPink_1, 'A', stackHexoriumCoatedStone_1);
+
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneWhite_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumWhite_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneLightGray_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumLightGray_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneGray_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumGray_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneDarkGray_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumDarkGray_1, 'A', stackHexoriumCoatedStone_1);
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneBlack_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumBlack_1, 'A', stackHexoriumCoatedStone_1);
+
+        GameRegistry.addRecipe(stackGlowingHexoriumCoatedStoneRainbow_8,
+                "AAA",
+                "AHA",
+                "AAA",
+                'H', stackEnergizedHexoriumRainbow_1, 'A', stackHexoriumCoatedStone_1);
+
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1,
+                stackGlowingHexoriumCoatedStoneRed_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1,
+                stackGlowingHexoriumCoatedStoneOrange_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1,
+                stackGlowingHexoriumCoatedStoneYellow_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1,
+                stackGlowingHexoriumCoatedStoneLime_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1,
+                stackGlowingHexoriumCoatedStoneGreen_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1,
+                stackGlowingHexoriumCoatedStoneTurquoise_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1,
+                stackGlowingHexoriumCoatedStoneCyan_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1,
+                stackGlowingHexoriumCoatedStoneSkyBlue_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1,
+                stackGlowingHexoriumCoatedStoneBlue_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumPurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1,
+                stackGlowingHexoriumCoatedStonePurple_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1,
+                stackGlowingHexoriumCoatedStoneMagenta_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumPink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1,
+                stackGlowingHexoriumCoatedStonePink_1);
+
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1,
+                stackGlowingHexoriumCoatedStoneWhite_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1,
+                stackGlowingHexoriumCoatedStoneLightGray_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1,
+                stackGlowingHexoriumCoatedStoneGray_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1,
+                stackGlowingHexoriumCoatedStoneDarkGray_1);
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1,
+                stackGlowingHexoriumCoatedStoneBlack_1);
+
+        GameRegistry.addShapelessRecipe(stackEnergizedHexoriumRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1,
+                stackGlowingHexoriumCoatedStoneRainbow_1);
 
         // Glowing Hexorium Glass
         // Red

@@ -52,6 +52,7 @@ public class ItemHexoriumReinforcer extends Item {
                     || block instanceof BlockPlatedHexoriumBlock
                     || block instanceof BlockConcentricHexoriumBlock
                     || block instanceof BlockHexoriumStructureCasing
+                    || block instanceof BlockGlowingHexoriumCoatedStone
                     || block == HexBlocks.blockHexoriumCoatedStone)
                 if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z)) {
                     HexUtils.setMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
