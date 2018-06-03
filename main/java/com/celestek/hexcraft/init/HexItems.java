@@ -18,6 +18,7 @@ public class HexItems {
     public static Item itemHexoriumCrystalBlack;
 
     // Components T1
+    public static Item itemIronNugget;
     public static Item itemRainbowEnergizedGlobule;
     public static Item itemWhiteHexoriumWafer;
     public static Item itemBlackHexoriumWafer;
@@ -72,6 +73,8 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumCrystalBlack, "itemHexoriumCrystalBlack");
 
         // Components T1
+        itemIronNugget = new HexItemComponent("itemIronNugget");
+        GameRegistry.registerItem(itemIronNugget, "itemIronNugget");
         itemRainbowEnergizedGlobule = new HexItemComponent("itemRainbowEnergizedGlobule");
         GameRegistry.registerItem(itemRainbowEnergizedGlobule, "itemRainbowEnergizedGlobule");
         itemWhiteHexoriumWafer = new HexItemComponent("itemWhiteHexoriumWafer");

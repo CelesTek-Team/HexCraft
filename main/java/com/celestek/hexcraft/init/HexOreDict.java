@@ -30,5 +30,7 @@ public class HexOreDict {
         OreDictionary.registerOre("gemHexoriumBlue", new ItemStack(HexItems.itemHexoriumCrystalBlue));
         OreDictionary.registerOre("gemHexoriumWhite", new ItemStack(HexItems.itemHexoriumCrystalWhite));
         OreDictionary.registerOre("gemHexoriumBlack", new ItemStack(HexItems.itemHexoriumCrystalBlack));
+
+        OreDictionary.registerOre("nuggetIron", new ItemStack(HexItems.itemIronNugget));
     }
 }
