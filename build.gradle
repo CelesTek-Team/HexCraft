@@ -97,11 +97,6 @@ compileJava {
     options.encoding = "UTF-8"
 }
 
-configurations {
-    shade
-    compile.extendsFrom shade
-}
-
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "instance"
@@ -140,4 +135,10 @@ sourceSets.main.java.srcDir "$buildDir/generated-source/java"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.5.1'
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
+    }
 }
