@@ -1,9 +1,10 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+          name = "forge"
+          url = "https://files.minecraftforge.net/maven"
         }
         maven {
             name = "sonatype"
@@ -15,55 +16,128 @@ buildscript {
     }
 }
 
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
+    }
+}
+
+apply plugin: 'eclipse'
+eclipse {
+    classpath {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+def eclipseRuntimeClasspath = ""
+def eclipseRuntimeClasspathTemplate = "<listEntry value=\"&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry externalArchive=&quot;@@PATH@@&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;\"/>\n"
+
+task eclipseForgeWorkspace(type: Copy) {
+    doFirst {
+        sourceSets.main.runtimeClasspath.collect {
+            eclipseRuntimeClasspath += eclipseRuntimeClasspathTemplate.replaceAll('@@PATH@@', it.toString())
+            ""
+        }
+    }
+    from(".meta/eclipse/.metadata") {
+        include '**/*.template'
+        rename { it.replace '.template', '' }
+        filter { it.replaceAll('@@eclipseRuntimeClasspath@@', eclipseRuntimeClasspath) }
+        //rename '(.*).template', '$1'
+    }
+    from(".meta/eclipse/.metadata") {
+        exclude '**/*.launch'
+    }
+    into "eclipse/.metadata"
+}
+
+import org.apache.tools.ant.taskdefs.condition.Os
+task eclipseForgeProject {
+    doLast {
+        if(!(new File("eclipse/Minecraft")).exists()) {
+            if(!Os.isFamily(Os.FAMILY_WINDOWS)) {
+                ant.symlink(resource: "../", link: "eclipse/Minecraft")
+            } else {
+                println("WINDOWS: Before loading this workspace with Eclipse, manually run this in an Elevated/Admin command prompt:")
+                println("mklink /D " + (new File("").absolutePath) + "/eclipse/Minecraft " + (new File("").absolutePath))
+            }
+        }
+    }
+}
+eclipseForgeProject.dependsOn(eclipseForgeWorkspace)
+
+tasks.eclipse.dependsOn(eclipseForgeProject)
+
+apply plugin: 'idea'
+idea{
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+repositories {
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
 apply plugin: 'forge'
 
 version = "1.7.10-0.11.0"
 group= "com.celestek.hexcraft"
 archivesBaseName = "HEXCraft"
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+compileJava.options.bootClasspath = org.gradle.internal.jvm.Jvm.current().getJre().getHomeDir().toString() +"/lib/rt.jar"
+compileJava {
+    options.encoding = "UTF-8"
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
-    runDir = "eclipse"
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "instance"
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
 
+runClient {
+    jvmArgs "-Xmx4096m", "-Xms1024m"
+}
+
+runServer {
+    jvmArgs "-Xmx4096m", "-Xms1024m"
 }
 
 processResources
 {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
                 
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-idea {
-    module {
-        inheritOutputDirs = true
-    }
+
+sourceSets.main.java.srcDir "$buildDir/generated-source/java"
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5.1'
 }
