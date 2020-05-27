@@ -6,6 +6,10 @@ buildscript {
           name = "forge"
           url = "https://files.minecraftforge.net/maven"
         }
+        //maven {
+        //    name = "gt"
+        //    url = "https://gregtech.overminddl1.com/"
+        //}
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -70,7 +74,7 @@ eclipseForgeProject.dependsOn(eclipseForgeWorkspace)
 tasks.eclipse.dependsOn(eclipseForgeProject)
 
 apply plugin: 'idea'
-idea{
+idea {
     module {
         downloadJavadoc = true
         downloadSources = true
@@ -78,6 +82,10 @@ idea{
 }
 
 repositories {
+    //maven {
+    //    name = "gt"
+    //    url = "https://gregtech.overminddl1.com/"
+    //}
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -103,7 +111,12 @@ minecraft {
 }
 
 dependencies {
-
+    //compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
+    //compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
+    //compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+    //compileOnly "ic2:IC2Classic:1.2.1.8:dev"
+    //compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
+    //compileOnly "coloredlightscore:ColoredLightsCore:1.3.7.d524c02:deobf"
 }
 
 runClient {
