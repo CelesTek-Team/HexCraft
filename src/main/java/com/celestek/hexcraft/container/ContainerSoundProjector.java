@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
@@ -49,5 +50,12 @@ public class ContainerSoundProjector extends Container {
 
     @Override public boolean canInteractWith(EntityPlayer player) {
         return tileSoundProjector.isUsableByPlayer(player);
+    }
+
+    @Override
+    public void putStackInSlot(int slotID, ItemStack itemStack) {
+        // Fix for a weird crash with some mods when flying and opening the UI.
+        if (inventorySlots.size() > slotID)
+            this.getSlot(slotID).putStack(itemStack);
     }
 }

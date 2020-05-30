@@ -7,6 +7,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
@@ -33,7 +35,8 @@ public class ContainerTankValve extends Container {
         this.tileTankValve = tileHexoriumValve;
     }
 
-    @Override public void addCraftingToCrafters(ICrafting craft) {
+    @Override
+    public void addCraftingToCrafters(ICrafting craft) {
         super.addCraftingToCrafters(craft);
 
         int tankCap = tileTankValve.getTankCapacity();
@@ -51,7 +54,8 @@ public class ContainerTankValve extends Container {
     }
 
 
-    @Override public void detectAndSendChanges() {
+    @Override
+    public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
         for (int i = 0; i < crafters.size(); i++) {
@@ -91,7 +95,8 @@ public class ContainerTankValve extends Container {
         lastFluidInserted = tileTankValve.getFluidIns();
     }
 
-    @SideOnly(Side.CLIENT) @Override public void updateProgressBar(int id, int value) {
+    @Override
+    @SideOnly(Side.CLIENT) public void updateProgressBar(int id, int value) {
         super.updateProgressBar(id, value);
         int[] mcTankCap = HexUtils.intToMCInts(tileTankValve.getGuiTankCapacity());
         int[] mcTankLevel = HexUtils.intToMCInts(tileTankValve.getGuiFluidLevel());
@@ -124,9 +129,15 @@ public class ContainerTankValve extends Container {
         tileTankValve.setGuiFluidLevel(tankLevel);
     }
 
-    @Override public boolean canInteractWith(EntityPlayer player) {
+    @Override
+    public boolean canInteractWith(EntityPlayer player) {
         return tileTankValve.isUsableByPlayer(player);
     }
 
-
+    @Override
+    public void putStackInSlot(int slotID, ItemStack itemStack) {
+        // Fix for a weird crash with some mods when flying and opening the UI.
+        if (inventorySlots.size() > slotID)
+            this.getSlot(slotID).putStack(itemStack);
+    }
 }
