@@ -42,7 +42,9 @@ public class HexConfig {
     // General - Crystal Separator
     public static String categorySeparator = "General - Crystal Separator";
     public static boolean cfgSeparatorEnable = true;
+    public static boolean cfgSeparatorProcessNonHexcraft = true;
     public static int cfgSeparatorMultiNonHexcraft = 4;
+    public static boolean cfgSeparatorProcessChromatiCraft = true;
     public static int cfgSeparatorMultiChromatiCraft = 24;
 
     // General - Hexorium Tank
@@ -410,7 +412,9 @@ public class HexConfig {
         // General - Crystal Separator
         config.setCategoryComment(categorySeparator, "Configuration for the Crystal Separator.");
         cfgSeparatorEnable = config.getBoolean("Enable Crystal Separator", categorySeparator, cfgSeparatorEnable, "Enables the Crystal Separator block.\n");
+        cfgSeparatorProcessNonHexcraft = config.getBoolean("Process Non-Hexcraft ores", categorySeparator, cfgSeparatorProcessNonHexcraft, "Enables processing of crystal ores other than HEXCraft ones.\n");
         cfgSeparatorMultiNonHexcraft = config.getInt("Non-Hexcraft multiplier", categorySeparator, cfgSeparatorMultiNonHexcraft, 1, 64, "The number of crystals gained when processing ores from other mods and vanilla.\n");
+        cfgSeparatorProcessChromatiCraft = config.getBoolean("Process Chromaticraft crystals", categorySeparator, cfgSeparatorProcessChromatiCraft, "Enables processing of ChromatiCraft Cave Crystals. NOTE: If 'Process Non-Hexcraft ores' is disabled, this is disabled as well.\n");
         cfgSeparatorMultiChromatiCraft = config.getInt("Chromaticraft multiplier", categorySeparator, cfgSeparatorMultiChromatiCraft, 1, 64, "The number of ChromatiCraft Crystal Shards gained when processing one whole Cave Crystal.\n");
 
         // General - Hexorium Tank
