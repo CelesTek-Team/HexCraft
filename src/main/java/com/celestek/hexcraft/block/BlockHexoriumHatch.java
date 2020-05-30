@@ -20,6 +20,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
@@ -31,7 +32,8 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 public class BlockHexoriumHatch extends HexBlockModel {
 
     // Block ID
-    public static final String ID = "blockHexoriumHatch";
+    public static final String ID_BLACK = "blockHexoriumHatch";
+    public static final String ID_WHITE = "blockHexoriumHatchWhite";
 
     // Meta Bits
     public static final int META_ROTATION_0 = 0;
@@ -39,15 +41,20 @@ public class BlockHexoriumHatch extends HexBlockModel {
     public static final int META_STATE = 2;
     public static final int META_REINFORCED = 3;
 
+    // Used for identifying the decoration variant.
+    private int variant;
+
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param variant The decoration variant to use.
      */
-    public BlockHexoriumHatch(String blockName) {
+    public BlockHexoriumHatch(String blockName, int variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
@@ -278,12 +285,24 @@ public class BlockHexoriumHatch extends HexBlockModel {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[12];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the outer textures.
         for (int i = 0; i < 11; i++) {
-            if (i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i+1));
-            else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i+1));
+            if (i <= 4 || i >= 10) {
+                if (i < 9)
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "0" + (i + 1));
+                else
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + (i + 1));
+            }
+            else {
+                if (i < 9)
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "0" + (i + 1));
+                else
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + (i + 1));
+            }
         }
         // Load the inner texture.
         if(this == HexBlocks.blockHexoriumHatchRainbow)

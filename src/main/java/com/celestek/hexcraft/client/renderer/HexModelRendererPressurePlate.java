@@ -112,13 +112,13 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        if (block == HexBlocks.blockHexoriumPressurePlateRed)
+        if (block == HexBlocks.blockHexoriumPressurePlateRed || block == HexBlocks.blockHexoriumPressurePlateWhiteRed)
             tessellator.setColorOpaque_F(1, 0, 0);
-        else if (block == HexBlocks.blockHexoriumPressurePlateGreen)
+        else if (block == HexBlocks.blockHexoriumPressurePlateGreen || block == HexBlocks.blockHexoriumPressurePlateWhiteGreen)
             tessellator.setColorOpaque_F(0, 1, 0);
-        else if (block == HexBlocks.blockHexoriumPressurePlateBlue)
+        else if (block == HexBlocks.blockHexoriumPressurePlateBlue || block == HexBlocks.blockHexoriumPressurePlateWhiteBlue)
             tessellator.setColorOpaque_F(0, 0, 1);
-        else if (block == HexBlocks.blockHexoriumPressurePlateWhite)
+        else if (block == HexBlocks.blockHexoriumPressurePlateWhite || block == HexBlocks.blockHexoriumPressurePlateWhiteWhite)
             tessellator.setColorOpaque_F(1, 1, 1);
 
         // Draw glow.
@@ -213,13 +213,13 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
             }
 
             // Get Colors.
-            if (block == HexBlocks.blockHexoriumPressurePlateRed)
+            if (block == HexBlocks.blockHexoriumPressurePlateRed || block == HexBlocks.blockHexoriumPressurePlateWhiteRed)
                 tessellator.setColorOpaque_F(darken, 0, 0);
-            else if (block == HexBlocks.blockHexoriumPressurePlateGreen)
+            else if (block == HexBlocks.blockHexoriumPressurePlateGreen || block == HexBlocks.blockHexoriumPressurePlateWhiteGreen)
                 tessellator.setColorOpaque_F(0, darken, 0);
-            else if (block == HexBlocks.blockHexoriumPressurePlateBlue)
+            else if (block == HexBlocks.blockHexoriumPressurePlateBlue || block == HexBlocks.blockHexoriumPressurePlateWhiteBlue)
                 tessellator.setColorOpaque_F(0, 0, darken);
-            else if (block == HexBlocks.blockHexoriumPressurePlateWhite)
+            else if (block == HexBlocks.blockHexoriumPressurePlateWhite || block == HexBlocks.blockHexoriumPressurePlateWhiteWhite)
                 tessellator.setColorOpaque_F(darken, darken, darken);
 
             // Draw pressure plate glow.

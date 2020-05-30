@@ -17,6 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
@@ -26,7 +27,8 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 public class BlockHexoriumSwitch extends HexBlockModel {
 
     // Block ID
-    public static final String ID = "blockHexoriumSwitch";
+    public static final String ID_BLACK = "blockHexoriumSwitch";
+    public static final String ID_WHITE = "blockHexoriumSwitchWhite";
 
     // Meta Bits
     public static final int META_ORIENTATION_0 = 0;
@@ -34,15 +36,20 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     public static final int META_ORIENTATION_2 = 2;
     public static final int META_STATE = 3;
 
+    // Used for identifying the decoration variant.
+    private int variant;
+
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
+     * @param variant The decoration variant to use.
      */
-    public BlockHexoriumSwitch(String blockName) {
+    public BlockHexoriumSwitch(String blockName, int variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -343,8 +350,12 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[2];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
         // Load the inner texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }

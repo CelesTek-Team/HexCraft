@@ -371,6 +371,7 @@ tile.blockEnergyPylon.name=Energetski Stup
 tile.blockHexoriumSwitchRedGreen.name=Heksorijski Prekidač (Crveno-Zeleni)
 tile.blockHexoriumSwitchRedBlue.name=Heksorijski Prekidač (Crveno-Plavi)
 tile.blockHexoriumSwitchRedWhite.name=Heksorijski Prekidač (Crveno-Bijeli)
+tile.blockHexoriumSwitchBlueGreen.name=Heksorijski Prekidač (Plavo-Zeleni)
 
 tile.blockHexoriumButtonRed.name=Heksorijski Gumb (Crveni)
 tile.blockHexoriumButtonGreen.name=Heksorijski Gumb (Zeleni)

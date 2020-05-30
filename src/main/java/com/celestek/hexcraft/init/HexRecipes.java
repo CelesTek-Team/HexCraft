@@ -405,6 +405,7 @@ public class HexRecipes {
         ItemStack stackHexoriumSwitchRedGreen_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedGreen, 1);
         ItemStack stackHexoriumSwitchRedBlue_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedBlue, 1);
         ItemStack stackHexoriumSwitchRedWhite_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedWhite, 1);
+        ItemStack stackHexoriumSwitchBlueGreen_1 = new ItemStack(HexBlocks.blockHexoriumSwitchBlueGreen, 1);
 
         // Hexorium Button
         ItemStack stackHexoriumButtonRed_1 = new ItemStack(HexBlocks.blockHexoriumButtonRed, 1);
@@ -2906,6 +2907,10 @@ public class HexRecipes {
                 "ARB",
                 "CDC",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalWhite_1, 'C', "nuggetIron", 'D', stackLever_1));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchBlueGreen_1,
+                "ARB",
+                "CDC",
+                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'C', "nuggetIron", 'D', stackLever_1));
 
         // Hexorium Button
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonRed_1,
