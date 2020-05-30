@@ -12,6 +12,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -19,17 +21,23 @@ import net.minecraft.world.World;
 public class BlockPlatedHexoriumBlock extends HexBlockMT {
 
     // Block ID
-    public static final String ID = "blockPlatedHexoriumBlock";
+    public static final String ID_BLACK = "blockPlatedHexoriumBlock";
+    public static final String ID_WHITE = "blockPlatedHexoriumBlockWhite";
+
+    // Used for identifying the decoration variant.
+    private int variant;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param variant The decoration variant to use.
      */
-    public BlockPlatedHexoriumBlock(String blockName) {
+    public BlockPlatedHexoriumBlock(String blockName, int variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
@@ -78,12 +86,16 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[3];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the outer normal texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
         // Load the outer reinforced texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "Reinforced");
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockPlatedHexoriumBlockRainbow)
+        if(this == HexBlocks.blockPlatedHexoriumBlockRainbow || this == HexBlocks.blockPlatedHexoriumBlockWhiteRainbow)
             icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
