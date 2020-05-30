@@ -63,6 +63,13 @@ public class HexConfig {
     public static boolean cfgEnergyNodeDebug = false;
     public static boolean cfgEnergyNodeVerboseDebug = false;
 
+    // General - Energy Ports
+    public static String categoryEnergyPorts = "General - Energy Ports";
+    public static boolean cfgEnergyNodePortsRFEnable = true;
+    public static boolean cfgEnergyNodePortsRFInputOnly = false;
+    public static boolean cfgEnergyNodePortsEUEnable = true;
+    public static boolean cfgEnergyNodePortsEUInputOnly = false;
+
     // General - Energy Transfer
     public static String categoryEnergyTransfer = "General - Energy Transfer";
     public static boolean cfgEnergyTransferCustomEU = false;
@@ -414,7 +421,7 @@ public class HexConfig {
         cfgSeparatorEnable = config.getBoolean("Enable Crystal Separator", categorySeparator, cfgSeparatorEnable, "Enables the Crystal Separator block.\n");
         cfgSeparatorProcessNonHexcraft = config.getBoolean("Process Non-Hexcraft ores", categorySeparator, cfgSeparatorProcessNonHexcraft, "Enables processing of crystal ores other than HEXCraft ones.\n");
         cfgSeparatorMultiNonHexcraft = config.getInt("Non-Hexcraft multiplier", categorySeparator, cfgSeparatorMultiNonHexcraft, 1, 64, "The number of crystals gained when processing ores from other mods and vanilla.\n");
-        cfgSeparatorProcessChromatiCraft = config.getBoolean("Process Chromaticraft crystals", categorySeparator, cfgSeparatorProcessChromatiCraft, "Enables processing of ChromatiCraft Cave Crystals. NOTE: If 'Process Non-Hexcraft ores' is disabled, this is disabled as well.\n");
+        cfgSeparatorProcessChromatiCraft = config.getBoolean("Process Chromaticraft crystals", categorySeparator, cfgSeparatorProcessChromatiCraft, "Enables processing of ChromatiCraft Cave Crystals.\nNOTE: If 'Process Non-Hexcraft ores' is disabled, this is disabled as well.\n");
         cfgSeparatorMultiChromatiCraft = config.getInt("Chromaticraft multiplier", categorySeparator, cfgSeparatorMultiChromatiCraft, 1, 64, "The number of ChromatiCraft Crystal Shards gained when processing one whole Cave Crystal.\n");
 
         // General - Hexorium Tank
@@ -430,10 +437,18 @@ public class HexConfig {
         // General - Energy Node
         config.setCategoryComment(categoryEnergyNode, "Configuration for the Energy Node multiblock structure.");
         cfgEnergyNodeEnable = config.getBoolean("Enable Energy Node", categoryEnergyNode, cfgEnergyNodeEnable, "Enables the Energy Node multiblock structure.\n");
+        cfgEnergyNodeEnable = config.getBoolean("Enable Energy Node", categoryEnergyNode, cfgEnergyNodeEnable, "Enables the Energy Node multiblock structure.\n");
         cfgEnergyNodeDebug = config.getBoolean("Energy Node debugging", categoryEnergyNode, cfgEnergyNodeDebug, "If set to true, will output the Energy Node debugging to console.\n");
         cfgEnergyNodeVerboseDebug = config.getBoolean("Energy Node debugging (verbose)", categoryEnergyNode, cfgEnergyNodeVerboseDebug, "If set to true, will output extremely detailed Energy Node debugging info. Energy Node\ndebugging needs to be enabled.\n");
-        
-        // General - Energy Conversion
+
+        // General - Energy Ports
+        config.setCategoryComment(categoryEnergyPorts, "Configuration for the Energy Node ports.");
+        cfgEnergyNodePortsRFEnable = config.getBoolean("Enable Energy Node Port: RF", categoryEnergyPorts, cfgEnergyNodePortsRFEnable, "Enables the RF Port for the Energy Node.\n");
+        cfgEnergyNodePortsEUEnable = config.getBoolean("Enable Energy Node Port: EU", categoryEnergyPorts, cfgEnergyNodePortsRFEnable, "Enables the EU Port for the Energy Node.\nNOTE: If you don't have IndustrialCraft 2, the port is automatically disabled.\n");
+        cfgEnergyNodePortsRFInputOnly = config.getBoolean("Input only on RF Port", categoryEnergyPorts, cfgEnergyNodePortsRFInputOnly, "If enabled, the RF Port for the Energy Node can only be used in input mode.\nNOTE: If the port is already in output mode placed in the world, it won't automatically switch.\n");
+        cfgEnergyNodePortsEUInputOnly = config.getBoolean("Input only on EU Port", categoryEnergyPorts, cfgEnergyNodePortsEUInputOnly, "If enabled, the EU Port for the Energy Node can only be used in input mode.\nNOTE: If the port is already in output mode placed in the world, it won't automatically switch.\n");
+
+        // General - Energy Transfer
         config.setCategoryComment(categoryEnergyTransfer, "Configuration for the energy per tick rates of different tiers and ports.\nNote that the HEX setting are only applied when a HEX port is paired with a HEX port.");
         cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the\ndefault LV, MV, HV and EV ones.\n");
         cfgEnergyTransferTier1HEX = config.getInt("HEX/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1HEX, 0, 640000, "");

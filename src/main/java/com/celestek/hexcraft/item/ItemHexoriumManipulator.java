@@ -199,10 +199,16 @@ public class ItemHexoriumManipulator extends Item {
                             mode = HexEnergyNode.PORT_MODE_INPUT;
                     }
                     else {
-                        if (mode < HexEnergyNode.PORT_MODE_OUTPUT)
-                            mode++;
-                        else
+                        if (block == HexBlocks.blockEnergyNodePortRF && HexConfig.cfgEnergyNodePortsRFInputOnly)
                             mode = HexEnergyNode.PORT_MODE_INPUT;
+                        else if (block == HexBlocks.blockEnergyNodePortEU && HexConfig.cfgEnergyNodePortsEUInputOnly)
+                            mode = HexEnergyNode.PORT_MODE_INPUT;
+                        else {
+                            if (mode < HexEnergyNode.PORT_MODE_OUTPUT)
+                                mode++;
+                            else
+                                mode = HexEnergyNode.PORT_MODE_INPUT;
+                        }
                     }
                     switch (mode) {
                         case HexEnergyNode.PORT_MODE_INPUT:

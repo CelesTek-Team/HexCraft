@@ -38,8 +38,9 @@ public class HexTileEntities {
 
         if (HexConfig.cfgEnergyNodeEnable) {
             GameRegistry.registerTileEntity(TileEnergyNodePortHEX.class, TileEnergyNodePortHEX.ID);
-            GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
-            if (Loader.isModLoaded("IC2"))
+            if (HexConfig.cfgEnergyNodePortsRFEnable)
+                GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
+            if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable)
                 GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
         }
 

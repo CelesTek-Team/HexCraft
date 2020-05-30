@@ -111,7 +111,7 @@ public class HexItems {
             itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
             GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
         }
-        if (HexConfig.cfgEnergyNodeEnable) {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsRFEnable) {
             itemHexoriumRFAdapter = new HexItemComponent("itemHexoriumRFAdapter");
             GameRegistry.registerItem(itemHexoriumRFAdapter, "itemHexoriumRFAdapter");
         }

@@ -1089,9 +1089,11 @@ public class HexBlocks {
 
             blockEnergyNodePortHEX = new BlockEnergyNodePortHEX(BlockEnergyNodePortHEX.ID);
             GameRegistry.registerBlock(blockEnergyNodePortHEX, BlockEnergyNodePortHEX.ID);
-            blockEnergyNodePortRF = new BlockEnergyNodePortRF(BlockEnergyNodePortRF.ID);
-            GameRegistry.registerBlock(blockEnergyNodePortRF, BlockEnergyNodePortRF.ID);
-            if (Loader.isModLoaded("IC2")) {
+            if (HexConfig.cfgEnergyNodePortsRFEnable) {
+                blockEnergyNodePortRF = new BlockEnergyNodePortRF(BlockEnergyNodePortRF.ID);
+                GameRegistry.registerBlock(blockEnergyNodePortRF, BlockEnergyNodePortRF.ID);
+            }
+            if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable) {
                 blockEnergyNodePortEU = new BlockEnergyNodePortEU(BlockEnergyNodePortEU.ID);
                 GameRegistry.registerBlock(blockEnergyNodePortEU, BlockEnergyNodePortEU.ID);
             }

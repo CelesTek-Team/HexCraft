@@ -2459,13 +2459,15 @@ public class HexRecipes {
                     "ECE",
                     'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
                     'C', stackHexoriumEnergyConverter_1, 'D', stackHexoriumCableRainbow_1, 'E', "ingotIron"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortRF_1,
-                    "EBE",
-                    "DAR",
-                    "ECE",
-                    'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
-                    'C', stackHexoriumRFAdapter_1, 'D', "ingotGold", 'E', "ingotIron"));
-            if (Loader.isModLoaded("IC2")) {
+            if (HexConfig.cfgEnergyNodePortsRFEnable) {
+                GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortRF_1,
+                        "EBE",
+                        "DAR",
+                        "ECE",
+                        'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
+                        'C', stackHexoriumRFAdapter_1, 'D', "ingotGold", 'E', "ingotIron"));
+            }
+            if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable) {
                 ItemStack stackAdvancedCircuit_1 = IC2Items.getItem("advancedCircuit");
                 ItemStack stackInsulatedGoldCable_1 = IC2Items.getItem("insulatedGoldCableItem");
                 if (stackAdvancedCircuit_1 != null && stackInsulatedGoldCable_1 != null)
@@ -3211,7 +3213,7 @@ public class HexRecipes {
                     "DAD",
                     'R', stackRedstone_1, 'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumProcessor_1, 'C', stackRainbowCore_1, 'D', "nuggetIron"));
         }
-        if (HexConfig.cfgEnergyNodeEnable) {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsRFEnable) {
             GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumRFAdapter_1,
                     "RBR",
                     "RAR",
