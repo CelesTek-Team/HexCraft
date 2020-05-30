@@ -17,6 +17,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -24,7 +26,11 @@ import net.minecraft.world.World;
 public class BlockGlowingHexoriumCoatedStone extends HexBlockMT {
 
     // Block ID
-    public static final String ID = "blockGlowingHexoriumCoatedStone";
+    public static final String ID_BLACK = "blockGlowingHexoriumCoatedStone";
+    public static final String ID_WHITE = "blockGlowingHexoriumCoatedStoneWhite";
+
+    // Used for identifying the decoration variant.
+    private int variant;
 
     // Prepare an array of all possible situations.
     private static final int[] textureRefByID = {
@@ -49,12 +55,14 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT {
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
+     * @param variant The decoration variant to use.
      */
-    public BlockGlowingHexoriumCoatedStone(String blockName) {
+    public BlockGlowingHexoriumCoatedStone(String blockName, int variant) {
         super(Material.rock);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
@@ -103,23 +111,27 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[97];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
 
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + (i + 1));
         }
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i + 48] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Reinforced" + "0" + (i + 1));
+                icon[i + 48] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "Reinforced" + "0" + (i + 1));
             else
-                icon[i + 48] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Reinforced" + (i + 1));
+                icon[i + 48] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "Reinforced" + (i + 1));
         }
 
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockGlowingHexoriumCoatedStoneRainbow)
+        if(this == HexBlocks.blockGlowingHexoriumCoatedStoneRainbow || this == HexBlocks.blockGlowingHexoriumCoatedStoneWhiteRainbow)
             icon[96] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[96] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

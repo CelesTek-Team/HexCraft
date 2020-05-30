@@ -14,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -21,17 +23,23 @@ import net.minecraft.world.World;
 public class BlockHexoriumCoatedStone extends Block {
 
     // Set default block name.
-    public static final String ID = "blockHexoriumCoatedStone";
+    public static final String ID_BLACK = "blockHexoriumCoatedStone";
+    public static final String ID_WHITE = "blockHexoriumCoatedStoneWhite";
+
+    // Used for identifying the decoration variant.
+    private int variant;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
+     * @param variant The decoration variant to use.
      */
-    public BlockHexoriumCoatedStone(String blockName) {
+    public BlockHexoriumCoatedStone(String blockName, int variant) {
         super(Material.rock);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
@@ -80,11 +88,14 @@ public class BlockHexoriumCoatedStone extends Block {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icon.
         icon = new IIcon[2];
-
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the icon.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
         // Load the reinforced texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "Reinforced");
     }
 
     /**

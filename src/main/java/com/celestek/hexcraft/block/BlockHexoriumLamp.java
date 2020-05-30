@@ -15,6 +15,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -22,20 +24,26 @@ import net.minecraft.world.World;
 public class BlockHexoriumLamp extends HexBlockMT {
 
     // Block ID
-    public static final String ID = "blockHexoriumLamp";
+    public static final String ID_BLACK = "blockHexoriumLamp";
+    public static final String ID_WHITE = "blockHexoriumLampWhite";
 
     // Meta Bits
     public static final int META_STATE = 0;
 
+    // Used for identifying the decoration variant.
+    private int variant;
+
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param variant The decoration variant to use.
      */
-    public BlockHexoriumLamp(String blockName) {
+    public BlockHexoriumLamp(String blockName, int variant) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -112,10 +120,14 @@ public class BlockHexoriumLamp extends HexBlockMT {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[2];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockHexoriumLampRainbow)
+        if(this == HexBlocks.blockHexoriumLampRainbow || this == HexBlocks.blockHexoriumLampWhiteRainbow)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

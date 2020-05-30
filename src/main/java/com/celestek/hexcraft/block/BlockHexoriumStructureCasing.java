@@ -53,6 +53,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
+     * @param variant The decoration variant to use.
      */
     public BlockHexoriumStructureCasing(String blockName, int variant) {
         super(Material.iron);

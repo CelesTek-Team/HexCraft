@@ -12,6 +12,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -19,7 +21,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockGlowingHexoriumGlass extends HexBlockMT {
 
     // Block ID
-    public static final String ID = "blockGlowingHexoriumGlass";
+    public static final String ID_BLACK = "blockGlowingHexoriumGlass";
+    public static final String ID_WHITE = "blockGlowingHexoriumGlassWhite";
+
+    // Used for identifying the decoration variant.
+    private int variant;
 
     // Prepare an array of all possible situations.
     private static final int[] textureRefByID = {
@@ -44,12 +50,14 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
+     * @param variant The decoration variant to use.
      */
-    public BlockGlowingHexoriumGlass(String blockName) {
+    public BlockGlowingHexoriumGlass(String blockName, int variant) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -72,21 +80,25 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[96];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
 
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "A0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "A0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "A" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "A" + (i + 1));
         }
 
         // Load all the different inner icons.
         for(int i = 48; i < 96; i++) {
             if(i - 48 < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B0" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "B0" + (i - 47));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "B" + (i - 47));
         }
     }
 

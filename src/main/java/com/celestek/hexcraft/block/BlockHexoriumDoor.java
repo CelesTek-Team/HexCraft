@@ -23,6 +23,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
@@ -32,7 +33,8 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 public class BlockHexoriumDoor extends HexBlockModel {
 
     // Block ID
-    public static final String ID = "blockHexoriumDoor";
+    public static final String ID_BLACK = "blockHexoriumDoor";
+    public static final String ID_WHITE = "blockHexoriumDoorWhite";
 
     // Meta Bits
     public static final int META_ROTATION_0 = 0;
@@ -41,15 +43,20 @@ public class BlockHexoriumDoor extends HexBlockModel {
     public static final int META_REINFORCED = 3; // Stored on both doors.
     public static final int META_FLIPPED = 0; // Stored on upper door.
 
+    // Used for identifying the decoration variant.
+    private int variant;
+
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
+     * @param variant The decoration variant to use.
      */
-    public BlockHexoriumDoor(String blockName) {
+    public BlockHexoriumDoor(String blockName, int variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         // Assign harvest levels to all metas.
@@ -181,23 +188,23 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
 
                 if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
-                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z))
+                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y + 1, z);
-                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1))
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z - 1);
-                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z))
+                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y + 1, z);
-                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1))
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z + 1);
                 }
                 else {
-                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this)
+                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y + 1, z);
-                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this)
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1)  instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z + 1);
-                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this)
+                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y + 1, z);
-                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this)
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y + 1, z - 1);
                 }
 
@@ -214,37 +221,37 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
                 // Toggle the flipped door.
                 if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
-                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
                         world.markBlockForUpdate(x - 1, y + 1, z);
                     }
-                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
                         world.markBlockForUpdate(x, y + 1, z - 1);
                     }
-                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
+                    else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
                         world.markBlockForUpdate(x + 1, y + 1, z);
                     }
-                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
                         world.markBlockForUpdate(x, y + 1, z + 1);
                     }
                 }
                 else {
-                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this) {
+                    if (rotation == 0 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
                         world.markBlockForUpdate(x + 1, y + 1, z);
                     }
-                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this) {
+                    else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
                         world.markBlockForUpdate(x, y + 1, z + 1);
                     }
-                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this) {
+                    else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
                         world.markBlockForUpdate(x - 1, y + 1, z);
                     }
-                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this) {
+                    else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
                         world.markBlockForUpdate(x, y + 1, z - 1);
                     }
@@ -256,23 +263,23 @@ public class BlockHexoriumDoor extends HexBlockModel {
                 int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
 
                 if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
-                    if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z))
+                    if (rotation == 0 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y - 1, z);
-                    else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1))
+                    else if (rotation == 1 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z - 1);
-                    else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z))
+                    else if (rotation == 2 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y - 1, z);
-                    else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1))
+                    else if (rotation == 3 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1))
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z + 1);
                 }
                 else {
-                    if (rotation == 0 && world.getBlock(x + 1, y, z) == this)
+                    if (rotation == 0 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x + 1, y, z) || world.isBlockIndirectlyGettingPowered(x + 1, y - 1, z);
-                    else if (rotation == 1 && world.getBlock(x, y, z + 1) == this)
+                    else if (rotation == 1 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z + 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z + 1);
-                    else if (rotation == 2 && world.getBlock(x - 1, y, z) == this)
+                    else if (rotation == 2 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x - 1, y, z) || world.isBlockIndirectlyGettingPowered(x - 1, y - 1, z);
-                    else if (rotation == 3 && world.getBlock(x, y, z - 1) == this)
+                    else if (rotation == 3 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor)
                         powered = powered || world.isBlockIndirectlyGettingPowered(x, y, z - 1) || world.isBlockIndirectlyGettingPowered(x, y - 1, z - 1);
                 }
 
@@ -289,38 +296,38 @@ public class BlockHexoriumDoor extends HexBlockModel {
 
                 // Toggle the flipped door.
                 if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
-                    if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
+                    if (rotation == 0 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
                         world.markBlockForUpdate(x - 1, y, z);
                     }
-                    else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
+                    else if (rotation == 1 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
                         world.markBlockForUpdate(x, y, z - 1);
                     }
-                    else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
+                    else if (rotation == 2 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
                         world.markBlockForUpdate(x + 1, y, z);
                     }
-                    else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
+                    else if (rotation == 3 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
                         world.markBlockForUpdate(x, y, z + 1);
                     }
                 }
                 // Toggle the main door.
                 else {
-                    if (rotation == 0 && world.getBlock(x + 1, y, z) == this) {
+                    if (rotation == 0 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
                         world.markBlockForUpdate(x + 1, y, z);
                     }
-                    else if (rotation == 1 && world.getBlock(x, y, z + 1) == this) {
+                    else if (rotation == 1 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
                         world.markBlockForUpdate(x, y, z + 1);
                     }
-                    else if (rotation == 2 && world.getBlock(x - 1, y, z) == this) {
+                    else if (rotation == 2 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
                         world.markBlockForUpdate(x - 1, y, z);
                     }
-                    else if (rotation == 3 && world.getBlock(x, y, z - 1) == this) {
+                    else if (rotation == 3 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor) {
                         HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
                         world.markBlockForUpdate(x, y, z - 1);
                     }
@@ -441,38 +448,38 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y - 1, z);
                     // Toggle the flipped door.
                     if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y, z)) {
-                        if (rotation == 0 && world.getBlock(x - 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
+                        if (rotation == 0 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y, z)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
                             world.markBlockForUpdate(x - 1, y, z);
                         }
-                        else if (rotation == 1 && world.getBlock(x, y, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
+                        else if (rotation == 1 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z - 1)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
                             world.markBlockForUpdate(x, y, z - 1);
                         }
-                        else if (rotation == 2 && world.getBlock(x + 1, y, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
+                        else if (rotation == 2 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y, z)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
                             world.markBlockForUpdate(x + 1, y, z);
                         }
-                        else if (rotation == 3 && world.getBlock(x, y, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
+                        else if (rotation == 3 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y, z + 1)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
                             world.markBlockForUpdate(x, y, z + 1);
                         }
                     }
                     // Toggle the main door.
                     else {
-                        if (rotation == 0 && world.getBlock(x + 1, y, z) == this) {
+                        if (rotation == 0 && world.getBlock(x + 1, y, z) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y - 1, z);
                             world.markBlockForUpdate(x + 1, y, z);
                         }
-                        else if (rotation == 1 && world.getBlock(x, y, z + 1) == this) {
+                        else if (rotation == 1 && world.getBlock(x, y, z + 1) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z + 1);
                             world.markBlockForUpdate(x, y, z + 1);
                         }
-                        else if (rotation == 2 && world.getBlock(x - 1, y, z) == this) {
+                        else if (rotation == 2 && world.getBlock(x - 1, y, z) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y - 1, z);
                             world.markBlockForUpdate(x - 1, y, z);
                         }
-                        else if (rotation == 3 && world.getBlock(x, y, z - 1) == this) {
+                        else if (rotation == 3 && world.getBlock(x, y, z - 1) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y - 1, z), HexUtils.META_NOTIFY_UPDATE, world, x, y - 1, z - 1);
                             world.markBlockForUpdate(x, y, z - 1);
                         }
@@ -486,37 +493,37 @@ public class BlockHexoriumDoor extends HexBlockModel {
                     int rotation = HexUtils.getMetaBitBiInt(META_ROTATION_0, META_ROTATION_1, world, x, y, z);
                     // Toggle the flipped door.
                     if (!HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z)) {
-                        if (rotation == 0 && world.getBlock(x - 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
+                        if (rotation == 0 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x - 1, y + 1, z)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
                             world.markBlockForUpdate(x - 1, y + 1, z);
                         }
-                        else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
+                        else if (rotation == 1 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z - 1)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
                             world.markBlockForUpdate(x, y + 1, z - 1);
                         }
-                        else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) == this && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
+                        else if (rotation == 2 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x + 1, y + 1, z)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
                             world.markBlockForUpdate(x + 1, y + 1, z);
                         }
-                        else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) == this && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
+                        else if (rotation == 3 && world.getBlock(x, y + 1, z + 1) instanceof BlockHexoriumDoor && HexUtils.getMetaBit(META_FLIPPED, world, x, y + 1, z + 1)) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
                             world.markBlockForUpdate(x, y + 1, z + 1);
                         }
                     }
                     else {
-                        if (rotation == 0 && world.getBlock(x + 1, y + 1, z) == this) {
+                        if (rotation == 0 && world.getBlock(x + 1, y + 1, z) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x + 1, y, z);
                             world.markBlockForUpdate(x + 1, y + 1, z);
                         }
-                        else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) == this) {
+                        else if (rotation == 1 && world.getBlock(x, y + 1, z + 1) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z + 1);
                             world.markBlockForUpdate(x, y + 1, z + 1);
                         }
-                        else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) == this) {
+                        else if (rotation == 2 && world.getBlock(x - 1, y + 1, z) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x - 1, y, z);
                             world.markBlockForUpdate(x - 1, y + 1, z);
                         }
-                        else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) == this) {
+                        else if (rotation == 3 && world.getBlock(x, y + 1, z - 1) instanceof BlockHexoriumDoor) {
                             HexUtils.setMetaBit(META_STATE, HexUtils.getMetaBit(META_STATE, world, x, y, z), HexUtils.META_NOTIFY_UPDATE, world, x, y, z - 1);
                             world.markBlockForUpdate(x, y + 1, z - 1);
                         }
@@ -550,22 +557,26 @@ public class BlockHexoriumDoor extends HexBlockModel {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[11];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "01");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "02");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "01");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "02");
         // Load the flipped outer textures.
         icon[2] = new IconFlipped(icon[0], true, false);
         icon[3] = new IconFlipped(icon[1], true, false);
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "03");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "03");
         // Load the outer reinforced textures.
-        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "04");
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "05");
+        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "04");
+        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "05");
         // Load the flipped outer reinforced textures.
         icon[7] = new IconFlipped(icon[5], true, false);
         icon[8] = new IconFlipped(icon[6], true, false);
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "06");
+        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "06");
         // Load the inner texture.
-        if(this == HexBlocks.blockHexoriumDoorRainbow)
+        if(this == HexBlocks.blockHexoriumDoorRainbow || this == HexBlocks.blockHexoriumDoorWhiteRainbow)
             icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

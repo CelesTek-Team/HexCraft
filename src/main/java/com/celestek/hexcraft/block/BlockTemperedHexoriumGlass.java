@@ -15,6 +15,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
@@ -22,7 +24,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockTemperedHexoriumGlass extends Block {
 
     // Set default block name.
-    public static final String ID = "blockTemperedHexoriumGlass";
+    public static final String ID_BLACK = "blockTemperedHexoriumGlass";
+    public static final String ID_WHITE = "blockTemperedHexoriumGlassWhite";
+
+    // Used for identifying the decoration variant.
+    private int variant;
 
     // Prepare an array of all possible situations.
     private static final int[] textureRefByID = {
@@ -48,11 +54,12 @@ public class BlockTemperedHexoriumGlass extends Block {
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      */
-    public BlockTemperedHexoriumGlass(String blockName) {
+    public BlockTemperedHexoriumGlass(String blockName, int variant) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -75,13 +82,17 @@ public class BlockTemperedHexoriumGlass extends Block {
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[48];
+        // Map decoration and variant.
+        String id = ID_BLACK;
+        if (this.variant == DECORATIVE_VARIANT_WHITE)
+            id = ID_WHITE;
 
         // Load all the different icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + (i + 1));
         }
     }
 

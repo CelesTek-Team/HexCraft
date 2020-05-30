@@ -42,7 +42,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static final int countBlocks = 397;
+    public static final int countBlocks = 486;
 
     // Hexorium Nether Ore
     public static Block blockHexoriumNetherOreRed;
@@ -343,6 +343,27 @@ public class HexBlocks {
 
     public static Block blockGlowingHexoriumCoatedStoneRainbow;
 
+    public static Block blockGlowingHexoriumCoatedStoneWhiteRed;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteOrange;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteYellow;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteLime;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteGreen;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteTurquoise;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteCyan;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteSkyBlue;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteBlue;
+    public static Block blockGlowingHexoriumCoatedStoneWhitePurple;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteMagenta;
+    public static Block blockGlowingHexoriumCoatedStoneWhitePink;
+
+    public static Block blockGlowingHexoriumCoatedStoneWhiteWhite;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteLightGray;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteGray;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteDarkGray;
+    public static Block blockGlowingHexoriumCoatedStoneWhiteBlack;
+
+    public static Block blockGlowingHexoriumCoatedStoneWhiteRainbow;
+
     // Glowing Hexorium Glass
     public static Block blockGlowingHexoriumGlassRed;
     public static Block blockGlowingHexoriumGlassOrange;
@@ -362,6 +383,25 @@ public class HexBlocks {
     public static Block blockGlowingHexoriumGlassGray;
     public static Block blockGlowingHexoriumGlassDarkGray;
     public static Block blockGlowingHexoriumGlassBlack;
+
+    public static Block blockGlowingHexoriumGlassWhiteRed;
+    public static Block blockGlowingHexoriumGlassWhiteOrange;
+    public static Block blockGlowingHexoriumGlassWhiteYellow;
+    public static Block blockGlowingHexoriumGlassWhiteLime;
+    public static Block blockGlowingHexoriumGlassWhiteGreen;
+    public static Block blockGlowingHexoriumGlassWhiteTurquoise;
+    public static Block blockGlowingHexoriumGlassWhiteCyan;
+    public static Block blockGlowingHexoriumGlassWhiteSkyBlue;
+    public static Block blockGlowingHexoriumGlassWhiteBlue;
+    public static Block blockGlowingHexoriumGlassWhitePurple;
+    public static Block blockGlowingHexoriumGlassWhiteMagenta;
+    public static Block blockGlowingHexoriumGlassWhitePink;
+
+    public static Block blockGlowingHexoriumGlassWhiteWhite;
+    public static Block blockGlowingHexoriumGlassWhiteLightGray;
+    public static Block blockGlowingHexoriumGlassWhiteGray;
+    public static Block blockGlowingHexoriumGlassWhiteDarkGray;
+    public static Block blockGlowingHexoriumGlassWhiteBlack;
 
     // Energized Hexorium Monolith
     public static Block blockEnergizedHexoriumMonolithRed;
@@ -407,6 +447,27 @@ public class HexBlocks {
 
     public static Block blockHexoriumLampRainbow;
 
+    public static Block blockHexoriumLampWhiteRed;
+    public static Block blockHexoriumLampWhiteOrange;
+    public static Block blockHexoriumLampWhiteYellow;
+    public static Block blockHexoriumLampWhiteLime;
+    public static Block blockHexoriumLampWhiteGreen;
+    public static Block blockHexoriumLampWhiteTurquoise;
+    public static Block blockHexoriumLampWhiteCyan;
+    public static Block blockHexoriumLampWhiteSkyBlue;
+    public static Block blockHexoriumLampWhiteBlue;
+    public static Block blockHexoriumLampWhitePurple;
+    public static Block blockHexoriumLampWhiteMagenta;
+    public static Block blockHexoriumLampWhitePink;
+
+    public static Block blockHexoriumLampWhiteWhite;
+    public static Block blockHexoriumLampWhiteLightGray;
+    public static Block blockHexoriumLampWhiteGray;
+    public static Block blockHexoriumLampWhiteDarkGray;
+    public static Block blockHexoriumLampWhiteBlack;
+
+    public static Block blockHexoriumLampWhiteRainbow;
+
     // Inverted Hexorium Lamp
     public static Block blockHexoriumLampInvRed;
     public static Block blockHexoriumLampInvOrange;
@@ -429,6 +490,27 @@ public class HexBlocks {
 
     public static Block blockHexoriumLampInvRainbow;
 
+    public static Block blockHexoriumLampInvWhiteRed;
+    public static Block blockHexoriumLampInvWhiteOrange;
+    public static Block blockHexoriumLampInvWhiteYellow;
+    public static Block blockHexoriumLampInvWhiteLime;
+    public static Block blockHexoriumLampInvWhiteGreen;
+    public static Block blockHexoriumLampInvWhiteTurquoise;
+    public static Block blockHexoriumLampInvWhiteCyan;
+    public static Block blockHexoriumLampInvWhiteSkyBlue;
+    public static Block blockHexoriumLampInvWhiteBlue;
+    public static Block blockHexoriumLampInvWhitePurple;
+    public static Block blockHexoriumLampInvWhiteMagenta;
+    public static Block blockHexoriumLampInvWhitePink;
+
+    public static Block blockHexoriumLampInvWhiteWhite;
+    public static Block blockHexoriumLampInvWhiteLightGray;
+    public static Block blockHexoriumLampInvWhiteGray;
+    public static Block blockHexoriumLampInvWhiteDarkGray;
+    public static Block blockHexoriumLampInvWhiteBlack;
+
+    public static Block blockHexoriumLampInvWhiteRainbow;
+
     // Hexorium Door
     public static Block blockHexoriumDoorRed;
     public static Block blockHexoriumDoorOrange;
@@ -450,6 +532,27 @@ public class HexBlocks {
     public static Block blockHexoriumDoorBlack;
 
     public static Block blockHexoriumDoorRainbow;
+
+    public static Block blockHexoriumDoorWhiteRed;
+    public static Block blockHexoriumDoorWhiteOrange;
+    public static Block blockHexoriumDoorWhiteYellow;
+    public static Block blockHexoriumDoorWhiteLime;
+    public static Block blockHexoriumDoorWhiteGreen;
+    public static Block blockHexoriumDoorWhiteTurquoise;
+    public static Block blockHexoriumDoorWhiteCyan;
+    public static Block blockHexoriumDoorWhiteSkyBlue;
+    public static Block blockHexoriumDoorWhiteBlue;
+    public static Block blockHexoriumDoorWhitePurple;
+    public static Block blockHexoriumDoorWhiteMagenta;
+    public static Block blockHexoriumDoorWhitePink;
+
+    public static Block blockHexoriumDoorWhiteWhite;
+    public static Block blockHexoriumDoorWhiteLightGray;
+    public static Block blockHexoriumDoorWhiteGray;
+    public static Block blockHexoriumDoorWhiteDarkGray;
+    public static Block blockHexoriumDoorWhiteBlack;
+
+    public static Block blockHexoriumDoorWhiteRainbow;
 
     // Hexorium Hatch
     public static Block blockHexoriumHatchRed;
@@ -545,7 +648,9 @@ public class HexBlocks {
 
     // Regular Blocks
     public static Block blockTemperedHexoriumGlass;
+    public static Block blockTemperedHexoriumGlassWhite;
     public static Block blockHexoriumCoatedStone;
+    public static Block blockHexoriumCoatedStoneWhite;
 
     public static Block blockPylonBase51;
     public static Block blockPylonBase15;
@@ -1060,81 +1165,156 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumStructureCasingWhiteRainbow, BlockHexoriumStructureCasing.ID_WHITE + "Rainbow");
 
         // Glowing Hexorium-Coated Stone
-        blockGlowingHexoriumCoatedStoneRed = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Red");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRed, BlockGlowingHexoriumCoatedStone.ID + "Red");
-        blockGlowingHexoriumCoatedStoneOrange = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Orange");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneOrange, BlockGlowingHexoriumCoatedStone.ID + "Orange");
-        blockGlowingHexoriumCoatedStoneYellow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Yellow");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneYellow, BlockGlowingHexoriumCoatedStone.ID + "Yellow");
-        blockGlowingHexoriumCoatedStoneLime = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Lime");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLime, BlockGlowingHexoriumCoatedStone.ID + "Lime");
-        blockGlowingHexoriumCoatedStoneGreen = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Green");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGreen, BlockGlowingHexoriumCoatedStone.ID + "Green");
-        blockGlowingHexoriumCoatedStoneTurquoise = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Turquoise");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneTurquoise, BlockGlowingHexoriumCoatedStone.ID + "Turquoise");
-        blockGlowingHexoriumCoatedStoneCyan = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Cyan");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneCyan, BlockGlowingHexoriumCoatedStone.ID + "Cyan");
-        blockGlowingHexoriumCoatedStoneSkyBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "SkyBlue");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneSkyBlue, BlockGlowingHexoriumCoatedStone.ID + "SkyBlue");
-        blockGlowingHexoriumCoatedStoneBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Blue");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlue, BlockGlowingHexoriumCoatedStone.ID + "Blue");
-        blockGlowingHexoriumCoatedStonePurple = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Purple");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePurple, BlockGlowingHexoriumCoatedStone.ID + "Purple");
-        blockGlowingHexoriumCoatedStoneMagenta = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Magenta");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneMagenta, BlockGlowingHexoriumCoatedStone.ID + "Magenta");
-        blockGlowingHexoriumCoatedStonePink = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Pink");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePink, BlockGlowingHexoriumCoatedStone.ID + "Pink");
+        blockGlowingHexoriumCoatedStoneRed = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Red", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRed, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Red");
+        blockGlowingHexoriumCoatedStoneOrange = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Orange", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneOrange, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Orange");
+        blockGlowingHexoriumCoatedStoneYellow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Yellow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneYellow, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Yellow");
+        blockGlowingHexoriumCoatedStoneLime = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Lime", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLime, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Lime");
+        blockGlowingHexoriumCoatedStoneGreen = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Green", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGreen, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Green");
+        blockGlowingHexoriumCoatedStoneTurquoise = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Turquoise", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneTurquoise, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Turquoise");
+        blockGlowingHexoriumCoatedStoneCyan = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Cyan", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneCyan, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Cyan");
+        blockGlowingHexoriumCoatedStoneSkyBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "SkyBlue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneSkyBlue, BlockGlowingHexoriumCoatedStone.ID_BLACK + "SkyBlue");
+        blockGlowingHexoriumCoatedStoneBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Blue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlue, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Blue");
+        blockGlowingHexoriumCoatedStonePurple = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Purple", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePurple, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Purple");
+        blockGlowingHexoriumCoatedStoneMagenta = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Magenta", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneMagenta, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Magenta");
+        blockGlowingHexoriumCoatedStonePink = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Pink", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStonePink, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Pink");
 
-        blockGlowingHexoriumCoatedStoneWhite = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "White");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhite, BlockGlowingHexoriumCoatedStone.ID + "White");
-        blockGlowingHexoriumCoatedStoneLightGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "LightGray");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLightGray, BlockGlowingHexoriumCoatedStone.ID + "LightGray");
-        blockGlowingHexoriumCoatedStoneGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Gray");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGray, BlockGlowingHexoriumCoatedStone.ID + "Gray");
-        blockGlowingHexoriumCoatedStoneDarkGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "DarkGray");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneDarkGray, BlockGlowingHexoriumCoatedStone.ID + "DarkGray");
-        blockGlowingHexoriumCoatedStoneBlack = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Black");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlack, BlockGlowingHexoriumCoatedStone.ID + "Black");
+        blockGlowingHexoriumCoatedStoneWhite = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "White", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhite, BlockGlowingHexoriumCoatedStone.ID_BLACK + "White");
+        blockGlowingHexoriumCoatedStoneLightGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "LightGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneLightGray, BlockGlowingHexoriumCoatedStone.ID_BLACK + "LightGray");
+        blockGlowingHexoriumCoatedStoneGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Gray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneGray, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Gray");
+        blockGlowingHexoriumCoatedStoneDarkGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "DarkGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneDarkGray, BlockGlowingHexoriumCoatedStone.ID_BLACK + "DarkGray");
+        blockGlowingHexoriumCoatedStoneBlack = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Black", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneBlack, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Black");
 
-        blockGlowingHexoriumCoatedStoneRainbow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID + "Rainbow");
-        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRainbow, BlockGlowingHexoriumCoatedStone.ID + "Rainbow");
+        blockGlowingHexoriumCoatedStoneRainbow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_BLACK + "Rainbow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneRainbow, BlockGlowingHexoriumCoatedStone.ID_BLACK + "Rainbow");
+
+        blockGlowingHexoriumCoatedStoneWhiteRed = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Red", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteRed, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Red");
+        blockGlowingHexoriumCoatedStoneWhiteOrange = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Orange", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteOrange, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Orange");
+        blockGlowingHexoriumCoatedStoneWhiteYellow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Yellow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteYellow, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Yellow");
+        blockGlowingHexoriumCoatedStoneWhiteLime = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Lime", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteLime, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Lime");
+        blockGlowingHexoriumCoatedStoneWhiteGreen = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Green", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteGreen, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Green");
+        blockGlowingHexoriumCoatedStoneWhiteTurquoise = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Turquoise", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteTurquoise, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Turquoise");
+        blockGlowingHexoriumCoatedStoneWhiteCyan = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Cyan", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteCyan, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Cyan");
+        blockGlowingHexoriumCoatedStoneWhiteSkyBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "SkyBlue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteSkyBlue, BlockGlowingHexoriumCoatedStone.ID_WHITE + "SkyBlue");
+        blockGlowingHexoriumCoatedStoneWhiteBlue = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Blue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteBlue, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Blue");
+        blockGlowingHexoriumCoatedStoneWhitePurple = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Purple", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhitePurple, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Purple");
+        blockGlowingHexoriumCoatedStoneWhiteMagenta = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Magenta", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteMagenta, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Magenta");
+        blockGlowingHexoriumCoatedStoneWhitePink = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Pink", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhitePink, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Pink");
+
+        blockGlowingHexoriumCoatedStoneWhiteWhite = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "White", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteWhite, BlockGlowingHexoriumCoatedStone.ID_WHITE + "White");
+        blockGlowingHexoriumCoatedStoneWhiteLightGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "LightGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteLightGray, BlockGlowingHexoriumCoatedStone.ID_WHITE + "LightGray");
+        blockGlowingHexoriumCoatedStoneWhiteGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Gray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteGray, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Gray");
+        blockGlowingHexoriumCoatedStoneWhiteDarkGray = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "DarkGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteDarkGray, BlockGlowingHexoriumCoatedStone.ID_WHITE + "DarkGray");
+        blockGlowingHexoriumCoatedStoneWhiteBlack = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Black", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteBlack, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Black");
+
+        blockGlowingHexoriumCoatedStoneWhiteRainbow = new BlockGlowingHexoriumCoatedStone(BlockGlowingHexoriumCoatedStone.ID_WHITE + "Rainbow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumCoatedStoneWhiteRainbow, BlockGlowingHexoriumCoatedStone.ID_WHITE + "Rainbow");
 
         // Glowing Hexorium Glass
-        blockGlowingHexoriumGlassRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Red");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassRed, BlockGlowingHexoriumGlass.ID + "Red");
-        blockGlowingHexoriumGlassOrange = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Orange");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassOrange, BlockGlowingHexoriumGlass.ID + "Orange");
-        blockGlowingHexoriumGlassYellow = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Yellow");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassYellow, BlockGlowingHexoriumGlass.ID + "Yellow");
-        blockGlowingHexoriumGlassLime = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Lime");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassLime, BlockGlowingHexoriumGlass.ID + "Lime");
-        blockGlowingHexoriumGlassGreen = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Green");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassGreen, BlockGlowingHexoriumGlass.ID + "Green");
-        blockGlowingHexoriumGlassTurquoise = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Turquoise");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassTurquoise, BlockGlowingHexoriumGlass.ID + "Turquoise");
-        blockGlowingHexoriumGlassCyan = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Cyan");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassCyan, BlockGlowingHexoriumGlass.ID + "Cyan");
-        blockGlowingHexoriumGlassSkyBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "SkyBlue");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassSkyBlue, BlockGlowingHexoriumGlass.ID + "SkyBlue");
-        blockGlowingHexoriumGlassBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Blue");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassBlue, BlockGlowingHexoriumGlass.ID + "Blue");
-        blockGlowingHexoriumGlassPurple = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Purple");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassPurple, BlockGlowingHexoriumGlass.ID + "Purple");
-        blockGlowingHexoriumGlassMagenta = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Magenta");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassMagenta, BlockGlowingHexoriumGlass.ID + "Magenta");
-        blockGlowingHexoriumGlassPink = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Pink");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassPink, BlockGlowingHexoriumGlass.ID + "Pink");
+        blockGlowingHexoriumGlassRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Red", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassRed, BlockGlowingHexoriumGlass.ID_BLACK + "Red");
+        blockGlowingHexoriumGlassOrange = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Orange", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassOrange, BlockGlowingHexoriumGlass.ID_BLACK + "Orange");
+        blockGlowingHexoriumGlassYellow = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Yellow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassYellow, BlockGlowingHexoriumGlass.ID_BLACK + "Yellow");
+        blockGlowingHexoriumGlassLime = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Lime", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassLime, BlockGlowingHexoriumGlass.ID_BLACK + "Lime");
+        blockGlowingHexoriumGlassGreen = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Green", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassGreen, BlockGlowingHexoriumGlass.ID_BLACK + "Green");
+        blockGlowingHexoriumGlassTurquoise = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Turquoise", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassTurquoise, BlockGlowingHexoriumGlass.ID_BLACK + "Turquoise");
+        blockGlowingHexoriumGlassCyan = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Cyan", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassCyan, BlockGlowingHexoriumGlass.ID_BLACK + "Cyan");
+        blockGlowingHexoriumGlassSkyBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "SkyBlue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassSkyBlue, BlockGlowingHexoriumGlass.ID_BLACK + "SkyBlue");
+        blockGlowingHexoriumGlassBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Blue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassBlue, BlockGlowingHexoriumGlass.ID_BLACK + "Blue");
+        blockGlowingHexoriumGlassPurple = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Purple", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassPurple, BlockGlowingHexoriumGlass.ID_BLACK + "Purple");
+        blockGlowingHexoriumGlassMagenta = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Magenta", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassMagenta, BlockGlowingHexoriumGlass.ID_BLACK + "Magenta");
+        blockGlowingHexoriumGlassPink = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Pink", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassPink, BlockGlowingHexoriumGlass.ID_BLACK + "Pink");
 
-        blockGlowingHexoriumGlassWhite = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "White");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhite, BlockGlowingHexoriumGlass.ID + "White");
-        blockGlowingHexoriumGlassLightGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "LightGray");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassLightGray, BlockGlowingHexoriumGlass.ID + "LightGray");
-        blockGlowingHexoriumGlassGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Gray");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassGray, BlockGlowingHexoriumGlass.ID + "Gray");
-        blockGlowingHexoriumGlassDarkGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "DarkGray");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassDarkGray, BlockGlowingHexoriumGlass.ID + "DarkGray");
-        blockGlowingHexoriumGlassBlack = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID + "Black");
-        GameRegistry.registerBlock(blockGlowingHexoriumGlassBlack, BlockGlowingHexoriumGlass.ID + "Black");
+        blockGlowingHexoriumGlassWhite = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "White", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhite, BlockGlowingHexoriumGlass.ID_BLACK + "White");
+        blockGlowingHexoriumGlassLightGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "LightGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassLightGray, BlockGlowingHexoriumGlass.ID_BLACK + "LightGray");
+        blockGlowingHexoriumGlassGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Gray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassGray, BlockGlowingHexoriumGlass.ID_BLACK + "Gray");
+        blockGlowingHexoriumGlassDarkGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "DarkGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassDarkGray, BlockGlowingHexoriumGlass.ID_BLACK + "DarkGray");
+        blockGlowingHexoriumGlassBlack = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_BLACK + "Black", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassBlack, BlockGlowingHexoriumGlass.ID_BLACK + "Black");
+
+        blockGlowingHexoriumGlassWhiteRed = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Red", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteRed, BlockGlowingHexoriumGlass.ID_WHITE + "Red");
+        blockGlowingHexoriumGlassWhiteOrange = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Orange", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteOrange, BlockGlowingHexoriumGlass.ID_WHITE + "Orange");
+        blockGlowingHexoriumGlassWhiteYellow = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Yellow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteYellow, BlockGlowingHexoriumGlass.ID_WHITE + "Yellow");
+        blockGlowingHexoriumGlassWhiteLime = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Lime", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteLime, BlockGlowingHexoriumGlass.ID_WHITE + "Lime");
+        blockGlowingHexoriumGlassWhiteGreen = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Green", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteGreen, BlockGlowingHexoriumGlass.ID_WHITE + "Green");
+        blockGlowingHexoriumGlassWhiteTurquoise = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Turquoise", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteTurquoise, BlockGlowingHexoriumGlass.ID_WHITE + "Turquoise");
+        blockGlowingHexoriumGlassWhiteCyan = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Cyan", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteCyan, BlockGlowingHexoriumGlass.ID_WHITE + "Cyan");
+        blockGlowingHexoriumGlassWhiteSkyBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "SkyBlue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteSkyBlue, BlockGlowingHexoriumGlass.ID_WHITE + "SkyBlue");
+        blockGlowingHexoriumGlassWhiteBlue = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Blue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteBlue, BlockGlowingHexoriumGlass.ID_WHITE + "Blue");
+        blockGlowingHexoriumGlassWhitePurple = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Purple", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhitePurple, BlockGlowingHexoriumGlass.ID_WHITE + "Purple");
+        blockGlowingHexoriumGlassWhiteMagenta = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Magenta", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteMagenta, BlockGlowingHexoriumGlass.ID_WHITE + "Magenta");
+        blockGlowingHexoriumGlassWhitePink = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Pink", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhitePink, BlockGlowingHexoriumGlass.ID_WHITE + "Pink");
+
+        blockGlowingHexoriumGlassWhiteWhite = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "White", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteWhite, BlockGlowingHexoriumGlass.ID_WHITE + "White");
+        blockGlowingHexoriumGlassWhiteLightGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "LightGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteLightGray, BlockGlowingHexoriumGlass.ID_WHITE + "LightGray");
+        blockGlowingHexoriumGlassWhiteGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Gray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteGray, BlockGlowingHexoriumGlass.ID_WHITE + "Gray");
+        blockGlowingHexoriumGlassWhiteDarkGray = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "DarkGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteDarkGray, BlockGlowingHexoriumGlass.ID_WHITE + "DarkGray");
+        blockGlowingHexoriumGlassWhiteBlack = new BlockGlowingHexoriumGlass(BlockGlowingHexoriumGlass.ID_WHITE + "Black", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockGlowingHexoriumGlassWhiteBlack, BlockGlowingHexoriumGlass.ID_WHITE + "Black");
         
         // Energized Hexorium Monolith
         blockEnergizedHexoriumMonolithRed = new BlockEnergizedHexoriumMonolith(BlockEnergizedHexoriumMonolith.ID + "Red");
@@ -1177,124 +1357,241 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockEnergizedHexoriumMonolithRainbow, BlockEnergizedHexoriumMonolith.ID + "Rainbow");
 
         // Hexorium Lamp
-        blockHexoriumLampRed = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Red");
-        GameRegistry.registerBlock(blockHexoriumLampRed, BlockHexoriumLamp.ID + "Red");
-        blockHexoriumLampOrange = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Orange");
-        GameRegistry.registerBlock(blockHexoriumLampOrange, BlockHexoriumLamp.ID + "Orange");
-        blockHexoriumLampYellow = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Yellow");
-        GameRegistry.registerBlock(blockHexoriumLampYellow, BlockHexoriumLamp.ID + "Yellow");
-        blockHexoriumLampLime = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Lime");
-        GameRegistry.registerBlock(blockHexoriumLampLime, BlockHexoriumLamp.ID + "Lime");
-        blockHexoriumLampGreen = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Green");
-        GameRegistry.registerBlock(blockHexoriumLampGreen, BlockHexoriumLamp.ID + "Green");
-        blockHexoriumLampTurquoise = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Turquoise");
-        GameRegistry.registerBlock(blockHexoriumLampTurquoise, BlockHexoriumLamp.ID + "Turquoise");
-        blockHexoriumLampCyan = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Cyan");
-        GameRegistry.registerBlock(blockHexoriumLampCyan, BlockHexoriumLamp.ID + "Cyan");
-        blockHexoriumLampSkyBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "SkyBlue");
-        GameRegistry.registerBlock(blockHexoriumLampSkyBlue, BlockHexoriumLamp.ID + "SkyBlue");
-        blockHexoriumLampBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Blue");
-        GameRegistry.registerBlock(blockHexoriumLampBlue, BlockHexoriumLamp.ID + "Blue");
-        blockHexoriumLampPurple = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Purple");
-        GameRegistry.registerBlock(blockHexoriumLampPurple, BlockHexoriumLamp.ID + "Purple");
-        blockHexoriumLampMagenta = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Magenta");
-        GameRegistry.registerBlock(blockHexoriumLampMagenta, BlockHexoriumLamp.ID + "Magenta");
-        blockHexoriumLampPink = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Pink");
-        GameRegistry.registerBlock(blockHexoriumLampPink, BlockHexoriumLamp.ID + "Pink");
+        blockHexoriumLampRed = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Red", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampRed, BlockHexoriumLamp.ID_BLACK + "Red");
+        blockHexoriumLampOrange = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Orange", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampOrange, BlockHexoriumLamp.ID_BLACK + "Orange");
+        blockHexoriumLampYellow = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Yellow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampYellow, BlockHexoriumLamp.ID_BLACK + "Yellow");
+        blockHexoriumLampLime = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Lime", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampLime, BlockHexoriumLamp.ID_BLACK + "Lime");
+        blockHexoriumLampGreen = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Green", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampGreen, BlockHexoriumLamp.ID_BLACK + "Green");
+        blockHexoriumLampTurquoise = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Turquoise", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampTurquoise, BlockHexoriumLamp.ID_BLACK + "Turquoise");
+        blockHexoriumLampCyan = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Cyan", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampCyan, BlockHexoriumLamp.ID_BLACK + "Cyan");
+        blockHexoriumLampSkyBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "SkyBlue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampSkyBlue, BlockHexoriumLamp.ID_BLACK + "SkyBlue");
+        blockHexoriumLampBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Blue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampBlue, BlockHexoriumLamp.ID_BLACK + "Blue");
+        blockHexoriumLampPurple = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Purple", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampPurple, BlockHexoriumLamp.ID_BLACK + "Purple");
+        blockHexoriumLampMagenta = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Magenta", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampMagenta, BlockHexoriumLamp.ID_BLACK + "Magenta");
+        blockHexoriumLampPink = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Pink", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampPink, BlockHexoriumLamp.ID_BLACK + "Pink");
 
-        blockHexoriumLampWhite = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "White");
-        GameRegistry.registerBlock(blockHexoriumLampWhite, BlockHexoriumLamp.ID + "White");
-        blockHexoriumLampLightGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "LightGray");
-        GameRegistry.registerBlock(blockHexoriumLampLightGray, BlockHexoriumLamp.ID + "LightGray");
-        blockHexoriumLampGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Gray");
-        GameRegistry.registerBlock(blockHexoriumLampGray, BlockHexoriumLamp.ID + "Gray");
-        blockHexoriumLampDarkGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "DarkGray");
-        GameRegistry.registerBlock(blockHexoriumLampDarkGray, BlockHexoriumLamp.ID + "DarkGray");
-        blockHexoriumLampBlack = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Black");
-        GameRegistry.registerBlock(blockHexoriumLampBlack, BlockHexoriumLamp.ID + "Black");
+        blockHexoriumLampWhite = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "White", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampWhite, BlockHexoriumLamp.ID_BLACK + "White");
+        blockHexoriumLampLightGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "LightGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampLightGray, BlockHexoriumLamp.ID_BLACK + "LightGray");
+        blockHexoriumLampGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Gray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampGray, BlockHexoriumLamp.ID_BLACK + "Gray");
+        blockHexoriumLampDarkGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "DarkGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampDarkGray, BlockHexoriumLamp.ID_BLACK + "DarkGray");
+        blockHexoriumLampBlack = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Black", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampBlack, BlockHexoriumLamp.ID_BLACK + "Black");
 
-        blockHexoriumLampRainbow = new BlockHexoriumLamp(BlockHexoriumLamp.ID + "Rainbow");
-        GameRegistry.registerBlock(blockHexoriumLampRainbow, BlockHexoriumLamp.ID + "Rainbow");
+        blockHexoriumLampRainbow = new BlockHexoriumLamp(BlockHexoriumLamp.ID_BLACK + "Rainbow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampRainbow, BlockHexoriumLamp.ID_BLACK + "Rainbow");
+
+        blockHexoriumLampWhiteRed = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Red", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteRed, BlockHexoriumLamp.ID_WHITE + "Red");
+        blockHexoriumLampWhiteOrange = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Orange", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteOrange, BlockHexoriumLamp.ID_WHITE + "Orange");
+        blockHexoriumLampWhiteYellow = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Yellow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteYellow, BlockHexoriumLamp.ID_WHITE + "Yellow");
+        blockHexoriumLampWhiteLime = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Lime", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteLime, BlockHexoriumLamp.ID_WHITE + "Lime");
+        blockHexoriumLampWhiteGreen = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Green", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteGreen, BlockHexoriumLamp.ID_WHITE + "Green");
+        blockHexoriumLampWhiteTurquoise = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Turquoise", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteTurquoise, BlockHexoriumLamp.ID_WHITE + "Turquoise");
+        blockHexoriumLampWhiteCyan = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Cyan", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteCyan, BlockHexoriumLamp.ID_WHITE + "Cyan");
+        blockHexoriumLampWhiteSkyBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "SkyBlue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteSkyBlue, BlockHexoriumLamp.ID_WHITE + "SkyBlue");
+        blockHexoriumLampWhiteBlue = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Blue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteBlue, BlockHexoriumLamp.ID_WHITE + "Blue");
+        blockHexoriumLampWhitePurple = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Purple", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhitePurple, BlockHexoriumLamp.ID_WHITE + "Purple");
+        blockHexoriumLampWhiteMagenta = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Magenta", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteMagenta, BlockHexoriumLamp.ID_WHITE + "Magenta");
+        blockHexoriumLampWhitePink = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Pink", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhitePink, BlockHexoriumLamp.ID_WHITE + "Pink");
+
+        blockHexoriumLampWhiteWhite = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "White", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteWhite, BlockHexoriumLamp.ID_WHITE + "White");
+        blockHexoriumLampWhiteLightGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "LightGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteLightGray, BlockHexoriumLamp.ID_WHITE + "LightGray");
+        blockHexoriumLampWhiteGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Gray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteGray, BlockHexoriumLamp.ID_WHITE + "Gray");
+        blockHexoriumLampWhiteDarkGray = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "DarkGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteDarkGray, BlockHexoriumLamp.ID_WHITE + "DarkGray");
+        blockHexoriumLampWhiteBlack = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Black", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteBlack, BlockHexoriumLamp.ID_WHITE + "Black");
+
+        blockHexoriumLampWhiteRainbow = new BlockHexoriumLamp(BlockHexoriumLamp.ID_WHITE + "Rainbow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampWhiteRainbow, BlockHexoriumLamp.ID_WHITE + "Rainbow");
 
         // Inverted Hexorium Lamp
-        blockHexoriumLampInvRed = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Red");
-        GameRegistry.registerBlock(blockHexoriumLampInvRed, BlockHexoriumLampInv.ID + "Red");
-        blockHexoriumLampInvOrange = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Orange");
-        GameRegistry.registerBlock(blockHexoriumLampInvOrange, BlockHexoriumLampInv.ID + "Orange");
-        blockHexoriumLampInvYellow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Yellow");
-        GameRegistry.registerBlock(blockHexoriumLampInvYellow, BlockHexoriumLampInv.ID + "Yellow");
-        blockHexoriumLampInvLime = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Lime");
-        GameRegistry.registerBlock(blockHexoriumLampInvLime, BlockHexoriumLampInv.ID + "Lime");
-        blockHexoriumLampInvGreen = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Green");
-        GameRegistry.registerBlock(blockHexoriumLampInvGreen, BlockHexoriumLampInv.ID + "Green");
-        blockHexoriumLampInvTurquoise = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Turquoise");
-        GameRegistry.registerBlock(blockHexoriumLampInvTurquoise, BlockHexoriumLampInv.ID + "Turquoise");
-        blockHexoriumLampInvCyan = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Cyan");
-        GameRegistry.registerBlock(blockHexoriumLampInvCyan, BlockHexoriumLampInv.ID + "Cyan");
-        blockHexoriumLampInvSkyBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "SkyBlue");
-        GameRegistry.registerBlock(blockHexoriumLampInvSkyBlue, BlockHexoriumLampInv.ID + "SkyBlue");
-        blockHexoriumLampInvBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Blue");
-        GameRegistry.registerBlock(blockHexoriumLampInvBlue, BlockHexoriumLampInv.ID + "Blue");
-        blockHexoriumLampInvPurple = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Purple");
-        GameRegistry.registerBlock(blockHexoriumLampInvPurple, BlockHexoriumLampInv.ID + "Purple");
-        blockHexoriumLampInvMagenta = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Magenta");
-        GameRegistry.registerBlock(blockHexoriumLampInvMagenta, BlockHexoriumLampInv.ID + "Magenta");
-        blockHexoriumLampInvPink = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Pink");
-        GameRegistry.registerBlock(blockHexoriumLampInvPink, BlockHexoriumLampInv.ID + "Pink");
+        blockHexoriumLampInvRed = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Red", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvRed, BlockHexoriumLampInv.ID_BLACK + "Red");
+        blockHexoriumLampInvOrange = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Orange", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvOrange, BlockHexoriumLampInv.ID_BLACK + "Orange");
+        blockHexoriumLampInvYellow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Yellow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvYellow, BlockHexoriumLampInv.ID_BLACK + "Yellow");
+        blockHexoriumLampInvLime = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Lime", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvLime, BlockHexoriumLampInv.ID_BLACK + "Lime");
+        blockHexoriumLampInvGreen = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Green", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvGreen, BlockHexoriumLampInv.ID_BLACK + "Green");
+        blockHexoriumLampInvTurquoise = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Turquoise", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvTurquoise, BlockHexoriumLampInv.ID_BLACK + "Turquoise");
+        blockHexoriumLampInvCyan = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Cyan", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvCyan, BlockHexoriumLampInv.ID_BLACK + "Cyan");
+        blockHexoriumLampInvSkyBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "SkyBlue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvSkyBlue, BlockHexoriumLampInv.ID_BLACK + "SkyBlue");
+        blockHexoriumLampInvBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Blue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvBlue, BlockHexoriumLampInv.ID_BLACK + "Blue");
+        blockHexoriumLampInvPurple = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Purple", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvPurple, BlockHexoriumLampInv.ID_BLACK + "Purple");
+        blockHexoriumLampInvMagenta = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Magenta", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvMagenta, BlockHexoriumLampInv.ID_BLACK + "Magenta");
+        blockHexoriumLampInvPink = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Pink", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvPink, BlockHexoriumLampInv.ID_BLACK + "Pink");
 
-        blockHexoriumLampInvWhite = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "White");
-        GameRegistry.registerBlock(blockHexoriumLampInvWhite, BlockHexoriumLampInv.ID + "White");
-        blockHexoriumLampInvLightGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "LightGray");
-        GameRegistry.registerBlock(blockHexoriumLampInvLightGray, BlockHexoriumLampInv.ID + "LightGray");
-        blockHexoriumLampInvGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Gray");
-        GameRegistry.registerBlock(blockHexoriumLampInvGray, BlockHexoriumLampInv.ID + "Gray");
-        blockHexoriumLampInvDarkGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "DarkGray");
-        GameRegistry.registerBlock(blockHexoriumLampInvDarkGray, BlockHexoriumLampInv.ID + "DarkGray");
-        blockHexoriumLampInvBlack = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Black");
-        GameRegistry.registerBlock(blockHexoriumLampInvBlack, BlockHexoriumLampInv.ID + "Black");
+        blockHexoriumLampInvWhite = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "White", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhite, BlockHexoriumLampInv.ID_BLACK + "White");
+        blockHexoriumLampInvLightGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "LightGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvLightGray, BlockHexoriumLampInv.ID_BLACK + "LightGray");
+        blockHexoriumLampInvGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Gray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvGray, BlockHexoriumLampInv.ID_BLACK + "Gray");
+        blockHexoriumLampInvDarkGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "DarkGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvDarkGray, BlockHexoriumLampInv.ID_BLACK + "DarkGray");
+        blockHexoriumLampInvBlack = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Black", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvBlack, BlockHexoriumLampInv.ID_BLACK + "Black");
 
-        blockHexoriumLampInvRainbow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID + "Rainbow");
-        GameRegistry.registerBlock(blockHexoriumLampInvRainbow, BlockHexoriumLampInv.ID + "Rainbow");
+        blockHexoriumLampInvRainbow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_BLACK + "Rainbow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumLampInvRainbow, BlockHexoriumLampInv.ID_BLACK + "Rainbow");
+
+        blockHexoriumLampInvWhiteRed = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Red", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteRed, BlockHexoriumLampInv.ID_WHITE + "Red");
+        blockHexoriumLampInvWhiteOrange = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Orange", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteOrange, BlockHexoriumLampInv.ID_WHITE + "Orange");
+        blockHexoriumLampInvWhiteYellow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Yellow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteYellow, BlockHexoriumLampInv.ID_WHITE + "Yellow");
+        blockHexoriumLampInvWhiteLime = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Lime", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteLime, BlockHexoriumLampInv.ID_WHITE + "Lime");
+        blockHexoriumLampInvWhiteGreen = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Green", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteGreen, BlockHexoriumLampInv.ID_WHITE + "Green");
+        blockHexoriumLampInvWhiteTurquoise = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Turquoise", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteTurquoise, BlockHexoriumLampInv.ID_WHITE + "Turquoise");
+        blockHexoriumLampInvWhiteCyan = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Cyan", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteCyan, BlockHexoriumLampInv.ID_WHITE + "Cyan");
+        blockHexoriumLampInvWhiteSkyBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "SkyBlue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteSkyBlue, BlockHexoriumLampInv.ID_WHITE + "SkyBlue");
+        blockHexoriumLampInvWhiteBlue = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Blue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteBlue, BlockHexoriumLampInv.ID_WHITE + "Blue");
+        blockHexoriumLampInvWhitePurple = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Purple", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhitePurple, BlockHexoriumLampInv.ID_WHITE + "Purple");
+        blockHexoriumLampInvWhiteMagenta = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Magenta", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteMagenta, BlockHexoriumLampInv.ID_WHITE + "Magenta");
+        blockHexoriumLampInvWhitePink = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Pink", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhitePink, BlockHexoriumLampInv.ID_WHITE + "Pink");
+
+        blockHexoriumLampInvWhiteWhite = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "White", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteWhite, BlockHexoriumLampInv.ID_WHITE + "White");
+        blockHexoriumLampInvWhiteLightGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "LightGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteLightGray, BlockHexoriumLampInv.ID_WHITE + "LightGray");
+        blockHexoriumLampInvWhiteGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Gray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteGray, BlockHexoriumLampInv.ID_WHITE + "Gray");
+        blockHexoriumLampInvWhiteDarkGray = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "DarkGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteDarkGray, BlockHexoriumLampInv.ID_WHITE + "DarkGray");
+        blockHexoriumLampInvWhiteBlack = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Black", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteBlack, BlockHexoriumLampInv.ID_WHITE + "Black");
+
+        blockHexoriumLampInvWhiteRainbow = new BlockHexoriumLampInv(BlockHexoriumLampInv.ID_WHITE + "Rainbow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumLampInvWhiteRainbow, BlockHexoriumLampInv.ID_WHITE + "Rainbow");
 
         // Hexorium Door
-        blockHexoriumDoorRed = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Red");
-        GameRegistry.registerBlock(blockHexoriumDoorRed, BlockHexoriumDoor.ID + "Red");
-        blockHexoriumDoorOrange = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Orange");
-        GameRegistry.registerBlock(blockHexoriumDoorOrange, BlockHexoriumDoor.ID + "Orange");
-        blockHexoriumDoorYellow = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Yellow");
-        GameRegistry.registerBlock(blockHexoriumDoorYellow, BlockHexoriumDoor.ID + "Yellow");
-        blockHexoriumDoorLime = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Lime");
-        GameRegistry.registerBlock(blockHexoriumDoorLime, BlockHexoriumDoor.ID + "Lime");
-        blockHexoriumDoorGreen = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Green");
-        GameRegistry.registerBlock(blockHexoriumDoorGreen, BlockHexoriumDoor.ID + "Green");
-        blockHexoriumDoorTurquoise = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Turquoise");
-        GameRegistry.registerBlock(blockHexoriumDoorTurquoise, BlockHexoriumDoor.ID + "Turquoise");
-        blockHexoriumDoorCyan = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Cyan");
-        GameRegistry.registerBlock(blockHexoriumDoorCyan, BlockHexoriumDoor.ID + "Cyan");
-        blockHexoriumDoorSkyBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "SkyBlue");
-        GameRegistry.registerBlock(blockHexoriumDoorSkyBlue, BlockHexoriumDoor.ID + "SkyBlue");
-        blockHexoriumDoorBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Blue");
-        GameRegistry.registerBlock(blockHexoriumDoorBlue, BlockHexoriumDoor.ID + "Blue");
-        blockHexoriumDoorPurple = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Purple");
-        GameRegistry.registerBlock(blockHexoriumDoorPurple, BlockHexoriumDoor.ID + "Purple");
-        blockHexoriumDoorMagenta = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Magenta");
-        GameRegistry.registerBlock(blockHexoriumDoorMagenta, BlockHexoriumDoor.ID + "Magenta");
-        blockHexoriumDoorPink = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Pink");
-        GameRegistry.registerBlock(blockHexoriumDoorPink, BlockHexoriumDoor.ID + "Pink");
+        blockHexoriumDoorRed = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Red", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorRed, BlockHexoriumDoor.ID_BLACK + "Red");
+        blockHexoriumDoorOrange = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Orange", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorOrange, BlockHexoriumDoor.ID_BLACK + "Orange");
+        blockHexoriumDoorYellow = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Yellow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorYellow, BlockHexoriumDoor.ID_BLACK + "Yellow");
+        blockHexoriumDoorLime = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Lime", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorLime, BlockHexoriumDoor.ID_BLACK + "Lime");
+        blockHexoriumDoorGreen = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Green", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorGreen, BlockHexoriumDoor.ID_BLACK + "Green");
+        blockHexoriumDoorTurquoise = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Turquoise", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorTurquoise, BlockHexoriumDoor.ID_BLACK + "Turquoise");
+        blockHexoriumDoorCyan = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Cyan", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorCyan, BlockHexoriumDoor.ID_BLACK + "Cyan");
+        blockHexoriumDoorSkyBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "SkyBlue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorSkyBlue, BlockHexoriumDoor.ID_BLACK + "SkyBlue");
+        blockHexoriumDoorBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Blue", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorBlue, BlockHexoriumDoor.ID_BLACK + "Blue");
+        blockHexoriumDoorPurple = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Purple", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorPurple, BlockHexoriumDoor.ID_BLACK + "Purple");
+        blockHexoriumDoorMagenta = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Magenta", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorMagenta, BlockHexoriumDoor.ID_BLACK + "Magenta");
+        blockHexoriumDoorPink = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Pink", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorPink, BlockHexoriumDoor.ID_BLACK + "Pink");
 
-        blockHexoriumDoorWhite = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "White");
-        GameRegistry.registerBlock(blockHexoriumDoorWhite, BlockHexoriumDoor.ID + "White");
-        blockHexoriumDoorLightGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "LightGray");
-        GameRegistry.registerBlock(blockHexoriumDoorLightGray, BlockHexoriumDoor.ID + "LightGray");
-        blockHexoriumDoorGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Gray");
-        GameRegistry.registerBlock(blockHexoriumDoorGray, BlockHexoriumDoor.ID + "Gray");
-        blockHexoriumDoorDarkGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "DarkGray");
-        GameRegistry.registerBlock(blockHexoriumDoorDarkGray, BlockHexoriumDoor.ID + "DarkGray");
-        blockHexoriumDoorBlack = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Black");
-        GameRegistry.registerBlock(blockHexoriumDoorBlack, BlockHexoriumDoor.ID + "Black");
+        blockHexoriumDoorWhite = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "White", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorWhite, BlockHexoriumDoor.ID_BLACK + "White");
+        blockHexoriumDoorLightGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "LightGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorLightGray, BlockHexoriumDoor.ID_BLACK + "LightGray");
+        blockHexoriumDoorGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Gray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorGray, BlockHexoriumDoor.ID_BLACK + "Gray");
+        blockHexoriumDoorDarkGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "DarkGray", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorDarkGray, BlockHexoriumDoor.ID_BLACK + "DarkGray");
+        blockHexoriumDoorBlack = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Black", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorBlack, BlockHexoriumDoor.ID_BLACK + "Black");
 
-        blockHexoriumDoorRainbow = new BlockHexoriumDoor(BlockHexoriumDoor.ID + "Rainbow");
-        GameRegistry.registerBlock(blockHexoriumDoorRainbow, BlockHexoriumDoor.ID + "Rainbow");
+        blockHexoriumDoorRainbow = new BlockHexoriumDoor(BlockHexoriumDoor.ID_BLACK + "Rainbow", DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumDoorRainbow, BlockHexoriumDoor.ID_BLACK + "Rainbow");
+
+        blockHexoriumDoorWhiteRed = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Red", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteRed, BlockHexoriumDoor.ID_WHITE + "Red");
+        blockHexoriumDoorWhiteOrange = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Orange", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteOrange, BlockHexoriumDoor.ID_WHITE + "Orange");
+        blockHexoriumDoorWhiteYellow = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Yellow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteYellow, BlockHexoriumDoor.ID_WHITE + "Yellow");
+        blockHexoriumDoorWhiteLime = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Lime", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteLime, BlockHexoriumDoor.ID_WHITE + "Lime");
+        blockHexoriumDoorWhiteGreen = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Green", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteGreen, BlockHexoriumDoor.ID_WHITE + "Green");
+        blockHexoriumDoorWhiteTurquoise = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Turquoise", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteTurquoise, BlockHexoriumDoor.ID_WHITE + "Turquoise");
+        blockHexoriumDoorWhiteCyan = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Cyan", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteCyan, BlockHexoriumDoor.ID_WHITE + "Cyan");
+        blockHexoriumDoorWhiteSkyBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "SkyBlue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteSkyBlue, BlockHexoriumDoor.ID_WHITE + "SkyBlue");
+        blockHexoriumDoorWhiteBlue = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Blue", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteBlue, BlockHexoriumDoor.ID_WHITE + "Blue");
+        blockHexoriumDoorWhitePurple = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Purple", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhitePurple, BlockHexoriumDoor.ID_WHITE + "Purple");
+        blockHexoriumDoorWhiteMagenta = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Magenta", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteMagenta, BlockHexoriumDoor.ID_WHITE + "Magenta");
+        blockHexoriumDoorWhitePink = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Pink", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhitePink, BlockHexoriumDoor.ID_WHITE + "Pink");
+
+        blockHexoriumDoorWhiteWhite = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "White", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteWhite, BlockHexoriumDoor.ID_WHITE + "White");
+        blockHexoriumDoorWhiteLightGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "LightGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteLightGray, BlockHexoriumDoor.ID_WHITE + "LightGray");
+        blockHexoriumDoorWhiteGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Gray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteGray, BlockHexoriumDoor.ID_WHITE + "Gray");
+        blockHexoriumDoorWhiteDarkGray = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "DarkGray", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteDarkGray, BlockHexoriumDoor.ID_WHITE + "DarkGray");
+        blockHexoriumDoorWhiteBlack = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Black", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteBlack, BlockHexoriumDoor.ID_WHITE + "Black");
+
+        blockHexoriumDoorWhiteRainbow = new BlockHexoriumDoor(BlockHexoriumDoor.ID_WHITE + "Rainbow", DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumDoorWhiteRainbow, BlockHexoriumDoor.ID_WHITE + "Rainbow");
 
         // Hexorium Hatch
         blockHexoriumHatchRed = new BlockHexoriumHatch(BlockHexoriumHatch.ID + "Red");
@@ -1476,10 +1773,14 @@ public class HexBlocks {
         GameRegistry.registerBlock(blockHexoriumPressurePlateWhite, BlockHexoriumPressurePlate.ID + "White");
 
         // Regular Blocks
-        blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.ID);
-        GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.ID);
-        blockHexoriumCoatedStone = new BlockHexoriumCoatedStone(BlockHexoriumCoatedStone.ID);
-        GameRegistry.registerBlock(blockHexoriumCoatedStone, BlockHexoriumCoatedStone.ID);
+        blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.ID_BLACK, DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.ID_BLACK);
+        blockTemperedHexoriumGlassWhite = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.ID_WHITE, DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockTemperedHexoriumGlassWhite, BlockTemperedHexoriumGlass.ID_WHITE);
+        blockHexoriumCoatedStone = new BlockHexoriumCoatedStone(BlockHexoriumCoatedStone.ID_BLACK, DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerBlock(blockHexoriumCoatedStone, BlockHexoriumCoatedStone.ID_BLACK);
+        blockHexoriumCoatedStoneWhite = new BlockHexoriumCoatedStone(BlockHexoriumCoatedStone.ID_WHITE, DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerBlock(blockHexoriumCoatedStoneWhite, BlockHexoriumCoatedStone.ID_WHITE);
 
         blockPylonBase51 = new BlockPylonBase(BlockPylonBase.ID + "51", false);
         GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.ID + "51");
