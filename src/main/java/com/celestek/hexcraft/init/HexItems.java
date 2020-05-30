@@ -83,8 +83,10 @@ public class HexItems {
         GameRegistry.registerItem(itemBlackHexoriumWafer, "itemBlackHexoriumWafer");
         itemSpatialProjector = new HexItemComponent("itemSpatialProjector");
         GameRegistry.registerItem(itemSpatialProjector, "itemSpatialProjector");
-        itemOreActuator = new HexItemComponent("itemOreActuator");
-        GameRegistry.registerItem(itemOreActuator, "itemOreActuator");
+        if (HexConfig.cfgSeparatorEnable) {
+            itemOreActuator = new HexItemComponent("itemOreActuator");
+            GameRegistry.registerItem(itemOreActuator, "itemOreActuator");
+        }
         itemPylonSocket = new HexItemComponent("itemPylonSocket");
         GameRegistry.registerItem(itemPylonSocket, "itemPylonSocket");
         itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
@@ -97,8 +99,10 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumCoprocessor, "itemHexoriumCoprocessor");
         itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
         GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
-        itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
-        GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
+        if (HexConfig.cfgSeparatorEnable) {
+            itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
+            GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
+        }
         itemHexoriumEnergyConverter = new HexItemComponent("itemHexoriumEnergyConverter");
         GameRegistry.registerItem(itemHexoriumEnergyConverter, "itemHexoriumEnergyConverter");
         itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
@@ -119,10 +123,14 @@ public class HexItems {
         GameRegistry.registerItem(itemMachineEnergyRouter, "itemMachineEnergyRouter");
         itemHeatDissipator = new HexItemComponent("itemHeatDissipator");
         GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
-        itemHeatingArray = new HexItemComponent("itemHeatingArray");
-        GameRegistry.registerItem(itemHeatingArray, "itemHeatingArray");
-        itemCrystalExtractionUnit = new HexItemComponent("itemCrystalExtractionUnit");
-        GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
+        if (HexConfig.cfgFurnaceEnable) {
+            itemHeatingArray = new HexItemComponent("itemHeatingArray");
+            GameRegistry.registerItem(itemHeatingArray, "itemHeatingArray");
+        }
+        if (HexConfig.cfgSeparatorEnable) {
+            itemCrystalExtractionUnit = new HexItemComponent("itemCrystalExtractionUnit");
+            GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
+        }
         itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
         GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
         if (HexConfig.cfgTeleportEnable) {

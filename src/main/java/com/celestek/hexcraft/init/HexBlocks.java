@@ -1041,10 +1041,17 @@ public class HexBlocks {
 
         blockHexoriumGenerator = new BlockHexoriumGenerator(BlockHexoriumGenerator.ID);
         GameRegistry.registerBlock(blockHexoriumGenerator, BlockHexoriumGenerator.ID);
-        blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.ID);
-        GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.ID);
-        blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.ID);
-        GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.ID);
+
+        if (HexConfig.cfgFurnaceEnable) {
+            blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.ID);
+            GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.ID);
+        }
+
+        if (HexConfig.cfgSeparatorEnable) {
+            blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.ID);
+            GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.ID);
+        }
+
         blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.ID);
         GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.ID);
 

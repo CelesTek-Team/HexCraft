@@ -166,11 +166,11 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftMachineGenerator, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockHexoriumFurnace) {
+            else if (block == HexBlocks.blockHexoriumFurnace && HexConfig.cfgFurnaceEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineFurnace, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockCrystalSeparator) {
+            else if (block == HexBlocks.blockCrystalSeparator && HexConfig.cfgSeparatorEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineSeparator, 1);
                 checkMachines = true;
             }
@@ -222,9 +222,19 @@ public class HexCraftingHandler {
             // Machines Special
             if (checkMachines) {
                 if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineGenerator)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineFurnace)
-                        && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineSeparator)
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineReconstructor)) {
+
+                    boolean furnaceAch;
+                    if (HexConfig.cfgFurnaceEnable)
+                        furnaceAch = playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineFurnace);
+                    else
+                        furnaceAch = true;
+
+                    boolean separatorAch;
+                    if (HexConfig.cfgSeparatorEnable)
+                        separatorAch = playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftMachineSeparator);
+                    else
+                        separatorAch = true;
 
                     boolean teleportAch;
                     if (HexConfig.cfgTeleportEnable)
@@ -244,7 +254,7 @@ public class HexCraftingHandler {
                     else
                         observerAch = true;
 
-                    if (teleportAch && tankAch && observerAch)
+                    if (furnaceAch && separatorAch && teleportAch && tankAch && observerAch)
                         event.player.addStat(HexAchievements.achGroupMachines, 1);
                 }
             }

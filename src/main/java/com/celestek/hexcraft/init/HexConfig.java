@@ -15,6 +15,7 @@ public class HexConfig {
     public static boolean cfgGeneralMachineNetworkDebug = false;
     public static int cfgGeneralPylonRange = 32;
     public static boolean cfgGeneralUseAchievements = true;
+    public static boolean cfgFurnaceEnable = true;
     public static boolean cfgGeneralTransposerAttack = true;
     public static boolean cfgGeneralTransposerAttackPlayers = true;
     public static int cfgGeneralTransposerAttackDamage = 20;
@@ -40,6 +41,7 @@ public class HexConfig {
 
     // General - Crystal Separator
     public static String categorySeparator = "General - Crystal Separator";
+    public static boolean cfgSeparatorEnable = true;
     public static int cfgSeparatorMultiNonHexcraft = 4;
     public static int cfgSeparatorMultiChromatiCraft = 24;
 
@@ -379,6 +381,7 @@ public class HexConfig {
         cfgGeneralMachineNetworkDebug = config.getBoolean("HEX Energy Network debugging (machines)", Configuration.CATEGORY_GENERAL, cfgGeneralMachineNetworkDebug, "If set to true, will output details about machine communication. Will get very spammy while\nenergy sources are being drained. HEX Energy Network debugging needs to be enabled.\n");
         cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.\n");
         cfgGeneralUseAchievements = config.getBoolean("Use achievements", Configuration.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.\n");
+        cfgFurnaceEnable = config.getBoolean("Enable Hexorium Furnace", Configuration.CATEGORY_GENERAL, cfgFurnaceEnable, "Enables the Hexorium Furnace block.\n");
         cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.\n");
         cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all\nentities has to be enabled first.\n");
         cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.\n");
@@ -406,6 +409,7 @@ public class HexConfig {
 
         // General - Crystal Separator
         config.setCategoryComment(categorySeparator, "Configuration for the Crystal Separator.");
+        cfgSeparatorEnable = config.getBoolean("Enable Crystal Separator", categorySeparator, cfgSeparatorEnable, "Enables the Crystal Separator block.\n");
         cfgSeparatorMultiNonHexcraft = config.getInt("Non-Hexcraft multiplier", categorySeparator, cfgSeparatorMultiNonHexcraft, 1, 64, "The number of crystals gained when processing ores from other mods and vanilla.\n");
         cfgSeparatorMultiChromatiCraft = config.getInt("Chromaticraft multiplier", categorySeparator, cfgSeparatorMultiChromatiCraft, 1, 64, "The number of ChromatiCraft Crystal Shards gained when processing one whole Cave Crystal.\n");
 

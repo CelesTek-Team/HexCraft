@@ -2374,16 +2374,23 @@ public class HexRecipes {
                 "DAD",
                 "ECE",
                 'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackHeatDissipator_1, 'E', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumFurnace_1,
-                "EBE",
-                "DAD",
-                "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackHeatingArray_1, 'E', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackCrystalSeparator_1,
-                "EBE",
-                "DAD",
-                "ECE",
-                'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackCrystalExtractionUnit_1, 'E', "ingotIron"));
+
+        if (HexConfig.cfgFurnaceEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumFurnace_1,
+                    "EBE",
+                    "DAD",
+                    "ECE",
+                    'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackHeatingArray_1, 'E', "ingotIron"));
+        }
+
+        if (HexConfig.cfgSeparatorEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackCrystalSeparator_1,
+                    "EBE",
+                    "DAD",
+                    "ECE",
+                    'A', stackHexoriumMachineBlock_1, 'B', stackMachineControlPanel_1, 'C', stackMachineEnergyRouter_1, 'D', stackCrystalExtractionUnit_1, 'E', "ingotIron"));
+        }
+
         GameRegistry.addRecipe(new ShapedOreRecipe(stackMatrixReconstructor_1,
                 "EBE",
                 "DAD",
@@ -3124,11 +3131,13 @@ public class HexRecipes {
                 " B ",
                 " R ",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalBlack_1, 'B', "nuggetIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackOreActuator_1,
-                "B  ",
-                "ABR",
-                "B  ",
-                'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', "nuggetIron"));
+        if (HexConfig.cfgSeparatorEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackOreActuator_1,
+                    "B  ",
+                    "ABR",
+                    "B  ",
+                    'R', stackRedstone_1, 'A', stackIronPickaxe_1, 'B', "nuggetIron"));
+        }
         GameRegistry.addRecipe(new ShapedOreRecipe(stackPylonSocket_1,
                 "BAB",
                 "RRR",
@@ -3176,12 +3185,14 @@ public class HexRecipes {
                 "RAR",
                 "BBB",
                 'R', stackRedstone_1, 'A', stackBlackHexoriumWafer_1, 'B', "nuggetGold"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackMineralAnalyzer_1,
-                "BCD",
-                "FEA",
-                " R ",
-                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackHexoriumCrystalRed_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalBlue_1,
-                'E', "gemDiamond", 'F', "ingotGold"));
+        if (HexConfig.cfgSeparatorEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackMineralAnalyzer_1,
+                    "BCD",
+                    "FEA",
+                    " R ",
+                    'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackHexoriumCrystalRed_1, 'C', stackHexoriumCrystalGreen_1, 'D', stackHexoriumCrystalBlue_1,
+                    'E', "gemDiamond", 'F', "ingotGold"));
+        }
         GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumEnergyConverter_1,
                 "EAE",
                 "CBD",
@@ -3224,16 +3235,20 @@ public class HexRecipes {
                 "BBA",
                 "BBR",
                 'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHeatingArray_1,
-                "RRB",
-                "RAB",
-                "RRB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackCrystalExtractionUnit_1,
-                " BD",
-                "CAD",
-                " RD",
-                'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackMineralAnalyzer_1, 'C', stackOreActuator_1, 'D', "nuggetIron"));
+        if (HexConfig.cfgFurnaceEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackHeatingArray_1,
+                    "RRB",
+                    "RAB",
+                    "RRB",
+                    'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron"));
+        }
+        if (HexConfig.cfgSeparatorEnable) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(stackCrystalExtractionUnit_1,
+                    " BD",
+                    "CAD",
+                    " RD",
+                    'R', stackRedstone_1, 'A', stackHexoriumCoprocessor_1, 'B', stackMineralAnalyzer_1, 'C', stackOreActuator_1, 'D', "nuggetIron"));
+        }
         GameRegistry.addRecipe(new ShapedOreRecipe(stackMatrixAdjuster_1,
                 " ED",
                 "CBA",

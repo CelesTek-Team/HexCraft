@@ -240,10 +240,14 @@ public class HexAchievements {
         // T2 Machines
         achCraftMachineGenerator = new Achievement(hex1 + "achCraftMachineGenerator", hex2 + "achCraftMachineGenerator", -10, 3, HexBlocks.blockHexoriumGenerator, achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineGenerator);
-        achCraftMachineFurnace = new Achievement(hex1 + "achCraftMachineFurnace", hex2 + "achCraftMachineFurnace", -9, 3, HexBlocks.blockHexoriumFurnace, achCraftMachineBlock).registerStat();
-        achList.add(achCraftMachineFurnace);
-        achCraftMachineSeparator = new Achievement(hex1 + "achCraftMachineSeparator", hex2 + "achCraftMachineSeparator", -8, 3, HexBlocks.blockCrystalSeparator, achCraftMachineBlock).registerStat();
-        achList.add(achCraftMachineSeparator);
+        if (HexConfig.cfgFurnaceEnable) {
+            achCraftMachineFurnace = new Achievement(hex1 + "achCraftMachineFurnace", hex2 + "achCraftMachineFurnace", -9, 3, HexBlocks.blockHexoriumFurnace, achCraftMachineBlock).registerStat();
+            achList.add(achCraftMachineFurnace);
+        }
+        if (HexConfig.cfgSeparatorEnable) {
+            achCraftMachineSeparator = new Achievement(hex1 + "achCraftMachineSeparator", hex2 + "achCraftMachineSeparator", -8, 3, HexBlocks.blockCrystalSeparator, achCraftMachineBlock).registerStat();
+            achList.add(achCraftMachineSeparator);
+        }
         achCraftMachineReconstructor = new Achievement(hex1 + "achCraftMachineReconstructor", hex2 + "achCraftMachineReconstructor", -7, 3, HexBlocks.blockMatrixReconstructor,achCraftMachineBlock).registerStat();
         achList.add(achCraftMachineReconstructor);
         if (HexConfig.cfgObserverEnable) {
