@@ -54,8 +54,8 @@ public class ItemHexoriumDye extends Item {
             Block block = world.getBlock(x, y, z);
             String color = block.getUnlocalizedName().replace("tile.", "");
 
-            if (block instanceof IBlockHexVariant) {
-                IBlockHexVariant dyable = (IBlockHexVariant) block;
+            if (block instanceof IBlockHexVariantOld) {
+                IBlockHexVariantOld dyable = (IBlockHexVariantOld) block;
 
                 if (dyable.getVariant() != this.variant) {
                     color = color.replace(dyable.getVariantName(), "");

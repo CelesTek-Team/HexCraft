@@ -7,7 +7,9 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -25,6 +27,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
@@ -42,11 +45,11 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
     public static final int META_ORIENTATION_2 = 2;
 
     // Used later for texture identification.
-    private String blockName;
+    private final String blockName;
 
     // Used for drop rates.
-    private int hexoriumDropMin;
-    private int hexoriumDropMax;
+    private final int hexoriumDropMin;
+    private final int hexoriumDropMax;
 
     // Used for tool enchants.
     private int fortune = 0;
@@ -343,5 +346,13 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public int getRenderBlockPass() {
         return 1;
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.OPACITY_SLIGHT, HexEnums.Colors.GRAY, true));
+        }
     }
 }

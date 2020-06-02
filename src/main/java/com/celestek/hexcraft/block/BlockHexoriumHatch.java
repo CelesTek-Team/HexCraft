@@ -1,13 +1,17 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererHatch;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -21,6 +25,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -31,11 +36,10 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexVariant {
+public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexColor, IBlockHexVariant {
 
     // Block ID
-    public static final String ID_BLACK = "blockHexoriumHatch";
-    public static final String ID_WHITE = "blockHexoriumHatchWhite";
+    public static final String ID = "blockHexoriumHatch";
 
     // Meta Bits
     public static final int META_ROTATION_0 = 0;
@@ -43,19 +47,22 @@ public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexVarian
     public static final int META_STATE = 2;
     public static final int META_REINFORCED = 3;
 
-    // Used for identifying the decoration variant.
-    private int variant;
+    // Color and variant
+    private final HexEnums.Colors color;
+    private final HexEnums.Variants variant;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
-     * @param variant The decoration variant to use.
+     * @param color The color of the block to use.
+     * @param variant The variant to use.
      */
-    public BlockHexoriumHatch(String blockName, int variant) {
+    public BlockHexoriumHatch(String blockName, HexEnums.Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
@@ -289,27 +296,23 @@ public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexVarian
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[12];
-        // Map decoration and variant.
-        String id = ID_BLACK;
-        if (this.variant == DECORATIVE_VARIANT_WHITE)
-            id = ID_WHITE;
         // Load the outer textures.
         for (int i = 0; i < 11; i++) {
             if (i <= 4 || i >= 10) {
                 if (i < 9)
-                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "0" + (i + 1));
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "0" + (i + 1));
                 else
-                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + (i + 1));
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + (i + 1));
             }
             else {
                 if (i < 9)
-                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "0" + (i + 1));
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "0" + (i + 1));
                 else
-                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + (i + 1));
+                    icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + (i + 1));
             }
         }
         // Load the inner texture.
-        if(this == HexBlocks.blockHexoriumHatchRainbow || this == HexBlocks.blockHexoriumHatchWhiteRainbow)
+        if(this.color == HexEnums.Colors.RAINBOW)
             icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
@@ -357,21 +360,32 @@ public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexVarian
     }
 
     @Override
-    public int getVariant() {
+    public HexEnums.Variants getVariant() {
         return this.variant;
     }
 
     @Override
-    public String getVariantName() {
-        return getVariantName(this.variant);
+    public HexEnums.Colors getColor() {
+        return color;
     }
 
-    @Override
-    public String getVariantName(int variant) {
-        switch (variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public static void registerBlocks() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                String name = ID + variant.label + color.name;
+                BlockHexoriumHatch block = new BlockHexoriumHatch(name, color, variant);
+                GameRegistry.registerBlock(block, name);
+            }
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+                RenderingRegistry.registerBlockHandler(new HexModelRendererHatch(renderID[HexCraft.idCounter],
+                        HexEnums.Brightness.BRIGHT, color));
+            }
         }
     }
 }

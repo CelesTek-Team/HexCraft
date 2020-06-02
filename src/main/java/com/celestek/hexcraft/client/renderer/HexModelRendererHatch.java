@@ -28,9 +28,9 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
     private static final float hOffs = 0.001F;
 
     // Variables
-    private int renderID;
-    private int renderBlockID;
-    private int brightness;
+    private final int renderID;
+    private final int renderBlockID;
+    private final int brightness;
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
@@ -38,12 +38,10 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param brightness Intensity of the monolith glow.
-     * @param r Red component of the inner block layer color.
-     * @param g Green component of the inner block layer color.
-     * @param b Blue component of the inner block layer color.
+     * @param brightness Intensity of the inner layer glow.
+     * @param color Inner layer color.
      */
-    public HexModelRendererHatch(int renderID, int brightness, float r, float g, float b) {
+    public HexModelRendererHatch(int renderID, HexEnums.Brightness brightness, HexEnums.Colors color) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -51,13 +49,13 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;

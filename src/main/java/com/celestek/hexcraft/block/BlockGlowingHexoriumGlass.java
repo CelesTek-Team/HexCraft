@@ -1,6 +1,10 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.util.HexEnums;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -11,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
@@ -18,14 +23,10 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexVariant {
+public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexColor, IBlockHexVariant {
 
     // Block ID
-    public static final String ID_BLACK = "blockGlowingHexoriumGlass";
-    public static final String ID_WHITE = "blockGlowingHexoriumGlassWhite";
-
-    // Used for identifying the decoration variant.
-    private int variant;
+    public static final String ID = "blockGlowingHexoriumGlass";
 
     // Prepare an array of all possible situations.
     private static final int[] textureRefByID = {
@@ -47,16 +48,22 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexVa
              7,  7, 24, 24,  7,  7, 10, 10,  8,  8, 36, 35,  8,  8, 34, 11
     };
 
+    // Color and variant
+    private final HexEnums.Colors color;
+    private final HexEnums.Variants variant;
+
     /**
      * Constructor for the block.
-     * @param blockName Unlocalized name for the block.
-     * @param variant The decoration variant to use.
+     * @param blockName Unlocalized name for the block. Contains color name.
+     * @param color The color of the block to use.
+     * @param variant The variant to use.
      */
-    public BlockGlowingHexoriumGlass(String blockName, int variant) {
+    public BlockGlowingHexoriumGlass(String blockName, HexEnums.Colors color, HexEnums.Variants variant) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
@@ -80,25 +87,21 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexVa
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[96];
-        // Map decoration and variant.
-        String id = ID_BLACK;
-        if (this.variant == DECORATIVE_VARIANT_WHITE)
-            id = ID_WHITE;
 
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "A0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "A0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + id + "A" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "A" + (i + 1));
         }
 
         // Load all the different inner icons.
         for(int i = 48; i < 96; i++) {
             if(i - 48 < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "B0" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B0" + (i - 47));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "/" + ID_BLACK + "B" + (i - 47));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "B" + (i - 47));
         }
     }
 
@@ -235,21 +238,36 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexVa
     }
 
     @Override
-    public int getVariant() {
+    public HexEnums.Variants getVariant() {
         return this.variant;
     }
 
     @Override
-    public String getVariantName() {
-        return getVariantName(this.variant);
+    public HexEnums.Colors getColor() {
+        return color;
     }
 
-    @Override
-    public String getVariantName(int variant) {
-        switch (variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public static void registerBlocks() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                if (color != HexEnums.Colors.RAINBOW) {
+                    String name = ID + variant.label + color.name;
+                    BlockGlowingHexoriumGlass block = new BlockGlowingHexoriumGlass(name, color, variant);
+                    GameRegistry.registerBlock(block, name);
+                }
+            }
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                if (color != HexEnums.Colors.RAINBOW) {
+                    renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+                    RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                            HexEnums.Brightness.BRIGHT, color));
+                }
+            }
         }
     }
 }

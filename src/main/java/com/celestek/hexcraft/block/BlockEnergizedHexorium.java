@@ -1,8 +1,12 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexEnums;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,24 +20,30 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexorium extends HexBlock {
+public class BlockEnergizedHexorium extends HexBlock implements IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexorium";
+
+    // Color
+    private final HexEnums.Colors color;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockEnergizedHexorium(String blockName) {
+    public BlockEnergizedHexorium(String blockName, HexEnums.Colors color) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHardness(0.3F);
@@ -155,7 +165,7 @@ public class BlockEnergizedHexorium extends HexBlock {
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockEnergizedHexoriumRainbow)
+        if(this.color == HexEnums.Colors.RAINBOW)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
@@ -188,5 +198,26 @@ public class BlockEnergizedHexorium extends HexBlock {
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
         return false;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
+    }
+
+    public static void registerBlocks() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            String name = ID + color.name;
+            BlockEnergizedHexorium block = new BlockEnergizedHexorium(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, color));
+        }
     }
 }

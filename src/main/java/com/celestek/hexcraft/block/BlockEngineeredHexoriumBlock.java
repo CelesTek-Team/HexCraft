@@ -22,7 +22,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHexColor, IBlockHexVariantNew {
+public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockEngineeredHexoriumBlock";
@@ -147,7 +147,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHe
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                        HexEnums.Brightness.BRIGHT.value, color.r, color.g, color.b));
+                        HexEnums.Brightness.BRIGHT, color));
             }
         }
     }

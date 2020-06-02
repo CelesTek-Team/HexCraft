@@ -60,37 +60,35 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private static final float off = 0.01F;
 
     // Variables
-    private int renderID;
-    private int brightness;
-    private float opacity;
+    private final int renderID;
+    private final int brightness;
+    private final float opacity;
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
-    private boolean renderStone;
+    private final boolean renderStone;
 
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
      * @param brightness Intensity of the monolith glow.
      * @param opacity Opacity of the monolith.
-     * @param r Red component of the monolith color.
-     * @param g Green component of the monolith color
-     * @param b Blue component of the monolith color.
+     * @param color Monolith color.
      */
-    public HexModelRendererMonolith(int renderID, int brightness, float opacity, float r, float g, float b, boolean renderStone) {
+    public HexModelRendererMonolith(int renderID, HexEnums.Brightness brightness, float opacity, HexEnums.Colors color, boolean renderStone) {
 
         // Load the constructor parameters.
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
         this.opacity = opacity;
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
         this.renderStone = renderStone;
 
         // Increment block counter in HexCraft class.

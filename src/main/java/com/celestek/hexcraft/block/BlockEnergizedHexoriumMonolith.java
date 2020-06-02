@@ -2,10 +2,14 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,13 +22,14 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
+public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexoriumMonolith";
@@ -34,15 +39,19 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     public static final int META_ORIENTATION_1 = 1;
     public static final int META_ORIENTATION_2 = 2;
 
+    // Color
+    private final HexEnums.Colors color;
+
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockEnergizedHexoriumMonolith(String blockName) {
+    public BlockEnergizedHexoriumMonolith(String blockName, HexEnums.Colors color) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHardness(0.3F);
@@ -337,7 +346,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockEnergizedHexoriumMonolithRainbow)
+        if(this.color == HexEnums.Colors.RAINBOW)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Rainbow");
         else
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
@@ -377,5 +386,26 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel {
     @SideOnly(Side.CLIENT)
     public int getRenderBlockPass() {
         return 1;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
+    }
+
+    public static void registerBlocks() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            String name = ID + color.name;
+            BlockEnergizedHexoriumMonolith block = new BlockEnergizedHexoriumMonolith(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.OPACITY_SLIGHT, color, false));
+        }
     }
 }

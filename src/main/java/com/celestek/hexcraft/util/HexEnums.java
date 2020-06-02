@@ -42,11 +42,25 @@ public class HexEnums {
         public final String name;
         public final float r, g, b;
 
-        Colors(String label, float r, float g, float b) {
-            this.name = label;
+        Colors(String name, float r, float g, float b) {
+            this.name = name;
             this.r = r;
             this.g = g;
             this.b = b;
+        }
+    }
+
+    public enum Basics {
+        RED(  "Red"),
+        GREEN("Green"),
+        BLUE( "Blue"),
+        WHITE("White"),
+        BLACK("Black");
+
+        public final String name;
+
+        Basics(String name) {
+            this.name = name;
         }
     }
 
