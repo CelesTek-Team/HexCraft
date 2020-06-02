@@ -1,8 +1,12 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,32 +16,33 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockPlatedHexoriumBlock extends HexBlockMT implements IBlockHexDyable {
+public class BlockPlatedHexoriumBlock extends HexBlockMT implements IBlockHexColor, IBlockHexVariantNew {
 
     // Block ID
-    public static final String ID_BLACK = "blockPlatedHexoriumBlock";
-    public static final String ID_WHITE = "blockPlatedHexoriumBlockWhite";
+    public static final String ID = "blockPlatedHexoriumBlock";
 
-    // Used for identifying the decoration variant.
-    private int variant;
+    // Color and variant
+    private final HexEnums.Colors color;
+    private final HexEnums.Variants variant;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
-     * @param variant The decoration variant to use.
+     * @param color The color of the block to use.
+     * @param variant The variant to use.
      */
-    public BlockPlatedHexoriumBlock(String blockName, int variant) {
+    public BlockPlatedHexoriumBlock(String blockName, HexEnums.Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.variant = variant;
         this.setCreativeTab(HexCraft.tabDecorative);
 
@@ -87,16 +92,12 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT implements IBlockHexDya
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[3];
-        // Map decoration and variant.
-        String id = ID_BLACK;
-        if (this.variant == DECORATIVE_VARIANT_WHITE)
-            id = ID_WHITE;
         // Load the outer normal texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.label);
         // Load the outer reinforced texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "Reinforced");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
         // Load the inner texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockPlatedHexoriumBlockRainbow || this == HexBlocks.blockPlatedHexoriumBlockWhiteRainbow)
+        if(this.color == HexEnums.Colors.RAINBOW)
             icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
@@ -122,25 +123,32 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT implements IBlockHexDya
     }
 
     @Override
-    public int getVariant() {
+    public HexEnums.Variants getVariant() {
         return this.variant;
     }
 
     @Override
-    public String getVariantName() {
-        switch (this.variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public HexEnums.Colors getColor() {
+        return color;
+    }
+
+    public static void registerBlocks() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                String name = ID + variant.label + color.name;
+                BlockPlatedHexoriumBlock block = new BlockPlatedHexoriumBlock(name, color, variant);
+                GameRegistry.registerBlock(block, name);
+            }
         }
     }
 
-    @Override
-    public String getVariantName(int variant) {
-        switch (variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public static void registerRenders() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+                RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                        HexEnums.Brightness.BRIGHT.value, color.r, color.g, color.b));
+            }
         }
     }
 }

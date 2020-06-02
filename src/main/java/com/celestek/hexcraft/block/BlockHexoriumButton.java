@@ -25,7 +25,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumButton extends HexBlockModel implements IBlockHexDyable {
+public class BlockHexoriumButton extends HexBlockModel implements IBlockHexVariant {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumButton";
@@ -401,11 +401,7 @@ public class BlockHexoriumButton extends HexBlockModel implements IBlockHexDyabl
 
     @Override
     public String getVariantName() {
-        switch (this.variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
-        }
+        return getVariantName(this.variant);
     }
 
     @Override

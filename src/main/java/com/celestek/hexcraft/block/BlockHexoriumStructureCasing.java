@@ -22,7 +22,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHexNode, IBlockHexDyable {
+public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHexNode, IBlockHexVariant {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumStructureCasing";
@@ -232,11 +232,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
 
     @Override
     public String getVariantName() {
-        switch (this.variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
-        }
+        return getVariantName(this.variant);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.celestek.hexcraft.client.renderer;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileTankRender;
-import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -122,12 +122,12 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
                 boolean luminosity = fluid.getLuminosity() != 0;
                 if (luminosity) {
                     if (Loader.isModLoaded("coloredlightscore"))
-                        tessellator.setBrightness(HexColors.BRIGHTNESS_CL);
+                        tessellator.setBrightness(HexEnums.BRIGHTNESS_CL);
                     else
-                        tessellator.setBrightness(HexColors.BRIGHTNESS_BRIGHT);
+                        tessellator.setBrightness(HexEnums.BRIGHTNESS_BRIGHT);
                 }
 
-                tessellator.setColorOpaque_F(HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B);
+                tessellator.setColorOpaque_F(HexEnums.COLOR_WHITE_R, HexEnums.COLOR_WHITE_G, HexEnums.COLOR_WHITE_B);
 
                 float exactY = startY - y + level;
                 int cutY = (int) Math.floor(exactY);

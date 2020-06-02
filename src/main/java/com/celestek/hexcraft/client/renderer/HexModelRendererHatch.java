@@ -3,7 +3,7 @@ package com.celestek.hexcraft.client.renderer;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumHatch;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
@@ -51,7 +51,7 @@ public class HexModelRendererHatch implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.BRIGHTNESS_CL;
+            this.brightness = HexEnums.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 

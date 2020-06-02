@@ -2,17 +2,13 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.EnergyNodeAnalyzer;
 import com.celestek.hexcraft.util.HexUtils;
-import com.celestek.hexcraft.util.TankAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -24,7 +20,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IBlockHexDyable {
+public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IBlockHexVariant {
 
     // Block ID
     public static final String ID_BLACK = "blockGlowingHexoriumCoatedStone";
@@ -218,11 +214,7 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IBloc
 
     @Override
     public String getVariantName() {
-        switch (this.variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
-        }
+        return getVariantName(this.variant);
     }
 
     @Override

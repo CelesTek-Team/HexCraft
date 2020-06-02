@@ -3,7 +3,6 @@ package com.celestek.hexcraft.item;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
@@ -55,8 +54,8 @@ public class ItemHexoriumDye extends Item {
             Block block = world.getBlock(x, y, z);
             String color = block.getUnlocalizedName().replace("tile.", "");
 
-            if (block instanceof IBlockHexDyable) {
-                IBlockHexDyable dyable = (IBlockHexDyable) block;
+            if (block instanceof IBlockHexVariant) {
+                IBlockHexVariant dyable = (IBlockHexVariant) block;
 
                 if (dyable.getVariant() != this.variant) {
                     color = color.replace(dyable.getVariantName(), "");

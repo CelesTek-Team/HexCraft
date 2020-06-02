@@ -3,7 +3,7 @@ package com.celestek.hexcraft.client.renderer;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
@@ -52,7 +52,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.BRIGHTNESS_CL;
+            this.brightness = HexEnums.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -93,7 +93,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(HexColors.COLOR_BLACK_R, HexColors.COLOR_BLACK_G, HexColors.COLOR_BLACK_B);
+        tessellator.setColorOpaque_F(HexEnums.COLOR_BLACK_R, HexEnums.COLOR_BLACK_G, HexEnums.COLOR_BLACK_B);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
@@ -197,7 +197,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
             // UP (Teleportation Pad)
             if(!world.getBlock(x, y + 1, z).isOpaqueCube()) {
-                tessellator.setColorOpaque_F(HexColors.COLOR_BLACK_R, HexColors.COLOR_BLACK_G, HexColors.COLOR_BLACK_B);
+                tessellator.setColorOpaque_F(HexEnums.COLOR_BLACK_R, HexEnums.COLOR_BLACK_G, HexEnums.COLOR_BLACK_B);
                 tessellator.addVertexWithUV(0, 1, 0, u, v);
                 tessellator.addVertexWithUV(0, 1, 1, u, V);
                 tessellator.addVertexWithUV(1, 1, 1, U, V);

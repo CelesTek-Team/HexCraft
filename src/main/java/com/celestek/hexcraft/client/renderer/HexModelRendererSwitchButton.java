@@ -5,7 +5,7 @@ import com.celestek.hexcraft.block.BlockHexoriumButton;
 import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.common.Loader;
@@ -49,7 +49,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexColors.BRIGHTNESS_CL;
+            this.brightness = HexEnums.BRIGHTNESS_CL;
         else
             this.brightness = brightness;
 
@@ -249,12 +249,12 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 float darken1;
                 float darken2;
                 if (HexUtils.getMetaBit(BlockHexoriumSwitch.META_STATE, world, x, y, z)) {
-                    darken1 = HexColors.MULTIPLIER_DARKEN;
+                    darken1 = HexEnums.MULTIPLIER_DARKEN;
                     darken2 = 1.0F;
                 }
                 else {
                     darken1 = 1.0F;
-                    darken2 = HexColors.MULTIPLIER_DARKEN;
+                    darken2 = HexEnums.MULTIPLIER_DARKEN;
                 }
                 if (block == HexBlocks.blockHexoriumSwitchBlueGreen || block == HexBlocks.blockHexoriumSwitchWhiteBlueGreen)
                     tessellator.setColorOpaque_F(0, 0, darken1);
@@ -374,7 +374,7 @@ public class HexModelRendererSwitchButton implements ISimpleBlockRenderingHandle
                 float push;
                 float darken;
                 if (HexUtils.getMetaBit(BlockHexoriumButton.META_STATE, world, x, y, z)) {
-                    darken = HexColors.MULTIPLIER_DARKEN;
+                    darken = HexEnums.MULTIPLIER_DARKEN;
                     push = sbPixl;
                 }
                 else {

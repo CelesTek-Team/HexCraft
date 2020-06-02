@@ -3,7 +3,7 @@ package com.celestek.hexcraft.block;
 import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.util.HexColors;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -22,7 +22,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexDyable {
+public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexVariant {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumLampInv";
@@ -78,31 +78,31 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexDyable 
         if (!HexUtils.getMetaBit(META_STATE, world, x, y, z))
             if (Loader.isModLoaded("coloredlightscore"))
                 if (this == HexBlocks.blockHexoriumLampInvRed)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_RED_R, HexColors.COLOR_RED_G, HexColors.COLOR_RED_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_RED_R, HexEnums.COLOR_RED_G, HexEnums.COLOR_RED_B);
                 else if (this == HexBlocks.blockHexoriumLampInvOrange)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_ORANGE_R, HexColors.COLOR_ORANGE_G, HexColors.COLOR_ORANGE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_ORANGE_R, HexEnums.COLOR_ORANGE_G, HexEnums.COLOR_ORANGE_B);
                 else if (this == HexBlocks.blockHexoriumLampInvYellow)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_YELLOW_R, HexColors.COLOR_YELLOW_G, HexColors.COLOR_YELLOW_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_YELLOW_R, HexEnums.COLOR_YELLOW_G, HexEnums.COLOR_YELLOW_B);
                 else if (this == HexBlocks.blockHexoriumLampInvLime)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_LIME_R, HexColors.COLOR_LIME_G, HexColors.COLOR_LIME_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_LIME_R, HexEnums.COLOR_LIME_G, HexEnums.COLOR_LIME_B);
                 else if (this == HexBlocks.blockHexoriumLampInvGreen)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_GREEN_R, HexColors.COLOR_GREEN_G, HexColors.COLOR_GREEN_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_GREEN_R, HexEnums.COLOR_GREEN_G, HexEnums.COLOR_GREEN_B);
                 else if (this == HexBlocks.blockHexoriumLampInvTurquoise)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_TORQUOISE_R, HexColors.COLOR_TORQUOISE_G, HexColors.COLOR_TORQUOISE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_TORQUOISE_R, HexEnums.COLOR_TORQUOISE_G, HexEnums.COLOR_TORQUOISE_B);
                 else if (this == HexBlocks.blockHexoriumLampInvCyan)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_CYAN_R, HexColors.COLOR_CYAN_G, HexColors.COLOR_CYAN_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_CYAN_R, HexEnums.COLOR_CYAN_G, HexEnums.COLOR_CYAN_B);
                 else if (this == HexBlocks.blockHexoriumLampInvSkyBlue)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_SKY_BLUE_R, HexColors.COLOR_SKY_BLUE_G, HexColors.COLOR_SKY_BLUE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_SKY_BLUE_R, HexEnums.COLOR_SKY_BLUE_G, HexEnums.COLOR_SKY_BLUE_B);
                 else if (this == HexBlocks.blockHexoriumLampInvBlue)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_BLUE_R, HexColors.COLOR_BLUE_G, HexColors.COLOR_BLUE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_BLUE_R, HexEnums.COLOR_BLUE_G, HexEnums.COLOR_BLUE_B);
                 else if (this == HexBlocks.blockHexoriumLampInvPurple)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_PURPLE_R, HexColors.COLOR_PURPLE_G, HexColors.COLOR_PURPLE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_PURPLE_R, HexEnums.COLOR_PURPLE_G, HexEnums.COLOR_PURPLE_B);
                 else if (this == HexBlocks.blockHexoriumLampInvMagenta)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_MAGENTA_R, HexColors.COLOR_MAGENTA_G, HexColors.COLOR_MAGENTA_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_MAGENTA_R, HexEnums.COLOR_MAGENTA_G, HexEnums.COLOR_MAGENTA_B);
                 else if (this == HexBlocks.blockHexoriumLampInvPink)
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_PINK_R, HexColors.COLOR_PINK_G, HexColors.COLOR_PINK_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_PINK_R, HexEnums.COLOR_PINK_G, HexEnums.COLOR_PINK_B);
                 else
-                    return CLApi.makeRGBLightValue(HexColors.COLOR_WHITE_R, HexColors.COLOR_WHITE_G, HexColors.COLOR_WHITE_B);
+                    return CLApi.makeRGBLightValue(HexEnums.COLOR_WHITE_R, HexEnums.COLOR_WHITE_G, HexEnums.COLOR_WHITE_B);
             else
                 return 15;
         else
@@ -169,11 +169,7 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexDyable 
 
     @Override
     public String getVariantName() {
-        switch (this.variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
-        }
+        return getVariantName(this.variant);
     }
 
     @Override

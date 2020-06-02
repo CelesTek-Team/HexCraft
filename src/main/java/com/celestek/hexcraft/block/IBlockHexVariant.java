@@ -3,7 +3,7 @@ package com.celestek.hexcraft.block;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
-public interface IBlockHexDyable {
+public interface IBlockHexVariant {
     /**
      * Returns the integer value corresponding to the variant ID of the block.
      */
