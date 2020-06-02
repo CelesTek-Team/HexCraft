@@ -79,6 +79,27 @@ tile.blockEngineeredHexoriumBlockBlack.name=Inženjersko Obrađen Heksorijski Bl
 
 tile.blockEngineeredHexoriumBlockRainbow.name=Inženjersko Obrađen Heksorijski Blok (Dugine Boje)
 
+tile.blockEngineeredHexoriumBlockWhiteRed.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Crveni)
+tile.blockEngineeredHexoriumBlockWhiteOrange.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Narančasti)
+tile.blockEngineeredHexoriumBlockWhiteYellow.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Žuti)
+tile.blockEngineeredHexoriumBlockWhiteLime.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Limeta)
+tile.blockEngineeredHexoriumBlockWhiteGreen.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Zeleni)
+tile.blockEngineeredHexoriumBlockWhiteTurquoise.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Tirkizni)
+tile.blockEngineeredHexoriumBlockWhiteCyan.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Cijan)
+tile.blockEngineeredHexoriumBlockWhiteSkyBlue.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Nebesko Plavi)
+tile.blockEngineeredHexoriumBlockWhiteBlue.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Plavi)
+tile.blockEngineeredHexoriumBlockWhitePurple.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Ljubičasti)
+tile.blockEngineeredHexoriumBlockWhiteMagenta.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Purpurnocrveni)
+tile.blockEngineeredHexoriumBlockWhitePink.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Ružičasti)
+
+tile.blockEngineeredHexoriumBlockWhiteWhite.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Bijeli)
+tile.blockEngineeredHexoriumBlockWhiteLightGray.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Svijetlo Sivi)
+tile.blockEngineeredHexoriumBlockWhiteGray.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Sivi)
+tile.blockEngineeredHexoriumBlockWhiteDarkGray.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Tamno Sivi)
+tile.blockEngineeredHexoriumBlockWhiteBlack.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Crni)
+
+tile.blockEngineeredHexoriumBlockWhiteRainbow.name=Bijeli Inženjersko Obrađen Heksorijski Blok (Dugine Boje)
+
 
 tile.blockFramedHexoriumBlockRed.name=Uokviren Heksorijski Blok (Crveni)
 tile.blockFramedHexoriumBlockOrange.name=Uokviren Heksorijski Blok (Narančasti)
@@ -100,6 +121,27 @@ tile.blockFramedHexoriumBlockDarkGray.name=Uokviren Heksorijski Blok (Tamno Sivi
 tile.blockFramedHexoriumBlockBlack.name=Uokviren Heksorijski Blok (Crni)
 
 tile.blockFramedHexoriumBlockRainbow.name=Uokviren Heksorijski Blok (Dugine Boje)
+
+tile.blockFramedHexoriumBlockWhiteRed.name=Bijeli Uokviren Heksorijski Blok (Crveni)
+tile.blockFramedHexoriumBlockWhiteOrange.name=Bijeli Uokviren Heksorijski Blok (Narančasti)
+tile.blockFramedHexoriumBlockWhiteYellow.name=Bijeli Uokviren Heksorijski Blok (Žuti)
+tile.blockFramedHexoriumBlockWhiteLime.name=Bijeli Uokviren Heksorijski Blok (Limeta)
+tile.blockFramedHexoriumBlockWhiteGreen.name=Bijeli Uokviren Heksorijski Blok (Zeleni)
+tile.blockFramedHexoriumBlockWhiteTurquoise.name=Bijeli Uokviren Heksorijski Blok (Tirkizni)
+tile.blockFramedHexoriumBlockWhiteCyan.name=Bijeli Uokviren Heksorijski Blok (Cijan)
+tile.blockFramedHexoriumBlockWhiteSkyBlue.name=Bijeli Uokviren Heksorijski Blok (Nebesko Plavi)
+tile.blockFramedHexoriumBlockWhiteBlue.name=Bijeli Uokviren Heksorijski Blok (Plavi)
+tile.blockFramedHexoriumBlockWhitePurple.name=Bijeli Uokviren Heksorijski Blok (Ljubičasti)
+tile.blockFramedHexoriumBlockWhiteMagenta.name=Bijeli Uokviren Heksorijski Blok (Purpurnocrveni)
+tile.blockFramedHexoriumBlockWhitePink.name=Bijeli Uokviren Heksorijski Blok (Ružičasti)
+
+tile.blockFramedHexoriumBlockWhiteWhite.name=Bijeli Uokviren Heksorijski Blok (Bijeli)
+tile.blockFramedHexoriumBlockWhiteLightGray.name=Bijeli Uokviren Heksorijski Blok (Svijetlo Sivi)
+tile.blockFramedHexoriumBlockWhiteGray.name=Bijeli Uokviren Heksorijski Blok (Sivi)
+tile.blockFramedHexoriumBlockWhiteDarkGray.name=Bijeli Uokviren Heksorijski Blok (Tamno Sivi)
+tile.blockFramedHexoriumBlockWhiteBlack.name=Bijeli Uokviren Heksorijski Blok (Crni)
+
+tile.blockFramedHexoriumBlockWhiteRainbow.name=Bijeli Uokviren Heksorijski Blok (Dugine Boje)
 
 
 tile.blockPlatedHexoriumBlockRed.name=Popločen Heksorijski Blok (Crveni)
@@ -123,6 +165,27 @@ tile.blockPlatedHexoriumBlockBlack.name=Popločen Heksorijski Blok (Crni)
 
 tile.blockPlatedHexoriumBlockRainbow.name=Popločen Heksorijski Blok (Dugine Boje)
 
+tile.blockPlatedHexoriumBlockWhiteRed.name=Bijeli Popločen Heksorijski Blok (Crveni)
+tile.blockPlatedHexoriumBlockWhiteOrange.name=Bijeli Popločen Heksorijski Blok (Narančasti)
+tile.blockPlatedHexoriumBlockWhiteYellow.name=Bijeli Popločen Heksorijski Blok (Žuti)
+tile.blockPlatedHexoriumBlockWhiteLime.name=Bijeli Popločen Heksorijski Blok (Limeta)
+tile.blockPlatedHexoriumBlockWhiteGreen.name=Bijeli Popločen Heksorijski Blok (Zeleni)
+tile.blockPlatedHexoriumBlockWhiteTurquoise.name=Bijeli Popločen Heksorijski Blok (Tirkizni)
+tile.blockPlatedHexoriumBlockWhiteCyan.name=Bijeli Popločen Heksorijski Blok (Cijan)
+tile.blockPlatedHexoriumBlockWhiteSkyBlue.name=Bijeli Popločen Heksorijski Blok (Nebesko Plavi)
+tile.blockPlatedHexoriumBlockWhiteBlue.name=Bijeli Popločen Heksorijski Blok (Plavi)
+tile.blockPlatedHexoriumBlockWhitePurple.name=Bijeli Popločen Heksorijski Blok (Ljubičasti)
+tile.blockPlatedHexoriumBlockWhiteMagenta.name=Bijeli Popločen Heksorijski Blok (Purpurnocrveni)
+tile.blockPlatedHexoriumBlockWhitePink.name=Bijeli Popločen Heksorijski Blok (Ružičasti)
+
+tile.blockPlatedHexoriumBlockWhiteWhite.name=Bijeli Popločen Heksorijski Blok (Bijeli)
+tile.blockPlatedHexoriumBlockWhiteLightGray.name=Bijeli Popločen Heksorijski Blok (Svijetlo Sivi)
+tile.blockPlatedHexoriumBlockWhiteGray.name=Bijeli Popločen Heksorijski Blok (Sivi)
+tile.blockPlatedHexoriumBlockWhiteDarkGray.name=Bijeli Popločen Heksorijski Blok (Tamno Sivi)
+tile.blockPlatedHexoriumBlockWhiteBlack.name=Bijeli Popločen Heksorijski Blok (Crni)
+
+tile.blockPlatedHexoriumBlockWhiteRainbow.name=Bijeli Popločen Heksorijski Blok (Dugine Boje)
+
 
 tile.blockConcentricHexoriumBlockRed.name=Koncentričan Heksorijski Blok (Crveni)
 tile.blockConcentricHexoriumBlockOrange.name=Koncentričan Heksorijski Blok (Narančasti)
@@ -144,6 +207,27 @@ tile.blockConcentricHexoriumBlockDarkGray.name=Koncentričan Heksorijski Blok (T
 tile.blockConcentricHexoriumBlockBlack.name=Koncentričan Heksorijski Blok (Crni)
 
 tile.blockConcentricHexoriumBlockRainbow.name=Koncentričan Heksorijski Blok (Dugine Boje)
+
+tile.blockConcentricHexoriumBlockWhiteRed.name=Bijeli Koncentričan Heksorijski Blok (Crveni)
+tile.blockConcentricHexoriumBlockWhiteOrange.name=Bijeli Koncentričan Heksorijski Blok (Narančasti)
+tile.blockConcentricHexoriumBlockWhiteYellow.name=Bijeli Koncentričan Heksorijski Blok (Žuti)
+tile.blockConcentricHexoriumBlockWhiteLime.name=Bijeli Koncentričan Heksorijski Blok (Limeta)
+tile.blockConcentricHexoriumBlockWhiteGreen.name=Bijeli Koncentričan Heksorijski Blok (Zeleni)
+tile.blockConcentricHexoriumBlockWhiteTurquoise.name=Bijeli Koncentričan Heksorijski Blok (Tirkizni)
+tile.blockConcentricHexoriumBlockWhiteCyan.name=Bijeli Koncentričan Heksorijski Blok (Cijan)
+tile.blockConcentricHexoriumBlockWhiteSkyBlue.name=Bijeli Koncentričan Heksorijski Blok (Nebesko Plavi)
+tile.blockConcentricHexoriumBlockWhiteBlue.name=Bijeli Koncentričan Heksorijski Blok (Plavi)
+tile.blockConcentricHexoriumBlockWhitePurple.name=Bijeli Koncentričan Heksorijski Blok (Ljubičasti)
+tile.blockConcentricHexoriumBlockWhiteMagenta.name=Bijeli Koncentričan Heksorijski Blok (Purpurnocrveni)
+tile.blockConcentricHexoriumBlockWhitePink.name=Bijeli Koncentričan Heksorijski Blok (Ružičasti)
+
+tile.blockConcentricHexoriumBlockWhiteWhite.name=Bijeli Koncentričan Heksorijski Blok (Bijeli)
+tile.blockConcentricHexoriumBlockWhiteLightGray.name=Bijeli Koncentričan Heksorijski Blok (Svijetlo Sivi)
+tile.blockConcentricHexoriumBlockWhiteGray.name=Bijeli Koncentričan Heksorijski Blok (Sivi)
+tile.blockConcentricHexoriumBlockWhiteDarkGray.name=Bijeli Koncentričan Heksorijski Blok (Tamno Sivi)
+tile.blockConcentricHexoriumBlockWhiteBlack.name=Bijeli Koncentričan Heksorijski Blok (Crni)
+
+tile.blockConcentricHexoriumBlockWhiteRainbow.name=Bijeli Koncentričan Heksorijski Blok (Dugine Boje)
 
 
 tile.blockHexoriumStructureCasingRed.name=Heksorijsko Strukturno Kućište (Crveno)
@@ -167,6 +251,27 @@ tile.blockHexoriumStructureCasingBlack.name=Heksorijsko Strukturno Kućište (Cr
 
 tile.blockHexoriumStructureCasingRainbow.name=Heksorijsko Strukturno Kućište (Dugine Boje)
 
+tile.blockHexoriumStructureCasingWhiteRed.name=Bijelo Heksorijsko Strukturno Kućište (Crveno)
+tile.blockHexoriumStructureCasingWhiteOrange.name=Bijelo Heksorijsko Strukturno Kućište (Narančasto)
+tile.blockHexoriumStructureCasingWhiteYellow.name=Bijelo Heksorijsko Strukturno Kućište (Žuto)
+tile.blockHexoriumStructureCasingWhiteLime.name=Bijelo Heksorijsko Strukturno Kućište (Limeta)
+tile.blockHexoriumStructureCasingWhiteGreen.name=Bijelo Heksorijsko Strukturno Kućište (Zeleno)
+tile.blockHexoriumStructureCasingWhiteTurquoise.name=Bijelo Heksorijsko Strukturno Kućište (Tirkizno)
+tile.blockHexoriumStructureCasingWhiteCyan.name=Bijelo Heksorijsko Strukturno Kućište (Cijan)
+tile.blockHexoriumStructureCasingWhiteSkyBlue.name=Bijelo Heksorijsko Strukturno Kućište (Nebesko Plavo)
+tile.blockHexoriumStructureCasingWhiteBlue.name=Bijelo Heksorijsko Strukturno Kućište (Plavo)
+tile.blockHexoriumStructureCasingWhitePurple.name=Bijelo Heksorijsko Strukturno Kućište (Ljubičasto)
+tile.blockHexoriumStructureCasingWhiteMagenta.name=Bijelo Heksorijsko Strukturno Kućište (Purpurnocrveno)
+tile.blockHexoriumStructureCasingWhitePink.name=Bijelo Heksorijsko Strukturno Kućište (Ružičasto)
+
+tile.blockHexoriumStructureCasingWhiteWhite.name=Bijelo Heksorijsko Strukturno Kućište (Bijelo)
+tile.blockHexoriumStructureCasingWhiteLightGray.name=Bijelo Heksorijsko Strukturno Kućište (Svijetlo Sivo)
+tile.blockHexoriumStructureCasingWhiteGray.name=Bijelo Heksorijsko Strukturno Kućište (Sivo)
+tile.blockHexoriumStructureCasingWhiteDarkGray.name=Bijelo Heksorijsko Strukturno Kućište (Tamno Sivo)
+tile.blockHexoriumStructureCasingWhiteBlack.name=Bijelo Heksorijsko Strukturno Kućište (Crno)
+
+tile.blockHexoriumStructureCasingWhiteRainbow.name=Bijelo Heksorijsko Strukturno Kućište (Dugine Boje)
+
 
 tile.blockGlowingHexoriumCoatedStoneRed.name=Svijetleći Hexoriumom Obložen Kamen (Crveno)
 tile.blockGlowingHexoriumCoatedStoneOrange.name=Svijetleći Hexoriumom Obložen Kamen (Narančasto)
@@ -189,6 +294,27 @@ tile.blockGlowingHexoriumCoatedStoneBlack.name=Svijetleći Hexoriumom Obložen K
 
 tile.blockGlowingHexoriumCoatedStoneRainbow.name=Svijetleći Hexoriumom Obložen Kamen (Dugine Boje)
 
+tile.blockGlowingHexoriumCoatedStoneWhiteRed.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Crveno)
+tile.blockGlowingHexoriumCoatedStoneWhiteOrange.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Narančasto)
+tile.blockGlowingHexoriumCoatedStoneWhiteYellow.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Žuto)
+tile.blockGlowingHexoriumCoatedStoneWhiteLime.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Limeta)
+tile.blockGlowingHexoriumCoatedStoneWhiteGreen.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Zeleno)
+tile.blockGlowingHexoriumCoatedStoneWhiteTurquoise.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Tirkizno)
+tile.blockGlowingHexoriumCoatedStoneWhiteCyan.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Cijan)
+tile.blockGlowingHexoriumCoatedStoneWhiteSkyBlue.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Nebesko Plavo)
+tile.blockGlowingHexoriumCoatedStoneWhiteBlue.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Plavo)
+tile.blockGlowingHexoriumCoatedStoneWhitePurple.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Ljubičasto)
+tile.blockGlowingHexoriumCoatedStoneWhiteMagenta.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Purpurnocrveno)
+tile.blockGlowingHexoriumCoatedStoneWhitePink.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Ružičasto)
+
+tile.blockGlowingHexoriumCoatedStoneWhiteWhite.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Bijelo)
+tile.blockGlowingHexoriumCoatedStoneWhiteLightGray.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Svijetlo Sivo)
+tile.blockGlowingHexoriumCoatedStoneWhiteGray.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Sivo)
+tile.blockGlowingHexoriumCoatedStoneWhiteDarkGray.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Tamno Sivo)
+tile.blockGlowingHexoriumCoatedStoneWhiteBlack.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Crno)
+
+tile.blockGlowingHexoriumCoatedStoneWhiteRainbow.name=Bijeli Svijetleći Hexoriumom Obložen Kamen (Dugine Boje)
+
 
 tile.blockGlowingHexoriumGlassRed.name=Svijetleće Heksorijsko Staklo (Crveno)
 tile.blockGlowingHexoriumGlassOrange.name=Svijetleće Heksorijsko Staklo (Narančasto)
@@ -208,6 +334,25 @@ tile.blockGlowingHexoriumGlassLightGray.name=Svijetleće Heksorijsko Staklo (Svi
 tile.blockGlowingHexoriumGlassGray.name=Svijetleće Heksorijsko Staklo (Sivo)
 tile.blockGlowingHexoriumGlassDarkGray.name=Svijetleće Heksorijsko Staklo (Tamno Sivo)
 tile.blockGlowingHexoriumGlassBlack.name=Svijetleće Heksorijsko Staklo (Crno)
+
+tile.blockGlowingHexoriumGlassWhiteRed.name=Bijelo Svijetleće Heksorijsko Staklo (Crveno)
+tile.blockGlowingHexoriumGlassWhiteOrange.name=Bijelo Svijetleće Heksorijsko Staklo (Narančasto)
+tile.blockGlowingHexoriumGlassWhiteYellow.name=Bijelo Svijetleće Heksorijsko Staklo (Žuto)
+tile.blockGlowingHexoriumGlassWhiteLime.name=Bijelo Svijetleće Heksorijsko Staklo (Limeta)
+tile.blockGlowingHexoriumGlassWhiteGreen.name=Bijelo Svijetleće Heksorijsko Staklo (Zeleno)
+tile.blockGlowingHexoriumGlassWhiteTurquoise.name=Bijelo Svijetleće Heksorijsko Staklo (Tirkizno)
+tile.blockGlowingHexoriumGlassWhiteCyan.name=Bijelo Svijetleće Heksorijsko Staklo (Cijan)
+tile.blockGlowingHexoriumGlassWhiteSkyBlue.name=Bijelo Svijetleće Heksorijsko Staklo (Nebesko Plavo)
+tile.blockGlowingHexoriumGlassWhiteBlue.name=Bijelo Svijetleće Heksorijsko Staklo (Plavo)
+tile.blockGlowingHexoriumGlassWhitePurple.name=Bijelo Svijetleće Heksorijsko Staklo (Ljubičasto)
+tile.blockGlowingHexoriumGlassWhiteMagenta.name=Bijelo Svijetleće Heksorijsko Staklo (Purpurnocrveno)
+tile.blockGlowingHexoriumGlassWhitePink.name=Bijelo Svijetleće Heksorijsko Staklo (Ružičasto)
+
+tile.blockGlowingHexoriumGlassWhiteWhite.name=Bijelo Svijetleće Heksorijsko Staklo (Bijelo)
+tile.blockGlowingHexoriumGlassWhiteLightGray.name=Bijelo Svijetleće Heksorijsko Staklo (Svijetlo Sivo)
+tile.blockGlowingHexoriumGlassWhiteGray.name=Bijelo Svijetleće Heksorijsko Staklo (Sivo)
+tile.blockGlowingHexoriumGlassWhiteDarkGray.name=Bijelo Svijetleće Heksorijsko Staklo (Tamno Sivo)
+tile.blockGlowingHexoriumGlassWhiteBlack.name=Bijelo Svijetleće Heksorijsko Staklo (Crno)
 
 
 tile.blockEnergizedHexoriumMonolithRed.name=Heksorijski Monolit Napunjen Energijom (Crveni)
@@ -253,6 +398,27 @@ tile.blockHexoriumLampBlack.name=Heksorijska Svjetiljka (Crna)
 
 tile.blockHexoriumLampRainbow.name=Heksorijska Svjetiljka (Dugine Boje)
 
+tile.blockHexoriumLampWhiteRed.name=Bijela Heksorijska Svjetiljka (Crvena)
+tile.blockHexoriumLampWhiteOrange.name=Bijela Heksorijska Svjetiljka (Narančasta)
+tile.blockHexoriumLampWhiteYellow.name=Bijela Heksorijska Svjetiljka (Žuta)
+tile.blockHexoriumLampWhiteLime.name=Bijela Heksorijska Svjetiljka (Limeta)
+tile.blockHexoriumLampWhiteGreen.name=Bijela Heksorijska Svjetiljka (Zelena)
+tile.blockHexoriumLampWhiteTurquoise.name=Bijela Heksorijska Svjetiljka (Tirkizna)
+tile.blockHexoriumLampWhiteCyan.name=Bijela Heksorijska Svjetiljka (Cijan)
+tile.blockHexoriumLampWhiteSkyBlue.name=Bijela Heksorijska Svjetiljka (Nebesko Plava)
+tile.blockHexoriumLampWhiteBlue.name=Bijela Heksorijska Svjetiljka (Plava)
+tile.blockHexoriumLampWhitePurple.name=Bijela Heksorijska Svjetiljka (Ljubičasta)
+tile.blockHexoriumLampWhiteMagenta.name=Bijela Heksorijska Svjetiljka (Purpurnocrvena)
+tile.blockHexoriumLampWhitePink.name=Bijela Heksorijska Svjetiljka (Ružičasta)
+
+tile.blockHexoriumLampWhiteWhite.name=Bijela Heksorijska Svjetiljka (Bijela)
+tile.blockHexoriumLampWhiteLightGray.name=Bijela Heksorijska Svjetiljka (Svijetlo Siva)
+tile.blockHexoriumLampWhiteGray.name=Bijela Heksorijska Svjetiljka (Siva)
+tile.blockHexoriumLampWhiteDarkGray.name=Bijela Heksorijska Svjetiljka (Tamno Siva)
+tile.blockHexoriumLampWhiteBlack.name=Bijela Heksorijska Svjetiljka (Crna)
+
+tile.blockHexoriumLampWhiteRainbow.name=Bijela Heksorijska Svjetiljka (Dugine Boje)
+
 
 tile.blockHexoriumLampInvRed.name=Obrnuta Heksorijska Svjetiljka (Crvena)
 tile.blockHexoriumLampInvOrange.name=Obrnuta Heksorijska Svjetiljka (Narančasta)
@@ -274,6 +440,27 @@ tile.blockHexoriumLampInvDarkGray.name=Obrnuta Heksorijska Svjetiljka (Tamno Siv
 tile.blockHexoriumLampInvBlack.name=Obrnuta Heksorijska Svjetiljka (Crna)
 
 tile.blockHexoriumLampInvRainbow.name=Obrnuta Heksorijska Svjetiljka (Dugine Boje)
+
+tile.blockHexoriumLampInvWhiteRed.name=Bijela Obrnuta Heksorijska Svjetiljka (Crvena)
+tile.blockHexoriumLampInvWhiteOrange.name=Bijela Obrnuta Heksorijska Svjetiljka (Narančasta)
+tile.blockHexoriumLampInvWhiteYellow.name=Bijela Obrnuta Heksorijska Svjetiljka (Žuta)
+tile.blockHexoriumLampInvWhiteLime.name=Bijela Obrnuta Heksorijska Svjetiljka (Limeta)
+tile.blockHexoriumLampInvWhiteGreen.name=Bijela Obrnuta Heksorijska Svjetiljka (Zelena)
+tile.blockHexoriumLampInvWhiteTurquoise.name=Bijela Obrnuta Heksorijska Svjetiljka (Tirkizna)
+tile.blockHexoriumLampInvWhiteCyan.name=Bijela Obrnuta Heksorijska Svjetiljka (Cijan)
+tile.blockHexoriumLampInvWhiteSkyBlue.name=Bijela Obrnuta Heksorijska Svjetiljka (Nebesko Plava)
+tile.blockHexoriumLampInvWhiteBlue.name=Bijela Obrnuta Heksorijska Svjetiljka (Plava)
+tile.blockHexoriumLampInvWhitePurple.name=Bijela Obrnuta Heksorijska Svjetiljka (Ljubičasta)
+tile.blockHexoriumLampInvWhiteMagenta.name=Bijela Obrnuta Heksorijska Svjetiljka (Purpurnocrvena)
+tile.blockHexoriumLampInvWhitePink.name=Bijela Obrnuta Heksorijska Svjetiljka (Ružičasta)
+
+tile.blockHexoriumLampInvWhiteWhite.name=Bijela Obrnuta Heksorijska Svjetiljka (Bijela)
+tile.blockHexoriumLampInvWhiteLightGray.name=Bijela Obrnuta Heksorijska Svjetiljka (Svijetlo Siva)
+tile.blockHexoriumLampInvWhiteGray.name=Bijela Obrnuta Heksorijska Svjetiljka (Siva)
+tile.blockHexoriumLampInvWhiteDarkGray.name=Bijela Obrnuta Heksorijska Svjetiljka (Tamno Siva)
+tile.blockHexoriumLampInvWhiteBlack.name=Bijela Obrnuta Heksorijska Svjetiljka (Crna)
+
+tile.blockHexoriumLampInvWhiteRainbow.name=Bijela Obrnuta Heksorijska Svjetiljka (Dugine Boje)
 
 
 tile.blockHexoriumDoorRed.name=Heksorijska Vrata (Crvena)
@@ -297,6 +484,27 @@ tile.blockHexoriumDoorBlack.name=Heksorijska Vrata (Crna)
 
 tile.blockHexoriumDoorRainbow.name=Heksorijska Vrata (Dugine Boje)
 
+tile.blockHexoriumDoorWhiteRed.name=Bijela Heksorijska Vrata (Crvena)
+tile.blockHexoriumDoorWhiteOrange.name=Bijela Heksorijska Vrata (Narančasta)
+tile.blockHexoriumDoorWhiteYellow.name=Bijela Heksorijska Vrata (Žuta)
+tile.blockHexoriumDoorWhiteLime.name=Bijela Heksorijska Vrata (Limeta)
+tile.blockHexoriumDoorWhiteGreen.name=Bijela Heksorijska Vrata (Zelena)
+tile.blockHexoriumDoorWhiteTurquoise.name=Bijela Heksorijska Vrata (Tirkizna)
+tile.blockHexoriumDoorWhiteCyan.name=Bijela Heksorijska Vrata (Cijan)
+tile.blockHexoriumDoorWhiteSkyBlue.name=Bijela Heksorijska Vrata (Nebesko Plava)
+tile.blockHexoriumDoorWhiteBlue.name=Bijela Heksorijska Vrata (Plava)
+tile.blockHexoriumDoorWhitePurple.name=Bijela Heksorijska Vrata (Ljubičasta)
+tile.blockHexoriumDoorWhiteMagenta.name=Bijela Heksorijska Vrata (Purpurnocrvena)
+tile.blockHexoriumDoorWhitePink.name=Bijela Heksorijska Vrata (Ružičasta)
+
+tile.blockHexoriumDoorWhiteWhite.name=Bijela Heksorijska Vrata (Bijela)
+tile.blockHexoriumDoorWhiteLightGray.name=Bijela Heksorijska Vrata (Svijetlo Siva)
+tile.blockHexoriumDoorWhiteGray.name=Bijela Heksorijska Vrata (Siva)
+tile.blockHexoriumDoorWhiteDarkGray.name=Bijela Heksorijska Vrata (Tamno Siva)
+tile.blockHexoriumDoorWhiteBlack.name=Bijela Heksorijska Vrata (Crna)
+
+tile.blockHexoriumDoorWhiteRainbow.name=Bijela Heksorijska Vrata (Dugine Boje)
+
 
 tile.blockHexoriumHatchRed.name=Heksorijski Poklopac (Crveni)
 tile.blockHexoriumHatchOrange.name=Heksorijski Poklopac (Narančasti)
@@ -318,6 +526,27 @@ tile.blockHexoriumHatchDarkGray.name=Heksorijski Poklopac (Tamno Sivi)
 tile.blockHexoriumHatchBlack.name=Heksorijski Poklopac (Crni)
 
 tile.blockHexoriumHatchRainbow.name=Heksorijski Poklopac (Dugine Boje)
+
+tile.blockHexoriumHatchWhiteRed.name=Bijeli Heksorijski Poklopac (Crveni)
+tile.blockHexoriumHatchWhiteOrange.name=Bijeli Heksorijski Poklopac (Narančasti)
+tile.blockHexoriumHatchWhiteYellow.name=Bijeli Heksorijski Poklopac (Žuti)
+tile.blockHexoriumHatchWhiteLime.name=Bijeli Heksorijski Poklopac (Limeta)
+tile.blockHexoriumHatchWhiteGreen.name=Bijeli Heksorijski Poklopac (Zeleni)
+tile.blockHexoriumHatchWhiteTurquoise.name=Bijeli Heksorijski Poklopac (Tirkizni)
+tile.blockHexoriumHatchWhiteCyan.name=Bijeli Heksorijski Poklopac (Cijan)
+tile.blockHexoriumHatchWhiteSkyBlue.name=Bijeli Heksorijski Poklopac (Nebesko Plavi)
+tile.blockHexoriumHatchWhiteBlue.name=Bijeli Heksorijski Poklopac (Plavi)
+tile.blockHexoriumHatchWhitePurple.name=Bijeli Heksorijski Poklopac (Ljubičasti)
+tile.blockHexoriumHatchWhiteMagenta.name=Bijeli Heksorijski Poklopac (Purpurnocrveni)
+tile.blockHexoriumHatchWhitePink.name=Bijeli Heksorijski Poklopac (Ružičasti)
+
+tile.blockHexoriumHatchWhiteWhite.name=Bijeli Heksorijski Poklopac (Bijeli)
+tile.blockHexoriumHatchWhiteLightGray.name=Bijeli Heksorijski Poklopac (Svijetlo Sivi)
+tile.blockHexoriumHatchWhiteGray.name=Bijeli Heksorijski Poklopac (Sivi)
+tile.blockHexoriumHatchWhiteDarkGray.name=Bijeli Heksorijski Poklopac (Tamno Sivi)
+tile.blockHexoriumHatchWhiteBlack.name=Bijeli Heksorijski Poklopac (Crni)
+
+tile.blockHexoriumHatchWhiteRainbow.name=Bijeli Heksorijski Poklopac (Dugine Boje)
 
 
 tile.blockHexoriumMachineBlock.name=Heksorijski Strojni Blok
@@ -373,15 +602,30 @@ tile.blockHexoriumSwitchRedBlue.name=Heksorijski Prekidač (Crveno-Plavi)
 tile.blockHexoriumSwitchRedWhite.name=Heksorijski Prekidač (Crveno-Bijeli)
 tile.blockHexoriumSwitchBlueGreen.name=Heksorijski Prekidač (Plavo-Zeleni)
 
+tile.blockHexoriumSwitchWhiteRedGreen.name=Bijeli Heksorijski Prekidač (Crveno-Zeleni)
+tile.blockHexoriumSwitchWhiteRedBlue.name=Bijeli Heksorijski Prekidač (Crveno-Plavi)
+tile.blockHexoriumSwitchWhiteRedWhite.name=Bijeli Heksorijski Prekidač (Crveno-Bijeli)
+tile.blockHexoriumSwitchWhiteBlueGreen.name=Bijeli Heksorijski Prekidač (Plavo-Zeleni)
+
 tile.blockHexoriumButtonRed.name=Heksorijski Gumb (Crveni)
 tile.blockHexoriumButtonGreen.name=Heksorijski Gumb (Zeleni)
 tile.blockHexoriumButtonBlue.name=Heksorijski Gumb (Plavi)
 tile.blockHexoriumButtonWhite.name=Heksorijski Gumb (Bijeli)
 
+tile.blockHexoriumButtonWhiteRed.name=Bijeli Heksorijski Gumb (Crveni)
+tile.blockHexoriumButtonWhiteGreen.name=Bijeli Heksorijski Gumb (Zeleni)
+tile.blockHexoriumButtonWhiteBlue.name=Bijeli Heksorijski Gumb (Plavi)
+tile.blockHexoriumButtonWhiteWhite.name=Bijeli Heksorijski Gumb (Bijeli)
+
 tile.blockHexoriumPressurePlateRed.name=Heksorijska Nagazna Ploča (Crvena)
 tile.blockHexoriumPressurePlateGreen.name=Heksorijska Nagazna Ploča (Zelena)
 tile.blockHexoriumPressurePlateBlue.name=Heksorijska Nagazna Ploča (Plava)
 tile.blockHexoriumPressurePlateWhite.name=Heksorijska Nagazna Ploča (Bijela)
+
+tile.blockHexoriumPressurePlateWhiteRed.name=Bijela Heksorijska Nagazna Ploča (Crvena)
+tile.blockHexoriumPressurePlateWhiteGreen.name=Bijela Heksorijska Nagazna Ploča (Zelena)
+tile.blockHexoriumPressurePlateWhiteBlue.name=Bijela Heksorijska Nagazna Ploča (Plava)
+tile.blockHexoriumPressurePlateWhiteWhite.name=Bijela Heksorijska Nagazna Ploča (Bijela)
 
 tile.blockPylonBase51.name=5-na-1 Stupna Baza
 tile.blockPylonBase15.name=1-na-5 Stupna Baza
@@ -389,7 +633,9 @@ tile.blockPylonBase15.name=1-na-5 Stupna Baza
 tile.blockSoundProjector.name=Projektor Zvuka
 
 tile.blockTemperedHexoriumGlass.name=Obrađeno Heksorijsko Staklo
+tile.blockTemperedHexoriumGlassWhite.name=Bijelo Obrađeno Heksorijsko Staklo
 tile.blockHexoriumCoatedStone.name=Hexoriumom Obložen Kamen
+tile.blockHexoriumCoatedStoneWhite.name=Bijeli Hexoriumom Obložen Kamen
 
 
 item.itemHexoriumCrystalRed.name=Crveni Heksorijski Kristal
@@ -432,6 +678,10 @@ item.toolHexoriumManipulator.name=Heksorijski Upravljač
 item.toolHexoriumProbe.name=Heksorijska Sonda
 item.toolMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
+item.itemMortarPestle.name=Tarionik
+
+item.itemHexoriumDyeWhite.name=Bijela Heksorijska Boja
+item.itemHexoriumDyeBlack.name=Crna Heksorijska Boja
 
 
 hexcraft.container.hexoriumGenerator=Heksorijski Generator

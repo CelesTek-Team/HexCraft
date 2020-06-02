@@ -305,7 +305,7 @@ public class BlockHexoriumHatch extends HexBlockModel {
             }
         }
         // Load the inner texture.
-        if(this == HexBlocks.blockHexoriumHatchRainbow)
+        if(this == HexBlocks.blockHexoriumHatchRainbow || this == HexBlocks.blockHexoriumHatchWhiteRainbow)
             icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");

@@ -79,6 +79,27 @@ tile.blockEngineeredHexoriumBlockBlack.name=Engineered Hexorium Block (Black)
 
 tile.blockEngineeredHexoriumBlockRainbow.name=Engineered Hexorium Block (Rainbow)
 
+tile.blockEngineeredHexoriumBlockWhiteRed.name=White Engineered Hexorium Block (Red)
+tile.blockEngineeredHexoriumBlockWhiteOrange.name=White Engineered Hexorium Block (Orange)
+tile.blockEngineeredHexoriumBlockWhiteYellow.name=White Engineered Hexorium Block (Yellow)
+tile.blockEngineeredHexoriumBlockWhiteLime.name=White Engineered Hexorium Block (Lime)
+tile.blockEngineeredHexoriumBlockWhiteGreen.name=White Engineered Hexorium Block (Green)
+tile.blockEngineeredHexoriumBlockWhiteTurquoise.name=White Engineered Hexorium Block (Turquoise)
+tile.blockEngineeredHexoriumBlockWhiteCyan.name=White Engineered Hexorium Block (Cyan)
+tile.blockEngineeredHexoriumBlockWhiteSkyBlue.name=White Engineered Hexorium Block (Sky Blue)
+tile.blockEngineeredHexoriumBlockWhiteBlue.name=White Engineered Hexorium Block (Blue)
+tile.blockEngineeredHexoriumBlockWhitePurple.name=White Engineered Hexorium Block (Purple)
+tile.blockEngineeredHexoriumBlockWhiteMagenta.name=White Engineered Hexorium Block (Magenta)
+tile.blockEngineeredHexoriumBlockWhitePink.name=White Engineered Hexorium Block (Pink)
+
+tile.blockEngineeredHexoriumBlockWhiteWhite.name=White Engineered Hexorium Block (White)
+tile.blockEngineeredHexoriumBlockWhiteLightGray.name=White Engineered Hexorium Block (Light Gray)
+tile.blockEngineeredHexoriumBlockWhiteGray.name=White Engineered Hexorium Block (Gray)
+tile.blockEngineeredHexoriumBlockWhiteDarkGray.name=White Engineered Hexorium Block (Dark Gray)
+tile.blockEngineeredHexoriumBlockWhiteBlack.name=White Engineered Hexorium Block (Black)
+
+tile.blockEngineeredHexoriumBlockWhiteRainbow.name=White Engineered Hexorium Block (Rainbow)
+
 
 tile.blockFramedHexoriumBlockRed.name=Framed Hexorium Block (Red)
 tile.blockFramedHexoriumBlockOrange.name=Framed Hexorium Block (Orange)
@@ -100,6 +121,27 @@ tile.blockFramedHexoriumBlockDarkGray.name=Framed Hexorium Block (Dark Gray)
 tile.blockFramedHexoriumBlockBlack.name=Framed Hexorium Block (Black)
 
 tile.blockFramedHexoriumBlockRainbow.name=Framed Hexorium Block (Rainbow)
+
+tile.blockFramedHexoriumBlockWhiteRed.name=White Framed Hexorium Block (Red)
+tile.blockFramedHexoriumBlockWhiteOrange.name=White Framed Hexorium Block (Orange)
+tile.blockFramedHexoriumBlockWhiteYellow.name=White Framed Hexorium Block (Yellow)
+tile.blockFramedHexoriumBlockWhiteLime.name=White Framed Hexorium Block (Lime)
+tile.blockFramedHexoriumBlockWhiteGreen.name=White Framed Hexorium Block (Green)
+tile.blockFramedHexoriumBlockWhiteTurquoise.name=White Framed Hexorium Block (Turquoise)
+tile.blockFramedHexoriumBlockWhiteCyan.name=White Framed Hexorium Block (Cyan)
+tile.blockFramedHexoriumBlockWhiteSkyBlue.name=White Framed Hexorium Block (Sky Blue)
+tile.blockFramedHexoriumBlockWhiteBlue.name=White Framed Hexorium Block (Blue)
+tile.blockFramedHexoriumBlockWhitePurple.name=White Framed Hexorium Block (Purple)
+tile.blockFramedHexoriumBlockWhiteMagenta.name=White Framed Hexorium Block (Magenta)
+tile.blockFramedHexoriumBlockWhitePink.name=White Framed Hexorium Block (Pink)
+
+tile.blockFramedHexoriumBlockWhiteWhite.name=White Framed Hexorium Block (White)
+tile.blockFramedHexoriumBlockWhiteLightGray.name=White Framed Hexorium Block (Light Gray)
+tile.blockFramedHexoriumBlockWhiteGray.name=White Framed Hexorium Block (Gray)
+tile.blockFramedHexoriumBlockWhiteDarkGray.name=White Framed Hexorium Block (Dark Gray)
+tile.blockFramedHexoriumBlockWhiteBlack.name=White Framed Hexorium Block (Black)
+
+tile.blockFramedHexoriumBlockWhiteRainbow.name=White Framed Hexorium Block (Rainbow)
 
 
 tile.blockPlatedHexoriumBlockRed.name=Plated Hexorium Block (Red)
@@ -123,6 +165,27 @@ tile.blockPlatedHexoriumBlockBlack.name=Plated Hexorium Block (Black)
 
 tile.blockPlatedHexoriumBlockRainbow.name=Plated Hexorium Block (Rainbow)
 
+tile.blockPlatedHexoriumBlockWhiteRed.name=White Plated Hexorium Block (Red)
+tile.blockPlatedHexoriumBlockWhiteOrange.name=White Plated Hexorium Block (Orange)
+tile.blockPlatedHexoriumBlockWhiteYellow.name=White Plated Hexorium Block (Yellow)
+tile.blockPlatedHexoriumBlockWhiteLime.name=White Plated Hexorium Block (Lime)
+tile.blockPlatedHexoriumBlockWhiteGreen.name=White Plated Hexorium Block (Green)
+tile.blockPlatedHexoriumBlockWhiteTurquoise.name=White Plated Hexorium Block (Turquoise)
+tile.blockPlatedHexoriumBlockWhiteCyan.name=White Plated Hexorium Block (Cyan)
+tile.blockPlatedHexoriumBlockWhiteSkyBlue.name=White Plated Hexorium Block (Sky Blue)
+tile.blockPlatedHexoriumBlockWhiteBlue.name=White Plated Hexorium Block (Blue)
+tile.blockPlatedHexoriumBlockWhitePurple.name=White Plated Hexorium Block (Purple)
+tile.blockPlatedHexoriumBlockWhiteMagenta.name=White Plated Hexorium Block (Magenta)
+tile.blockPlatedHexoriumBlockWhitePink.name=White Plated Hexorium Block (Pink)
+
+tile.blockPlatedHexoriumBlockWhiteWhite.name=White Plated Hexorium Block (White)
+tile.blockPlatedHexoriumBlockWhiteLightGray.name=White Plated Hexorium Block (Light Gray)
+tile.blockPlatedHexoriumBlockWhiteGray.name=White Plated Hexorium Block (Gray)
+tile.blockPlatedHexoriumBlockWhiteDarkGray.name=White Plated Hexorium Block (Dark Gray)
+tile.blockPlatedHexoriumBlockWhiteBlack.name=White Plated Hexorium Block (Black)
+
+tile.blockPlatedHexoriumBlockWhiteRainbow.name=White Plated Hexorium Block (Rainbow)
+
 
 tile.blockConcentricHexoriumBlockRed.name=Concentric Hexorium Block (Red)
 tile.blockConcentricHexoriumBlockOrange.name=Concentric Hexorium Block (Orange)
@@ -144,6 +207,27 @@ tile.blockConcentricHexoriumBlockDarkGray.name=Concentric Hexorium Block (Dark G
 tile.blockConcentricHexoriumBlockBlack.name=Concentric Hexorium Block (Black)
 
 tile.blockConcentricHexoriumBlockRainbow.name=Concentric Hexorium Block (Rainbow)
+
+tile.blockConcentricHexoriumBlockWhiteRed.name=White Concentric Hexorium Block (Red)
+tile.blockConcentricHexoriumBlockWhiteOrange.name=White Concentric Hexorium Block (Orange)
+tile.blockConcentricHexoriumBlockWhiteYellow.name=White Concentric Hexorium Block (Yellow)
+tile.blockConcentricHexoriumBlockWhiteLime.name=White Concentric Hexorium Block (Lime)
+tile.blockConcentricHexoriumBlockWhiteGreen.name=White Concentric Hexorium Block (Green)
+tile.blockConcentricHexoriumBlockWhiteTurquoise.name=White Concentric Hexorium Block (Turquoise)
+tile.blockConcentricHexoriumBlockWhiteCyan.name=White Concentric Hexorium Block (Cyan)
+tile.blockConcentricHexoriumBlockWhiteSkyBlue.name=White Concentric Hexorium Block (Sky Blue)
+tile.blockConcentricHexoriumBlockWhiteBlue.name=White Concentric Hexorium Block (Blue)
+tile.blockConcentricHexoriumBlockWhitePurple.name=White Concentric Hexorium Block (Purple)
+tile.blockConcentricHexoriumBlockWhiteMagenta.name=White Concentric Hexorium Block (Magenta)
+tile.blockConcentricHexoriumBlockWhitePink.name=White Concentric Hexorium Block (Pink)
+
+tile.blockConcentricHexoriumBlockWhiteWhite.name=White Concentric Hexorium Block (White)
+tile.blockConcentricHexoriumBlockWhiteLightGray.name=White Concentric Hexorium Block (Light Gray)
+tile.blockConcentricHexoriumBlockWhiteGray.name=White Concentric Hexorium Block (Gray)
+tile.blockConcentricHexoriumBlockWhiteDarkGray.name=White Concentric Hexorium Block (Dark Gray)
+tile.blockConcentricHexoriumBlockWhiteBlack.name=White Concentric Hexorium Block (Black)
+
+tile.blockConcentricHexoriumBlockWhiteRainbow.name=White Concentric Hexorium Block (Rainbow)
 
 
 tile.blockHexoriumStructureCasingRed.name=Hexorium Structure Casing (Red)
@@ -167,6 +251,27 @@ tile.blockHexoriumStructureCasingBlack.name=Hexorium Structure Casing (Black)
 
 tile.blockHexoriumStructureCasingRainbow.name=Hexorium Structure Casing (Rainbow)
 
+tile.blockHexoriumStructureCasingWhiteRed.name=White Hexorium Structure Casing (Red)
+tile.blockHexoriumStructureCasingWhiteOrange.name=White Hexorium Structure Casing (Orange)
+tile.blockHexoriumStructureCasingWhiteYellow.name=White Hexorium Structure Casing (Yellow)
+tile.blockHexoriumStructureCasingWhiteLime.name=White Hexorium Structure Casing (Lime)
+tile.blockHexoriumStructureCasingWhiteGreen.name=White Hexorium Structure Casing (Green)
+tile.blockHexoriumStructureCasingWhiteTurquoise.name=White Hexorium Structure Casing (Turquoise)
+tile.blockHexoriumStructureCasingWhiteCyan.name=White Hexorium Structure Casing (Cyan)
+tile.blockHexoriumStructureCasingWhiteSkyBlue.name=White Hexorium Structure Casing (Sky Blue)
+tile.blockHexoriumStructureCasingWhiteBlue.name=White Hexorium Structure Casing (Blue)
+tile.blockHexoriumStructureCasingWhitePurple.name=White Hexorium Structure Casing (Purple)
+tile.blockHexoriumStructureCasingWhiteMagenta.name=White Hexorium Structure Casing (Magenta)
+tile.blockHexoriumStructureCasingWhitePink.name=White Hexorium Structure Casing (Pink)
+
+tile.blockHexoriumStructureCasingWhiteWhite.name=White Hexorium Structure Casing (White)
+tile.blockHexoriumStructureCasingWhiteLightGray.name=White Hexorium Structure Casing (Light Gray)
+tile.blockHexoriumStructureCasingWhiteGray.name=White Hexorium Structure Casing (Gray)
+tile.blockHexoriumStructureCasingWhiteDarkGray.name=White Hexorium Structure Casing (Dark Gray)
+tile.blockHexoriumStructureCasingWhiteBlack.name=White Hexorium Structure Casing (Black)
+
+tile.blockHexoriumStructureCasingWhiteRainbow.name=White Hexorium Structure Casing (Rainbow)
+
 
 tile.blockGlowingHexoriumCoatedStoneRed.name=Glowing Hexorium-Coated Stone (Red)
 tile.blockGlowingHexoriumCoatedStoneOrange.name=Glowing Hexorium-Coated Stone (Orange)
@@ -189,6 +294,27 @@ tile.blockGlowingHexoriumCoatedStoneBlack.name=Glowing Hexorium-Coated Stone (Bl
 
 tile.blockGlowingHexoriumCoatedStoneRainbow.name=Glowing Hexorium-Coated Stone (Rainbow)
 
+tile.blockGlowingHexoriumCoatedStoneWhiteRed.name=White Glowing Hexorium-Coated Stone (Red)
+tile.blockGlowingHexoriumCoatedStoneWhiteOrange.name=White Glowing Hexorium-Coated Stone (Orange)
+tile.blockGlowingHexoriumCoatedStoneWhiteYellow.name=White Glowing Hexorium-Coated Stone (Yellow)
+tile.blockGlowingHexoriumCoatedStoneWhiteLime.name=White Glowing Hexorium-Coated Stone (Lime)
+tile.blockGlowingHexoriumCoatedStoneWhiteGreen.name=White Glowing Hexorium-Coated Stone (Green)
+tile.blockGlowingHexoriumCoatedStoneWhiteTurquoise.name=White Glowing Hexorium-Coated Stone (Turquoise)
+tile.blockGlowingHexoriumCoatedStoneWhiteCyan.name=White Glowing Hexorium-Coated Stone (Cyan)
+tile.blockGlowingHexoriumCoatedStoneWhiteSkyBlue.name=White Glowing Hexorium-Coated Stone (Sky Blue)
+tile.blockGlowingHexoriumCoatedStoneWhiteBlue.name=White Glowing Hexorium-Coated Stone (Blue)
+tile.blockGlowingHexoriumCoatedStoneWhitePurple.name=White Glowing Hexorium-Coated Stone (Purple)
+tile.blockGlowingHexoriumCoatedStoneWhiteMagenta.name=White Glowing Hexorium-Coated Stone (Magenta)
+tile.blockGlowingHexoriumCoatedStoneWhitePink.name=White Glowing Hexorium-Coated Stone (Pink)
+
+tile.blockGlowingHexoriumCoatedStoneWhiteWhite.name=White Glowing Hexorium-Coated Stone (White)
+tile.blockGlowingHexoriumCoatedStoneWhiteLightGray.name=White Glowing Hexorium-Coated Stone (Light Gray)
+tile.blockGlowingHexoriumCoatedStoneWhiteGray.name=White Glowing Hexorium-Coated Stone (Gray)
+tile.blockGlowingHexoriumCoatedStoneWhiteDarkGray.name=White Glowing Hexorium-Coated Stone (Dark Gray)
+tile.blockGlowingHexoriumCoatedStoneWhiteBlack.name=White Glowing Hexorium-Coated Stone (Black)
+
+tile.blockGlowingHexoriumCoatedStoneWhiteRainbow.name=White Glowing Hexorium-Coated Stone (Rainbow)
+
 
 tile.blockGlowingHexoriumGlassRed.name=Glowing Hexorium Glass (Red)
 tile.blockGlowingHexoriumGlassOrange.name=Glowing Hexorium Glass (Orange)
@@ -208,6 +334,25 @@ tile.blockGlowingHexoriumGlassLightGray.name=Glowing Hexorium Glass (Light Gray)
 tile.blockGlowingHexoriumGlassGray.name=Glowing Hexorium Glass (Gray)
 tile.blockGlowingHexoriumGlassDarkGray.name=Glowing Hexorium Glass (Dark Gray)
 tile.blockGlowingHexoriumGlassBlack.name=Glowing Hexorium Glass (Black)
+
+tile.blockGlowingHexoriumGlassWhiteRed.name=White Glowing Hexorium Glass (Red)
+tile.blockGlowingHexoriumGlassWhiteOrange.name=White Glowing Hexorium Glass (Orange)
+tile.blockGlowingHexoriumGlassWhiteYellow.name=White Glowing Hexorium Glass (Yellow)
+tile.blockGlowingHexoriumGlassWhiteLime.name=White Glowing Hexorium Glass (Lime)
+tile.blockGlowingHexoriumGlassWhiteGreen.name=White Glowing Hexorium Glass (Green)
+tile.blockGlowingHexoriumGlassWhiteTurquoise.name=White Glowing Hexorium Glass (Turquoise)
+tile.blockGlowingHexoriumGlassWhiteCyan.name=White Glowing Hexorium Glass (Cyan)
+tile.blockGlowingHexoriumGlassWhiteSkyBlue.name=White Glowing Hexorium Glass (Sky Blue)
+tile.blockGlowingHexoriumGlassWhiteBlue.name=White Glowing Hexorium Glass (Blue)
+tile.blockGlowingHexoriumGlassWhitePurple.name=White Glowing Hexorium Glass (Purple)
+tile.blockGlowingHexoriumGlassWhiteMagenta.name=White Glowing Hexorium Glass (Magenta)
+tile.blockGlowingHexoriumGlassWhitePink.name=White Glowing Hexorium Glass (Pink)
+
+tile.blockGlowingHexoriumGlassWhiteWhite.name=White Glowing Hexorium Glass (White)
+tile.blockGlowingHexoriumGlassWhiteLightGray.name=White Glowing Hexorium Glass (Light Gray)
+tile.blockGlowingHexoriumGlassWhiteGray.name=White Glowing Hexorium Glass (Gray)
+tile.blockGlowingHexoriumGlassWhiteDarkGray.name=White Glowing Hexorium Glass (Dark Gray)
+tile.blockGlowingHexoriumGlassWhiteBlack.name=White Glowing Hexorium Glass (Black)
 
 
 tile.blockEnergizedHexoriumMonolithRed.name=Energized Hexorium Monolith (Red)
@@ -253,6 +398,27 @@ tile.blockHexoriumLampBlack.name=Hexorium Lamp (Black)
 
 tile.blockHexoriumLampRainbow.name=Hexorium Lamp (Rainbow)
 
+tile.blockHexoriumLampWhiteRed.name=White Hexorium Lamp (Red)
+tile.blockHexoriumLampWhiteOrange.name=White Hexorium Lamp (Orange)
+tile.blockHexoriumLampWhiteYellow.name=White Hexorium Lamp (Yellow)
+tile.blockHexoriumLampWhiteLime.name=White Hexorium Lamp (Lime)
+tile.blockHexoriumLampWhiteGreen.name=White Hexorium Lamp (Green)
+tile.blockHexoriumLampWhiteTurquoise.name=White Hexorium Lamp (Turquoise)
+tile.blockHexoriumLampWhiteCyan.name=White Hexorium Lamp (Cyan)
+tile.blockHexoriumLampWhiteSkyBlue.name=White Hexorium Lamp (Sky Blue)
+tile.blockHexoriumLampWhiteBlue.name=White Hexorium Lamp (Blue)
+tile.blockHexoriumLampWhitePurple.name=White Hexorium Lamp (Purple)
+tile.blockHexoriumLampWhiteMagenta.name=White Hexorium Lamp (Magenta)
+tile.blockHexoriumLampWhitePink.name=White Hexorium Lamp (Pink)
+
+tile.blockHexoriumLampWhiteWhite.name=White Hexorium Lamp (White)
+tile.blockHexoriumLampWhiteLightGray.name=White Hexorium Lamp (Light Gray)
+tile.blockHexoriumLampWhiteGray.name=White Hexorium Lamp (Gray)
+tile.blockHexoriumLampWhiteDarkGray.name=White Hexorium Lamp (Dark Gray)
+tile.blockHexoriumLampWhiteBlack.name=White Hexorium Lamp (Black)
+
+tile.blockHexoriumLampWhiteRainbow.name=White Hexorium Lamp (Rainbow)
+
 
 tile.blockHexoriumLampInvRed.name=Inverted Hexorium Lamp (Red)
 tile.blockHexoriumLampInvOrange.name=Inverted Hexorium Lamp (Orange)
@@ -274,6 +440,27 @@ tile.blockHexoriumLampInvDarkGray.name=Inverted Hexorium Lamp (Dark Gray)
 tile.blockHexoriumLampInvBlack.name=Inverted Hexorium Lamp (Black)
 
 tile.blockHexoriumLampInvRainbow.name=Inverted Hexorium Lamp (Rainbow)
+
+tile.blockHexoriumLampInvWhiteRed.name=White Inverted Hexorium Lamp (Red)
+tile.blockHexoriumLampInvWhiteOrange.name=White Inverted Hexorium Lamp (Orange)
+tile.blockHexoriumLampInvWhiteYellow.name=White Inverted Hexorium Lamp (Yellow)
+tile.blockHexoriumLampInvWhiteLime.name=White Inverted Hexorium Lamp (Lime)
+tile.blockHexoriumLampInvWhiteGreen.name=White Inverted Hexorium Lamp (Green)
+tile.blockHexoriumLampInvWhiteTurquoise.name=White Inverted Hexorium Lamp (Turquoise)
+tile.blockHexoriumLampInvWhiteCyan.name=White Inverted Hexorium Lamp (Cyan)
+tile.blockHexoriumLampInvWhiteSkyBlue.name=White Inverted Hexorium Lamp (Sky Blue)
+tile.blockHexoriumLampInvWhiteBlue.name=White Inverted Hexorium Lamp (Blue)
+tile.blockHexoriumLampInvWhitePurple.name=White Inverted Hexorium Lamp (Purple)
+tile.blockHexoriumLampInvWhiteMagenta.name=White Inverted Hexorium Lamp (Magenta)
+tile.blockHexoriumLampInvWhitePink.name=White Inverted Hexorium Lamp (Pink)
+
+tile.blockHexoriumLampInvWhiteWhite.name=White Inverted Hexorium Lamp (White)
+tile.blockHexoriumLampInvWhiteLightGray.name=White Inverted Hexorium Lamp (Light Gray)
+tile.blockHexoriumLampInvWhiteGray.name=White Inverted Hexorium Lamp (Gray)
+tile.blockHexoriumLampInvWhiteDarkGray.name=White Inverted Hexorium Lamp (Dark Gray)
+tile.blockHexoriumLampInvWhiteBlack.name=White Inverted Hexorium Lamp (Black)
+
+tile.blockHexoriumLampInvWhiteRainbow.name=White Inverted Hexorium Lamp (Rainbow)
 
 
 tile.blockHexoriumDoorRed.name=Hexorium Door (Red)
@@ -297,6 +484,27 @@ tile.blockHexoriumDoorBlack.name=Hexorium Door (Black)
 
 tile.blockHexoriumDoorRainbow.name=Hexorium Door (Rainbow)
 
+tile.blockHexoriumDoorWhiteRed.name=White Hexorium Door (Red)
+tile.blockHexoriumDoorWhiteOrange.name=White Hexorium Door (Orange)
+tile.blockHexoriumDoorWhiteYellow.name=White Hexorium Door (Yellow)
+tile.blockHexoriumDoorWhiteLime.name=White Hexorium Door (Lime)
+tile.blockHexoriumDoorWhiteGreen.name=White Hexorium Door (Green)
+tile.blockHexoriumDoorWhiteTurquoise.name=White Hexorium Door (Turquoise)
+tile.blockHexoriumDoorWhiteCyan.name=White Hexorium Door (Cyan)
+tile.blockHexoriumDoorWhiteSkyBlue.name=White Hexorium Door (Sky Blue)
+tile.blockHexoriumDoorWhiteBlue.name=White Hexorium Door (Blue)
+tile.blockHexoriumDoorWhitePurple.name=White Hexorium Door (Purple)
+tile.blockHexoriumDoorWhiteMagenta.name=White Hexorium Door (Magenta)
+tile.blockHexoriumDoorWhitePink.name=White Hexorium Door (Pink)
+
+tile.blockHexoriumDoorWhiteWhite.name=White Hexorium Door (White)
+tile.blockHexoriumDoorWhiteLightGray.name=White Hexorium Door (Light Gray)
+tile.blockHexoriumDoorWhiteGray.name=White Hexorium Door (Gray)
+tile.blockHexoriumDoorWhiteDarkGray.name=White Hexorium Door (Dark Gray)
+tile.blockHexoriumDoorWhiteBlack.name=White Hexorium Door (Black)
+
+tile.blockHexoriumDoorWhiteRainbow.name=White Hexorium Door (Rainbow)
+
 
 tile.blockHexoriumHatchRed.name=Hexorium Hatch (Red)
 tile.blockHexoriumHatchOrange.name=Hexorium Hatch (Orange)
@@ -318,6 +526,27 @@ tile.blockHexoriumHatchDarkGray.name=Hexorium Hatch (Dark Gray)
 tile.blockHexoriumHatchBlack.name=Hexorium Hatch (Black)
 
 tile.blockHexoriumHatchRainbow.name=Hexorium Hatch (Rainbow)
+
+tile.blockHexoriumHatchWhiteRed.name=White Hexorium Hatch (Red)
+tile.blockHexoriumHatchWhiteOrange.name=White Hexorium Hatch (Orange)
+tile.blockHexoriumHatchWhiteYellow.name=White Hexorium Hatch (Yellow)
+tile.blockHexoriumHatchWhiteLime.name=White Hexorium Hatch (Lime)
+tile.blockHexoriumHatchWhiteGreen.name=White Hexorium Hatch (Green)
+tile.blockHexoriumHatchWhiteTurquoise.name=White Hexorium Hatch (Turquoise)
+tile.blockHexoriumHatchWhiteCyan.name=White Hexorium Hatch (Cyan)
+tile.blockHexoriumHatchWhiteSkyBlue.name=White Hexorium Hatch (Sky Blue)
+tile.blockHexoriumHatchWhiteBlue.name=White Hexorium Hatch (Blue)
+tile.blockHexoriumHatchWhitePurple.name=White Hexorium Hatch (Purple)
+tile.blockHexoriumHatchWhiteMagenta.name=White Hexorium Hatch (Magenta)
+tile.blockHexoriumHatchWhitePink.name=White Hexorium Hatch (Pink)
+
+tile.blockHexoriumHatchWhiteWhite.name=White Hexorium Hatch (White)
+tile.blockHexoriumHatchWhiteLightGray.name=White Hexorium Hatch (Light Gray)
+tile.blockHexoriumHatchWhiteGray.name=White Hexorium Hatch (Gray)
+tile.blockHexoriumHatchWhiteDarkGray.name=White Hexorium Hatch (Dark Gray)
+tile.blockHexoriumHatchWhiteBlack.name=White Hexorium Hatch (Black)
+
+tile.blockHexoriumHatchWhiteRainbow.name=White Hexorium Hatch (Rainbow)
 
 
 tile.blockHexoriumMachineBlock.name=Hexorium Machine Block
@@ -373,15 +602,30 @@ tile.blockHexoriumSwitchRedBlue.name=Hexorium Switch (Red-Blue)
 tile.blockHexoriumSwitchRedWhite.name=Hexorium Switch (Red-White)
 tile.blockHexoriumSwitchBlueGreen.name=Hexorium Switch (Blue-Green)
 
+tile.blockHexoriumSwitchWhiteRedGreen.name=White Hexorium Switch (Red-Green)
+tile.blockHexoriumSwitchWhiteRedBlue.name=White Hexorium Switch (Red-Blue)
+tile.blockHexoriumSwitchWhiteRedWhite.name=White Hexorium Switch (Red-White)
+tile.blockHexoriumSwitchWhiteBlueGreen.name=White Hexorium Switch (Blue-Green)
+
 tile.blockHexoriumButtonRed.name=Hexorium Button (Red)
 tile.blockHexoriumButtonGreen.name=Hexorium Button (Green)
 tile.blockHexoriumButtonBlue.name=Hexorium Button (Blue)
 tile.blockHexoriumButtonWhite.name=Hexorium Button (White)
 
+tile.blockHexoriumButtonWhiteRed.name=White Hexorium Button (Red)
+tile.blockHexoriumButtonWhiteGreen.name=White Hexorium Button (Green)
+tile.blockHexoriumButtonWhiteBlue.name=White Hexorium Button (Blue)
+tile.blockHexoriumButtonWhiteWhite.name=White Hexorium Button (White)
+
 tile.blockHexoriumPressurePlateRed.name=Hexorium Pressure Plate (Red)
 tile.blockHexoriumPressurePlateGreen.name=Hexorium Pressure Plate (Green)
 tile.blockHexoriumPressurePlateBlue.name=Hexorium Pressure Plate (Blue)
 tile.blockHexoriumPressurePlateWhite.name=Hexorium Pressure Plate (White)
+
+tile.blockHexoriumPressurePlateWhiteRed.name=White Hexorium Pressure Plate (Red)
+tile.blockHexoriumPressurePlateWhiteGreen.name=White Hexorium Pressure Plate (Green)
+tile.blockHexoriumPressurePlateWhiteBlue.name=White Hexorium Pressure Plate (Blue)
+tile.blockHexoriumPressurePlateWhiteWhite.name=White Hexorium Pressure Plate (White)
 
 tile.blockPylonBase51.name=5-to-1 Pylon Base
 tile.blockPylonBase15.name=1-to-5 Pylon Base
@@ -389,7 +633,9 @@ tile.blockPylonBase15.name=1-to-5 Pylon Base
 tile.blockSoundProjector.name=Sound Projector
 
 tile.blockTemperedHexoriumGlass.name=Tempered Hexorium Glass
+tile.blockTemperedHexoriumGlassWhite.name=White Tempered Hexorium Glass
 tile.blockHexoriumCoatedStone.name=Hexorium-Coated Stone
+tile.blockHexoriumCoatedStoneWhite.name=White Hexorium-Coated Stone
 
 
 item.itemHexoriumCrystalRed.name=Red Hexorium Crystal
@@ -432,6 +678,10 @@ item.toolHexoriumManipulator.name=Hexorium Manipulator
 item.toolHexoriumProbe.name=Hexorium Probe
 item.toolMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
+item.itemMortarPestle.name=Mortar and Pestle
+
+item.itemHexoriumDyeWhite.name=White Hexorium Dye
+item.itemHexoriumDyeBlack.name=Black Hexorium Dye
 
 
 hexcraft.container.hexoriumGenerator=Hexorium Generator
