@@ -169,9 +169,9 @@ public class HexItems {
         GameRegistry.registerItem(itemMortarPestle, ItemMortarPestle.ID);
 
         // Dyes
-        itemHexoriumDyeWhite = new ItemHexoriumDyeWhite(ItemHexoriumDyeWhite.ID);
-        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDyeWhite.ID);
-        itemHexoriumDyeBlack = new ItemHexoriumDyeBlack(ItemHexoriumDyeBlack.ID);
-        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDyeBlack.ID);
+        itemHexoriumDyeBlack = new ItemHexoriumDye(ItemHexoriumDye.ID_BLACK, HexBlocks.DECORATIVE_VARIANT_BLACK);
+        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDye.ID_BLACK);
+        itemHexoriumDyeWhite = new ItemHexoriumDye(ItemHexoriumDye.ID_WHITE, HexBlocks.DECORATIVE_VARIANT_WHITE);
+        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDye.ID_WHITE);
     }
 }

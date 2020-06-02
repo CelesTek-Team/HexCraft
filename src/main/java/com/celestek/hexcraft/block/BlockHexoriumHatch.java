@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,6 +21,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
@@ -29,7 +31,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumHatch extends HexBlockModel {
+public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexDyable {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumHatch";
@@ -232,41 +234,43 @@ public class BlockHexoriumHatch extends HexBlockModel {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote) {
-            // Prepare a variable if the hatch is in a usable state.
-            boolean use = false;
-            // If player has no item in hand.
-            if (player.getCurrentEquippedItem() == null)
-                use = true;
-            // If player has an item in hand.
-            else {
-                // Don't use hatch if Hexorium Reinforcer is present.
-                if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
-                    // If the hatch is not upgraded, upgrade it.
-                    if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
-                        HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye)) {
+                // Prepare a variable if the hatch is in a usable state.
+                boolean use = false;
+                // If player has no item in hand.
+                if (player.getCurrentEquippedItem() == null)
+                    use = true;
+                    // If player has an item in hand.
+                else {
+                    // Don't use hatch if Hexorium Reinforcer is present.
+                    if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
+                        // If the hatch is not upgraded, upgrade it.
+                        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
+                            HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
-                        // Grant player the achievement.
-                        if (HexConfig.cfgGeneralUseAchievements)
-                            player.addStat(HexAchievements.achUseReinforcer, 1);
+                            // Grant player the achievement.
+                            if (HexConfig.cfgGeneralUseAchievements)
+                                player.addStat(HexAchievements.achUseReinforcer, 1);
 
-                        ItemStack stack = player.getCurrentEquippedItem();
-                        stack.stackSize--;
-                        if (stack.stackSize == 0)
-                            stack = null;
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+                            ItemStack stack = player.getCurrentEquippedItem();
+                            stack.stackSize--;
+                            if (stack.stackSize == 0)
+                                stack = null;
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+                        }
+                        else
+                            use = true;
                     }
                     else
                         use = true;
                 }
-                else
-                    use = true;
-            }
 
-            // Use hatch.
-            if (use) {
-                // Set according block meta and play sound.
-                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
-                world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                // Use hatch.
+                if (use) {
+                    // Set according block meta and play sound.
+                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
+                }
             }
         }
 
@@ -350,5 +354,28 @@ public class BlockHexoriumHatch extends HexBlockModel {
                 return icon[4 + rei];
         }
         return icon[0];
+    }
+
+    @Override
+    public int getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public String getVariantName() {
+        switch (this.variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getVariantName(int variant) {
+        switch (variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
     }
 }

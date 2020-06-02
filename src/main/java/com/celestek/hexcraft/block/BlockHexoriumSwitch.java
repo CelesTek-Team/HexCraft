@@ -2,6 +2,7 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,6 +18,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
@@ -24,7 +26,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumSwitch extends HexBlockModel {
+public class BlockHexoriumSwitch extends HexBlockModel implements IBlockHexDyable {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumSwitch";
@@ -237,25 +239,27 @@ public class BlockHexoriumSwitch extends HexBlockModel {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote) {
-            HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye)) {
+                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
 
-            // Play a sound effect.
-            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, HexUtils.getMetaBit(META_STATE, world, x, y, z) ? 0.6F : 0.5F);
+                // Play a sound effect.
+                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, HexUtils.getMetaBit(META_STATE, world, x, y, z) ? 0.6F : 0.5F);
 
-            // Notify blocks around the strongly powered block.
-            int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
-            if(orientation == 0 || orientation == 6)
-                world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
-            else if(orientation == 1 || orientation == 7)
-                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-            else if(orientation == 2)
-                world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
-            else if(orientation == 3)
-                world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
-            else if(orientation == 4)
-                world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
-            else if(orientation == 5)
-                world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
+                // Notify blocks around the strongly powered block.
+                int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+                if (orientation == 0 || orientation == 6)
+                    world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
+                else if (orientation == 1 || orientation == 7)
+                    world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
+                else if (orientation == 2)
+                    world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
+                else if (orientation == 3)
+                    world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
+                else if (orientation == 4)
+                    world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
+                else if (orientation == 5)
+                    world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
+            }
         }
 
         return true;
@@ -371,5 +375,28 @@ public class BlockHexoriumSwitch extends HexBlockModel {
             return icon[0];
         else
             return icon[1];
+    }
+
+    @Override
+    public int getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public String getVariantName() {
+        switch (this.variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getVariantName(int variant) {
+        switch (variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
     }
 }

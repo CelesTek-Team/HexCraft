@@ -484,10 +484,10 @@ public class HexRecipes {
         ItemStack stackMortarPestle_1 = new ItemStack(HexItems.itemMortarPestle, 1);
         
         // Dyes
-        ItemStack stackHexoriumDyeWhite_1 = new ItemStack(HexItems.itemHexoriumDyeWhite, 1);
-        ItemStack stackHexoriumDyeWhite_16 = new ItemStack(HexItems.itemHexoriumDyeWhite, 16);
         ItemStack stackHexoriumDyeBlack_1 = new ItemStack(HexItems.itemHexoriumDyeBlack, 1);
         ItemStack stackHexoriumDyeBlack_16 = new ItemStack(HexItems.itemHexoriumDyeBlack, 16);
+        ItemStack stackHexoriumDyeWhite_1 = new ItemStack(HexItems.itemHexoriumDyeWhite, 1);
+        ItemStack stackHexoriumDyeWhite_16 = new ItemStack(HexItems.itemHexoriumDyeWhite, 16);
 
         // Misc
         ItemStack stackEnergizedHexoriumMonolithBlack_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1);
@@ -3329,8 +3329,8 @@ public class HexRecipes {
                 'C', stackHexoriumCoatedStone_1, 'D', "gemDiamond", 'S', "stickWood"));
 
         // Dyes
-        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeWhite_16, stackMortarPestle_1, stackHexoriumCrystalWhite_1, "dyeWhite"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeBlack_16, stackMortarPestle_1, stackHexoriumCrystalBlack_1, "dyeBlack"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeWhite_16, stackMortarPestle_1, stackHexoriumCrystalWhite_1, "dyeWhite"));
 
     }
 }

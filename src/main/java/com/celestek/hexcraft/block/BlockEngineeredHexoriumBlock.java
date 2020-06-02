@@ -19,7 +19,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEngineeredHexoriumBlock extends HexBlockMT {
+public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHexDyable {
 
     // Block ID
     public static final String ID_BLACK = "blockEngineeredHexoriumBlock";
@@ -119,5 +119,28 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT {
             return icon[2];
         else
             return icon[0];
+    }
+
+    @Override
+    public int getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public String getVariantName() {
+        switch (this.variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getVariantName(int variant) {
+        switch (variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
     }
 }

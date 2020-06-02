@@ -680,8 +680,8 @@ item.toolMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
 item.itemMortarPestle.name=Tarionik
 
-item.itemHexoriumDyeWhite.name=Bijela Heksorijska Boja
 item.itemHexoriumDyeBlack.name=Crna Heksorijska Boja
+item.itemHexoriumDyeWhite.name=Bijela Heksorijska Boja
 
 
 hexcraft.container.hexoriumGenerator=Heksorijski Generator

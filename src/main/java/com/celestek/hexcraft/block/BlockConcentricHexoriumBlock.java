@@ -12,13 +12,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockConcentricHexoriumBlock extends HexBlockMT {
+public class BlockConcentricHexoriumBlock extends HexBlockMT implements IBlockHexDyable {
 
     // Block ID
     public static final String ID_BLACK = "blockConcentricHexoriumBlock";
@@ -118,5 +119,28 @@ public class BlockConcentricHexoriumBlock extends HexBlockMT {
             return icon[2];
         else
             return icon[0];
+    }
+
+    @Override
+    public int getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public String getVariantName() {
+        switch (this.variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getVariantName(int variant) {
+        switch (variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
     }
 }

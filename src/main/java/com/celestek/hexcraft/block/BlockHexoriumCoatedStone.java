@@ -14,13 +14,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCoatedStone extends Block {
+public class BlockHexoriumCoatedStone extends Block implements IBlockHexDyable {
 
     // Set default block name.
     public static final String ID_BLACK = "blockHexoriumCoatedStone";
@@ -125,6 +126,29 @@ public class BlockHexoriumCoatedStone extends Block {
             /* DO ANALYSIS */
             TankAnalyzer analyzer = new TankAnalyzer();
             analyzer.analyzeTank(world, x, y, z);
+        }
+    }
+
+    @Override
+    public int getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public String getVariantName() {
+        switch (this.variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
+        }
+    }
+
+    @Override
+    public String getVariantName(int variant) {
+        switch (variant) {
+            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
+            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
+            default: return null;
         }
     }
 }
