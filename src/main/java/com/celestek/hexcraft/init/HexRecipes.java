@@ -481,6 +481,13 @@ public class HexRecipes {
         ItemStack stackHexoriumProbe_1 = new ItemStack(HexItems.itemHexoriumProbe, 1);
         ItemStack stackMolecularTransposer_1 = new ItemStack(HexItems.itemMolecularTransposer, 1);
         ItemStack stackHexoriumReinforcer_12 = new ItemStack(HexItems.itemHexoriumReinforcer, 12);
+        ItemStack stackMortarPestle_1 = new ItemStack(HexItems.itemMortarPestle, 1);
+        
+        // Dyes
+        ItemStack stackHexoriumDyeWhite_1 = new ItemStack(HexItems.itemHexoriumDyeWhite, 1);
+        ItemStack stackHexoriumDyeWhite_16 = new ItemStack(HexItems.itemHexoriumDyeWhite, 16);
+        ItemStack stackHexoriumDyeBlack_1 = new ItemStack(HexItems.itemHexoriumDyeBlack, 1);
+        ItemStack stackHexoriumDyeBlack_16 = new ItemStack(HexItems.itemHexoriumDyeBlack, 16);
 
         // Misc
         ItemStack stackEnergizedHexoriumMonolithBlack_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1);
@@ -3315,6 +3322,16 @@ public class HexRecipes {
                 "BBB",
                 "BBB",
                 'A', stackHexoriumCrystalBlack_1, 'B', stackObsidian_1);
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackMortarPestle_1,
+                "  S",
+                "CDC",
+                " C ",
+                'C', stackHexoriumCoatedStone_1, 'D', "gemDiamond", 'S', "stickWood"));
+
+        // Dyes
+        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeWhite_16, stackMortarPestle_1, stackHexoriumCrystalWhite_1, "dyeWhite"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeBlack_16, stackMortarPestle_1, stackHexoriumCrystalBlack_1, "dyeBlack"));
+
     }
 }
 

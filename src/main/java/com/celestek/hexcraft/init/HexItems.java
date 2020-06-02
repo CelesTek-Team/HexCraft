@@ -55,6 +55,12 @@ public class HexItems {
     public static Item itemHexoriumProbe;
     public static Item itemMolecularTransposer;
     public static Item itemHexoriumReinforcer;
+    public static Item itemMortarPestle;
+
+    // Dyes
+    public static Item itemHexoriumDyeWhite;
+    public static Item itemHexoriumDyeBlack;
+
 
     /**
      * Initializes all items and adds them to GameRegistry.
@@ -159,5 +165,13 @@ public class HexItems {
         GameRegistry.registerItem(itemMolecularTransposer, ItemMolecularTransposer.ID);
         itemHexoriumReinforcer = new ItemHexoriumReinforcer(ItemHexoriumReinforcer.ID);
         GameRegistry.registerItem(itemHexoriumReinforcer, ItemHexoriumReinforcer.ID);
+        itemMortarPestle = new ItemMortarPestle(ItemMortarPestle.ID);
+        GameRegistry.registerItem(itemMortarPestle, ItemMortarPestle.ID);
+
+        // Dyes
+        itemHexoriumDyeWhite = new ItemHexoriumDyeWhite(ItemHexoriumDyeWhite.ID);
+        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDyeWhite.ID);
+        itemHexoriumDyeBlack = new ItemHexoriumDyeBlack(ItemHexoriumDyeBlack.ID);
+        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDyeBlack.ID);
     }
 }
