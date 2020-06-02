@@ -20,8 +20,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -137,9 +135,9 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + (i + 1));
         }
         for(int i = 0; i < 48; i++) {
             if(i < 9)
@@ -241,7 +239,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
-                String name = ID + variant.label + color.name;
+                String name = ID + variant.name + color.name;
                 BlockHexoriumStructureCasing block = new BlockHexoriumStructureCasing(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }

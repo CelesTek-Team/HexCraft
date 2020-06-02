@@ -968,13 +968,7 @@ public class HexBlocks {
                 state, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
     }
 
-    public static Block getBlockByVariantColor(Block block, int variant, HexEnums.Colors color) {
-        if (block instanceof IBlockHexVariantOld) {
-            IBlockHexVariantOld dyable = (IBlockHexVariantOld) block;
-            return Block.getBlockFromName(HexCraft.MODID + ":" + dyable.getVariantName(variant) + color.name);
-        }
-        else {
-            return null;
-        }
+    public static Block getBlockByVariantColor(String name, HexEnums.Variants variant, HexEnums.Colors color) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + name + variant.name + color.name);
     }
 }

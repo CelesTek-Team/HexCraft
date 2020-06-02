@@ -3,7 +3,6 @@ package com.celestek.hexcraft.block;
 import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -19,8 +18,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -103,7 +100,7 @@ public class BlockHexoriumLamp extends HexBlockMT implements IBlockHexColor, IBl
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.label);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.name);
         // Load the inner texture. Use special texture if it is a rainbow.
         if(this.color == HexEnums.Colors.RAINBOW)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
@@ -152,7 +149,7 @@ public class BlockHexoriumLamp extends HexBlockMT implements IBlockHexColor, IBl
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
-                String name = ID + variant.label + color.name;
+                String name = ID + variant.name + color.name;
                 BlockHexoriumLamp block = new BlockHexoriumLamp(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }

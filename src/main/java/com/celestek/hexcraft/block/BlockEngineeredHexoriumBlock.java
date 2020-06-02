@@ -93,7 +93,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHe
         // Initialize the icons.
         icon = new IIcon[3];
         // Load the outer normal texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.label);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.name);
         // Load the outer reinforced texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
         // Load the inner texture. Use special texture if it is a rainbow.
@@ -135,7 +135,7 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHe
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
-                String name = ID + variant.label + color.name;
+                String name = ID + variant.name + color.name;
                 BlockEngineeredHexoriumBlock block = new BlockEngineeredHexoriumBlock(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }

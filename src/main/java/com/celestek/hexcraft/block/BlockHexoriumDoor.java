@@ -1,10 +1,8 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
 import com.celestek.hexcraft.init.HexAchievements;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
@@ -29,8 +27,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
@@ -569,12 +565,12 @@ public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexColor, 
         // Initialize the icons.
         icon = new IIcon[11];
         // Load the outer textures.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "01");
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "02");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "01");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "02");
         // Load the flipped outer textures.
         icon[2] = new IconFlipped(icon[0], true, false);
         icon[3] = new IconFlipped(icon[1], true, false);
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "03");
+        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "03");
         // Load the outer reinforced textures.
         icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "04");
         icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "05");
@@ -729,7 +725,7 @@ public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexColor, 
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
-                String name = ID + variant.label + color.name;
+                String name = ID + variant.name + color.name;
                 BlockHexoriumDoor block = new BlockHexoriumDoor(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }

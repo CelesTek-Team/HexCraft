@@ -10,10 +10,10 @@ public class HexEnums {
         BLACK(""),
         WHITE("White");
 
-        public final String label;
+        public final String name;
 
-        Variants(String label) {
-            this.label = label;
+        Variants(String name) {
+            this.name = name;
         }
     }
 

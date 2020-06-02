@@ -16,8 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -91,9 +89,9 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexCo
         // Load all the different outer icons.
         for(int i = 0; i < 48; i++) {
             if(i < 9)
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "A0" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "A0" + (i + 1));
             else
-                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.label + "A" + (i + 1));
+                icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + this.variant.name + "A" + (i + 1));
         }
 
         // Load all the different inner icons.
@@ -251,7 +249,7 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexCo
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 if (color != HexEnums.Colors.RAINBOW) {
-                    String name = ID + variant.label + color.name;
+                    String name = ID + variant.name + color.name;
                     BlockGlowingHexoriumGlass block = new BlockGlowingHexoriumGlass(name, color, variant);
                     GameRegistry.registerBlock(block, name);
                 }
