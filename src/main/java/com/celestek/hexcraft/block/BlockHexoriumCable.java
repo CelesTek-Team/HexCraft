@@ -24,7 +24,7 @@ import java.util.List;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCable extends HexBlockModel implements IBlockHexId {
+public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockHexoriumCable";

@@ -34,7 +34,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumNetherMonolith extends HexBlockModel implements IBlockHexId {
+public class BlockHexoriumNetherMonolith extends HexBlockModel implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockHexoriumNetherMonolith";

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexId {
+public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockOfHexoriumCrystal";

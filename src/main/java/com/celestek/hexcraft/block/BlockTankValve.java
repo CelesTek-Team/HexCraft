@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
  * @author CoffeePirate     <celestek@openmailbox.org>
  */
 
-public class BlockTankValve extends HexBlockContainer implements IBlockHexId {
+public class BlockTankValve extends HexBlockContainer implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockTankValve";

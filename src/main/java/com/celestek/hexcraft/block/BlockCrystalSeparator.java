@@ -30,7 +30,7 @@ import java.util.Random;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockCrystalSeparator extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergyDrain {
+public class BlockCrystalSeparator extends HexBlockContainer  implements IBlockHexID, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockCrystalSeparator";

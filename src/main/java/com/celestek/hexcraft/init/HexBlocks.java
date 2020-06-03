@@ -968,11 +968,15 @@ public class HexBlocks {
                 state, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
     }
 
-    public static Block getBlockByVariantColor(String name, HexEnums.Variants variant, HexEnums.Colors color) {
-        return Block.getBlockFromName(HexCraft.MODID + ":" + name + variant.name + color.name);
+    public static Block getHexBlock(String id, HexEnums.Variants variant, HexEnums.Colors color) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + id + variant.name + color.name);
     }
 
-    public static Block getBlockByColor(String name, HexEnums.Colors color) {
-        return Block.getBlockFromName(HexCraft.MODID + ":" + name + color.name);
+    public static Block getHexBlock(String id, HexEnums.Colors color) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + id + color.name);
+    }
+
+    public static Block getHexBlock(String id) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + id);
     }
 }

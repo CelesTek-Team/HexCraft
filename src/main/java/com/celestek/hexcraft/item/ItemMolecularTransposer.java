@@ -7,7 +7,9 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.util.HexDamage;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -77,7 +79,7 @@ public class ItemMolecularTransposer extends Item {
                                 int meta = world.getBlockMetadata(x, y, z);
 
                                 // Get required types
-                                IBlockHexId blockId = (IBlockHexId) block;
+                                IBlockHexID blockID = (IBlockHexID) block;
                                 IBlockHexColor blockColor = (IBlockHexColor) block;
                                 IBlockHexVariant blockHexVariant = (IBlockHexVariant) block;
 
@@ -89,11 +91,11 @@ public class ItemMolecularTransposer extends Item {
                                     if (blockEnergized.getColor() != blockColor.getColor()) {
                                         // Drop the old Energized.
                                         EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
-                                        entity.setEntityItemStack(new ItemStack(HexBlocks.getBlockByColor(BlockEnergizedHexorium.ID, blockColor.getColor()), 1));
+                                        entity.setEntityItemStack(new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, blockColor.getColor()), 1));
                                         world.spawnEntityInWorld(entity);
 
                                         // Place the new block.
-                                        world.setBlock(x, y, z, HexBlocks.getBlockByVariantColor(blockId.getID(), blockHexVariant.getVariant(), blockEnergized.getColor()));
+                                        world.setBlock(x, y, z, HexBlocks.getHexBlock(blockID.getID(), blockHexVariant.getVariant(), blockEnergized.getColor()));
                                     }
                                 }
 
@@ -229,26 +231,11 @@ public class ItemMolecularTransposer extends Item {
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID);
 
         // Load all the different color icons.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Red");
-        icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Orange");
-        icon[3] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Yellow");
-        icon[4] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Lime");
-        icon[5] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Green");
-        icon[6] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Turquoise");
-        icon[7] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Cyan");
-        icon[8] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "SkyBlue");
-        icon[9] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Blue");
-        icon[10] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Purple");
-        icon[11] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Magenta");
-        icon[12] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Pink");
-
-        icon[13] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "White");
-        icon[14] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "LightGray");
-        icon[15] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Gray");
-        icon[16] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "DarkGray");
-        icon[17] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Black");
-
-        icon[18] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + "Rainbow");
+        int i = 1;
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            icon[i] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "/" + ID + color.name);
+            i++;
+        }
     }
 
     /**
@@ -271,44 +258,16 @@ public class ItemMolecularTransposer extends Item {
         // Get a different icon based on Energized Hexorium.
         if (inventory != null) {
             Block block = Block.getBlockFromItem(inventory.getItem());
-            if (block == HexBlocks.blockEnergizedHexoriumRed)
-                return icon[1];
-            else if (block == HexBlocks.blockEnergizedHexoriumOrange)
-                return icon[2];
-            else if (block == HexBlocks.blockEnergizedHexoriumYellow)
-                return icon[3];
-            else if (block == HexBlocks.blockEnergizedHexoriumLime)
-                return icon[4];
-            else if (block == HexBlocks.blockEnergizedHexoriumGreen)
-                return icon[5];
-            else if (block == HexBlocks.blockEnergizedHexoriumTurquoise)
-                return icon[6];
-            else if (block == HexBlocks.blockEnergizedHexoriumCyan)
-                return icon[7];
-            else if (block == HexBlocks.blockEnergizedHexoriumSkyBlue)
-                return icon[8];
-            else if (block == HexBlocks.blockEnergizedHexoriumBlue)
-                return icon[9];
-            else if (block == HexBlocks.blockEnergizedHexoriumPurple)
-                return icon[10];
-            else if (block == HexBlocks.blockEnergizedHexoriumMagenta)
-                return icon[11];
-            else if (block == HexBlocks.blockEnergizedHexoriumPink)
-                return icon[12];
+            if (block instanceof BlockEnergizedHexorium) {
+                IBlockHexColor blockColor = (IBlockHexColor) block;
 
-            else if (block == HexBlocks.blockEnergizedHexoriumWhite)
-                return icon[13];
-            else if (block == HexBlocks.blockEnergizedHexoriumLightGray)
-                return icon[14];
-            else if (block == HexBlocks.blockEnergizedHexoriumGray)
-                return icon[15];
-            else if (block == HexBlocks.blockEnergizedHexoriumDarkGray)
-                return icon[16];
-            else if (block == HexBlocks.blockEnergizedHexoriumBlack)
-                return icon[17];
-
-            else if (block == HexBlocks.blockEnergizedHexoriumRainbow)
-                return icon[18];
+                int i = 1;
+                for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                    if (blockColor.getColor() == color)
+                        return icon[i];
+                    i++;
+                }
+            }
         }
 
         return icon[0];

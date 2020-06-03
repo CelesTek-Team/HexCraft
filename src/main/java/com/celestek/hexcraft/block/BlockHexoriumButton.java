@@ -25,7 +25,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumButton extends HexBlockModel  implements IBlockHexId, IBlockHexVariantOld {
+public class BlockHexoriumButton extends HexBlockModel  implements IBlockHexID, IBlockHexVariantOld {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumButton";

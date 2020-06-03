@@ -2,7 +2,6 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
@@ -29,7 +28,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexoriumMonolith extends HexBlockModel  implements IBlockHexId, IBlockHexColor {
+public class BlockEnergizedHexoriumMonolith extends HexBlockModel  implements IBlockHexID, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexoriumMonolith";

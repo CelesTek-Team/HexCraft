@@ -1,9 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.ObserverAnalyzer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,7 +15,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockQuantumAnchor extends HexBlock implements IBlockHexId {
+public class BlockQuantumAnchor extends HexBlock implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockQuantumAnchor";

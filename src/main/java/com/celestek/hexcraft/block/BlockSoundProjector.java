@@ -3,7 +3,6 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
-import com.celestek.hexcraft.tileentity.TileSound;
 import com.celestek.hexcraft.tileentity.TileSoundProjector;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -23,7 +22,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockSoundProjector extends HexBlockContainer implements IBlockHexId {
+public class BlockSoundProjector extends HexBlockContainer implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockSoundProjector";

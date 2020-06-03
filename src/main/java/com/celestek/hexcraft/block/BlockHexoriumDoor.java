@@ -33,7 +33,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumDoor extends HexBlockModel  implements IBlockHexId, IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumDoor extends HexBlockModel  implements IBlockHexID, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumDoor";

@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumMachineBlock extends HexBlock implements IBlockHexId {
+public class BlockHexoriumMachineBlock extends HexBlock implements IBlockHexID {
 
     // Block ID
     public static final String ID = "blockHexoriumMachineBlock";
