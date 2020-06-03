@@ -2,6 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -10,10 +13,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
@@ -269,6 +276,40 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexID
                     renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                     RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                             HexEnums.Brightness.BRIGHT, color));
+                }
+            }
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                if (color != HexEnums.Colors.RAINBOW) {
+                    Block block = HexBlocks.getHexBlock(ID, variant, color);
+                    ItemStack blocks = new ItemStack(block, 8);
+
+                    Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+                    Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
+                    Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(blocks,
+                            "GGG",
+                            "GHG",
+                            "GGG",
+                            'H', energized, 'G', glass));
+
+                    GameRegistry.addRecipe(new ShapelessOreRecipe(
+                            energized,
+                            glass, glass, glass, glass, glass, glass, glass, glass));
+
+                    for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                        if (variant != variant2) {
+                            Block blockOther = HexBlocks.getHexBlock(ID, variant2, color);
+                            GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                    block,
+                                    blockOther, dye));
+                        }
+                    }
                 }
             }
         }
