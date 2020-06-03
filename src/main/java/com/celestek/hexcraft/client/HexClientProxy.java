@@ -244,85 +244,8 @@ public class HexClientProxy extends HexCommonProxy {
         RenderingRegistry.registerBlockHandler(new HexModelRendererPylon(renderID[HexCraft.idCounter],
                 HexEnums.BRIGHTNESS_BRIGHT, HexEnums.OPACITY_SLIGHT));
 
-        // Hexorium Switch
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-
-        // Hexorium Button
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-
-        // Hexorium Pressure Plate
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT));
+        BlockHexoriumSwitch.registerRenders();
+        BlockHexoriumButton.registerRenders();
+        BlockHexoriumPressurePlate.registerRenders();
     }
 }

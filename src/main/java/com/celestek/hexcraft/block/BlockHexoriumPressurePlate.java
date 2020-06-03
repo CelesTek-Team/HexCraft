@@ -2,7 +2,11 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPressurePlate;
+import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -20,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -28,30 +33,45 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumPressurePlate extends HexBlockModel  implements IBlockHexID, IBlockHexVariantOld {
+public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockHexID, IBlockHexVariant {
 
     // Block ID
-    public static final String ID_BLACK = "blockHexoriumPressurePlate";
-    public static final String ID_WHITE = "blockHexoriumPressurePlateWhite";
+    public static final String ID = "blockHexoriumPressurePlate";
+
+    public enum Colors {
+        RED(  "Red"),
+        GREEN("Green"),
+        BLUE( "Blue"),
+        WHITE("White");
+
+        public final String name;
+
+        Colors(String name) {
+            this.name = name;
+        }
+    }
 
     // Meta Bits
     public static final int META_SETTING_0 = 0;
     public static final int META_SETTING_1 = 1;
     public static final int META_STATE = 2;
 
-    // Used for identifying the decoration variant.
-    private int variant;
+    // Color and variant
+    private final BlockHexoriumPressurePlate.Colors color;
+    private final HexEnums.Variants variant;
 
     /**
      * Constructor for the block.
-     * @param blockName Unlocalized name for the block.
-     * @param variant The decoration variant to use.
+     * @param blockName Unlocalized name for the block. Contains color name.
+     * @param color The color of the block to use.
+     * @param variant The variant to use.
      */
-    public BlockHexoriumPressurePlate(String blockName, int variant) {
+    public BlockHexoriumPressurePlate(String blockName, BlockHexoriumPressurePlate.Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.variant = variant;
         this.setCreativeTab(HexCraft.tabMachines);
 
@@ -269,12 +289,8 @@ public class BlockHexoriumPressurePlate extends HexBlockModel  implements IBlock
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icons.
         icon = new IIcon[2];
-        // Map decoration and variant.
-        String id = ID_BLACK;
-        if (this.variant == DECORATIVE_VARIANT_WHITE)
-            id = ID_WHITE;
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.name);
         // Load the inner texture.
         icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
     }
@@ -294,25 +310,35 @@ public class BlockHexoriumPressurePlate extends HexBlockModel  implements IBlock
 
     @Override
     public String getID() {
-        return ID_BLACK;
+        return ID;
     }
 
     @Override
-    public int getVariant() {
+    public HexEnums.Variants getVariant() {
         return this.variant;
     }
 
-    @Override
-    public String getVariantName() {
-        return getVariantName(this.variant);
+    public BlockHexoriumPressurePlate.Colors getColor() {
+        return this.color;
     }
 
-    @Override
-    public String getVariantName(int variant) {
-        switch (variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public static void registerBlocks() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (BlockHexoriumPressurePlate.Colors color : BlockHexoriumPressurePlate.Colors.values()) {
+                String name = ID + variant.name + color.name;
+                BlockHexoriumPressurePlate block = new BlockHexoriumPressurePlate(name, color, variant);
+                GameRegistry.registerBlock(block, name);
+            }
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (BlockHexoriumPressurePlate.Colors color : BlockHexoriumPressurePlate.Colors.values()) {
+                renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+                RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
+                        HexEnums.Brightness.BRIGHT));
+            }
         }
     }
 }

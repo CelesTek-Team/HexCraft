@@ -2,6 +2,7 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumPressurePlate;
+import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
@@ -31,16 +32,16 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
     private static final float pOffs = 0.001F;
 
     // Variables
-    private int renderID;
-    private int renderBlockID;
-    private int brightness;
+    private final int renderID;
+    private final int renderBlockID;
+    private final int brightness;
 
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param brightness Intensity of the monolith glow.
+     * @param brightness Intensity of the glow.
      */
-    public HexModelRendererPressurePlate(int renderID, int brightness) {
+    public HexModelRendererPressurePlate(int renderID, HexEnums.Brightness brightness) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -48,9 +49,9 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
@@ -61,6 +62,8 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
      */
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        BlockHexoriumPressurePlate.Colors color = ((BlockHexoriumPressurePlate) block).getColor();
+
         // Prepare the Tessellator.
         Tessellator tessellator = Tessellator.instance;
         tessellator.addTranslation(-0.5F, -0.5F, -0.5F);
@@ -112,13 +115,13 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        if (block == HexBlocks.blockHexoriumPressurePlateRed || block == HexBlocks.blockHexoriumPressurePlateWhiteRed)
+        if (color == BlockHexoriumPressurePlate.Colors.RED)
             tessellator.setColorOpaque_F(1, 0, 0);
-        else if (block == HexBlocks.blockHexoriumPressurePlateGreen || block == HexBlocks.blockHexoriumPressurePlateWhiteGreen)
+        else if (color == BlockHexoriumPressurePlate.Colors.GREEN)
             tessellator.setColorOpaque_F(0, 1, 0);
-        else if (block == HexBlocks.blockHexoriumPressurePlateBlue || block == HexBlocks.blockHexoriumPressurePlateWhiteBlue)
+        else if (color == BlockHexoriumPressurePlate.Colors.BLUE)
             tessellator.setColorOpaque_F(0, 0, 1);
-        else if (block == HexBlocks.blockHexoriumPressurePlateWhite || block == HexBlocks.blockHexoriumPressurePlateWhiteWhite)
+        else if (color == BlockHexoriumPressurePlate.Colors.WHITE)
             tessellator.setColorOpaque_F(1, 1, 1);
 
         // Draw glow.
@@ -175,6 +178,7 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
      */
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        BlockHexoriumPressurePlate.Colors color = ((BlockHexoriumPressurePlate) block).getColor();
         boolean state = HexUtils.getMetaBit(BlockHexoriumPressurePlate.META_STATE, world, x, y, z);
 
         // Check if this is the first (opaque) render pass, if it is...
@@ -213,13 +217,13 @@ public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandl
             }
 
             // Get Colors.
-            if (block == HexBlocks.blockHexoriumPressurePlateRed || block == HexBlocks.blockHexoriumPressurePlateWhiteRed)
+            if (color == BlockHexoriumPressurePlate.Colors.RED)
                 tessellator.setColorOpaque_F(darken, 0, 0);
-            else if (block == HexBlocks.blockHexoriumPressurePlateGreen || block == HexBlocks.blockHexoriumPressurePlateWhiteGreen)
+            else if (color == BlockHexoriumPressurePlate.Colors.GREEN)
                 tessellator.setColorOpaque_F(0, darken, 0);
-            else if (block == HexBlocks.blockHexoriumPressurePlateBlue || block == HexBlocks.blockHexoriumPressurePlateWhiteBlue)
+            else if (color == BlockHexoriumPressurePlate.Colors.BLUE)
                 tessellator.setColorOpaque_F(0, 0, darken);
-            else if (block == HexBlocks.blockHexoriumPressurePlateWhite || block == HexBlocks.blockHexoriumPressurePlateWhiteWhite)
+            else if (color == BlockHexoriumPressurePlate.Colors.WHITE)
                 tessellator.setColorOpaque_F(darken, darken, darken);
 
             // Draw pressure plate glow.

@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
+import com.celestek.hexcraft.item.ItemMolecularTransposer;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -33,7 +34,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumDoor extends HexBlockModel  implements IBlockHexID, IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer {
 
     // Block ID
     public static final String ID = "blockHexoriumDoor";
@@ -408,7 +409,7 @@ public class BlockHexoriumDoor extends HexBlockModel  implements IBlockHexID, IB
      */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote) {
-            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye)) {
+            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye) && !(player.getHeldItem().getItem() instanceof ItemMolecularTransposer)) {
                 // Prepare a variable if the door is in a usable state.
                 boolean use = false;
                 // If player has no item in hand.

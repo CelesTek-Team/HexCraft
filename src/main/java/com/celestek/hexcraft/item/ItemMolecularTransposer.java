@@ -65,7 +65,7 @@ public class ItemMolecularTransposer extends Item {
                     if (Block.getBlockFromItem(inventory.getItem()) instanceof BlockEnergizedHexorium) {
                         Block block = world.getBlock(x, y, z);
 
-                        // If the block is one of the fecorative blocks...
+                        // If the block is one of the decorative blocks...
                         if (block instanceof IBlockUsableTransposer) {
                             if ((block instanceof IBlockMultiBlock) && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                                 player.addChatMessage(new ChatComponentTranslation("msg.cannotSwap.txt"));
@@ -88,10 +88,35 @@ public class ItemMolecularTransposer extends Item {
                                     entity.setEntityItemStack(new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, blockColor.getColor()), 1));
                                     world.spawnEntityInWorld(entity);
 
+                                    Block blockNew = HexBlocks.getHexBlock(blockID.getID(), blockVariant.getVariant(), blockEnergized.getColor());
                                     // Place the new block.
-                                    int meta = world.getBlockMetadata(x, y, z);
-                                    world.setBlock(x, y, z, HexBlocks.getHexBlock(blockID.getID(), blockVariant.getVariant(), blockEnergized.getColor()));
-                                    world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
+                                    if (block instanceof BlockHexoriumDoor) {
+                                        if (world.getBlock(x, y - 1, z) instanceof BlockHexoriumDoor) {
+                                            int meta1 = world.getBlockMetadata(x, y - 1, z);
+                                            int meta2 = world.getBlockMetadata(x, y, z);
+                                            world.setBlockToAir(x, y - 1, z);
+                                            world.setBlockToAir(x, y, z);
+                                            world.setBlock(x, y - 1, z, blockNew);
+                                            world.setBlock(x, y, z, blockNew);
+                                            world.setBlockMetadataWithNotify(x, y - 1, z, meta1, HexUtils.META_NOTIFY_NOTHING);
+                                            world.setBlockMetadataWithNotify(x, y, z, meta2, HexUtils.META_NOTIFY_UPDATE);
+                                        }
+                                        else {
+                                            int meta1 = world.getBlockMetadata(x, y, z);
+                                            int meta2 = world.getBlockMetadata(x, y + 1, z);
+                                            world.setBlockToAir(x, y, z);
+                                            world.setBlockToAir(x, y + 1, z);
+                                            world.setBlock(x, y, z, blockNew);
+                                            world.setBlock(x, y + 1, z, blockNew);
+                                            world.setBlockMetadataWithNotify(x, y, z, meta1, HexUtils.META_NOTIFY_NOTHING);
+                                            world.setBlockMetadataWithNotify(x, y + 1, z, meta2, HexUtils.META_NOTIFY_UPDATE);
+                                        }
+                                    }
+                                    else {
+                                        int meta = world.getBlockMetadata(x, y, z);
+                                        world.setBlock(x, y, z, blockNew);
+                                        world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
+                                    }
 
                                     // Decrement the count of Energized Hexorium.
                                     inventory.stackSize--;

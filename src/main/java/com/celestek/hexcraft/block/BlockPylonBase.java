@@ -31,7 +31,7 @@ public class BlockPylonBase extends Block implements IBlockHexID {
     public static final int META_ORIENTATION_2 = 2;
 
     // Used for identifying the type of base.
-    private boolean type;
+    private final boolean type;
 
     /**
      * Constructor for the block.
