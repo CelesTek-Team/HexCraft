@@ -66,63 +66,53 @@ public class ItemMolecularTransposer extends Item {
                         Block block = world.getBlock(x, y, z);
 
                         // If the block is one of the fecorative blocks...
-                        if (block instanceof BlockEngineeredHexoriumBlock ||
-                                block instanceof BlockFramedHexoriumBlock ||
-                                block instanceof BlockPlatedHexoriumBlock ||
-                                block instanceof BlockConcentricHexoriumBlock ||
-                                block instanceof BlockHexoriumStructureCasing ||
-                                block instanceof BlockHexoriumLamp ||
-                                block instanceof BlockHexoriumLampInv) {
-
-                            if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
-                                // Get the block meta.
-                                int meta = world.getBlockMetadata(x, y, z);
-
-                                // Get required types
-                                IBlockHexID blockID = (IBlockHexID) block;
-                                IBlockHexColor blockColor = (IBlockHexColor) block;
-                                IBlockHexVariant blockHexVariant = (IBlockHexVariant) block;
-
-                                // Fetch Energized from tool.
-                                Block blockInventory = Block.getBlockFromItem(inventory.getItem());
-                                if (blockInventory instanceof BlockEnergizedHexorium) {
-                                    // Check if the color is different.
-                                    IBlockHexColor blockEnergized = (IBlockHexColor) blockInventory;
-                                    if (blockEnergized.getColor() != blockColor.getColor()) {
-                                        // Drop the old Energized.
-                                        EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
-                                        entity.setEntityItemStack(new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, blockColor.getColor()), 1));
-                                        world.spawnEntityInWorld(entity);
-
-                                        // Place the new block.
-                                        world.setBlock(x, y, z, HexBlocks.getHexBlock(blockID.getID(), blockHexVariant.getVariant(), blockEnergized.getColor()));
-                                    }
-                                }
-
-                                // Set the block meta.
-                                world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
-
-                                // Decrement the count of Energized Hexorium.
-                                inventory.stackSize--;
-                                if (inventory.stackSize == 0)
-                                    inventory = null;
-
-                                // Write the items.
-                                NBTTagList tagsItems = new NBTTagList();
-                                if (inventory != null) {
-                                    NBTTagCompound tagCompoundLoop = new NBTTagCompound();
-                                    inventory.writeToNBT(tagCompoundLoop);
-                                    tagsItems.appendTag(tagCompoundLoop);
-                                }
-                                stack.stackTagCompound.setTag("items", tagsItems);
-                                player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
-
-                                // Grant player the achievement.
-                                if (HexConfig.cfgGeneralUseAchievements)
-                                    player.addStat(HexAchievements.achUseTransposer, 1);
-                            }
-                            else
+                        if (block instanceof IBlockUsableTransposer) {
+                            if ((block instanceof IBlockMultiBlock) && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                                 player.addChatMessage(new ChatComponentTranslation("msg.cannotSwap.txt"));
+                                return false;
+                            }
+
+                            // Get required types
+                            IBlockHexID blockID = (IBlockHexID) block;
+                            IBlockHexColor blockColor = (IBlockHexColor) block;
+                            IBlockHexVariant blockVariant = (IBlockHexVariant) block;
+
+                            // Fetch Energized from tool.
+                            Block blockInventory = Block.getBlockFromItem(inventory.getItem());
+                            if (blockInventory instanceof BlockEnergizedHexorium) {
+                                // Check if the color is different.
+                                IBlockHexColor blockEnergized = (IBlockHexColor) blockInventory;
+                                if (blockEnergized.getColor() != blockColor.getColor()) {
+                                    // Drop the old Energized.
+                                    EntityItem entity = new EntityItem(world, player.posX, player.posY, player.posZ);
+                                    entity.setEntityItemStack(new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, blockColor.getColor()), 1));
+                                    world.spawnEntityInWorld(entity);
+
+                                    // Place the new block.
+                                    int meta = world.getBlockMetadata(x, y, z);
+                                    world.setBlock(x, y, z, HexBlocks.getHexBlock(blockID.getID(), blockVariant.getVariant(), blockEnergized.getColor()));
+                                    world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
+
+                                    // Decrement the count of Energized Hexorium.
+                                    inventory.stackSize--;
+                                    if (inventory.stackSize == 0)
+                                        inventory = null;
+
+                                    // Write the items.
+                                    NBTTagList tagsItems = new NBTTagList();
+                                    if (inventory != null) {
+                                        NBTTagCompound tagCompoundLoop = new NBTTagCompound();
+                                        inventory.writeToNBT(tagCompoundLoop);
+                                        tagsItems.appendTag(tagCompoundLoop);
+                                    }
+                                    stack.stackTagCompound.setTag("items", tagsItems);
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+
+                                    // Grant player the achievement.
+                                    if (HexConfig.cfgGeneralUseAchievements)
+                                        player.addStat(HexAchievements.achUseTransposer, 1);
+                                }
+                            }
                         }
                     }
                 }

@@ -760,6 +760,7 @@ msg.energyNodeMode4.txt=[Hexorium Manipulator] Mode changed to: Tunnel
 msg.renderRemoved.txt=[Hexorium Manipulator] Render Block removed.
 
 msg.cannotSwap.txt=[Molecular Transposer] Cannot change colors when structure is formed.
+msg.cannotDye.txt=[Hexorium Dye] Cannot change colors when structure is formed.
 
 
 msg.probeTitle.txt=[Hexorium Probe]

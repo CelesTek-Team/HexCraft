@@ -3,12 +3,16 @@ package com.celestek.hexcraft.item;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 /**
@@ -18,18 +22,17 @@ import net.minecraft.world.World;
 public class ItemHexoriumDye extends Item {
 
     // Item ID
-    public static final String ID_BLACK = "itemHexoriumDyeBlack";
-    public static final String ID_WHITE = "itemHexoriumDyeWhite";
+    public static final String ID = "itemHexoriumDye";
 
-    // Used for identifying the decoration variant.
-    private int variant;
+    // Variant
+    private final HexEnums.Variants variant;
 
     /**
      * Constructor for the item.
      * @param itemName Unlocalized name for the item.
      * @param variant The decoration variant to use.
      */
-    public ItemHexoriumDye(String itemName, int variant) {
+    public ItemHexoriumDye(String itemName, HexEnums.Variants variant) {
         setUnlocalizedName(itemName);
         this.variant = variant;
         setCreativeTab(HexCraft.tabDecorative);
@@ -52,15 +55,23 @@ public class ItemHexoriumDye extends Item {
         if (!world.isRemote) {
 
             Block block = world.getBlock(x, y, z);
-            String color = block.getUnlocalizedName().replace("tile.", "");
 
-            if (block instanceof IBlockHexVariantOld) {
-                IBlockHexVariantOld dyable = (IBlockHexVariantOld) block;
+            if (block instanceof IBlockHexVariant) {
+                IBlockHexVariant blockVariant = (IBlockHexVariant) block;
 
-                if (dyable.getVariant() != this.variant) {
-                    color = color.replace(dyable.getVariantName(), "");
-                    Block blockNew = Block.getBlockFromName(HexCraft.MODID + ":" + dyable.getVariantName(this.variant) + color);
+                if (blockVariant.getVariant() != this.variant) {
+                    if ((block instanceof IBlockMultiBlock) && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
+                        player.addChatMessage(new ChatComponentTranslation("msg.cannotDye.txt"));
+                        return false;
+                    }
 
+                    IBlockHexID blockID = (IBlockHexID) block;
+                    Block blockNew = HexBlocks.getHexBlock(blockID.getID(), this.variant, block.getUnlocalizedName().replace("tile." + blockID.getID() + blockVariant.getVariant().name, ""));
+                    if (block instanceof  IBlockHexColor) {
+                        IBlockHexColor blockColor = (IBlockHexColor) block;
+                        blockNew = HexBlocks.getHexBlock(blockID.getID(), this.variant, blockColor.getColor());
+                    }
+                    
                     if (block instanceof BlockHexoriumDoor) {
                         if (world.getBlock(x, y - 1, z) instanceof BlockHexoriumDoor) {
                             int meta1 = world.getBlockMetadata(x, y - 1, z);
@@ -100,5 +111,13 @@ public class ItemHexoriumDye extends Item {
             }
         }
         return false;
+    }
+
+    public static void registerItems() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            String name = ID + variant.name;
+            ItemHexoriumDye item = new ItemHexoriumDye(name, variant);
+            GameRegistry.registerItem(item, name);
+        }
     }
 }

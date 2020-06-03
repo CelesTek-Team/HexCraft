@@ -760,6 +760,7 @@ msg.energyNodeMode4.txt=[Hexorium Manipulator] Mod promijenjen na: Tuneliranje
 msg.renderRemoved.txt=[Hexorium Manipulator] Render Blok uklonjen.
 
 msg.cannotSwap.txt=[Molecular Transposer] Nije moguće mijenjati boje ako je struktura stvorena.
+msg.cannotDye.txt=[Hexorium Dye] Nije moguće mijenjati boje ako je struktura stvorena.
 
 
 msg.probeTitle.txt=[Heksorijska Sonda]

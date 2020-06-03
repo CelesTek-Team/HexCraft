@@ -25,12 +25,7 @@ public class HexBlockMT extends HexBlock {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        if ((block instanceof HexBlockMT
-                || block == HexBlocks.blockTemperedHexoriumGlass
-                || block == HexBlocks.blockHexoriumCoatedStone
-                || block == HexBlocks.blockTankValve)
-                && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
-
+        if ((block instanceof IBlockMultiBlock) && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
             if (HexConfig.cfgTankDebug)
                 System.out.println("[Tank Block] (" + x + ", " + y + ", " + z + "): Neighbour tank block destroyed, analyzing!");
 

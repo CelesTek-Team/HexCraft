@@ -21,7 +21,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockGlowingHexoriumGlass extends HexBlockMT  implements IBlockHexID, IBlockHexColor, IBlockHexVariant {
+public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockGlowingHexoriumGlass";

@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.item.*;
+import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
@@ -169,9 +170,9 @@ public class HexItems {
         GameRegistry.registerItem(itemMortarPestle, ItemMortarPestle.ID);
 
         // Dyes
-        itemHexoriumDyeBlack = new ItemHexoriumDye(ItemHexoriumDye.ID_BLACK, HexBlocks.DECORATIVE_VARIANT_BLACK);
-        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDye.ID_BLACK);
-        itemHexoriumDyeWhite = new ItemHexoriumDye(ItemHexoriumDye.ID_WHITE, HexBlocks.DECORATIVE_VARIANT_WHITE);
-        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDye.ID_WHITE);
+        itemHexoriumDyeBlack = new ItemHexoriumDye(ItemHexoriumDye.ID + "Black", HexEnums.Variants.BLACK);
+        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDye.ID + "Black");
+        itemHexoriumDyeWhite = new ItemHexoriumDye(ItemHexoriumDye.ID + "White", HexEnums.Variants.WHITE);
+        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDye.ID + "White");
     }
 }

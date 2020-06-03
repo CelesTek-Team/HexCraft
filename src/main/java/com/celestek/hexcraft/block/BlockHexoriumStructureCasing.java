@@ -25,7 +25,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumStructureCasing extends HexBlockMT  implements IBlockHexID, IBlockHexNode, IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHexID, IBlockHexNode, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockHexoriumStructureCasing";
