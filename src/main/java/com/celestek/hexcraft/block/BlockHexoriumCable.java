@@ -1,10 +1,14 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -20,24 +24,30 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
+
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID {
+public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockHexoriumCable";
+
+    // Color
+    private final HexEnums.Colors color;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockHexoriumCable(String blockName) {
+    public BlockHexoriumCable(String blockName, HexEnums.Colors color) {
         super(Material.glass);
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabMachines);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -144,7 +154,7 @@ public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID {
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID);
         // Load the monolith texture. Use special texture if it is a rainbow.
-        if(this == HexBlocks.blockHexoriumCableRainbow)
+        if(this.color == HexEnums.Colors.RAINBOW)
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glowRainbow");
         else
             icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + "glow");
@@ -166,5 +176,26 @@ public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID {
     @Override
     public String getID() {
         return ID;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
+    }
+
+    public static void registerBlocks() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            String name = ID + color.name;
+            BlockHexoriumCable block = new BlockHexoriumCable(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, color));
+        }
     }
 }

@@ -72,9 +72,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private static final float cubeV = 10.5F;
 
     // Variables
-    private int renderID;
-    private int renderBlockID;
-    private int brightness;
+    private final int renderID;
+    private final int renderBlockID;
+    private final int brightness;
     private float r = 1F;
     private float g = 1F;
     private float b = 1F;
@@ -82,12 +82,10 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     /**
      * Constructor for custom monolith rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param brightness Intensity of the monolith glow.
-     * @param r Red component of the monolith color.
-     * @param g Green component of the monolith color
-     * @param b Blue component of the monolith color.
+     * @param brightness Intensity of the inner layer glow.
+     * @param color Inner layer color.
      */
-    public HexModelRendererCable(int renderID, int brightness, float r, float g, float b) {
+    public HexModelRendererCable(int renderID, HexEnums.Brightness brightness, HexEnums.Colors color) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -95,13 +93,13 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
 
         // Increment block counter in HexCraft class.
         HexCraft.idCounter++;
@@ -1270,9 +1268,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
 
         // Count sides.
         Block blockTemp = world.getBlock(x, y - 1, z);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
                 blockTemp == HexBlocks.blockQuantumObserver ||
@@ -1280,9 +1278,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             sides[0] = true;
 
         blockTemp = world.getBlock(x, y + 1, z);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
                 blockTemp == HexBlocks.blockPersonalTeleportationPad ||
@@ -1290,9 +1288,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             sides[1] = true;
 
         blockTemp = world.getBlock(x - 1, y, z);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
                 rotations[0] == 3 ||
@@ -1300,9 +1298,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             sides[2] = true;
 
         blockTemp = world.getBlock(x + 1, y, z);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp== HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
                 rotations[1] == 1 ||
@@ -1310,9 +1308,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             sides[3] = true;
 
         blockTemp = world.getBlock(x, y, z - 1);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
                 rotations[2] == 0 ||
@@ -1320,9 +1318,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
             sides[4] = true;
 
         blockTemp = world.getBlock(x, y, z + 1);
-        if ((block == HexBlocks.blockHexoriumCableRainbow && blockTemp instanceof BlockHexoriumCable) ||
+        if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
-                blockTemp == HexBlocks.blockHexoriumCableRainbow ||
+                (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
                 rotations[3] == 2 ||
