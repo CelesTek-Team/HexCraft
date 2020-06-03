@@ -1,14 +1,26 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
+import static com.celestek.hexcraft.init.HexItems.getHexItemStack;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -25,13 +37,16 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
     public static final int META_ORIENTATION_2 = 2;
 
     // Used later for texture identification.
-    private String blockName;
+    private final String blockName;
+
+    // Color
+    private final HexEnums.Basics color;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
      */
-    public BlockOfHexoriumCrystal(String blockName) {
+    public BlockOfHexoriumCrystal(String blockName, HexEnums.Basics color) {
         super(Material.glass);
 
         // Load the constructor parameters.
@@ -39,6 +54,7 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabDecorative);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -151,5 +167,34 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public HexEnums.Basics getColor() {
+        return color;
+    }
+
+    public static void registerBlocks() {
+        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+            String name = ID + color.name;
+            BlockOfHexoriumCrystal block = new BlockOfHexoriumCrystal(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
+    public static void registerRenders() {
+        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.Colors.GRAY));
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+            String gem = "gemHexorium" + color.name;
+            Block block = HexBlocks.getHexBlock(ID + color.name);
+            GameRegistry.addRecipe(new ShapelessOreRecipe(block, gem, gem, gem, gem, gem, gem, gem, gem, gem));
+            GameRegistry.addShapelessRecipe(getHexItemStack("itemHexoriumCrystal" + color.name, 9), block);
+        }
     }
 }

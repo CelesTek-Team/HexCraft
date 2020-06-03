@@ -1,9 +1,12 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.item.*;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -174,5 +177,13 @@ public class HexItems {
         GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDye.ID + "Black");
         itemHexoriumDyeWhite = new ItemHexoriumDye(ItemHexoriumDye.ID + "White", HexEnums.Variants.WHITE);
         GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDye.ID + "White");
+    }
+
+    public static Item getHexItem(String id) {
+        return GameRegistry.findItem(HexCraft.MODID, id);
+    }
+
+    public static ItemStack getHexItemStack(String id, int count) {
+        return new ItemStack(getHexItem(id), count);
     }
 }

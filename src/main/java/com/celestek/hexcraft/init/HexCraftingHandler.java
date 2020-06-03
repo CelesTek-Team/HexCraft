@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.block.Block;
@@ -27,29 +28,30 @@ public class HexCraftingHandler {
 
             // Energized Hexorium
             if (block instanceof BlockEnergizedHexorium) {
-                if (block == HexBlocks.blockEnergizedHexoriumRed)
+                HexEnums.Colors color = ((IBlockHexColor) block).getColor();
+                if (color == HexEnums.Colors.RED)
                     event.player.addStat(HexAchievements.achCraftEnergizedRed, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumOrange)
+                if (color == HexEnums.Colors.ORANGE)
                     event.player.addStat(HexAchievements.achCraftEnergizedOrange, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumYellow)
+                if (color == HexEnums.Colors.YELLOW)
                     event.player.addStat(HexAchievements.achCraftEnergizedYellow, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumLime)
+                if (color == HexEnums.Colors.LIME)
                     event.player.addStat(HexAchievements.achCraftEnergizedLime, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumGreen)
+                if (color == HexEnums.Colors.GREEN)
                     event.player.addStat(HexAchievements.achCraftEnergizedGreen, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumTurquoise)
+                if (color == HexEnums.Colors.TURQUOISE)
                     event.player.addStat(HexAchievements.achCraftEnergizedTurquoise, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumCyan)
+                if (color == HexEnums.Colors.CYAN)
                     event.player.addStat(HexAchievements.achCraftEnergizedCyan, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumSkyBlue)
+                if (color == HexEnums.Colors.SKY_BLUE)
                     event.player.addStat(HexAchievements.achCraftEnergizedSkyBlue, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumBlue)
+                if (color == HexEnums.Colors.BLUE)
                     event.player.addStat(HexAchievements.achCraftEnergizedBlue, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumPurple)
+                if (color == HexEnums.Colors.PURPLE)
                     event.player.addStat(HexAchievements.achCraftEnergizedPurple, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumMagenta)
+                if (color == HexEnums.Colors.MAGENTA)
                     event.player.addStat(HexAchievements.achCraftEnergizedMagenta, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumPink)
+                if (color == HexEnums.Colors.PINK)
                     event.player.addStat(HexAchievements.achCraftEnergizedPink, 1);
 
                 if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEnergizedRed)
@@ -66,15 +68,15 @@ public class HexCraftingHandler {
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEnergizedPink))
                     event.player.addStat(HexAchievements.achGroupColors, 1);
 
-                if (block == HexBlocks.blockEnergizedHexoriumWhite)
+                if (color == HexEnums.Colors.WHITE)
                     event.player.addStat(HexAchievements.achCraftEnergizedWhite, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumLightGray)
+                if (color == HexEnums.Colors.LIGHT_GRAY)
                     event.player.addStat(HexAchievements.achCraftEnergizedLightGray, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumGray)
+                if (color == HexEnums.Colors.GRAY)
                     event.player.addStat(HexAchievements.achCraftEnergizedGray, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumDarkGray)
+                if (color == HexEnums.Colors.DARK_GRAY)
                     event.player.addStat(HexAchievements.achCraftEnergizedDarkGray, 1);
-                if (block == HexBlocks.blockEnergizedHexoriumBlack)
+                if (color == HexEnums.Colors.BLACK)
                     event.player.addStat(HexAchievements.achCraftEnergizedBlack, 1);
 
                 if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEnergizedWhite)
@@ -84,7 +86,7 @@ public class HexCraftingHandler {
                         && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftEnergizedBlack))
                     event.player.addStat(HexAchievements.achGroupGrays, 1);
 
-                if (block == HexBlocks.blockEnergizedHexoriumRainbow)
+                if (color == HexEnums.Colors.RAINBOW)
                     event.player.addStat(HexAchievements.achCraftEnergizedRainbow, 1);
             }
 
@@ -204,6 +206,13 @@ public class HexCraftingHandler {
             // Probe
             else if (event.crafting.getItem() == HexItems.itemHexoriumProbe)
                 event.player.addStat(HexAchievements.achCraftProbe, 1);
+
+            // Dyeing
+            if (block instanceof IBlockHexVariant) {
+                HexEnums.Variants variant = ((IBlockHexVariant) block).getVariant();
+                if (variant == HexEnums.Variants.WHITE)
+                    event.player.addStat(HexAchievements.achUseDye, 1);
+            }
 
             // Decorative Special
             if (checkDecorations)

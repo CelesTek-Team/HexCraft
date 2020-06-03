@@ -14,5 +14,6 @@ public class HexMultipart {
      */
     public static void initializeMicroblocks() {
         MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(HexBlocks.blockHexoriumCoatedStone, 0), BlockMicroMaterial.materialKey(HexBlocks.blockHexoriumCoatedStone));
+        MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(HexBlocks.blockHexoriumCoatedStoneWhite, 0), BlockMicroMaterial.materialKey(HexBlocks.blockHexoriumCoatedStoneWhite));
     }
 }

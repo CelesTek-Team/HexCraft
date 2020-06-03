@@ -67,22 +67,7 @@ public class HexClientProxy extends HexCommonProxy {
         BlockHexoriumNetherMonolith.registerRenders();
 
         // Block of Hexorium Crystal
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_GRAY_R, HexEnums.COLOR_GRAY_G, HexEnums.COLOR_GRAY_B));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_GRAY_R, HexEnums.COLOR_GRAY_G, HexEnums.COLOR_GRAY_B));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_GRAY_R, HexEnums.COLOR_GRAY_G, HexEnums.COLOR_GRAY_B));
-
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_GRAY_R, HexEnums.COLOR_GRAY_G, HexEnums.COLOR_GRAY_B));
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_GRAY_R, HexEnums.COLOR_GRAY_G, HexEnums.COLOR_GRAY_B));
+        BlockOfHexoriumCrystal.registerRenders();
 
         BlockEnergizedHexorium.registerRenders();
         BlockEngineeredHexoriumBlock.registerRenders();

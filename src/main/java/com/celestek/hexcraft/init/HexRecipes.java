@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.block.BlockOfHexoriumCrystal;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
@@ -497,36 +498,7 @@ public class HexRecipes {
 
         // Hex Blocks
         // Block of Hexorium Crystal
-        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalRed_1,
-                "AAA",
-                "AAA",
-                "AAA",
-                'A', stackHexoriumCrystalRed_1);
-        GameRegistry.addShapelessRecipe(stackHexoriumCrystalRed_9, stackBlockOfHexoriumCrystalRed_1);
-        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalGreen_1,
-                "AAA",
-                "AAA",
-                "AAA",
-                'A', stackHexoriumCrystalGreen_1);
-        GameRegistry.addShapelessRecipe(stackHexoriumCrystalGreen_9, stackBlockOfHexoriumCrystalGreen_1);
-        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlue_1,
-                "AAA",
-                "AAA",
-                "AAA",
-                'A', stackHexoriumCrystalBlue_1);
-        GameRegistry.addShapelessRecipe(stackHexoriumCrystalBlue_9, stackBlockOfHexoriumCrystalBlue_1);
-        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalWhite_1,
-                "AAA",
-                "AAA",
-                "AAA",
-                'A', stackHexoriumCrystalWhite_1);
-        GameRegistry.addShapelessRecipe(stackHexoriumCrystalWhite_9, stackBlockOfHexoriumCrystalWhite_1);
-        GameRegistry.addRecipe(stackBlockOfHexoriumCrystalBlack_1,
-                "AAA",
-                "AAA",
-                "AAA",
-                'A', stackHexoriumCrystalBlack_1);
-        GameRegistry.addShapelessRecipe(stackHexoriumCrystalBlack_9, stackBlockOfHexoriumCrystalBlack_1);
+        BlockOfHexoriumCrystal.registerRecipes();
         
         // Energized Hexorium
         // Red
