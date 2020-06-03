@@ -23,7 +23,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumLampInv extends HexBlockMT  implements IBlockHexId, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumLampInv";
@@ -134,6 +134,11 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexColor, 
             else if (state && !powered)
                 HexUtils.setMetaBit(META_STATE, false, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
         }
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

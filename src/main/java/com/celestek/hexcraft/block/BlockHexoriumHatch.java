@@ -32,7 +32,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumHatch extends HexBlockModel  implements IBlockHexId, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumHatch";
@@ -353,6 +353,11 @@ public class BlockHexoriumHatch extends HexBlockModel implements IBlockHexColor,
                 return icon[4 + rei];
         }
         return icon[0];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

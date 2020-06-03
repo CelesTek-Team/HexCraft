@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @author CoffeePirate     <celestek@openmailbox.org>
  */
 
-public class BlockTankRender extends HexBlockContainer {
+public class BlockTankRender extends HexBlockContainer implements IBlockHexId {
 
     // Block ID
     public static final String ID = "blockTankRender";
@@ -170,5 +170,10 @@ public class BlockTankRender extends HexBlockContainer {
     @SideOnly(Side.CLIENT)
     public int getRenderBlockPass() {
         return 1;
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

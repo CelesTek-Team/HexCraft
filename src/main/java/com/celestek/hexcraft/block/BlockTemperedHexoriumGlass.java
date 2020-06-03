@@ -22,7 +22,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockTemperedHexoriumGlass extends Block implements IBlockHexVariantOld {
+public class BlockTemperedHexoriumGlass extends Block  implements IBlockHexId, IBlockHexVariantOld {
 
     // Set default block name.
     public static final String ID_BLACK = "blockTemperedHexoriumGlass";
@@ -251,5 +251,10 @@ public class BlockTemperedHexoriumGlass extends Block implements IBlockHexVarian
             case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
             default: return null;
         }
+    }
+
+    @Override
+    public String getID() {
+        return ID_BLACK;
     }
 }

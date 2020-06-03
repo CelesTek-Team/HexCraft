@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
+public class BlockEnergyNodeCore extends HexBlock  implements IBlockHexId, IBlockHexNode {
 
     // Block ID
     public static final String ID = "blockEnergyNodeCore";
@@ -73,4 +73,8 @@ public class BlockEnergyNodeCore extends HexBlock implements IBlockHexNode {
             return icon[1];
     }
 
+    @Override
+    public String getID() {
+        return ID;
+    }
 }

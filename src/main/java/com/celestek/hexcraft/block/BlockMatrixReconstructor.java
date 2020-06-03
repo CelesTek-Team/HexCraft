@@ -30,7 +30,7 @@ import java.util.Random;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockMatrixReconstructor extends HexBlockContainer implements IBlockHexEnergyDrain {
+public class BlockMatrixReconstructor extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockMatrixReconstructor";
@@ -262,5 +262,10 @@ public class BlockMatrixReconstructor extends HexBlockContainer implements IBloc
             }
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

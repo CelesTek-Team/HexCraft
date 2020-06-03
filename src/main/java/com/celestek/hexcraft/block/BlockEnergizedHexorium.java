@@ -26,7 +26,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexorium extends HexBlock implements IBlockHexColor {
+public class BlockEnergizedHexorium extends HexBlock  implements IBlockHexId, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexorium";
@@ -198,6 +198,11 @@ public class BlockEnergizedHexorium extends HexBlock implements IBlockHexColor {
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
         return false;
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

@@ -971,4 +971,8 @@ public class HexBlocks {
     public static Block getBlockByVariantColor(String name, HexEnums.Variants variant, HexEnums.Colors color) {
         return Block.getBlockFromName(HexCraft.MODID + ":" + name + variant.name + color.name);
     }
+
+    public static Block getBlockByColor(String name, HexEnums.Colors color) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + name + color.name);
+    }
 }

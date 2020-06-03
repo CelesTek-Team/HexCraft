@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockQuantumAnchor extends HexBlock {
+public class BlockQuantumAnchor extends HexBlock implements IBlockHexId {
 
     // Block ID
     public static final String ID = "blockQuantumAnchor";
@@ -100,5 +100,10 @@ public class BlockQuantumAnchor extends HexBlock {
             return icon[2];
         else
             return icon[1];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

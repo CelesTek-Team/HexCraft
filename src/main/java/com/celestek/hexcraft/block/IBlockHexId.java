@@ -5,9 +5,9 @@ import com.celestek.hexcraft.util.HexEnums;
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
-public interface IBlockHexColor {
+public interface IBlockHexId {
     /**
-     * Returns the Color enum.
+     * Returns the string ID of the block.
      */
-    HexEnums.Colors getColor();
+    String getID();
 }

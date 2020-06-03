@@ -23,7 +23,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockSoundProjector extends HexBlockContainer {
+public class BlockSoundProjector extends HexBlockContainer implements IBlockHexId {
 
     // Block ID
     public static final String ID = "blockSoundProjector";
@@ -244,5 +244,10 @@ public class BlockSoundProjector extends HexBlockContainer {
             }
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

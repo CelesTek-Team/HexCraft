@@ -29,7 +29,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBlockHexColor {
+public class BlockEnergizedHexoriumMonolith extends HexBlockModel  implements IBlockHexId, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexoriumMonolith";
@@ -386,6 +386,11 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBl
     @SideOnly(Side.CLIENT)
     public int getRenderBlockPass() {
         return 1;
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

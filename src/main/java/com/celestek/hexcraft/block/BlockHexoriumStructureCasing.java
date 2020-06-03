@@ -25,7 +25,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHexNode, IBlockHexColor, IBlockHexVariant {
+public class BlockHexoriumStructureCasing extends HexBlockMT  implements IBlockHexId, IBlockHexNode, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumStructureCasing";
@@ -224,6 +224,11 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
         else
             return icon[96];
 
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

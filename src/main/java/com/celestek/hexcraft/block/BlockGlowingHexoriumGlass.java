@@ -21,7 +21,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexColor, IBlockHexVariant {
+public class BlockGlowingHexoriumGlass extends HexBlockMT  implements IBlockHexId, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockGlowingHexoriumGlass";
@@ -233,6 +233,11 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IBlockHexCo
     @Override
     public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
         return false;
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

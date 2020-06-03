@@ -30,7 +30,7 @@ import java.util.Random;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockHexEnergySource {
+public class BlockHexoriumGenerator extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergySource {
 
     // Block ID
     public static final String ID = "blockHexoriumGenerator";
@@ -259,5 +259,10 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
             }
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

@@ -20,7 +20,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockPylonBase extends Block {
+public class BlockPylonBase extends Block implements IBlockHexId {
 
     // Block ID
     public static final String ID = "blockPylonBase";
@@ -146,5 +146,10 @@ public class BlockPylonBase extends Block {
             return icon[type ? 0 : 1];
         else
             return icon[type ? 1 : 0];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

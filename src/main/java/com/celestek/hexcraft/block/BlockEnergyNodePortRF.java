@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergyNodePortRF extends HexBlockContainer implements IBlockHexNode, IBlockHexEnergyPort {
+public class BlockEnergyNodePortRF extends HexBlockContainer  implements IBlockHexId, IBlockHexNode, IBlockHexEnergyPort {
 
     // Block ID
     public static final String ID = "blockEnergyNodePortRF";
@@ -88,5 +88,10 @@ public class BlockEnergyNodePortRF extends HexBlockContainer implements IBlockHe
         }
         else
             return icon[3];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

@@ -30,7 +30,7 @@ import java.util.Random;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHexEnergyDrain {
+public class BlockCrystalSeparator extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockCrystalSeparator";
@@ -262,5 +262,10 @@ public class BlockCrystalSeparator extends HexBlockContainer implements IBlockHe
             }
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

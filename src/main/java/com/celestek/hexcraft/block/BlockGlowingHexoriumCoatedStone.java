@@ -23,7 +23,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IBlockHexColor, IBlockHexVariant {
+public class BlockGlowingHexoriumCoatedStone extends HexBlockMT  implements IBlockHexId, IBlockHexColor, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockGlowingHexoriumCoatedStone";
@@ -206,6 +206,11 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IBloc
         else
             return icon[96];
 
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 
     @Override

@@ -28,7 +28,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockQuantumObserver extends HexBlockContainer implements IBlockHexEnergyDrain {
+public class BlockQuantumObserver extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockQuantumObserver";
@@ -197,5 +197,10 @@ public class BlockQuantumObserver extends HexBlockContainer implements IBlockHex
             case 6: return icon[5];
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

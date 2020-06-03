@@ -28,7 +28,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockHexVariantOld {
+public class BlockHexoriumPressurePlate extends HexBlockModel  implements IBlockHexId, IBlockHexVariantOld {
 
     // Block ID
     public static final String ID_BLACK = "blockHexoriumPressurePlate";
@@ -290,6 +290,11 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockH
             return icon[0];
         else
             return icon[1];
+    }
+
+    @Override
+    public String getID() {
+        return ID_BLACK;
     }
 
     @Override

@@ -21,7 +21,7 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCoatedStone extends Block implements IBlockHexVariantOld {
+public class BlockHexoriumCoatedStone extends Block  implements IBlockHexId, IBlockHexVariantOld {
 
     // Set default block name.
     public static final String ID_BLACK = "blockHexoriumCoatedStone";
@@ -127,6 +127,11 @@ public class BlockHexoriumCoatedStone extends Block implements IBlockHexVariantO
             TankAnalyzer analyzer = new TankAnalyzer();
             analyzer.analyzeTank(world, x, y, z);
         }
+    }
+
+    @Override
+    public String getID() {
+        return ID_BLACK;
     }
 
     @Override

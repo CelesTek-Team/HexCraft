@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockAdvancedRainbowCore extends HexBlock {
+public class BlockAdvancedRainbowCore extends HexBlock implements IBlockHexId {
 
     // Block ID
     public static final String ID = "blockAdvancedRainbowCore";
@@ -64,5 +64,10 @@ public class BlockAdvancedRainbowCore extends HexBlock {
             return icon[0];
         else
             return icon[1];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

@@ -26,7 +26,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockPersonalTeleportationPad extends HexBlockContainer implements IBlockHexEnergyDrain {
+public class BlockPersonalTeleportationPad extends HexBlockContainer  implements IBlockHexId, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockPersonalTeleportationPad";
@@ -236,5 +236,10 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
             }
         }
         return icon[side];
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }
