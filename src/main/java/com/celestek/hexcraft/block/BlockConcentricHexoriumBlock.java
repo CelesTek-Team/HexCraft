@@ -168,14 +168,14 @@ public class BlockConcentricHexoriumBlock extends HexBlockMT implements IBlockHe
                 Block block = HexBlocks.getHexBlock(ID, variant, color);
 
                 Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+                Block stone = HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                if (variant == HexEnums.Variants.BLACK)
-                    GameRegistry.addRecipe(new ShapedOreRecipe(block,
-                            "S  ",
-                            " H ",
-                            "  I",
-                            'H', energized, 'I', "nuggetIron", 'S', "stone"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                        "S  ",
+                        " H ",
+                        "  I",
+                        'H', energized, 'I', "nuggetIron", 'S', stone));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                     if (variant != variant2) {

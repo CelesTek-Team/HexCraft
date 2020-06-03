@@ -188,12 +188,11 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexID, IBl
                 Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                if (variant == HexEnums.Variants.BLACK)
-                    GameRegistry.addRecipe(new ShapedOreRecipe(block,
-                            "LGL",
-                            "IHI",
-                            "LRL",
-                            'H', energized, 'G', glass, 'I', "nuggetIron", 'R', Blocks.redstone_torch, 'L', "dustGlowstone"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                        "LGL",
+                        "IHI",
+                        "LRL",
+                        'H', energized, 'G', glass, 'I', "nuggetIron", 'R', Blocks.redstone_torch, 'L', "dustGlowstone"));
 
                 GameRegistry.addRecipe(new ShapelessOreRecipe(
                         block,

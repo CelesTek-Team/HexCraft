@@ -272,14 +272,14 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IBlockHe
                 Block block = HexBlocks.getHexBlock(ID, variant, color);
 
                 Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+                Block stone = HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                if (variant == HexEnums.Variants.BLACK)
-                    GameRegistry.addRecipe(new ShapedOreRecipe(block,
-                            " I ",
-                            "RHR",
-                            " S ",
-                            'H', energized, 'I', "nuggetIron", 'S', "stone", 'R', "dustRedstone"));
+                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                        " I ",
+                        "RHR",
+                        " S ",
+                        'H', energized, 'I', "nuggetIron", 'S', stone, 'R', "dustRedstone"));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                     if (variant != variant2) {
