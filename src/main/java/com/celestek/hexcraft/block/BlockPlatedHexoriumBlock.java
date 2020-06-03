@@ -3,6 +3,8 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -13,8 +15,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
@@ -153,6 +158,33 @@ public class BlockPlatedHexoriumBlock extends HexBlockMT implements IBlockHexID,
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT, color));
+            }
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                Block block = HexBlocks.getHexBlock(ID, variant, color);
+
+                Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+                Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                if (variant == HexEnums.Variants.BLACK)
+                    GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                            "   ",
+                            "SHI",
+                            "   ",
+                            'H', energized, 'I', "nuggetIron", 'S', "stone"));
+
+                for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                    if (variant != variant2) {
+                        Block blockOther = HexBlocks.getHexBlock(ID, variant2, color);
+                        GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                block,
+                                blockOther, dye));
+                    }
+                }
             }
         }
     }

@@ -827,14 +827,8 @@ public class HexBlocks {
         BlockHexoriumPressurePlate.registerBlocks();
 
         // Regular Blocks
-        blockTemperedHexoriumGlass = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.ID_BLACK, DECORATIVE_VARIANT_BLACK);
-        GameRegistry.registerBlock(blockTemperedHexoriumGlass, BlockTemperedHexoriumGlass.ID_BLACK);
-        blockTemperedHexoriumGlassWhite = new BlockTemperedHexoriumGlass(BlockTemperedHexoriumGlass.ID_WHITE, DECORATIVE_VARIANT_WHITE);
-        GameRegistry.registerBlock(blockTemperedHexoriumGlassWhite, BlockTemperedHexoriumGlass.ID_WHITE);
-        blockHexoriumCoatedStone = new BlockHexoriumCoatedStone(BlockHexoriumCoatedStone.ID_BLACK, DECORATIVE_VARIANT_BLACK);
-        GameRegistry.registerBlock(blockHexoriumCoatedStone, BlockHexoriumCoatedStone.ID_BLACK);
-        blockHexoriumCoatedStoneWhite = new BlockHexoriumCoatedStone(BlockHexoriumCoatedStone.ID_WHITE, DECORATIVE_VARIANT_WHITE);
-        GameRegistry.registerBlock(blockHexoriumCoatedStoneWhite, BlockHexoriumCoatedStone.ID_WHITE);
+        BlockTemperedHexoriumGlass.registerBlocks();
+        BlockHexoriumCoatedStone.registerBlocks();
 
         blockPylonBase51 = new BlockPylonBase(BlockPylonBase.ID + "51", false);
         GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.ID + "51");
@@ -876,6 +870,10 @@ public class HexBlocks {
 
     public static Block getHexBlock(String id, HexEnums.Colors color) {
         return Block.getBlockFromName(HexCraft.MODID + ":" + id + color.name);
+    }
+
+    public static Block getHexBlock(String id, HexEnums.Variants variant) {
+        return Block.getBlockFromName(HexCraft.MODID + ":" + id + variant.name);
     }
 
     public static Block getHexBlock(String id) {

@@ -173,14 +173,19 @@ public class HexItems {
         GameRegistry.registerItem(itemMortarPestle, ItemMortarPestle.ID);
 
         // Dyes
-        itemHexoriumDyeBlack = new ItemHexoriumDye(ItemHexoriumDye.ID + "Black", HexEnums.Variants.BLACK);
-        GameRegistry.registerItem(itemHexoriumDyeBlack, ItemHexoriumDye.ID + "Black");
-        itemHexoriumDyeWhite = new ItemHexoriumDye(ItemHexoriumDye.ID + "White", HexEnums.Variants.WHITE);
-        GameRegistry.registerItem(itemHexoriumDyeWhite, ItemHexoriumDye.ID + "White");
+        ItemHexoriumDye.registerItems();
+    }
+
+    public static Item getHexItem(String id, HexEnums.Variants variant) {
+        return GameRegistry.findItem(HexCraft.MODID, id + variant.name);
     }
 
     public static Item getHexItem(String id) {
         return GameRegistry.findItem(HexCraft.MODID, id);
+    }
+
+    public static ItemStack getHexItemStack(String id, HexEnums.Variants variant, int count) {
+        return new ItemStack(getHexItem(id, variant), count);
     }
 
     public static ItemStack getHexItemStack(String id, int count) {

@@ -1,10 +1,14 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -14,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
 import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 
@@ -21,21 +26,20 @@ import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlockHexVariantOld, IBlockMultiBlock {
+public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlockHexVariant, IBlockMultiBlock {
 
     // Set default block name.
-    public static final String ID_BLACK = "blockHexoriumCoatedStone";
-    public static final String ID_WHITE = "blockHexoriumCoatedStoneWhite";
+    public static final String ID = "blockHexoriumCoatedStone";
 
-    // Used for identifying the decoration variant.
-    private int variant;
+    // Variant
+    private final HexEnums.Variants variant;
 
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block.
      * @param variant The decoration variant to use.
      */
-    public BlockHexoriumCoatedStone(String blockName, int variant) {
+    public BlockHexoriumCoatedStone(String blockName, HexEnums.Variants variant) {
         super(Material.rock);
 
         // Set all block parameters.
@@ -89,14 +93,10 @@ public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlo
     public void registerBlockIcons(IIconRegister iconRegister) {
         // Initialize the icon.
         icon = new IIcon[2];
-        // Map decoration and variant.
-        String id = ID_BLACK;
-        if (this.variant == DECORATIVE_VARIANT_WHITE)
-            id = ID_WHITE;
         // Load the icon.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + id);
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.variant.name);
         // Load the reinforced texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID_BLACK + "Reinforced");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "Reinforced");
     }
 
     /**
@@ -131,25 +131,19 @@ public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlo
 
     @Override
     public String getID() {
-        return ID_BLACK;
+        return ID;
     }
 
     @Override
-    public int getVariant() {
+    public HexEnums.Variants getVariant() {
         return this.variant;
     }
 
-    @Override
-    public String getVariantName() {
-        return getVariantName(this.variant);
-    }
-
-    @Override
-    public String getVariantName(int variant) {
-        switch (variant) {
-            case DECORATIVE_VARIANT_BLACK: return ID_BLACK;
-            case DECORATIVE_VARIANT_WHITE: return ID_WHITE;
-            default: return null;
+    public static void registerBlocks() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            String name = ID + variant.name;
+            BlockHexoriumCoatedStone block = new BlockHexoriumCoatedStone(name, variant);
+            GameRegistry.registerBlock(block, name);
         }
     }
 }
