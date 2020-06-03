@@ -904,6 +904,9 @@ achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks
 achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
 achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
 
+achievement.hexcraft.achUseDye=Light Theme
+achievement.hexcraft.achUseDye.desc=Use a White Hexorium Dye to color any decorative block to white.
+
 achievement.hexcraft.achCraftHexoriumCoatedStone=Big Blank Block
 achievement.hexcraft.achCraftHexoriumCoatedStone.desc=Craft a Hexorium-Coated Stone.
 achievement.hexcraft.achCraftGlowingHexoriumCoatedStone=Big Glowing Block

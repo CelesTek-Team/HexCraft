@@ -101,7 +101,7 @@ public class ItemHexoriumDye extends Item {
                     }
 
                     if (HexConfig.cfgGeneralUseAchievements)
-                        player.addStat(HexAchievements.achUseReinforcer, 1);
+                        player.addStat(HexAchievements.achUseDye, 1);
 
                     stack.stackSize--;
                     if (stack.stackSize == 0)
