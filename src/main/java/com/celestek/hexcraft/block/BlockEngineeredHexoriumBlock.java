@@ -16,7 +16,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -28,7 +27,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
+public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockEngineeredHexoriumBlock";
@@ -133,16 +132,6 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHe
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
@@ -188,5 +177,15 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IBlockHe
                 }
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

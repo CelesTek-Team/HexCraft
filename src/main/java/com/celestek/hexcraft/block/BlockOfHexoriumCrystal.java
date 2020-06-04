@@ -12,9 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -26,7 +23,7 @@ import static com.celestek.hexcraft.init.HexItems.getHexItemStack;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
+public class BlockOfHexoriumCrystal extends HexBlock implements IHexBlock {
 
     // Block ID
     public static final String ID = "blockOfHexoriumCrystal";
@@ -169,10 +166,6 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
         return ID;
     }
 
-    public HexEnums.Basics getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Basics color : HexEnums.Basics.values()) {
             String name = ID + color.name;
@@ -196,5 +189,9 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IBlockHexID {
             GameRegistry.addRecipe(new ShapelessOreRecipe(block, gem, gem, gem, gem, gem, gem, gem, gem, gem));
             GameRegistry.addShapelessRecipe(getHexItemStack("itemHexoriumCrystal" + color.name, 9), block);
         }
+    }
+
+    public HexEnums.Basics getColor() {
+        return color;
     }
 }

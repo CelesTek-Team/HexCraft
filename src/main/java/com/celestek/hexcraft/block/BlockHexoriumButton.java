@@ -1,7 +1,6 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
@@ -22,15 +21,13 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumButton extends HexBlockModel implements IBlockHexID, IBlockHexVariant {
+public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumButton";
@@ -415,15 +412,6 @@ public class BlockHexoriumButton extends HexBlockModel implements IBlockHexID, I
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    public BlockHexoriumButton.Colors getColor() {
-        return this.color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (BlockHexoriumButton.Colors color : BlockHexoriumButton.Colors.values()) {
@@ -442,5 +430,14 @@ public class BlockHexoriumButton extends HexBlockModel implements IBlockHexID, I
                         HexEnums.Brightness.BRIGHT));
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    public BlockHexoriumButton.Colors getColor() {
+        return this.color;
     }
 }

@@ -28,7 +28,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBlockHexID, IBlockHexColor {
+public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHexBlock, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexoriumMonolith";
@@ -392,11 +392,6 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBl
         return ID;
     }
 
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
@@ -411,5 +406,10 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IBl
             RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, HexEnums.OPACITY_SLIGHT, color, false));
         }
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

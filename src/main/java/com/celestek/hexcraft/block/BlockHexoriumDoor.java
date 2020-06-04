@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
 import com.celestek.hexcraft.init.HexAchievements;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
@@ -20,12 +21,15 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -34,7 +38,7 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer {
+public class BlockHexoriumDoor extends HexBlockModel implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer {
 
     // Block ID
     public static final String ID = "blockHexoriumDoor";
@@ -718,16 +722,6 @@ public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexID, IBl
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
@@ -746,5 +740,42 @@ public class BlockHexoriumDoor extends HexBlockModel implements IBlockHexID, IBl
                         HexEnums.Brightness.BRIGHT, color));
             }
         }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (HexEnums.Colors color : HexEnums.Colors.values()) {
+                Block block = HexBlocks.getHexBlock(ID, variant, color);
+
+                Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+                Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
+                Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                        "II ",
+                        "HG ",
+                        "II ",
+                        'H', energized, 'I', "ingotIron", 'G', glass));
+
+                for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                    if (variant != variant2) {
+                        Block blockOther = HexBlocks.getHexBlock(ID, variant2, color);
+                        GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                block,
+                                blockOther, dye));
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

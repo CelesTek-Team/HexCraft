@@ -16,7 +16,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -30,7 +29,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumLamp extends HexBlockMT implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
+public class BlockHexoriumLamp extends HexBlockMT implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockHexoriumLamp";
@@ -148,16 +147,6 @@ public class BlockHexoriumLamp extends HexBlockMT implements IBlockHexID, IBlock
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
@@ -208,5 +197,15 @@ public class BlockHexoriumLamp extends HexBlockMT implements IBlockHexID, IBlock
                 }
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

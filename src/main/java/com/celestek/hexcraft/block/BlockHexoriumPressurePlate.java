@@ -2,7 +2,6 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPressurePlate;
-import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -25,15 +24,13 @@ import java.util.List;
 import java.util.Random;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockHexID, IBlockHexVariant {
+public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlock, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumPressurePlate";
@@ -313,15 +310,6 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockH
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    public BlockHexoriumPressurePlate.Colors getColor() {
-        return this.color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (BlockHexoriumPressurePlate.Colors color : BlockHexoriumPressurePlate.Colors.values()) {
@@ -340,5 +328,14 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IBlockH
                         HexEnums.Brightness.BRIGHT));
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    public BlockHexoriumPressurePlate.Colors getColor() {
+        return this.color;
     }
 }

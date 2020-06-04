@@ -18,7 +18,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergyNodePortHEX extends HexBlockContainer implements IBlockHexID, IBlockHexNode, IBlockHexEnergyPort {
+public class BlockEnergyNodePortHEX extends HexBlockContainer implements IHexBlock, IBlockHexNode, IBlockHexEnergyPort {
 
     // Block ID
     public static final String ID = "blockEnergyNodePortHEX";

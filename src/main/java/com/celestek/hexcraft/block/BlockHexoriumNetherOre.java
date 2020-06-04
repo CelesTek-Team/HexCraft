@@ -27,7 +27,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumNetherOre extends HexBlock implements IBlockHexID {
+public class BlockHexoriumNetherOre extends HexBlock implements IHexBlock {
 
     // Block ID
     public static final String ID = "blockHexoriumNetherOre";

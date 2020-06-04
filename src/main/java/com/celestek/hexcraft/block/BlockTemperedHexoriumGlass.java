@@ -17,14 +17,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
-
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockTemperedHexoriumGlass extends Block implements IBlockHexID, IBlockHexVariant, IBlockMultiBlock {
+public class BlockTemperedHexoriumGlass extends Block implements IHexBlock, IBlockHexVariant, IBlockMultiBlock {
 
     // Set default block name.
     public static final String ID = "blockTemperedHexoriumGlass";
@@ -237,16 +234,16 @@ public class BlockTemperedHexoriumGlass extends Block implements IBlockHexID, IB
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
             BlockTemperedHexoriumGlass block = new BlockTemperedHexoriumGlass(name, variant);
             GameRegistry.registerBlock(block, name);
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
     }
 }

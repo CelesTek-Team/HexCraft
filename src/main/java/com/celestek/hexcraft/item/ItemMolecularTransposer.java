@@ -9,7 +9,6 @@ import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -73,7 +72,7 @@ public class ItemMolecularTransposer extends Item {
                             }
 
                             // Get required types
-                            IBlockHexID blockID = (IBlockHexID) block;
+                            IHexBlock blockID = (IHexBlock) block;
                             IBlockHexColor blockColor = (IBlockHexColor) block;
                             IBlockHexVariant blockVariant = (IBlockHexVariant) block;
 

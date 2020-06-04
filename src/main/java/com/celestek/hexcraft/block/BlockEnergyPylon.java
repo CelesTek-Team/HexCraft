@@ -36,7 +36,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergyPylon extends HexBlockContainer implements IBlockHexID {
+public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
 
     // Block ID
     public static final String ID = "blockEnergyPylon";

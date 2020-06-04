@@ -8,6 +8,7 @@ import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -15,18 +16,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockPersonalTeleportationPad extends HexBlockContainer implements IBlockHexID, IBlockHexEnergyDrain {
+public class BlockPersonalTeleportationPad extends HexBlockContainer implements IHexBlock, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockPersonalTeleportationPad";
@@ -241,5 +244,24 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        if (HexConfig.cfgTeleportEnable) {
+            Block block = HexBlocks.getHexBlock(ID);
+
+            Block machine = HexBlocks.getHexBlock(BlockHexoriumMachineBlock.ID);
+            Item recoder = HexItems.itemMolecularRecoder;
+            Item router = HexItems.itemMachineEnergyRouter;
+            Item component = HexItems.itemTeleportationFieldProjector;
+            Item plane = HexItems.itemMaterialInteractionPlane;
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    block,
+                    "CPC",
+                    "RMT",
+                    "ITI",
+                    'M', machine, 'R', recoder, 'T', router, 'C', component, 'P', plane, 'I', "ingotIron"));
+        }
     }
 }

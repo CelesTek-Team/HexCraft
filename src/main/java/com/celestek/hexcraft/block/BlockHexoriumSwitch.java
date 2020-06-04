@@ -22,15 +22,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumSwitch extends HexBlockModel implements IBlockHexID, IBlockHexVariant {
+public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBlockHexVariant {
 
     // Block ID
     public static final String ID = "blockHexoriumSwitch";
@@ -397,15 +395,6 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IBlockHexID, I
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    public BlockHexoriumSwitch.Colors getColor() {
-        return this.color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (BlockHexoriumSwitch.Colors color : BlockHexoriumSwitch.Colors.values()) {
@@ -424,5 +413,14 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IBlockHexID, I
                         HexEnums.Brightness.BRIGHT));
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    public BlockHexoriumSwitch.Colors getColor() {
+        return this.color;
     }
 }

@@ -1,18 +1,22 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.util.HexEnums;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockAdvancedRainbowCore extends HexBlock implements IBlockHexID {
+public class BlockAdvancedRainbowCore extends HexBlock implements IHexBlock {
 
     // Block ID
     public static final String ID = "blockAdvancedRainbowCore";
@@ -69,5 +73,18 @@ public class BlockAdvancedRainbowCore extends HexBlock implements IBlockHexID {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        Block block = HexBlocks.getHexBlock(ID);
+
+        Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW);
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                block,
+                "GRG",
+                "RHR",
+                "GRG",
+                'H', energized, 'R', "dustRedstone", 'G', "ingotGold"));
     }
 }

@@ -22,7 +22,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockSoundProjector extends HexBlockContainer implements IBlockHexID {
+public class BlockSoundProjector extends HexBlockContainer implements IHexBlock {
 
     // Block ID
     public static final String ID = "blockSoundProjector";

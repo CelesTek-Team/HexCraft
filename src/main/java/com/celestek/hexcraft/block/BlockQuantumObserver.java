@@ -26,7 +26,7 @@ import net.minecraft.world.World;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockQuantumObserver extends HexBlockContainer implements IBlockHexID, IBlockHexEnergyDrain {
+public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock, IBlockHexEnergyDrain {
 
     // Block ID
     public static final String ID = "blockQuantumObserver";

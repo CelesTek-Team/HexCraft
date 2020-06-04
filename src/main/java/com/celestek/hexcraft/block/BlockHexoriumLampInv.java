@@ -30,7 +30,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexID, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
+public class BlockHexoriumLampInv extends HexBlockMT implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockHexoriumLampInv";
@@ -148,16 +148,6 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexID, IBl
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
@@ -208,5 +198,15 @@ public class BlockHexoriumLampInv extends HexBlockMT implements IBlockHexID, IBl
                 }
             }
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

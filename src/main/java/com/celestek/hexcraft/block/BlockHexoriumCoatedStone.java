@@ -1,13 +1,11 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,15 +16,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_BLACK;
-import static com.celestek.hexcraft.init.HexBlocks.DECORATIVE_VARIANT_WHITE;
-
 /**
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlockHexVariant, IBlockMultiBlock {
+public class BlockHexoriumCoatedStone extends Block implements IHexBlock, IBlockHexVariant, IBlockMultiBlock {
 
     // Set default block name.
     public static final String ID = "blockHexoriumCoatedStone";
@@ -134,16 +128,16 @@ public class BlockHexoriumCoatedStone extends Block implements IBlockHexID, IBlo
         return ID;
     }
 
-    @Override
-    public HexEnums.Variants getVariant() {
-        return this.variant;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
             BlockHexoriumCoatedStone block = new BlockHexoriumCoatedStone(name, variant);
             GameRegistry.registerBlock(block, name);
         }
+    }
+
+    @Override
+    public HexEnums.Variants getVariant() {
+        return this.variant;
     }
 }

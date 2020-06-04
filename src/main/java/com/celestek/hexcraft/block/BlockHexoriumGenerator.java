@@ -8,6 +8,7 @@ import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileHexoriumGenerator;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,6 +17,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -23,6 +25,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.Random;
 
@@ -30,7 +33,7 @@ import java.util.Random;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockHexID, IBlockHexEnergySource {
+public class BlockHexoriumGenerator extends HexBlockContainer implements IHexBlock, IBlockHexEnergySource {
 
     // Block ID
     public static final String ID = "blockHexoriumGenerator";
@@ -264,5 +267,21 @@ public class BlockHexoriumGenerator extends HexBlockContainer implements IBlockH
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        Block block = HexBlocks.getHexBlock(ID);
+
+        Block machine = HexBlocks.getHexBlock(BlockHexoriumMachineBlock.ID);
+        Item panel = HexItems.itemMachineControlPanel;
+        Item router = HexItems.itemMachineEnergyRouter;
+        Item component = HexItems.itemHeatDissipator;
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                block,
+                "IPI",
+                "CMC",
+                "ITI",
+                'M', machine, 'P', panel, 'T', router, 'C', component, 'I', "ingotIron"));
     }
 }

@@ -65,7 +65,7 @@ public class ItemHexoriumDye extends Item {
                         return false;
                     }
 
-                    IBlockHexID blockID = (IBlockHexID) block;
+                    IHexBlock blockID = (IHexBlock) block;
                     Block blockNew = HexBlocks.getHexBlock(blockID.getID(), this.variant, block.getUnlocalizedName().replace("tile." + blockID.getID() + blockVariant.getVariant().name, ""));
                     if (block instanceof  IBlockHexColor) {
                         IBlockHexColor blockColor = (IBlockHexColor) block;

@@ -17,11 +17,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
@@ -29,7 +27,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockEnergizedHexorium extends HexBlock implements IBlockHexID, IBlockHexColor {
+public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockEnergizedHexorium";
@@ -208,11 +206,6 @@ public class BlockEnergizedHexorium extends HexBlock implements IBlockHexID, IBl
         return ID;
     }
 
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
@@ -329,5 +322,10 @@ public class BlockEnergizedHexorium extends HexBlock implements IBlockHexID, IBl
                 red, grn, wht,
                 xrx, blu, grn,
                 blu, wht, red));
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }

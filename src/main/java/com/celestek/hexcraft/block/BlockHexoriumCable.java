@@ -1,9 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -30,7 +28,7 @@ import static com.celestek.hexcraft.client.HexClientProxy.renderID;
  * @author Thorinair   <celestek@openmailbox.org>
  */
 
-public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID, IBlockHexColor {
+public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlockHexColor {
 
     // Block ID
     public static final String ID = "blockHexoriumCable";
@@ -178,11 +176,6 @@ public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID, IB
         return ID;
     }
 
-    @Override
-    public HexEnums.Colors getColor() {
-        return color;
-    }
-
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
@@ -197,5 +190,10 @@ public class BlockHexoriumCable extends HexBlockModel implements IBlockHexID, IB
             RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, color));
         }
+    }
+
+    @Override
+    public HexEnums.Colors getColor() {
+        return color;
     }
 }
