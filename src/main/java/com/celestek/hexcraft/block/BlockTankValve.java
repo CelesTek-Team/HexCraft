@@ -7,6 +7,7 @@ import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileTankValve;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -14,12 +15,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
@@ -154,30 +157,18 @@ public class BlockTankValve extends HexBlockContainer implements IHexBlock {
         // Retrieve icon based on side.
         switch (side) {
             case 0:
-                if (rotation)
-                    return icon[3];
-                else
-                    return icon[2];
             case 1:
                 if (rotation)
                     return icon[3];
                 else
                     return icon[2];
             case 2:
-                if (rotation)
-                    return icon[formed];
-                else
-                    return icon[2];
             case 3:
                 if (rotation)
                     return icon[formed];
                 else
                     return icon[2];
             case 4:
-                if (rotation)
-                    return icon[2];
-                else
-                    return icon[formed];
             case 5:
                 if (rotation)
                     return icon[2];
@@ -190,5 +181,23 @@ public class BlockTankValve extends HexBlockContainer implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        if (HexConfig.cfgTankEnable) {
+            Block block = HexBlocks.getHexBlock(ID);
+
+            Block machine = HexBlocks.getHexBlock(BlockHexoriumMachineBlock.ID);
+            Item panel = HexItems.itemMachineControlPanel;
+            Item core = HexItems.itemRainbowCore;
+            Item smart = HexItems.itemDigitalSmartpipe;
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    block,
+                    "IPI",
+                    "SMS",
+                    "ICI",
+                    'M', machine, 'P', panel, 'C', core, 'S', smart, 'I', "ingotIron"));
+        }
     }
 }

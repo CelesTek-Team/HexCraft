@@ -6,9 +6,11 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileQuantumObserver;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.ObserverAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,11 +18,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -200,5 +205,23 @@ public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        if (HexConfig.cfgObserverEnable) {
+            Block block = HexBlocks.getHexBlock(ID);
+
+            Block enrgized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
+            Item panel = HexItems.itemMachineControlPanel;
+            Item router = HexItems.itemMachineEnergyRouter;
+            Item eye = HexItems.itemObservationalEye;
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    block,
+                    "PTI",
+                    "IEI",
+                    "BHB",
+                    'H', enrgized, 'P', panel, 'T', router, 'E', eye, 'B', Blocks.iron_bars, 'I', "ingotIron"));
+        }
     }
 }

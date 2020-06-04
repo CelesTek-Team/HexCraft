@@ -1,15 +1,22 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.ObserverAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -103,5 +110,20 @@ public class BlockQuantumAnchor extends HexBlock implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerRecipes() {
+        if (HexConfig.cfgObserverEnable) {
+            Block block = HexBlocks.getHexBlock(ID);
+
+            Block enrgized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    block,
+                    "B B",
+                    "BHB",
+                    "B B",
+                    'H', enrgized, 'B', Blocks.iron_bars));
+        }
     }
 }

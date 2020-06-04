@@ -29,25 +29,17 @@ public class HexRecipes {
         ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
         ItemStack stackRedstoneBlock_1 = new ItemStack(Blocks.redstone_block, 1);
-        ItemStack stackIronBars_1 = new ItemStack(Blocks.iron_bars, 1);
 
         // Vanilla Items
         ItemStack stackRedstone_1 = new ItemStack(Items.redstone, 1);
         ItemStack stackIronPickaxe_1 = new ItemStack(Items.iron_pickaxe, 1);
         ItemStack stackEnderEye_1 = new ItemStack(Items.ender_eye, 1);
-
-        ItemStack stackEnergizedHexoriumBlack_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumBlack, 1);
         
         ItemStack stackEnergizedHexoriumRainbow_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumRainbow, 1);
 
         // Machines
         ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
         ItemStack stackAdvancedRainbowCore_1 = new ItemStack(HexBlocks.blockAdvancedRainbowCore, 1);
-
-        ItemStack stackPersonalTeleportationPad_1 = new ItemStack(HexBlocks.blockPersonalTeleportationPad, 1);
-
-        ItemStack stackQuantumObserver_1 = new ItemStack(HexBlocks.blockQuantumObserver, 1);
-        ItemStack stackQuantumAnchor_1 = new ItemStack(HexBlocks.blockQuantumAnchor, 1);
 
         // Tank Valve
         ItemStack stackTankValve_1 = new ItemStack(HexBlocks.blockTankValve, 1);
@@ -202,30 +194,11 @@ public class HexRecipes {
         BlockCrystalSeparator.registerRecipes();
         BlockMatrixReconstructor.registerRecipes();
         BlockPersonalTeleportationPad.registerRecipes();
-
-        if (HexConfig.cfgObserverEnable) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackQuantumObserver_1,
-                    "CBF",
-                    "FAF",
-                    "EDE",
-                    'A', stackObservationalEye_1, 'B', stackMachineEnergyRouter_1, 'C', stackMachineControlPanel_1, 'D', stackEnergizedHexoriumBlack_1,
-                    'E', stackIronBars_1, 'F', "ingotIron"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackQuantumAnchor_1,
-                    "B B",
-                    "BAB",
-                    "B B",
-                    'A', stackEnergizedHexoriumBlack_1, 'B', stackIronBars_1));
-        }
+        BlockQuantumObserver.registerRecipes();
+        BlockQuantumAnchor.registerRecipes();
 
         // Tank Valve
-        if (HexConfig.cfgTankEnable) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackTankValve_1,
-                    "ECE",
-                    "BAB",
-                    "EDE",
-                    'A', stackHexoriumMachineBlock_1, 'B', stackDigitalSmartpipe_1, 'C', stackMachineControlPanel_1, 'D', stackRainbowCore_1,
-                    'E', "ingotIron"));
-        }
+        BlockTankValve.registerRecipes();
 
         // Energy Node
         if (HexConfig.cfgEnergyNodeEnable) {
