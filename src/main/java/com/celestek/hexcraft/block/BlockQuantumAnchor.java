@@ -116,14 +116,14 @@ public class BlockQuantumAnchor extends HexBlock implements IHexBlock {
         if (HexConfig.cfgObserverEnable) {
             Block block = HexBlocks.getHexBlock(ID);
 
-            Block enrgized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
+            Block energized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
 
             GameRegistry.addRecipe(new ShapedOreRecipe(
                     block,
                     "B B",
                     "BHB",
                     "B B",
-                    'H', enrgized, 'B', Blocks.iron_bars));
+                    'H', energized, 'B', Blocks.iron_bars));
         }
     }
 }

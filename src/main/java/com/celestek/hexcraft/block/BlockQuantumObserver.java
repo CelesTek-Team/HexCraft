@@ -211,7 +211,7 @@ public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock
         if (HexConfig.cfgObserverEnable) {
             Block block = HexBlocks.getHexBlock(ID);
 
-            Block enrgized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
+            Block energized = HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.BLACK);
             Item panel = HexItems.itemMachineControlPanel;
             Item router = HexItems.itemMachineEnergyRouter;
             Item eye = HexItems.itemObservationalEye;
@@ -221,7 +221,7 @@ public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock
                     "PTI",
                     "IEI",
                     "BHB",
-                    'H', enrgized, 'P', panel, 'T', router, 'E', eye, 'B', Blocks.iron_bars, 'I', "ingotIron"));
+                    'H', energized, 'P', panel, 'T', router, 'E', eye, 'B', Blocks.iron_bars, 'I', "ingotIron"));
         }
     }
 }

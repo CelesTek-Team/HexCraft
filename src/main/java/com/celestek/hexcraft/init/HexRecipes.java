@@ -38,11 +38,7 @@ public class HexRecipes {
         ItemStack stackEnergizedHexoriumRainbow_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumRainbow, 1);
 
         // Machines
-        ItemStack stackHexoriumMachineBlock_1 = new ItemStack(HexBlocks.blockHexoriumMachineBlock, 1);
         ItemStack stackAdvancedRainbowCore_1 = new ItemStack(HexBlocks.blockAdvancedRainbowCore, 1);
-
-        // Tank Valve
-        ItemStack stackTankValve_1 = new ItemStack(HexBlocks.blockTankValve, 1);
 
         // Energy Node
         ItemStack stackEnergyNodeCoreT1_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT1, 1);
@@ -199,30 +195,10 @@ public class HexRecipes {
 
         // Tank Valve
         BlockTankValve.registerRecipes();
+        BlockEnergyNodeCore.registerRecipes();
 
         // Energy Node
         if (HexConfig.cfgEnergyNodeEnable) {
-            GameRegistry.addRecipe(stackEnergyNodeCoreT1_1,
-                    "RBR",
-                    "BAB",
-                    "RBR",
-                    'R', stackRedstoneBlock_1, 'A', stackAdvancedRainbowCore_1, 'B', stackHexoriumProcessor_1);
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodeCoreT2_1,
-                    "RBR",
-                    "BAB",
-                    "RBR",
-                    'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT1_1, 'B', "ingotIron"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodeCoreT3_1,
-                    "RBR",
-                    "BAB",
-                    "RBR",
-                    'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT2_1, 'B', "ingotGold"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodeCoreT4_1,
-                    "RBR",
-                    "BAB",
-                    "RBR",
-                    'R', stackRedstoneBlock_1, 'A', stackEnergyNodeCoreT3_1, 'B', "gemDiamond"));
-
             GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortHEX_1,
                     "EBE",
                     "DAR",

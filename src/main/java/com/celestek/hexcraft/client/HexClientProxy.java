@@ -137,19 +137,9 @@ public class HexClientProxy extends HexCommonProxy {
         }
 
         // Energy Node
+        BlockEnergyNodeCore.registerRenders();
+
         if (HexConfig.cfgEnergyNodeEnable) {
-            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                    HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_RAINBOW_R, HexEnums.COLOR_RAINBOW_G, HexEnums.COLOR_RAINBOW_B));
-            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                    HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_RAINBOW_R, HexEnums.COLOR_RAINBOW_G, HexEnums.COLOR_RAINBOW_B));
-            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                    HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_RAINBOW_R, HexEnums.COLOR_RAINBOW_G, HexEnums.COLOR_RAINBOW_B));
-            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
-                    HexEnums.BRIGHTNESS_BRIGHT, HexEnums.COLOR_RAINBOW_R, HexEnums.COLOR_RAINBOW_G, HexEnums.COLOR_RAINBOW_B));
 
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
