@@ -236,10 +236,10 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
-        if (!world.isRemote)
-            if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemHexoriumDye))
-                return true;
+        if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemHexoriumDye))
+            return true;
 
+        if (!world.isRemote)
             if (!HexUtils.getMetaBit(META_STATE, world, x, y, z)) {
                 HexUtils.setMetaBit(META_STATE, true, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
 

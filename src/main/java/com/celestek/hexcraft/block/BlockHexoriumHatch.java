@@ -237,10 +237,10 @@ public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlo
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
-        if (!world.isRemote) {
-            if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
-                return true;
+        if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
+            return true;
 
+        if (!world.isRemote) {
             // Prepare a variable if the hatch is in a usable state.
             boolean use = false;
             // If player has no item in hand.

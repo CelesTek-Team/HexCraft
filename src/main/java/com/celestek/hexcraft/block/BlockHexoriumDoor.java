@@ -408,10 +408,10 @@ public class BlockHexoriumDoor extends HexBlockModel implements IHexBlock, IBloc
      * Called upon block activation (right click on the block.)
      */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
-        if (!world.isRemote) {
-            if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
-                return true;
+        if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
+            return true;
 
+        if (!world.isRemote) {
             // Prepare a variable if the door is in a usable state.
             boolean use = false;
             // If player has no item in hand.

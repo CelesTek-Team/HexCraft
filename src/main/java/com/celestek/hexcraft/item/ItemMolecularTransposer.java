@@ -92,26 +92,21 @@ public class ItemMolecularTransposer extends Item {
                                             int meta2 = world.getBlockMetadata(x, y, z);
                                             world.setBlockToAir(x, y - 1, z);
                                             world.setBlockToAir(x, y, z);
-                                            world.setBlock(x, y - 1, z, blockNew);
-                                            world.setBlock(x, y, z, blockNew);
-                                            world.setBlockMetadataWithNotify(x, y - 1, z, meta1, HexUtils.META_NOTIFY_NOTHING);
-                                            world.setBlockMetadataWithNotify(x, y, z, meta2, HexUtils.META_NOTIFY_UPDATE);
+                                            world.setBlock(x, y - 1, z, blockNew, meta1, HexUtils.META_NOTIFY_NOTHING);
+                                            world.setBlock(x, y, z, blockNew, meta2, HexUtils.META_NOTIFY_UPDATE);
                                         }
                                         else {
                                             int meta1 = world.getBlockMetadata(x, y, z);
                                             int meta2 = world.getBlockMetadata(x, y + 1, z);
                                             world.setBlockToAir(x, y, z);
                                             world.setBlockToAir(x, y + 1, z);
-                                            world.setBlock(x, y, z, blockNew);
-                                            world.setBlock(x, y + 1, z, blockNew);
-                                            world.setBlockMetadataWithNotify(x, y, z, meta1, HexUtils.META_NOTIFY_NOTHING);
-                                            world.setBlockMetadataWithNotify(x, y + 1, z, meta2, HexUtils.META_NOTIFY_UPDATE);
+                                            world.setBlock(x, y, z, blockNew, meta1, HexUtils.META_NOTIFY_NOTHING);
+                                            world.setBlock(x, y + 1, z, blockNew, meta2, HexUtils.META_NOTIFY_UPDATE);
                                         }
                                     }
                                     else {
                                         int meta = world.getBlockMetadata(x, y, z);
-                                        world.setBlock(x, y, z, blockNew);
-                                        world.setBlockMetadataWithNotify(x, y, z, meta, HexUtils.META_NOTIFY_UPDATE);
+                                        world.setBlock(x, y, z, blockNew, meta, HexUtils.META_NOTIFY_UPDATE);
                                     }
 
                                     // Decrement the count of Energized Hexorium.
