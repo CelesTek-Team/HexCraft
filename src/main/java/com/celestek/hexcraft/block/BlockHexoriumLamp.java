@@ -151,7 +151,7 @@ public class BlockHexoriumLamp extends HexBlockMT implements IHexBlock, IBlockHe
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumLamp block = new BlockHexoriumLamp(name, color, variant);
+                Block block = new BlockHexoriumLamp(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

@@ -136,7 +136,7 @@ public class BlockConcentricHexoriumBlock extends HexBlockMT implements IHexBloc
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockConcentricHexoriumBlock block = new BlockConcentricHexoriumBlock(name, color, variant);
+                Block block = new BlockConcentricHexoriumBlock(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

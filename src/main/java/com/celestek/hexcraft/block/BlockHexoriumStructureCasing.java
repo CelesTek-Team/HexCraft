@@ -240,7 +240,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IHexBloc
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumStructureCasing block = new BlockHexoriumStructureCasing(name, color, variant);
+                Block block = new BlockHexoriumStructureCasing(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

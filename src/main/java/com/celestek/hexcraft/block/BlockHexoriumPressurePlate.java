@@ -312,9 +312,9 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
 
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
-            for (BlockHexoriumPressurePlate.Colors color : BlockHexoriumPressurePlate.Colors.values()) {
+            for (Colors color : Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumPressurePlate block = new BlockHexoriumPressurePlate(name, color, variant);
+                Block block = new BlockHexoriumPressurePlate(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }
@@ -322,7 +322,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
 
     public static void registerRenders() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
-            for (BlockHexoriumPressurePlate.Colors color : BlockHexoriumPressurePlate.Colors.values()) {
+            for (Colors color : Colors.values()) {
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT));

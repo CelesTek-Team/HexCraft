@@ -179,7 +179,7 @@ public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlo
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
-            BlockHexoriumCable block = new BlockHexoriumCable(name, color);
+            Block block = new BlockHexoriumCable(name, color);
             GameRegistry.registerBlock(block, name);
         }
     }

@@ -369,7 +369,7 @@ public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlo
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumHatch block = new BlockHexoriumHatch(name, color, variant);
+                Block block = new BlockHexoriumHatch(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

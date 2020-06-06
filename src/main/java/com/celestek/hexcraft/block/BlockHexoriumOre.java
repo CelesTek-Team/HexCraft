@@ -8,6 +8,7 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -32,12 +33,25 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
     // Block ID
     public static final String ID = "blockHexoriumOre";
 
-    /// Used later for texture identification.
-    private final String blockName;
+    public enum Colors {
+        RED(  "Red",   2, 4),
+        GREEN("Green", 2, 4),
+        BLUE( "Blue",  2, 4),
+        WHITE("White", 1, 2),
+        BLACK("Black", 1, 2);
 
-    // Used for drop rates.
-    private final int hexoriumDropMin;
-    private final int hexoriumDropMax;
+        public final String name;
+        public final int min, max;
+
+        Colors(String name, int min, int max) {
+            this.name = name;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    // Color
+    private final BlockHexoriumOre.Colors color;
 
     // Used for tool enchants.
     private int fortune = 0;
@@ -45,19 +59,14 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
-     * @param hexoriumDropMin Minimum amount of Hexorium Crystals dropped.
-     * @param hexoriumDropMax Maximum amount of Hexorium Crystals dropped.
+     * @param color The color of the block to use.
      */
-    public BlockHexoriumOre(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
+    public BlockHexoriumOre(String blockName, BlockHexoriumOre.Colors color) {
         super(Material.rock);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
-        this.hexoriumDropMin = hexoriumDropMin;
-        this.hexoriumDropMax = hexoriumDropMax;
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabComponents);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -101,22 +110,10 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
      */
     @Override
     public int quantityDropped(Random random) {
-        // Prepare the fortune extra drop count.
-        int fortuneDrop = 0;
-
-        // Set the according fortune extra drop count.
-        if (fortune == 1)
-            fortuneDrop = 1;
-        else if (fortune == 2)
-            fortuneDrop = 2;
-        else if (fortune == 3)
-            fortuneDrop = 3;
-
-        // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
-        if (hexoriumDropMin == hexoriumDropMax)
-            return hexoriumDropMin;
+        if (this.color.min == this.color.max)
+            return this.color.min;
         else
-            return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
+            return fortune + this.color.min + random.nextInt(this.color.max - this.color.min + 1);
     }
 
     /**
@@ -124,19 +121,7 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
-        // Return the according crystal color.
-        if (this == HexBlocks.blockHexoriumOreRed)
-            return HexItems.itemHexoriumCrystalRed;
-        else if (this == HexBlocks.blockHexoriumOreGreen)
-            return HexItems.itemHexoriumCrystalGreen;
-        else if (this == HexBlocks.blockHexoriumOreBlue)
-            return HexItems.itemHexoriumCrystalBlue;
-        else if (this == HexBlocks.blockHexoriumOreWhite)
-            return HexItems.itemHexoriumCrystalWhite;
-        else if (this == HexBlocks.blockHexoriumOreBlack)
-            return HexItems.itemHexoriumCrystalBlack;
-        else
-            return null;
+        return HexItems.getHexItem("itemHexoriumCrystal" + this.color.name);
     }
 
     // Prepare the icons.
@@ -152,9 +137,9 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
         // Initialize the icons.
         icon = new IIcon[2];
         // Load the outer texture.
-        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "B");
+        icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.color.name + "B");
         // Load the inner texture.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + this.color.name + "A");
     }
 
     /**
@@ -175,8 +160,16 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
         return ID;
     }
 
+    public static void registerBlocks() {
+        for (Colors color : Colors.values()) {
+            String name = ID + color.name;
+            Block block = new BlockHexoriumOre(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
     public static void registerRenders() {
-        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+        for (Colors color : Colors.values()) {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, HexEnums.Colors.GRAY));

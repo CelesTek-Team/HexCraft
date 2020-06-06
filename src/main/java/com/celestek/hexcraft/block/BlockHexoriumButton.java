@@ -414,9 +414,9 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
 
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
-            for (BlockHexoriumButton.Colors color : BlockHexoriumButton.Colors.values()) {
+            for (Colors color : Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumButton block = new BlockHexoriumButton(name, color, variant);
+                Block block = new BlockHexoriumButton(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }
@@ -424,7 +424,7 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
 
     public static void registerRenders() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
-            for (BlockHexoriumButton.Colors color : BlockHexoriumButton.Colors.values()) {
+            for (Colors color : Colors.values()) {
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT));

@@ -209,7 +209,7 @@ public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBloc
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
-            BlockEnergizedHexorium block = new BlockEnergizedHexorium(name, color);
+            Block block = new BlockEnergizedHexorium(name, color);
             GameRegistry.registerBlock(block, name);
         }
     }

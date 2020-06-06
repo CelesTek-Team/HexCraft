@@ -223,7 +223,7 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexB
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockGlowingHexoriumCoatedStone block = new BlockGlowingHexoriumCoatedStone(name, color, variant);
+                Block block = new BlockGlowingHexoriumCoatedStone(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

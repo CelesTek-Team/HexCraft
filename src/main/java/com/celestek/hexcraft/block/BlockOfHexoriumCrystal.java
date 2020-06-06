@@ -169,7 +169,7 @@ public class BlockOfHexoriumCrystal extends HexBlock implements IHexBlock {
     public static void registerBlocks() {
         for (HexEnums.Basics color : HexEnums.Basics.values()) {
             String name = ID + color.name;
-            BlockOfHexoriumCrystal block = new BlockOfHexoriumCrystal(name, color);
+            Block block = new BlockOfHexoriumCrystal(name, color);
             GameRegistry.registerBlock(block, name);
         }
     }

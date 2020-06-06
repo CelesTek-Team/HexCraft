@@ -252,7 +252,7 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IHexBlock, 
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 if (color != HexEnums.Colors.RAINBOW) {
                     String name = ID + variant.name + color.name;
-                    BlockGlowingHexoriumGlass block = new BlockGlowingHexoriumGlass(name, color, variant);
+                    Block block = new BlockGlowingHexoriumGlass(name, color, variant);
                     GameRegistry.registerBlock(block, name);
                 }
             }

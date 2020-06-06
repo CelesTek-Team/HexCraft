@@ -395,7 +395,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHe
     public static void registerBlocks() {
         for (HexEnums.Colors color : HexEnums.Colors.values()) {
             String name = ID + color.name;
-            BlockEnergizedHexoriumMonolith block = new BlockEnergizedHexoriumMonolith(name, color);
+            Block block = new BlockEnergizedHexoriumMonolith(name, color);
             GameRegistry.registerBlock(block, name);
         }
     }

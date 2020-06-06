@@ -237,7 +237,7 @@ public class BlockTemperedHexoriumGlass extends Block implements IHexBlock, IBlo
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
-            BlockTemperedHexoriumGlass block = new BlockTemperedHexoriumGlass(name, variant);
+            Block block = new BlockTemperedHexoriumGlass(name, variant);
             GameRegistry.registerBlock(block, name);
         }
     }

@@ -726,7 +726,7 @@ public class BlockHexoriumDoor extends HexBlockModel implements IHexBlock, IBloc
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockHexoriumDoor block = new BlockHexoriumDoor(name, color, variant);
+                Block block = new BlockHexoriumDoor(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

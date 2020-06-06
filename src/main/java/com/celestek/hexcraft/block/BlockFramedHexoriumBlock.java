@@ -136,7 +136,7 @@ public class BlockFramedHexoriumBlock extends HexBlockMT implements IHexBlock, I
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             for (HexEnums.Colors color : HexEnums.Colors.values()) {
                 String name = ID + variant.name + color.name;
-                BlockFramedHexoriumBlock block = new BlockFramedHexoriumBlock(name, color, variant);
+                Block block = new BlockFramedHexoriumBlock(name, color, variant);
                 GameRegistry.registerBlock(block, name);
             }
         }

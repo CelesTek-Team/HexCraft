@@ -108,7 +108,7 @@ public class BlockEnergyNodeCore extends HexBlock implements IHexBlock, IBlockHe
         if (HexConfig.cfgEnergyNodeEnable) {
             for (BlockEnergyNodeCore.Tiers tier : BlockEnergyNodeCore.Tiers.values()) {
                 String name = ID + tier.name;
-                BlockEnergyNodeCore block = new BlockEnergyNodeCore(name, tier);
+                Block block = new BlockEnergyNodeCore(name, tier);
                 GameRegistry.registerBlock(block, name);
             }
         }

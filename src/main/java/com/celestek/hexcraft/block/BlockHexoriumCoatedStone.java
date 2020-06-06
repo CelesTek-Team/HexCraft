@@ -131,7 +131,7 @@ public class BlockHexoriumCoatedStone extends Block implements IHexBlock, IBlock
     public static void registerBlocks() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
-            BlockHexoriumCoatedStone block = new BlockHexoriumCoatedStone(name, variant);
+            Block block = new BlockHexoriumCoatedStone(name, variant);
             GameRegistry.registerBlock(block, name);
         }
     }

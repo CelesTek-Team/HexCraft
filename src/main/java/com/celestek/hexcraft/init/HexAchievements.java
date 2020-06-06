@@ -145,7 +145,7 @@ public class HexAchievements {
         FMLCommonHandler.instance().bus().register(craftingHandler);
 
         // Mining
-        achMineHexOre = new Achievement(hex1 + "achMineHexOre", hex2 + "achMineHexOre", -1, -6, HexBlocks.blockHexoriumOreGreen, null).registerStat();
+        achMineHexOre = new Achievement(hex1 + "achMineHexOre", hex2 + "achMineHexOre", -1, -6, HexBlocks.getHexBlock(BlockHexoriumOre.ID + BlockHexoriumOre.Colors.GREEN.name), null).registerStat();
         achList.add(achMineHexOre);
         achMineHexMonolith = new Achievement(hex1 + "achMineHexMonolith", hex2 + "achMineHexMonolith", 0, -6, HexBlocks.blockHexoriumMonolithGreen, null).registerStat();
         achList.add(achMineHexMonolith);
