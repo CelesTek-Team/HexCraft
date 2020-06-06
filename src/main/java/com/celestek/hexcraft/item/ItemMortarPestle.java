@@ -1,16 +1,9 @@
 package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.block.*;
-import com.celestek.hexcraft.init.HexAchievements;
-import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.HexUtils;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -45,5 +38,11 @@ public class ItemMortarPestle extends Item {
     @Override
     public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
         return false;
+    }
+
+    public static Item registerItem() {
+        Item item = new ItemMortarPestle(ID);
+        GameRegistry.registerItem(item, ID);
+        return item;
     }
 }

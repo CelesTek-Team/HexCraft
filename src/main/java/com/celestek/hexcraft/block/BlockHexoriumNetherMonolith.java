@@ -10,6 +10,7 @@ import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -39,17 +40,31 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
     // Block ID
     public static final String ID = "blockHexoriumNetherMonolith";
 
+    public enum Colors {
+        RED(  "Red",   2, 4, 12),
+        GREEN("Green", 2, 4, 12),
+        BLUE( "Blue",  2, 4, 12),
+        WHITE("White", 6, 8, 16),
+        BLACK("Black", 6, 8, 16);
+
+        public final String name;
+        public final int min, max, proc;
+
+        Colors(String name, int min, int max, int proc) {
+            this.name = name;
+            this.min = min;
+            this.max = max;
+            this.proc = proc;
+        }
+    }
+
     // Meta Bits
     public static final int META_ORIENTATION_0 = 0;
     public static final int META_ORIENTATION_1 = 1;
     public static final int META_ORIENTATION_2 = 2;
 
-    // Used later for texture identification.
-    private final String blockName;
-
-    // Used for drop rates.
-    private final int hexoriumDropMin;
-    private final int hexoriumDropMax;
+    // Color
+    private final Colors color;
 
     // Used for tool enchants.
     private int fortune = 0;
@@ -57,19 +72,14 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
     /**
      * Constructor for the block.
      * @param blockName Unlocalized name for the block. Contains color name.
-     * @param hexoriumDropMin Minimum amount of Hexorium Crystals dropped.
-     * @param hexoriumDropMax Maximum amount of Hexorium Crystals dropped.
+     * @param color The color of the block to use.
      */
-    public BlockHexoriumNetherMonolith(String blockName, int hexoriumDropMin, int hexoriumDropMax) {
+    public BlockHexoriumNetherMonolith(String blockName, Colors color) {
         super(Material.glass);
-
-        // Load the constructor parameters.
-        this.blockName = blockName;
-        this.hexoriumDropMin = hexoriumDropMin;
-        this.hexoriumDropMax = hexoriumDropMax;
 
         // Set all block parameters.
         this.setBlockName(blockName);
+        this.color = color;
         this.setCreativeTab(HexCraft.tabComponents);
 
         this.setHarvestLevel("pickaxe", 2);
@@ -196,7 +206,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         // Reset the fortune and silk touch parameters.
-        fortune = 0;
+        this.fortune = 0;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
@@ -217,22 +227,10 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
      */
     @Override
     public int quantityDropped(Random random) {
-        // Prepare the fortune extra drop count.
-        int fortuneDrop = 0;
-
-        // Set the according fortune extra drop count.
-        if (fortune == 1)
-            fortuneDrop = 2;
-        else if (fortune == 2)
-            fortuneDrop = 4;
-        else if (fortune == 3)
-            fortuneDrop = 6;
-
-        // If max and min drop rates are identical, drop only one value, otherwise, do a random calculation.
-        if (hexoriumDropMin == hexoriumDropMax)
-            return hexoriumDropMin;
+        if (this.color.min == this.color.max)
+            return this.color.min;
         else
-            return fortuneDrop + hexoriumDropMin + random.nextInt(hexoriumDropMax - hexoriumDropMin + 1);
+            return this.fortune*2 + this.color.min + random.nextInt(this.color.max - this.color.min + 1);
     }
 
     /**
@@ -240,19 +238,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
      */
     @Override
     public Item getItemDropped(int metadata, Random random, int fortune) {
-        // Return the according crystal color.
-        if (this == HexBlocks.blockHexoriumNetherMonolithRed)
-            return HexItems.itemHexoriumCrystalRed;
-        else if (this == HexBlocks.blockHexoriumNetherMonolithGreen)
-            return HexItems.itemHexoriumCrystalGreen;
-        else if (this == HexBlocks.blockHexoriumNetherMonolithBlue)
-            return HexItems.itemHexoriumCrystalBlue;
-        else if (this == HexBlocks.blockHexoriumNetherMonolithWhite)
-            return HexItems.itemHexoriumCrystalWhite;
-        else if (this == HexBlocks.blockHexoriumNetherMonolithBlack)
-            return HexItems.itemHexoriumCrystalBlack;
-        else
-            return null;
+        return HexItems.getHexItem("itemHexoriumCrystal" + this.color.name);
     }
 
     /**
@@ -303,7 +289,7 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
         // Load the outer texture.
         icon[0] = iconRegister.registerIcon(HexCraft.MODID + ":" + "transparent");
         // Load the monolith texture from normal ore.
-        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + blockName.replaceAll("Nether", "") + "A");
+        icon[1] = iconRegister.registerIcon(HexCraft.MODID + ":" + BlockHexoriumMonolith.ID + this.color.name + "A");
         // Load the netherrack texture.
         icon[2] = iconRegister.registerIcon(HexCraft.MODID + ":" + ID + "B");
     }
@@ -353,8 +339,16 @@ public class BlockHexoriumNetherMonolith extends HexBlockModel implements IHexBl
         return ID;
     }
 
+    public static void registerBlocks() {
+        for (Colors color : Colors.values()) {
+            String name = ID + color.name;
+            Block block = new BlockHexoriumNetherMonolith(name, color);
+            GameRegistry.registerBlock(block, name);
+        }
+    }
+
     public static void registerRenders() {
-        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+        for (Colors color : Colors.values()) {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexModelRendererMonolith(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, HexEnums.OPACITY_SLIGHT, HexEnums.Colors.GRAY, true));

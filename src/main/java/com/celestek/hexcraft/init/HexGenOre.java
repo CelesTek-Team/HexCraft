@@ -14,33 +14,24 @@ import java.util.Random;
 public class HexGenOre extends WorldGenerator {
 
     // Used later for generation.
-    private Block block;
-    private int blockmeta;
-    private Block target;
-    private int sizeMin;
-    private int sizeMax;
+    private final Block block;
+    private final Block target;
+    private final int sizeMin;
+    private final int sizeMax;
+    private final int meta;
 
     /**
      * Constructor for the vein generator class.
      * @param sizeMin Minimum ore blocks.
      * @param sizeMax Maximum ore blocks.
      */
-    public HexGenOre(Block block, Block replace, int sizeMin, int sizeMax) {
-        this(block, replace);
-
+    public HexGenOre(Block block, Block target, int sizeMin, int sizeMax) {
         // Load the constructor parameters.
+        this.block = block;
+        this.target = target;
         this.sizeMin = sizeMin;
         this.sizeMax = sizeMax;
-    }
-
-    public HexGenOre(Block block, Block target) {
-        this(block, 0, target);
-    }
-
-    public HexGenOre(Block block, int meta, Block target) {
-        this.block = block;
-        this.blockmeta = meta;
-        this.target = target;
+        this.meta = 0;
     }
 
     /**
@@ -59,7 +50,7 @@ public class HexGenOre extends WorldGenerator {
 
         // Generate the first vein block.
         if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
-            world.setBlock(x, y, z, block, blockmeta, 2);
+            world.setBlock(x, y, z, block, meta, 2);
 
         // Loop the count of additional blocks.
         for(int i = 0; i < genSize - 1; i++) {
@@ -106,7 +97,7 @@ public class HexGenOre extends WorldGenerator {
             // Generate a vein block.
             if (world.blockExists(x, y, z))
                 if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, target))
-                    world.setBlock(x, y, z, block, blockmeta, 2);
+                    world.setBlock(x, y, z, block, meta, 2);
         }
         return true;
     }

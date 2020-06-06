@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -69,5 +70,11 @@ public class ItemHexoriumReinforcer extends Item {
         }
 
         return false;
+    }
+
+    public static Item registerItem() {
+        Item item = new ItemHexoriumReinforcer(ID);
+        GameRegistry.registerItem(item, ID);
+        return item;
     }
 }

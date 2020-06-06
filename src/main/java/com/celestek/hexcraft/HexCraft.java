@@ -1,8 +1,10 @@
 package com.celestek.hexcraft;
 
+import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.network.ChannelHandler;
+import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -43,7 +45,7 @@ public class HexCraft {
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRainbow);
+            return Item.getItemFromBlock(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW));
         }
     };
     public static CreativeTabs tabMachines = new CreativeTabs("tabMachines") {

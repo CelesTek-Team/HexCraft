@@ -70,77 +70,76 @@ public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBloc
 
         // If the block wasn't destroyed using the Manipulator...
         if(fortune != HexCraft.hexFortune) {
-            // Set the according crystal color combinations.
-            if (this == HexBlocks.blockEnergizedHexoriumRed) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumOrange) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumYellow) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumLime) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumGreen) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumTurquoise) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumCyan) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumSkyBlue) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumBlue) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumPurple) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumMagenta) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumPink) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
-
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumWhite) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumLightGray) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumGray) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumDarkGray) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumBlack) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
-
-            }
-            else if (this == HexBlocks.blockEnergizedHexoriumRainbow) {
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
-                drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+            switch (this.color) {
+                case RED:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));
+                    break;
+                case ORANGE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                    break;
+                case YELLOW:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+                    break;
+                case LIME:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+                    break;
+                case GREEN:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 8));
+                    break;
+                case TURQUOISE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 6));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                    break;
+                case CYAN:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 4));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+                    break;
+                case SKY_BLUE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+                    break;
+                case BLUE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 8));
+                    break;
+                case PURPLE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 6));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                    break;
+                case MAGENTA:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 4));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 4));
+                    break;
+                case PINK:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 6));
+                    break;
+                case WHITE:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 8));
+                    break;
+                case LIGHT_GRAY:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 6));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 2));
+                    break;
+                case GRAY:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 4));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 4));
+                    break;
+                case DARK_GRAY:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 6));
+                    break;
+                case BLACK:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlack, 8));
+                    break;
+                case RAINBOW:
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalGreen, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalBlue, 2));
+                    drops.add(new ItemStack(HexItems.itemHexoriumCrystalWhite, 2));
+                    break;
             }
         }
         else

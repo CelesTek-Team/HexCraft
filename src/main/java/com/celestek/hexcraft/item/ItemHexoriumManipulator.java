@@ -12,6 +12,7 @@ import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -924,5 +925,11 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x, y, z + 1, blockSurr);
         }
+    }
+
+    public static Item registerItem() {
+        Item item = new ItemHexoriumManipulator(ID);
+        GameRegistry.registerItem(item, ID);
+        return item;
     }
 }

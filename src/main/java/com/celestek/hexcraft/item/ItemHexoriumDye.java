@@ -113,7 +113,7 @@ public class ItemHexoriumDye extends Item {
         return false;
     }
 
-    public static void registerItems() {
+    public static void registerItem() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
             ItemHexoriumDye item = new ItemHexoriumDye(name, variant);

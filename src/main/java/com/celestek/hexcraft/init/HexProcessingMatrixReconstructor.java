@@ -1,5 +1,9 @@
 package com.celestek.hexcraft.init;
 
+import com.celestek.hexcraft.block.BlockEnergizedHexorium;
+import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
+import com.celestek.hexcraft.block.BlockHexoriumOre;
+import com.celestek.hexcraft.util.HexEnums;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -15,7 +19,7 @@ public class HexProcessingMatrixReconstructor {
 
     private static final HexProcessingMatrixReconstructor PROCESSING_BASE = new HexProcessingMatrixReconstructor();
 
-    private Map processingList = new HashMap();
+    private final Map processingList = new HashMap();
 
     public static HexProcessingMatrixReconstructor processing() {
         return PROCESSING_BASE;
@@ -23,26 +27,9 @@ public class HexProcessingMatrixReconstructor {
 
     private HexProcessingMatrixReconstructor() {
         // Energized Hexorium Monolith
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRed), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumOrange), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumYellow), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumLime), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumGreen), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumTurquoise), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumCyan), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumSkyBlue), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumBlue), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumPurple), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumMagenta), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumPink), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink));
 
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumWhite), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumLightGray), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumGray), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumDarkGray), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray));
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumBlack), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack));
-
-        addRecipe(Item.getItemFromBlock(HexBlocks.blockEnergizedHexoriumRainbow), new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow));
+        for (HexEnums.Colors color : HexEnums.Colors.values())
+            addRecipe(Item.getItemFromBlock(HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color)), new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexoriumMonolith.ID, color)));
     }
 
     public void addRecipe(Item item, ItemStack itemstack){

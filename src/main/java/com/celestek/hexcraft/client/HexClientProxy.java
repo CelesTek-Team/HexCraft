@@ -59,16 +59,16 @@ public class HexClientProxy extends HexCommonProxy {
         // Prepare HexCraft's block ID counter.
         HexCraft.idCounter = 0;
 
+        // Ores
         BlockHexoriumOre.registerRenders();
-        BlockHexoriumNetherOre.registerRenders();
-
-        // Hexorium Monolith
         BlockHexoriumMonolith.registerRenders();
+        BlockHexoriumNetherOre.registerRenders();
         BlockHexoriumNetherMonolith.registerRenders();
 
         // Block of Hexorium Crystal
         BlockOfHexoriumCrystal.registerRenders();
 
+        // Decorative
         BlockEnergizedHexorium.registerRenders();
         BlockEngineeredHexoriumBlock.registerRenders();
         BlockFramedHexoriumBlock.registerRenders();

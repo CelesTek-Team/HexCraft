@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.item.*;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -13,6 +12,8 @@ import net.minecraft.item.ItemStack;
  */
 
 public class HexItems {
+
+    public static String ID_CRYSTAL = "itemHexoriumCrystal";
 
     // Raw Materials
     public static Item itemHexoriumCrystalRed;
@@ -71,109 +72,67 @@ public class HexItems {
      */
     public static void initializeItems() {
         // Raw Materials
-        itemHexoriumCrystalRed = new HexItemComponent("itemHexoriumCrystalRed");
-        GameRegistry.registerItem(itemHexoriumCrystalRed, "itemHexoriumCrystalRed");
-        itemHexoriumCrystalGreen = new HexItemComponent("itemHexoriumCrystalGreen");
-        GameRegistry.registerItem(itemHexoriumCrystalGreen, "itemHexoriumCrystalGreen");
-        itemHexoriumCrystalBlue = new HexItemComponent("itemHexoriumCrystalBlue");
-        GameRegistry.registerItem(itemHexoriumCrystalBlue, "itemHexoriumCrystalBlue");
-        itemHexoriumCrystalWhite = new HexItemComponent("itemHexoriumCrystalWhite");
-        GameRegistry.registerItem(itemHexoriumCrystalWhite, "itemHexoriumCrystalWhite");
-        itemHexoriumCrystalBlack = new HexItemComponent("itemHexoriumCrystalBlack");
-        GameRegistry.registerItem(itemHexoriumCrystalBlack, "itemHexoriumCrystalBlack");
+        itemHexoriumCrystalRed   = registerItem("itemHexoriumCrystalRed");
+        itemHexoriumCrystalGreen = registerItem("itemHexoriumCrystalGreen");
+        itemHexoriumCrystalBlue  = registerItem("itemHexoriumCrystalBlue");
+        itemHexoriumCrystalWhite = registerItem("itemHexoriumCrystalWhite");
+        itemHexoriumCrystalBlack = registerItem("itemHexoriumCrystalBlack");
 
         // Components T1
-        itemIronNugget = new HexItemComponent("itemIronNugget");
-        GameRegistry.registerItem(itemIronNugget, "itemIronNugget");
-        itemRainbowEnergizedGlobule = new HexItemComponent("itemRainbowEnergizedGlobule");
-        GameRegistry.registerItem(itemRainbowEnergizedGlobule, "itemRainbowEnergizedGlobule");
-        itemWhiteHexoriumWafer = new HexItemComponent("itemWhiteHexoriumWafer");
-        GameRegistry.registerItem(itemWhiteHexoriumWafer, "itemWhiteHexoriumWafer");
-        itemBlackHexoriumWafer = new HexItemComponent("itemBlackHexoriumWafer");
-        GameRegistry.registerItem(itemBlackHexoriumWafer, "itemBlackHexoriumWafer");
-        itemSpatialProjector = new HexItemComponent("itemSpatialProjector");
-        GameRegistry.registerItem(itemSpatialProjector, "itemSpatialProjector");
-        if (HexConfig.cfgSeparatorEnable) {
-            itemOreActuator = new HexItemComponent("itemOreActuator");
-            GameRegistry.registerItem(itemOreActuator, "itemOreActuator");
-        }
-        itemPylonSocket = new HexItemComponent("itemPylonSocket");
-        GameRegistry.registerItem(itemPylonSocket, "itemPylonSocket");
-        itemHexoriumGlassPackage = new HexItemComponent("itemHexoriumGlassPackage");
-        GameRegistry.registerItem(itemHexoriumGlassPackage, "itemHexoriumGlassPackage");
+        itemIronNugget              = registerItem("itemIronNugget");
+        itemRainbowEnergizedGlobule = registerItem("itemRainbowEnergizedGlobule");
+        itemWhiteHexoriumWafer      = registerItem("itemWhiteHexoriumWafer");
+        itemBlackHexoriumWafer      = registerItem("itemBlackHexoriumWafer");
+        itemSpatialProjector        = registerItem("itemSpatialProjector");
+        itemOreActuator             = registerItem("itemOreActuator", HexConfig.cfgSeparatorEnable);
+        itemPylonSocket             = registerItem("itemPylonSocket");
+        itemHexoriumGlassPackage    = registerItem("itemHexoriumGlassPackage");
 
         // Components T2
-        itemRainbowCore = new HexItemComponent("itemRainbowCore");
-        GameRegistry.registerItem(itemRainbowCore, "itemRainbowCore");
-        itemHexoriumCoprocessor = new HexItemComponent("itemHexoriumCoprocessor");
-        GameRegistry.registerItem(itemHexoriumCoprocessor, "itemHexoriumCoprocessor");
-        itemHexoriumProcessor = new HexItemComponent("itemHexoriumProcessor");
-        GameRegistry.registerItem(itemHexoriumProcessor, "itemHexoriumProcessor");
-        if (HexConfig.cfgSeparatorEnable) {
-            itemMineralAnalyzer = new HexItemComponent("itemMineralAnalyzer");
-            GameRegistry.registerItem(itemMineralAnalyzer, "itemMineralAnalyzer");
-        }
-        itemHexoriumEnergyConverter = new HexItemComponent("itemHexoriumEnergyConverter");
-        GameRegistry.registerItem(itemHexoriumEnergyConverter, "itemHexoriumEnergyConverter");
-        itemEnergyInjector = new HexItemComponent("itemEnergyInjector");
-        GameRegistry.registerItem(itemEnergyInjector, "itemEnergyInjector");
-        if (HexConfig.cfgTeleportEnable) {
-            itemMolecularRecoder = new HexItemComponent("itemMolecularRecoder");
-            GameRegistry.registerItem(itemMolecularRecoder, "itemMolecularRecoder");
-        }
-        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsRFEnable) {
-            itemHexoriumRFAdapter = new HexItemComponent("itemHexoriumRFAdapter");
-            GameRegistry.registerItem(itemHexoriumRFAdapter, "itemHexoriumRFAdapter");
-        }
+        itemRainbowCore             = registerItem("itemRainbowCore");
+        itemHexoriumCoprocessor     = registerItem("itemHexoriumCoprocessor");
+        itemHexoriumProcessor       = registerItem("itemHexoriumProcessor");
+        itemMineralAnalyzer         = registerItem("itemMineralAnalyzer", HexConfig.cfgSeparatorEnable);
+        itemHexoriumEnergyConverter = registerItem("itemHexoriumEnergyConverter");
+        itemEnergyInjector          = registerItem("itemEnergyInjector");
+        itemMolecularRecoder        = registerItem("itemMolecularRecoder", HexConfig.cfgTeleportEnable);
+        itemHexoriumRFAdapter       = registerItem("itemHexoriumRFAdapter", HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsRFEnable);
 
         // Components MP
-        itemMachineControlPanel = new HexItemComponent("itemMachineControlPanel");
-        GameRegistry.registerItem(itemMachineControlPanel, "itemMachineControlPanel");
-        itemMachineEnergyRouter = new HexItemComponent("itemMachineEnergyRouter");
-        GameRegistry.registerItem(itemMachineEnergyRouter, "itemMachineEnergyRouter");
-        itemHeatDissipator = new HexItemComponent("itemHeatDissipator");
-        GameRegistry.registerItem(itemHeatDissipator, "itemHeatDissipator");
-        if (HexConfig.cfgFurnaceEnable) {
-            itemHeatingArray = new HexItemComponent("itemHeatingArray");
-            GameRegistry.registerItem(itemHeatingArray, "itemHeatingArray");
-        }
-        if (HexConfig.cfgSeparatorEnable) {
-            itemCrystalExtractionUnit = new HexItemComponent("itemCrystalExtractionUnit");
-            GameRegistry.registerItem(itemCrystalExtractionUnit, "itemCrystalExtractionUnit");
-        }
-        itemMatrixAdjuster = new HexItemComponent("itemMatrixAdjuster");
-        GameRegistry.registerItem(itemMatrixAdjuster, "itemMatrixAdjuster");
-        if (HexConfig.cfgTeleportEnable) {
-            itemMaterialInteractionPlane = new HexItemComponent("itemMaterialInteractionPlane");
-            GameRegistry.registerItem(itemMaterialInteractionPlane, "itemMaterialInteractionPlane");
-            itemTeleportationFieldProjector = new HexItemComponent("itemTeleportationFieldProjector");
-            GameRegistry.registerItem(itemTeleportationFieldProjector, "itemTeleportationFieldProjector");
-        }
-        if (HexConfig.cfgObserverEnable) {
-            itemObservationalEye = new HexItemComponent("itemObservationalEye");
-            GameRegistry.registerItem(itemObservationalEye, "itemObservationalEye");
-        }
-        if (HexConfig.cfgTankEnable) {
-            itemDigitalSmartpipe = new HexItemComponent("itemDigitalSmartpipe");
-            GameRegistry.registerItem(itemDigitalSmartpipe, "itemDigitalSmartpipe");
-        }
-        itemSoundEmissionModule = new HexItemComponent("itemSoundEmissionModule");
-        GameRegistry.registerItem(itemSoundEmissionModule, "itemSoundEmissionModule");
+        itemMachineControlPanel         = registerItem("itemMachineControlPanel");
+        itemMachineEnergyRouter         = registerItem("itemMachineEnergyRouter");
+        itemHeatDissipator              = registerItem("itemHeatDissipator");
+        itemHeatingArray                = registerItem("itemHeatingArray", HexConfig.cfgFurnaceEnable);
+        itemCrystalExtractionUnit       = registerItem("itemCrystalExtractionUnit", HexConfig.cfgSeparatorEnable);
+        itemMatrixAdjuster              = registerItem("itemMatrixAdjuster");
+        itemMaterialInteractionPlane    = registerItem("itemMaterialInteractionPlane", HexConfig.cfgTeleportEnable);
+        itemTeleportationFieldProjector = registerItem("itemTeleportationFieldProjector", HexConfig.cfgTeleportEnable);
+        itemObservationalEye            = registerItem("itemObservationalEye", HexConfig.cfgObserverEnable);
+        itemDigitalSmartpipe            = registerItem("itemDigitalSmartpipe", HexConfig.cfgTankEnable);
+        itemSoundEmissionModule         = registerItem("itemSoundEmissionModule");
         
         // Tools
-        itemHexoriumManipulator = new ItemHexoriumManipulator(ItemHexoriumManipulator.ID);
-        GameRegistry.registerItem(itemHexoriumManipulator, ItemHexoriumManipulator.ID);
-        itemHexoriumProbe = new ItemHexoriumProbe(ItemHexoriumProbe.ID);
-        GameRegistry.registerItem(itemHexoriumProbe, ItemHexoriumProbe.ID);
-        itemMolecularTransposer = new ItemMolecularTransposer(ItemMolecularTransposer.ID);
-        GameRegistry.registerItem(itemMolecularTransposer, ItemMolecularTransposer.ID);
-        itemHexoriumReinforcer = new ItemHexoriumReinforcer(ItemHexoriumReinforcer.ID);
-        GameRegistry.registerItem(itemHexoriumReinforcer, ItemHexoriumReinforcer.ID);
-        itemMortarPestle = new ItemMortarPestle(ItemMortarPestle.ID);
-        GameRegistry.registerItem(itemMortarPestle, ItemMortarPestle.ID);
+        itemHexoriumManipulator = ItemHexoriumManipulator.registerItem();
+        itemHexoriumProbe = ItemHexoriumProbe.registerItem();
+        itemMolecularTransposer = ItemMolecularTransposer.registerItem();
+        itemHexoriumReinforcer = ItemHexoriumReinforcer.registerItem();
+        itemMortarPestle = ItemMortarPestle.registerItem();
 
         // Dyes
-        ItemHexoriumDye.registerItems();
+        ItemHexoriumDye.registerItem();
+    }
+
+    private static Item registerItem(String name, boolean enabled) {
+        if (enabled)
+            return registerItem(name);
+        else
+            return null;
+    }
+
+    private static Item registerItem(String name) {
+        Item item = new HexItemComponent(name);
+        GameRegistry.registerItem(item, name);
+        return item;
     }
 
     public static Item getHexItem(String id, HexEnums.Variants variant) {

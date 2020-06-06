@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Random;
 
@@ -34,24 +35,25 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
     public static final String ID = "blockHexoriumOre";
 
     public enum Colors {
-        RED(  "Red",   2, 4),
-        GREEN("Green", 2, 4),
-        BLUE( "Blue",  2, 4),
-        WHITE("White", 1, 2),
-        BLACK("Black", 1, 2);
+        RED(  "Red",   2, 4, 8),
+        GREEN("Green", 2, 4, 8),
+        BLUE( "Blue",  2, 4, 8),
+        WHITE("White", 1, 2, 6),
+        BLACK("Black", 1, 2, 6);
 
         public final String name;
-        public final int min, max;
+        public final int min, max, proc;
 
-        Colors(String name, int min, int max) {
+        Colors(String name, int min, int max, int proc) {
             this.name = name;
             this.min = min;
             this.max = max;
+            this.proc = proc;
         }
     }
 
     // Color
-    private final BlockHexoriumOre.Colors color;
+    private final Colors color;
 
     // Used for tool enchants.
     private int fortune = 0;
@@ -61,7 +63,7 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
      * @param blockName Unlocalized name for the block. Contains color name.
      * @param color The color of the block to use.
      */
-    public BlockHexoriumOre(String blockName, BlockHexoriumOre.Colors color) {
+    public BlockHexoriumOre(String blockName, Colors color) {
         super(Material.rock);
 
         // Set all block parameters.
@@ -89,7 +91,7 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         // Reset the fortune and silk touch parameters.
-        fortune = 0;
+        this.fortune = 0;
         // Check if the player has something in their hand.
         if(player.getCurrentEquippedItem() != null) {
             NBTTagList list = player.getCurrentEquippedItem().getEnchantmentTagList();
@@ -113,7 +115,7 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
         if (this.color.min == this.color.max)
             return this.color.min;
         else
-            return fortune + this.color.min + random.nextInt(this.color.max - this.color.min + 1);
+            return this.fortune + this.color.min + random.nextInt(this.color.max - this.color.min + 1);
     }
 
     /**
@@ -173,6 +175,12 @@ public class BlockHexoriumOre extends HexBlock implements IHexBlock {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, HexEnums.Colors.GRAY));
+        }
+    }
+
+    public static void registerOres() {
+        for (Colors color : Colors.values()) {
+            OreDictionary.registerOre("oreHexorium" + color.name, HexBlocks.getHexBlock(ID + color.name));
         }
     }
 }

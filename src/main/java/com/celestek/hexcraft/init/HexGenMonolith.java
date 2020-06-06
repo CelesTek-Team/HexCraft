@@ -17,8 +17,8 @@ import java.util.Random;
 public class HexGenMonolith extends WorldGenerator {
 
     // Used later for generation.
-    private Block block;
-    private Block target;
+    private final Block block;
+    private final Block target;
     int heightMin;
     int heightMax;
     int chance;
@@ -28,22 +28,14 @@ public class HexGenMonolith extends WorldGenerator {
      * @param heightMin Minimum height to spawn the monolith in.
      * @param heightMax Maximum height to spawn the monolith in.
      */
-    public HexGenMonolith(Block block, Block replace, int heightMin, int heightMax, int chance) {
-        this(block, replace);
+    public HexGenMonolith(Block block, Block target, int heightMin, int heightMax, int chance) {
 
         // Load the constructor parameters.
+        this.block = block;
+        this.target = target;
         this.heightMin = heightMin;
         this.heightMax = heightMax;
         this.chance = chance;
-    }
-
-    public HexGenMonolith(Block block, Block target) {
-        this(block, 0, target);
-    }
-
-    public HexGenMonolith(Block block, int meta, Block target) {
-        this.block = block;
-        this.target = target;
     }
 
     /**

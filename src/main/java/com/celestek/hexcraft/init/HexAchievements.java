@@ -6,6 +6,8 @@ import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
@@ -136,211 +138,177 @@ public class HexAchievements {
      * Initializes all achievements.
      */
     public static void initializeAchievements() {
-        // Prepare default unlocalized string parts.
-        String hex1 = "achievement.hexcraft.";
-        String hex2 = "hexcraft.";
-
         // Register the crafting handler.
         final HexCraftingHandler craftingHandler = new HexCraftingHandler();
         FMLCommonHandler.instance().bus().register(craftingHandler);
 
         // Mining
-        achMineHexOre = new Achievement(hex1 + "achMineHexOre", hex2 + "achMineHexOre", -1, -6, HexBlocks.getHexBlock(BlockHexoriumOre.ID + BlockHexoriumOre.Colors.GREEN.name), null).registerStat();
-        achList.add(achMineHexOre);
-        achMineHexMonolith = new Achievement(hex1 + "achMineHexMonolith", hex2 + "achMineHexMonolith", 0, -6, HexBlocks.blockHexoriumMonolithGreen, null).registerStat();
-        achList.add(achMineHexMonolith);
+        achMineHexOre      = register("achMineHexOre",      HexBlocks.getHexBlock(BlockHexoriumOre.ID + BlockHexoriumOre.Colors.GREEN.name),           null, -1, -6);
+        achMineHexMonolith = register("achMineHexMonolith", HexBlocks.getHexBlock(BlockHexoriumMonolith.ID + BlockHexoriumMonolith.Colors.GREEN.name), null, 0, -6);
 
         // Energized Hexorium
-        achCraftEnergizedRed = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.RED.name, hex2 + "achCraftEnergized" + HexEnums.Colors.RED.name, 1, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RED), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedRed); 
-        achCraftEnergizedOrange = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.ORANGE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.ORANGE.name, 2, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.ORANGE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedOrange);  
-        achCraftEnergizedYellow = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.YELLOW.name, hex2 + "achCraftEnergized" + HexEnums.Colors.YELLOW.name, 3, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.YELLOW), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedYellow);
-        achCraftEnergizedLime = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.LIME.name, hex2 + "achCraftEnergized" + HexEnums.Colors.LIME.name, 4, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.LIME), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedLime);
-        achCraftEnergizedGreen = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.GREEN.name, hex2 + "achCraftEnergized" + HexEnums.Colors.GREEN.name, 5, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedGreen);
-        achCraftEnergizedTurquoise = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.TURQUOISE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.TURQUOISE.name, 6, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.TURQUOISE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedTurquoise);
-        achCraftEnergizedCyan = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.CYAN.name, hex2 + "achCraftEnergized" + HexEnums.Colors.CYAN.name, 7, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.CYAN), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedCyan);
-        achCraftEnergizedSkyBlue = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.SKY_BLUE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.SKY_BLUE.name, 8, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.SKY_BLUE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedSkyBlue);
-        achCraftEnergizedBlue = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.BLUE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.BLUE.name, 9, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.BLUE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedBlue);
-        achCraftEnergizedPurple = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.PURPLE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.PURPLE.name, 10, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.PURPLE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedPurple);
-        achCraftEnergizedMagenta = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.MAGENTA.name, hex2 + "achCraftEnergized" + HexEnums.Colors.MAGENTA.name, 11, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.MAGENTA), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedMagenta);       
-        achCraftEnergizedPink = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.PINK.name, hex2 + "achCraftEnergized" + HexEnums.Colors.PINK.name, 12, -2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.PINK), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedPink);
-        achCraftEnergizedWhite = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.WHITE.name, hex2 + "achCraftEnergized" + HexEnums.Colors.WHITE.name, 1, 0, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.WHITE), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedWhite);
-        achCraftEnergizedLightGray = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.LIGHT_GRAY.name, hex2 + "achCraftEnergized" + HexEnums.Colors.LIGHT_GRAY.name, 2, 0, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.LIGHT_GRAY), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedLightGray);
-        achCraftEnergizedGray = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.GRAY.name, hex2 + "achCraftEnergized" + HexEnums.Colors.GRAY.name, 3, 0, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.GRAY), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedGray);
-        achCraftEnergizedDarkGray = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.DARK_GRAY.name, hex2 + "achCraftEnergized" + HexEnums.Colors.DARK_GRAY.name, 4, 0, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.DARK_GRAY), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedDarkGray);
-        achCraftEnergizedBlack = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.BLACK.name, hex2 + "achCraftEnergized" + HexEnums.Colors.BLACK.name, 5, 0, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.BLACK), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedBlack);
-        achCraftEnergizedRainbow = new Achievement(hex1 + "achCraftEnergized" + HexEnums.Colors.RAINBOW.name, hex2 + "achCraftEnergized" + HexEnums.Colors.RAINBOW.name, 1, 2, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW), achMineHexOre).registerStat();
-        achList.add(achCraftEnergizedRainbow);
+        achCraftEnergizedRed       = register("achCraftEnergized" + HexEnums.Colors.RED.name,        HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RED),        achMineHexOre, 1, -2);
+        achCraftEnergizedOrange    = register("achCraftEnergized" + HexEnums.Colors.ORANGE.name,     HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.ORANGE),     achMineHexOre, 2, -2);
+        achCraftEnergizedYellow    = register("achCraftEnergized" + HexEnums.Colors.YELLOW.name,     HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.YELLOW),     achMineHexOre, 3, -2);
+        achCraftEnergizedLime      = register("achCraftEnergized" + HexEnums.Colors.LIME.name,       HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.LIME),       achMineHexOre, 4, -2);
+        achCraftEnergizedGreen     = register("achCraftEnergized" + HexEnums.Colors.GREEN.name,      HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.GREEN),      achMineHexOre, 5, -2);
+        achCraftEnergizedTurquoise = register("achCraftEnergized" + HexEnums.Colors.TURQUOISE.name,  HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.TURQUOISE),  achMineHexOre, 6, -2);
+        achCraftEnergizedCyan      = register("achCraftEnergized" + HexEnums.Colors.CYAN.name,       HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.CYAN),       achMineHexOre, 7, -2);
+        achCraftEnergizedSkyBlue   = register("achCraftEnergized" + HexEnums.Colors.SKY_BLUE.name,   HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.SKY_BLUE),   achMineHexOre, 8, -2);
+        achCraftEnergizedBlue      = register("achCraftEnergized" + HexEnums.Colors.BLUE.name,       HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.BLUE),       achMineHexOre, 9, -2);
+        achCraftEnergizedPurple    = register("achCraftEnergized" + HexEnums.Colors.PURPLE.name,     HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.PURPLE),     achMineHexOre, 10, -2);
+        achCraftEnergizedMagenta   = register("achCraftEnergized" + HexEnums.Colors.MAGENTA.name,    HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.MAGENTA),    achMineHexOre, 11, -2);
+        achCraftEnergizedPink      = register("achCraftEnergized" + HexEnums.Colors.PINK.name,       HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.PINK),       achMineHexOre, 12, -2);
+        achCraftEnergizedWhite     = register("achCraftEnergized" + HexEnums.Colors.WHITE.name,      HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.WHITE),      achMineHexOre, 1, 0);
+        achCraftEnergizedLightGray = register("achCraftEnergized" + HexEnums.Colors.LIGHT_GRAY.name, HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.LIGHT_GRAY), achMineHexOre, 2, 0);
+        achCraftEnergizedGray      = register("achCraftEnergized" + HexEnums.Colors.GRAY.name,       HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.GRAY),       achMineHexOre, 3, 0);
+        achCraftEnergizedDarkGray  = register("achCraftEnergized" + HexEnums.Colors.DARK_GRAY.name,  HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.DARK_GRAY),  achMineHexOre, 4, 0);
+        achCraftEnergizedBlack     = register("achCraftEnergized" + HexEnums.Colors.BLACK.name,      HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.BLACK),      achMineHexOre, 5, 0);
+        achCraftEnergizedRainbow   = register("achCraftEnergized" + HexEnums.Colors.RAINBOW.name,    HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW),    achMineHexOre, 1, 2);
 
         // Energized Hexorium Specials
-        achGroupColors = new Achievement(hex1 + "achGroupColors", hex2 + "achGroupColors", 14, -2, HexItems.itemRainbowEnergizedGlobule, achMineHexOre).setSpecial().registerStat();
-        achList.add(achGroupColors);
-        achGroupGrays = new Achievement(hex1 + "achGroupGrays", hex2 + "achGroupGrays", 7, 0, HexItems.itemBlackHexoriumWafer, achMineHexOre).setSpecial().registerStat();
-        achList.add(achGroupGrays);
+        achGroupColors = registerSpecial("achGroupColors", HexItems.itemRainbowEnergizedGlobule, achMineHexOre, 14, -2);
+        achGroupGrays  = registerSpecial("achGroupGrays",  HexItems.itemBlackHexoriumWafer,      achMineHexOre, 7, 0);
 
         // Decorative
-        achCraftEngineeredBlock = new Achievement(hex1 + "achCraftEngineeredBlock", hex2 + "achCraftEngineeredBlock", -3, -2,  HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftEngineeredBlock);
-        achCraftFramedBlock = new Achievement(hex1 + "achCraftFramedBlock", hex2 + "achCraftFramedBlock", -4, -2, HexBlocks.getHexBlock(BlockFramedHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftFramedBlock);
-        achCraftPlatedBlock = new Achievement(hex1 + "achCraftPlatedBlock", hex2 + "achCraftPlatedBlock", -5, -2, HexBlocks.getHexBlock(BlockPlatedHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftPlatedBlock);
-        achCraftConcentricBlock = new Achievement(hex1 + "achCraftConcentricBlock", hex2 + "achCraftConcentricBlock", -6, -2, HexBlocks.getHexBlock(BlockConcentricHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftConcentricBlock);
-        achCraftStructureCasing = new Achievement(hex1 + "achCraftStructureCasing", hex2 + "achCraftStructureCasing", -7, -2, HexBlocks.getHexBlock(BlockHexoriumStructureCasing.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftStructureCasing);
-        achCraftDoor = new Achievement(hex1 + "achCraftDoor", hex2 + "achCraftDoor", -8, -2, HexBlocks.getHexBlock(BlockHexoriumDoor.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftDoor);
-        achCraftHatch = new Achievement(hex1 + "achCraftHatch", hex2 + "achCraftHatch", -9, -2, HexBlocks.getHexBlock(BlockHexoriumHatch.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftHatch);
-        achCraftGlowingGlass = new Achievement(hex1 + "achCraftGlowingGlass", hex2 + "achCraftGlowingGlass", -10, -2, HexBlocks.getHexBlock(BlockGlowingHexoriumGlass.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftGlowingGlass);
-        achCraftLamp = new Achievement(hex1 + "achCraftLamp", hex2 + "achCraftLamp", -11, -2, HexBlocks.getHexBlock(BlockHexoriumLamp.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftLamp);
-        achCraftLampInv = new Achievement(hex1 + "achCraftLampInv", hex2 + "achCraftLampInv", -12, -2, HexBlocks.getHexBlock(BlockHexoriumLampInv.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftLampInv);
+        achCraftEngineeredBlock = register("achCraftEngineeredBlock", HexBlocks.getHexBlock(BlockEngineeredHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre, -3, -2);
+        achCraftFramedBlock     = register("achCraftFramedBlock",     HexBlocks.getHexBlock(BlockFramedHexoriumBlock.ID,     HexEnums.Colors.GREEN), achMineHexOre, -4, -2);
+        achCraftPlatedBlock     = register("achCraftPlatedBlock",     HexBlocks.getHexBlock(BlockPlatedHexoriumBlock.ID,     HexEnums.Colors.GREEN), achMineHexOre, -5, -2);
+        achCraftConcentricBlock = register("achCraftConcentricBlock", HexBlocks.getHexBlock(BlockConcentricHexoriumBlock.ID, HexEnums.Colors.GREEN), achMineHexOre, -6, -2);
+        achCraftStructureCasing = register("achCraftStructureCasing", HexBlocks.getHexBlock(BlockHexoriumStructureCasing.ID, HexEnums.Colors.GREEN), achMineHexOre, -7, -2);
+        achCraftDoor            = register("achCraftDoor",            HexBlocks.getHexBlock(BlockHexoriumDoor.ID,            HexEnums.Colors.GREEN), achMineHexOre, -8, -2);
+        achCraftHatch           = register("achCraftHatch",           HexBlocks.getHexBlock(BlockHexoriumHatch.ID,           HexEnums.Colors.GREEN), achMineHexOre, -9, -2);
+        achCraftGlowingGlass    = register("achCraftGlowingGlass",    HexBlocks.getHexBlock(BlockGlowingHexoriumGlass.ID,    HexEnums.Colors.GREEN), achMineHexOre, -10, -2);
+        achCraftLamp            = register("achCraftLamp",            HexBlocks.getHexBlock(BlockHexoriumLamp.ID,            HexEnums.Colors.GREEN), achMineHexOre, -11, -2);
+        achCraftLampInv         = register("achCraftLampInv",         HexBlocks.getHexBlock(BlockHexoriumLampInv.ID,         HexEnums.Colors.GREEN), achMineHexOre, -12, -2);
 
         // Decorative Special
-        achGroupDecorations = new Achievement(hex1 + "achGroupDecorations", hex2 + "achGroupDecorations", -14, -2, HexBlocks.getHexBlock(BlockHexoriumMonolith.ID, HexEnums.Colors.GREEN), achMineHexOre).setSpecial().registerStat();
-        achList.add(achGroupDecorations);
+        achGroupDecorations = registerSpecial("achGroupDecorations", HexBlocks.getHexBlock(BlockHexoriumMonolith.ID, HexEnums.Colors.GREEN), achMineHexOre, -14, -2);
 
         // Reinforcer
-        achUseReinforcer = new Achievement(hex1 + "achUseReinforcer", hex2 + "achUseReinforcer", -3, -4, HexItems.itemHexoriumReinforcer, achMineHexOre).registerStat();
-        achList.add(achUseReinforcer);
+        achUseReinforcer = register("achUseReinforcer", HexItems.itemHexoriumReinforcer, achMineHexOre, -3, -4);
 
         // Dyeing
-        achUseDye = new Achievement(hex1 + "achUseDye", hex2 + "achUseDye", -3, -3, HexBlocks.blockHexoriumCoatedStoneWhite, achMineHexOre).registerStat();
-        achList.add(achUseDye);
+        achUseDye = register("achUseDye", HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, HexEnums.Variants.WHITE), achMineHexOre, -3, -3);
 
-        // Energized Hexorium
-        achCraftHexoriumCoatedStone = new Achievement(hex1 + "achCraftHexoriumCoatedStone", hex2 + "achCraftHexoriumCoatedStone", 1, -3, HexBlocks.blockHexoriumCoatedStone, achMineHexOre).registerStat();
-        achList.add(achCraftHexoriumCoatedStone);
-        achCraftGlowingHexoriumCoatedStone = new Achievement(hex1 + "achCraftGlowingHexoriumCoatedStone", hex2 + "achCraftGlowingHexoriumCoatedStone", 3, -3, HexBlocks.getHexBlock(BlockGlowingHexoriumCoatedStone.ID, HexEnums.Colors.GREEN), achCraftHexoriumCoatedStone).registerStat();
-        achList.add(achCraftGlowingHexoriumCoatedStone);
+        // Hexorium CoatedStone
+        achCraftHexoriumCoatedStone        = register("achCraftHexoriumCoatedStone",        HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID,        HexEnums.Variants.BLACK), achMineHexOre,               1, -3);
+        achCraftGlowingHexoriumCoatedStone = register("achCraftGlowingHexoriumCoatedStone", HexBlocks.getHexBlock(BlockGlowingHexoriumCoatedStone.ID, HexEnums.Colors.GREEN),   achCraftHexoriumCoatedStone, 3, -3);
 
         // T1 Sound Machines
-        achCraftSoundEmissionModule = new Achievement(hex1 + "achCraftSoundEmissionModule", hex2 + "achCraftSoundEmissionModule", -6, -1, HexItems.itemSoundEmissionModule, achMineHexOre).registerStat();
-        achList.add(achCraftSoundEmissionModule);
+        achCraftSoundEmissionModule = register("achCraftSoundEmissionModule", HexItems.itemSoundEmissionModule, achMineHexOre, -6, -1);
 
         // T2 Sound Machines
-        achCraftSoundProjector = new Achievement(hex1 + "achCraftSoundProjector", hex2 + "achCraftSoundProjector", -6, 1, HexBlocks.blockSoundProjector, achCraftSoundEmissionModule).registerStat();
-        achList.add(achCraftSoundProjector);
+        achCraftSoundProjector = register("achCraftSoundProjector", HexBlocks.getHexBlock(BlockSoundProjector.ID), achCraftSoundEmissionModule, -6, 1);
 
         // T1 Machines
-        achCraftMachineBlock = new Achievement(hex1 + "achCraftMachineBlock", hex2 + "achCraftMachineBlock", -4, 1, HexBlocks.blockHexoriumMachineBlock, achCraftEnergizedWhite).registerStat();
-        achList.add(achCraftMachineBlock);
-        achCraftCable = new Achievement(hex1 + "achCraftCable", hex2 + "achCraftCable", -3, 0, HexBlocks.getHexBlock(BlockHexoriumCable.ID, HexEnums.Colors.GREEN), achMineHexOre).registerStat();
-        achList.add(achCraftCable);
+        achCraftMachineBlock = register("achCraftMachineBlock", HexBlocks.getHexBlock(BlockHexoriumMachineBlock.ID),                 achCraftEnergizedWhite, -4, 1);
+        achCraftCable        = register("achCraftCable",        HexBlocks.getHexBlock(BlockHexoriumCable.ID, HexEnums.Colors.GREEN), achMineHexOre,          -3, 0);
 
         // T2 Machines
-        achCraftMachineGenerator = new Achievement(hex1 + "achCraftMachineGenerator", hex2 + "achCraftMachineGenerator", -10, 3, HexBlocks.blockHexoriumGenerator, achCraftMachineBlock).registerStat();
-        achList.add(achCraftMachineGenerator);
-        if (HexConfig.cfgFurnaceEnable) {
-            achCraftMachineFurnace = new Achievement(hex1 + "achCraftMachineFurnace", hex2 + "achCraftMachineFurnace", -9, 3, HexBlocks.blockHexoriumFurnace, achCraftMachineBlock).registerStat();
-            achList.add(achCraftMachineFurnace);
-        }
-        if (HexConfig.cfgSeparatorEnable) {
-            achCraftMachineSeparator = new Achievement(hex1 + "achCraftMachineSeparator", hex2 + "achCraftMachineSeparator", -8, 3, HexBlocks.blockCrystalSeparator, achCraftMachineBlock).registerStat();
-            achList.add(achCraftMachineSeparator);
-        }
-        achCraftMachineReconstructor = new Achievement(hex1 + "achCraftMachineReconstructor", hex2 + "achCraftMachineReconstructor", -7, 3, HexBlocks.blockMatrixReconstructor,achCraftMachineBlock).registerStat();
-        achList.add(achCraftMachineReconstructor);
-        if (HexConfig.cfgObserverEnable) {
-            achCraftMachineQuantumObserver = new Achievement(hex1 + "achCraftMachineQuantumObserver", hex2 + "achCraftMachineQuantumObserver", -6, 3, HexBlocks.blockQuantumObserver, achCraftMachineBlock).registerStat();
-            achList.add(achCraftMachineQuantumObserver);
-        }
-        if (HexConfig.cfgTankEnable) {
-            achCraftMachineTankValve = new Achievement(hex1 + "achCraftMachineTankValve", hex2 + "achCraftMachineTankValve", -5, 3, HexBlocks.blockTankValve, achCraftMachineBlock).registerStat();
-            achList.add(achCraftMachineTankValve);
-        }
-        if (HexConfig.cfgTeleportEnable) {
-            achCraftMachineTeleport = new Achievement(hex1 + "achCraftMachineTeleport", hex2 + "achCraftMachineTeleport", -4, 3, HexBlocks.blockPersonalTeleportationPad, achCraftMachineBlock).registerStat();
-            achList.add(achCraftMachineTeleport);
-        }
-        achCraftPylon = new Achievement(hex1 + "achCraftPylon", hex2 + "achCraftPylon", -3, 3, HexBlocks.blockEnergyPylon, achCraftCable).registerStat();
-        achList.add(achCraftPylon);
+        achCraftMachineGenerator       = register("achCraftMachineGenerator",       HexBlocks.getHexBlock(BlockHexoriumGenerator.ID),        achCraftMachineBlock, -10, 3);
+        achCraftMachineFurnace         = register("achCraftMachineFurnace",         HexBlocks.getHexBlock(BlockHexoriumFurnace.ID),          achCraftMachineBlock, -9, 3, HexConfig.cfgFurnaceEnable);
+        achCraftMachineSeparator       = register("achCraftMachineSeparator",       HexBlocks.getHexBlock(BlockCrystalSeparator.ID),         achCraftMachineBlock, -8, 3, HexConfig.cfgSeparatorEnable);
+        achCraftMachineReconstructor   = register("achCraftMachineReconstructor",   HexBlocks.getHexBlock(BlockMatrixReconstructor.ID),      achCraftMachineBlock, -7, 3);
+        achCraftMachineQuantumObserver = register("achCraftMachineQuantumObserver", HexBlocks.getHexBlock(BlockQuantumObserver.ID),          achCraftMachineBlock, -6, 3, HexConfig.cfgObserverEnable);
+        achCraftMachineTankValve       = register("achCraftMachineTankValve",       HexBlocks.getHexBlock(BlockTankValve.ID),                achCraftMachineBlock, -5, 3, HexConfig.cfgTankEnable);
+        achCraftMachineTeleport        = register("achCraftMachineTeleport",        HexBlocks.getHexBlock(BlockPersonalTeleportationPad.ID), achCraftMachineBlock, -4, 3, HexConfig.cfgTeleportEnable);
+        achCraftPylon                  = register("achCraftPylon",                  HexBlocks.getHexBlock(BlockEnergyPylon.ID),              achCraftCable,        -3, 3);
 
         // Machines Special
-        achGroupMachines = new Achievement(hex1 + "achGroupMachines", hex2 + "achGroupMachines", -12, 3, HexItems.itemMachineControlPanel, achCraftMachineBlock).setSpecial().registerStat();
-        achList.add(achGroupMachines);
+        achGroupMachines = registerSpecial("achGroupMachines", HexItems.itemMachineControlPanel, achCraftMachineBlock, -12, 3);
 
         // Manipulator
-        achCraftManipulator = new Achievement(hex1 + "achCraftManipulator", hex2 + "achCraftManipulator", -1, 8, HexItems.itemHexoriumManipulator, achMineHexOre).registerStat();
-        achList.add(achCraftManipulator);
+        achCraftManipulator = register("achCraftManipulator", HexItems.itemHexoriumManipulator, achMineHexOre, -1, 8);
 
         // Transposer
-        achCraftTransposer = new Achievement(hex1 + "achCraftTransposer", hex2 + "achCraftTransposer", 1, 8, HexItems.itemMolecularTransposer, achCraftManipulator).registerStat();
-        achList.add(achCraftTransposer);
-        achUseTransposer = new Achievement(hex1 + "achUseTransposer", hex2 + "achUseTransposer", 3, 8, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
-        achList.add(achUseTransposer);
-        if (HexConfig.cfgGeneralTransposerAttack) {
-            achAttackTransposer = new Achievement(hex1 + "acAttackTransposer", hex2 + "achAttackTransposer", 3, 7, HexItems.itemMolecularTransposer, achCraftTransposer).registerStat();
-            achList.add(achAttackTransposer);
-        }
+        achCraftTransposer  = register("achCraftTransposer",  HexItems.itemMolecularTransposer, achCraftManipulator, 1, 8);
+        achUseTransposer    = register("achUseTransposer",    HexItems.itemMolecularTransposer, achCraftTransposer,  3, 8);
+        achAttackTransposer = register("achAttackTransposer", HexItems.itemMolecularTransposer, achCraftTransposer,  3, 7, HexConfig.cfgGeneralTransposerAttack);
 
         // Probe
-        achCraftProbe = new Achievement(hex1 + "achCraftProbe", hex2 + "achCraftProbe", 1, 5, HexItems.itemHexoriumProbe, achMineHexOre).registerStat();
-        achList.add(achCraftProbe);
-        achUseProbeMachine = new Achievement(hex1 + "achUseProbeMachine", hex2 + "achUseProbeMachine", 3, 5, HexItems.itemHexoriumProbe, achCraftProbe).registerStat();
-        achList.add(achUseProbeMachine);
-        achUseProbeNetwork = new Achievement(hex1 + "achUseProbeNetwork", hex2 + "achUseProbeNetwork", 3, 4, HexItems.itemHexoriumProbe, achCraftProbe).registerStat();
-        achList.add(achUseProbeNetwork);
+        achCraftProbe      = register("achCraftProbe", HexItems.itemHexoriumProbe, achMineHexOre, 1, 5);
+        achUseProbeMachine = register("achUseProbeMachine", HexItems.itemHexoriumProbe, achCraftProbe, 3, 5);
+        achUseProbeNetwork = register("achUseProbeNetwork", HexItems.itemHexoriumProbe, achCraftProbe, 3, 4);
 
         // Hexorium Tank
-        if (HexConfig.cfgTankEnable) {
-            achFormHexoriumTank = new Achievement(hex1 + "achFormHexoriumTank", hex2 + "achFormHexoriumTank", -5, 5, HexItems.itemHexoriumManipulator, achCraftMachineTankValve).registerStat();
-            achList.add(achFormHexoriumTank);
-        }
+        achFormHexoriumTank = register("achFormHexoriumTank", HexItems.itemHexoriumManipulator, achCraftMachineTankValve, -5, 5, HexConfig.cfgTankEnable);
 
-        // Linking and Teleporting
-        if (HexConfig.cfgTeleportEnable) {
-            achLinkTeleport = new Achievement(hex1 + "achLinkTeleport", hex2 + "achLinkTeleport", -4, 5, HexItems.itemHexoriumManipulator, achCraftMachineTeleport).registerStat();
-            achList.add(achLinkTeleport);
-        }
-        achLinkPylon = new Achievement(hex1 + "achLinkPylon", hex2 + "achLinkPylon", -3, 5, HexItems.itemHexoriumManipulator, achCraftPylon).registerStat();
-        achList.add(achLinkPylon);
-        if (HexConfig.cfgTeleportEnable) {
-            achUseTeleport = new Achievement(hex1 + "achUseTeleport", hex2 + "achUseTeleport", -4, 7, HexItems.itemTeleportationFieldProjector, achLinkTeleport).setSpecial().registerStat();
-            achList.add(achUseTeleport);
-        }
+        // Teleport & Linking
+        achLinkTeleport = register("achLinkTeleport", HexItems.itemHexoriumManipulator, achCraftMachineTeleport, -4, 5, HexConfig.cfgTeleportEnable);
+        achLinkPylon    = register("achLinkPylon",    HexItems.itemHexoriumManipulator, achCraftPylon,           -3, 5);
+
+        // Teleport Special
+        achUseTeleport = registerSpecial("achUseTeleport", HexItems.itemTeleportationFieldProjector, achLinkTeleport, -4, 7, HexConfig.cfgTeleportEnable);
 
         // Energy Node
-        if (HexConfig.cfgEnergyNodeEnable) {
-            achCraftAdvancedRainbowCore = new Achievement(hex1 + "achCraftAdvancedRainbowCore", hex2 + "achCraftAdvancedRainbowCore", 3, 2, HexBlocks.blockAdvancedRainbowCore, achCraftEnergizedRainbow).registerStat();
-            achList.add(achCraftAdvancedRainbowCore);
-            achCraftEnergyNodeCore = new Achievement(hex1 + "achCraftEnergyNodeCore", hex2 + "achCraftEnergyNodeCore", 5, 2, HexBlocks.blockEnergyNodeCoreT1, achCraftAdvancedRainbowCore).registerStat();
-            achList.add(achCraftEnergyNodeCore);
-            achCraftEnergyNodePort = new Achievement(hex1 + "achCraftEnergyNodePort", hex2 + "achCraftEnergyNodePort", 5, 3, HexBlocks.blockEnergyNodePortHEX, achCraftEnergizedRainbow).registerStat();
-            achList.add(achCraftEnergyNodePort);
-            achFormEnergyNode = new Achievement(hex1 + "achFormEnergyNode", hex2 + "achFormEnergyNode", 7, 2, HexItems.itemHexoriumManipulator, achCraftEnergyNodeCore).registerStat();
-            achList.add(achFormEnergyNode);
-            achLinkEnergyNodePorts = new Achievement(hex1 + "achLinkEnergyNodePorts", hex2 + "achLinkEnergyNodePorts", 7, 3, HexItems.itemHexoriumManipulator, achCraftEnergyNodePort).registerStat();
-            achList.add(achLinkEnergyNodePorts);
-        }
+        achCraftAdvancedRainbowCore = register("achCraftAdvancedRainbowCore", HexBlocks.getHexBlock(BlockAdvancedRainbowCore.ID),                                achCraftEnergizedRainbow,    3, 2, HexConfig.cfgEnergyNodeEnable);
+        achCraftEnergyNodeCore      = register("achCraftEnergyNodeCore",      HexBlocks.getHexBlock(BlockEnergyNodeCore.ID + BlockEnergyNodeCore.Tiers.T1.name), achCraftAdvancedRainbowCore, 5, 2, HexConfig.cfgEnergyNodeEnable);
+        achCraftEnergyNodePort      = register("achCraftEnergyNodePort",      HexBlocks.getHexBlock(BlockEnergyNodePortHEX.ID),                                  achCraftEnergizedRainbow,    5, 3, HexConfig.cfgEnergyNodeEnable);
+        achFormEnergyNode           = register("achFormEnergyNode",           HexItems.itemHexoriumManipulator,                                                  achCraftEnergyNodeCore,      7, 2, HexConfig.cfgEnergyNodeEnable);
+        achLinkEnergyNodePorts      = register("achLinkEnergyNodePorts",      HexItems.itemHexoriumManipulator,                                                  achCraftEnergyNodePort,      7, 3, HexConfig.cfgEnergyNodeEnable);
 
         // Energy Node Special
-        if (HexConfig.cfgEnergyNodeEnable) {
-            achGroupEnergyNode = new Achievement(hex1 + "achGroupEnergyNode", hex2 + "achGroupEnergyNode", 7, 5, HexBlocks.blockEnergyNodeCoreT4, achFormEnergyNode).setSpecial().registerStat();
-            achList.add(achGroupEnergyNode);
-        }
+        achGroupEnergyNode = registerSpecial("achGroupEnergyNode", HexBlocks.getHexBlock(BlockEnergyNodeCore.ID + BlockEnergyNodeCore.Tiers.T4.name), achFormEnergyNode, 7, 5, HexConfig.cfgEnergyNodeEnable);
 
         // Register the achievement page.
         AchievementPage.registerAchievementPage(new AchievementPage("HEXCraft", achList.toArray(new Achievement[achList.size()])));
+    }
+
+
+    private static Achievement register(String name, Block block, Achievement prev, int x, int y, boolean enabled) {
+        if (enabled)
+            return register(name, block, prev, x, y);
+        else
+            return null;
+    }
+
+    private static Achievement register(String name, Block block, Achievement prev, int x, int y) {
+        Achievement achievement;
+        achievement = new Achievement("achievement.hexcraft." + name, "hexcraft." + name, x, y, block, prev).registerStat();
+        achList.add(achievement);
+        return achievement;
+    }
+
+    private static Achievement register(String name, Item item, Achievement prev, int x, int y, boolean enabled) {
+        if (enabled)
+            return register(name, item, prev, x, y);
+        else
+            return null;
+    }
+
+    private static Achievement register(String name, Item item, Achievement prev, int x, int y) {
+        Achievement achievement;
+        achievement = new Achievement("achievement.hexcraft." + name, "hexcraft." + name, x, y, item, prev).registerStat();
+        achList.add(achievement);
+        return achievement;
+    }
+
+    private static Achievement registerSpecial(String name, Block block, Achievement prev, int x, int y, boolean enabled) {
+        if (enabled)
+            return registerSpecial(name, block, prev, x, y);
+        else
+            return null;
+    }
+
+    private static Achievement registerSpecial(String name, Block block, Achievement prev, int x, int y) {
+        Achievement achievement;
+        achievement = new Achievement("achievement.hexcraft." + name, "hexcraft." + name, x, y, block, prev).setSpecial().registerStat();
+        achList.add(achievement);
+        return achievement;
+    }
+
+    private static Achievement registerSpecial(String name, Item item, Achievement prev, int x, int y, boolean enabled) {
+        if (enabled)
+            return registerSpecial(name, item, prev, x, y);
+        else
+            return null;
+    }
+
+    private static Achievement registerSpecial(String name, Item item, Achievement prev, int x, int y) {
+        Achievement achievement;
+        achievement = new Achievement("achievement.hexcraft." + name, "hexcraft." + name, x, y, item, prev).setSpecial().registerStat();
+        achList.add(achievement);
+        return achievement;
     }
 }

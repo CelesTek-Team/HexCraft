@@ -8,6 +8,7 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.*;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -143,5 +144,11 @@ public class ItemHexoriumProbe extends Item {
         }
 
         return false;
+    }
+
+    public static Item registerItem() {
+        Item item = new ItemHexoriumProbe(ID);
+        GameRegistry.registerItem(item, ID);
+        return item;
     }
 }
