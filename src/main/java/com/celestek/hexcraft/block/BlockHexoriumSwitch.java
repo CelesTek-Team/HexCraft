@@ -260,7 +260,7 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemHexoriumDye))
-            return true;
+            return false;
 
         if (!world.isRemote) {
             HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);

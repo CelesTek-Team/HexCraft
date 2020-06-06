@@ -409,7 +409,7 @@ public class BlockHexoriumDoor extends HexBlockModel implements IHexBlock, IBloc
      */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
-            return true;
+            return false;
 
         if (!world.isRemote) {
             // Prepare a variable if the door is in a usable state.

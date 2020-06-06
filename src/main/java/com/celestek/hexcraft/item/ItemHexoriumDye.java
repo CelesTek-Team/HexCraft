@@ -104,6 +104,10 @@ public class ItemHexoriumDye extends Item {
         return false;
     }
 
+    public HexEnums.Variants getVariant() {
+        return this.variant;
+    }
+
     public static void registerItem() {
         for (HexEnums.Variants variant : HexEnums.Variants.values()) {
             String name = ID + variant.name;
