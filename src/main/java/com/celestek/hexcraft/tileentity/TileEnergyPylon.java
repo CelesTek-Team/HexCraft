@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockEnergyPylon;
+import com.celestek.hexcraft.block.IBlockHexColor;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexUtils;
@@ -150,45 +152,8 @@ public class TileEnergyPylon extends TileEntity {
         if (player.getCurrentEquippedItem() != null && monolith == 0) {
             Block block = Block.getBlockFromItem(player.getCurrentEquippedItem().getItem());
 
-            // Set the monolith according to the block.
-            if (block == HexBlocks.blockEnergizedHexoriumMonolithRed)
-                monolith = 1;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithOrange)
-                monolith = 2;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithYellow)
-                monolith = 3;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithLime)
-                monolith = 4;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithGreen)
-                monolith = 5;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithTurquoise)
-                monolith = 6;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithCyan)
-                monolith = 7;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithSkyBlue)
-                monolith = 8;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithBlue)
-                monolith = 9;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithPurple)
-                monolith = 10;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithMagenta)
-                monolith = 11;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithPink)
-                monolith = 12;
-
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithWhite)
-                monolith = 13;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithLightGray)
-                monolith = 14;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithGray)
-                monolith = 15;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithDarkGray)
-                monolith = 16;
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithBlack)
-                monolith = 17;
-
-            else if (block == HexBlocks.blockEnergizedHexoriumMonolithRainbow)
-                monolith = 18;
+            if (block instanceof BlockEnergizedHexoriumMonolith)
+                monolith = ((IBlockHexColor) block).getColor().ordinal() + 1;
 
             // If the monolith has successfully been inserted, decrement it from the hand.
             if (monolith != 0) {

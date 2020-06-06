@@ -6,6 +6,7 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexPylon;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -469,44 +470,9 @@ public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
         else
             if (tileEnergyPylon != null) {
                 int monolith = tileEnergyPylon.getMonolith();
-                if(monolith == 1)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRed, 1));
-                else if(monolith == 2)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithOrange, 1));
-                else if(monolith == 3)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithYellow, 1));
-                else if(monolith == 4)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLime, 1));
-                else if(monolith == 5)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGreen, 1));
-                else if(monolith == 6)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithTurquoise, 1));
-                else if(monolith == 7)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithCyan, 1));
-                else if(monolith == 8)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithSkyBlue, 1));
-                else if(monolith == 9)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlue, 1));
-                else if(monolith == 10)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPurple, 1));
-                else if(monolith == 11)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithMagenta, 1));
-                else if(monolith == 12)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithPink, 1));
 
-                else if(monolith == 13)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithWhite, 1));
-                else if(monolith == 14)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithLightGray, 1));
-                else if(monolith == 15)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithGray, 1));
-                else if(monolith == 16)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithDarkGray, 1));
-                else if(monolith == 17)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithBlack, 1));
-
-                else if(monolith == 18)
-                    drops.add(new ItemStack(HexBlocks.blockEnergizedHexoriumMonolithRainbow, 1));
+                if (monolith > 0)
+                    drops.add(new ItemStack(HexBlocks.getHexBlock(BlockEnergizedHexoriumMonolith.ID, HexEnums.Colors.values()[monolith - 1]), 1));
 
                 tileEnergyPylon.ejectMonolith();
             }
