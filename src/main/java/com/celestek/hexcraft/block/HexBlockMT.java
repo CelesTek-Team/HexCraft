@@ -8,10 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
 public class HexBlockMT extends HexBlock {
 
     /**

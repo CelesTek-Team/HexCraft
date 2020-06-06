@@ -20,10 +20,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockEnergyNodeCore extends HexBlock implements IHexBlock, IBlockHexNode {
 
     // Block ID

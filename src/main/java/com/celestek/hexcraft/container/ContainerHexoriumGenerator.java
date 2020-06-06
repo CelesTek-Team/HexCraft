@@ -11,10 +11,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerHexoriumGenerator extends Container {
 
     // Crafter IDs
@@ -24,7 +20,7 @@ public class ContainerHexoriumGenerator extends Container {
     private static final int GUI_ID_ENERGY_TOTAL_LEFT_1 = 3;
     private static final int GUI_ID_ENERGY_DRAINED = 4;
 
-    private TileHexoriumGenerator tileHexoriumGenerator;
+    private final TileHexoriumGenerator tileHexoriumGenerator;
 
     private int lastEnergyTotal;
     private int lastEnergyTotalLeft;

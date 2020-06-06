@@ -14,10 +14,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexProcessingCrystalSeparator {
 
     private static final HexProcessingCrystalSeparator PROCESSING_BASE = new HexProcessingCrystalSeparator();

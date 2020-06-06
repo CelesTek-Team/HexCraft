@@ -3,7 +3,6 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
@@ -23,10 +22,6 @@ import java.util.ArrayList;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHexBlock, IBlockHexColor {
 

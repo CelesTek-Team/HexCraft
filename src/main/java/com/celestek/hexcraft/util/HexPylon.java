@@ -1,9 +1,5 @@
 package com.celestek.hexcraft.util;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexPylon {
     public int x;
     public int y;

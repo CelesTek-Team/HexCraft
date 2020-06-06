@@ -16,10 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ItemHexoriumProbe extends Item {
 
     // Item ID
@@ -114,8 +110,8 @@ public class ItemHexoriumProbe extends Item {
 
             // Display structure block info.
             else if (block instanceof HexBlockMT
-                    || block == HexBlocks.blockTemperedHexoriumGlass
-                    || block == HexBlocks.blockHexoriumCoatedStone
+                    || block instanceof BlockTemperedHexoriumGlass
+                    || block instanceof BlockHexoriumCoatedStone
                     || block instanceof BlockEnergyNodeCore) {
                 if (!player.isSneaking()) {
                     HexUtils.addChatProbeTitle(player);

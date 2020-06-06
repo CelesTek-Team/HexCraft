@@ -12,10 +12,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexWorldGen implements IWorldGenerator {
 
     // Nether

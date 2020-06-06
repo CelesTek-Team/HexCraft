@@ -4,15 +4,10 @@ import com.celestek.hexcraft.block.BlockHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;
 import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexGenMonolith extends WorldGenerator {
 

@@ -30,10 +30,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ItemHexoriumManipulator extends Item {
 
     // Item ID
@@ -271,7 +267,7 @@ public class ItemHexoriumManipulator extends Item {
             else {
 
                 // Link Energy Pylons.
-                if (block == HexBlocks.blockEnergyPylon) {
+                if (block instanceof BlockEnergyPylon) {
                     // Create a new tag compound for the manipulator if it doesn't exist.
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
@@ -345,7 +341,7 @@ public class ItemHexoriumManipulator extends Item {
                                                 // Prepare the network analyzer.
                                                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
                                                 // Call the analysis.
-                                                analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.blockEnergyPylon);
+                                                analyzer.analyzePylon(world, tx, ty, tz, HexBlocks.getHexBlock(BlockEnergyPylon.ID));
                                             }
                                             else {
                                                 // If the pylons were already added, unlink them.

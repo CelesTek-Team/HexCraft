@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -30,10 +29,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBlockHexVariant {
 

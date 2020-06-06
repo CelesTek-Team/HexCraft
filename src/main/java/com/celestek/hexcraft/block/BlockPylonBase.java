@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
-import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -15,18 +14,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockPylonBase extends Block implements IHexBlock {
 
@@ -120,7 +113,7 @@ public class BlockPylonBase extends Block implements IHexBlock {
         // Check if the changed block belongs to the energy system.
         if (block instanceof BlockHexoriumCable
                 || block instanceof BlockPylonBase
-                || block == HexBlocks.blockEnergyPylon
+                || block instanceof BlockEnergyPylon
                 || block instanceof IBlockHexEnergySource
                 || block instanceof IBlockHexEnergyDrain
                 || block instanceof BlockEnergyNodePortHEX) {

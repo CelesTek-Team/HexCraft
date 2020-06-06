@@ -13,10 +13,6 @@ import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerHexoriumFurnace extends Container {
 
     // Crafter IDs
@@ -24,7 +20,7 @@ public class ContainerHexoriumFurnace extends Container {
     private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
     private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    private TileHexoriumFurnace tileHexoriumFurnace;
+    private final TileHexoriumFurnace tileHexoriumFurnace;
 
     private int lastEnergyTotalDone;
     private int lastEnergyDrained;

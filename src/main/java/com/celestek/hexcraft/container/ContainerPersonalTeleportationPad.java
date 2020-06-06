@@ -9,10 +9,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerPersonalTeleportationPad extends Container {
 
     // Crafter IDs
@@ -20,7 +16,7 @@ public class ContainerPersonalTeleportationPad extends Container {
     private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
     private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    private TilePersonalTeleportationPad tilePersonalTeleportationPad;
+    private final TilePersonalTeleportationPad tilePersonalTeleportationPad;
 
     private int lastEnergyTotalDone;
     private int lastEnergyDrained;

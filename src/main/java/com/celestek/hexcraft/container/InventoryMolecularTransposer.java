@@ -8,10 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class InventoryMolecularTransposer implements IInventory {
 
     private static final String INVENTORY_NAME = "hexcraft.container.molecularTransposer";

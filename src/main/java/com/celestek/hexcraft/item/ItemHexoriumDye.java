@@ -15,10 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ItemHexoriumDye extends Item {
 
     // Item ID

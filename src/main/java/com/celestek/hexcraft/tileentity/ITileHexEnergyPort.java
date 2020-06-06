@@ -1,14 +1,10 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.util.HexDevice;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 public interface ITileHexEnergyPort {
     /**
      * Saves the ArrayList of energy ports.

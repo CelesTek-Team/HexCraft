@@ -13,10 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
 public class GuiTankValve extends GuiContainer {
 
     // GUI Sizes

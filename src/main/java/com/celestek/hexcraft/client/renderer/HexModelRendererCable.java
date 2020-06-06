@@ -15,10 +15,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
 
     // Model constants.
@@ -1229,6 +1225,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         int pylOr1 = BlockPylonBase.META_ORIENTATION_1;
         int pylOr2 = BlockPylonBase.META_ORIENTATION_2;
 
+        Block base51 = HexBlocks.getHexBlock(BlockPylonBase.ID + BlockPylonBase.Types.T_5_TO_1.name);
+        Block base15 = HexBlocks.getHexBlock(BlockPylonBase.ID + BlockPylonBase.Types.T_1_TO_5.name);
+
         // Look for machines.
         if (world.getBlock(x - 1, y, z) instanceof BlockHexoriumGenerator ||
                 world.getBlock(x - 1, y, z) instanceof BlockHexoriumFurnace ||
@@ -1271,8 +1270,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
                 blockTemp instanceof BlockQuantumObserver ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y - 1, z)))
             sides[0] = true;
@@ -1281,8 +1280,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
                 blockTemp instanceof BlockPersonalTeleportationPad ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y + 1, z)))
             sides[1] = true;
@@ -1291,8 +1290,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
                 rotations[0] == 3 ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x - 1, y, z)))
             sides[2] = true;
@@ -1301,8 +1300,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
                 rotations[1] == 1 ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x + 1, y, z)))
             sides[3] = true;
@@ -1311,8 +1310,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
                 rotations[2] == 0 ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z - 1)))
             sides[4] = true;
@@ -1321,8 +1320,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         if ((blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) block).getColor() == HexEnums.Colors.RAINBOW) ||
                 block == blockTemp ||
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
-                (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
-                (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
+                (blockTemp == base51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
+                (blockTemp == base15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
                 rotations[3] == 2 ||
                 (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z + 1)))
             sides[5] = true;

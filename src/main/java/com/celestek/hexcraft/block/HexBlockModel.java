@@ -10,10 +10,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexBlockModel extends Block {
 
     // HexCraft's ID for the block.

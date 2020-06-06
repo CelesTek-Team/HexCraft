@@ -2,10 +2,6 @@ package com.celestek.hexcraft.util;
 
 import net.minecraft.util.DamageSource;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexDamage extends DamageSource {
 
     // Different damage types added by HEXCraft.

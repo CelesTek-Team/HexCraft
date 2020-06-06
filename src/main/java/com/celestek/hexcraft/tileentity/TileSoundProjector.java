@@ -12,11 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 
 import static com.celestek.hexcraft.block.BlockSoundProjector.*;
 
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class TileSoundProjector extends TileEntity {
 
     /**** Static Values ****/

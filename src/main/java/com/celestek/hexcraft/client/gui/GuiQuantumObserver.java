@@ -1,19 +1,13 @@
 package com.celestek.hexcraft.client.gui;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.container.ContainerPersonalTeleportationPad;
 import com.celestek.hexcraft.container.ContainerQuantumObserver;
-import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.tileentity.TileQuantumObserver;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 @SideOnly(Side.CLIENT)
 public class GuiQuantumObserver extends GuiContainer {

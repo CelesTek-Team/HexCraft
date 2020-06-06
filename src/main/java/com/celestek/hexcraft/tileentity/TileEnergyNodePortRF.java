@@ -7,7 +7,6 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -15,10 +14,6 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPort, IEnergyHandler {
 
@@ -39,12 +34,12 @@ public class TileEnergyNodePortRF extends TileEntity implements ITileHexEnergyPo
     private ArrayList<HexDevice> energyPorts;
 
     // Prepare energy buffer variables.
-    private EnergyStorage energyBuffer;
+    private final EnergyStorage energyBuffer;
 
     // Prepare port variables.
     private HexDevice linkedPort;
     private int portTier;
-    private int portType;
+    private final int portType;
 
     // RF Specific things.
 

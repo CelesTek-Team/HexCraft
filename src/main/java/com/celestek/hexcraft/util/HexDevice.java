@@ -2,10 +2,6 @@ package com.celestek.hexcraft.util;
 
 import net.minecraft.block.Block;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexDevice {
     public int x;
     public int y;

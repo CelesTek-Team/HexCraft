@@ -4,11 +4,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.lang.ref.WeakReference;
-import java.util.Random;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 public class WorldLocation {
 
     public final int xCoord;

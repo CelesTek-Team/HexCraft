@@ -2,7 +2,6 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
-import com.celestek.hexcraft.client.renderer.HexModelRendererDoor;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
@@ -18,10 +17,6 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockHexoriumMachineBlock extends HexBlock implements IHexBlock {
 

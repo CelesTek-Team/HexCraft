@@ -14,10 +14,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexModelRendererDoor implements ISimpleBlockRenderingHandler {
 
     // Model constants.

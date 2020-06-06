@@ -31,10 +31,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock, IBlockHexEnergyDrain {
 
     // Block ID

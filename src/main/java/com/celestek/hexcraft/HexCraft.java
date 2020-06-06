@@ -17,10 +17,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import net.minecraft.item.Item;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 @Mod(modid = HexCraft.MODID, name = HexCraft.MODNAME, version = HexCraft.VERSION, dependencies = "after:IC2")
 public class HexCraft {
     // Set default mod info.

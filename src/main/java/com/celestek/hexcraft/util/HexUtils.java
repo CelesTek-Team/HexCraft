@@ -11,10 +11,6 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 /**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
-/**
  * A collection of utility methods and values used throughout the mod.
  */
 public class HexUtils {

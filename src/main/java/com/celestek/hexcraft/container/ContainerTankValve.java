@@ -7,12 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
 
 public class ContainerTankValve extends Container {
 
@@ -24,7 +19,7 @@ public class ContainerTankValve extends Container {
     private static final int GUI_ID_FLUID_ID = 4;
     private static final int GUI_ID_FLUID_INS = 5;
 
-    private TileTankValve tileTankValve;
+    private final TileTankValve tileTankValve;
 
     private int lastTankCap;
     private int lastTankLevel;

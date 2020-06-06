@@ -8,10 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexRecipes {
 
     /**

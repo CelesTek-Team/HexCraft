@@ -7,10 +7,6 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexCraftingHandler {
     /**
      * Fired when player crafts an item.

@@ -9,10 +9,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 @SideOnly(Side.CLIENT)
 public class GuiPersonalTeleportationPad extends GuiContainer {
 

@@ -3,14 +3,9 @@ package com.celestek.hexcraft.util;
 import com.celestek.hexcraft.HexCraft;
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 /**
  * A collection of methods used for playing sounds.

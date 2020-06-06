@@ -6,10 +6,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
 public class TileTankRender extends TileEntity {
 
     /**** Static Values ****/

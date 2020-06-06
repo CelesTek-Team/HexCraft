@@ -7,20 +7,14 @@ import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import org.apache.commons.codec.binary.Hex;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileCrystalSeparator extends TileEntity implements ISidedInventory, ITileHexEnergyDrain {
 
@@ -48,8 +42,8 @@ public class TileCrystalSeparator extends TileEntity implements ISidedInventory,
     private ArrayList<HexDevice> energySources;
 
     // Prepare energy variables.
-    private int energyPerTick;
-    private float energyTotal;
+    private final int energyPerTick;
+    private final float energyTotal;
     private float energyTotalDone;
     private float energyDrained;
 

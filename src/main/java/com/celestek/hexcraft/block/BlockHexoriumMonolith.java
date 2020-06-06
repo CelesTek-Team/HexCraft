@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexAchievements;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
@@ -30,10 +29,6 @@ import java.util.Random;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockHexoriumMonolith extends HexBlockModel implements IHexBlock {
 

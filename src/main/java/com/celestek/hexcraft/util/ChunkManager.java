@@ -14,9 +14,6 @@ import net.minecraftforge.event.world.WorldEvent;
 
 import java.util.*;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 public class ChunkManager implements ForgeChunkManager.LoadingCallback {
 
     public static final ChunkManager instance = new ChunkManager();

@@ -8,10 +8,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerMolecularTransposer extends Container {
 
     // Prepare the inventory.

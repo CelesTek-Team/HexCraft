@@ -1,18 +1,12 @@
 package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
 import com.celestek.hexcraft.tileentity.TileQuantumObserver;
-import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class ContainerQuantumObserver extends Container {
 
@@ -21,7 +15,7 @@ public class ContainerQuantumObserver extends Container {
     private static final int GUI_ID_ENERGY_PER_TICK = 1;
     private static final int GUI_ID_CHUNK_SIZE = 2;
 
-    private TileQuantumObserver tileQuantumObserver;
+    private final TileQuantumObserver tileQuantumObserver;
 
     private int lastEnergyDrained;
     private int lastEnergyPerTick;

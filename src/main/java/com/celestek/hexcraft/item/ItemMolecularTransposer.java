@@ -24,10 +24,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ItemMolecularTransposer extends Item {
 
     // Item ID

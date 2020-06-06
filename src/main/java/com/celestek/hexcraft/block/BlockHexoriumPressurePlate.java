@@ -33,10 +33,6 @@ import java.util.Random;
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlock, IBlockHexVariant {
 
     // Block ID

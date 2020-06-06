@@ -25,10 +25,6 @@ import java.util.Random;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockHexoriumNetherOre extends HexBlock implements IHexBlock {
 
     // Block ID

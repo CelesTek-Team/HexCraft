@@ -2,11 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexMultiRendererTank;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileTankRender;
-import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -22,10 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
 
 public class BlockTankRender extends HexBlockContainer implements IHexBlock {
 

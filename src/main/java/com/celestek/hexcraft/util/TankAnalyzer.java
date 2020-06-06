@@ -1,6 +1,8 @@
 package com.celestek.hexcraft.util;
 
+import com.celestek.hexcraft.block.BlockHexoriumCoatedStone;
 import com.celestek.hexcraft.block.BlockTankValve;
+import com.celestek.hexcraft.block.BlockTemperedHexoriumGlass;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -9,10 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TankAnalyzer {
 
@@ -69,8 +67,8 @@ public class TankAnalyzer {
 
         // Check if the current block is usable to build a tank.
         if (block instanceof HexBlockMT
-                || block == HexBlocks.blockTemperedHexoriumGlass
-                || block == HexBlocks.blockHexoriumCoatedStone) {
+                || block instanceof BlockTemperedHexoriumGlass
+                || block instanceof BlockHexoriumCoatedStone) {
             // Check if the current block is part of a tank.
             if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this block has already been added to the blocks ArrayList.

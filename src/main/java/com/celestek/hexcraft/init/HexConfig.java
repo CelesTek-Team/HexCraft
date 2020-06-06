@@ -3,10 +3,6 @@ package com.celestek.hexcraft.init;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexConfig {
 
     // General

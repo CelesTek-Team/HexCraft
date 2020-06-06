@@ -1,15 +1,10 @@
 package com.celestek.hexcraft.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexGenOre extends WorldGenerator {
 

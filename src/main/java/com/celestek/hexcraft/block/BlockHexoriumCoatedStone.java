@@ -20,12 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockHexoriumCoatedStone extends Block implements IHexBlock, IBlockHexVariant, IBlockMultiBlock {
 

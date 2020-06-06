@@ -26,10 +26,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockHexoriumStructureCasing extends HexBlockMT implements IHexBlock, IBlockHexNode, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer, IBlockMultiBlock {
 
     // Block ID

@@ -3,12 +3,7 @@ package com.celestek.hexcraft.init;
 import com.celestek.hexcraft.block.BlockHexoriumNetherOre;
 import com.celestek.hexcraft.block.BlockHexoriumOre;
 import com.celestek.hexcraft.util.HexEnums;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexOreDict {
 

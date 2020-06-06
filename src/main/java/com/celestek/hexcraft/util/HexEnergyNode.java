@@ -16,10 +16,6 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 /**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
-/**
  * A collection of utility methods used for Energy Node.
  */
 public class HexEnergyNode {

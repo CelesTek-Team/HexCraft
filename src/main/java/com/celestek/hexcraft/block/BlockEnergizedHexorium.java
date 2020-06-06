@@ -23,10 +23,6 @@ import java.util.ArrayList;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBlockHexColor {
 
     // Block ID

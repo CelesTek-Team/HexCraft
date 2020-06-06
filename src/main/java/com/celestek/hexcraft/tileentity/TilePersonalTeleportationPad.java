@@ -6,11 +6,9 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.HexDevice;
-import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -19,10 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TilePersonalTeleportationPad extends TileEntity implements ITileHexEnergyDrain {
 
@@ -55,7 +49,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
     private ArrayList<HexDevice> energySources;
 
     // Prepare energy variables.
-    private float energyTotal;
+    private final float energyTotal;
     private float energyTotalDone;
     private float energyDrained;
 
@@ -70,7 +64,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
     private ArrayList<HexDevice> teleports;
     private HexDevice linkedTeleport;
     private boolean isTeleporting;
-    private int teleportCountdown;
+    private final int teleportCountdown;
     private int teleportCounter;
 
 

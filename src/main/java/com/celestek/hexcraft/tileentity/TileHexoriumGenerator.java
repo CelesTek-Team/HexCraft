@@ -9,7 +9,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -20,10 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileHexoriumGenerator extends TileEntity implements ISidedInventory, ITileHexEnergySource {
 
@@ -53,7 +48,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
     private ArrayList<HexDevice> energyDrains;
 
     // Prepare energy variables.
-    private int energyPerTick;
+    private final int energyPerTick;
     private float energyTotal;
     private float energyTotalLeft;
     private float energyDrained;

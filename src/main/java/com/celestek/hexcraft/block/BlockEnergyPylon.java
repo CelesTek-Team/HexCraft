@@ -38,10 +38,6 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
 
     // Block ID

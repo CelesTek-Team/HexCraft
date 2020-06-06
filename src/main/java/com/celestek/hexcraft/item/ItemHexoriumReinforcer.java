@@ -13,10 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ItemHexoriumReinforcer extends Item {
 
     // Item ID
@@ -54,7 +50,7 @@ public class ItemHexoriumReinforcer extends Item {
                     || block instanceof BlockConcentricHexoriumBlock
                     || block instanceof BlockHexoriumStructureCasing
                     || block instanceof BlockGlowingHexoriumCoatedStone
-                    || block == HexBlocks.blockHexoriumCoatedStone)
+                    || block instanceof BlockHexoriumCoatedStone)
                 if (!HexUtils.getMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, world, x, y, z)) {
                     HexUtils.setMetaBit(HexBlocks.META_DECORATIVE_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 

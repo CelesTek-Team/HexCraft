@@ -2,24 +2,15 @@ package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.BlockQuantumAnchor;
 import com.celestek.hexcraft.block.BlockQuantumObserver;
-import com.celestek.hexcraft.block.HexBlock;
-import com.celestek.hexcraft.block.HexBlockMT;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileQuantumObserver;
-import com.celestek.hexcraft.tileentity.TileTankValve;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class ObserverAnalyzer {
 

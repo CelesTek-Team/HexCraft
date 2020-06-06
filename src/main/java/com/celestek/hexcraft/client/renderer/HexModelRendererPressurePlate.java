@@ -2,9 +2,7 @@ package com.celestek.hexcraft.client.renderer;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.BlockHexoriumPressurePlate;
-import com.celestek.hexcraft.block.BlockHexoriumSwitch;
 import com.celestek.hexcraft.client.HexClientProxy;
-import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -15,10 +13,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexModelRendererPressurePlate implements ISimpleBlockRenderingHandler {
 

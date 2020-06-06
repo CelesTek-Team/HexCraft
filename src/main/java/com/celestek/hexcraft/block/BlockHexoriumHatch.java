@@ -33,10 +33,6 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposer {
 
     // Block ID

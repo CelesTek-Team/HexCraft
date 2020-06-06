@@ -4,7 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.ObserverAnalyzer;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -15,16 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockQuantumAnchor extends HexBlock implements IHexBlock {
 

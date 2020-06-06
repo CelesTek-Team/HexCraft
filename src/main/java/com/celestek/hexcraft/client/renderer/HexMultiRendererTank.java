@@ -15,10 +15,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
 
     // Variables
@@ -122,12 +118,12 @@ public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
                 boolean luminosity = fluid.getLuminosity() != 0;
                 if (luminosity) {
                     if (Loader.isModLoaded("coloredlightscore"))
-                        tessellator.setBrightness(HexEnums.BRIGHTNESS_CL);
+                        tessellator.setBrightness(HexEnums.Brightness.CL.value);
                     else
-                        tessellator.setBrightness(HexEnums.BRIGHTNESS_BRIGHT);
+                        tessellator.setBrightness(HexEnums.Brightness.BRIGHT.value);
                 }
 
-                tessellator.setColorOpaque_F(HexEnums.COLOR_WHITE_R, HexEnums.COLOR_WHITE_G, HexEnums.COLOR_WHITE_B);
+                tessellator.setColorOpaque_F(HexEnums.Colors.WHITE.r, HexEnums.Colors.WHITE.g, HexEnums.Colors.WHITE.b);
 
                 float exactY = startY - y + level;
                 int cutY = (int) Math.floor(exactY);

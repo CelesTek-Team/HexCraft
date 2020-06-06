@@ -7,17 +7,12 @@ import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyPort, ITileHexEnergySource, ITileHexEnergyDrain {
 
@@ -59,7 +54,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     // Prepare port variables.
     private HexDevice linkedPort;
     private int portTier;
-    private int portType;
+    private final int portType;
 
     // Prepare the recheck variables.
     private int recheckCountdown;

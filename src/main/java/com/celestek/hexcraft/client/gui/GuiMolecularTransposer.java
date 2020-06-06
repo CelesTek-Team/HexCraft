@@ -12,10 +12,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 @SideOnly(Side.CLIENT)
 public class GuiMolecularTransposer extends GuiContainer {
 

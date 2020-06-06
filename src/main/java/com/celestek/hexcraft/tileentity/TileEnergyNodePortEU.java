@@ -12,7 +12,6 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.info.Info;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,10 +20,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPort, IEnergySource, IEnergySink {
 
@@ -53,7 +48,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
     // Prepare port variables.
     private HexDevice linkedPort;
     private int portTier;
-    private int portType;
+    private final int portType;
 
     // EU Specific things.
     private boolean addedToEnet;

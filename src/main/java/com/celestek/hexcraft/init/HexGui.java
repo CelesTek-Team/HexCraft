@@ -8,10 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexGui implements IGuiHandler {
 
     public static final int GUI_ID_HEXORIUM_GENERATOR = 0;

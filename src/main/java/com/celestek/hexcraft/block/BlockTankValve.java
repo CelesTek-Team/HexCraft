@@ -29,10 +29,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
 public class BlockTankValve extends HexBlockContainer implements IHexBlock {
 
     // Block ID

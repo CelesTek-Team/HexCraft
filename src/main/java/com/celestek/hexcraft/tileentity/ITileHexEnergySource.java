@@ -5,9 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 public interface ITileHexEnergySource {
     /**
      * Saves the ArrayList of energy drains.

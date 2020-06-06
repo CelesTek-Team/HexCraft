@@ -13,10 +13,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerMatrixReconstructor extends Container {
 
     // Crafter IDs
@@ -24,7 +20,7 @@ public class ContainerMatrixReconstructor extends Container {
     private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
     private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    private TileMatrixReconstructor tileMatrixReconstructor;
+    private final TileMatrixReconstructor tileMatrixReconstructor;
 
     private int lastEnergyTotalDone;
     private int lastEnergyDrained;

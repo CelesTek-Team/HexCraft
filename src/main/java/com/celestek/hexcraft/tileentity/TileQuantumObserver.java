@@ -1,6 +1,5 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.util.ChunkManager;
@@ -11,15 +10,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeChunkManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileQuantumObserver extends TileEntity implements ITileHexEnergyDrain {
 

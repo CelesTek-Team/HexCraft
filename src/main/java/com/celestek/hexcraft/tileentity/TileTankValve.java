@@ -14,10 +14,6 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
-/**
- * @author CoffeePirate     <celestek@openmailbox.org>
- */
-
 public class TileTankValve extends TileFluidHandler {
 
     /**** Static Values ****/

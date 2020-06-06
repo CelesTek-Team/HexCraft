@@ -1,17 +1,9 @@
 package com.celestek.hexcraft.server;
 
 import com.celestek.hexcraft.HexCommonProxy;
-import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.init.HexGui;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraftforge.common.ForgeChunkManager;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexServerProxy extends HexCommonProxy {
 

@@ -34,10 +34,6 @@ import java.util.Random;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockHexoriumFurnace extends HexBlockContainer implements IHexBlock, IBlockHexEnergyDrain {
 
     // Block ID

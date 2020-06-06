@@ -13,10 +13,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class ContainerCrystalSeparator extends Container {
 
     // Crafter IDs
@@ -24,7 +20,7 @@ public class ContainerCrystalSeparator extends Container {
     private static final int GUI_ID_ENERGY_TOTAL_DONE_1 = 1;
     private static final int GUI_ID_ENERGY_DRAINED = 2;
 
-    private TileCrystalSeparator tileCrystalSeparator;
+    private final TileCrystalSeparator tileCrystalSeparator;
 
     private int lastEnergyTotalDone;
     private int lastEnergyDrained;

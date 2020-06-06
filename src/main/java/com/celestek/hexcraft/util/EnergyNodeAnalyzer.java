@@ -8,15 +8,11 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class EnergyNodeAnalyzer {
 
     // Prepare ArrayLists for blocks and cores.
-    private ArrayList<HexDevice> blocks;
-    private ArrayList<HexDevice> cores;
+    private final ArrayList<HexDevice> blocks;
+    private final ArrayList<HexDevice> cores;
 
     /**
      * Constructor.

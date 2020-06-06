@@ -4,10 +4,6 @@ import com.celestek.hexcraft.tileentity.*;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexTileEntities {
     /**
      * Initializes the Tile Entities.

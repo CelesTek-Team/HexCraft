@@ -1,14 +1,8 @@
 package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.util.HexSound;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileSound extends TileEntity {
 

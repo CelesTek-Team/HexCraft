@@ -10,10 +10,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 @SideOnly(Side.CLIENT)
 public class GuiCrystalSeparator extends GuiContainer {
 

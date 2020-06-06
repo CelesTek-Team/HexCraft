@@ -4,8 +4,6 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.init.HexItems;
-import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -17,22 +15,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.List;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlockHexColor {
 

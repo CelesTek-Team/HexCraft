@@ -8,10 +8,6 @@ import com.celestek.hexcraft.util.HexEnums;
 import com.cricketcraft.chisel.api.carving.CarvingUtils;
 import com.cricketcraft.chisel.api.carving.ICarvingRegistry;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexChisel {
 
     /**

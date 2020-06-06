@@ -13,10 +13,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandler {
 
     // Static Values
@@ -89,7 +85,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(HexEnums.COLOR_BLACK_R, HexEnums.COLOR_BLACK_G, HexEnums.COLOR_BLACK_B);
+        tessellator.setColorOpaque_F(HexEnums.Colors.BLACK.r, HexEnums.Colors.BLACK.g, HexEnums.Colors.BLACK.b);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
         tessellator.draw();
@@ -193,7 +189,7 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
 
             // UP (Teleportation Pad)
             if(!world.getBlock(x, y + 1, z).isOpaqueCube()) {
-                tessellator.setColorOpaque_F(HexEnums.COLOR_BLACK_R, HexEnums.COLOR_BLACK_G, HexEnums.COLOR_BLACK_B);
+                tessellator.setColorOpaque_F(HexEnums.Colors.BLACK.r, HexEnums.Colors.BLACK.g, HexEnums.Colors.BLACK.b);
                 tessellator.addVertexWithUV(0, 1, 0, u, v);
                 tessellator.addVertexWithUV(0, 1, 1, u, V);
                 tessellator.addVertexWithUV(1, 1, 1, U, V);

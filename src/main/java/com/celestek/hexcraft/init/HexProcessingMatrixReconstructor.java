@@ -2,7 +2,6 @@ package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
-import com.celestek.hexcraft.block.BlockHexoriumOre;
 import com.celestek.hexcraft.util.HexEnums;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,10 +9,6 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexProcessingMatrixReconstructor {
 

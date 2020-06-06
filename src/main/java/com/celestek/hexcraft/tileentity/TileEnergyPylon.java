@@ -9,7 +9,6 @@ import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.HexPylon;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,10 +23,6 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class TileEnergyPylon extends TileEntity {
 
@@ -195,7 +190,7 @@ public class TileEnergyPylon extends TileEntity {
 
             /* DO ANALYSIS */
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
-            analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.blockEnergyPylon);
+            analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.getHexBlock(BlockEnergyPylon.ID));
         }
     }
 
@@ -262,7 +257,7 @@ public class TileEnergyPylon extends TileEntity {
 
         /* DO ANALYSIS */
         NetworkAnalyzer analyzer = new NetworkAnalyzer();
-        analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.blockEnergyPylon);
+        analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.getHexBlock(BlockEnergyPylon.ID));
     }
 
     /**
@@ -307,7 +302,7 @@ public class TileEnergyPylon extends TileEntity {
 
                 /* DO ANALYSIS */
                 NetworkAnalyzer analyzer = new NetworkAnalyzer();
-                analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.blockEnergyPylon);
+                analyzer.analyzePylon(worldObj, xCoord, yCoord, zCoord, HexBlocks.getHexBlock(BlockEnergyPylon.ID));
             }
         }
     }

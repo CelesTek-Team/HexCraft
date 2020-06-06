@@ -19,10 +19,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static com.celestek.hexcraft.init.HexItems.getHexItemStack;
 
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
-
 public class BlockOfHexoriumCrystal extends HexBlock implements IHexBlock {
 
     // Block ID

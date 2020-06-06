@@ -3,19 +3,10 @@ package com.celestek.hexcraft.client;
 import com.celestek.hexcraft.HexCommonProxy;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
-import com.celestek.hexcraft.client.renderer.*;
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.init.HexBlocks;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexClientProxy extends HexCommonProxy {
 

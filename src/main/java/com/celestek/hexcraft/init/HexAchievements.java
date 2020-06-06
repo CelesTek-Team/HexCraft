@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.init;
 
-import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
-import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
 import com.celestek.hexcraft.util.HexEnums;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -12,12 +9,6 @@ import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
 import java.util.ArrayList;
-
-import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexAchievements {
 

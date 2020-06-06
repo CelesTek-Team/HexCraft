@@ -3,7 +3,6 @@ package com.celestek.hexcraft;
 import com.celestek.hexcraft.init.*;
 import com.celestek.hexcraft.util.ChunkManager;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -12,10 +11,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-
-/**
- * @author Thorinair   <celestek@openmailbox.org>
- */
 
 public class HexCommonProxy {
 
