@@ -2,7 +2,10 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererCable;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -14,11 +17,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.List;
 
@@ -189,6 +195,22 @@ public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlo
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexModelRendererCable(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, color));
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            ItemStack blocks = new ItemStack(HexBlocks.getHexBlock(ID, color), 8);
+
+            Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
+            Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, HexEnums.Variants.BLACK);
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    blocks,
+                    " G ",
+                    "RHR",
+                    " G ",
+                    'H', energized, 'G', glass, 'R', "dustRedstone"));
         }
     }
 

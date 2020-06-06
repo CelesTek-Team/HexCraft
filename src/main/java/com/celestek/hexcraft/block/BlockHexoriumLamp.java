@@ -177,7 +177,8 @@ public class BlockHexoriumLamp extends HexBlockMT implements IHexBlock, IBlockHe
                 Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                GameRegistry.addRecipe(new ShapedOreRecipe(
+                        block,
                         "LGL",
                         "IHI",
                         "LRL",

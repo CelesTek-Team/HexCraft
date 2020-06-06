@@ -282,7 +282,8 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IHexBlock, 
                     Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
                     Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                    GameRegistry.addRecipe(new ShapedOreRecipe(blocks,
+                    GameRegistry.addRecipe(new ShapedOreRecipe(
+                            blocks,
                             "GGG",
                             "GHG",
                             "GGG",

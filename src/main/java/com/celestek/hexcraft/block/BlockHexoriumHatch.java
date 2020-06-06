@@ -395,7 +395,8 @@ public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlo
                 Block glass = HexBlocks.getHexBlock(BlockTemperedHexoriumGlass.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                GameRegistry.addRecipe(new ShapedOreRecipe(
+                        block,
                         "IGI",
                         "IHI",
                         "   ",

@@ -249,7 +249,8 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexB
                 Block stone = HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(blocks,
+                GameRegistry.addRecipe(new ShapedOreRecipe(
+                        blocks,
                         "SSS",
                         "SHS",
                         "SSS",

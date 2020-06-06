@@ -161,7 +161,8 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IHexBloc
                 Block stone = HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, variant);
                 Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-                GameRegistry.addRecipe(new ShapedOreRecipe(block,
+                GameRegistry.addRecipe(new ShapedOreRecipe(
+                        block,
                         " I ",
                         " H ",
                         " S ",
