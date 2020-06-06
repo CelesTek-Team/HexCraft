@@ -2,6 +2,8 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
@@ -13,10 +15,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.Random;
 
@@ -52,7 +58,7 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
     public static final int META_STATE = 3;
 
     // Color and variant
-    private final BlockHexoriumButton.Colors color;
+    private final Colors color;
     private final HexEnums.Variants variant;
 
     /**
@@ -61,7 +67,7 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
      * @param color The color of the block to use.
      * @param variant The variant to use.
      */
-    public BlockHexoriumButton(String blockName, BlockHexoriumButton.Colors color, HexEnums.Variants variant) {
+    public BlockHexoriumButton(String blockName, Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -429,6 +435,36 @@ public class BlockHexoriumButton extends HexBlockModel implements IHexBlock, IBl
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT));
+            }
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (Colors color : Colors.values()) {
+                Block block = HexBlocks.getHexBlock(ID, variant, color.name);
+
+                Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                if (variant == HexEnums.Variants.BLACK) {
+                    String gem = "gemHexorium" + color.name;
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(
+                            block,
+                            " C ",
+                            "IRI",
+                            " B ",
+                            'C', gem, 'B', Blocks.stone_button, 'I', "nuggetIron", 'R', "dustRedstone"));
+                }
+
+                for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                    if (variant != variant2) {
+                        Block blockOther = HexBlocks.getHexBlock(ID, variant2, color.name);
+                        GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                block,
+                                blockOther, dye));
+                    }
+                }
             }
         }
     }

@@ -241,7 +241,7 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
      * @param brightness Intensity of the monolith glow.
      * @param opacity Opacity of the monolith.
      */
-    public HexModelRendererPylon(int renderID, int brightness, float opacity) {
+    public HexModelRendererPylon(int renderID, HexEnums.Brightness brightness, float opacity) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -249,9 +249,9 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
         this.opacity = opacity;
 

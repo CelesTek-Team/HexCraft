@@ -108,10 +108,9 @@ public class HexClientProxy extends HexCommonProxy {
         BlockHexoriumCable.registerRenders();
 
         // Energy Pylon
-        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
-        RenderingRegistry.registerBlockHandler(new HexModelRendererPylon(renderID[HexCraft.idCounter],
-                HexEnums.BRIGHTNESS_BRIGHT, HexEnums.OPACITY_SLIGHT));
+        BlockEnergyPylon.registerRenders();
 
+        // Redstone
         BlockHexoriumSwitch.registerRenders();
         BlockHexoriumButton.registerRenders();
         BlockHexoriumPressurePlate.registerRenders();

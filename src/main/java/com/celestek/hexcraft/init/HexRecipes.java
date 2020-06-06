@@ -1,10 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.block.*;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import ic2.api.item.IC2Items;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,8 +23,6 @@ public class HexRecipes {
         // Vanilla Blocks
         ItemStack stackObsidian_1 = new ItemStack(Blocks.obsidian, 1);
         ItemStack stackStoneButton_1 = new ItemStack(Blocks.stone_button, 1);
-        ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
-        ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
 
         // Vanilla Items
         ItemStack stackRedstone_1 = new ItemStack(Items.redstone, 1);
@@ -35,59 +30,10 @@ public class HexRecipes {
         ItemStack stackEnderEye_1 = new ItemStack(Items.ender_eye, 1);
 
         // Cables
-        ItemStack stackHexoriumCableRed_4 = new ItemStack(HexBlocks.blockHexoriumCableRed, 4);
-        ItemStack stackHexoriumCableOrange_4 = new ItemStack(HexBlocks.blockHexoriumCableOrange, 4);
-        ItemStack stackHexoriumCableYellow_4 = new ItemStack(HexBlocks.blockHexoriumCableYellow, 4);
-        ItemStack stackHexoriumCableLime_4 = new ItemStack(HexBlocks.blockHexoriumCableLime, 4);
-        ItemStack stackHexoriumCableGreen_4 = new ItemStack(HexBlocks.blockHexoriumCableGreen, 4);
-        ItemStack stackHexoriumCableTurquoise_4 = new ItemStack(HexBlocks.blockHexoriumCableTurquoise, 4);
-        ItemStack stackHexoriumCableCyan_4 = new ItemStack(HexBlocks.blockHexoriumCableCyan, 4);
-        ItemStack stackHexoriumCableSkyBlue_4 = new ItemStack(HexBlocks.blockHexoriumCableSkyBlue, 4);
-        ItemStack stackHexoriumCableBlue_4 = new ItemStack(HexBlocks.blockHexoriumCableBlue, 4);
-        ItemStack stackHexoriumCablePurple_4 = new ItemStack(HexBlocks.blockHexoriumCablePurple, 4);
-        ItemStack stackHexoriumCableMagenta_4 = new ItemStack(HexBlocks.blockHexoriumCableMagenta, 4);
-        ItemStack stackHexoriumCablePink_4 = new ItemStack(HexBlocks.blockHexoriumCablePink, 4);
-
-        ItemStack stackHexoriumCableWhite_4 = new ItemStack(HexBlocks.blockHexoriumCableWhite, 4);
-        ItemStack stackHexoriumCableLightGray_4 = new ItemStack(HexBlocks.blockHexoriumCableLightGray, 4);
-        ItemStack stackHexoriumCableGray_4 = new ItemStack(HexBlocks.blockHexoriumCableGray, 4);
-        ItemStack stackHexoriumCableDarkGray_4 = new ItemStack(HexBlocks.blockHexoriumCableDarkGray, 4);
-        ItemStack stackHexoriumCableBlack_4 = new ItemStack(HexBlocks.blockHexoriumCableBlack, 4);
-
         ItemStack stackHexoriumCableRainbow_1 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 1);
-        ItemStack stackHexoriumCableRainbow_4 = new ItemStack(HexBlocks.blockHexoriumCableRainbow, 4);
-
-        // Energy Pylon
-        ItemStack stackEnergyPylon_1 = new ItemStack(HexBlocks.blockEnergyPylon, 1);
-
-        // Hexorium Switch
-        ItemStack stackHexoriumSwitchRedGreen_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedGreen, 1);
-        ItemStack stackHexoriumSwitchRedBlue_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedBlue, 1);
-        ItemStack stackHexoriumSwitchRedWhite_1 = new ItemStack(HexBlocks.blockHexoriumSwitchRedWhite, 1);
-        ItemStack stackHexoriumSwitchBlueGreen_1 = new ItemStack(HexBlocks.blockHexoriumSwitchBlueGreen, 1);
-
-        // Hexorium Button
-        ItemStack stackHexoriumButtonRed_1 = new ItemStack(HexBlocks.blockHexoriumButtonRed, 1);
-        ItemStack stackHexoriumButtonGreen_1 = new ItemStack(HexBlocks.blockHexoriumButtonGreen, 1);
-        ItemStack stackHexoriumButtonBlue_1 = new ItemStack(HexBlocks.blockHexoriumButtonBlue, 1);
-        ItemStack stackHexoriumButtonWhite_1 = new ItemStack(HexBlocks.blockHexoriumButtonWhite, 1);
-
-        // Hexorium Pressure Plate
-        ItemStack stackHexoriumPressurePlateRed_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateRed, 1);
-        ItemStack stackHexoriumPressurePlateGreen_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateGreen, 1);
-        ItemStack stackHexoriumPressurePlateBlue_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateBlue, 1);
-        ItemStack stackHexoriumPressurePlateWhite_1 = new ItemStack(HexBlocks.blockHexoriumPressurePlateWhite, 1);
 
         // Regular Blocks
-        ItemStack stackTemperedHexoriumGlass_1 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 1);
-        ItemStack stackTemperedHexoriumGlass_4 = new ItemStack(HexBlocks.blockTemperedHexoriumGlass, 4);
-        ItemStack stackHexoriumCoatedStone_8 = new ItemStack(HexBlocks.blockHexoriumCoatedStone, 8);
         ItemStack stackHexoriumCoatedStone_1 = new ItemStack(HexBlocks.blockHexoriumCoatedStone, 1);
-
-        ItemStack stackPylonBase51_1 = new ItemStack(HexBlocks.blockPylonBase51, 1);
-        ItemStack stackPylonBase15_1 = new ItemStack(HexBlocks.blockPylonBase15, 1);
-
-        ItemStack stackSoundProjector_1 = new ItemStack(HexBlocks.blockSoundProjector, 1);
 
         // Hex Items
         // Raw Materials
@@ -190,116 +136,20 @@ public class HexRecipes {
         BlockHexoriumCable.registerRecipes();
 
         // Energy Pylon
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyPylon_1,
-                "   ",
-                "RBR",
-                "CAC",
-                'R', stackRedstone_1, 'A', stackPylonSocket_1, 'B', stackEnergyInjector_1, 'C', "ingotIron"));
+        BlockEnergyPylon.registerRecipes();
 
-        // Hexorium Switch
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedGreen_1,
-                "ARB",
-                "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalGreen_1, 'C', "nuggetIron", 'D', stackLever_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedBlue_1,
-                "ARB",
-                "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalBlue_1, 'C', "nuggetIron", 'D', stackLever_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchRedWhite_1,
-                "ARB",
-                "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', stackHexoriumCrystalWhite_1, 'C', "nuggetIron", 'D', stackLever_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumSwitchBlueGreen_1,
-                "ARB",
-                "CDC",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', stackHexoriumCrystalGreen_1, 'C', "nuggetIron", 'D', stackLever_1));
-
-        // Hexorium Button
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonRed_1,
-                " A ",
-                "BRB",
-                " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonGreen_1,
-                " A ",
-                "BRB",
-                " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonBlue_1,
-                " A ",
-                "BRB",
-                " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumButtonWhite_1,
-                " A ",
-                "BRB",
-                " C ",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron", 'C', stackStoneButton_1));
-
-        // Hexorium Pressure Plate
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateRed_1,
-                "ARA",
-                "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalRed_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateGreen_1,
-                "ARA",
-                "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalGreen_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateBlue_1,
-                "ARA",
-                "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalBlue_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumPressurePlateWhite_1,
-                "ARA",
-                "BCB",
-                'R', stackRedstone_1, 'A', stackHexoriumCrystalWhite_1, 'B', "nuggetIron", 'C', stackHeavyWeightedPressurePlate_1));
+        // Redstone
+        BlockHexoriumSwitch.registerRecipes();
+        BlockHexoriumButton.registerRecipes();
+        BlockHexoriumPressurePlate.registerRecipes();
 
         // Regular Blocks
-        GameRegistry.addSmelting(stackHexoriumGlassPackage_1, stackTemperedHexoriumGlass_4, 0F);
+        BlockTemperedHexoriumGlass.registerRecipes();
+        BlockHexoriumCoatedStone.registerRecipes();
+        BlockPylonBase.registerRecipes();
+        BlockSoundProjector.registerRecipes();
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
-                "BBB",
-                "BAB",
-                "BBB",
-                'A', stackHexoriumCrystalRed_1, 'B', "stone"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
-                "BBB",
-                "BAB",
-                "BBB",
-                'A', stackHexoriumCrystalGreen_1, 'B', "stone"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
-                "BBB",
-                "BAB",
-                "BBB",
-                'A', stackHexoriumCrystalBlue_1, 'B', "stone"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
-                "BBB",
-                "BAB",
-                "BBB",
-                'A', stackHexoriumCrystalWhite_1, 'B', "stone"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumCoatedStone_8,
-                "BBB",
-                "BAB",
-                "BBB",
-                'A', stackHexoriumCrystalBlack_1, 'B', "stone"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackPylonBase51_1,
-                "DAD",
-                "ABA",
-                "DCD",
-                'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumEnergyConverter_1, 'C', stackPylonSocket_1, 'D', "ingotIron"));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackPylonBase15_1,
-                "DCD",
-                "CBC",
-                "DAD",
-                'A', stackHexoriumCableRainbow_1, 'B', stackHexoriumEnergyConverter_1, 'C', stackPylonSocket_1, 'D', "ingotIron"));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackSoundProjector_1,
-                "DRD",
-                "ABC",
-                "DRD",
-                'R', stackRedstone_1, 'A', stackMachineControlPanel_1, 'B', stackRainbowCore_1, 'C', stackSoundEmissionModule_1, 'D', "ingotIron"));
 
         // Hex Items
         // Components T1

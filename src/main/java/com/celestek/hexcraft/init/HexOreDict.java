@@ -22,7 +22,7 @@ public class HexOreDict {
 
         // Crystals
         for (HexEnums.Basics color : HexEnums.Basics.values())
-            OreDictionary.registerOre("gemHexoriumRed", HexItems.getHexItem(HexItems.ID_CRYSTAL + color.name));
+            OreDictionary.registerOre("gemHexorium" + color.name, HexItems.getHexItem(HexItems.ID_CRYSTAL + color.name));
 
         // Nuggets
         OreDictionary.registerOre("nuggetIron", HexItems.itemIronNugget);

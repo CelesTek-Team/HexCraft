@@ -2,6 +2,9 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererPressurePlate;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -14,10 +17,14 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.Iterator;
 import java.util.List;
@@ -54,7 +61,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
     public static final int META_STATE = 2;
 
     // Color and variant
-    private final BlockHexoriumPressurePlate.Colors color;
+    private final Colors color;
     private final HexEnums.Variants variant;
 
     /**
@@ -63,7 +70,7 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
      * @param color The color of the block to use.
      * @param variant The variant to use.
      */
-    public BlockHexoriumPressurePlate(String blockName, BlockHexoriumPressurePlate.Colors color, HexEnums.Variants variant) {
+    public BlockHexoriumPressurePlate(String blockName, Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -326,6 +333,36 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexModelRendererPressurePlate(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT));
+            }
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (Colors color : Colors.values()) {
+                Block block = HexBlocks.getHexBlock(ID, variant, color.name);
+
+                Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                if (variant == HexEnums.Variants.BLACK) {
+                    String gem = "gemHexorium" + color.name;
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(
+                            block,
+                            "CRC",
+                            "IPI",
+                            "   ",
+                            'C', gem, 'P', Blocks.heavy_weighted_pressure_plate, 'I', "nuggetIron", 'R', "dustRedstone"));
+                }
+
+                for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                    if (variant != variant2) {
+                        Block blockOther = HexBlocks.getHexBlock(ID, variant2, color.name);
+                        GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                block,
+                                blockOther, dye));
+                    }
+                }
             }
         }
     }

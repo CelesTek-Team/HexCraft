@@ -2,6 +2,8 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexModelRendererSwitchButton;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
@@ -14,12 +16,17 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
@@ -34,15 +41,17 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
     public static final String ID = "blockHexoriumSwitch";
 
     public enum Colors {
-        RED_GREEN( "RedGreen"),
-        RED_BLUE(  "RedBlue"),
-        RED_WHITE( "RedWhite"),
-        BLUE_GREEN("BlueGreen");
+        RED_GREEN( "RedGreen",  "Red",  "Green"),
+        RED_BLUE(  "RedBlue",   "Red",  "Blue"),
+        RED_WHITE( "RedWhite",  "Red",  "White"),
+        BLUE_GREEN("BlueGreen", "Blue", "Green");
 
-        public final String name;
+        public final String name, a, b;
 
-        Colors(String name) {
+        Colors(String name, String a, String b) {
             this.name = name;
+            this.a = a;
+            this.b = b;
         }
     }
 
@@ -53,7 +62,7 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
     public static final int META_STATE = 3;
 
     // Color and variant
-    private final BlockHexoriumSwitch.Colors color;
+    private final Colors color;
     private final HexEnums.Variants variant;
 
     /**
@@ -62,7 +71,7 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
      * @param color The color of the block to use.
      * @param variant The variant to use.
      */
-    public BlockHexoriumSwitch(String blockName, BlockHexoriumSwitch.Colors color, HexEnums.Variants variant) {
+    public BlockHexoriumSwitch(String blockName, Colors color, HexEnums.Variants variant) {
         super(Material.iron);
 
         // Set all block parameters.
@@ -412,6 +421,37 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
                 renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
                 RenderingRegistry.registerBlockHandler(new HexModelRendererSwitchButton(renderID[HexCraft.idCounter],
                         HexEnums.Brightness.BRIGHT));
+            }
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            for (Colors color : Colors.values()) {
+                Block block = HexBlocks.getHexBlock(ID, variant, color.name);
+
+                Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+                if (variant == HexEnums.Variants.BLACK) {
+                    String gemA = "gemHexorium" + color.a;
+                    String gemB = "gemHexorium" + color.b;
+
+                    GameRegistry.addRecipe(new ShapedOreRecipe(
+                            block,
+                            "ARB",
+                            "ILI",
+                            "   ",
+                            'A', gemA, 'B', gemB, 'L', Blocks.lever, 'I', "nuggetIron", 'R', "dustRedstone"));
+                }
+
+                for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                    if (variant != variant2) {
+                        Block blockOther = HexBlocks.getHexBlock(ID, variant2, color.name);
+                        GameRegistry.addRecipe(new ShapelessOreRecipe(
+                                block,
+                                blockOther, dye));
+                    }
+                }
             }
         }
     }

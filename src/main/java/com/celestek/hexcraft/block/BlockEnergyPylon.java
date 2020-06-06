@@ -10,6 +10,8 @@ import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexPylon;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -18,6 +20,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -25,10 +28,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
@@ -734,5 +739,29 @@ public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        GameRegistry.registerBlock(new BlockEnergyPylon(ID), ID);
+    }
+
+    public static void registerRenders() {
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexModelRendererPylon(renderID[HexCraft.idCounter],
+                HexEnums.Brightness.BRIGHT, HexEnums.OPACITY_SLIGHT));
+    }
+
+    public static void registerRecipes() {
+        Block block = HexBlocks.getHexBlock(ID);
+
+        Item injector = HexItems.itemEnergyInjector;
+        Item socket = HexItems.itemPylonSocket;
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                block,
+                "   ",
+                "RJR",
+                "ISI",
+                'J', injector, 'S', socket, 'R', "dustRedstone", 'I', "ingotIron"));
     }
 }

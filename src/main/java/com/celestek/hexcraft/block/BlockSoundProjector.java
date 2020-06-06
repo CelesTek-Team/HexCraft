@@ -1,10 +1,13 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileSoundProjector;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,11 +15,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -248,5 +253,24 @@ public class BlockSoundProjector extends HexBlockContainer implements IHexBlock 
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        GameRegistry.registerBlock(new BlockSoundProjector(ID), ID);
+    }
+
+    public static void registerRecipes() {
+        Block block = HexBlocks.getHexBlock(ID);
+
+        Item panel = HexItems.itemMachineControlPanel;
+        Item core = HexItems.itemRainbowCore;
+        Item sound = HexItems.itemSoundEmissionModule;
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                block,
+                "IRI",
+                "PCS",
+                "IRI",
+                'P', panel, 'C', core, 'S', sound, 'I', "ingotIron", 'R', "dustRedstone"));
     }
 }

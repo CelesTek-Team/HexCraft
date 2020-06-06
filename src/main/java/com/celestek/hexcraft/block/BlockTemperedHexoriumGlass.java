@@ -3,6 +3,8 @@ package com.celestek.hexcraft.block;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
+import com.celestek.hexcraft.item.ItemHexoriumDye;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
@@ -12,10 +14,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -239,6 +246,27 @@ public class BlockTemperedHexoriumGlass extends Block implements IHexBlock, IBlo
             String name = ID + variant.name;
             Block block = new BlockTemperedHexoriumGlass(name, variant);
             GameRegistry.registerBlock(block, name);
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            Block block = HexBlocks.getHexBlock(ID, variant);
+            ItemStack blocks = new ItemStack(HexBlocks.getHexBlock(ID, variant), 4);
+
+            Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
+
+            if (variant == HexEnums.Variants.BLACK)
+                GameRegistry.addSmelting(HexItems.itemHexoriumGlassPackage, blocks, 0.1F);
+
+            for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
+                if (variant != variant2) {
+                    Block blockOther = HexBlocks.getHexBlock(ID, variant2);
+                    GameRegistry.addRecipe(new ShapelessOreRecipe(
+                            block,
+                            blockOther, dye));
+                }
+            }
         }
     }
 

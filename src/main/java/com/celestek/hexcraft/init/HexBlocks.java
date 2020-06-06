@@ -730,9 +730,9 @@ public class HexBlocks {
         BlockHexoriumCable.registerBlocks();
         
         // Energy Pylon
-        blockEnergyPylon = new BlockEnergyPylon(BlockEnergyPylon.ID);
-        GameRegistry.registerBlock(blockEnergyPylon, BlockEnergyPylon.ID);
+        BlockEnergyPylon.registerBlocks();
 
+        // Redstone
         BlockHexoriumSwitch.registerBlocks();
         BlockHexoriumButton.registerBlocks();
         BlockHexoriumPressurePlate.registerBlocks();
@@ -740,14 +740,8 @@ public class HexBlocks {
         // Regular Blocks
         BlockTemperedHexoriumGlass.registerBlocks();
         BlockHexoriumCoatedStone.registerBlocks();
-
-        blockPylonBase51 = new BlockPylonBase(BlockPylonBase.ID + "51", false);
-        GameRegistry.registerBlock(blockPylonBase51, BlockPylonBase.ID + "51");
-        blockPylonBase15 = new BlockPylonBase(BlockPylonBase.ID + "15", true);
-        GameRegistry.registerBlock(blockPylonBase15, BlockPylonBase.ID + "15");
-
-        blockSoundProjector = new BlockSoundProjector(BlockSoundProjector.ID);
-        GameRegistry.registerBlock(blockSoundProjector, BlockSoundProjector.ID);
+        BlockPylonBase.registerBlocks();
+        BlockSoundProjector.registerBlocks();
     }
 
     public static int getMachineState(World world, int x, int y, int z) {
