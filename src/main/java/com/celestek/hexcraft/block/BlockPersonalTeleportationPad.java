@@ -1,13 +1,17 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.client.renderer.HexBlockTeleportationRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TilePersonalTeleportationPad;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,6 +28,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -244,6 +250,20 @@ public class BlockPersonalTeleportationPad extends HexBlockContainer implements 
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        if (HexConfig.cfgTeleportEnable) {
+            GameRegistry.registerBlock(new BlockPersonalTeleportationPad(ID), ID);
+        }
+    }
+
+    public static void registerRenders() {
+        if (HexConfig.cfgTeleportEnable) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockTeleportationRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.Colors.WHITE, HexEnums.Colors.CYAN));
+        }
     }
 
     public static void registerRecipes() {

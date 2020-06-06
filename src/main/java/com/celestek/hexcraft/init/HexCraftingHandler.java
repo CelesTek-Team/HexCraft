@@ -131,7 +131,7 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftLampInv, 1);
                 checkDecorations = true;
             }
-            else if (block == HexBlocks.blockHexoriumCoatedStone) {
+            else if (block instanceof BlockHexoriumCoatedStone) {
                 event.player.addStat(HexAchievements.achCraftHexoriumCoatedStone, 1);
             }
             else if (block instanceof BlockGlowingHexoriumCoatedStone) {
@@ -151,10 +151,10 @@ public class HexCraftingHandler {
             else if (block instanceof BlockHexoriumCable)
                 event.player.addStat(HexAchievements.achCraftCable, 1);
 
-            else if (block == HexBlocks.blockHexoriumMachineBlock)
+            else if (block instanceof BlockHexoriumMachineBlock)
                 event.player.addStat(HexAchievements.achCraftMachineBlock, 1);
 
-            else if (block == HexBlocks.blockAdvancedRainbowCore)
+            else if (block instanceof BlockAdvancedRainbowCore)
                 event.player.addStat(HexAchievements.achCraftAdvancedRainbowCore, 1);
 
             else if (block instanceof BlockEnergyNodeCore)
@@ -164,35 +164,35 @@ public class HexCraftingHandler {
                 event.player.addStat(HexAchievements.achCraftEnergyNodePort, 1);
 
             // T2 Machines
-            else if (block == HexBlocks.blockHexoriumGenerator) {
+            else if (block instanceof BlockHexoriumGenerator) {
                 event.player.addStat(HexAchievements.achCraftMachineGenerator, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockHexoriumFurnace && HexConfig.cfgFurnaceEnable) {
+            else if (block instanceof BlockHexoriumFurnace && HexConfig.cfgFurnaceEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineFurnace, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockCrystalSeparator && HexConfig.cfgSeparatorEnable) {
+            else if (block instanceof BlockCrystalSeparator && HexConfig.cfgSeparatorEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineSeparator, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockMatrixReconstructor) {
+            else if (block instanceof BlockMatrixReconstructor) {
                 event.player.addStat(HexAchievements.achCraftMachineReconstructor, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockTankValve && HexConfig.cfgTankEnable) {
+            else if (block instanceof BlockTankValve && HexConfig.cfgTankEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineTankValve, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockPersonalTeleportationPad && HexConfig.cfgTeleportEnable) {
+            else if (block instanceof BlockPersonalTeleportationPad && HexConfig.cfgTeleportEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineTeleport, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockQuantumObserver && HexConfig.cfgObserverEnable) {
+            else if (block instanceof BlockQuantumObserver && HexConfig.cfgObserverEnable) {
                 event.player.addStat(HexAchievements.achCraftMachineQuantumObserver, 1);
                 checkMachines = true;
             }
-            else if (block == HexBlocks.blockEnergyPylon)
+            else if (block instanceof BlockEnergyPylon)
                 event.player.addStat(HexAchievements.achCraftPylon, 1);
 
             // Manipulator

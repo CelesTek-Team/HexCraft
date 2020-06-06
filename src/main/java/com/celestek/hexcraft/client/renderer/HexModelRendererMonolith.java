@@ -63,9 +63,9 @@ public class HexModelRendererMonolith implements ISimpleBlockRenderingHandler {
     private final int renderID;
     private final int brightness;
     private final float opacity;
-    private float r = 1F;
-    private float g = 1F;
-    private float b = 1F;
+    private final float r;
+    private final float g;
+    private final float b;
     private final boolean renderStone;
 
     /**

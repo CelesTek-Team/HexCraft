@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.block.BlockPersonalTeleportationPad;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -432,7 +433,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
             }
 
             // Link the teleport with new target.
-            linkedTeleport = new HexDevice(x, y, z, HexBlocks.blockPersonalTeleportationPad);
+            linkedTeleport = new HexDevice(x, y, z, HexBlocks.getHexBlock(BlockPersonalTeleportationPad.ID));
             markDirty();
             return true;
         }

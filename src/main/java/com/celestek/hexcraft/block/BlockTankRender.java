@@ -2,7 +2,13 @@ package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.HexClientProxy;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.client.renderer.HexMultiRendererTank;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.tileentity.TileTankRender;
+import com.celestek.hexcraft.util.HexEnums;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -14,6 +20,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
@@ -175,5 +183,18 @@ public class BlockTankRender extends HexBlockContainer implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        if (HexConfig.cfgTankEnable) {
+            GameRegistry.registerBlock(new BlockTankRender(ID), ID);
+        }
+    }
+
+    public static void registerRenders() {
+        if (HexConfig.cfgTankEnable) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexMultiRendererTank(renderID[HexCraft.idCounter]));
+        }
     }
 }

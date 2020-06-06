@@ -25,9 +25,9 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
     private final int renderID;
     private final int renderBlockID;
     private final int brightness;
-    private float r = 1F;
-    private float g = 1F;
-    private float b = 1F;
+    private final float r;
+    private final float g;
+    private final float b;
 
     /**
      * Constructor for custom block rendering.
@@ -91,7 +91,7 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
         int meta;
-        if (block == HexBlocks.blockTankValve)
+        if (block instanceof BlockTankValve)
             meta = HexUtils.setBit(BlockTankValve.META_ROTATION, true, 0);
         else
             meta = 2;

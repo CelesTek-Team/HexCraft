@@ -1,8 +1,10 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,6 +13,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -73,6 +77,16 @@ public class BlockAdvancedRainbowCore extends HexBlock implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        GameRegistry.registerBlock(new BlockAdvancedRainbowCore(ID), ID);
+    }
+
+    public static void registerRenders() {
+        renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                HexEnums.Brightness.BRIGHT, HexEnums.Colors.RAINBOW));
     }
 
     public static void registerRecipes() {

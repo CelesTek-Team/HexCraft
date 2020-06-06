@@ -23,28 +23,24 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
     private static final float teleportOffset = 0.015625F;
 
     // Variables
-    private int renderID;
-    private int renderBlockID;
-    private int brightness;
-    private float r = 1F;
-    private float g = 1F;
-    private float b = 1F;
-    private float tr = 1F;
-    private float tg = 1F;
-    private float tb = 1F;
+    private final int renderID;
+    private final int renderBlockID;
+    private final int brightness;
+    private final float r;
+    private final float g;
+    private final float b;
+    private final float tr;
+    private final float tg;
+    private final float tb;
 
     /**
      * Constructor for custom block rendering.
      * @param renderID Minecraft's internal ID of a certain block.
-     * @param brightness Intensity of the inner block layer glow.
-     * @param r Red component of the inner block layer color.
-     * @param g Green component of the inner block layer color.
-     * @param b Blue component of the inner block layer color.
-     * @param tr Red component of the field color.
-     * @param tg Green component of the field color.
-     * @param tb Blue component of the field color.
+     * @param brightness Intensity of the inner layer glow.
+     * @param color Inner layer color.
+     * @param colorT Teleportation field color.
      */
-    public HexBlockTeleportationRenderer(int renderID, int brightness, float r, float g, float b, float tr, float tg, float tb) {
+    public HexBlockTeleportationRenderer(int renderID, HexEnums.Brightness brightness, HexEnums.Colors color, HexEnums.Colors colorT) {
         // Save the current HexCraft block ID.
         this.renderBlockID = HexCraft.idCounter;
 
@@ -52,17 +48,17 @@ public class HexBlockTeleportationRenderer implements ISimpleBlockRenderingHandl
         this.renderID = renderID;
 
         if (Loader.isModLoaded("coloredlightscore"))
-            this.brightness = HexEnums.BRIGHTNESS_CL;
+            this.brightness = HexEnums.Brightness.CL.value;
         else
-            this.brightness = brightness;
+            this.brightness = brightness.value;
 
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
 
-        this.tr = tr;
-        this.tg = tg;
-        this.tb = tb;
+        this.tr = colorT.r;
+        this.tg = colorT.g;
+        this.tb = colorT.b;
 
         /** Increment block counter in HexCraft class. */
         HexCraft.idCounter++;

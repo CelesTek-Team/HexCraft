@@ -230,10 +230,10 @@ public class HexModelRendererPylon implements ISimpleBlockRenderingHandler {
     private static final float darkMonolith = 0.25F;
 
     // Variables
-    private int renderID;
-    private int renderBlockID;
-    private int brightness;
-    private float opacity;
+    private final int renderID;
+    private final int renderBlockID;
+    private final int brightness;
+    private final float opacity;
 
     /**
      * Constructor for custom monolith rendering.

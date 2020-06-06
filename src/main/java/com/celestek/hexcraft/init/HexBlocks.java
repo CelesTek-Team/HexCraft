@@ -706,64 +706,27 @@ public class HexBlocks {
         BlockHexoriumHatch.registerBlocks();
 
         // Machines
-        blockHexoriumMachineBlock = new BlockHexoriumMachineBlock(BlockHexoriumMachineBlock.ID);
-        GameRegistry.registerBlock(blockHexoriumMachineBlock, BlockHexoriumMachineBlock.ID);
-        blockAdvancedRainbowCore = new BlockAdvancedRainbowCore(BlockAdvancedRainbowCore.ID);
-        GameRegistry.registerBlock(blockAdvancedRainbowCore, BlockAdvancedRainbowCore.ID);
+        BlockHexoriumMachineBlock.registerBlocks();
+        BlockAdvancedRainbowCore.registerBlocks();
+        BlockHexoriumGenerator.registerBlocks();
+        BlockHexoriumFurnace.registerBlocks();
+        BlockCrystalSeparator.registerBlocks();
+        BlockMatrixReconstructor.registerBlocks();
+        BlockPersonalTeleportationPad.registerBlocks();
+        BlockQuantumObserver.registerBlocks();
+        BlockQuantumAnchor.registerBlocks();
 
-        blockHexoriumGenerator = new BlockHexoriumGenerator(BlockHexoriumGenerator.ID);
-        GameRegistry.registerBlock(blockHexoriumGenerator, BlockHexoriumGenerator.ID);
-
-        if (HexConfig.cfgFurnaceEnable) {
-            blockHexoriumFurnace = new BlockHexoriumFurnace(BlockHexoriumFurnace.ID);
-            GameRegistry.registerBlock(blockHexoriumFurnace, BlockHexoriumFurnace.ID);
-        }
-
-        if (HexConfig.cfgSeparatorEnable) {
-            blockCrystalSeparator = new BlockCrystalSeparator(BlockCrystalSeparator.ID);
-            GameRegistry.registerBlock(blockCrystalSeparator, BlockCrystalSeparator.ID);
-        }
-
-        blockMatrixReconstructor = new BlockMatrixReconstructor(BlockMatrixReconstructor.ID);
-        GameRegistry.registerBlock(blockMatrixReconstructor, BlockMatrixReconstructor.ID);
-
-        if (HexConfig.cfgTeleportEnable) {
-            blockPersonalTeleportationPad = new BlockPersonalTeleportationPad(BlockPersonalTeleportationPad.ID);
-            GameRegistry.registerBlock(blockPersonalTeleportationPad, BlockPersonalTeleportationPad.ID);
-        }
-
-        if (HexConfig.cfgObserverEnable) {
-            blockQuantumObserver = new BlockQuantumObserver(BlockQuantumObserver.ID);
-            GameRegistry.registerBlock(blockQuantumObserver, BlockQuantumObserver.ID);
-            blockQuantumAnchor = new BlockQuantumAnchor(BlockQuantumAnchor.ID);
-            GameRegistry.registerBlock(blockQuantumAnchor, BlockQuantumAnchor.ID);
-        }
-
-
-        // Tank Valve
-        if (HexConfig.cfgTankEnable) {
-            blockTankValve = new BlockTankValve(BlockTankValve.ID);
-            GameRegistry.registerBlock(blockTankValve, BlockTankValve.ID);
-            blockTankRender = new BlockTankRender(BlockTankRender.ID);
-            GameRegistry.registerBlock(blockTankRender, BlockTankRender.ID);
-        }
+        // Tank
+        BlockTankValve.registerBlocks();
+        BlockTankRender.registerBlocks();
         
         // Energy Node
         BlockEnergyNodeCore.registerBlocks();
-        if (HexConfig.cfgEnergyNodeEnable) {
+        BlockEnergyNodePortHEX.registerBlocks();
+        BlockEnergyNodePortRF.registerBlocks();
+        BlockEnergyNodePortEU.registerBlocks();
 
-            blockEnergyNodePortHEX = new BlockEnergyNodePortHEX(BlockEnergyNodePortHEX.ID);
-            GameRegistry.registerBlock(blockEnergyNodePortHEX, BlockEnergyNodePortHEX.ID);
-            if (HexConfig.cfgEnergyNodePortsRFEnable) {
-                blockEnergyNodePortRF = new BlockEnergyNodePortRF(BlockEnergyNodePortRF.ID);
-                GameRegistry.registerBlock(blockEnergyNodePortRF, BlockEnergyNodePortRF.ID);
-            }
-            if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable) {
-                blockEnergyNodePortEU = new BlockEnergyNodePortEU(BlockEnergyNodePortEU.ID);
-                GameRegistry.registerBlock(blockEnergyNodePortEU, BlockEnergyNodePortEU.ID);
-            }
-        }
-
+        // Cables
         BlockHexoriumCable.registerBlocks();
         
         // Energy Pylon

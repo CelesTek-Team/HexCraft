@@ -137,6 +137,7 @@ public class NetworkAnalyzer {
     private void analyze(World world, int x, int y, int z, Block blockPrev, int direction) {
         // Save the current block.
         Block block = world.getBlock(x, y, z);
+        Block rainbow = HexBlocks.getHexBlock(BlockHexoriumCable.ID, HexEnums.Colors.RAINBOW);
 
         // Console spam for debugging analysis.
         if (HexConfig.cfgGeneralVerboseNetworkDebug && HexConfig.cfgGeneralNetworkDebug)
@@ -153,11 +154,11 @@ public class NetworkAnalyzer {
                     // 1) The previous cable's color was Rainbow.
                     // 2) The current block's color is Rainbow.
                     // 3) The current block's color is same as previous.
-                    if (blockPrev == HexBlocks.blockHexoriumCableRainbow
-                            || block == HexBlocks.blockHexoriumCableRainbow
+                    if (blockPrev == rainbow
+                            || block == rainbow
                             || blockPrev == block
                             || blockPrev instanceof BlockPylonBase
-                            || blockPrev == HexBlocks.blockEnergyNodePortHEX)
+                            || blockPrev instanceof BlockEnergyNodePortHEX)
                         // If any condition is met, add the cable to the cables ArrayList. Do this to avoid loops.
                         cables.add(new HexDevice(x, y, z, block));
                     else
@@ -191,23 +192,23 @@ public class NetworkAnalyzer {
                 int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z);
 
                 // If this is a non-HEX port, formed and accessed from core
-                if (!(block == HexBlocks.blockEnergyNodePortHEX) && isPart && prevCore)
+                if (!(block instanceof BlockEnergyNodePortHEX) && isPart && prevCore)
                     addPort = true;
 
                 // If this is a HEX port, formed and interface
-                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart
+                else if (block instanceof BlockEnergyNodePortHEX && isPart
                         && mode == HexEnergyNode.PORT_MODE_INTERFACE) {
                     addPort = true;
                     nextPort = true;
                 }
 
                 // If this is a HEX port, formed, accessed from core and input, output or tunnel
-                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && prevCore
+                else if (block instanceof BlockEnergyNodePortHEX && isPart && prevCore
                         && (mode == HexEnergyNode.PORT_MODE_INPUT || mode == HexEnergyNode.PORT_MODE_OUTPUT || mode == HexEnergyNode.PORT_MODE_TUNNEL))
                     addPort = true;
 
                 // If this is a HEX port, formed, accessed outside of core and input
-                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                else if (block instanceof BlockEnergyNodePortHEX && isPart && !prevCore
                         && mode == HexEnergyNode.PORT_MODE_INPUT) {
                     if (!energyDrains.contains(new HexDevice(x, y, z, block)))
                         energyDrains.add(new HexDevice(x, y, z, block));
@@ -215,7 +216,7 @@ public class NetworkAnalyzer {
                 }
 
                 // If this is a HEX port, formed, accessed outside of core and output
-                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                else if (block instanceof BlockEnergyNodePortHEX && isPart && !prevCore
                         && mode == HexEnergyNode.PORT_MODE_OUTPUT) {
                     if (!energySources.contains(new HexDevice(x, y, z, block)))
                         energySources.add(new HexDevice(x, y, z, block));
@@ -223,12 +224,12 @@ public class NetworkAnalyzer {
                 }
 
                 // If this is a HEX port, formed, accessed outside of core and tunnel
-                else if (block == HexBlocks.blockEnergyNodePortHEX && isPart && !prevCore
+                else if (block instanceof BlockEnergyNodePortHEX && isPart && !prevCore
                         && mode == HexEnergyNode.PORT_MODE_TUNNEL) {
                     TileEnergyNodePortHEX tileEnergyNodePortHEX = (TileEnergyNodePortHEX) world.getTileEntity(x, y, z);
                     HexDevice tunnel = tileEnergyNodePortHEX.getTunnel();
                     if (tunnel != null)
-                        if (block == HexBlocks.blockEnergyNodePortHEX
+                        if (block instanceof BlockEnergyNodePortHEX
                                 && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, tunnel.x, tunnel.y, tunnel.z)
                                 && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, tunnel.x, tunnel.y, tunnel.z)
                                 == HexEnergyNode.PORT_MODE_TUNNEL)
@@ -299,7 +300,7 @@ public class NetworkAnalyzer {
 
             // Check if the current block is an energy drain.
             else if (block instanceof IBlockHexEnergyDrain) {
-                if (block == HexBlocks.blockQuantumObserver && direction == 0) {
+                if (block instanceof BlockQuantumObserver && direction == 0) {
                     // Check if this energy drain has already been added to the energyDrains ArrayList.
                     if (!energyDrains.contains(new HexDevice(x, y, z, block))) {
                         // Add the energy drain to the ArrayList.
@@ -308,7 +309,7 @@ public class NetworkAnalyzer {
                         return;
                     }
                 }
-                if (block == HexBlocks.blockPersonalTeleportationPad && direction == 1) {
+                if (block instanceof BlockPersonalTeleportationPad && direction == 1) {
                     if (!teleports.contains(new HexDevice(x, y, z, block)))
                         teleports.add(new HexDevice(x, y, z, block));
                     return;
@@ -637,7 +638,7 @@ public class NetworkAnalyzer {
         int pylOr1 = BlockPylonBase.META_ORIENTATION_1;
         int pylOr2 = BlockPylonBase.META_ORIENTATION_2;
 
-        if (world.getBlock(x, y, z) == HexBlocks.blockQuantumObserver) {
+        if (world.getBlock(x, y, z) instanceof BlockQuantumObserver) {
             if (world.getBlock(x, y + 1, z) instanceof BlockHexoriumCable ||
                             (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 2) ||
                             (world.getBlock(x, y + 1, z) == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 2))

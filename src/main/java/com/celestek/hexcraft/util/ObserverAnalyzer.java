@@ -1,5 +1,7 @@
 package com.celestek.hexcraft.util;
 
+import com.celestek.hexcraft.block.BlockQuantumAnchor;
+import com.celestek.hexcraft.block.BlockQuantumObserver;
 import com.celestek.hexcraft.block.HexBlock;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
@@ -53,14 +55,14 @@ public class ObserverAnalyzer {
             System.out.println("[Observer Analyzer] Analyzing: (" + x + ", " + y + ", " + z + ") " + block.getUnlocalizedName());
 
         // Check if the current block is the observer.
-        if (block == HexBlocks.blockQuantumObserver) {
+        if (block instanceof BlockQuantumObserver) {
             TileEntity tileEntity = world.getTileEntity(x, y, z);
             if (tileEntity != null)
                 if (tileEntity instanceof TileQuantumObserver)
                     tileQuantumObserver = (TileQuantumObserver) tileEntity;
         }
         // Check if the current block is an anchor.
-        else if (block == HexBlocks.blockQuantumAnchor) {
+        else if (block instanceof BlockQuantumAnchor) {
             // Verify that it is surrounded by solid faces.
             if (world.isSideSolid(x, y, z + 1, NORTH) &&
                     world.isSideSolid(x, y, z - 1, SOUTH) &&

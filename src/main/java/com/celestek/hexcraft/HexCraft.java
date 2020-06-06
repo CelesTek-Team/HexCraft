@@ -1,6 +1,7 @@
 package com.celestek.hexcraft;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
+import com.celestek.hexcraft.block.BlockHexoriumGenerator;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.network.ChannelHandler;
@@ -52,7 +53,7 @@ public class HexCraft {
         @Override
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
-            return Item.getItemFromBlock(HexBlocks.blockHexoriumGenerator);
+            return Item.getItemFromBlock(HexBlocks.getHexBlock(BlockHexoriumGenerator.ID));
         }
     };
     public static CreativeTabs tabComponents = new CreativeTabs("tabComponents") {

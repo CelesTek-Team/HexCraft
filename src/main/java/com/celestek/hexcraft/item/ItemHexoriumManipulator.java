@@ -91,12 +91,12 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Eject monolith from Energy Pylon.
-                else if (block == HexBlocks.blockEnergyPylon) {
+                else if (block instanceof BlockEnergyPylon) {
                     block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
                 }
 
                 // Rotate teleport.
-                else if (block == HexBlocks.blockPersonalTeleportationPad) {
+                else if (block instanceof BlockPersonalTeleportationPad) {
                     int metaOld = world.getBlockMetadata(x, y, z);
 
                     // Rotate meta
@@ -182,7 +182,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Rotate Tank Valve.
-                else if (block == HexBlocks.blockTankValve) {
+                else if (block instanceof BlockTankValve) {
                     if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
                         HexUtils.flipMetaBit(BlockTankValve.META_ROTATION, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
                     else
@@ -193,16 +193,16 @@ public class ItemHexoriumManipulator extends Item {
                 else if (block instanceof IBlockHexEnergyPort) {
                     int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, world, x, y, z);
 
-                    if (block == HexBlocks.blockEnergyNodePortHEX) {
+                    if (block instanceof BlockEnergyNodePortHEX) {
                         if (mode < HexEnergyNode.PORT_MODE_TUNNEL)
                             mode++;
                         else
                             mode = HexEnergyNode.PORT_MODE_INPUT;
                     }
                     else {
-                        if (block == HexBlocks.blockEnergyNodePortRF && HexConfig.cfgEnergyNodePortsRFInputOnly)
+                        if (block instanceof BlockEnergyNodePortRF && HexConfig.cfgEnergyNodePortsRFInputOnly)
                             mode = HexEnergyNode.PORT_MODE_INPUT;
-                        else if (block == HexBlocks.blockEnergyNodePortEU && HexConfig.cfgEnergyNodePortsEUInputOnly)
+                        else if (block instanceof BlockEnergyNodePortEU && HexConfig.cfgEnergyNodePortsEUInputOnly)
                             mode = HexEnergyNode.PORT_MODE_INPUT;
                         else {
                             if (mode < HexEnergyNode.PORT_MODE_OUTPUT)
@@ -224,7 +224,7 @@ public class ItemHexoriumManipulator extends Item {
 
                     HexUtils.setMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, mode, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
-                    if (block == HexBlocks.blockEnergyNodePortHEX) {
+                    if (block instanceof BlockEnergyNodePortHEX) {
 
                         int xc = x;
                         int yc = y;
@@ -261,7 +261,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Destroy Hexorium Tank render blocks.
-                else if (block == HexBlocks.blockTankRender) {
+                else if (block instanceof BlockTankRender) {
                     world.setBlock(x, y, z, Blocks.air);
                     player.addChatMessage(new ChatComponentTranslation("msg.renderRemoved.txt"));
                 }
@@ -379,7 +379,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Link Teleports.
-                else if (block == HexBlocks.blockPersonalTeleportationPad) {
+                else if (block instanceof BlockPersonalTeleportationPad) {
                     // Create a new tag compound for the manipulator if it doesn't exist.
                     if (stack.stackTagCompound == null)
                         stack.stackTagCompound = new NBTTagCompound();
@@ -610,10 +610,10 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Rotate machines.
-                else if (block == HexBlocks.blockHexoriumGenerator ||
-                        block == HexBlocks.blockHexoriumFurnace ||
-                        block == HexBlocks.blockCrystalSeparator ||
-                        block == HexBlocks.blockMatrixReconstructor) {
+                else if (block instanceof BlockHexoriumGenerator ||
+                         block instanceof BlockHexoriumFurnace ||
+                         block instanceof BlockCrystalSeparator ||
+                         block instanceof BlockMatrixReconstructor) {
                     // Get meta.
                     int metaOld = world.getBlockMetadata(x, y, z);
 
@@ -696,7 +696,7 @@ public class ItemHexoriumManipulator extends Item {
                 }
 
                 // Form Hexorium Tank.
-                else if (block == HexBlocks.blockTankValve) {
+                else if (block instanceof BlockTankValve) {
                     if (!HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                         TileTankValve tileTankValve = (TileTankValve) world.getTileEntity(x, y, z);
                         if (tileTankValve != null) {
@@ -824,14 +824,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x, y - 1, z, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y - 1, z, world.getBlockMetadata(x, y - 1, z));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x, y - 1, z, blockSurr);
         }
@@ -842,14 +842,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x, y + 1, z, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y + 1, z, world.getBlockMetadata(x, y + 1, z));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x, y + 1, z, blockSurr);
         }
@@ -860,14 +860,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x - 1, y, z, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x - 1, y, z, world.getBlockMetadata(x - 1, y, z));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x - 1, y, z, blockSurr);
         }
@@ -878,14 +878,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x + 1, y, z, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x + 1, y, z, world.getBlockMetadata(x + 1, y, z));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x + 1, y, z, blockSurr);
         }
@@ -896,14 +896,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x, y, z - 1, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y, z - 1, world.getBlockMetadata(x, y, z - 1));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x, y, z - 1, blockSurr);
         }
@@ -914,14 +914,14 @@ public class ItemHexoriumManipulator extends Item {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeCable(world, x, y, z + 1, blockSurr);
         }
-        else if (blockSurr == HexBlocks.blockHexoriumGenerator ||
-                blockSurr == HexBlocks.blockHexoriumFurnace ||
-                blockSurr == HexBlocks.blockCrystalSeparator ||
-                blockSurr == HexBlocks.blockMatrixReconstructor) {
+        else if (blockSurr instanceof BlockHexoriumGenerator ||
+                 blockSurr instanceof BlockHexoriumFurnace ||
+                 blockSurr instanceof BlockCrystalSeparator ||
+                 blockSurr instanceof BlockMatrixReconstructor) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y, z + 1, world.getBlockMetadata(x, y, z + 1));
         }
-        else if (blockSurr == HexBlocks.blockEnergyPylon) {
+        else if (blockSurr instanceof BlockEnergyPylon) {
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzePylon(world, x, y, z + 1, blockSurr);
         }

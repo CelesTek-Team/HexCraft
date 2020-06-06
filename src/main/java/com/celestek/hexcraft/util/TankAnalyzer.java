@@ -1,5 +1,6 @@
 package com.celestek.hexcraft.util;
 
+import com.celestek.hexcraft.block.BlockTankValve;
 import com.celestek.hexcraft.block.HexBlockMT;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -83,7 +84,7 @@ public class TankAnalyzer {
                 return;
         }
         // Check if the current block is a valve.
-        else if (block == HexBlocks.blockTankValve) {
+        else if (block instanceof BlockTankValve) {
             // Check if the current valve is part of a tank.
             if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
                 // Check if this valve has already been added to the valves ArrayList.

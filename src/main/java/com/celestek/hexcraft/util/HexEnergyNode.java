@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.util;
 
 import com.celestek.hexcraft.block.BlockEnergyNodeCore;
+import com.celestek.hexcraft.block.BlockEnergyNodePortHEX;
 import com.celestek.hexcraft.block.BlockHexoriumStructureCasing;
 import com.celestek.hexcraft.block.IBlockHexEnergyPort;
 import com.celestek.hexcraft.init.HexBlocks;
@@ -76,37 +77,37 @@ public class HexEnergyNode {
                     System.out.println("[Energy Node] (" + x + ", " + y + ", " + z + "): Energy Node formed, analyzing!");
 
                 /* DO ANALYSIS */
-                if (world.getBlock(x, y - 1, z) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x, y - 1, z) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x, y - 1, z) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y - 2, z, world.getBlock(x, y - 2, z));
                 }
 
-                if (world.getBlock(x, y + 1, z) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x, y + 1, z) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x, y + 1, z) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y + 2, z, world.getBlock(x, y + 2, z));
                 }
 
-                if (world.getBlock(x - 1, y, z) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x - 1, y, z) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x - 1, y, z) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x - 2, y, z, world.getBlock(x - 2, y, z));
                 }
 
-                if (world.getBlock(x + 1, y, z) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x + 1, y, z) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x + 1, y, z) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x + 2, y, z, world.getBlock(x + 2, y, z));
                 }
 
-                if (world.getBlock(x, y, z - 1) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x, y, z - 1) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x, y, z - 1) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y, z - 2, world.getBlock(x, y, z - 2));
                 }
 
-                if (world.getBlock(x, y, z + 1) == HexBlocks.blockEnergyNodePortHEX
+                if (world.getBlock(x, y, z + 1) instanceof BlockEnergyNodePortHEX
                         && HexUtils.getMetaBitBiInt(META_MODE_0, META_MODE_1, world, x, y, z + 1) != PORT_MODE_INTERFACE) {
                     NetworkAnalyzer analyzer = new NetworkAnalyzer();
                     analyzer.analyzeCable(world, x, y, z + 2, world.getBlock(x, y, z + 2));
@@ -143,7 +144,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y - 1, z);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y - 1, z);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y - 1, z);
@@ -158,7 +159,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y + 1, z);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y + 1, z);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y + 1, z);
@@ -173,7 +174,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x - 1, y, z);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x - 1, y, z);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x - 1, y, z);
@@ -188,7 +189,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x + 1, y, z);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x + 1, y, z);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x + 1, y, z);
@@ -203,7 +204,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y, z - 1);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y, z - 1);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y, z - 1);
@@ -218,7 +219,7 @@ public class HexEnergyNode {
             ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(x, y, z + 1);
             port.setPorts(null);
             port.emptyBuffer();
-            if (block == HexBlocks.blockEnergyNodePortHEX) {
+            if (block instanceof BlockEnergyNodePortHEX) {
                 ITileHexEnergySource source = (ITileHexEnergySource) world.getTileEntity(x, y, z + 1);
                 source.setDrains(new ArrayList<HexDevice>());
                 ITileHexEnergyDrain drain = (ITileHexEnergyDrain) world.getTileEntity(x, y, z + 1);
@@ -290,16 +291,10 @@ public class HexEnergyNode {
      * @return Integer tier of the core.
      */
     private static int parseTier(Block block) {
-        if(block == HexBlocks.blockEnergyNodeCoreT1)
+        if (block instanceof BlockEnergyNodeCore)
+            return ((BlockEnergyNodeCore) block).getTier().ordinal();
+        else
             return 0;
-        else if(block == HexBlocks.blockEnergyNodeCoreT2)
-            return 1;
-        else if(block == HexBlocks.blockEnergyNodeCoreT3)
-            return 2;
-        else if(block == HexBlocks.blockEnergyNodeCoreT4)
-            return 3;
-
-        return 0;
     }
 
     /**

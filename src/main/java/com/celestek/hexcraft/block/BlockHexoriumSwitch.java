@@ -256,27 +256,28 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote) {
-            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye)) {
-                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+            if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemHexoriumDye))
+                return true;
 
-                // Play a sound effect.
-                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, HexUtils.getMetaBit(META_STATE, world, x, y, z) ? 0.6F : 0.5F);
+            HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
 
-                // Notify blocks around the strongly powered block.
-                int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
-                if (orientation == 0 || orientation == 6)
-                    world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
-                else if (orientation == 1 || orientation == 7)
-                    world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
-                else if (orientation == 2)
-                    world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
-                else if (orientation == 3)
-                    world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
-                else if (orientation == 4)
-                    world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
-                else if (orientation == 5)
-                    world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
-            }
+            // Play a sound effect.
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.click", 0.3F, HexUtils.getMetaBit(META_STATE, world, x, y, z) ? 0.6F : 0.5F);
+
+            // Notify blocks around the strongly powered block.
+            int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+            if (orientation == 0 || orientation == 6)
+                world.notifyBlocksOfNeighborChange(x, y + 1, z, this);
+            else if (orientation == 1 || orientation == 7)
+                world.notifyBlocksOfNeighborChange(x, y - 1, z, this);
+            else if (orientation == 2)
+                world.notifyBlocksOfNeighborChange(x, y, z + 1, this);
+            else if (orientation == 3)
+                world.notifyBlocksOfNeighborChange(x, y, z - 1, this);
+            else if (orientation == 4)
+                world.notifyBlocksOfNeighborChange(x + 1, y, z, this);
+            else if (orientation == 5)
+                world.notifyBlocksOfNeighborChange(x - 1, y, z, this);
         }
 
         return true;

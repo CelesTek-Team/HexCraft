@@ -1,12 +1,15 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileTankValve;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.TankAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +26,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author CoffeePirate     <celestek@openmailbox.org>
@@ -99,9 +104,9 @@ public class BlockTankValve extends HexBlockContainer implements IHexBlock {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT
-                || block == HexBlocks.blockTemperedHexoriumGlass
-                || block == HexBlocks.blockHexoriumCoatedStone
-                || block == HexBlocks.blockTankValve)
+                || block instanceof BlockTemperedHexoriumGlass
+                || block instanceof BlockHexoriumCoatedStone
+                || block instanceof BlockTankValve)
                 && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgTankDebug)
@@ -181,6 +186,20 @@ public class BlockTankValve extends HexBlockContainer implements IHexBlock {
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        if (HexConfig.cfgTankEnable) {
+            GameRegistry.registerBlock(new BlockTankValve(ID), ID);
+        }
+    }
+
+    public static void registerRenders() {
+        if (HexConfig.cfgTankEnable) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.Colors.WHITE));
+        }
     }
 
     public static void registerRecipes() {

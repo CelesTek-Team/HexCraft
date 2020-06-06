@@ -152,4 +152,8 @@ public class BlockEnergyNodeCore extends HexBlock implements IHexBlock, IBlockHe
             }
         }
     }
+
+    public Tiers getTier() {
+        return this.tier;
+    }
 }

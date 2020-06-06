@@ -75,9 +75,9 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
     private final int renderID;
     private final int renderBlockID;
     private final int brightness;
-    private float r = 1F;
-    private float g = 1F;
-    private float b = 1F;
+    private final float r;
+    private final float g;
+    private final float b;
 
     /**
      * Constructor for custom monolith rendering.
@@ -1230,38 +1230,38 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
         int pylOr2 = BlockPylonBase.META_ORIENTATION_2;
 
         // Look for machines.
-        if (world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumGenerator ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockHexoriumFurnace ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockMatrixReconstructor ||
-                world.getBlock(x - 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
+        if (world.getBlock(x - 1, y, z) instanceof BlockHexoriumGenerator ||
+                world.getBlock(x - 1, y, z) instanceof BlockHexoriumFurnace ||
+                world.getBlock(x - 1, y, z) instanceof BlockCrystalSeparator ||
+                world.getBlock(x - 1, y, z) instanceof BlockMatrixReconstructor ||
+                world.getBlock(x - 1, y, z) instanceof BlockPersonalTeleportationPad)
             rotations[0] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x - 1, y, z);
         else
             rotations[0] = -1;
 
-        if (world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumGenerator ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockHexoriumFurnace ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockMatrixReconstructor ||
-                world.getBlock(x + 1, y, z) == HexBlocks.blockPersonalTeleportationPad)
+        if (world.getBlock(x + 1, y, z) instanceof BlockHexoriumGenerator ||
+                world.getBlock(x + 1, y, z) instanceof BlockHexoriumFurnace ||
+                world.getBlock(x + 1, y, z) instanceof BlockCrystalSeparator ||
+                world.getBlock(x + 1, y, z) instanceof BlockMatrixReconstructor ||
+                world.getBlock(x + 1, y, z) instanceof BlockPersonalTeleportationPad)
             rotations[1] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x + 1, y, z);
         else
             rotations[1] = -1;
 
-        if (world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumGenerator ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockHexoriumFurnace ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockMatrixReconstructor ||
-                world.getBlock(x, y, z - 1) == HexBlocks.blockPersonalTeleportationPad)
+        if (world.getBlock(x, y, z - 1) instanceof BlockHexoriumGenerator ||
+                world.getBlock(x, y, z - 1) instanceof BlockHexoriumFurnace ||
+                world.getBlock(x, y, z - 1) instanceof BlockCrystalSeparator ||
+                world.getBlock(x, y, z - 1) instanceof BlockMatrixReconstructor ||
+                world.getBlock(x, y, z - 1) instanceof BlockPersonalTeleportationPad)
             rotations[2] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x, y, z - 1);
         else
             rotations[2] = -1;
 
-        if (world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumGenerator ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockHexoriumFurnace ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockCrystalSeparator ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockMatrixReconstructor ||
-                world.getBlock(x, y, z + 1) == HexBlocks.blockPersonalTeleportationPad)
+        if (world.getBlock(x, y, z + 1) instanceof BlockHexoriumGenerator ||
+                world.getBlock(x, y, z + 1) instanceof BlockHexoriumFurnace ||
+                world.getBlock(x, y, z + 1) instanceof BlockCrystalSeparator ||
+                world.getBlock(x, y, z + 1) instanceof BlockMatrixReconstructor ||
+                world.getBlock(x, y, z + 1) instanceof BlockPersonalTeleportationPad)
             rotations[3] = HexUtils.getMetaBitBiInt(macRo0, macRo1, world, x, y, z + 1);
         else
             rotations[3] = -1;
@@ -1273,8 +1273,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) != 1) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y - 1, z) == 1) ||
-                blockTemp == HexBlocks.blockQuantumObserver ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y - 1, z)))
+                blockTemp instanceof BlockQuantumObserver ||
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y - 1, z)))
             sides[0] = true;
 
         blockTemp = world.getBlock(x, y + 1, z);
@@ -1283,8 +1283,8 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp instanceof BlockHexoriumCable && ((IBlockHexColor) blockTemp).getColor() == HexEnums.Colors.RAINBOW) ||
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) != 0) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y + 1, z) == 0) ||
-                blockTemp == HexBlocks.blockPersonalTeleportationPad ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y + 1, z)))
+                blockTemp instanceof BlockPersonalTeleportationPad ||
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y + 1, z)))
             sides[1] = true;
 
         blockTemp = world.getBlock(x - 1, y, z);
@@ -1294,7 +1294,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) != 5) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x - 1, y, z) == 5) ||
                 rotations[0] == 3 ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x - 1, y, z)))
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x - 1, y, z)))
             sides[2] = true;
 
         blockTemp = world.getBlock(x + 1, y, z);
@@ -1304,7 +1304,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) != 4) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x + 1, y, z) == 4) ||
                 rotations[1] == 1 ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x + 1, y, z)))
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x + 1, y, z)))
             sides[3] = true;
 
         blockTemp = world.getBlock(x, y, z - 1);
@@ -1314,7 +1314,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) != 3) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z - 1) == 3) ||
                 rotations[2] == 0 ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z - 1)))
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z - 1)))
             sides[4] = true;
 
         blockTemp = world.getBlock(x, y, z + 1);
@@ -1324,7 +1324,7 @@ public class HexModelRendererCable implements ISimpleBlockRenderingHandler {
                 (blockTemp == HexBlocks.blockPylonBase51 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) != 2) ||
                 (blockTemp == HexBlocks.blockPylonBase15 && HexUtils.getMetaBitTriInt(pylOr0, pylOr1, pylOr2, world, x, y, z + 1) == 2) ||
                 rotations[3] == 2 ||
-                (blockTemp == HexBlocks.blockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z + 1)))
+                (blockTemp instanceof BlockEnergyNodePortHEX && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z + 1)))
             sides[5] = true;
 
         return sides;

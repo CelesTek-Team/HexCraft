@@ -1,7 +1,6 @@
 package com.celestek.hexcraft.tileentity;
 
-import com.celestek.hexcraft.block.BlockTankValve;
-import com.celestek.hexcraft.block.HexBlockMT;
+import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
@@ -184,12 +183,12 @@ public class TileTankValve extends TileFluidHandler {
         Block block = worldObj.getBlock(x, y, z);
 
         boolean blockType = block instanceof HexBlockMT
-                || (block == HexBlocks.blockTankValve && allowValve)
-                || block == HexBlocks.blockTemperedHexoriumGlass
-                || block == HexBlocks.blockHexoriumCoatedStone;
+                || (block instanceof BlockTankValve && allowValve)
+                || block instanceof BlockTemperedHexoriumGlass
+                || block instanceof BlockHexoriumCoatedStone;
         boolean rotation = true;
 
-        if (block == HexBlocks.blockTankValve) {
+        if (block instanceof BlockTankValve) {
             rotation = checkValveRotation(x, y, z, dimension);
             if (HexConfig.cfgTankDebug && HexConfig.cfgTankVerboseDebug)
                 System.out.println("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Checking valve rotation: " + rotation);
@@ -210,7 +209,7 @@ public class TileTankValve extends TileFluidHandler {
      * @return are the coordinates clear
      */
     private boolean isClear(int x, int y, int z) {
-        boolean isClear = worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender;
+        boolean isClear = worldObj.isAirBlock(x, y, z) || worldObj.getBlock(x, y, z) instanceof BlockTankRender;
 
         if (HexConfig.cfgTankDebug && HexConfig.cfgTankVerboseDebug)
             System.out.println(String.format("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Is block at %s, %s, %s clear: %s", x, y, z, isClear));
@@ -230,7 +229,7 @@ public class TileTankValve extends TileFluidHandler {
 
         HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, isPart, HexUtils.META_NOTIFY_UPDATE, worldObj, x, y, z);
 
-        if (worldObj.getBlock(x, y, z) == HexBlocks.blockTankValve) {
+        if (worldObj.getBlock(x, y, z) instanceof BlockTankValve) {
             TileTankValve tileTankValve = (TileTankValve) worldObj.getTileEntity(x, y, z);
             if (tileTankValve != null) {
                 if (isPart) {
@@ -541,7 +540,7 @@ public class TileTankValve extends TileFluidHandler {
                         setIsPart(x, y, z, dimension, true);
 
                     // Remove any pre-existing render blocks
-                    if (worldObj.getBlock(x, y, z) == HexBlocks.blockTankRender)
+                    if (worldObj.getBlock(x, y, z) instanceof BlockTankRender)
                         worldObj.setBlock(x, y, z, Blocks.air);
                 }
     }
@@ -643,7 +642,7 @@ public class TileTankValve extends TileFluidHandler {
         if (HexConfig.cfgTankDebug)
             System.out.print("[Tank Valve] (" + xCoord + ", " + yCoord + ", " + zCoord + "): Render spawned: " + x + ", " + y + ", " + z);
 
-        worldObj.setBlock(x,y,z, HexBlocks.blockTankRender);
+        worldObj.setBlock(x,y,z, HexBlocks.getHexBlock(BlockTankRender.ID));
 
         TileTankRender tileTankRender = (TileTankRender) worldObj.getTileEntity(x,y,z);
 

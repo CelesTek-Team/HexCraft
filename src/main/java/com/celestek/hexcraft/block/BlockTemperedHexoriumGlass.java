@@ -215,9 +215,9 @@ public class BlockTemperedHexoriumGlass extends Block implements IHexBlock, IBlo
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if ((block instanceof HexBlockMT
-                || block == HexBlocks.blockTemperedHexoriumGlass
-                || block == HexBlocks.blockHexoriumCoatedStone
-                || block == HexBlocks.blockTankValve)
+                || block instanceof BlockTemperedHexoriumGlass
+                || block instanceof BlockHexoriumCoatedStone
+                || block instanceof BlockTankValve)
                 && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgTankDebug)

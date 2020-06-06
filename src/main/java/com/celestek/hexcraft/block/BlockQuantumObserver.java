@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexGui;
@@ -10,6 +11,7 @@ import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import com.celestek.hexcraft.util.ObserverAnalyzer;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,6 +28,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -122,7 +126,7 @@ public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock
             NetworkAnalyzer analyzer = new NetworkAnalyzer();
             analyzer.analyzeMachines(world, x, y, z, 0);
         }
-        else if (block == HexBlocks.blockQuantumAnchor) {
+        else if (block instanceof BlockQuantumAnchor) {
             if (HexConfig.cfgObserverDebug)
                 System.out.println("[Quantum Observer] (" + x + ", " + y + ", " + z + "): Neighbour anchor changed, analyzing!");
 
@@ -205,6 +209,20 @@ public class BlockQuantumObserver extends HexBlockContainer implements IHexBlock
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        if (HexConfig.cfgObserverEnable) {
+            GameRegistry.registerBlock(new BlockQuantumObserver(ID), ID);
+        }
+    }
+
+    public static void registerRenders() {
+        if (HexConfig.cfgObserverEnable) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.Colors.BLACK));
+        }
     }
 
     public static void registerRecipes() {

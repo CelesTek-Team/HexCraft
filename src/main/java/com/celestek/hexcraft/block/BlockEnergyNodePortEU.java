@@ -1,18 +1,32 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.TileEnergyNodePortEU;
 import com.celestek.hexcraft.util.HexEnergyNode;
+import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
 /**
  * @author Thorinair   <celestek@openmailbox.org>
@@ -93,5 +107,38 @@ public class BlockEnergyNodePortEU extends HexBlockContainer implements IHexBloc
     @Override
     public String getID() {
         return ID;
+    }
+
+    public static void registerBlocks() {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+            GameRegistry.registerBlock(new BlockEnergyNodePortEU(ID), ID);
+        }
+    }
+
+    public static void registerRenders() {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+            renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
+            RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
+                    HexEnums.Brightness.BRIGHT, HexEnums.Colors.RAINBOW));
+        }
+    }
+
+    public static void registerRecipes() {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+            Block block = HexBlocks.getHexBlock(ID);
+
+            Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW);
+            Item panel = HexItems.itemMachineControlPanel;
+
+            ItemStack circuit = IC2Items.getItem("advancedCircuit");
+            ItemStack gold = IC2Items.getItem("insulatedGoldCableItem");
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(
+                    block,
+                    "IPI",
+                    "GER",
+                    "ICI",
+                    'E', energized, 'P', panel, 'C', circuit, 'G', gold, 'R', Blocks.redstone_block, 'I', "ingotIron"));
+        }
     }
 }

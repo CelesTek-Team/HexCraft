@@ -28,27 +28,11 @@ public class HexRecipes {
         ItemStack stackStoneButton_1 = new ItemStack(Blocks.stone_button, 1);
         ItemStack stackHeavyWeightedPressurePlate_1 = new ItemStack(Blocks.heavy_weighted_pressure_plate, 1);
         ItemStack stackLever_1 = new ItemStack(Blocks.lever, 1);
-        ItemStack stackRedstoneBlock_1 = new ItemStack(Blocks.redstone_block, 1);
 
         // Vanilla Items
         ItemStack stackRedstone_1 = new ItemStack(Items.redstone, 1);
         ItemStack stackIronPickaxe_1 = new ItemStack(Items.iron_pickaxe, 1);
         ItemStack stackEnderEye_1 = new ItemStack(Items.ender_eye, 1);
-        
-        ItemStack stackEnergizedHexoriumRainbow_1 = new ItemStack(HexBlocks.blockEnergizedHexoriumRainbow, 1);
-
-        // Machines
-        ItemStack stackAdvancedRainbowCore_1 = new ItemStack(HexBlocks.blockAdvancedRainbowCore, 1);
-
-        // Energy Node
-        ItemStack stackEnergyNodeCoreT1_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT1, 1);
-        ItemStack stackEnergyNodeCoreT2_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT2, 1);
-        ItemStack stackEnergyNodeCoreT3_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT3, 1);
-        ItemStack stackEnergyNodeCoreT4_1 = new ItemStack(HexBlocks.blockEnergyNodeCoreT4, 1);
-
-        ItemStack stackEnergyNodePortHEX_1 = new ItemStack(HexBlocks.blockEnergyNodePortHEX, 1);
-        ItemStack stackEnergyNodePortRF_1 = new ItemStack(HexBlocks.blockEnergyNodePortRF, 1);
-        ItemStack stackEnergyNodePortEU_1 = new ItemStack(HexBlocks.blockEnergyNodePortEU, 1);
 
         // Cables
         ItemStack stackHexoriumCableRed_4 = new ItemStack(HexBlocks.blockHexoriumCableRed, 4);
@@ -193,38 +177,14 @@ public class HexRecipes {
         BlockQuantumObserver.registerRecipes();
         BlockQuantumAnchor.registerRecipes();
 
-        // Tank Valve
+        // Tank
         BlockTankValve.registerRecipes();
-        BlockEnergyNodeCore.registerRecipes();
 
         // Energy Node
-        if (HexConfig.cfgEnergyNodeEnable) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortHEX_1,
-                    "EBE",
-                    "DAR",
-                    "ECE",
-                    'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
-                    'C', stackHexoriumEnergyConverter_1, 'D', stackHexoriumCableRainbow_1, 'E', "ingotIron"));
-            if (HexConfig.cfgEnergyNodePortsRFEnable) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortRF_1,
-                        "EBE",
-                        "DAR",
-                        "ECE",
-                        'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
-                        'C', stackHexoriumRFAdapter_1, 'D', "ingotGold", 'E', "ingotIron"));
-            }
-            if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable) {
-                ItemStack stackAdvancedCircuit_1 = IC2Items.getItem("advancedCircuit");
-                ItemStack stackInsulatedGoldCable_1 = IC2Items.getItem("insulatedGoldCableItem");
-                if (stackAdvancedCircuit_1 != null && stackInsulatedGoldCable_1 != null)
-                    GameRegistry.addRecipe(new ShapedOreRecipe(stackEnergyNodePortEU_1,
-                            "EBE",
-                            "DAR",
-                            "ECE",
-                            'R', stackRedstoneBlock_1, 'A', stackEnergizedHexoriumRainbow_1, 'B', stackMachineControlPanel_1,
-                            'C', stackAdvancedCircuit_1, 'D', stackInsulatedGoldCable_1, 'E', "ingotIron"));
-            }
-        }
+        BlockEnergyNodeCore.registerRecipes();
+        BlockEnergyNodePortHEX.registerRecipes();
+        BlockEnergyNodePortRF.registerRecipes();
+        BlockEnergyNodePortEU.registerRecipes();
 
         // Cables
         // Red

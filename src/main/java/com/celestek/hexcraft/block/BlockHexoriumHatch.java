@@ -242,43 +242,44 @@ public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlo
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
         if (!world.isRemote) {
-            if (!(player.getHeldItem().getItem() instanceof ItemHexoriumDye) && !(player.getHeldItem().getItem() instanceof ItemMolecularTransposer)) {
-                // Prepare a variable if the hatch is in a usable state.
-                boolean use = false;
-                // If player has no item in hand.
-                if (player.getCurrentEquippedItem() == null)
-                    use = true;
-                    // If player has an item in hand.
-                else {
-                    // Don't use hatch if Hexorium Reinforcer is present.
-                    if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
-                        // If the hatch is not upgraded, upgrade it.
-                        if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
-                            HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+            if (player.getHeldItem() != null && ((player.getHeldItem().getItem() instanceof ItemHexoriumDye) || (player.getHeldItem().getItem() instanceof ItemMolecularTransposer)))
+                return true;
 
-                            // Grant player the achievement.
-                            if (HexConfig.cfgGeneralUseAchievements)
-                                player.addStat(HexAchievements.achUseReinforcer, 1);
+            // Prepare a variable if the hatch is in a usable state.
+            boolean use = false;
+            // If player has no item in hand.
+            if (player.getCurrentEquippedItem() == null)
+                use = true;
+                // If player has an item in hand.
+            else {
+                // Don't use hatch if Hexorium Reinforcer is present.
+                if (player.getCurrentEquippedItem().getItem() == HexItems.itemHexoriumReinforcer) {
+                    // If the hatch is not upgraded, upgrade it.
+                    if (!HexUtils.getMetaBit(META_REINFORCED, world, x, y, z)) {
+                        HexUtils.setMetaBit(META_REINFORCED, true, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
 
-                            ItemStack stack = player.getCurrentEquippedItem();
-                            stack.stackSize--;
-                            if (stack.stackSize == 0)
-                                stack = null;
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
-                        }
-                        else
-                            use = true;
+                        // Grant player the achievement.
+                        if (HexConfig.cfgGeneralUseAchievements)
+                            player.addStat(HexAchievements.achUseReinforcer, 1);
+
+                        ItemStack stack = player.getCurrentEquippedItem();
+                        stack.stackSize--;
+                        if (stack.stackSize == 0)
+                            stack = null;
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
                     }
                     else
                         use = true;
                 }
+                else
+                    use = true;
+            }
 
-                // Use hatch.
-                if (use) {
-                    // Set according block meta and play sound.
-                    HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
-                    world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
-                }
+            // Use hatch.
+            if (use) {
+                // Set according block meta and play sound.
+                HexUtils.flipMetaBit(META_STATE, HexUtils.META_NOTIFY_UPDATE, world, x, y, z);
+                world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
             }
         }
 

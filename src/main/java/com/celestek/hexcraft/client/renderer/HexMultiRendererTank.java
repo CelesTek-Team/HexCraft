@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 public class HexMultiRendererTank implements ISimpleBlockRenderingHandler {
 
     // Variables
-    private int renderID;
+    private final int renderID;
 
     /**
      * Constructor for custom monolith rendering.
