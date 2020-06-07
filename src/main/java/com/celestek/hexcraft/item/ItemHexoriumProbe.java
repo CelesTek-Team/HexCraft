@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.*;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
@@ -15,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemHexoriumProbe extends Item {
 
@@ -146,5 +148,14 @@ public class ItemHexoriumProbe extends Item {
         Item item = new ItemHexoriumProbe(ID);
         GameRegistry.registerItem(item, ID);
         return item;
+    }
+
+    public static void registerRecipes() {
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                HexItems.getHexItem(ID),
+                "G  ",
+                " IP",
+                " CI",
+                'C', HexItems.itemHexoriumCoprocessor, 'P', HexItems.itemMachineControlPanel, 'G', "gemHexoriumWhite", 'I', "ingotIron"));
     }
 }

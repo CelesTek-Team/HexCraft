@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -14,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ItemHexoriumDye extends Item {
 
@@ -113,6 +115,21 @@ public class ItemHexoriumDye extends Item {
             String name = ID + variant.name;
             ItemHexoriumDye item = new ItemHexoriumDye(name, variant);
             GameRegistry.registerItem(item, name);
+        }
+    }
+
+    public static void registerRecipes() {
+        for (HexEnums.Variants variant : HexEnums.Variants.values()) {
+            ItemStack items = HexItems.getHexItemStack(ID, variant, 16);
+
+            String gem = "gemHexorium" + variant.name;
+            String dye = "dye" + variant.name;
+            if (variant == HexEnums.Variants.BLACK) {
+                gem += "Black";
+                dye += "Black";
+            }
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(items, HexItems.itemMortarPestle, gem, dye));
         }
     }
 }

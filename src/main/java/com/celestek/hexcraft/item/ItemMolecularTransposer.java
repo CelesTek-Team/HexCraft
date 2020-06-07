@@ -2,10 +2,7 @@ package com.celestek.hexcraft.item;
 
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
-import com.celestek.hexcraft.init.HexAchievements;
-import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.init.HexGui;
+import com.celestek.hexcraft.init.*;
 import com.celestek.hexcraft.util.HexDamage;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
@@ -17,12 +14,14 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemMolecularTransposer extends Item {
 
@@ -299,5 +298,14 @@ public class ItemMolecularTransposer extends Item {
         Item item = new ItemMolecularTransposer(ID);
         GameRegistry.registerItem(item, ID);
         return item;
+    }
+
+    public static void registerRecipes() {
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                HexItems.getHexItem(ID),
+                "I  ",
+                " SP",
+                " WM",
+                'M', HexItems.itemHexoriumManipulator, 'P', HexItems.itemMachineControlPanel, 'S', HexItems.itemSpatialProjector, 'W', Blocks.chest, 'I', "ingotIron"));
     }
 }

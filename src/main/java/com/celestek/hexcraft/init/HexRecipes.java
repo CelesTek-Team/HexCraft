@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.block.*;
+import com.celestek.hexcraft.item.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -443,36 +444,14 @@ public class HexRecipes {
                 'E', stackRainbowEnergizedGlobule_1, 'F', "nuggetIron"));
 
         // Tools
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumManipulator_1,
-                "AEF",
-                "EBC",
-                " DE",
-                'A', stackHexoriumCrystalBlack_1, 'B', stackRainbowCore_1, 'C', stackHexoriumProcessor_1, 'D', stackHexoriumCoprocessor_1, 'E', "ingotIron", 'F', stackStoneButton_1));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackHexoriumProbe_1,
-                "A  ",
-                " DB",
-                " CD",
-                'A', stackHexoriumCrystalWhite_1, 'B', stackMachineControlPanel_1, 'C', stackHexoriumCoprocessor_1, 'D', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackMolecularTransposer_1,
-                "E  ",
-                " CB",
-                " DA",
-                'A', stackHexoriumManipulator_1, 'B', stackMachineControlPanel_1, 'C', stackSpatialProjector_1, 'D', "chestWood", 'E', "ingotIron"));
-        GameRegistry.addRecipe(stackHexoriumReinforcer_12,
-                " A ",
-                "BBB",
-                "BBB",
-                'A', stackHexoriumCrystalBlack_1, 'B', stackObsidian_1);
-        GameRegistry.addRecipe(new ShapedOreRecipe(stackMortarPestle_1,
-                "  S",
-                "CDC",
-                " C ",
-                'C', stackHexoriumCoatedStone_1, 'D', "gemDiamond", 'S', "stickWood"));
+        ItemHexoriumManipulator.registerRecipes();
+        ItemHexoriumProbe.registerRecipes();
+        ItemMolecularTransposer.registerRecipes();
+        ItemHexoriumReinforcer.registerRecipes();
+        ItemMortarPestle.registerRecipes();
 
         // Dyes
-        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeBlack_16, stackMortarPestle_1, stackHexoriumCrystalBlack_1, "dyeBlack"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(stackHexoriumDyeWhite_16, stackMortarPestle_1, stackHexoriumCrystalWhite_1, "dyeWhite"));
-
+        ItemHexoriumDye.registerRecipes();
     }
 }
 

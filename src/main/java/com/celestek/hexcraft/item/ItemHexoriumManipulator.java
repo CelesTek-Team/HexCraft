@@ -5,6 +5,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.TileEnergyPylon;
 import com.celestek.hexcraft.tileentity.TileTankValve;
@@ -29,6 +30,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemHexoriumManipulator extends Item {
 
@@ -927,5 +929,14 @@ public class ItemHexoriumManipulator extends Item {
         Item item = new ItemHexoriumManipulator(ID);
         GameRegistry.registerItem(item, ID);
         return item;
+    }
+
+    public static void registerRecipes() {
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                HexItems.getHexItem(ID),
+                "GIB",
+                "IOP",
+                " CI",
+                'C', HexItems.itemHexoriumCoprocessor, 'P', HexItems.itemHexoriumProcessor, 'O', HexItems.itemRainbowCore, 'B', Blocks.stone_button, 'G', "gemHexoriumBlack", 'I', "ingotIron"));
     }
 }

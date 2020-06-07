@@ -5,13 +5,16 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ItemHexoriumReinforcer extends Item {
 
@@ -72,5 +75,14 @@ public class ItemHexoriumReinforcer extends Item {
         Item item = new ItemHexoriumReinforcer(ID);
         GameRegistry.registerItem(item, ID);
         return item;
+    }
+
+    public static void registerRecipes() {
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                HexItems.getHexItemStack(ID, 12),
+                " G ",
+                "OOO",
+                "OOO",
+                'G', "gemHexoriumBlack", 'O', Blocks.obsidian));
     }
 }
