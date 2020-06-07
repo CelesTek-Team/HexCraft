@@ -254,7 +254,7 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexB
 
                 GameRegistry.addRecipe(new ShapelessOreRecipe(
                         energized,
-                        stone, stone, stone, stone, stone, stone, stone, stone));
+                        block, block, block, block, block, block, block, block));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                     if (variant != variant2) {

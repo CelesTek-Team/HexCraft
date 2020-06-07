@@ -347,7 +347,6 @@ public class BlockHexoriumPressurePlate extends HexBlockModel implements IHexBlo
                             block,
                             "CRC",
                             "IPI",
-                            "   ",
                             'C', gem, 'P', Blocks.heavy_weighted_pressure_plate, 'I', "nuggetIron", 'R', "dustRedstone"));
                 }
 

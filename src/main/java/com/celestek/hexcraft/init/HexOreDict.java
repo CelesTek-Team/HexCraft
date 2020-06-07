@@ -16,8 +16,10 @@ public class HexOreDict {
         BlockHexoriumNetherOre.registerOres();
 
         // Crystals
-        for (HexEnums.Basics color : HexEnums.Basics.values())
+        for (HexEnums.Basics color : HexEnums.Basics.values()) {
+            OreDictionary.registerOre("gemHexorium", HexItems.getHexItem(HexItems.ID_CRYSTAL + color.name));
             OreDictionary.registerOre("gemHexorium" + color.name, HexItems.getHexItem(HexItems.ID_CRYSTAL + color.name));
+        }
 
         // Nuggets
         OreDictionary.registerOre("nuggetIron", HexItems.itemIronNugget);

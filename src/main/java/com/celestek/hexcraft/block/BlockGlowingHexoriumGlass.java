@@ -287,7 +287,7 @@ public class BlockGlowingHexoriumGlass extends HexBlockMT implements IHexBlock, 
 
                     GameRegistry.addRecipe(new ShapelessOreRecipe(
                             energized,
-                            glass, glass, glass, glass, glass, glass, glass, glass));
+                            block, block, block, block, block, block, block, block));
 
                     for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                         if (variant != variant2) {

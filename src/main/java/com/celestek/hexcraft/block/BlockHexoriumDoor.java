@@ -750,9 +750,9 @@ public class BlockHexoriumDoor extends HexBlockModel implements IHexBlock, IBloc
 
                 GameRegistry.addRecipe(new ShapedOreRecipe(
                         block,
-                        "II ",
-                        "HG ",
-                        "II ",
+                        "II",
+                        "HG",
+                        "II",
                         'H', energized, 'I', "ingotIron", 'G', glass));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {

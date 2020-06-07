@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BlockHexoriumCoatedStone extends Block implements IHexBlock, IBlockHexVariant, IBlockMultiBlock {
@@ -146,12 +147,12 @@ public class BlockHexoriumCoatedStone extends Block implements IHexBlock, IBlock
             Block stone = Blocks.stone;
             Item dye = HexItems.getHexItem(ItemHexoriumDye.ID, variant);
 
-            if (variant == HexEnums.Variants.BLACK) {
-                for (HexEnums.Basics color : HexEnums.Basics.values()) {
-                    String gem = "gemHexorium" + color.name;
-                    GameRegistry.addRecipe(new ShapelessOreRecipe(blocks, stone, stone, stone, gem, stone, stone, stone, stone, stone));
-                }
-            }
+            if (variant == HexEnums.Variants.BLACK)
+                GameRegistry.addRecipe(new ShapedOreRecipe(blocks,
+                        "SSS",
+                        "SGS",
+                        "SSS",
+                        'G', "gemHexorium", 'S', stone));
 
             for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                 if (variant != variant2) {

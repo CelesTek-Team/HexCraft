@@ -755,7 +755,6 @@ public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
 
         GameRegistry.addRecipe(new ShapedOreRecipe(
                 block,
-                "   ",
                 "RJR",
                 "ISI",
                 'J', injector, 'S', socket, 'R', "dustRedstone", 'I', "ingotIron"));

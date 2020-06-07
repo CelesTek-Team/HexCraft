@@ -435,7 +435,6 @@ public class BlockHexoriumSwitch extends HexBlockModel implements IHexBlock, IBl
                             block,
                             "ARB",
                             "ILI",
-                            "   ",
                             'A', gemA, 'B', gemB, 'L', Blocks.lever, 'I', "nuggetIron", 'R', "dustRedstone"));
                 }
 

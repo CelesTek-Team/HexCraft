@@ -159,9 +159,9 @@ public class BlockEngineeredHexoriumBlock extends HexBlockMT implements IHexBloc
 
                 GameRegistry.addRecipe(new ShapedOreRecipe(
                         block,
-                        " I ",
-                        " H ",
-                        " S ",
+                        "I",
+                        "H",
+                        "S",
                         'H', energized, 'I', "nuggetIron", 'S', stone));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {

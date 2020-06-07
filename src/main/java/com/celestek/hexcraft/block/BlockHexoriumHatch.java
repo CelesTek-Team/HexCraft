@@ -395,7 +395,6 @@ public class BlockHexoriumHatch extends HexBlockModel implements IHexBlock, IBlo
                         block,
                         "IGI",
                         "IHI",
-                        "   ",
                         'H', energized, 'I', "ingotIron", 'G', glass));
 
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
