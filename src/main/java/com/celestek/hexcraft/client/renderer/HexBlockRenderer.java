@@ -14,6 +14,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
+import static com.celestek.hexcraft.init.HexConfig.cfgGeneralFlickerFix;
+
 public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
     // Variables
@@ -204,6 +206,20 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
+            boolean doInner =
+                    !(block instanceof BlockHexoriumNetherOre
+                    || block instanceof BlockHexoriumOre
+                    || block instanceof BlockHexoriumStructureCasing
+                    || block instanceof BlockHexoriumLamp
+                    || block instanceof BlockHexoriumLampInv);
+            boolean doOffset =
+                    block instanceof BlockEnergizedHexorium
+                    || block instanceof BlockOfHexoriumCrystal
+                    || block instanceof BlockGlowingHexoriumGlass;
+            float o = cfgGeneralFlickerFix;
+            if (doOffset)
+                o = 0.000F;
+
             // Prepare the Tessellator.
             Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
@@ -241,10 +257,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(0, 0, 1, u, V);
-                tessellator.addVertexWithUV(0, 0, 0, u, v);
-                tessellator.addVertexWithUV(1, 0, 0, U, v);
+                tessellator.addVertexWithUV(0, 0+o, 1, u, V);
+                tessellator.addVertexWithUV(0, 0+o, 0, u, v);
+                tessellator.addVertexWithUV(1, 0+o, 0, U, v);
+                tessellator.addVertexWithUV(1, 0+o, 1, U, V);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(1, 0, 1, U, V);
+                tessellator.addVertexWithUV(1, 0, 0, U, v);
+                tessellator.addVertexWithUV(0, 0, 0, u, v);
+                tessellator.addVertexWithUV(0, 0, 1, u, V);
             }
 
             // UP
@@ -263,10 +285,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(0, 1, 0, u, v);
-                tessellator.addVertexWithUV(0, 1, 1, u, V);
-                tessellator.addVertexWithUV(1, 1, 1, U, V);
+                tessellator.addVertexWithUV(0, 1-o, 0, u, v);
+                tessellator.addVertexWithUV(0, 1-o, 1, u, V);
+                tessellator.addVertexWithUV(1, 1-o, 1, U, V);
+                tessellator.addVertexWithUV(1, 1-o, 0, U, v);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(1, 1, 0, U, v);
+                tessellator.addVertexWithUV(1, 1, 1, U, V);
+                tessellator.addVertexWithUV(0, 1, 1, u, V);
+                tessellator.addVertexWithUV(0, 1, 0, u, v);
             }
 
             // NORTH
@@ -285,10 +313,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(1, 0, 0, u, V);
-                tessellator.addVertexWithUV(0, 0, 0, U, V);
-                tessellator.addVertexWithUV(0, 1, 0, U, v);
+                tessellator.addVertexWithUV(1, 0, 0+o, u, V);
+                tessellator.addVertexWithUV(0, 0, 0+o, U, V);
+                tessellator.addVertexWithUV(0, 1, 0+o, U, v);
+                tessellator.addVertexWithUV(1, 1, 0+o, u, v);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(1, 1, 0, u, v);
+                tessellator.addVertexWithUV(0, 1, 0, U, v);
+                tessellator.addVertexWithUV(0, 0, 0, U, V);
+                tessellator.addVertexWithUV(1, 0, 0, u, V);
             }
 
             // SOUTH
@@ -307,10 +341,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(0, 1, 1, u, v);
-                tessellator.addVertexWithUV(0, 0, 1, u, V);
-                tessellator.addVertexWithUV(1, 0, 1, U, V);
+                tessellator.addVertexWithUV(0, 1, 1-o, u, v);
+                tessellator.addVertexWithUV(0, 0, 1-o, u, V);
+                tessellator.addVertexWithUV(1, 0, 1-o, U, V);
+                tessellator.addVertexWithUV(1, 1, 1-o, U, v);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(1, 1, 1, U, v);
+                tessellator.addVertexWithUV(1, 0, 1, U, V);
+                tessellator.addVertexWithUV(0, 0, 1, u, V);
+                tessellator.addVertexWithUV(0, 1, 1, u, v);
             }
 
             // WEST
@@ -329,10 +369,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(0, 0, 0, u, V);
-                tessellator.addVertexWithUV(0, 0, 1, U, V);
-                tessellator.addVertexWithUV(0, 1, 1, U, v);
+                tessellator.addVertexWithUV(0+o, 0, 0, u, V);
+                tessellator.addVertexWithUV(0+o, 0, 1, U, V);
+                tessellator.addVertexWithUV(0+o, 1, 1, U, v);
+                tessellator.addVertexWithUV(0+o, 1, 0, u, v);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(0, 1, 0, u, v);
+                tessellator.addVertexWithUV(0, 1, 1, U, v);
+                tessellator.addVertexWithUV(0, 0, 1, U, V);
+                tessellator.addVertexWithUV(0, 0, 0, u, V);
             }
 
             // EAST
@@ -351,10 +397,16 @@ public class HexBlockRenderer implements ISimpleBlockRenderingHandler {
                     U = c.getMaxU();
                     V = c.getMaxV();
                 }
-                tessellator.addVertexWithUV(1, 0, 1, u, V);
-                tessellator.addVertexWithUV(1, 0, 0, U, V);
-                tessellator.addVertexWithUV(1, 1, 0, U, v);
+                tessellator.addVertexWithUV(1-o, 0, 1, u, V);
+                tessellator.addVertexWithUV(1-o, 0, 0, U, V);
+                tessellator.addVertexWithUV(1-o, 1, 0, U, v);
+                tessellator.addVertexWithUV(1-o, 1, 1, u, v);
+            }
+            else if (o > 0 && doInner) {
                 tessellator.addVertexWithUV(1, 1, 1, u, v);
+                tessellator.addVertexWithUV(1, 1, 0, U, v);
+                tessellator.addVertexWithUV(1, 0, 0, U, V);
+                tessellator.addVertexWithUV(1, 0, 1, u, V);
             }
 
             tessellator.addTranslation(-x, -y, -z);
