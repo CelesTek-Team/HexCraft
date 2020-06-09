@@ -2,14 +2,14 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        maven {
-          name = "forge"
-          url = "https://files.minecraftforge.net/maven"
-        }
         //maven {
-        //    name = "gt"
-        //    url = "https://gregtech.overminddl1.com/"
+        //  name = "forge"
+        //  url = "https://files.minecraftforge.net/maven"
         //}
+        maven {
+            name = "gt"
+            url = "https://gregtech.overminddl1.com/"
+        }
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -82,10 +82,10 @@ idea {
 }
 
 repositories {
-    //maven {
-    //    name = "gt"
-    //    url = "https://gregtech.overminddl1.com/"
-    //}
+    maven {
+        name = "gt"
+        url = "https://gregtech.overminddl1.com/"
+    }
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -111,12 +111,13 @@ minecraft {
 }
 
 dependencies {
-    //compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
-    //compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
-    //compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
-    //compileOnly "ic2:IC2Classic:1.2.1.8:dev"
-    //compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
-    //compileOnly "coloredlightscore:ColoredLightsCore:1.3.7.d524c02:deobf"
+    compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
+    compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
+    compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+    compileOnly "ic2:IC2Classic:1.2.1.8:dev"
+    compileOnly "codechicken:ForgeMultipart:1.7.10-1.2.0.347:dev"
+    compileOnly "coloredlightscore:ColoredLightsCore:1.3.7.d524c02:deobf"
+    compileOnly "com.gregoriust.gregtech:gregtech_1.7.10:6.13.01:dev"
 }
 
 runClient {
@@ -150,8 +151,8 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.5.1'
 }
 
-sourceSets {
-    main {
-        output.resourcesDir = output.classesDir
-    }
-}
+//sourceSets {
+//    main {
+//        output.resourcesDir = output.classesDir
+//    }
+//}
