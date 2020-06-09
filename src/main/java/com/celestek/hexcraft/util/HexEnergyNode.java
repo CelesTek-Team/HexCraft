@@ -6,6 +6,7 @@ import com.celestek.hexcraft.block.BlockHexoriumStructureCasing;
 import com.celestek.hexcraft.block.IBlockHexEnergyPort;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexEU;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyDrain;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
@@ -378,10 +379,10 @@ public class HexEnergyNode {
         else if(type == PORT_TYPE_EU) {
             if (HexConfig.cfgEnergyTransferCustomEU)
                 switch (tier) {
-                    case 0: return HexConfig.cfgEnergyTransferTier1EU;
-                    case 1: return HexConfig.cfgEnergyTransferTier2EU;
-                    case 2: return HexConfig.cfgEnergyTransferTier3EU;
-                    case 3: return HexConfig.cfgEnergyTransferTier4EU;
+                    case 0: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier1EU);
+                    case 1: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier2EU);
+                    case 2: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier3EU);
+                    case 3: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier4EU);
                 }
             else
                 return (float) EnergyNet.instance.getPowerFromTier(tier + 1);

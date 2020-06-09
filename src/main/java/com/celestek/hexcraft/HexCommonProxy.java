@@ -12,6 +12,8 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
+import static com.celestek.hexcraft.init.HexEU.initializeEU;
+
 public class HexCommonProxy {
 
     /**
@@ -44,6 +46,9 @@ public class HexCommonProxy {
         }
         if (Loader.isModLoaded("chisel")) {
             HexChisel.initializeChisel();
+        }
+        if (Loader.isModLoaded("IC2")) {
+            HexEU.initializeEU();
         }
     }
 

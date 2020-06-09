@@ -78,10 +78,10 @@ public class HexConfig {
     public static int cfgEnergyTransferTier2RF = 800;
     public static int cfgEnergyTransferTier3RF = 8000;
     public static int cfgEnergyTransferTier4RF = 32000;
-    public static int cfgEnergyTransferTier1EU = 32;
-    public static int cfgEnergyTransferTier2EU = 128;
-    public static int cfgEnergyTransferTier3EU = 512;
-    public static int cfgEnergyTransferTier4EU = 2048;
+    public static int cfgEnergyTransferTier1EU = 1;
+    public static int cfgEnergyTransferTier2EU = 2;
+    public static int cfgEnergyTransferTier3EU = 3;
+    public static int cfgEnergyTransferTier4EU = 4;
 
     // General - Energy Conversion
     public static String categoryEnergyConversion = "General - Energy Conversion";
@@ -459,10 +459,10 @@ public class HexConfig {
         cfgEnergyTransferTier2RF = config.getInt("RF/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2RF, 0, 640000, "");
         cfgEnergyTransferTier3RF = config.getInt("RF/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3RF, 0, 640000, "");
         cfgEnergyTransferTier4RF = config.getInt("RF/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4RF, 0, 640000, "");
-        cfgEnergyTransferTier1EU = config.getInt("EU/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1EU, 0, 640000, "");
-        cfgEnergyTransferTier2EU = config.getInt("EU/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2EU, 0, 640000, "");
-        cfgEnergyTransferTier3EU = config.getInt("EU/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3EU, 0, 640000, "");
-        cfgEnergyTransferTier4EU = config.getInt("EU/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 0, 640000, "");
+        cfgEnergyTransferTier1EU = config.getInt("EU Tier 1 Power:", categoryEnergyTransfer, cfgEnergyTransferTier1EU, 1, 13, "LV: 1\nMV: 2\nHV: 3\nEV: 4\nIV: 5\nThere may be more...");
+        cfgEnergyTransferTier2EU = config.getInt("EU Tier 2 Power:", categoryEnergyTransfer, cfgEnergyTransferTier2EU, 0, 640000, "");
+        cfgEnergyTransferTier3EU = config.getInt("EU Tier 3 Power:", categoryEnergyTransfer, cfgEnergyTransferTier3EU, 0, 640000, "");
+        cfgEnergyTransferTier4EU = config.getInt("EU Tier 4 Power:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 0, 640000, "");
 
         // General - Energy Conversion
         config.setCategoryComment(categoryEnergyConversion, "Configuration for the loss and conversion ratios of the Energy Node.");
