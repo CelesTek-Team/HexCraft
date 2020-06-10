@@ -4,6 +4,8 @@ import com.celestek.hexcraft.HexCommonProxy;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -93,7 +95,8 @@ public class HexClientProxy extends HexCommonProxy {
         BlockEnergyNodeCore.registerRenders();
         BlockEnergyNodePortHEX.registerRenders();
         BlockEnergyNodePortRF.registerRenders();
-        BlockEnergyNodePortEU.registerRenders();
+        if (Loader.isModLoaded("IC2"))
+            BlockEnergyNodePortEU.registerRenders();
 
         // Cables
         BlockHexoriumCable.registerRenders();

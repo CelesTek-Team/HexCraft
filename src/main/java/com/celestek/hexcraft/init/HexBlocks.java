@@ -4,6 +4,7 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -85,7 +86,8 @@ public class HexBlocks {
         BlockEnergyNodeCore.registerBlocks();
         BlockEnergyNodePortHEX.registerBlocks();
         BlockEnergyNodePortRF.registerBlocks();
-        BlockEnergyNodePortEU.registerBlocks();
+        if (Loader.isModLoaded("IC2"))
+            BlockEnergyNodePortEU.registerBlocks();
 
         // Cables
         BlockHexoriumCable.registerBlocks();

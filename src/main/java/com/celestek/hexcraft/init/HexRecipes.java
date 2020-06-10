@@ -2,6 +2,7 @@ package com.celestek.hexcraft.init;
 
 import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.item.*;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -55,7 +56,8 @@ public class HexRecipes {
         BlockEnergyNodeCore.registerRecipes();
         BlockEnergyNodePortHEX.registerRecipes();
         BlockEnergyNodePortRF.registerRecipes();
-        BlockEnergyNodePortEU.registerRecipes();
+        if (Loader.isModLoaded("IC2"))
+            BlockEnergyNodePortEU.registerRecipes();
 
         // Cables
         BlockHexoriumCable.registerRecipes();

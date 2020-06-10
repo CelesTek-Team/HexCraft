@@ -106,13 +106,13 @@ public class BlockEnergyNodePortEU extends HexBlockContainer implements IHexBloc
     }
 
     public static void registerBlocks() {
-        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable) {
             GameRegistry.registerBlock(new BlockEnergyNodePortEU(ID), ID);
         }
     }
 
     public static void registerRenders() {
-        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable) {
             renderID[HexCraft.idCounter] = RenderingRegistry.getNextAvailableRenderId();
             RenderingRegistry.registerBlockHandler(new HexBlockRenderer(renderID[HexCraft.idCounter],
                     HexEnums.Brightness.BRIGHT, HexEnums.Colors.RAINBOW));
@@ -120,7 +120,7 @@ public class BlockEnergyNodePortEU extends HexBlockContainer implements IHexBloc
     }
 
     public static void registerRecipes() {
-        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable && Loader.isModLoaded("IC2")) {
+        if (HexConfig.cfgEnergyNodeEnable && HexConfig.cfgEnergyNodePortsEUEnable) {
             Block block = HexBlocks.getHexBlock(ID);
 
             Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW);

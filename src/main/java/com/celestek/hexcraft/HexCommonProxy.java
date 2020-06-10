@@ -41,15 +41,12 @@ public class HexCommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
         if (HexConfig.cfgGeneralUseAchievements)
             HexAchievements.initializeAchievements();
-        if (Loader.isModLoaded("ForgeMultipart")) {
+        if (Loader.isModLoaded("ForgeMultipart"))
             HexMultipart.initializeMicroblocks();
-        }
-        if (Loader.isModLoaded("chisel")) {
+        if (Loader.isModLoaded("chisel"))
             HexChisel.initializeChisel();
-        }
-        if (Loader.isModLoaded("IC2")) {
+        if (Loader.isModLoaded("IC2"))
             HexEU.initializeEU();
-        }
     }
 
     /**
