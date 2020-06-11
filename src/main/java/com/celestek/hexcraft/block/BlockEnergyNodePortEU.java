@@ -10,7 +10,6 @@ import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -21,7 +21,7 @@ public class WorldLocation {
 
         if (world.isRemote) {
             isRemote = true;
-            clientWorld = new WeakReference(world);
+            clientWorld = new WeakReference<>(world);
         }
     }
 

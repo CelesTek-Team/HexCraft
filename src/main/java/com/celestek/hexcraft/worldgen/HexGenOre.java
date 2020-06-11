@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.worldgen;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;

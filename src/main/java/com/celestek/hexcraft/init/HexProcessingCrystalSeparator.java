@@ -18,7 +18,7 @@ public class HexProcessingCrystalSeparator {
 
     private static final HexProcessingCrystalSeparator PROCESSING_BASE = new HexProcessingCrystalSeparator();
 
-    private final Map processingList = new HashMap();
+    private final HashMap<ItemStack, ItemStack> processingList = new HashMap<>();
 
     public static HexProcessingCrystalSeparator processing() {
         return PROCESSING_BASE;

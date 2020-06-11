@@ -14,7 +14,7 @@ public class HexProcessingMatrixReconstructor {
 
     private static final HexProcessingMatrixReconstructor PROCESSING_BASE = new HexProcessingMatrixReconstructor();
 
-    private final Map processingList = new HashMap();
+    private final HashMap<ItemStack, ItemStack> processingList = new HashMap<>();
 
     public static HexProcessingMatrixReconstructor processing() {
         return PROCESSING_BASE;

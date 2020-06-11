@@ -1,9 +1,11 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.worldgen;
 
 import com.celestek.hexcraft.block.BlockHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherOre;
 import com.celestek.hexcraft.block.BlockHexoriumOre;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

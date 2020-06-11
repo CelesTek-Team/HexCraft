@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.worldgen;
 
 import com.celestek.hexcraft.block.BlockHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;

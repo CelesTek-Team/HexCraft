@@ -18,7 +18,7 @@ public class ChunkManager implements ForgeChunkManager.LoadingCallback {
 
     public static final ChunkManager instance = new ChunkManager();
 
-    private final HashMap<WorldLocation, ForgeChunkManager.Ticket> tickets = new HashMap();
+    private final HashMap<WorldLocation, ForgeChunkManager.Ticket> tickets = new HashMap<>();
 
     private ChunkManager() {
 
@@ -124,7 +124,7 @@ public class ChunkManager implements ForgeChunkManager.LoadingCallback {
     public static Collection<ChunkCoordIntPair> getChunkSquare(int x, int z, int r) {
         int x2 = x >> 4;
         int z2 = z >> 4;
-        Collection<ChunkCoordIntPair> chunkList = new ArrayList();
+        Collection<ChunkCoordIntPair> chunkList = new ArrayList<>();
         for (int i = -r; i <= r; i++) {
             for (int k = -r; k <= r; k++) {
                 chunkList.add(new ChunkCoordIntPair(x2+i, z2+k));
