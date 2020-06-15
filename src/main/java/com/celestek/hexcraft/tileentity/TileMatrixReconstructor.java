@@ -2,7 +2,7 @@ package com.celestek.hexcraft.tileentity;
 
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
+import com.celestek.hexcraft.processing.HexProcessingMatrixReconstructor;
 import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;

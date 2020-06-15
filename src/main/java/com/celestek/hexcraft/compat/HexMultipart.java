@@ -1,8 +1,9 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.compat;
 
 import codechicken.microblock.BlockMicroMaterial;
 import codechicken.microblock.MicroMaterialRegistry;
 import com.celestek.hexcraft.block.BlockHexoriumCoatedStone;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
 import net.minecraft.block.Block;
 

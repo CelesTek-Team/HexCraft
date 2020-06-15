@@ -97,6 +97,8 @@ public class HexClientProxy extends HexCommonProxy {
         BlockEnergyNodePortRF.registerRenders();
         if (Loader.isModLoaded("IC2"))
             BlockEnergyNodePortEU.registerRenders();
+        if (Loader.isModLoaded("gregapi"))
+            BlockEnergyNodePortLU.registerRenders();
 
         // Cables
         BlockHexoriumCable.registerRenders();

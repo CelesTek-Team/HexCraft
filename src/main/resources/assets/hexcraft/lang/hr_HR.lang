@@ -572,6 +572,7 @@ tile.blockEnergyNodeCoreT4.name=Jezgra Energetskog Čvorišta (4. Razina)
 tile.blockEnergyNodePortHEX.name=Priključak Energetskog Čvorišta: HEX
 tile.blockEnergyNodePortRF.name=Priključak Energetskog Čvorišta: RF
 tile.blockEnergyNodePortEU.name=Priključak Energetskog Čvorišta: EU
+tile.blockEnergyNodePortLU.name=Priključak Energetskog Čvorišta: LU
 
 
 tile.blockHexoriumCableRed.name=Heksorijski Kabel (Crveni)

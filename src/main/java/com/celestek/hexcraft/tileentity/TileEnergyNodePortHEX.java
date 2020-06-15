@@ -57,7 +57,7 @@ public class TileEnergyNodePortHEX extends TileEntity implements ITileHexEnergyP
     private final int portType;
 
     // Prepare the recheck variables.
-    private int recheckCountdown;
+    private final int recheckCountdown;
     private int recheckCounter;
     private boolean shouldRecheck;
 

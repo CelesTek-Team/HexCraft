@@ -66,10 +66,14 @@ public class HexConfig {
     public static boolean cfgEnergyNodePortsRFInputOnly = false;
     public static boolean cfgEnergyNodePortsEUEnable = true;
     public static boolean cfgEnergyNodePortsEUInputOnly = false;
+    public static boolean cfgEnergyNodePortsLUEnable = true;
+    public static boolean cfgEnergyNodePortsLUInputOnly = false;
 
     // General - Energy Transfer
     public static String categoryEnergyTransfer = "General - Energy Transfer";
     public static boolean cfgEnergyTransferCustomEU = false;
+    public static float cfgEnergyTransferLUMinMulti = 0.5F;
+    public static float cfgEnergyTransferLUMaxMulti = 2.0F;
     public static int cfgEnergyTransferTier1HEX = 64;
     public static int cfgEnergyTransferTier2HEX = 256;
     public static int cfgEnergyTransferTier3HEX = 1024;
@@ -82,6 +86,10 @@ public class HexConfig {
     public static int cfgEnergyTransferTier2EU = 2;
     public static int cfgEnergyTransferTier3EU = 3;
     public static int cfgEnergyTransferTier4EU = 4;
+    public static int cfgEnergyTransferTier1LU = 32;
+    public static int cfgEnergyTransferTier2LU = 128;
+    public static int cfgEnergyTransferTier3LU = 512;
+    public static int cfgEnergyTransferTier4LU = 2048;
 
     // General - Energy Conversion
     public static String categoryEnergyConversion = "General - Energy Conversion";
@@ -91,10 +99,16 @@ public class HexConfig {
     public static int cfgEnergyConversionLossTier4 = 0;
     public static float cfgEnergyConversionRatioHEXtoRF = 0.3125F;
     public static float cfgEnergyConversionRatioHEXtoEU = 0.078125F;
+    public static float cfgEnergyConversionRatioHEXtoLU = 0.078125F;
     public static float cfgEnergyConversionRatioRFtoHEX = 3.2F;
-    public static float cfgEnergyConversionRatioRFtoEU = 0.25F;
+    public static float cfgEnergyConversionRatioRFtoEU  = 0.25F;
+    public static float cfgEnergyConversionRatioRFtoLU  = 0.25F;
     public static float cfgEnergyConversionRatioEUtoHEX = 12.8F;
-    public static float cfgEnergyConversionRatioEUtoRF = 4F;
+    public static float cfgEnergyConversionRatioEUtoRF  = 4F;
+    public static float cfgEnergyConversionRatioEUtoLU  = 1F;
+    public static float cfgEnergyConversionRatioLUtoHEX = 12.8F;
+    public static float cfgEnergyConversionRatioLUtoRF  = 4F;
+    public static float cfgEnergyConversionRatioLUtoEU  = 1F;
 
     
     
@@ -445,12 +459,16 @@ public class HexConfig {
         config.setCategoryComment(categoryEnergyPorts, "Configuration for the Energy Node ports.");
         cfgEnergyNodePortsRFEnable = config.getBoolean("Enable Energy Node Port: RF", categoryEnergyPorts, cfgEnergyNodePortsRFEnable, "Enables the RF Port for the Energy Node.\n");
         cfgEnergyNodePortsEUEnable = config.getBoolean("Enable Energy Node Port: EU", categoryEnergyPorts, cfgEnergyNodePortsRFEnable, "Enables the EU Port for the Energy Node.\nNOTE: If you don't have IndustrialCraft 2, the port is automatically disabled.\n");
+        cfgEnergyNodePortsLUEnable = config.getBoolean("Enable Energy Node Port: LU", categoryEnergyPorts, cfgEnergyNodePortsRFEnable, "Enables the LU Port for the Energy Node.\nNOTE: If you don't have GregTech 6, the port is automatically disabled.\n");
         cfgEnergyNodePortsRFInputOnly = config.getBoolean("Input only on RF Port", categoryEnergyPorts, cfgEnergyNodePortsRFInputOnly, "If enabled, the RF Port for the Energy Node can only be used in input mode.\nNOTE: If the port is already in output mode placed in the world, it won't automatically switch.\n");
         cfgEnergyNodePortsEUInputOnly = config.getBoolean("Input only on EU Port", categoryEnergyPorts, cfgEnergyNodePortsEUInputOnly, "If enabled, the EU Port for the Energy Node can only be used in input mode.\nNOTE: If the port is already in output mode placed in the world, it won't automatically switch.\n");
+        cfgEnergyNodePortsLUInputOnly = config.getBoolean("Input only on LU Port", categoryEnergyPorts, cfgEnergyNodePortsEUInputOnly, "If enabled, the LU Port for the Energy Node can only be used in input mode.\nNOTE: If the port is already in output mode placed in the world, it won't automatically switch.\n");
 
         // General - Energy Transfer
         config.setCategoryComment(categoryEnergyTransfer, "Configuration for the energy per tick rates of different tiers and ports.\nNote that the HEX setting are only applied when a HEX port is paired with a HEX port.");
         cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the\ndefault LV, MV, HV and EV ones.\n");
+        cfgEnergyTransferLUMinMulti = config.getFloat("Minimum LU input multiplier:", categoryEnergyTransfer, cfgEnergyTransferLUMinMulti, 0.0F, 10.0F, "");
+        cfgEnergyTransferLUMaxMulti = config.getFloat("Maximum LU input multiplier:", categoryEnergyTransfer, cfgEnergyTransferLUMaxMulti, 0.0F, 10.0F, "");
         cfgEnergyTransferTier1HEX = config.getInt("HEX/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1HEX, 0, 640000, "");
         cfgEnergyTransferTier2HEX = config.getInt("HEX/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2HEX, 0, 640000, "");
         cfgEnergyTransferTier3HEX = config.getInt("HEX/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3HEX, 0, 640000, "");
@@ -460,9 +478,13 @@ public class HexConfig {
         cfgEnergyTransferTier3RF = config.getInt("RF/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3RF, 0, 640000, "");
         cfgEnergyTransferTier4RF = config.getInt("RF/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4RF, 0, 640000, "");
         cfgEnergyTransferTier1EU = config.getInt("EU Tier 1 Power:", categoryEnergyTransfer, cfgEnergyTransferTier1EU, 1, 13, "LV: 1\nMV: 2\nHV: 3\nEV: 4\nIV: 5\nThere may be more...");
-        cfgEnergyTransferTier2EU = config.getInt("EU Tier 2 Power:", categoryEnergyTransfer, cfgEnergyTransferTier2EU, 0, 640000, "");
-        cfgEnergyTransferTier3EU = config.getInt("EU Tier 3 Power:", categoryEnergyTransfer, cfgEnergyTransferTier3EU, 0, 640000, "");
-        cfgEnergyTransferTier4EU = config.getInt("EU Tier 4 Power:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 0, 640000, "");
+        cfgEnergyTransferTier2EU = config.getInt("EU Tier 2 Power:", categoryEnergyTransfer, cfgEnergyTransferTier2EU, 1, 13, "");
+        cfgEnergyTransferTier3EU = config.getInt("EU Tier 3 Power:", categoryEnergyTransfer, cfgEnergyTransferTier3EU, 1, 13, "");
+        cfgEnergyTransferTier4EU = config.getInt("EU Tier 4 Power:", categoryEnergyTransfer, cfgEnergyTransferTier4EU, 1, 13, "");
+        cfgEnergyTransferTier1LU = config.getInt("LU/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1LU, 0, 640000, "");
+        cfgEnergyTransferTier2LU = config.getInt("LU/t Tier 2:", categoryEnergyTransfer, cfgEnergyTransferTier2LU, 0, 640000, "");
+        cfgEnergyTransferTier3LU = config.getInt("LU/t Tier 3:", categoryEnergyTransfer, cfgEnergyTransferTier3LU, 0, 640000, "");
+        cfgEnergyTransferTier4LU = config.getInt("LU/t Tier 4:", categoryEnergyTransfer, cfgEnergyTransferTier4LU, 0, 640000, "");
 
         // General - Energy Conversion
         config.setCategoryComment(categoryEnergyConversion, "Configuration for the loss and conversion ratios of the Energy Node.");
@@ -472,13 +494,19 @@ public class HexConfig {
         cfgEnergyConversionLossTier4 = config.getInt("Tier 4 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier4, 0, 100, "");
         cfgEnergyConversionRatioHEXtoRF = config.getFloat("Conversion ratio: HEX -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoRF, 0.0001F, 128, "");
         cfgEnergyConversionRatioHEXtoEU = config.getFloat("Conversion ratio: HEX -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoEU, 0.0001F, 128, "");
+        cfgEnergyConversionRatioHEXtoLU = config.getFloat("Conversion ratio: HEX -> LU ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoLU, 0.0001F, 128, "");
         cfgEnergyConversionRatioRFtoHEX = config.getFloat("Conversion ratio: RF  -> HEX", categoryEnergyConversion, cfgEnergyConversionRatioRFtoHEX, 0.0001F, 128, "");
-        cfgEnergyConversionRatioRFtoEU = config.getFloat("Conversion ratio: RF  -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioRFtoEU, 0.0001F, 128, "");
+        cfgEnergyConversionRatioRFtoEU  = config.getFloat("Conversion ratio: RF  -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioRFtoEU, 0.0001F, 128, "");
+        cfgEnergyConversionRatioRFtoLU  = config.getFloat("Conversion ratio: RF  -> LU ", categoryEnergyConversion, cfgEnergyConversionRatioRFtoLU, 0.0001F, 128, "");
         cfgEnergyConversionRatioEUtoHEX = config.getFloat("Conversion ratio: EU  -> HEX", categoryEnergyConversion, cfgEnergyConversionRatioEUtoHEX, 0.0001F, 128, "");
-        cfgEnergyConversionRatioEUtoRF = config.getFloat("Conversion ratio: EU  -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioEUtoRF, 0.0001F, 128, "");
-        
-        
-        
+        cfgEnergyConversionRatioEUtoRF  = config.getFloat("Conversion ratio: EU  -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioEUtoRF, 0.0001F, 128, "");
+        cfgEnergyConversionRatioEUtoLU  = config.getFloat("Conversion ratio: EU  -> LU ", categoryEnergyConversion, cfgEnergyConversionRatioEUtoLU, 0.0001F, 128, "");
+        cfgEnergyConversionRatioLUtoHEX = config.getFloat("Conversion ratio: LU  -> HEX", categoryEnergyConversion, cfgEnergyConversionRatioLUtoHEX, 0.0001F, 128, "");
+        cfgEnergyConversionRatioLUtoRF  = config.getFloat("Conversion ratio: LU  -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioLUtoRF, 0.0001F, 128, "");
+        cfgEnergyConversionRatioLUtoEU  = config.getFloat("Conversion ratio: LU  -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioLUtoEU, 0.0001F, 128, "");
+
+
+
         // Ore Generation
         config.setCategoryComment(categoryOre, "Configuration for ore generation. The ore gen can be completely disabled, or\nconfigured per dimension and ore.");
         cfgOreGeneralShouldGenerate = config.getBoolean("Generate ores", categoryOre, cfgOreGeneralShouldGenerate, "If ore generator should be working at all. Setting this to false disables ALL ore generation.\nIgnores ore and dimension-specific settings.\n");

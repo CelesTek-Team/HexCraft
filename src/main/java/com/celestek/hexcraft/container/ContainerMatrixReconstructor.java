@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.init.HexProcessingMatrixReconstructor;
+import com.celestek.hexcraft.processing.HexProcessingMatrixReconstructor;
 import com.celestek.hexcraft.tileentity.TileMatrixReconstructor;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;

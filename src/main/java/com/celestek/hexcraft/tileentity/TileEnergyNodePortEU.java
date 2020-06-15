@@ -6,7 +6,6 @@ import com.celestek.hexcraft.util.HexDevice;
 import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.common.FMLCommonHandler;
-import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
@@ -208,7 +207,7 @@ public class TileEnergyNodePortEU extends TileEntity implements ITileHexEnergyPo
     public double getOfferedEnergy() {
         if (linkedPort != null && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord)
                 && HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord) == HexEnergyNode.PORT_MODE_OUTPUT)
-            return Math.min(energyBufferFilled, EnergyNet.instance.getPowerFromTier(portTier + 1));
+            return Math.min(energyBufferFilled, HexEnergyNode.parseEnergyPerTick(this.portType, this.portTier));
         else
             return 0;
     }

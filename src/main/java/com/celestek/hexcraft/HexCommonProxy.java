@@ -1,5 +1,9 @@
 package com.celestek.hexcraft;
 
+import com.celestek.hexcraft.compat.HexChisel;
+import com.celestek.hexcraft.compat.HexEU;
+import com.celestek.hexcraft.compat.HexMultipart;
+import com.celestek.hexcraft.compat.HexOreDict;
 import com.celestek.hexcraft.init.*;
 import com.celestek.hexcraft.util.ChunkManager;
 import com.celestek.hexcraft.worldgen.HexWorldGen;
@@ -25,7 +29,6 @@ public class HexCommonProxy {
         HexBlocks.initializeBlocks();
         HexItems.initializeItems();
         HexOreDict.registerOres();
-        HexRecipes.initializeRecipes();
         HexTileEntities.initializeTileEntities();
         // Set up chunk loading.
         this.increaseChunkCap();
@@ -36,6 +39,7 @@ public class HexCommonProxy {
      * Handles init.
      */
     public void init(FMLInitializationEvent e) {
+        HexRecipes.initializeRecipes();
         GameRegistry.registerWorldGenerator(new HexWorldGen(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
         if (HexConfig.cfgGeneralUseAchievements)

@@ -202,6 +202,8 @@ public class ItemHexoriumManipulator extends Item {
                             mode = HexEnergyNode.PORT_MODE_INPUT;
                         else if (block instanceof BlockEnergyNodePortEU && HexConfig.cfgEnergyNodePortsEUInputOnly)
                             mode = HexEnergyNode.PORT_MODE_INPUT;
+                        else if (block instanceof BlockEnergyNodePortLU && HexConfig.cfgEnergyNodePortsLUInputOnly)
+                            mode = HexEnergyNode.PORT_MODE_INPUT;
                         else {
                             if (mode < HexEnergyNode.PORT_MODE_OUTPUT)
                                 mode++;

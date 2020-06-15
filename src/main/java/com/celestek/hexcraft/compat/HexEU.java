@@ -1,4 +1,4 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.compat;
 
 import com.celestek.hexcraft.block.BlockConcentricHexoriumBlock;
 import com.celestek.hexcraft.block.BlockEngineeredHexoriumBlock;

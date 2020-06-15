@@ -572,6 +572,7 @@ tile.blockEnergyNodeCoreT4.name=Energy Node Core (Tier 4)
 tile.blockEnergyNodePortHEX.name=Energy Node Port: HEX
 tile.blockEnergyNodePortRF.name=Energy Node Port: RF
 tile.blockEnergyNodePortEU.name=Energy Node Port: EU
+tile.blockEnergyNodePortLU.name=Energy Node Port: LU
 
 
 tile.blockHexoriumCableRed.name=Hexorium Cable (Red)

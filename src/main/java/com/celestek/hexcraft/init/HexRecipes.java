@@ -58,6 +58,8 @@ public class HexRecipes {
         BlockEnergyNodePortRF.registerRecipes();
         if (Loader.isModLoaded("IC2"))
             BlockEnergyNodePortEU.registerRecipes();
+        if (Loader.isModLoaded("gregapi"))
+            BlockEnergyNodePortLU.registerRecipes();
 
         // Cables
         BlockHexoriumCable.registerRecipes();

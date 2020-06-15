@@ -1,9 +1,12 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.processing;
 
 import com.celestek.hexcraft.block.BlockHexoriumMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherMonolith;
 import com.celestek.hexcraft.block.BlockHexoriumNetherOre;
 import com.celestek.hexcraft.block.BlockHexoriumOre;
+import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
+import com.celestek.hexcraft.init.HexItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

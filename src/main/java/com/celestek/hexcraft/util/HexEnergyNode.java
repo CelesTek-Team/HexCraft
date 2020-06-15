@@ -6,7 +6,7 @@ import com.celestek.hexcraft.block.BlockHexoriumStructureCasing;
 import com.celestek.hexcraft.block.IBlockHexEnergyPort;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
-import com.celestek.hexcraft.init.HexEU;
+import com.celestek.hexcraft.compat.HexEU;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyDrain;
 import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
@@ -29,6 +29,7 @@ public class HexEnergyNode {
     public static final int PORT_TYPE_HEX = 0;
     public static final int PORT_TYPE_RF = 1;
     public static final int PORT_TYPE_EU = 2;
+    public static final int PORT_TYPE_LU = 3;
 
     // Port Modes
     public static final int PORT_MODE_INPUT = 0;
@@ -337,18 +338,32 @@ public class HexEnergyNode {
                     return HexConfig.cfgEnergyConversionRatioHEXtoRF;
                 if (typeOut == PORT_TYPE_EU)
                     return HexConfig.cfgEnergyConversionRatioHEXtoEU;
+                if (typeOut == PORT_TYPE_LU)
+                    return HexConfig.cfgEnergyConversionRatioHEXtoLU;
             }
             else if (typeIn == PORT_TYPE_RF) {
                 if (typeOut == PORT_TYPE_HEX)
                     return HexConfig.cfgEnergyConversionRatioRFtoHEX;
                 if (typeOut == PORT_TYPE_EU)
                     return HexConfig.cfgEnergyConversionRatioRFtoEU;
+                if (typeOut == PORT_TYPE_LU)
+                    return HexConfig.cfgEnergyConversionRatioRFtoLU;
             }
             else if (typeIn == PORT_TYPE_EU) {
                 if (typeOut == PORT_TYPE_HEX)
                     return HexConfig.cfgEnergyConversionRatioEUtoHEX;
                 if (typeOut == PORT_TYPE_RF)
                     return HexConfig.cfgEnergyConversionRatioEUtoRF;
+                if (typeOut == PORT_TYPE_LU)
+                    return HexConfig.cfgEnergyConversionRatioEUtoLU;
+            }
+            else if (typeIn == PORT_TYPE_LU) {
+                if (typeOut == PORT_TYPE_HEX)
+                    return HexConfig.cfgEnergyConversionRatioLUtoHEX;
+                if (typeOut == PORT_TYPE_RF)
+                    return HexConfig.cfgEnergyConversionRatioLUtoRF;
+                if (typeOut == PORT_TYPE_EU)
+                    return HexConfig.cfgEnergyConversionRatioLUtoEU;
             }
         }
 
@@ -387,6 +402,13 @@ public class HexEnergyNode {
             else
                 return (float) EnergyNet.instance.getPowerFromTier(tier + 1);
         }
+        else if(type == PORT_TYPE_LU)
+            switch (tier) {
+                case 0: return HexConfig.cfgEnergyTransferTier1LU;
+                case 1: return HexConfig.cfgEnergyTransferTier2LU;
+                case 2: return HexConfig.cfgEnergyTransferTier3LU;
+                case 3: return HexConfig.cfgEnergyTransferTier4LU;
+            }
 
         return 0;
     }

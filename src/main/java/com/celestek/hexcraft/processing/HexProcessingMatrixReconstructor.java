@@ -1,7 +1,8 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.processing;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

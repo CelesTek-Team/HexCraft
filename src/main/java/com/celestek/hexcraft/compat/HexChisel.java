@@ -1,9 +1,10 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.compat;
 
 import com.celestek.hexcraft.block.BlockConcentricHexoriumBlock;
 import com.celestek.hexcraft.block.BlockEngineeredHexoriumBlock;
 import com.celestek.hexcraft.block.BlockFramedHexoriumBlock;
 import com.celestek.hexcraft.block.BlockPlatedHexoriumBlock;
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexEnums;
 import com.cricketcraft.chisel.api.carving.CarvingUtils;
 import com.cricketcraft.chisel.api.carving.ICarvingRegistry;

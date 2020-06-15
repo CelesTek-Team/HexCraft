@@ -1,6 +1,6 @@
 package com.celestek.hexcraft.container;
 
-import com.celestek.hexcraft.init.HexProcessingCrystalSeparator;
+import com.celestek.hexcraft.processing.HexProcessingCrystalSeparator;
 import com.celestek.hexcraft.tileentity.TileCrystalSeparator;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.relauncher.Side;

@@ -38,6 +38,8 @@ public class HexTileEntities {
                 GameRegistry.registerTileEntity(TileEnergyNodePortRF.class, TileEnergyNodePortRF.ID);
             if (Loader.isModLoaded("IC2") && HexConfig.cfgEnergyNodePortsEUEnable)
                 GameRegistry.registerTileEntity(TileEnergyNodePortEU.class, TileEnergyNodePortEU.ID);
+            if (Loader.isModLoaded("gregapi") && HexConfig.cfgEnergyNodePortsLUEnable)
+                GameRegistry.registerTileEntity(TileEnergyNodePortLU.class, TileEnergyNodePortLU.ID);
         }
 
         GameRegistry.registerTileEntity(TileSoundProjector.class, TileSoundProjector.ID);

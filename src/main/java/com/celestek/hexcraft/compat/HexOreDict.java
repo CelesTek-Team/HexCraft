@@ -1,7 +1,8 @@
-package com.celestek.hexcraft.init;
+package com.celestek.hexcraft.compat;
 
 import com.celestek.hexcraft.block.BlockHexoriumNetherOre;
 import com.celestek.hexcraft.block.BlockHexoriumOre;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import net.minecraftforge.oredict.OreDictionary;
 

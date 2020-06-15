@@ -88,6 +88,8 @@ public class HexBlocks {
         BlockEnergyNodePortRF.registerBlocks();
         if (Loader.isModLoaded("IC2"))
             BlockEnergyNodePortEU.registerBlocks();
+        if (Loader.isModLoaded("gregapi"))
+            BlockEnergyNodePortLU.registerBlocks();
 
         // Cables
         BlockHexoriumCable.registerBlocks();
