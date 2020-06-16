@@ -24,6 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 
@@ -363,8 +364,16 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHe
 
             // Check if the item in player's hand is not null and if there is no monolith already inserted.
             if (player.getCurrentEquippedItem() != null && !isGlowing) {
-                Item item = player.getCurrentEquippedItem().getItem();
-                if (item == Items.glowstone_dust) {
+                Item equipped = player.getCurrentEquippedItem().getItem();
+                ArrayList<ItemStack> items = OreDictionary.getOres("dustGlowstone");
+                boolean isGlowstone = false;
+                for (ItemStack item : items) {
+                    if (item.getItem() == equipped) {
+                        isGlowstone = true;
+                        break;
+                    }
+                }
+                if (isGlowstone) {
                     ItemStack stack = player.getCurrentEquippedItem();
                     stack.stackSize--;
                     if (stack.stackSize == 0)
