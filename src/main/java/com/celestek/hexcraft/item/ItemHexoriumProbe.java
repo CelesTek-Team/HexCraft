@@ -7,6 +7,7 @@ import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.tileentity.*;
+import com.celestek.hexcraft.util.HexEnergyNode;
 import com.celestek.hexcraft.util.HexUtils;
 import com.celestek.hexcraft.util.NetworkAnalyzer;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -114,11 +115,16 @@ public class ItemHexoriumProbe extends Item {
             else if (block instanceof HexBlockMT
                     || block instanceof BlockTemperedHexoriumGlass
                     || block instanceof BlockHexoriumCoatedStone
-                    || block instanceof BlockEnergyNodeCore) {
+                    || block instanceof BlockEnergyNodeCore
+                    || block instanceof BlockConversionComputer) {
                 if (!player.isSneaking()) {
                     HexUtils.addChatProbeTitle(player);
                     HexUtils.addChatProbeGenericInfo(player, world, x, y, z);
                     player.addChatMessage(new ChatComponentTranslation("msg.probeTypeBlock.txt"));
+                    if (block instanceof BlockConversionComputer) {
+                        BlockConversionComputer computer = (BlockConversionComputer) block;
+                        player.addChatMessage(new ChatComponentTranslation("msg.probeComputer.txt", HexEnergyNode.parseEfficiency(computer.getEfficiency())*100));
+                    }
                     if (HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z))
                         player.addChatMessage(new ChatComponentTranslation("msg.probeFormedYes.txt"));
                     else

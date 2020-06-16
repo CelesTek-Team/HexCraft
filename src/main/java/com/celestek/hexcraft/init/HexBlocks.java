@@ -34,7 +34,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static final int countBlocks = 517;
+    public static final int countBlocks = 520;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -84,6 +84,7 @@ public class HexBlocks {
         
         // Energy Node
         BlockEnergyNodeCore.registerBlocks();
+        BlockConversionComputer.registerBlocks();
         BlockEnergyNodePortHEX.registerBlocks();
         BlockEnergyNodePortRF.registerBlocks();
         if (Loader.isModLoaded("IC2"))

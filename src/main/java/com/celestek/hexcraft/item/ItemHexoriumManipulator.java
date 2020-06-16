@@ -609,6 +609,25 @@ public class ItemHexoriumManipulator extends Item {
                     }
                 }
 
+                // Form Energy Node.
+                else if (block instanceof BlockConversionComputer) {
+                    if (HexEnergyNode.setupEnergyNode(side, world, x, y, z)) {
+                        player.addChatMessage(new ChatComponentTranslation("msg.energyNodeFormSuccess.txt"));
+
+                        if (HexConfig.cfgGeneralUseAchievements && player instanceof EntityPlayerMP) {
+                            EntityPlayerMP playerMP = (EntityPlayerMP) player;
+                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achCraftManipulator))
+                                player.addStat(HexAchievements.achFormEnergyNode, 1);
+
+                            if (playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achFormEnergyNode)
+                                    && playerMP.func_147099_x().hasAchievementUnlocked(HexAchievements.achLinkEnergyNodePorts))
+                                player.addStat(HexAchievements.achGroupEnergyNode, 1);
+                        }
+                    }
+                    else
+                        player.addChatMessage(new ChatComponentTranslation("msg.structureFormFail.txt"));
+                }
+
                 // Rotate machines.
                 else if (block instanceof BlockHexoriumGenerator ||
                          block instanceof BlockHexoriumFurnace ||

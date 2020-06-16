@@ -93,6 +93,7 @@ public class HexClientProxy extends HexCommonProxy {
 
         // Energy Node
         BlockEnergyNodeCore.registerRenders();
+        BlockConversionComputer.registerRenders();
         BlockEnergyNodePortHEX.registerRenders();
         BlockEnergyNodePortRF.registerRenders();
         if (Loader.isModLoaded("IC2"))

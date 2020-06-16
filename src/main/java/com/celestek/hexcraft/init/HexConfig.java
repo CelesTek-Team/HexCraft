@@ -71,44 +71,43 @@ public class HexConfig {
 
     // General - Energy Transfer
     public static String categoryEnergyTransfer = "General - Energy Transfer";
-    public static boolean cfgEnergyTransferCustomEU = false;
     public static float cfgEnergyTransferLUMinMulti = 0.5F;
     public static float cfgEnergyTransferLUMaxMulti = 2.0F;
-    public static int cfgEnergyTransferTier1HEX = 64;
-    public static int cfgEnergyTransferTier2HEX = 256;
-    public static int cfgEnergyTransferTier3HEX = 1024;
-    public static int cfgEnergyTransferTier4HEX = 4096;
-    public static int cfgEnergyTransferTier1RF = 200;
-    public static int cfgEnergyTransferTier2RF = 800;
-    public static int cfgEnergyTransferTier3RF = 8000;
-    public static int cfgEnergyTransferTier4RF = 32000;
-    public static int cfgEnergyTransferTier1EU = 1;
-    public static int cfgEnergyTransferTier2EU = 2;
-    public static int cfgEnergyTransferTier3EU = 3;
-    public static int cfgEnergyTransferTier4EU = 4;
-    public static int cfgEnergyTransferTier1LU = 32;
-    public static int cfgEnergyTransferTier2LU = 128;
-    public static int cfgEnergyTransferTier3LU = 512;
-    public static int cfgEnergyTransferTier4LU = 2048;
+    public static int cfgEnergyTransferTier1HEX     = 64;
+    public static int cfgEnergyTransferTier2HEX     = 256;
+    public static int cfgEnergyTransferTier3HEX     = 1024;
+    public static int cfgEnergyTransferTier4HEX     = 4096;
+    public static int cfgEnergyTransferTier1RF      = 200;
+    public static int cfgEnergyTransferTier2RF      = 800;
+    public static int cfgEnergyTransferTier3RF      = 8000;
+    public static int cfgEnergyTransferTier4RF      = 32000;
+    public static int cfgEnergyTransferTier1EU      = 1;
+    public static int cfgEnergyTransferTier2EU      = 2;
+    public static int cfgEnergyTransferTier3EU      = 3;
+    public static int cfgEnergyTransferTier4EU      = 4;
+    public static int cfgEnergyTransferTier1LU      = 32;
+    public static int cfgEnergyTransferTier2LU      = 128;
+    public static int cfgEnergyTransferTier3LU      = 512;
+    public static int cfgEnergyTransferTier4LU      = 2048;
 
     // General - Energy Conversion
     public static String categoryEnergyConversion = "General - Energy Conversion";
-    public static int cfgEnergyConversionLossTier1 = 40;
-    public static int cfgEnergyConversionLossTier2 = 20;
-    public static int cfgEnergyConversionLossTier3 = 10;
-    public static int cfgEnergyConversionLossTier4 = 0;
-    public static float cfgEnergyConversionRatioHEXtoRF = 0.3125F;
-    public static float cfgEnergyConversionRatioHEXtoEU = 0.078125F;
-    public static float cfgEnergyConversionRatioHEXtoLU = 0.078125F;
-    public static float cfgEnergyConversionRatioRFtoHEX = 3.2F;
-    public static float cfgEnergyConversionRatioRFtoEU  = 0.25F;
-    public static float cfgEnergyConversionRatioRFtoLU  = 0.25F;
-    public static float cfgEnergyConversionRatioEUtoHEX = 12.8F;
-    public static float cfgEnergyConversionRatioEUtoRF  = 4F;
-    public static float cfgEnergyConversionRatioEUtoLU  = 1F;
-    public static float cfgEnergyConversionRatioLUtoHEX = 12.8F;
-    public static float cfgEnergyConversionRatioLUtoRF  = 4F;
-    public static float cfgEnergyConversionRatioLUtoEU  = 1F;
+    public static int cfgEnergyBufferMultiplier             = 4;
+    public static int cfgEnergyConversionEfficiencyNone     = 50;
+    public static int cfgEnergyConversionEfficiencyBasic    = 75;
+    public static int cfgEnergyConversionEfficiencyAdvanced = 100;
+    public static float cfgEnergyConversionRatioHEXtoRF     = 0.3125F;
+    public static float cfgEnergyConversionRatioHEXtoEU     = 0.078125F;
+    public static float cfgEnergyConversionRatioHEXtoLU     = 0.078125F;
+    public static float cfgEnergyConversionRatioRFtoHEX     = 3.2F;
+    public static float cfgEnergyConversionRatioRFtoEU      = 0.25F;
+    public static float cfgEnergyConversionRatioRFtoLU      = 0.25F;
+    public static float cfgEnergyConversionRatioEUtoHEX     = 12.8F;
+    public static float cfgEnergyConversionRatioEUtoRF      = 4F;
+    public static float cfgEnergyConversionRatioEUtoLU      = 1F;
+    public static float cfgEnergyConversionRatioLUtoHEX     = 12.8F;
+    public static float cfgEnergyConversionRatioLUtoRF      = 4F;
+    public static float cfgEnergyConversionRatioLUtoEU      = 1F;
 
     
     
@@ -466,7 +465,6 @@ public class HexConfig {
 
         // General - Energy Transfer
         config.setCategoryComment(categoryEnergyTransfer, "Configuration for the energy per tick rates of different tiers and ports.\nNote that the HEX setting are only applied when a HEX port is paired with a HEX port.");
-        cfgEnergyTransferCustomEU = config.getBoolean("Custom EU values:", categoryEnergyTransfer, cfgEnergyTransferCustomEU, "If set to true, custom values (configurable below) for EU will be used instead of the\ndefault LV, MV, HV and EV ones.\n");
         cfgEnergyTransferLUMinMulti = config.getFloat("Minimum LU input multiplier:", categoryEnergyTransfer, cfgEnergyTransferLUMinMulti, 0.0F, 10.0F, "");
         cfgEnergyTransferLUMaxMulti = config.getFloat("Maximum LU input multiplier:", categoryEnergyTransfer, cfgEnergyTransferLUMaxMulti, 0.0F, 10.0F, "");
         cfgEnergyTransferTier1HEX = config.getInt("HEX/t Tier 1:", categoryEnergyTransfer, cfgEnergyTransferTier1HEX, 0, 640000, "");
@@ -488,10 +486,10 @@ public class HexConfig {
 
         // General - Energy Conversion
         config.setCategoryComment(categoryEnergyConversion, "Configuration for the loss and conversion ratios of the Energy Node.");
-        cfgEnergyConversionLossTier1 = config.getInt("Tier 1 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier1, 0, 100, "");
-        cfgEnergyConversionLossTier2 = config.getInt("Tier 2 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier2, 0, 100, "");
-        cfgEnergyConversionLossTier3 = config.getInt("Tier 3 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier3, 0, 100, "");
-        cfgEnergyConversionLossTier4 = config.getInt("Tier 4 loss:", categoryEnergyConversion, cfgEnergyConversionLossTier4, 0, 100, "");
+        cfgEnergyBufferMultiplier = config.getInt("Buffer Multiplier:", categoryEnergyConversion, cfgEnergyBufferMultiplier, 1, 32, "Multiplier which is used to calculate the buffer size in ports.\nThe energy/tick value is multiplied with this value to get the buffer size..");
+        cfgEnergyConversionEfficiencyNone = config.getInt("Efficiency None:", categoryEnergyConversion, cfgEnergyConversionEfficiencyNone, 0, 100, "Efficiency without any Conversion Computer installed.");
+        cfgEnergyConversionEfficiencyBasic = config.getInt("Efficiency Basic:", categoryEnergyConversion, cfgEnergyConversionEfficiencyBasic, 0, 100, "Efficiency with a Basic Conversion Computer installed.");
+        cfgEnergyConversionEfficiencyAdvanced = config.getInt("Efficiency Advanced:", categoryEnergyConversion, cfgEnergyConversionEfficiencyAdvanced, 0, 100, "Efficiency with an Advanced Conversion Computer installed.");
         cfgEnergyConversionRatioHEXtoRF = config.getFloat("Conversion ratio: HEX -> RF ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoRF, 0.0001F, 128, "");
         cfgEnergyConversionRatioHEXtoEU = config.getFloat("Conversion ratio: HEX -> EU ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoEU, 0.0001F, 128, "");
         cfgEnergyConversionRatioHEXtoLU = config.getFloat("Conversion ratio: HEX -> LU ", categoryEnergyConversion, cfgEnergyConversionRatioHEXtoLU, 0.0001F, 128, "");

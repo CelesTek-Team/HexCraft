@@ -106,7 +106,7 @@ public class BlockHexoriumStructureCasing extends HexBlockMT implements IHexBloc
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        if ((block instanceof BlockHexoriumStructureCasing || block instanceof BlockEnergyNodeCore || block instanceof IBlockHexEnergyPort)
+        if ((block instanceof BlockHexoriumStructureCasing || block instanceof BlockEnergyNodeCore || block instanceof BlockConversionComputer || block instanceof IBlockHexEnergyPort)
                 && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, x, y, z)) {
 
             if (HexConfig.cfgEnergyNodeDebug)

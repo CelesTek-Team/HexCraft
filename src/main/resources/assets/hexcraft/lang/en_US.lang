@@ -569,6 +569,9 @@ tile.blockEnergyNodeCoreT2.name=Energy Node Core (Tier 2)
 tile.blockEnergyNodeCoreT3.name=Energy Node Core (Tier 3)
 tile.blockEnergyNodeCoreT4.name=Energy Node Core (Tier 4)
 
+tile.blockConversionComputerBasic.name=Basic Conversion Computer
+tile.blockConversionComputerAdvanced.name=Advanced Conversion Computer
+
 tile.blockEnergyNodePortHEX.name=Energy Node Port: HEX
 tile.blockEnergyNodePortRF.name=Energy Node Port: RF
 tile.blockEnergyNodePortEU.name=Energy Node Port: EU
@@ -776,18 +779,20 @@ msg.probeTypeValve.txt=  Type: Tank Valve
 msg.probeTypePressure.txt=  Type: Pressure Plate
 msg.probeTypeBlock.txt=  Type: Structure Block
 
-msg.probeEnergy.txt=  Energy: %d %s / %d %s
+msg.probeTier.txt=    Energy Node: Tier %d
+msg.probePortMode1.txt=    Mode: Input, %d %s/t
+msg.probePortMode2.txt=    Mode: Output, %d %s/t
+msg.probePortMode3.txt=    Mode: Interface
+msg.probePortMode4.txt=    Mode: Tunnel
+msg.probeEfficiencyLinked.txt=    Efficiency: %d%% (Link: %d%%)
+msg.probeEfficiency.txt=    Efficiency: %d%%
+msg.probeComputer.txt=  Efficiency: %d%%
+msg.probeEnergy.txt=    Stored: %d %s / %d %s
+
 msg.probeFluid.txt=  Fluid: %s %s / %s
 msg.probeFluidEmpty.txt=  Fluid: Empty %s / %s
 msg.probeFluidNotFormed.txt=  Fluid: Tank not formed.
-msg.probeEfficiency.txt=  Efficiency: Tier %d, %d%% Loss, Out: %d %s/t
-msg.probeEfficiencyTier.txt=  Efficiency: Tier %d
-msg.probeEfficiencyNotFormed.txt=  Efficiency: Energy Node not formed.
 
-msg.probePortMode1.txt=  Mode: Input
-msg.probePortMode2.txt=  Mode: Output
-msg.probePortMode3.txt=  Mode: Interface
-msg.probePortMode4.txt=  Mode: Tunnel
 msg.probePressureMode1.txt=  Mode: Everything
 msg.probePressureMode2.txt=  Mode: Entities
 msg.probePressureMode3.txt=  Mode: Mobs

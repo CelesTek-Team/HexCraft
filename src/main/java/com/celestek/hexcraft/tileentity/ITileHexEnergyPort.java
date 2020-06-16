@@ -1,6 +1,9 @@
 package com.celestek.hexcraft.tileentity;
 
+import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.util.HexDevice;
+import com.celestek.hexcraft.util.HexEnergyNode;
+import com.celestek.hexcraft.util.HexUtils;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
@@ -15,14 +18,21 @@ public interface ITileHexEnergyPort {
     /**
      * Called when setting up an Energy Node to set the tier.
      * @param portTier Tier of the port.
+     * @param portEfficiency Efficiency tier of the port.
      */
-    void setPortTier(int portTier);
+    void setupPort(int portTier, int portEfficiency);
 
     /**
      * Called when retrieving the tier.
      * @return Tier integer.
      */
     int getPortTier();
+
+    /**
+     * Called when retrieving the efficiency tier.
+     * @return Efficiency tier integer.
+     */
+    int getPortEfficiency();
 
     /**
      * Called when retrieving the type.
@@ -75,10 +85,10 @@ public interface ITileHexEnergyPort {
     /**
      * Called by output ports to determine the conversion multiplier.
      * @param typeOut The type of energy of output port.
-     * @param tierOut The tier of core of output port.
+     * @param efficiencyOut The efficiency tier of the output port.
      * @return The multiplier to use.
      */
-    float getMultiplier(int typeOut, int tierOut);
+    float getMultiplier(int typeOut, int efficiencyOut);
 
     /**
      * Called by output ports to drain energy.
@@ -92,4 +102,16 @@ public interface ITileHexEnergyPort {
      * @param player Player to show the message to.
      */
     void displayInfoPort(EntityPlayer player);
+
+    /**
+     * Check if the port is formed and is input.
+     * @return Boolean result.
+     */
+    boolean isFormedInput();
+
+    /**
+     * Check if the port is formed and is output.
+     * @return Boolean result.
+     */
+    boolean isFormedOutput();
 }

@@ -569,6 +569,9 @@ tile.blockEnergyNodeCoreT2.name=Jezgra Energetskog Čvorišta (2. Razina)
 tile.blockEnergyNodeCoreT3.name=Jezgra Energetskog Čvorišta (3. Razina)
 tile.blockEnergyNodeCoreT4.name=Jezgra Energetskog Čvorišta (4. Razina)
 
+tile.blockConversionComputerBasic.name=Osnovno Pretvorno Računalo
+tile.blockConversionComputerAdvanced.name=Napredno Pretvorno Računalo
+
 tile.blockEnergyNodePortHEX.name=Priključak Energetskog Čvorišta: HEX
 tile.blockEnergyNodePortRF.name=Priključak Energetskog Čvorišta: RF
 tile.blockEnergyNodePortEU.name=Priključak Energetskog Čvorišta: EU
@@ -776,18 +779,20 @@ msg.probeTypeValve.txt=  Tip: Ventil Tanka
 msg.probeTypePressure.txt=  Tip: Nagazna Ploča
 msg.probeTypeBlock.txt=  Tip: Blok Strukture
 
-msg.probeEnergy.txt=  Energija: %d %s / %d %s
+msg.probeTier.txt=    Energetsko Čvorište: %d. Razina
+msg.probePortMode1.txt=    Mod: Ulaz, %d %s/t
+msg.probePortMode2.txt=    Mod: Izlaz, %d %s/t
+msg.probePortMode3.txt=    Mod: Sučelje
+msg.probePortMode4.txt=    Mod: Tuneliranje
+msg.probeEfficiencyLinked.txt=    Efikasnost: %d%% (Veza: %d%%)
+msg.probeEfficiency.txt=    Efikasnost: %d%%
+msg.probeComputer.txt=  Efikasnost: %d%%
+msg.probeEnergy.txt=    Pohranjeno: %d %s / %d %s
+
 msg.probeFluid.txt=  Tekućina: %s %s / %s
 msg.probeFluidEmpty.txt=  Tekućina: Prazno %s / %s
 msg.probeFluidNotFormed.txt=  Tekućina: Tank nije stvoren.
-msg.probeEfficiency.txt=  Efikasnost: %d. Razina, %d%% Gubitka, Izlaz: %d %s/t
-msg.probeEfficiencyTier.txt=  Efikasnost: %d. Razina
-msg.probeEfficiencyNotFormed.txt=  Efikasnost: Energetsko Čvorište nije stvoreno.
 
-msg.probePortMode1.txt=  Mod: Ulaz
-msg.probePortMode2.txt=  Mod: Izlaz
-msg.probePortMode3.txt=  Mod: Sučelje
-msg.probePortMode4.txt=  Mod: Tuneliranje
 msg.probePressureMode1.txt=  Mod: Sve
 msg.probePressureMode2.txt=  Mod: Entiteti
 msg.probePressureMode3.txt=  Mod: Stvorenja

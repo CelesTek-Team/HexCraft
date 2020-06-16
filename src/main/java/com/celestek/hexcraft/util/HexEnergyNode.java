@@ -1,9 +1,6 @@
 package com.celestek.hexcraft.util;
 
-import com.celestek.hexcraft.block.BlockEnergyNodeCore;
-import com.celestek.hexcraft.block.BlockEnergyNodePortHEX;
-import com.celestek.hexcraft.block.BlockHexoriumStructureCasing;
-import com.celestek.hexcraft.block.IBlockHexEnergyPort;
+import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.compat.HexEU;
@@ -12,6 +9,8 @@ import com.celestek.hexcraft.tileentity.ITileHexEnergyPort;
 import com.celestek.hexcraft.tileentity.ITileHexEnergySource;
 import ic2.api.energy.EnergyNet;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -61,13 +60,28 @@ public class HexEnergyNode {
         if (world.getBlock(x, y, z) instanceof BlockEnergyNodeCore)
             // Check if the structure can be formed.
             if (checkEnergyNode(true, world, x, y, z)) {
+                int tier = parseTier(world.getBlock(x, y, z));
+                int efficiency = 0;
+
+                // Get the efficiency.
+                for (int i = y - 1; i <= y + 1; i++)
+                    for (int j = x - 1; j <= x + 1; j++)
+                        for (int k = z - 1; k <= z + 1; k++) {
+                            if (world.getBlock(j, i, k) instanceof BlockConversionComputer) {
+                                BlockConversionComputer computer = (BlockConversionComputer) world.getBlock(j, i, k);
+                                if (computer.getEfficiency() > efficiency)
+                                    efficiency = computer.getEfficiency();
+                            }
+                        }
+
+                // Setup ports.
                 for (int i = y - 1; i <= y + 1; i++)
                     for (int j = x - 1; j <= x + 1; j++)
                         for (int k = z - 1; k <= z + 1; k++) {
                             HexUtils.setMetaBit(HexBlocks.META_STRUCTURE_IS_PART, true, HexUtils.META_NOTIFY_UPDATE, world, j, i, k);
                             if (world.getBlock(j, i, k) instanceof IBlockHexEnergyPort) {
                                 ITileHexEnergyPort port = (ITileHexEnergyPort) world.getTileEntity(j, i, k);
-                                port.setPortTier(parseTier(world.getBlock(x, y, z)));
+                                port.setupPort(tier, efficiency);
                             }
                         }
 
@@ -248,6 +262,8 @@ public class HexEnergyNode {
         for (int i = y - 1; i <= y + 1; i++)
             for (int j = x - 1; j <= x + 1; j++)
                 for (int k = z - 1; k <= z + 1; k++) {
+                    Block currBlock = world.getBlock(j, i, k);
+                    boolean isPart = HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k);
                     // Situations when the block is not one of the center faces, or center.
                     if (!((k == z && j == x && (i == y + 1 || i == y - 1))
                             || (i == y && j == x && (k == z + 1 || k == z - 1))
@@ -255,27 +271,27 @@ public class HexEnergyNode {
                             || (k == z && j == x && i == y))) {
                         if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
                             System.out.println("Checking edge block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
+                        if (checkPart && isPart)
                             return false;
-                        else if (!(world.getBlock(j, i, k) == block))
+                        else if (!(currBlock == block))
                             return false;
                     }
                     // Situation when the block is center.
                     else if (k == z && j == x && i == y) {
                         if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
                             System.out.println("Checking middle block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
+                        if (checkPart && isPart)
                             return false;
-                        else if (!(world.getBlock(j, i, k) instanceof BlockEnergyNodeCore))
+                        else if (!(currBlock instanceof BlockEnergyNodeCore))
                             return false;
                     }
                     // Situations when the block is one of the center faces.
                     else {
                         if (HexConfig.cfgEnergyNodeVerboseDebug && HexConfig.cfgEnergyNodeDebug)
                             System.out.println("Checking face block: " + j + ", " + i + ", " + k);
-                        if (checkPart && HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, world, j, i, k))
+                        if (checkPart && isPart)
                             return false;
-                        else if (!(world.getBlock(j, i, k) instanceof IBlockHexEnergyPort || world.getBlock(j, i, k) == block))
+                        else if (!(currBlock instanceof IBlockHexEnergyPort || currBlock instanceof BlockConversionComputer || currBlock == block))
                             return false;
                     }
                 }
@@ -297,30 +313,28 @@ public class HexEnergyNode {
 
     /**
      * Parses the port tier to get efficiency.
-     * @param tier Tier of the port.
+     * @param efficiency Tier of efficiency.
      * @return Float percentage of efficiency.
      */
-    public static float parseEfficiency(int tier) {
-        if(tier == 0)
-            return (float) (100 - HexConfig.cfgEnergyConversionLossTier1) / 100;
-        else if(tier == 1)
-            return (float) (100 - HexConfig.cfgEnergyConversionLossTier2) / 100;
-        else if(tier == 2)
-            return (float) (100 - HexConfig.cfgEnergyConversionLossTier3) / 100;
-        else if(tier == 3)
-            return (float) (100 - HexConfig.cfgEnergyConversionLossTier4) / 100;
+    public static float parseEfficiency(int efficiency) {
+        if(efficiency == 0)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyNone / 100;
+        else if(efficiency == 1)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyBasic / 100;
+        else if(efficiency == 2)
+            return (float) HexConfig.cfgEnergyConversionEfficiencyAdvanced / 100;
 
         return 0;
     }
 
     /**
      * Parses the both port tiers to get efficiency multiplier.
-     * @param tierIn Tier of the input port.
-     * @param tierOut Tier of the output port.
+     * @param efficiencyIn Tier of the input port.
+     * @param efficiencyOut Tier of the output port.
      * @return Float efficiency multiplier.
      */
-    public static float parseEfficiencyMultiplier(int tierIn, int tierOut) {
-        return (parseEfficiency(tierIn) + parseEfficiency(tierOut)) / 2;
+    public static float parseEfficiencyMultiplier(int efficiencyIn, int efficiencyOut) {
+        return (parseEfficiency(efficiencyIn) + parseEfficiency(efficiencyOut)) / 2;
     }
 
     /**
@@ -392,15 +406,12 @@ public class HexEnergyNode {
                 case 3: return HexConfig.cfgEnergyTransferTier4RF;
             }
         else if(type == PORT_TYPE_EU) {
-            if (HexConfig.cfgEnergyTransferCustomEU)
-                switch (tier) {
-                    case 0: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier1EU);
-                    case 1: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier2EU);
-                    case 2: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier3EU);
-                    case 3: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier4EU);
-                }
-            else
-                return (float) EnergyNet.instance.getPowerFromTier(tier + 1);
+            switch (tier) {
+                case 0: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier1EU);
+                case 1: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier2EU);
+                case 2: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier3EU);
+                case 3: return HexEU.getTierPower(HexConfig.cfgEnergyTransferTier4EU);
+            }
         }
         else if(type == PORT_TYPE_LU)
             switch (tier) {
@@ -411,5 +422,63 @@ public class HexEnergyNode {
             }
 
         return 0;
+    }
+
+    /**
+     * Displays universal info of an Energy Node port to chat.
+     * @param player The player.
+     * @param energyPorts List of all available Energy Node Ports.
+     * @param linkedPort Actual linked port.
+     * @param worldObj World.
+     * @param xCoord X location.
+     * @param yCoord Y location.
+     * @param zCoord Z location.
+     * @param portType Type of the port.
+     * @param portTier Tier of the port.
+     * @param portEfficiency Efficiency of the port.
+     * @param energyBufferFilled Energy stored in buffer.
+     * @param energyBufferTotal Total buffer size.
+     */
+    public static void displayInfoPort(String energy, EntityPlayer player, ArrayList<HexDevice> energyPorts, HexDevice linkedPort, World worldObj, int xCoord, int yCoord, int zCoord, int portType, int portTier, int portEfficiency, float energyBufferFilled, float energyBufferTotal) {
+        HexUtils.addChatProbeTitle(player);
+        // If player is not sneaking.
+        if (!player.isSneaking()) {
+            HexUtils.addChatProbeGenericInfo(player, worldObj, xCoord, yCoord, zCoord);
+            player.addChatMessage(new ChatComponentTranslation("msg.probeTypePort.txt"));
+            boolean isPart = HexUtils.getMetaBit(HexBlocks.META_STRUCTURE_IS_PART, worldObj, xCoord, yCoord, zCoord);
+            if (isPart) {
+                int mode = HexUtils.getMetaBitBiInt(HexEnergyNode.META_MODE_0, HexEnergyNode.META_MODE_1, worldObj, xCoord, yCoord, zCoord);
+                float efficiency = HexEnergyNode.parseEfficiency(portEfficiency)*100;
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFormedYes.txt"));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeTier.txt", (portTier + 1)));
+                if (mode == 0 || mode == 1)
+                    player.addChatMessage(new ChatComponentTranslation("msg.probePortMode" + (mode + 1) + ".txt", Math.round(HexEnergyNode.parseEnergyPerTick(portType, portTier)), energy));
+                else
+                    player.addChatMessage(new ChatComponentTranslation("msg.probePortMode" + (mode + 1) + ".txt"));
+                if (linkedPort != null) {
+                    ITileHexEnergyPort port = (ITileHexEnergyPort) worldObj.getTileEntity(linkedPort.x, linkedPort.y, linkedPort.z);
+                    player.addChatMessage(new ChatComponentTranslation("msg.probeEfficiencyLinked.txt", Math.round(efficiency), (efficiency + HexEnergyNode.parseEfficiency(port.getPortEfficiency())*100) / 2));
+                }
+                else
+                    player.addChatMessage(new ChatComponentTranslation("msg.probeEfficiency.txt", Math.round(efficiency)));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeEnergy.txt",  Math.round(energyBufferFilled), energy, Math.round(energyBufferTotal), energy));
+            }
+            else {
+                player.addChatMessage(new ChatComponentTranslation("msg.probeFormedNo.txt"));
+            }
+            if (linkedPort != null) {
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedYes.txt"));
+                player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedEntry.txt", linkedPort.x, linkedPort.y, linkedPort.z,
+                        worldObj.getBlock(linkedPort.x, linkedPort.y, linkedPort.z).getLocalizedName()));
+            }
+            else {
+                player.addChatMessage(new ChatComponentTranslation("msg.probeLinkedNo.txt"));
+            }
+        }
+        // If player is sneaking.
+        else {
+            player.addChatMessage(new ChatComponentTranslation("msg.probeConnectedPorts.txt"));
+            HexUtils.addChatProbeConnectedMachines(player, energyPorts, worldObj, xCoord, yCoord, zCoord);
+        }
     }
 }

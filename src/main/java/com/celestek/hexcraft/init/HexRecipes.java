@@ -54,6 +54,7 @@ public class HexRecipes {
 
         // Energy Node
         BlockEnergyNodeCore.registerRecipes();
+        BlockConversionComputer.registerRecipes();
         BlockEnergyNodePortHEX.registerRecipes();
         BlockEnergyNodePortRF.registerRecipes();
         if (Loader.isModLoaded("IC2"))
