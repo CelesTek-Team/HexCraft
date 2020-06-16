@@ -129,7 +129,9 @@ public class BlockHexoriumMonolith extends HexBlockModel implements IHexBlock {
             orientation = side;
         // If the side it was placed on cannot accept it, place it on closest possible other side.
         else {
-            if (world.isSideSolid(x, y - 1, z, UP)) 
+            if (world.isSideSolid(x, y + 1, z, DOWN))
+                orientation = 0;
+            else if (world.isSideSolid(x, y - 1, z, UP))
                 orientation = 1;
             else if (world.isSideSolid(x, y, z + 1, NORTH)) 
                 orientation = 2;
@@ -139,8 +141,6 @@ public class BlockHexoriumMonolith extends HexBlockModel implements IHexBlock {
                 orientation = 3;
             else if (world.isSideSolid(x + 1, y, z, WEST)) 
                 orientation = 4;
-            else if (world.isSideSolid(x, y + 1, z, DOWN)) 
-                orientation = 0;
         }
 
         orientation = HexUtils.setBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, orientation, 0);
