@@ -52,59 +52,82 @@ public class HexProcessingCrystalSeparator {
             addRecipe(OreDictionary.getOres("denseoreQuartz"),  Items.quartz,  HexConfig.cfgSeparatorMultiNonHexcraft * 4);
 
             // Applied Energistics
-            addRecipe(OreDictionary.getOres("oreCertusQuartz"), OreDictionary.getOres("crystalCertusQuartz"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addGem("CertusQuartz");
 
             // Thaumcraft
-            addRecipe(OreDictionary.getOres("oreAmber"),          OreDictionary.getOres("gemAmber"),     HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedAir"),     OreDictionary.getOres("shardAir"),     HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedFire"),    OreDictionary.getOres("shardFire"),    HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedWater"),   OreDictionary.getOres("shardWater"),   HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedEarth"),   OreDictionary.getOres("shardEarth"),   HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedOrder"),   OreDictionary.getOres("shardOrder"),   HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreInfusedEntropy"), OreDictionary.getOres("shardEntropy"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addGem("oreAmber");
+            addShard("Air");
+            addShard("Fire");
+            addShard("Water");
+            addShard("Earth");
+            addShard("Order");
+            addShard("Entropy");
 
-            // Gems
-            addRecipe(OreDictionary.getOres("oreRuby"),           OreDictionary.getOres("gemRuby"),           HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreSapphire"),       OreDictionary.getOres("gemSapphire"),       HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreYellowSapphire"), OreDictionary.getOres("gemYellowSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreBlueSapphire"),   OreDictionary.getOres("gemBlueSapphire"),   HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreGreenSapphire"),  OreDictionary.getOres("gemGreenSapphire"),  HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("orePurpleSapphire"), OreDictionary.getOres("gemPurpleSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreOrangeSapphire"), OreDictionary.getOres("gemOrangeSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("orePeridot"),        OreDictionary.getOres("gemPeridot"),        HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreMorganite"),      OreDictionary.getOres("gemMorganite"),      HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreGoshenite"),      OreDictionary.getOres("gemGoshenite"),      HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreMaxixe"),         OreDictionary.getOres("gemMaxixe"),         HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreBixbite"),        OreDictionary.getOres("gemBixbite"),        HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreAquamarine"),     OreDictionary.getOres("gemAquamarine"),     HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreHeliodor"),       OreDictionary.getOres("gemHeliodor"),       HexConfig.cfgSeparatorMultiNonHexcraft);
+            // Redpower
+            addGem("Ruby");
+            addGem("Sapphire");
+            addGem("GreenSapphire");
+
+            // GregTech
+            addGem("OrangeSapphire");
+            addGem("PurpleSapphire");
+            addGem("BlueSapphire");
+            addGem("YellowSapphire");
 
             // Forestry
-            addRecipe(OreDictionary.getOres("oreApatite"), OreDictionary.getOres("gemApatite"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addGem("Apatite");
 
             // Erebus
-            addRecipe(OreDictionary.getOres("oreJade"), OreDictionary.getOres("gemJade"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addGem("Jade");
+
+            // ArsMagica
+            addGem("BlueTopaz");
+
+            // Biomes o Plenty
+            addGem("Topaz");
+            addGem("Amethyst");
+            addGem("Peridot");
+
+            // Misc
+            addGem("Morganite");
+            addGem("Goshenite");
+            addGem("Maxixe");
+            addGem("Bixbite");
+            addGem("Aquamarine");
+            addGem("Heliodor");
 
             // ChromatiCraft
             if (HexConfig.cfgSeparatorProcessChromatiCraft) {
-                addRecipe(OreDictionary.getOres("dyeBlackCrystal"),     OreDictionary.getOres("dyeBlackCrystalShard"),     HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeRedCrystal"),       OreDictionary.getOres("dyeRedCrystalShard"),       HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeGreenCrystal"),     OreDictionary.getOres("dyeGreenCrystalShard"),     HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeBrownCrystal"),     OreDictionary.getOres("dyeBrownCrystalShard"),     HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeBlueCrystal"),      OreDictionary.getOres("dyeBlueCrystalShard"),      HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyePurpleCrystal"),    OreDictionary.getOres("dyePurpleCrystalShard"),    HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeCyanCrystal"),      OreDictionary.getOres("dyeCyanCrystalShard"),      HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeLightGrayCrystal"), OreDictionary.getOres("dyeLightGrayCrystalShard"), HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeGrayCrystal"),      OreDictionary.getOres("dyeGrayCrystalShard"),      HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyePinkCrystal"),      OreDictionary.getOres("dyePinkCrystalShard"),      HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeLimeCrystal"),      OreDictionary.getOres("dyeLimeCrystalShard"),      HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeYellowCrystal"),    OreDictionary.getOres("dyeYellowCrystalShard"),    HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeLightBlueCrystal"), OreDictionary.getOres("dyeLightBlueCrystalShard"), HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeMagentaCrystal"),   OreDictionary.getOres("dyeMagentaCrystalShard"),   HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeOrangeCrystal"),    OreDictionary.getOres("dyeOrangeCrystalShard"),    HexConfig.cfgSeparatorMultiChromatiCraft);
-                addRecipe(OreDictionary.getOres("dyeWhiteCrystal"),     OreDictionary.getOres("dyeWhiteCrystalShard"),     HexConfig.cfgSeparatorMultiChromatiCraft);
+                addChromaticraft("BlackCrystal");
+                addChromaticraft("RedCrystal");
+                addChromaticraft("GreenCrystal");
+                addChromaticraft("BrownCrystal");
+                addChromaticraft("BlueCrystal");
+                addChromaticraft("PurpleCrystal");
+                addChromaticraft("CyanCrystal");
+                addChromaticraft("LightGrayCrystal");
+                addChromaticraft("GrayCrystal");
+                addChromaticraft("PinkCrystal");
+                addChromaticraft("LimeCrystal");
+                addChromaticraft("YellowCrystal");
+                addChromaticraft("LightBlueCrystal");
+                addChromaticraft("MagentaCrystal");
+                addChromaticraft("OrangeCrystal");
+                addChromaticraft("WhiteCrystal");
             }
         }
+    }
+
+    private void addGem(String name) {
+        addRecipe(OreDictionary.getOres("ore" + name), OreDictionary.getOres("gem" + name), HexConfig.cfgSeparatorMultiNonHexcraft);
+    }
+
+    private void addShard(String name) {
+        addRecipe(OreDictionary.getOres("oreInfused" + name), OreDictionary.getOres("shardInfused" + name), HexConfig.cfgSeparatorMultiNonHexcraft);
+    }
+
+    private void addChromaticraft(String name) {
+        addRecipe(OreDictionary.getOres("dye" + name), OreDictionary.getOres("dye" + name + "Shard"), HexConfig.cfgSeparatorMultiChromatiCraft);
     }
 
     /**
