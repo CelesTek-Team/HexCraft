@@ -63,6 +63,7 @@ public class HexClientProxy extends HexCommonProxy {
 
         // Decorative
         BlockEnergizedHexorium.registerRenders();
+        BlockMiniEnergizedHexorium.registerRenders();
         BlockEngineeredHexoriumBlock.registerRenders();
         BlockFramedHexoriumBlock.registerRenders();
         BlockPlatedHexoriumBlock.registerRenders();

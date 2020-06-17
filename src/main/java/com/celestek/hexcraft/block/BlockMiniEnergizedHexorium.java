@@ -1,10 +1,9 @@
 package com.celestek.hexcraft.block;
 
 import com.celestek.hexcraft.HexCraft;
-import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexMiniBlockRenderer;
+import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
-import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -15,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -24,8 +24,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import java.util.ArrayList;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
-import static net.minecraftforge.common.util.ForgeDirection.*;
-import static net.minecraftforge.common.util.ForgeDirection.EAST;
+import static com.celestek.hexcraft.client.renderer.HexMiniBlockRenderer.o;
 
 public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, IBlockHexColor {
 
@@ -71,12 +70,12 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         // Check if any of the sides around the block are solid, if yes, it means it can be placed.
-        return (world.isSideSolid(x, y - 1, z, UP)) ||
-                (world.isSideSolid(x, y + 1, z, DOWN)) ||
-                (world.isSideSolid(x, y, z + 1, NORTH)) ||
-                (world.isSideSolid(x, y, z - 1, SOUTH)) ||
-                (world.isSideSolid(x + 1, y, z, WEST)) ||
-                (world.isSideSolid(x - 1, y, z, EAST));
+        return (!world.isAirBlock(x, y - 1, z)) ||
+                (!world.isAirBlock(x, y + 1, z)) ||
+                (!world.isAirBlock(x, y, z + 1)) ||
+                (!world.isAirBlock(x, y, z - 1)) ||
+                (!world.isAirBlock(x + 1, y, z)) ||
+                (!world.isAirBlock(x - 1, y, z));
     }
 
     /**
@@ -88,31 +87,31 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
         int orientation = -1;
 
         // First check if the side it was placed on can accept it. If it can, place it there.
-        if (side == 0 && world.isSideSolid(x, y + 1, z, DOWN))
+        if (side == 0 && !world.isAirBlock(x, y + 1, z))
             orientation = side;
-        else if (side == 1 && world.isSideSolid(x, y - 1, z, UP))
+        else if (side == 1 && !world.isAirBlock(x, y - 1, z))
             orientation = side;
-        else if (side == 2 && world.isSideSolid(x, y, z + 1, NORTH))
+        else if (side == 2 && !world.isAirBlock(x, y, z + 1))
             orientation = side;
-        else if (side == 3 && world.isSideSolid(x, y, z - 1, SOUTH))
+        else if (side == 3 && !world.isAirBlock(x, y, z - 1))
             orientation = side;
-        else if (side == 4 && world.isSideSolid(x + 1, y, z, WEST))
+        else if (side == 4 && !world.isAirBlock(x + 1, y, z))
             orientation = side;
-        else if (side == 5 && world.isSideSolid(x - 1, y, z, EAST))
+        else if (side == 5 && !world.isAirBlock(x - 1, y, z))
             orientation = side;
             // If the side it was placed on cannot accept it, place it on closest possible other side.
         else {
-            if (world.isSideSolid(x, y + 1, z, DOWN))
+            if (!world.isAirBlock(x, y + 1, z))
                 orientation = 0;
-            else if (world.isSideSolid(x, y - 1, z, UP))
+            else if (!world.isAirBlock(x, y - 1, z))
                 orientation = 1;
-            else if (world.isSideSolid(x, y, z + 1, NORTH))
+            else if (!world.isAirBlock(x, y, z + 1))
                 orientation = 2;
-            else if (world.isSideSolid(x - 1, y, z, EAST))
+            else if (!world.isAirBlock(x - 1, y, z))
                 orientation = 5;
-            else if (world.isSideSolid(x, y, z - 1, SOUTH))
+            else if (!world.isAirBlock(x, y, z - 1))
                 orientation = 3;
-            else if (world.isSideSolid(x + 1, y, z, WEST))
+            else if (!world.isAirBlock(x + 1, y, z))
                 orientation = 4;
         }
 
@@ -131,37 +130,37 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
 
         // Compare all neighbouring blocks, and if one of them correspond to the rotation, remove the monolith and drop the crystals.
         if(orientation == 0) {
-            if (!world.isSideSolid(x, y + 1, z, DOWN)) {
+            if (world.isAirBlock(x, y + 1, z)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 1) {
-            if (!world.isSideSolid(x, y - 1, z, UP)) {
+            if (world.isAirBlock(x, y - 1, z)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 2) {
-            if (!world.isSideSolid(x, y, z + 1, NORTH)) {
+            if (world.isAirBlock(x, y, z + 1)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 3) {
-            if (!world.isSideSolid(x, y, z - 1, SOUTH)) {
+            if (world.isAirBlock(x, y, z - 1)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 4) {
-            if (!world.isSideSolid(x + 1, y, z, WEST)) {
+            if (world.isAirBlock(x + 1, y, z)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
         }
         else if(orientation == 5) {
-            if (!world.isSideSolid(x - 1, y, z, EAST)) {
+            if (world.isAirBlock(x - 1, y, z)) {
                 this.dropBlockAsItem(world, x, y, z, 0, 0);
                 world.setBlockToAir(x, y, z);
             }
@@ -181,6 +180,153 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
 
         // Return the created drop array.
         return drops;
+    }
+
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
+        float a = 0;
+        float b = 0;
+        float c = 0;
+        float d = 0;
+        float e = 0;
+        float f = 0;
+
+        // UP
+        if (orientation == 0) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o * 2;
+            d = 1;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // DOWN
+        else if (orientation == 1) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0;
+            d = 1 - o * 2;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // SOUTH
+        else if (orientation == 2) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o * 2;
+            f = 1;
+        }
+        // NORTH
+        else if (orientation == 3) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0;
+            f = 1 - o * 2;
+        }
+        // EAST
+        else if (orientation == 4) {
+            a = 0 + o * 2;
+            b = 1;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // WEST
+        else if (orientation == 5) {
+            a = 0;
+            b = 1 - o * 2;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o;
+            f = 1 - o;
+        }
+
+        return AxisAlignedBB.getBoundingBox(x + a, y + c, z + e, x + b, y + d, z + f);
+    }
+
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        int orientation = HexUtils.getMetaBitTriInt(META_ORIENTATION_0, META_ORIENTATION_1, META_ORIENTATION_2, world, x, y, z);
+
+        float a = 0;
+        float b = 0;
+        float c = 0;
+        float d = 0;
+        float e = 0;
+        float f = 0;
+
+        // UP
+        if (orientation == 0) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o * 2;
+            d = 1;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // DOWN
+        else if (orientation == 1) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0;
+            d = 1 - o * 2;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // SOUTH
+        else if (orientation == 2) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o * 2;
+            f = 1;
+        }
+        // NORTH
+        else if (orientation == 3) {
+            a = 0 + o;
+            b = 1 - o;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0;
+            f = 1 - o * 2;
+        }
+        // EAST
+        else if (orientation == 4) {
+            a = 0 + o * 2;
+            b = 1;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o;
+            f = 1 - o;
+        }
+        // WEST
+        else if (orientation == 5) {
+            a = 0;
+            b = 1 - o * 2;
+            c = 0 + o;
+            d = 1 - o;
+            e = 0 + o;
+            f = 1 - o;
+        }
+
+        setBlockBounds(a, c, e, b, d, f);
+        return AxisAlignedBB.getBoundingBox(x + a, y + c, z + e, x + b, y + d, z + f);
     }
 
     // Prepare the icons.
@@ -218,6 +364,24 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
     }
 
     /**
+     * Makes the block not interact with AO.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isBlockNormalCube() {
+        return false;
+    }
+
+    /**
+     * Forces the block not to hide faces of other blocks.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    /**
      * Forces the block not to accept torch placement on top.
      */
     @Override
@@ -230,6 +394,35 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
      */
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+        return false;
+    }
+
+    /**
+     * Forces the block not to conduct Redstone current.
+     */
+    @Override
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+        return false;
+    }
+
+    /**
+     * Return true if the block is a normal, solid cube.  This
+     * determines indirect power state, entity ejection from blocks, and a few
+     * others.
+     *
+     * @param world The current world
+     * @param x X Position
+     * @param y Y position
+     * @param z Z position
+     * @return True if the block is a full cube
+     */
+    @Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
+        return false;
+    }
+
+    @Override
+    public boolean isNormalCube() {
         return false;
     }
 

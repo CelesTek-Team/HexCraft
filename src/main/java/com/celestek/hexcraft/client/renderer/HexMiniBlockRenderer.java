@@ -14,12 +14,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-import static com.celestek.hexcraft.init.HexConfig.cfgGeneralFlickerFix;
-
 public class HexMiniBlockRenderer implements ISimpleBlockRenderingHandler {
 
     // Model constants.
-    public static final float pushIn = 0.25F;
+    public static final float o = 0.25F;
 
     // Variables
     private final int renderID;
@@ -70,59 +68,78 @@ public class HexMiniBlockRenderer implements ISimpleBlockRenderingHandler {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 
-        int meta;
-        if (block instanceof BlockTankValve)
-            meta = HexUtils.setBit(BlockTankValve.META_ROTATION, true, 0);
-        else
-            meta = 2;
+        // Prepare the inner block texture.
+        IIcon i = block.getIcon(6, 0);
+        float u = i.getInterpolatedU(16 * o);
+        float v = i.getInterpolatedV(16 * o);
+        float U = i.getInterpolatedU(16 - 16 * o);
+        float V = i.getInterpolatedV(16 - 16 * o);
 
-        float darken;
-        if (block instanceof BlockHexoriumLamp)
-            darken = HexEnums.MULTIPLIER_DARKEN;
-        else
-            darken = 1.0F;
+        // Set up brightness and color.
+        tessellator.setBrightness(brightness);
+        tessellator.setColorOpaque_F(r, g, b);
 
-        // Start drawing inner layer of the block.
+         float a = 0 + o;
+         float c = 1 - o;
+
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(a, a, c, u, V);
+        tessellator.addVertexWithUV(a, a, a, u, v);
+        tessellator.addVertexWithUV(c, a, a, U, v);
+        tessellator.addVertexWithUV(c, a, c, U, V);
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(a, c, a, u, v);
+        tessellator.addVertexWithUV(a, c, c, u, V);
+        tessellator.addVertexWithUV(c, c, c, U, V);
+        tessellator.addVertexWithUV(c, c, a, U, v);
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(c, a, a, u, V);
+        tessellator.addVertexWithUV(a, a, a, U, V);
+        tessellator.addVertexWithUV(a, c, a, U, v);
+        tessellator.addVertexWithUV(c, c, a, u, v);
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(a, c, c, u, v);
+        tessellator.addVertexWithUV(a, a, c, u, V);
+        tessellator.addVertexWithUV(c, a, c, U, V);
+        tessellator.addVertexWithUV(c, c, c, U, v);
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(a, a, a, u, V);
+        tessellator.addVertexWithUV(a, a, c, U, V);
+        tessellator.addVertexWithUV(a, c, c, U, v);
+        tessellator.addVertexWithUV(a, c, a, u, v);
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setBrightness(brightness);
-        tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+        tessellator.setColorOpaque_F(r, g, b);
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(6, 1));
+        tessellator.addVertexWithUV(c, a, c, u, V);
+        tessellator.addVertexWithUV(c, a, a, U, V);
+        tessellator.addVertexWithUV(c, c, a, U, v);
+        tessellator.addVertexWithUV(c, c, c, u, v);
         tessellator.draw();
 
         // Turn Mipmap ON.
@@ -138,197 +155,120 @@ public class HexMiniBlockRenderer implements ISimpleBlockRenderingHandler {
      */
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        int meta = world.getBlockMetadata(x, y, z);
+        int orientation = HexUtils.getMetaBitTriInt(
+            BlockHexoriumMonolith.META_ORIENTATION_0,
+            BlockHexoriumMonolith.META_ORIENTATION_1,
+            BlockHexoriumMonolith.META_ORIENTATION_2, world, x, y, z);
 
         // Check if this is the first (opaque) render pass, if it is...
         if(HexClientProxy.renderPass[renderBlockID] == 0) {
-            boolean doInner =
-                    !(block instanceof BlockHexoriumNetherOre
-                    || block instanceof BlockHexoriumOre
-                    || block instanceof BlockHexoriumStructureCasing
-                    || block instanceof BlockHexoriumLamp
-                    || block instanceof BlockHexoriumLampInv);
-            boolean doOffset =
-                    block instanceof BlockEnergizedHexorium
-                    || block instanceof BlockOfHexoriumCrystal
-                    || block instanceof BlockGlowingHexoriumGlass;
-            float o = cfgGeneralFlickerFix;
-            if (doOffset)
-                o = 0.000F;
 
             // Prepare the Tessellator.
             Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
 
             // Prepare the inner block texture.
-            IIcon c = block.getIcon(6, 0);
-            float u = c.getMinU() + pushIn;
-            float v = c.getMinV() + pushIn;
-            float U = c.getMaxU() - pushIn;
-            float V = c.getMaxV() - pushIn;
+            IIcon i = block.getIcon(6, 0);
+            float u = i.getInterpolatedU(16 * o);
+            float v = i.getInterpolatedV(16 * o);
+            float U = i.getInterpolatedU(16 - 16 * o);
+            float V = i.getInterpolatedV(16 - 16 * o);
 
             // Set up brightness and color.
             tessellator.setBrightness(brightness);
-            float darken = 1.0F;
-            if ((block instanceof BlockHexoriumLamp && !HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z))
-                    || (block instanceof BlockHexoriumLampInv && HexUtils.getMetaBit(BlockHexoriumLamp.META_STATE, world, x, y, z)))
-                darken = HexEnums.MULTIPLIER_DARKEN;
-            tessellator.setColorOpaque_F(r * darken, g * darken, b * darken);
+            tessellator.setColorOpaque_F(r, g, b);
 
-            // DOWN
-            // Check if the block face should be visible. If yes draw it.
-            if(block.shouldSideBeRendered(world, x, y - 1, z, 0)) {
-                tessellator.addVertexWithUV(0, 0+o, 1, u, V);
-                tessellator.addVertexWithUV(0, 0+o, 0, u, v);
-                tessellator.addVertexWithUV(1, 0+o, 0, U, v);
-                tessellator.addVertexWithUV(1, 0+o, 1, U, V);
-            }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(1, 0, 1, U, V);
-                tessellator.addVertexWithUV(1, 0, 0, U, v);
-                tessellator.addVertexWithUV(0, 0, 0, u, v);
-                tessellator.addVertexWithUV(0, 0, 1, u, V);
-            }
+            float a = 0;
+            float b = 0;
+            float c = 0;
+            float d = 0;
+            float e = 0;
+            float f = 0;
 
             // UP
-            if(block.shouldSideBeRendered(world, x, y + 1, z, 1)) {
-                if (block instanceof BlockOfHexoriumCrystal) {
-                    c = block.getIcon(7, meta);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                else if (block instanceof BlockGlowingHexoriumGlass) {
-                    c = block.getIcon(world, x, y, z, 7);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                tessellator.addVertexWithUV(0, 1-o, 0, u, v);
-                tessellator.addVertexWithUV(0, 1-o, 1, u, V);
-                tessellator.addVertexWithUV(1, 1-o, 1, U, V);
-                tessellator.addVertexWithUV(1, 1-o, 0, U, v);
+            if (orientation == 0) {
+                a = 0 + o;
+                b = 1 - o;
+                c = 0 + o * 2;
+                d = 1;
+                e = 0 + o;
+                f = 1 - o;
             }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(1, 1, 0, U, v);
-                tessellator.addVertexWithUV(1, 1, 1, U, V);
-                tessellator.addVertexWithUV(0, 1, 1, u, V);
-                tessellator.addVertexWithUV(0, 1, 0, u, v);
+            // DOWN
+            else if (orientation == 1) {
+                a = 0 + o;
+                b = 1 - o;
+                c = 0;
+                d = 1 - o * 2;
+                e = 0 + o;
+                f = 1 - o;
             }
-
-            // NORTH
-            if(block.shouldSideBeRendered(world, x, y, z - 1, 2)) {
-                if (block instanceof BlockOfHexoriumCrystal) {
-                    c = block.getIcon(8, meta);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                else if (block instanceof BlockGlowingHexoriumGlass) {
-                    c = block.getIcon(world, x, y, z, 8);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                tessellator.addVertexWithUV(1, 0, 0+o, u, V);
-                tessellator.addVertexWithUV(0, 0, 0+o, U, V);
-                tessellator.addVertexWithUV(0, 1, 0+o, U, v);
-                tessellator.addVertexWithUV(1, 1, 0+o, u, v);
-            }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(1, 1, 0, u, v);
-                tessellator.addVertexWithUV(0, 1, 0, U, v);
-                tessellator.addVertexWithUV(0, 0, 0, U, V);
-                tessellator.addVertexWithUV(1, 0, 0, u, V);
-            }
-
             // SOUTH
-            if(block.shouldSideBeRendered(world, x, y, z + 1, 3)) {
-                if (block instanceof BlockOfHexoriumCrystal) {
-                    c = block.getIcon(9, meta);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                else if (block instanceof BlockGlowingHexoriumGlass) {
-                    c = block.getIcon(world, x, y, z, 9);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                tessellator.addVertexWithUV(0, 1, 1-o, u, v);
-                tessellator.addVertexWithUV(0, 0, 1-o, u, V);
-                tessellator.addVertexWithUV(1, 0, 1-o, U, V);
-                tessellator.addVertexWithUV(1, 1, 1-o, U, v);
+            else if (orientation == 2) {
+                a = 0 + o;
+                b = 1 - o;
+                c = 0 + o;
+                d = 1 - o;
+                e = 0 + o * 2;
+                f = 1;
             }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(1, 1, 1, U, v);
-                tessellator.addVertexWithUV(1, 0, 1, U, V);
-                tessellator.addVertexWithUV(0, 0, 1, u, V);
-                tessellator.addVertexWithUV(0, 1, 1, u, v);
+            // NORTH
+            else if (orientation == 3) {
+                a = 0 + o;
+                b = 1 - o;
+                c = 0 + o;
+                d = 1 - o;
+                e = 0;
+                f = 1 - o * 2;
             }
-
-            // WEST
-            if(block.shouldSideBeRendered(world, x - 1, y, z, 4)) {
-                if (block instanceof BlockOfHexoriumCrystal) {
-                    c = block.getIcon(10, meta);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                else if (block instanceof BlockGlowingHexoriumGlass) {
-                    c = block.getIcon(world, x, y, z, 10);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                tessellator.addVertexWithUV(0+o, 0, 0, u, V);
-                tessellator.addVertexWithUV(0+o, 0, 1, U, V);
-                tessellator.addVertexWithUV(0+o, 1, 1, U, v);
-                tessellator.addVertexWithUV(0+o, 1, 0, u, v);
-            }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(0, 1, 0, u, v);
-                tessellator.addVertexWithUV(0, 1, 1, U, v);
-                tessellator.addVertexWithUV(0, 0, 1, U, V);
-                tessellator.addVertexWithUV(0, 0, 0, u, V);
-            }
-
             // EAST
-            if(block.shouldSideBeRendered(world, x + 1, y, z, 5)) {
-                if (block instanceof BlockOfHexoriumCrystal) {
-                    c = block.getIcon(11, meta);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                else if (block instanceof BlockGlowingHexoriumGlass) {
-                    c = block.getIcon(world, x, y, z, 11);
-                    u = c.getMinU();
-                    v = c.getMinV();
-                    U = c.getMaxU();
-                    V = c.getMaxV();
-                }
-                tessellator.addVertexWithUV(1-o, 0, 1, u, V);
-                tessellator.addVertexWithUV(1-o, 0, 0, U, V);
-                tessellator.addVertexWithUV(1-o, 1, 0, U, v);
-                tessellator.addVertexWithUV(1-o, 1, 1, u, v);
+            else if (orientation == 4) {
+                a = 0 + o * 2;
+                b = 1;
+                c = 0 + o;
+                d = 1 - o;
+                e = 0 + o;
+                f = 1 - o;
             }
-            else if (o > 0 && doInner) {
-                tessellator.addVertexWithUV(1, 1, 1, u, v);
-                tessellator.addVertexWithUV(1, 1, 0, U, v);
-                tessellator.addVertexWithUV(1, 0, 0, U, V);
-                tessellator.addVertexWithUV(1, 0, 1, u, V);
+            // WEST
+            else if (orientation == 5) {
+                a = 0;
+                b = 1 - o * 2;
+                c = 0 + o;
+                d = 1 - o;
+                e = 0 + o;
+                f = 1 - o;
             }
+
+            tessellator.addVertexWithUV(a, c, f, u, V);
+            tessellator.addVertexWithUV(a, c, e, u, v);
+            tessellator.addVertexWithUV(b, c, e, U, v);
+            tessellator.addVertexWithUV(b, c, f, U, V);
+
+            tessellator.addVertexWithUV(a, d, e, u, v);
+            tessellator.addVertexWithUV(a, d, f, u, V);
+            tessellator.addVertexWithUV(b, d, f, U, V);
+            tessellator.addVertexWithUV(b, d, e, U, v);
+
+            tessellator.addVertexWithUV(b, c, e, u, V);
+            tessellator.addVertexWithUV(a, c, e, U, V);
+            tessellator.addVertexWithUV(a, d, e, U, v);
+            tessellator.addVertexWithUV(b, d, e, u, v);
+
+            tessellator.addVertexWithUV(a, d, f, u, v);
+            tessellator.addVertexWithUV(a, c, f, u, V);
+            tessellator.addVertexWithUV(b, c, f, U, V);
+            tessellator.addVertexWithUV(b, d, f, U, v);
+
+            tessellator.addVertexWithUV(a, c, e, u, V);
+            tessellator.addVertexWithUV(a, c, f, U, V);
+            tessellator.addVertexWithUV(a, d, f, U, v);
+            tessellator.addVertexWithUV(a, d, e, u, v);
+
+            tessellator.addVertexWithUV(b, c, f, u, V);
+            tessellator.addVertexWithUV(b, c, e, U, V);
+            tessellator.addVertexWithUV(b, d, e, U, v);
+            tessellator.addVertexWithUV(b, d, f, u, v);
 
             tessellator.addTranslation(-x, -y, -z);
         }
@@ -340,9 +280,6 @@ public class HexMiniBlockRenderer implements ISimpleBlockRenderingHandler {
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
             tessellator.addVertex(0, 0, 0);
-
-            // Draw the outer layer of the block.
-            renderer.renderStandardBlock(block, x, y, z);
         }
 
         return true;

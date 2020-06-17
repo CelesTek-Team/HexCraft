@@ -34,7 +34,7 @@ public class HexBlocks {
      */
 
     // Total count of blocks to add.
-    public static final int countBlocks = 520;
+    public static final int countBlocks = 538;
 
     /**
      * Initializes all block and adds them to GameRegistry.
@@ -54,6 +54,7 @@ public class HexBlocks {
 
         // Decorative
         BlockEnergizedHexorium.registerBlocks();
+        BlockMiniEnergizedHexorium.registerBlocks();
         BlockEngineeredHexoriumBlock.registerBlocks();
         BlockFramedHexoriumBlock.registerBlocks();
         BlockPlatedHexoriumBlock.registerBlocks();
