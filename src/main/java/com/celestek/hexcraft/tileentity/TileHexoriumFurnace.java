@@ -20,9 +20,11 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
 
     /**** Static Values ****/
 
+    public static final int ENERGY_PER_TICK = 32;
+
     public static final String ID = "tileHexoriumFurnace";
 
-    private static final String INVENTORY_NAME = "hexcraft.container.hexoriumFurnace";
+    public static final String INVENTORY_NAME = "hexcraft.container.hexoriumFurnace";
 
     // NBT Names
     private static final String NBT_ENERGY_SOURCES = "energy_sources";
@@ -65,7 +67,7 @@ public class TileHexoriumFurnace extends TileEntity implements ISidedInventory, 
 
     public TileHexoriumFurnace() {
 
-        this.energyPerTick = 32;
+        this.energyPerTick = ENERGY_PER_TICK;
         this.energyTotal = 3200;
         this.energyTotalDone = 0;
         this.energyDrained = 0;

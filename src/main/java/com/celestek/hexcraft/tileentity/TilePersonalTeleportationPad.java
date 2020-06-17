@@ -24,7 +24,7 @@ public class TilePersonalTeleportationPad extends TileEntity implements ITileHex
 
     public static final String ID = "tilePersonalTeleportationPad";
 
-    private static final String INVENTORY_NAME = "hexcraft.container.personalTeleportationPad";
+    public static final String INVENTORY_NAME = "hexcraft.container.personalTeleportationPad";
 
     // NBT Names
     private static final String NBT_ENERGY_SOURCES = "energy_sources";

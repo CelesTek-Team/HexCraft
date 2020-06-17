@@ -20,9 +20,11 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
 
     /**** Static Values ****/
 
+    public static final int ENERGY_PER_TICK = 64;
+
     public static final String ID = "tileMatrixReconstructor";
 
-    private static final String INVENTORY_NAME = "hexcraft.container.matrixReconstructor";
+    public static final String INVENTORY_NAME = "hexcraft.container.matrixReconstructor";
 
     // NBT Names
     private static final String NBT_ENERGY_SOURCES = "energy_sources";
@@ -65,7 +67,7 @@ public class TileMatrixReconstructor extends TileEntity implements ISidedInvento
 
     public TileMatrixReconstructor() {
 
-        this.energyPerTick = 64;
+        this.energyPerTick = ENERGY_PER_TICK;
         this.energyTotal = 25600;
         this.energyTotalDone = 0;
         this.energyDrained = 0;

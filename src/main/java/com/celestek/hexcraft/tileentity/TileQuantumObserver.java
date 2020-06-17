@@ -21,7 +21,7 @@ public class TileQuantumObserver extends TileEntity implements ITileHexEnergyDra
 
     public static final String ID = "tileQuantumObserver";
 
-    private static final String INVENTORY_NAME = "hexcraft.container.quantumObserver";
+    public static final String INVENTORY_NAME = "hexcraft.container.quantumObserver";
 
     // NBT Names
     private static final String NBT_ENERGY_SOURCES = "energy_sources";

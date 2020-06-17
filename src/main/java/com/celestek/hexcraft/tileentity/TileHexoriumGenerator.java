@@ -24,9 +24,11 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
     /**** Static Values ****/
 
+    public static final int ENERGY_PER_TICK = 32;
+
     public static final String ID = "tileHexoriumGenerator";
 
-    private static final String INVENTORY_NAME = "hexcraft.container.hexoriumGenerator";
+    public static final String INVENTORY_NAME = "hexcraft.container.hexoriumGenerator";
 
     // NBT Names
     private static final String NBT_ENERGY_DRAINS = "energy_drains";
@@ -67,7 +69,7 @@ public class TileHexoriumGenerator extends TileEntity implements ISidedInventory
 
     public TileHexoriumGenerator() {
 
-        this.energyPerTick = 32;
+        this.energyPerTick = ENERGY_PER_TICK;
         this.energyTotal = 0;
         this.energyTotalLeft = 0;
         this.energyDrained = 0;

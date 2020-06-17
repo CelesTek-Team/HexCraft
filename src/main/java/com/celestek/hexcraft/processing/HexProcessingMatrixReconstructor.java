@@ -3,6 +3,7 @@ package com.celestek.hexcraft.processing;
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
 import com.celestek.hexcraft.block.BlockEnergizedHexoriumMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexRecipes;
 import com.celestek.hexcraft.util.HexEnums;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -49,11 +50,11 @@ public class HexProcessingMatrixReconstructor {
                 return null;
             }
             entry = (Map.Entry) iterator.next();
-        } while (!canBeSmelted(itemstack, (ItemStack) entry.getKey()));
+        } while (!HexRecipes.isStackEqual(itemstack, (ItemStack) entry.getKey()));
         return (ItemStack) entry.getValue();
     }
 
-    private boolean canBeSmelted(ItemStack itemstack1, ItemStack itemstack2) {
-        return itemstack2.getItem() == itemstack1.getItem() && (itemstack2.getItemDamage() == 32767 || itemstack2.getItemDamage() == itemstack1.getItemDamage());
+    public HashMap<ItemStack, ItemStack> getHashMap() {
+        return processingList;
     }
 }

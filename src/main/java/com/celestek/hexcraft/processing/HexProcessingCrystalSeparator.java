@@ -63,10 +63,21 @@ public class HexProcessingCrystalSeparator {
             addRecipe(OreDictionary.getOres("oreInfusedOrder"),   OreDictionary.getOres("shardOrder"),   HexConfig.cfgSeparatorMultiNonHexcraft);
             addRecipe(OreDictionary.getOres("oreInfusedEntropy"), OreDictionary.getOres("shardEntropy"), HexConfig.cfgSeparatorMultiNonHexcraft);
 
-            // ProjectRed
-            addRecipe(OreDictionary.getOres("oreRuby"),     OreDictionary.getOres("gemRuby"),     HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("oreSapphire"), OreDictionary.getOres("gemSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
-            addRecipe(OreDictionary.getOres("orePeridot"),  OreDictionary.getOres("gemPeridot"),  HexConfig.cfgSeparatorMultiNonHexcraft);
+            // Gems
+            addRecipe(OreDictionary.getOres("oreRuby"),           OreDictionary.getOres("gemRuby"),           HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreSapphire"),       OreDictionary.getOres("gemSapphire"),       HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreYellowSapphire"), OreDictionary.getOres("gemYellowSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreBlueSapphire"),   OreDictionary.getOres("gemBlueSapphire"),   HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreGreenSapphire"),  OreDictionary.getOres("gemGreenSapphire"),  HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("orePurpleSapphire"), OreDictionary.getOres("gemPurpleSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreOrangeSapphire"), OreDictionary.getOres("gemOrangeSapphire"), HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("orePeridot"),        OreDictionary.getOres("gemPeridot"),        HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreMorganite"),      OreDictionary.getOres("gemMorganite"),      HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreGoshenite"),      OreDictionary.getOres("gemGoshenite"),      HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreMaxixe"),         OreDictionary.getOres("gemMaxixe"),         HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreBixbite"),        OreDictionary.getOres("gemBixbite"),        HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreAquamarine"),     OreDictionary.getOres("gemAquamarine"),     HexConfig.cfgSeparatorMultiNonHexcraft);
+            addRecipe(OreDictionary.getOres("oreHeliodor"),       OreDictionary.getOres("gemHeliodor"),       HexConfig.cfgSeparatorMultiNonHexcraft);
 
             // Forestry
             addRecipe(OreDictionary.getOres("oreApatite"), OreDictionary.getOres("gemApatite"), HexConfig.cfgSeparatorMultiNonHexcraft);
@@ -147,5 +158,9 @@ public class HexProcessingCrystalSeparator {
         } while (!OreDictionary.itemMatches(itemstack, (ItemStack) entry.getKey(), true));
 
         return (ItemStack) entry.getValue();
+    }
+
+    public HashMap<ItemStack, ItemStack> getHashMap() {
+        return processingList;
     }
 }

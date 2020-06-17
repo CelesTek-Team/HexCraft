@@ -94,4 +94,8 @@ public class HexRecipes {
         // Dyes
         ItemHexoriumDye.registerRecipes();
     }
+
+    public static boolean isStackEqual(ItemStack itemstack1, ItemStack itemstack2) {
+        return itemstack2.getItem() == itemstack1.getItem() && (itemstack2.getItemDamage() == 32767 || itemstack2.getItemDamage() == itemstack1.getItemDamage());
+    }
 }
