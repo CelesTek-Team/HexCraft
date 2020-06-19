@@ -152,6 +152,24 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.5.1'
 }
 
+task sourceJar(type: Jar) {
+    manifest {}
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    exclude 'assets/**', 'logos/**'
+}
+
+task devJar(type: Jar) {
+    manifest {
+    }
+    classifier = 'dev'
+    from sourceSets.main.output
+}
+
+artifacts {
+    archives devJar, sourceJar
+}
+
 sourceSets {
     main {
         output.resourcesDir = output.classesDir
@@ -168,4 +186,15 @@ if (!hasProperty("gregtechMavenPassword")) {
 
 if (!hasProperty("gregtechMavenURL")) {
     ext.mavenURL="${System.getenv().MAVEN_URL}"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            uniqueVersion = false
+            repository(url: gregtechMavenURL) {
+                authentication(userName: gregtechMavenUsername, password: gregtechMavenPassword)
+            }
+        }
+    }
 }
