@@ -157,3 +157,15 @@ sourceSets {
         output.resourcesDir = output.classesDir
     }
 }
+
+if (!hasProperty("gregtechMavenUsername")) {
+    ext.mavenUsername="${System.getenv().MAVEN_USERNAME}"
+}
+
+if (!hasProperty("gregtechMavenPassword")) {
+    ext.mavenPassword="${System.getenv().MAVEN_PASSWORD}"
+}
+
+if (!hasProperty("gregtechMavenURL")) {
+    ext.mavenURL="${System.getenv().MAVEN_URL}"
+}
