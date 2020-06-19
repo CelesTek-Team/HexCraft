@@ -24,6 +24,7 @@ public class HexRecipes {
 
         // Energized
         BlockEnergizedHexorium.registerRecipes();
+        BlockMiniEnergizedHexorium.registerRecipes();
 
         // Decorative
         BlockEngineeredHexoriumBlock.registerRecipes();
@@ -90,6 +91,7 @@ public class HexRecipes {
         ItemMolecularTransposer.registerRecipes();
         ItemHexoriumReinforcer.registerRecipes();
         ItemMortarPestle.registerRecipes();
+        ItemHexoriumSaw.registerRecipes();
 
         // Dyes
         ItemHexoriumDye.registerRecipes();

@@ -52,9 +52,12 @@ public class HexBlocks {
         // Block of Hexorium Crystal
         BlockOfHexoriumCrystal.registerBlocks();
 
-        // Decorative
+        // Energized
         BlockEnergizedHexorium.registerBlocks();
         BlockMiniEnergizedHexorium.registerBlocks();
+        BlockEnergizedHexoriumMonolith.registerBlocks();
+
+        // Decorative
         BlockEngineeredHexoriumBlock.registerBlocks();
         BlockFramedHexoriumBlock.registerBlocks();
         BlockPlatedHexoriumBlock.registerBlocks();
@@ -62,7 +65,6 @@ public class HexBlocks {
         BlockHexoriumStructureCasing.registerBlocks();
         BlockGlowingHexoriumCoatedStone.registerBlocks();
         BlockGlowingHexoriumGlass.registerBlocks();
-        BlockEnergizedHexoriumMonolith.registerBlocks();
         BlockHexoriumLamp.registerBlocks();
         BlockHexoriumLampInv.registerBlocks();
         BlockHexoriumDoor.registerBlocks();

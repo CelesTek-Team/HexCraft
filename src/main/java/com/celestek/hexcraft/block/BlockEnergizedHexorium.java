@@ -317,6 +317,16 @@ public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBloc
                 red, grn, wht,
                 xrx, blu, grn,
                 blu, wht, red));
+
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            Block block = HexBlocks.getHexBlock(ID, color);
+
+            Block mini = HexBlocks.getHexBlock(BlockMiniEnergizedHexorium.ID, color);
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(
+                    block,
+                    mini, mini, mini, mini, mini, mini, mini, mini));
+        }
     }
 
     @Override

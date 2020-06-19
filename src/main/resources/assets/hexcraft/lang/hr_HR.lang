@@ -57,6 +57,27 @@ tile.blockEnergizedHexoriumBlack.name=Heksorij Napunjen Energijom (Crni)
 
 tile.blockEnergizedHexoriumRainbow.name=Heksorij Napunjen Energijom (Dugine Boje)
 
+tile.blockMiniEnergizedHexoriumRed.name=Mali Heksorij Napunjen Energijom (Crveni)
+tile.blockMiniEnergizedHexoriumOrange.name=Mali Heksorij Napunjen Energijom (Narančasti)
+tile.blockMiniEnergizedHexoriumYellow.name=Mali Heksorij Napunjen Energijom (Žuti)
+tile.blockMiniEnergizedHexoriumLime.name=Mali Heksorij Napunjen Energijom (Limeta)
+tile.blockMiniEnergizedHexoriumGreen.name=Mali Heksorij Napunjen Energijom (Zeleni)
+tile.blockMiniEnergizedHexoriumTurquoise.name=Mali Heksorij Napunjen Energijom (Tirkizni)
+tile.blockMiniEnergizedHexoriumCyan.name=Mali Heksorij Napunjen Energijom (Cijan)
+tile.blockMiniEnergizedHexoriumSkyBlue.name=Mali Heksorij Napunjen Energijom (Nebesko Plavi)
+tile.blockMiniEnergizedHexoriumBlue.name=Mali Heksorij Napunjen Energijom (Plavi)
+tile.blockMiniEnergizedHexoriumPurple.name=Mali Heksorij Napunjen Energijom (Ljubičasti)
+tile.blockMiniEnergizedHexoriumMagenta.name=Mali Heksorij Napunjen Energijom (Purpurnocrveni)
+tile.blockMiniEnergizedHexoriumPink.name=Mali Heksorij Napunjen Energijom (Ružičasti)
+
+tile.blockMiniEnergizedHexoriumWhite.name=Mali Heksorij Napunjen Energijom (Bijeli)
+tile.blockMiniEnergizedHexoriumLightGray.name=Mali Heksorij Napunjen Energijom (Svijetlo Sivi)
+tile.blockMiniEnergizedHexoriumGray.name=Mali Heksorij Napunjen Energijom (Sivi)
+tile.blockMiniEnergizedHexoriumDarkGray.name=Mali Heksorij Napunjen Energijom (Tamno Sivi)
+tile.blockMiniEnergizedHexoriumBlack.name=Mali Heksorij Napunjen Energijom (Crni)
+
+tile.blockMiniEnergizedHexoriumRainbow.name=Mali Heksorij Napunjen Energijom (Dugine Boje)
+
 
 tile.blockEngineeredHexoriumBlockRed.name=Inženjersko Obrađen Heksorijski Blok (Crveni)
 tile.blockEngineeredHexoriumBlockOrange.name=Inženjersko Obrađen Heksorijski Blok (Narančasti)
@@ -683,6 +704,7 @@ item.toolHexoriumProbe.name=Heksorijska Sonda
 item.toolMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
 item.itemMortarPestle.name=Tarionik
+item.toolHexoriumSaw.name=Heksorijska Pila
 
 item.itemHexoriumDye.name=Crna Heksorijska Boja
 item.itemHexoriumDyeWhite.name=Bijela Heksorijska Boja

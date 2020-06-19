@@ -61,9 +61,12 @@ public class HexClientProxy extends HexCommonProxy {
         // Block of Hexorium Crystal
         BlockOfHexoriumCrystal.registerRenders();
 
-        // Decorative
+        // Energized
         BlockEnergizedHexorium.registerRenders();
         BlockMiniEnergizedHexorium.registerRenders();
+        BlockEnergizedHexoriumMonolith.registerRenders();
+
+        // Decorative
         BlockEngineeredHexoriumBlock.registerRenders();
         BlockFramedHexoriumBlock.registerRenders();
         BlockPlatedHexoriumBlock.registerRenders();
@@ -71,7 +74,6 @@ public class HexClientProxy extends HexCommonProxy {
         BlockHexoriumStructureCasing.registerRenders();
         BlockGlowingHexoriumCoatedStone.registerRenders();
         BlockGlowingHexoriumGlass.registerRenders();
-        BlockEnergizedHexoriumMonolith.registerRenders();
         BlockHexoriumLamp.registerRenders();
         BlockHexoriumLampInv.registerRenders();
         BlockHexoriumDoor.registerRenders();

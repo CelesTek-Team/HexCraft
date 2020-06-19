@@ -57,6 +57,7 @@ public class HexItems {
     public static Item itemMolecularTransposer;
     public static Item itemHexoriumReinforcer;
     public static Item itemMortarPestle;
+    public static Item itemHexoriumSaw;
 
     // Dyes
     public static Item itemHexoriumDyeWhite;
@@ -113,6 +114,7 @@ public class HexItems {
         itemMolecularTransposer = ItemMolecularTransposer.registerItem();
         itemHexoriumReinforcer  = ItemHexoriumReinforcer.registerItem();
         itemMortarPestle        = ItemMortarPestle.registerItem();
+        itemHexoriumSaw         = ItemHexoriumSaw.registerItem();
 
         // Dyes
         ItemHexoriumDye.registerItem();

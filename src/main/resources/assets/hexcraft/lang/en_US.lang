@@ -57,6 +57,27 @@ tile.blockEnergizedHexoriumBlack.name=Energized Hexorium (Black)
 
 tile.blockEnergizedHexoriumRainbow.name=Energized Hexorium (Rainbow)
 
+tile.blockMiniEnergizedHexoriumRed.name=Mini Energized Hexorium (Red)
+tile.blockMiniEnergizedHexoriumOrange.name=Mini Energized Hexorium (Orange)
+tile.blockMiniEnergizedHexoriumYellow.name=Mini Energized Hexorium (Yellow)
+tile.blockMiniEnergizedHexoriumLime.name=Mini Energized Hexorium (Lime)
+tile.blockMiniEnergizedHexoriumGreen.name=Mini Energized Hexorium (Green)
+tile.blockMiniEnergizedHexoriumTurquoise.name=Mini Energized Hexorium (Turquoise)
+tile.blockMiniEnergizedHexoriumCyan.name=Mini Energized Hexorium (Cyan)
+tile.blockMiniEnergizedHexoriumSkyBlue.name=Mini Energized Hexorium (Sky Blue)
+tile.blockMiniEnergizedHexoriumBlue.name=Mini Energized Hexorium (Blue)
+tile.blockMiniEnergizedHexoriumPurple.name=Mini Energized Hexorium (Purple)
+tile.blockMiniEnergizedHexoriumMagenta.name=Mini Energized Hexorium (Magenta)
+tile.blockMiniEnergizedHexoriumPink.name=Mini Energized Hexorium (Pink)
+
+tile.blockMiniEnergizedHexoriumWhite.name=Mini Energized Hexorium (White)
+tile.blockMiniEnergizedHexoriumLightGray.name=Mini Energized Hexorium (Light Gray)
+tile.blockMiniEnergizedHexoriumGray.name=Mini Energized Hexorium (Gray)
+tile.blockMiniEnergizedHexoriumDarkGray.name=Mini Energized Hexorium (Dark Gray)
+tile.blockMiniEnergizedHexoriumBlack.name=Mini Energized Hexorium (Black)
+
+tile.blockMiniEnergizedHexoriumRainbow.name=Mini Energized Hexorium (Rainbow)
+
 
 tile.blockEngineeredHexoriumBlockRed.name=Engineered Hexorium Block (Red)
 tile.blockEngineeredHexoriumBlockOrange.name=Engineered Hexorium Block (Orange)
@@ -683,6 +704,7 @@ item.toolHexoriumProbe.name=Hexorium Probe
 item.toolMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
 item.itemMortarPestle.name=Mortar and Pestle
+item.toolHexoriumSaw.name=Hexorium Saw
 
 item.itemHexoriumDye.name=Black Hexorium Dye
 item.itemHexoriumDyeWhite.name=White Hexorium Dye

@@ -4,6 +4,7 @@ import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexMiniBlockRenderer;
 import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -448,105 +449,15 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
     }
 
     public static void registerRecipes() {
-        String xrx = "dustRedstone";
-        String red = "gemHexoriumRed";
-        String grn = "gemHexoriumGreen";
-        String blu = "gemHexoriumBlue";
-        String wht = "gemHexoriumWhite";
-        String blk = "gemHexoriumBlack";
+        for (HexEnums.Colors color : HexEnums.Colors.values()) {
+            ItemStack blocks = new ItemStack(HexBlocks.getHexBlock(ID, color), 8);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.RED),
-                red, red, red,
-                xrx, red, red,
-                red, red, red));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.ORANGE),
-                red, red, grn,
-                xrx, red, red,
-                red, grn, red));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.YELLOW),
-                red, grn, grn,
-                xrx, red, grn,
-                red, grn, red));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.LIME),
-                grn, grn, red,
-                xrx, grn, grn,
-                grn, red, grn));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.GREEN),
-                grn, grn, grn,
-                xrx, grn, grn,
-                grn, grn, grn));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.TURQUOISE),
-                grn, grn, blu,
-                xrx, grn, grn,
-                grn, blu, grn));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.CYAN),
-                grn, blu, blu,
-                xrx, grn, blu,
-                grn, blu, grn));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.SKY_BLUE),
-                blu, blu, grn,
-                xrx, blu, blu,
-                blu, grn, blu));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.BLUE),
-                blu, blu, blu,
-                xrx, blu, blu,
-                blu, blu, blu));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.PURPLE),
-                blu, blu, red,
-                xrx, blu, blu,
-                blu, red, blu));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.MAGENTA),
-                blu, red, red,
-                xrx, blu, red,
-                blu, red, blu));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.PINK),
-                red, red, blu,
-                xrx, red, red,
-                red, blu, red));
+            Block energized = HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, color);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.WHITE),
-                wht, wht, wht,
-                xrx, wht, wht,
-                wht, wht, wht));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.LIGHT_GRAY),
-                wht, wht, blk,
-                xrx, wht, wht,
-                wht, blk, wht));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.GRAY),
-                wht, blk, blk,
-                xrx, wht, blk,
-                wht, blk, wht));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.DARK_GRAY),
-                blk, blk, wht,
-                xrx, blk, blk,
-                blk, wht, blk));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.BLACK),
-                blk, blk, blk,
-                xrx, blk, blk,
-                blk, blk, blk));
-
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-                HexBlocks.getHexBlock(ID, HexEnums.Colors.RAINBOW),
-                red, grn, wht,
-                xrx, blu, grn,
-                blu, wht, red));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(
+                    blocks,
+                    energized, HexItems.itemHexoriumSaw));
+        }
     }
 
     @Override
