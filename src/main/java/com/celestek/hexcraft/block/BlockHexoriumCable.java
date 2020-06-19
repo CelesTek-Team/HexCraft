@@ -26,7 +26,7 @@ import java.util.List;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlockHexColor {
+public class BlockHexoriumCable extends HexBlockModel implements IHexBlock, IBlockHexColor, IBlockUsableTransposerMini {
 
     // Block ID
     public static final String ID = "blockHexoriumCable";

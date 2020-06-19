@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
+import com.celestek.hexcraft.block.BlockMiniEnergizedHexorium;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -70,7 +71,7 @@ public class ContainerMolecularTransposer extends Container {
             itemStack = itemStack1.copy();
 
             if (par2 != 0) {
-                if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockEnergizedHexorium) {
+                if (Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockEnergizedHexorium || Block.getBlockFromItem(itemStack1.getItem()) instanceof BlockMiniEnergizedHexorium) {
                     if (!mergeItemStack(itemStack1, 0, 1, false)) {
                         return null;
                     }

@@ -1,6 +1,7 @@
 package com.celestek.hexcraft.container;
 
 import com.celestek.hexcraft.block.BlockEnergizedHexorium;
+import com.celestek.hexcraft.block.BlockMiniEnergizedHexorium;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -80,7 +81,7 @@ public class InventoryMolecularTransposer implements IInventory {
     @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
         if (inventory[0] != null)
-            if (!(Block.getBlockFromItem(inventory[0].getItem()) instanceof BlockEnergizedHexorium)) {
+            if (!(Block.getBlockFromItem(inventory[0].getItem()) instanceof BlockEnergizedHexorium || Block.getBlockFromItem(inventory[0].getItem()) instanceof BlockMiniEnergizedHexorium)) {
                 player.dropPlayerItemWithRandomChoice(inventory[0], false);
                 inventory[0] = null;
             }
@@ -144,7 +145,7 @@ public class InventoryMolecularTransposer implements IInventory {
      */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        return Block.getBlockFromItem(stack.getItem()) instanceof BlockEnergizedHexorium;
+        return Block.getBlockFromItem(stack.getItem()) instanceof BlockEnergizedHexorium || Block.getBlockFromItem(stack.getItem()) instanceof BlockMiniEnergizedHexorium;
     }
 
     /**

@@ -25,7 +25,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import static com.celestek.hexcraft.client.HexClientProxy.renderID;
 
-public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockMultiBlock {
+public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexBlock, IBlockHexColor, IBlockHexVariant, IBlockUsableTransposerMini, IBlockMultiBlock {
 
     // Block ID
     public static final String ID = "blockGlowingHexoriumCoatedStone";
