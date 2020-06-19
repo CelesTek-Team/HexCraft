@@ -4,6 +4,7 @@ import com.celestek.hexcraft.block.*;
 import com.celestek.hexcraft.util.HexEnums;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
@@ -42,6 +43,9 @@ public class HexAchievements {
 
     public static Achievement achCraftEnergizedRainbow;
 
+    // Mini Energized
+    public static Achievement achCraftMiniEnergized;
+
     // Energized Hexorium Specials
     public static Achievement achGroupColors;
     public static Achievement achGroupGrays;
@@ -61,10 +65,9 @@ public class HexAchievements {
     // Decorative Special
     public static Achievement achGroupDecorations;
 
-    // Reinforcer
+    // Improvements
+    public static Achievement achUseGlowstone;
     public static Achievement achUseReinforcer;
-
-    // Dyeing
     public static Achievement achUseDye;
 
     // Hexorium-Coated
@@ -157,6 +160,9 @@ public class HexAchievements {
         achCraftEnergizedBlack     = register("achCraftEnergized" + HexEnums.Colors.BLACK.name,      HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.BLACK),      achMineHexOre, 5, 0);
         achCraftEnergizedRainbow   = register("achCraftEnergized" + HexEnums.Colors.RAINBOW.name,    HexBlocks.getHexBlock(BlockEnergizedHexorium.ID, HexEnums.Colors.RAINBOW),    achMineHexOre, 1, 2);
 
+        // Mini Energized
+        achCraftMiniEnergized = register("achCraftMiniEnergized", HexBlocks.getHexBlock(BlockMiniEnergizedHexorium.ID, HexEnums.Colors.GREEN), achMineHexOre, 1, -4);
+
         // Energized Hexorium Specials
         achGroupColors = registerSpecial("achGroupColors", HexItems.itemRainbowEnergizedGlobule, achMineHexOre, 14, -2);
         achGroupGrays  = registerSpecial("achGroupGrays",  HexItems.itemBlackHexoriumWafer,      achMineHexOre, 7, 0);
@@ -176,10 +182,9 @@ public class HexAchievements {
         // Decorative Special
         achGroupDecorations = registerSpecial("achGroupDecorations", HexBlocks.getHexBlock(BlockHexoriumMonolith.ID, HexEnums.Colors.GREEN), achMineHexOre, -14, -2);
 
-        // Reinforcer
+        // Improvements
+        achUseGlowstone = register("achUseGlowstone", Items.glowstone_dust, achMineHexOre, -3, -5);
         achUseReinforcer = register("achUseReinforcer", HexItems.itemHexoriumReinforcer, achMineHexOre, -3, -4);
-
-        // Dyeing
         achUseDye = register("achUseDye", HexBlocks.getHexBlock(BlockHexoriumCoatedStone.ID, HexEnums.Variants.WHITE), achMineHexOre, -3, -3);
 
         // Hexorium CoatedStone

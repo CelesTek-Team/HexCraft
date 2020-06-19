@@ -86,6 +86,10 @@ public class HexCraftingHandler {
                     event.player.addStat(HexAchievements.achCraftEnergizedRainbow, 1);
             }
 
+            // Mini Energized
+            else if (block instanceof BlockMiniEnergizedHexorium)
+                event.player.addStat(HexAchievements.achCraftMiniEnergized, 1);
+
             // Decorative
             else if (block instanceof BlockEngineeredHexoriumBlock) {
                 event.player.addStat(HexAchievements.achCraftEngineeredBlock, 1);

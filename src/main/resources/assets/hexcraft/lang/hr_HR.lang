@@ -905,6 +905,9 @@ achievement.hexcraft.achGroupColors.desc=Napravi sve obojene Heksorije Napunjene
 achievement.hexcraft.achGroupGrays=Pet Nijansi Sive
 achievement.hexcraft.achGroupGrays.desc=Napravi sve crno-bijele Heksorije Napunjene Energijom.
 
+achievement.hexcraft.achCraftMiniEnergized=Objasni Svoju Maloću
+achievement.hexcraft.achCraftMiniEnergized.desc=Napravi Mali Heksorij Napunjen Energijom bilo koje boje.
+
 achievement.hexcraft.achCraftEngineeredBlock=Inženjering Za Budućnost
 achievement.hexcraft.achCraftEngineeredBlock.desc=Napravi Inženjersko Obrađen Heksorijski Blok bilo koje boje.
 achievement.hexcraft.achCraftFramedBlock=Poput Okvira Za Sliku
@@ -929,10 +932,11 @@ achievement.hexcraft.achCraftLampInv.desc=Napravi Obrnutu Heksorijsku Svjetiljku
 achievement.hexcraft.achGroupDecorations=Dekorativni Savjetnik
 achievement.hexcraft.achGroupDecorations.desc=Napravi sve dekorativne blokove.
 
+achievement.hexcraft.achUseGlowstone=Improvizirana Baklja
+achievement.hexcraft.achUseGlowstone.desc=Iskoristi Svjetlucavu Prašinu kako bi Normalni, Mali ili Monolit Napunjen Energijom počeo svijetliti.
 achievement.hexcraft.achUseReinforcer=Tvrdo Kao Obsidijan
 achievement.hexcraft.achUseReinforcer.desc=Pojačaj bilo koji ukrasni blok sa Heksorijskim Pojačavačem.
-
-achievement.hexcraft.achUseDye=Svijetla Theme
+achievement.hexcraft.achUseDye=Svijetla Tema
 achievement.hexcraft.achUseDye.desc=Iskoristi Bijelu Heksorijsku Boju da obojaš bilo koji ukrasni blok u bijelo.
 
 achievement.hexcraft.achCraftHexoriumCoatedStone=Veliki Prazni Blok

@@ -905,6 +905,9 @@ achievement.hexcraft.achGroupColors.desc=Craft all of the colored Energized Hexo
 achievement.hexcraft.achGroupGrays=Five Shades Of Gray
 achievement.hexcraft.achGroupGrays.desc=Craft all of the black and white Energized Hexorium.
 
+achievement.hexcraft.achCraftMiniEnergized=Explain Your Smolness
+achievement.hexcraft.achCraftMiniEnergized.desc=Craft a Mini Energized Hexorium of any color.
+
 achievement.hexcraft.achCraftEngineeredBlock=Engineering The Future
 achievement.hexcraft.achCraftEngineeredBlock.desc=Craft an Engineered Hexorium Block of any color.
 achievement.hexcraft.achCraftFramedBlock=Like A Picture Frame
@@ -929,9 +932,10 @@ achievement.hexcraft.achCraftLampInv.desc=Craft an Inverted Hexorium Lamp of any
 achievement.hexcraft.achGroupDecorations=Decoration Adviser
 achievement.hexcraft.achGroupDecorations.desc=Craft all of the decorative blocks.
 
+achievement.hexcraft.achUseGlowstone=A Makeshift Torch
+achievement.hexcraft.achUseGlowstone.desc=Use a piece of Glowstone Dust to make an Energized, Mini Energized or Energized Hexorium Monolith emit light.
 achievement.hexcraft.achUseReinforcer=As Hard As Obsidian
 achievement.hexcraft.achUseReinforcer.desc=Reinforce any of the decorative blocks with a Hexorium Reinforcer.
-
 achievement.hexcraft.achUseDye=Light Theme
 achievement.hexcraft.achUseDye.desc=Use a White Hexorium Dye to color any decorative block to white.
 

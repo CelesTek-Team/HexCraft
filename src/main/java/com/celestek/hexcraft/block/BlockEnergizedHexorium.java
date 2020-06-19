@@ -3,6 +3,7 @@ package com.celestek.hexcraft.block;
 import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexBlockRenderer;
+import com.celestek.hexcraft.init.HexAchievements;
 import com.celestek.hexcraft.init.HexBlocks;
 import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
@@ -205,6 +206,10 @@ public class BlockEnergizedHexorium extends HexBlock implements IHexBlock, IBloc
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
 
                     HexUtils.setMetaBit(META_GLOWING, true, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+
+                    // Grant player the achievement.
+                    if (HexConfig.cfgGeneralUseAchievements)
+                        player.addStat(HexAchievements.achUseGlowstone, 1);
 
                     return true;
                 }

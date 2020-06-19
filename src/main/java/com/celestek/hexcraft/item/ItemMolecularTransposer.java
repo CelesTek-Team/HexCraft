@@ -80,7 +80,7 @@ public class ItemMolecularTransposer extends Item {
                             IBlockHexColor blockEnergized = (IBlockHexColor) blockInventory;
                             if (blockEnergized.getColor() != blockColor.getColor()) {
                                 Block blockNew = HexBlocks.getHexBlock(blockID.getID(), blockVariant.getVariant(), blockEnergized.getColor());
-                                
+
                                 // Place the new block.
                                 if (block instanceof BlockHexoriumDoor) {
                                     if (world.getBlock(x, y - 1, z) instanceof BlockHexoriumDoor) {
