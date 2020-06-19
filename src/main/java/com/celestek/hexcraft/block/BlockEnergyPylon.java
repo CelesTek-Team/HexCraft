@@ -465,7 +465,7 @@ public class BlockEnergyPylon extends HexBlockContainer implements IHexBlock {
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
         // If the block wasn't destroyed using the Manipulator, drop it as a block.
-        if(fortune != HexCraft.hexFortune)
+        if(fortune != HexCraft.HEX_FORTUNE)
             drops.add(new ItemStack(this, 1));
         // Otherwise return the monolith. 
         else

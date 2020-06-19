@@ -83,14 +83,14 @@ public class ItemHexoriumManipulator extends Item {
             if (player.isSneaking()) {
 
                 // Dismantle Energized Hexorium and Energized Hexorium Monoliths.
-                if (block instanceof BlockEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
-                    block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
+                if (block instanceof BlockEnergizedHexorium || block instanceof BlockMiniEnergizedHexorium || block instanceof BlockEnergizedHexoriumMonolith) {
+                    block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.HEX_FORTUNE);
                     world.setBlockToAir(x, y, z);
                 }
 
                 // Eject monolith from Energy Pylon.
                 else if (block instanceof BlockEnergyPylon) {
-                    block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.hexFortune);
+                    block.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), HexCraft.HEX_FORTUNE);
                 }
 
                 // Rotate teleport.

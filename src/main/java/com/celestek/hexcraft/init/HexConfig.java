@@ -15,7 +15,7 @@ public class HexConfig {
     public static boolean cfgGeneralTransposerAttack = true;
     public static boolean cfgGeneralTransposerAttackPlayers = true;
     public static int cfgGeneralTransposerAttackDamage = 20;
-    public static int cfgGeneralMonolithGlowstoneLightLevel = 10;
+    public static int cfgGeneralGlowstoneLightLevel = 10;
     public static float cfgGeneralFlickerFix = 0.000F;
 
     // General - Personal Teleportation Pad
@@ -407,7 +407,7 @@ public class HexConfig {
         cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.\n");
         cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all\nentities has to be enabled first.\n");
         cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.\n");
-        cfgGeneralMonolithGlowstoneLightLevel = config.getInt("Monolith Glowstone Light Level", Configuration.CATEGORY_GENERAL, cfgGeneralMonolithGlowstoneLightLevel, 0, 15, "The light level which Energized Hexorium Monoliths will emit when Glowstone is added to them.\n");
+        cfgGeneralGlowstoneLightLevel = config.getInt("Glowstone Light Level", Configuration.CATEGORY_GENERAL, cfgGeneralGlowstoneLightLevel, 0, 15, "The light level which Mini Energized Hexorium Blocks and Energized Hexorium Monoliths will emit when Glowstone is added to them.\n");
         cfgGeneralFlickerFix = config.getFloat("Flicker Fix", Configuration.CATEGORY_GENERAL, cfgGeneralFlickerFix, 0.000F, 0.010F, "While the rendering of the mod should pose no problems, certain mods which modify the rendering may break it and cause flickering of the textures.\nThis value introduces a slight offset to the inner glowing block texture to compensate. A very low value like 0.005 is suggested.\n");
 
 

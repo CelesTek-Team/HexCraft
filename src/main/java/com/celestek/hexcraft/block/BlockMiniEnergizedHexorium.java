@@ -1,25 +1,31 @@
 package com.celestek.hexcraft.block;
 
+import coloredlightscore.src.api.CLApi;
 import com.celestek.hexcraft.HexCraft;
 import com.celestek.hexcraft.client.renderer.HexMiniBlockRenderer;
-import com.celestek.hexcraft.client.renderer.HexModelRendererMonolith;
 import com.celestek.hexcraft.init.HexBlocks;
+import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.init.HexItems;
 import com.celestek.hexcraft.util.HexEnums;
 import com.celestek.hexcraft.util.HexUtils;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
@@ -36,6 +42,7 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
     public static final int META_ORIENTATION_0 = 0;
     public static final int META_ORIENTATION_1 = 1;
     public static final int META_ORIENTATION_2 = 2;
+    public static final int META_GLOWING = 3;
 
     // Color
     private final HexEnums.Colors color;
@@ -169,6 +176,22 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
     }
 
     /**
+     * Gets the light value according to meta.
+     */
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        if (HexUtils.getMetaBit(META_GLOWING, world, x, y, z))
+            if (Loader.isModLoaded("coloredlightscore")) {
+                float multi = (float) HexConfig.cfgGeneralGlowstoneLightLevel / 15;
+                return CLApi.makeRGBLightValue(color.r * multi, color.g * multi, color.b * multi);
+            }
+            else
+                return HexConfig.cfgGeneralGlowstoneLightLevel;
+        else
+            return 0;
+    }
+
+    /**
      * Sets up items to drop.
      */
     @Override
@@ -178,6 +201,13 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
 
         // Return the block.
         drops.add(new ItemStack(this, 1));
+
+        // If the block was destroyed using the Manipulator...
+        if (fortune == HexCraft.HEX_FORTUNE) {
+            // If the block had Glowstone added to it.
+            if (HexUtils.getMetaBit(META_GLOWING, world, x, y, z))
+                drops.add(new ItemStack(Items.glowstone_dust, 1));
+        }
 
         // Return the created drop array.
         return drops;
@@ -328,6 +358,44 @@ public class BlockMiniEnergizedHexorium extends HexBlock implements IHexBlock, I
 
         setBlockBounds(a, c, e, b, d, f);
         return AxisAlignedBB.getBoundingBox(x + a, y + c, z + e, x + b, y + d, z + f);
+    }
+
+    /**
+     * Fired when a player right clicks on the pylon.
+     */
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+        if (!world.isRemote) {
+            boolean isGlowing = HexUtils.getMetaBit(META_GLOWING, world, x, y, z);
+
+            // Check if the item in player's hand is not null and if there is no monolith already inserted.
+            if (player.getCurrentEquippedItem() != null && !isGlowing) {
+                Item equipped = player.getCurrentEquippedItem().getItem();
+                ArrayList<ItemStack> items = OreDictionary.getOres("dustGlowstone");
+                boolean isGlowstone = false;
+                for (ItemStack item : items) {
+                    if (item.getItem() == equipped) {
+                        isGlowstone = true;
+                        break;
+                    }
+                }
+                if (isGlowstone) {
+                    ItemStack stack = player.getCurrentEquippedItem();
+                    stack.stackSize--;
+                    if (stack.stackSize == 0)
+                        stack = null;
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+
+                    HexUtils.setMetaBit(META_GLOWING, true, HexUtils.META_NOTIFY_BOTH, world, x, y, z);
+
+                    return true;
+                }
+            }
+        }
+        else
+            return true;
+
+        return false;
     }
 
     // Prepare the icons.

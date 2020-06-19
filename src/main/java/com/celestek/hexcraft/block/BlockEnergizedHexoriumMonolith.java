@@ -181,11 +181,11 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHe
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         if (HexUtils.getMetaBit(META_GLOWING, world, x, y, z))
             if (Loader.isModLoaded("coloredlightscore")) {
-                float multi = (float) HexConfig.cfgGeneralMonolithGlowstoneLightLevel / 15;
+                float multi = (float) HexConfig.cfgGeneralGlowstoneLightLevel / 15;
                 return CLApi.makeRGBLightValue(color.r * multi, color.g * multi, color.b * multi);
             }
             else
-                return HexConfig.cfgGeneralMonolithGlowstoneLightLevel;
+                return HexConfig.cfgGeneralGlowstoneLightLevel;
         else
             return 0;
     }
@@ -198,7 +198,7 @@ public class BlockEnergizedHexoriumMonolith extends HexBlockModel implements IHe
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 
         // If the block wasn't destroyed using the Manipulator...
-        if (fortune != HexCraft.hexFortune) {
+        if (fortune != HexCraft.HEX_FORTUNE) {
             switch (this.color) {
                 case RED:
                     drops.add(new ItemStack(HexItems.itemHexoriumCrystalRed, 8));

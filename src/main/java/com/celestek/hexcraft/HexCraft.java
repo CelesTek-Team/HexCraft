@@ -32,7 +32,7 @@ public class HexCraft {
     public static int idCounter;
 
     // A fortune number unique for HEXCraft.
-    public static int hexFortune = 64758;
+    public static int HEX_FORTUNE = 64758;
 
     @SidedProxy(clientSide = "com.celestek.hexcraft.client.HexClientProxy", serverSide = "com.celestek.hexcraft.server.HexServerProxy")
     public static HexCommonProxy proxy;
