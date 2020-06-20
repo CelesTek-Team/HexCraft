@@ -252,10 +252,6 @@ public class BlockGlowingHexoriumCoatedStone extends HexBlockMT implements IHexB
                         "SSS",
                         'H', energized, 'S', stone));
 
-                GameRegistry.addRecipe(new ShapelessOreRecipe(
-                        energized,
-                        block, block, block, block, block, block, block, block));
-
                 for (HexEnums.Variants variant2 : HexEnums.Variants.values()) {
                     if (variant != variant2) {
                         Block blockOther = HexBlocks.getHexBlock(ID, variant2, color);
