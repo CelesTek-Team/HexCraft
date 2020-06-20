@@ -6,7 +6,7 @@ import com.celestek.hexcraft.init.HexConfig;
 import com.celestek.hexcraft.processing.HexProcessingCrystalSeparator;
 import com.celestek.hexcraft.processing.HexProcessingMatrixReconstructor;
 
-/* Special thanks to Greg for helping me get this thing working! */
+/* Special thanks to GregoriusT for helping me get this thing working! */
 
 public class NEI_HexConfig implements codechicken.nei.api.IConfigureNEI {
     public static boolean added = true;
