@@ -703,7 +703,7 @@ item.toolHexoriumManipulator.name=Hexorium Manipulator
 item.toolHexoriumProbe.name=Hexorium Probe
 item.toolMolecularTransposer.name=Molecular Transposer
 item.itemHexoriumReinforcer.name=Hexorium Reinforcer
-item.itemMortarPestle.name=Mortar and Pestle
+item.toolMortarPestle.name=Mortar and Pestle
 item.toolHexoriumSaw.name=Hexorium Saw
 
 item.itemHexoriumDye.name=Black Hexorium Dye

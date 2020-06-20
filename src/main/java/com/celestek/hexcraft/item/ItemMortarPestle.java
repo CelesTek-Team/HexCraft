@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class ItemMortarPestle extends Item {
 
     // Item ID
-    public static final String ID = "itemMortarPestle";
+    public static final String ID = "toolMortarPestle";
 
     /**
      * Constructor for the item.

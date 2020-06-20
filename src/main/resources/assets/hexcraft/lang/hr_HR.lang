@@ -703,7 +703,7 @@ item.toolHexoriumManipulator.name=Heksorijski Upravljač
 item.toolHexoriumProbe.name=Heksorijska Sonda
 item.toolMolecularTransposer.name=Molekulski Izmjenivač
 item.itemHexoriumReinforcer.name=Heksorijski Pojačavač
-item.itemMortarPestle.name=Tarionik
+item.toolMortarPestle.name=Tarionik
 item.toolHexoriumSaw.name=Heksorijska Pila
 
 item.itemHexoriumDye.name=Crna Heksorijska Boja
