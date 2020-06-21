@@ -146,7 +146,7 @@ public class HexProcessingCrystalSeparator {
      */
     private void addRecipe(ArrayList<ItemStack> ore, ArrayList<ItemStack> gem, int count) {
         if (!ore.isEmpty() && !gem.isEmpty()) {
-            ItemStack output = gem.get(0);
+            ItemStack output = ItemStack.copyItemStack(gem.get(0));
             output.stackSize = count;
             for (ItemStack input : ore)
                 putLists(input, output);
