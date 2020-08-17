@@ -94,7 +94,7 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.7.10-0.13.1"
+version = "1.7.10-0.13.2"
 group= "com.celestek.hexcraft"
 archivesBaseName = "HEXCraft"
 

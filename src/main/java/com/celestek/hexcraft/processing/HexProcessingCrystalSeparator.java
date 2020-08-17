@@ -56,12 +56,12 @@ public class HexProcessingCrystalSeparator {
 
             // Thaumcraft
             addGem("oreAmber");
-            addGem("InfusedAir");
-            addGem("InfusedFire");
-            addGem("InfusedWater");
-            addGem("InfusedEarth");
-            addGem("InfusedOrder");
-            addGem("InfusedEntropy");
+            addShard("Air");
+            addShard("Fire");
+            addShard("Water");
+            addShard("Earth");
+            addShard("Order");
+            addShard("Entropy");
 
             // Redpower
             addGem("Ruby");
@@ -120,6 +120,10 @@ public class HexProcessingCrystalSeparator {
 
     private void addGem(String name) {
         addRecipe(OreDictionary.getOres("ore" + name), OreDictionary.getOres("gem" + name), HexConfig.cfgSeparatorMultiNonHexcraft);
+    }
+
+    private void addShard(String name) {
+        addRecipe(OreDictionary.getOres("oreInfused" + name), OreDictionary.getOres("shard" + name), HexConfig.cfgSeparatorMultiNonHexcraft);
     }
 
     private void addChromaticraft(String name) {

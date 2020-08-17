@@ -34,6 +34,7 @@ The mod is still in heavy development, but you are more than welcome to try it! 
 2) Run `gradlew setupDecompWorkspace`
 3) Run `gradlew setupDevWorkspace`
 4) Run `gradlew build`
+5) Run `gradlew uploadArchives`
 
 **IDE Setup (IntelliJ IDEA)**
 1) Import to IntelliJ IDEA.
